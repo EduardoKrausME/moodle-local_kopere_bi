@@ -16,8 +16,7 @@ json = {
     stroke      : {
         curve  : "smooth",
         width  : 2,
-        show   : true,
-        colors : ["transparent"]
+        show   : true
     },
     dataLabels  : {
         enabled : false
