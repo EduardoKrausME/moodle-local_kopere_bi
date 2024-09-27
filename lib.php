@@ -89,7 +89,7 @@ function local_kopere_bi_before_footer() {
             'os_name' => $dataagent->os_name,
             'os_version' => $dataagent->os_version,
 
-            'lastip' => getremoteaddr(),
+            'lastip' => local_kopere_bi_getremoteaddr(),
             'city_name' => $dataip->city,
             'country_name' => $dataip->country,
             'country_code' => isset($dataip->country_code) ? $dataip->country_code : $dataip->country,
@@ -109,6 +109,21 @@ function local_kopere_bi_before_footer() {
         $PAGE->requires->js_call_amd('local_kopere_bi/online', 'init', [$USER->koperebionline_id[$key], $key]);
     }
     $PAGE->requires->js_call_amd('local_kopere_bi/mod_koperebi', 'init');
+}
+
+/**
+ * Function getremoteaddr
+ *
+ * @return string
+ */
+function local_kopere_bi_getremoteaddr() {
+    if (isset($_SERVER["HTTP_X_REAL_IP"])) {
+        return $_SERVER["HTTP_X_REAL_IP"];
+    } else if (isset($_SERVER["HTTP_CLIENT_IP"])) {
+        return $_SERVER["HTTP_CLIENT_IP"];
+    }
+
+    return getremoteaddr();
 }
 
 /**
