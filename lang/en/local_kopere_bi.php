@@ -127,7 +127,7 @@ $string['line_sql_warning'] = '<p>Remember that the SQL below must return with t
     <li>The first column must contain text, which will be used as the X-axis labels.</li>
     <li>The other columns must be structured as follows:
         <ul>
-            <li>The column name will be used as the series name. You can use translation strings as explained in the 
+            <li>The column name will be used as the series name. You can use translation strings as explained in the
                 <a href="?classname=bi-extra_langs&method=index" target="_blank">strings page</a>.</li>
             <li>The column value will represent the series data on the chart.</li>
         </ul>
