@@ -109,6 +109,8 @@ define(["jquery", "jqueryui", "core/ajax", "core/notification"], function($, $ui
                                 text  : M.util.get_string('delete', 'moodle'),
                                 click : function() {
 
+                                    $(this).dialog("close");
+
                                     ajax.call([{
                                         methodname : "local_kopere_bi_block_delete",
                                         args       : {
@@ -121,9 +123,8 @@ define(["jquery", "jqueryui", "core/ajax", "core/notification"], function($, $ui
                                             .remove();
                                     }).then(function(msg) {
                                         console.error(msg);
-                                    }).catch(notification.exception);
-
-                                    $(this).dialog("close");
+                                    });
+                                    //.catch(notification.exception);
                                 }
                             }, {
                                 text  : M.util.get_string('cancel', 'moodle'),
