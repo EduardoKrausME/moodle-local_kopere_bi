@@ -340,8 +340,37 @@
 }
 .kopere_dashboard_div .element-box .block-heading .block-title,
 .kopere-dashboard-modal .element-box .block-heading .block-title {
-  text-align: right;
+  width: 100%;
+  @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  color: #343742;
+  font-size: 20px;
   margin-bottom: 20px !important;
+  text-align: center;
+}
+.kopere_dashboard_div .element-box .block-heading .table-csv-down,
+.kopere-dashboard-modal .element-box .block-heading .table-csv-down {
+  display: none;
+}
+.kopere_dashboard_div .element-box .block-heading .table-csv-down img,
+.kopere-dashboard-modal .element-box .block-heading .table-csv-down img {
+  height: 30px;
+}
+.kopere_dashboard_div .element-box .block-heading .block-controls,
+.kopere-dashboard-modal .element-box .block-heading .block-controls {
+  position: absolute;
+  right: 0;
+  top: 9px;
+  display: flex;
+}
+.kopere_dashboard_div .element-box .block-heading .block-controls .dataTables_length,
+.kopere-dashboard-modal .element-box .block-heading .block-controls .dataTables_length {
+  white-space: nowrap;
+}
+.kopere_dashboard_div .element-box.type-table .block-heading .block-title,
+.kopere-dashboard-modal .element-box.type-table .block-heading .block-title {
+  text-align: right;
 }
 .kopere_dashboard_div .element-box .group-controls,
 .kopere-dashboard-modal .element-box .group-controls {
@@ -445,6 +474,22 @@
 .kopere-dashboard-modal .chart-box .theme-dark {
   margin: 9px;
 }
+@media (max-width: 900px) {
+  .kopere_dashboard_div .chart-box .theme-light,
+  .kopere_dashboard_div .chart-box .theme-dark,
+  .kopere-dashboard-modal .chart-box .theme-light,
+  .kopere-dashboard-modal .chart-box .theme-dark {
+    margin: 6px;
+  }
+}
+@media (max-width: 600px) {
+  .kopere_dashboard_div .chart-box .theme-light,
+  .kopere_dashboard_div .chart-box .theme-dark,
+  .kopere-dashboard-modal .chart-box .theme-light,
+  .kopere-dashboard-modal .chart-box .theme-dark {
+    margin: 0;
+  }
+}
 .kopere_dashboard_div .chart-box .theme-blue:before,
 .kopere_dashboard_div .chart-box .theme-green:before,
 .kopere_dashboard_div .chart-box .theme-green:before,
@@ -484,18 +529,34 @@
 .kopere-dashboard-modal .chart-box .table,
 .kopere-dashboard-modal .chart-box .area-chart {
   margin: 0 -16px -16px;
-  width: calc(100% + 17px + 17px) !important;
+  width: calc(100% + 16px + 16px) !important;
   max-width: 150% !important;
 }
-.kopere_dashboard_div .chart-box .area-chart-area .apexcharts-toolbar,
-.kopere_dashboard_div .chart-box .area-chart-line .apexcharts-toolbar,
-.kopere_dashboard_div .chart-box .area-chart-collumns .apexcharts-toolbar,
-.kopere-dashboard-modal .chart-box .area-chart-area .apexcharts-toolbar,
-.kopere-dashboard-modal .chart-box .area-chart-line .apexcharts-toolbar,
-.kopere-dashboard-modal .chart-box .area-chart-collumns .apexcharts-toolbar {
-  position: absolute;
-  right: auto;
-  left: 10px;
+.kopere_dashboard_div .chart-box .maps-online,
+.kopere-dashboard-modal .chart-box .maps-online {
+  margin-bottom: -22px;
+  border-radius: 0 0 4px 4px;
+}
+@media (min-width: 900px) {
+  .kopere_dashboard_div .chart-box .area-chart-area,
+  .kopere_dashboard_div .chart-box .area-chart-line,
+  .kopere_dashboard_div .chart-box .area-chart-column,
+  .kopere-dashboard-modal .chart-box .area-chart-area,
+  .kopere-dashboard-modal .chart-box .area-chart-line,
+  .kopere-dashboard-modal .chart-box .area-chart-column {
+    margin-top: -45px;
+  }
+  .kopere_dashboard_div .chart-box .area-chart-area .apexcharts-toolbar,
+  .kopere_dashboard_div .chart-box .area-chart-line .apexcharts-toolbar,
+  .kopere_dashboard_div .chart-box .area-chart-column .apexcharts-toolbar,
+  .kopere-dashboard-modal .chart-box .area-chart-area .apexcharts-toolbar,
+  .kopere-dashboard-modal .chart-box .area-chart-line .apexcharts-toolbar,
+  .kopere-dashboard-modal .chart-box .area-chart-column .apexcharts-toolbar {
+    position: absolute;
+    right: auto !important;
+    left: 10px;
+    top: 4px !important;
+  }
 }
 .kopere_dashboard_div .dataTables_length,
 .kopere_dashboard_div .dataTables_filter,
@@ -535,35 +596,6 @@
 .kopere-dashboard-modal .dataTables_length input[type=search]:focus,
 .kopere-dashboard-modal .dataTables_filter input[type=search]:focus {
   width: 300px;
-}
-.kopere_dashboard_div .block-heading .block-title,
-.kopere-dashboard-modal .block-heading .block-title {
-  width: 100%;
-  @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
-  font-family: "DM Sans", sans-serif;
-  font-weight: 500;
-  color: #343742;
-  margin-bottom: 7px !important;
-  font-size: 20px;
-}
-.kopere_dashboard_div .block-heading .table-csv-down,
-.kopere-dashboard-modal .block-heading .table-csv-down {
-  display: none;
-}
-.kopere_dashboard_div .block-heading .table-csv-down img,
-.kopere-dashboard-modal .block-heading .table-csv-down img {
-  height: 30px;
-}
-.kopere_dashboard_div .block-heading .block-controls,
-.kopere-dashboard-modal .block-heading .block-controls {
-  position: absolute;
-  right: 0;
-  top: 9px;
-  display: flex;
-}
-.kopere_dashboard_div .block-heading .block-controls .dataTables_length,
-.kopere-dashboard-modal .block-heading .block-controls .dataTables_length {
-  white-space: nowrap;
 }
 @media (min-width: 1200px) {
   .kopere_dashboard_div .col-xl-4 .footer .dt-buttons,

@@ -421,7 +421,7 @@ class dashboard {
         echo filter::create_filter($koperebielement->commandsql);
 
         echo "<div class='chart-box' id='chart-box-{$koperebielement->id}'>";
-        echo "<div class='element-box theme-{$koperebielement->theme}'>";
+        echo "<div class='element-box theme-{$koperebielement->theme} type-{$koperebielement->type}'>";
 
         echo "<h4 class='block-title'>" . string_util::get_string($koperebielement->title) . "</h4>";
 

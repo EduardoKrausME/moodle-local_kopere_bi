@@ -172,7 +172,7 @@ class preview_util {
             $koperebielement->info_obj = json_decode($koperebielement->info, true);
 
             $return .= "<div class='chart-box' id='chart-box-{$koperebielement->id}'>";
-            $return .= "<div class='element-box theme-{$koperebielement->theme}'>";
+            $return .= "<div class='element-box theme-{$koperebielement->theme} type-{$koperebielement->type}'>";
 
             $class = "\\local_kopere_bi\\block\\{$koperebielement->type}";
             if (class_exists($class)) {

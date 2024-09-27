@@ -282,8 +282,36 @@
         }
         .block-heading {
             .block-title {
-                text-align: right;
+                width: 100%;
+                @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+                font-family: "DM Sans", sans-serif;
+                font-weight: 500;
+                color: #343742;
+                font-size: 20px;
                 margin-bottom: 20px !important;
+                text-align: center;
+            }
+            .table-csv-down {
+                display: none;
+                img {
+                    height: 30px;
+                }
+            }
+            .block-controls {
+                position: absolute;
+                right: 0;
+                top: 9px;
+                display: flex;
+                .dataTables_length {
+                    white-space: nowrap;
+                }
+            }
+        }
+        &.type-table {
+            .block-heading {
+                .block-title {
+                    text-align: right;
+                }
             }
         }
         .group-controls {
@@ -363,6 +391,12 @@
         .theme-light,
         .theme-dark {
             margin: 9px;
+            @media (max-width: 900px) {
+                margin: 6px;
+            }
+            @media (max-width: 600px) {
+                margin: 0;
+            }
         }
         .theme-blue,
         .theme-green,
@@ -388,16 +422,24 @@
         .table,
         .area-chart {
             margin: 0 -16px -16px;
-            width: calc(100% + 17px + 17px) !important;
+            width: calc(100% + 16px + 16px) !important;
             max-width: 150% !important;
+        }
+        .maps-online {
+            margin-bottom: -22px;
+            border-radius: 0 0 4px 4px;
         }
         .area-chart-area,
         .area-chart-line,
-        .area-chart-collumns {
-            .apexcharts-toolbar {
-                position: absolute;
-                right: auto;
-                left: 10px;
+        .area-chart-column {
+            @media (min-width: 900px) {
+                margin-top: -45px;
+                .apexcharts-toolbar {
+                    position: absolute;
+                    right: auto !important;
+                    left: 10px;
+                    top: 4px !important;
+                }
             }
         }
     }
@@ -420,32 +462,6 @@
             transition: all ease 0.3s;
             &:focus {
                 width: 300px;
-            }
-        }
-    }
-    .block-heading {
-        .block-title {
-            width: 100%;
-            @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
-            font-family: "DM Sans", sans-serif;
-            font-weight: 500;
-            color: #343742;
-            margin-bottom: 7px !important;
-            font-size: 20px;
-        }
-        .table-csv-down {
-            display: none;
-            img {
-                height: 30px;
-            }
-        }
-        .block-controls {
-            position: absolute;
-            right: 0;
-            top: 9px;
-            display: flex;
-            .dataTables_length {
-                white-space: nowrap;
             }
         }
     }
