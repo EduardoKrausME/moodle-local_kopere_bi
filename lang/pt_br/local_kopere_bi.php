@@ -124,7 +124,7 @@ $string['line_desc'] = 'Monta um gráfico de linhas';
 $string['line_name'] = 'Gráfico de Linhas';
 $string['line_sql_warning'] = '<p>Lembre-se que a SQL abaixo deve retornar com a seguinte estrutura:</p>
 <ul>
-    <li>A primeira coluna deve conter texto, que será utilizado como os nomes do eixo X.</li>
+    <li>A primeira coluna deve conter o texto que será utilizado como os nomes do eixo X.</li>
     <li>As demais colunas devem ser estruturadas da seguinte forma:
         <ul>
             <li>O nome da coluna será utilizado como o nome da série. Você pode utilizar as strings de tradução, conforme explicado na
@@ -133,11 +133,11 @@ $string['line_sql_warning'] = '<p>Lembre-se que a SQL abaixo deve retornar com a
         </ul>
     </li>
 </ul>
-<blockquote>No exemplo abaixo mostra uma linha apenas com a quantidade de notícias de cada curso:
+<blockquote>No exemplo abaixo a primeiroa coluna retorna o nome do curso e a segujnda coluna retorna a quantidade de notícias de cada curso:
 <pre>SELECT fullname,
        newsitems AS "Quantidade de notícias do curso"
   FROM mdl_course</pre></blockquote>
-<blockquote>Já no exemplo abaixo, gera duas linhas no gráfico, com tradução do nome das colunas:
+<blockquote>Já no exemplo abaixo, além da primeira coluna sendo o nome do curso, gera mais duas linhas no gráfico, com tradução do nome das colunas:
 <pre>  SELECT c.fullname AS course_name,
          COUNT(cm.section) AS \'lang::thiscourse::theme_rebel\',
          COUNT(cm.module)  AS \'lang::ca_completed_activities::local_kopere_bi\'
@@ -236,10 +236,10 @@ $string['setting_apex'] = 'Configurações do Apex Charts';
 $string['setting_apex_desc'] = 'Só edite se você conhece o Apex Charts. Veja em <a target=\'_blank\' href=\'https://apexcharts.com/docs/series/\'>apexcharts.com/docs</a>';
 $string['sql_read_only'] = 'Todas as consultas SQL estão protegidas por por conexão somente leitura e não há como executar comandos de INSERT/UPDATE/DELETE.';
 $string['sql_replace_keys'] = '<h4>Chaves de substituição</h4>
-    <ul>
-        <li><b>:userid</b> ID do estudante para gerar o relatório.</li>
-        <li><b>:courseid</b> ID do curso para gerar o relatório.</li>
-    </ul>
+<ul>
+    <li><b>:userid</b> ID do estudante para gerar o relatório.</li>
+    <li><b>:courseid</b> ID do curso para gerar o relatório.</li>
+</ul>
 <h4>Multi-idiomas</h4>
 <p>Para retornar colunas que serão traduzidas com base nos pacotes de idiomas do Moodle, é necessário seguir um formato específico que permite que as strings sejam processadas e localizadas adequadamente. O formato correto é:</p>
 <pre>lang::{identifier}::{component}</pre>

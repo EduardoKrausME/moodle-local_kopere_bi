@@ -122,22 +122,21 @@ $string['l_origin'] = 'Origin';
 $string['l_timecreated'] = 'Created on';
 $string['line_desc'] = 'Generates a line chart';
 $string['line_name'] = 'Line Chart';
-$string['line_sql_warning'] = '<p>Remember that the SQL below must return with the following structure:</p>
+$string['line_sql_warning'] = '<p>Remember that the SQL below should return with the following structure:</p>
 <ul>
-    <li>The first column must contain text, which will be used as the X-axis labels.</li>
-    <li>The other columns must be structured as follows:
+    <li>The first column should contain the text that will be used as the names of the X-axis.</li>
+    <li>The remaining columns should be structured as follows: 
         <ul>
-            <li>The column name will be used as the series name. You can use translation strings as explained in the
-                <a href="?classname=bi-extra_langs&method=index" target="_blank">strings page</a>.</li>
-            <li>The column value will represent the series data on the chart.</li>
+            <li>The name of the column will be used as the name of the series. You can use the translation strings, as explained on the <a href="?classname=bi-extra_langs&method=index" target="_blank">strings page</a>.</li>
+            <li>The value of the column will represent the data of the series in the graph.</li>
         </ul>
     </li>
 </ul>
-<blockquote>In the example below, it shows a single line with the number of news items for each course:
-<pre>SELECT fullname,
-       newsitems AS "Number of course news items"
+<blockquote>In the example below, the first column returns the course name and the second column returns the number of news items for each course: 
+<pre>SELECT fullname, 
+       newsitems AS "Number of course news items" 
   FROM mdl_course</pre></blockquote>
-<blockquote>In the example below, it generates two lines on the chart, with translated column names:
+<blockquote>In the example below, in addition to the first column being the course name, it generates two more lines in the graph, with translations of the column names: 
 <pre>  SELECT c.fullname AS course_name,
          COUNT(cm.section) AS \'lang::thiscourse::theme_rebel\',
          COUNT(cm.module)  AS \'lang::ca_completed_activities::local_kopere_bi\'
@@ -236,10 +235,10 @@ $string['setting_apex'] = 'Apex Charts Settings';
 $string['setting_apex_desc'] = 'Edit only if you are familiar with Apex Charts. See more at <a target=\'_blank\' href=\'https://apexcharts.com/docs/series/\'>apexcharts.com/docs</a>';
 $string['sql_read_only'] = 'All SQL queries are protected by a read-only connection, and there is no way to execute INSERT/UPDATE/DELETE commands.';
 $string['sql_replace_keys'] = '<h4>Replacement Keys</h4>
-    <ul>
-        <li><b>:userid</b> Student ID to generate the report.</li>
-        <li><b>:courseid</b> Course ID to generate the report.</li>
-    </ul>
+<ul>
+    <li><b>:userid</b> Student ID to generate the report.</li>
+    <li><b>:courseid</b> Course ID to generate the report.</li>
+</ul>
 <h4>Multi-language</h4>
 <p>To return columns that will be translated based on Moodle\'s language packs, it is necessary to follow a specific format that allows strings to be processed and localized properly. The correct format is:</p>
 <pre>lang::{identifier}::{component}</pre>
