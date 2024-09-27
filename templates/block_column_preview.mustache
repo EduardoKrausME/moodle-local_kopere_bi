@@ -15,13 +15,12 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template local_kopere_bi/block_line_preview
+    @template local_kopere_bi/block_column_preview
 
     Example context (json):
     {
       "local_kopere_bi_id": "12345",
-      "ajax_url": "https://example.com/get_chart_data",
-      "chart_line_default": {
+      "chart_default": {
         "chart": {
           "type": "line",
           "height": 350
@@ -29,38 +28,44 @@
         "xaxis": {
           "categories": []
         },
-        "stroke": {
-          "curve": "smooth"
-        },
-        "dataLabels": {
-          "enabled": false
-        }
+        "series": []
       },
       "chart_options": {
-        "colors": ["#00E396", "#0090FF"],
-        "title": {
-          "text": "Relatório de Desempenho"
+        "chart": {
+          "toolbar": {
+            "show": true
+          }
+        },
+        "stroke": {
+          "curve": "smooth"
         }
       },
-      "code_util_get_js_theme": "if (M.util.theme == "dark") { options.chart.background = "#333"; }",
-      "error_chart_renderer": "Erro ao renderizar o gráfico.",
-      "error_data_loader": "Erro ao carregar os dados.",
-      "reload_time": "30000"
+      "code_util_get_js_theme": "options.theme = { mode: "light" };",
+      "error_chart_renderer": "Erro ao renderizar o gráfico",
+      "ajax_url": "https://example.com/chart_data",
+      "error_data_loader": "Erro ao carregar os dados",
+      "reload_time": "60000"
     }
+
 }}
 
-<div class="area-chart area-chart-line" id="chart_{{local_kopere_bi_id}}"></div>
+<div class="column-chart area-chart-column" id="chart_{{local_kopere_bi_id}}"></div>
 
 {{#js}}
     require(["jquery", "core/notification"], function($, Notification) {
-        function showChart{{local_kopere_bi_id}}(labels, series) {
+        function showChart{{local_kopere_bi_id}}(xaxis_categories, series) {
             try {
-                var options = {{{chart_line_default}}};
+                var options = {{{chart_default}}};
 
                 {{{chart_options}}}
 
-                options.labels = labels;
-                options.series = series;
+                var optionsData = {
+                    xaxis: {
+                        categories: xaxis_categories
+                    },
+                    series: series
+                };
+                options = {...options, ...optionsData};
 
                 {{{code_util_get_js_theme}}}
 
@@ -78,7 +83,7 @@
                 dataType: "json",
                 url: "{{{ajax_url}}}",
                 success: function(json) {
-                    showChart{{local_kopere_bi_id}}(json.labels, json.series);
+                    showChart{{local_kopere_bi_id}}(json.xaxis_categories, json.series);
                 },
                 error: function() {
                     Notification.exception({message: "{{error_data_loader}}"});
@@ -87,6 +92,7 @@
         }
 
         window.addEventListener("load", loadDataChart{{local_kopere_bi_id}});
+
         var reloadTime = parseInt("{{{reload_time}}}");
         if (reloadTime) {
             setInterval(loadDataChart{{local_kopere_bi_id}}, reloadTime);

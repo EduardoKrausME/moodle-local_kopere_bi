@@ -117,10 +117,12 @@ class maps implements i_type {
         $urlresource = urlencode("{$CFG->wwwroot}/local/kopere_bi/maps/resource/");
 
         return "
-            <iframe id='maps-online-{$id}' width='100%' height='525' framebsequence='0' allowfullscreen
-                sandbox='allow-scripts allow-same-origin allow-popups'
-                allow=':encrypted-media; :picture-in-picture'
-                src='{$CFG->wwwroot}/local/kopere_bi/maps/?wwwroot={$url}&resource={$urlresource}'></iframe>
+            <iframe id='maps-online-{$id}'
+                    class='maps-online' 
+                    width='100%' height='525' frameborder='0' allowfullscreen
+                    sandbox='allow-scripts allow-same-origin allow-popups'
+                    allow=':encrypted-media; :picture-in-picture'
+                    src='{$CFG->wwwroot}/local/kopere_bi/maps/?wwwroot={$url}&resource={$urlresource}'></iframe>
             <script>
                 var maps = document.getElementById('maps-online-{$id}');
                 var newHeight = 525 * maps.offsetWidth / 1000;

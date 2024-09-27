@@ -84,9 +84,7 @@ class pie implements i_type {
         } else {
             code_util::options($form, trim("
 {
-    stroke : {
-        colors : [\"#2E93fA\", \"#66DA26\", \"#546E7A\", \"#E91E63\", \"#FF9800\"]
-    },
+    colors : [\"#2E93fA\", \"#66DA26\", \"#546E7A\", \"#E91E63\", \"#FF9800\"],
 }"));
         }
     }

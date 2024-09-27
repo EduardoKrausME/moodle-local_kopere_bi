@@ -77,7 +77,7 @@ class area extends line {
 
         code_util::add_js_apexcharts();
 
-        return $OUTPUT->render_from_template("local_kopere_bi/block_columns-area_preview", [
+        return $OUTPUT->render_from_template("local_kopere_bi/block_area_preview", [
             "ajax_url" => local_kopere_dashboard_makeurl("bi-chart_data", "load_data",
                 ["item_id" => $koperebielement->id], "view-ajax"),
             "local_kopere_bi_id" => $koperebielement->id,

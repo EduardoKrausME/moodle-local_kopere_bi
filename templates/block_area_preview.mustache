@@ -15,7 +15,7 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template local_kopere_bi/block_columns-area_preview
+    @template local_kopere_bi/block_area_preview
 
     Example context (json):
     {
@@ -40,7 +40,7 @@
           "curve": "smooth"
         }
       },
-      "code_util_get_js_theme": "options.theme = { mode: 'light' };",
+      "code_util_get_js_theme": "options.theme = { mode: "light" };",
       "error_chart_renderer": "Erro ao renderizar o gráfico",
       "ajax_url": "https://example.com/chart_data",
       "error_data_loader": "Erro ao carregar os dados",
@@ -49,10 +49,10 @@
 
 }}
 
-<div id='chart_{{local_kopere_bi_id}}'></div>
+<div class="area-chart area-chart-area" id="chart_{{local_kopere_bi_id}}"></div>
 
 {{#js}}
-    require(['jquery', "core/notification"], function($, Notification) {
+    require(["jquery", "core/notification"], function($, Notification) {
         function showChart{{local_kopere_bi_id}}(xaxis_categories, series) {
             try {
                 var options = {{{chart_default}}};
@@ -69,7 +69,7 @@
 
                 {{{code_util_get_js_theme}}}
 
-                var element = document.querySelector('#chart_{{local_kopere_bi_id}}');
+                var element = document.querySelector("#chart_{{local_kopere_bi_id}}");
                 var chart = new ApexCharts(element, options);
                 chart.render();
             }
@@ -80,7 +80,7 @@
 
         function loadDataChart{{local_kopere_bi_id}}() {
             $.ajax({
-                dataType: 'json',
+                dataType: "json",
                 url: "{{{ajax_url}}}",
                 success: function(json) {
                     showChart{{local_kopere_bi_id}}(json.xaxis_categories, json.series);
@@ -91,7 +91,7 @@
             });
         }
 
-        window.addEventListener('load', loadDataChart{{local_kopere_bi_id}});
+        window.addEventListener("load", loadDataChart{{local_kopere_bi_id}});
 
         var reloadTime = parseInt("{{{reload_time}}}");
         if (reloadTime) {

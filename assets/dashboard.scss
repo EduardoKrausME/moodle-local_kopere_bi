@@ -272,13 +272,28 @@
     }
     .element-box {
         margin-bottom: 11px !important;
-        padding: 11px !important;
+        padding: 16px !important;
         box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgba(15, 22, 36, 0.06), 0 1px 3px 0 rgba(15, 22, 36, .1);
         iframe {
             margin-bottom: -4px;
         }
         &:not(.theme-light) .block-title {
             //text-shadow: 0 0 5px #666;
+        }
+        .block-heading {
+            .block-title {
+                text-align: right;
+                margin-bottom: 20px !important;
+            }
+        }
+        .group-controls {
+            left: 2px;
+            right: initial;
+            top: -44px;
+            input[type=search] {
+                width: 120px;
+                font-size: 16px !important;
+            }
         }
     }
     .big-text {
@@ -288,6 +303,8 @@
     }
     
     .chart-box {
+        position: relative;
+        overflow: hidden;
         &.select-theme {
             position: absolute;
             left: 220px;
@@ -343,8 +360,47 @@
                 color: #fff !important;
             }
         }
+        .theme-light,
+        .theme-dark {
+            margin: 9px;
+        }
+        .theme-blue,
+        .theme-green,
+        .theme-green,
+        .theme-orange,
+        .theme-pink {
+            &:before {
+                content: " ";
+                width: 60px;
+                height: 60px;
+                top: -17px;
+                right: -12px;
+                position: absolute;
+                border-radius: 50%;
+                box-shadow: 0 0 0 34px #0202021a;
+                background: #07070740;
+            }
+            .block-title {
+                text-align: center;
+            }
+        }
+        .maps-online,
+        .table,
+        .area-chart {
+            margin: 0 -16px -16px;
+            width: calc(100% + 17px + 17px) !important;
+            max-width: 150% !important;
+        }
+        .area-chart-area,
+        .area-chart-line,
+        .area-chart-collumns {
+            .apexcharts-toolbar {
+                position: absolute;
+                right: auto;
+                left: 10px;
+            }
+        }
     }
-    
     .dataTables_length,
     .dataTables_filter {
         margin-right: 12px;
@@ -463,10 +519,10 @@
                 line-height: 1.25 !important;
             }
             th {
-                padding: 5px 19px 5px 9px !important;
+                // padding: 5px 19px 5px 9px !important;
             }
             td {
-                padding: 4px !important;
+                // padding: 4px !important;
             }
         }
         .dataTables_info {

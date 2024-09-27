@@ -331,18 +331,39 @@
 .kopere_dashboard_div .element-box,
 .kopere-dashboard-modal .element-box {
   margin-bottom: 11px !important;
-  padding: 11px !important;
+  padding: 16px !important;
   box-shadow: 0 0 rgba(0, 0, 0, 0), 0 0 rgba(0, 0, 0, 0), 0 1px 2px 0 rgba(15, 22, 36, 0.06), 0 1px 3px 0 rgba(15, 22, 36, 0.1);
 }
 .kopere_dashboard_div .element-box iframe,
 .kopere-dashboard-modal .element-box iframe {
   margin-bottom: -4px;
 }
+.kopere_dashboard_div .element-box .block-heading .block-title,
+.kopere-dashboard-modal .element-box .block-heading .block-title {
+  text-align: right;
+  margin-bottom: 20px !important;
+}
+.kopere_dashboard_div .element-box .group-controls,
+.kopere-dashboard-modal .element-box .group-controls {
+  left: 2px;
+  right: initial;
+  top: -44px;
+}
+.kopere_dashboard_div .element-box .group-controls input[type=search],
+.kopere-dashboard-modal .element-box .group-controls input[type=search] {
+  width: 120px;
+  font-size: 16px !important;
+}
 .kopere_dashboard_div .big-text,
 .kopere-dashboard-modal .big-text {
   font-size: 24px;
   text-align: center;
   display: block;
+}
+.kopere_dashboard_div .chart-box,
+.kopere-dashboard-modal .chart-box {
+  position: relative;
+  overflow: hidden;
 }
 .kopere_dashboard_div .chart-box.select-theme,
 .kopere-dashboard-modal .chart-box.select-theme {
@@ -417,6 +438,64 @@
 .kopere-dashboard-modal .chart-box .theme-pink,
 .kopere-dashboard-modal .chart-box .theme-pink * {
   color: #fff !important;
+}
+.kopere_dashboard_div .chart-box .theme-light,
+.kopere_dashboard_div .chart-box .theme-dark,
+.kopere-dashboard-modal .chart-box .theme-light,
+.kopere-dashboard-modal .chart-box .theme-dark {
+  margin: 9px;
+}
+.kopere_dashboard_div .chart-box .theme-blue:before,
+.kopere_dashboard_div .chart-box .theme-green:before,
+.kopere_dashboard_div .chart-box .theme-green:before,
+.kopere_dashboard_div .chart-box .theme-orange:before,
+.kopere_dashboard_div .chart-box .theme-pink:before,
+.kopere-dashboard-modal .chart-box .theme-blue:before,
+.kopere-dashboard-modal .chart-box .theme-green:before,
+.kopere-dashboard-modal .chart-box .theme-green:before,
+.kopere-dashboard-modal .chart-box .theme-orange:before,
+.kopere-dashboard-modal .chart-box .theme-pink:before {
+  content: " ";
+  width: 60px;
+  height: 60px;
+  top: -17px;
+  right: -12px;
+  position: absolute;
+  border-radius: 50%;
+  box-shadow: 0 0 0 34px rgba(2, 2, 2, 0.1019607843);
+  background: rgba(7, 7, 7, 0.2509803922);
+}
+.kopere_dashboard_div .chart-box .theme-blue .block-title,
+.kopere_dashboard_div .chart-box .theme-green .block-title,
+.kopere_dashboard_div .chart-box .theme-green .block-title,
+.kopere_dashboard_div .chart-box .theme-orange .block-title,
+.kopere_dashboard_div .chart-box .theme-pink .block-title,
+.kopere-dashboard-modal .chart-box .theme-blue .block-title,
+.kopere-dashboard-modal .chart-box .theme-green .block-title,
+.kopere-dashboard-modal .chart-box .theme-green .block-title,
+.kopere-dashboard-modal .chart-box .theme-orange .block-title,
+.kopere-dashboard-modal .chart-box .theme-pink .block-title {
+  text-align: center;
+}
+.kopere_dashboard_div .chart-box .maps-online,
+.kopere_dashboard_div .chart-box .table,
+.kopere_dashboard_div .chart-box .area-chart,
+.kopere-dashboard-modal .chart-box .maps-online,
+.kopere-dashboard-modal .chart-box .table,
+.kopere-dashboard-modal .chart-box .area-chart {
+  margin: 0 -16px -16px;
+  width: calc(100% + 17px + 17px) !important;
+  max-width: 150% !important;
+}
+.kopere_dashboard_div .chart-box .area-chart-area .apexcharts-toolbar,
+.kopere_dashboard_div .chart-box .area-chart-line .apexcharts-toolbar,
+.kopere_dashboard_div .chart-box .area-chart-collumns .apexcharts-toolbar,
+.kopere-dashboard-modal .chart-box .area-chart-area .apexcharts-toolbar,
+.kopere-dashboard-modal .chart-box .area-chart-line .apexcharts-toolbar,
+.kopere-dashboard-modal .chart-box .area-chart-collumns .apexcharts-toolbar {
+  position: absolute;
+  right: auto;
+  left: 10px;
 }
 .kopere_dashboard_div .dataTables_length,
 .kopere_dashboard_div .dataTables_filter,
@@ -625,14 +704,6 @@
 .kopere-dashboard-modal .dataTables_wrapper table.dataTable td {
   vertical-align: middle !important;
   line-height: 1.25 !important;
-}
-.kopere_dashboard_div .dataTables_wrapper table.dataTable th,
-.kopere-dashboard-modal .dataTables_wrapper table.dataTable th {
-  padding: 5px 19px 5px 9px !important;
-}
-.kopere_dashboard_div .dataTables_wrapper table.dataTable td,
-.kopere-dashboard-modal .dataTables_wrapper table.dataTable td {
-  padding: 4px !important;
 }
 .kopere_dashboard_div .dataTables_wrapper .dataTables_info,
 .kopere-dashboard-modal .dataTables_wrapper .dataTables_info {

@@ -27,14 +27,14 @@
 
 }}
 
-<div id='chart_{{local_kopere_bi_id}}'></div>
+<div class="area-chart" id="chart_{{local_kopere_bi_id}}"></div>
 
 {{#js}}
-    require(['jquery', "core/notification"], function($, Notification) {
+    require(["jquery", "core/notification"], function($, Notification) {
 
         function loadDataChart{{local_kopere_bi_id}}() {
             $.ajax({
-                dataType: 'json',
+                dataType: "json",
                 url: "{{{ajax_url}}}",
                 success: function(json) {
                     $("#chart_{{local_kopere_bi_id}}").html(json.html);
@@ -46,7 +46,7 @@
             });
         }
 
-        window.addEventListener('load', loadDataChart{{local_kopere_bi_id}});
+        window.addEventListener("load", loadDataChart{{local_kopere_bi_id}});
 
         var reloadTime = parseInt("{{{reload_time}}}");
         if (reloadTime) {
