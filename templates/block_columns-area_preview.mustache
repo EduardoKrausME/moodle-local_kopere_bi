@@ -1,0 +1,101 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_kopere_bi/block_columns-area_preview
+
+    Example context (json):
+    {
+      "local_kopere_bi_id": "12345",
+      "chart_default": {
+        "chart": {
+          "type": "line",
+          "height": 350
+        },
+        "xaxis": {
+          "categories": []
+        },
+        "series": []
+      },
+      "chart_options": {
+        "chart": {
+          "toolbar": {
+            "show": true
+          }
+        },
+        "stroke": {
+          "curve": "smooth"
+        }
+      },
+      "code_util_get_js_theme": "options.theme = { mode: 'light' };",
+      "error_chart_renderer": "Erro ao renderizar o gráfico",
+      "ajax_url": "https://example.com/chart_data",
+      "error_data_loader": "Erro ao carregar os dados",
+      "reload_time": "60000"
+    }
+
+}}
+
+<div id='chart_{{local_kopere_bi_id}}'></div>
+
+{{#js}}
+    require(['jquery', "core/notification"], function($, Notification) {
+        function showChart{{local_kopere_bi_id}}(xaxis_categories, series) {
+            try {
+                var options = {{{chart_default}}};
+
+                {{{chart_options}}}
+
+                var optionsData = {
+                    xaxis: {
+                        categories: xaxis_categories
+                    },
+                    series: series
+                };
+                options = {...options, ...optionsData};
+
+                {{{code_util_get_js_theme}}}
+
+                var element = document.querySelector('#chart_{{local_kopere_bi_id}}');
+                var chart = new ApexCharts(element, options);
+                chart.render();
+            }
+            catch (e) {
+                Notification.exception({message: "{{error_chart_renderer}}"});
+            }
+        }
+
+        function loadDataChart{{local_kopere_bi_id}}() {
+            $.ajax({
+                dataType: 'json',
+                url: "{{{ajax_url}}}",
+                success: function(json) {
+                    showChart{{local_kopere_bi_id}}(json.xaxis_categories, json.series);
+                },
+                error: function() {
+                    Notification.exception({message: "{{error_data_loader}}"});
+                }
+            });
+        }
+
+        window.addEventListener('load', loadDataChart{{local_kopere_bi_id}});
+
+        var reloadTime = parseInt("{{{reload_time}}}");
+        if (reloadTime) {
+            setInterval(loadDataChart{{local_kopere_bi_id}}, reloadTime);
+        }
+    });
+{{/js}}

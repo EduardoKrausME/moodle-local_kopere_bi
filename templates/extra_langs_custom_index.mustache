@@ -1,0 +1,48 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_kopere_bi/extra_langs_custom_index
+
+    Example context (json):
+    {
+      "customs": [
+        {
+          "identifier": "welcome_message",
+          "string": "Bem-vindo ao nosso site!"
+        }
+      ]
+    }
+}}
+
+<h2>{{#str}}extra_langs_customs_title,local_kopere_bi{{/str}}</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th style="white-space: nowrap">{{#str}}extra_langs_header_lang_key,local_kopere_bi{{/str}}</th>
+        <th style="width: 100%;">{{#str}}extra_langs_header_string,local_kopere_bi{{/str}}</th>
+    </tr>
+    {{#customs}}
+        <tr>
+            <td style="white-space: nowrap">lang::{{{identifier}}}::local_kopere_bi</td>
+            <td>
+                <input type="text"
+                       name="{{{identifier}}}"
+                       value="{{{string}}}">
+            </td>
+        </tr>
+    {{/customs}}
+</table>

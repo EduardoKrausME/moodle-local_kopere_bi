@@ -1,0 +1,91 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_kopere_bi/block_pie_preview
+
+    Example context (json):
+    {
+      "local_kopere_bi_id": "67890",
+      "ajax_url": "https://example.com/get_pie_chart_data",
+      "chart_pie_default": {
+        "chart": {
+          "type": "pie",
+          "height": 350
+        },
+        "legend": {
+          "position": "bottom"
+        }
+      },
+      "chart_options": {
+        "colors": ["#FF4560", "#008FFB", "#00E396"],
+        "title": {
+          "text": "Distribuição de Recursos"
+        }
+      },
+      "code_util_get_js_theme": "if (M.util.theme == 'dark') { options.chart.background = '#333'; }",
+      "error_chart_renderer": "Erro ao renderizar o gráfico de pizza.",
+      "error_data_loader": "Erro ao carregar os dados para o gráfico de pizza.",
+      "reload_time": "60000"
+    }
+}}
+
+<div id='chart_{{local_kopere_bi_id}}'></div>
+
+{{#js}}
+    require(['jquery', "core/notification"], function($, Notification) {
+        function showChart{{local_kopere_bi_id}}(labels, series) {
+            try {
+                var options = {{{chart_pie_default}}};
+
+                {{{chart_options}}}
+
+                options.labels = labels;
+                options.series = series;
+
+                {{{code_util_get_js_theme}}}
+
+                var element = document.querySelector('#chart_{{local_kopere_bi_id}}');
+                var chart = new ApexCharts(element, options);
+                chart.render();
+            }
+            catch (e) {
+                Notification.exception({message: "{{error_chart_renderer}}"});
+            }
+        }
+
+        function loadDataChart{{local_kopere_bi_id}}() {
+            console.log("{{{ajax_url}}}");
+            $.ajax({
+                dataType: 'json',
+                url: "{{{ajax_url}}}",
+                success: function(json) {
+                    showChart{{local_kopere_bi_id}}(json.labels, json.series);
+                },
+                error: function() {
+                    Notification.exception({message: "{{error_data_loader}}"});
+                }
+            });
+        }
+
+        window.addEventListener('load', loadDataChart{{local_kopere_bi_id}});
+
+        var reloadTime = parseInt("{{{reload_time}}}");
+        if (reloadTime) {
+            setInterval(loadDataChart{{local_kopere_bi_id}}, reloadTime);
+        }
+    });
+{{/js}}

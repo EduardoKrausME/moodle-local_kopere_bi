@@ -1,0 +1,93 @@
+{
+    "title": "lang::report_1_title::local_kopere_bi",
+    "description": "lang::report_1_description::local_kopere_bi",
+    "user_id": null,
+    "category": {
+        "title": "lang::report_1_cat_title::local_kopere_bi",
+        "description": "lang::report_2_cat_description::local_kopere_bi"
+    },
+    "blocks": [
+        {
+            "type": "block-4",
+            "sequence": 1,
+            "elements": [
+                {
+                    "title": "lang::report_1_cat_title::local_kopere_bi",
+                    "block_num": 1,
+                    "type": "info",
+                    "theme": "blue",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT COUNT(*)\r\n  FROM mdl_user\r\n WHERE id > 0\r\n   AND deleted = 0\r\n   AND suspended = 0\r\n   AND username != 'guest'",
+                    "cache": "30m",
+                    "reload": "30m",
+                    "info": "[]",
+                    "time": 1727259728
+                },
+                {
+                    "title": "lang::report_2_cat_title::local_kopere_bi",
+                    "block_num": 2,
+                    "type": "info",
+                    "theme": "green",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT COUNT(*)\r\n  FROM mdl_course\r\n WHERE category > 0\r\n   AND visible = 1",
+                    "cache": "30m",
+                    "reload": "30m",
+                    "info": "[]",
+                    "time": 1727259728
+                },
+                {
+                    "title": "lang::report_1_modules::local_kopere_bi",
+                    "block_num": 3,
+                    "type": "info",
+                    "theme": "orange",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT COUNT(*)\r\n  FROM mdl_course_modules\r\n WHERE id > 0\r\n   AND visible = 1",
+                    "cache": "30m",
+                    "reload": "30m",
+                    "info": "[]",
+                    "time": 1727259728
+                },
+                {
+                    "title": "lang::report_1_categories::local_kopere_bi",
+                    "block_num": 4,
+                    "type": "info",
+                    "theme": "pink",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT COUNT(*)\r\n  FROM mdl_course_categories\r\n WHERE visible = 1",
+                    "cache": "30m",
+                    "reload": "30m",
+                    "info": "[]",
+                    "time": 1727259728
+                }
+            ]
+        },
+        {
+            "type": "block-1",
+            "sequence": 5,
+            "elements": [
+                {
+                    "title": "lang::report_1_user_summary::local_kopere_bi",
+                    "block_num": 1,
+                    "type": "table",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT \r\n    u.id AS u_id,\r\n    u.firstname,\r\n    u.lastname,\r\n    c.fullname AS c_fullname,\r\n    u.email,\r\n    u.lastaccess,\r\n    u.timecreated,\r\n    ROUND(\r\n        AVG(\r\n            CASE\r\n                WHEN g.rawgrademax > 0\r\n                THEN (g.finalgrade \/ g.rawgrademax) * 100\r\n                ELSE g.finalgrade \r\n            END\r\n        ), 0\r\n    ) AS g_finalgrade,\r\n    MAX(ca.completed_activities) AS ca_completed_activities\r\nFROM \r\n    mdl_course c\r\nJOIN \r\n    mdl_context ctx ON ctx.instanceid = c.id\r\nJOIN \r\n    mdl_role_assignments ra ON ra.contextid = ctx.id\r\n                            AND ra.roleid = 5\r\nJOIN \r\n    mdl_user u ON u.id = ra.userid\r\nLEFT JOIN (\r\n        SELECT \r\n            COUNT(id) AS completed_activities, \r\n            userid\r\n        FROM \r\n            mdl_course_modules_completion\r\n        WHERE \r\n            id > 1\r\n            AND completionstate IN (1, 2)\r\n        GROUP BY \r\n            userid\r\n    ) ca ON ca.userid = u.id\r\nLEFT JOIN \r\n    mdl_grade_items gi ON gi.courseid = c.id \r\n                       AND gi.itemtype = 'course'\r\nLEFT JOIN \r\n    mdl_grade_grades g ON g.itemid = gi.id \r\n                      AND g.userid = u.id \r\n                      AND g.finalgrade IS NOT NULL\r\nWHERE u.id        > 1\r\n  AND u.deleted   = 0\r\n  AND u.suspended = 0\r\n  AND u.username != 'guest'\r\nGROUP BY u.id",
+                    "cache": "30m",
+                    "reload": "30m",
+                    "info": "{\n    \"column\": {\n        \"name\": {\n            \"u_id\": \"#\",\n            \"firstname\": \"lang::firstname::local_kopere_bi\",\n            \"lastname\": \"lang::lastname::moodle\",\n            \"c_fullname\": \"lang::c_fullname::local_kopere_bi\",\n            \"email\": \"lang::email::moodle\",\n            \"lastaccess\": \"lang::lastaccess::moodle\",\n            \"timecreated\": \"lang::timecreated::moodle\",\n            \"g_finalgrade\": \"lang::g_finalgrade::local_kopere_bi\",\n            \"ca_completed_activities\": \"lang::ca_completed_activities::local_kopere_bi\"\n        },\n        \"type\": {\n            \"u_id\": \"none\",\n            \"firstname\": \"fullname\",\n            \"lastname\": \"none\",\n            \"c_fullname\": \"string\",\n            \"email\": \"string\",\n            \"lastaccess\": \"datetimeRenderer\",\n            \"timecreated\": \"datetimeRenderer\",\n            \"g_finalgrade\": \"number\",\n            \"ca_completed_activities\": \"number\"\n        }\n    }\n}",
+                    "time": 1727259728
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,61 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_kopere_bi/filter/user
+
+    Example context (json):
+    {
+      "user_fullname": "João da Silva",
+      "url_ajax": "https://example.com/user_ajax_endpoint",
+      "url_click": "https://example.com/user_click_endpoint"
+    }
+}}
+<div id="chart-user-button-open" style="display: none"
+     data-urlajax="{{{url_ajax}}}"
+     data-urlclick="{{{url_click}}}"
+     data-strclose="{{#str}}close,admin{{/str}}">
+    <span>Estudante:</span>
+    <span class="select">
+        {{{user_fullname}}}
+    </span>
+</div>
+<div id="chart-user-datatable-select" style="display:none;"
+     title="{{#str}}reports_selectuser,local_kopere_bi{{/str}}">
+    <table id="datatable_user_select" class="table table-hover">
+        <thead>
+        <tr>
+            <th class="text-center th_id">#</th>
+            <th class="text-center th_fullname">{{#str}}user_table_fullname,local_kopere_dashboard{{/str}}</th>
+            <th class="text-center th_username">{{#str}}user_table_username,local_kopere_dashboard{{/str}}</th>
+            <th class="text-center th_email">{{#str}}user_table_email,local_kopere_dashboard{{/str}}</th>
+        </tr>
+        </thead>
+        <tbody class="hover-pointer"></tbody>
+    </table>
+</div>
+
+<style>
+    #chart-user-button-open {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    #chart-user-datatable-select {
+        min-width: 800px;
+        min-height: 450px !important;
+    }
+</style>

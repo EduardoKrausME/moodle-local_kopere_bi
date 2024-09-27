@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import "jquery.qtip";
+body, html {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    background: #171717;
+    font-family: 'Roboto', sans-serif;
+}
+#mapa-online {
+    height: 100%;
+    width: 100%;
+    .terra {
+        fill: #363636;
+        stroke: #2c2c2c;
+    }
+    .terra-outros {
+        fill: #3636366e;
+        stroke: #00000038;
+    }
+    .bubble {
+        vector-effect: non-scaling-stroke !important;
+        fill: #1976d2 !important;
+        stroke: #1976d2 !important;
+        stroke-width: 1 !important;
+        fill-opacity: 0.6 !important;
+        stroke-opacity: 0.9 !important;
+    }
+}
+#loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -100px;
+    margin-top: -100px;
+    z-index: 10;
+}
+

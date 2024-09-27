@@ -1,0 +1,113 @@
+{
+    "title": "lang::report_3_title::local_kopere_bi",
+    "description": "lang::report_3_description::local_kopere_bi",
+    "user_id": null,
+    "category": {
+        "title": "lang::report_1_cat_title::local_kopere_bi",
+        "description": "lang::report_1_cat_description::local_kopere_bi"
+    },
+    "blocks": [
+        {
+            "type": "block-52",
+            "sequence": 1,
+            "elements": [
+                {
+                    "title": "lang::report_3_users_online::local_kopere_bi",
+                    "block_num": 2,
+                    "type": "maps",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT lastip\n  FROM mdl_local_kopere_bi_online\n WHERE currenttime > UNIX_TIMESTAMP() - (5 * 60)",
+                    "cache": "none",
+                    "reload": null,
+                    "info": "{}",
+                    "time": 1727259728
+                },
+                {
+                    "title": "lang::report_3_users_online_list::local_kopere_bi",
+                    "block_num": 1,
+                    "type": "table",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT DISTINCT \r\n    u.id AS u_id, \r\n    u.firstname,\r\n    u.lastname,\r\n    kbo.city_name,\r\n    kbo.country_name\r\nFROM \r\n    mdl_local_kopere_bi_online kbo\r\nJOIN \r\n    mdl_user u ON u.id = kbo.userid\r\nWHERE \r\n    kbo.currenttime > UNIX_TIMESTAMP() - (5 * 60)",
+                    "cache": "none",
+                    "reload": "none",
+                    "info": "{\n    \"column\": {\n        \"name\": {\n            \"u_id\": \"#\",\n            \"firstname\": \"lang::firstname::local_kopere_bi\",\n            \"lastname\": \"lang::lastname::moodle\",\n            \"city_name\": \"lang::city_name::local_kopere_bi\",\n            \"country_name\": \"lang::country_name::local_kopere_bi\"\n        },\n        \"type\": {\n            \"u_id\": \"dataUserphotoRenderer\",\n            \"firstname\": \"fullname\",\n            \"lastname\": \"none\",\n            \"city_name\": \"string\",\n            \"country_name\": \"string\"\n        }\n    }\n}",
+                    "time": 1727259728
+                }
+            ]
+        },
+        {
+            "type": "block-1",
+            "sequence": 3,
+            "elements": [
+                {
+                    "title": "lang::report_3_course_access_time::local_kopere_bi",
+                    "block_num": 1,
+                    "type": "line",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT \r\n    c.fullname,\r\n    count(DISTINCT kbo.userid) AS 'lang::num_user::local_kopere_bi',\r\n    SUM(kbo.seconds)           AS 'lang::secounds::local_kopere_bi'\r\nFROM \r\n    mdl_course c\r\nLEFT JOIN \r\n    mdl_local_kopere_bi_online kbo ON kbo.courseid = c.id\r\nGROUP BY \r\n    c.id",
+                    "cache": "30m",
+                    "reload": "30m",
+                    "info": "{\"chart_options\":\"{\\r\\n    stroke : {\\r\\n        colors : [\\\"#2E93fA\\\", \\\"#66DA26\\\", \\\"#546E7A\\\", \\\"#E91E63\\\", \\\"#FF9800\\\"]\\r\\n    },\\r\\n    yaxis : {\\r\\n        labels : {\\r\\n            formatter: (seconds) => { \\r\\n                var hours = Math.floor(seconds \\\/ 3600);\\r\\n                var minutes = Math.floor((seconds % 3600) \\\/ 60);\\r\\n                return `${hours}h ${minutes}m`;\\r\\n            },\\r\\n        },\\r\\n    },\\r\\n}\"}",
+                    "time": 1727366831
+                }
+            ]
+        },
+        {
+            "type": "block-3",
+            "sequence": 2,
+            "elements": [
+                {
+                    "title": "lang::report_3_top_browsers::local_kopere_bi",
+                    "block_num": 2,
+                    "type": "pie",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT \r\n    kbo.client_name,\r\n    COUNT(DISTINCT kbo.userid) AS num_users\r\nFROM \r\n    mdl_local_kopere_bi_online kbo\r\nJOIN \r\n    mdl_user c ON c.id = kbo.userid\r\nGROUP BY \r\n    kbo.client_name, \r\n    kbo.client_version\r\nLIMIT 15",
+                    "cache": "30m",
+                    "reload": "30m",
+                    "info": "{\"chart_options\":\"{\\r\\n    stroke : {\\r\\n        colors : [\\\"#2E93fA\\\", \\\"#66DA26\\\", \\\"#546E7A\\\", \\\"#E91E63\\\", \\\"#FF9800\\\"]\\r\\n    },\\r\\n    yaxis : {\\r\\n        labels : {\\r\\n            formatter: (seconds) => { \\r\\n                var hours = Math.floor(seconds \\\/ 3600);\\r\\n                var minutes = Math.floor((seconds % 3600) \\\/ 60);\\r\\n                return `${hours}h ${minutes}m`;\\r\\n            },\\r\\n        },\\r\\n    },\\r\\n}\"}",
+                    "time": 1727275516
+                },
+                {
+                    "title": "lang::report_3_operating_systems::local_kopere_bi",
+                    "block_num": 3,
+                    "type": "pie",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT \r\n    kbo.os_name, \r\n    COUNT(DISTINCT kbo.userid) AS num_users\r\nFROM \r\n    mdl_local_kopere_bi_online kbo\r\nJOIN \r\n    mdl_user c ON c.id = kbo.userid\r\nGROUP BY \r\n    kbo.os_name\r\nLIMIT 15",
+                    "cache": "30m",
+                    "reload": "30m",
+                    "info": "{\"chart_options\":\"{\\r\\n    stroke : {\\r\\n        colors : [\\\"#2E93fA\\\", \\\"#66DA26\\\", \\\"#546E7A\\\", \\\"#E91E63\\\", \\\"#FF9800\\\"]\\r\\n    },\\r\\n    yaxis : {\\r\\n        labels : {\\r\\n            formatter: (seconds) => { \\r\\n                var hours = Math.floor(seconds \\\/ 3600);\\r\\n                var minutes = Math.floor((seconds % 3600) \\\/ 60);\\r\\n                return `${hours}h ${minutes}m`;\\r\\n            },\\r\\n        },\\r\\n    },\\r\\n}\"}",
+                    "time": 1727275603
+                },
+                {
+                    "title": "lang::report_3_top_country_access::local_kopere_bi",
+                    "block_num": 1,
+                    "type": "pie",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT\r\n    kbo.country_name, \r\n    COUNT(DISTINCT kbo.userid)\r\nFROM \r\n    mdl_local_kopere_bi_online kbo\r\nJOIN \r\n    mdl_user c ON c.id = kbo.userid\r\nGROUP BY \r\n    kbo.city_name, \r\n    kbo.country_name\r\nLIMIT 15",
+                    "cache": "30m",
+                    "reload": "30m",
+                    "info": "{\"chart_options\":\"{\\r\\n    stroke : {\\r\\n        colors : [\\\"#2E93fA\\\", \\\"#66DA26\\\", \\\"#546E7A\\\", \\\"#E91E63\\\", \\\"#FF9800\\\"]\\r\\n    },\\r\\n    yaxis : {\\r\\n        labels : {\\r\\n            formatter: (seconds) => { \\r\\n                var hours = Math.floor(seconds \\\/ 3600);\\r\\n                var minutes = Math.floor((seconds % 3600) \\\/ 60);\\r\\n                return `${hours}h ${minutes}m`;\\r\\n            },\\r\\n        },\\r\\n    },\\r\\n}\"}",
+                    "time": 1727276593
+                }
+            ]
+        }
+    ]
+}

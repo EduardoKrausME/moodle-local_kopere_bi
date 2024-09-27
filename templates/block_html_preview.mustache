@@ -1,0 +1,56 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_kopere_bi/block_html_preview
+
+    Example context (json):
+    {
+      "local_kopere_bi_id": "12345",
+      "ajax_url": "https://example.com/chart_data",
+      "error_data_loader": "Erro ao carregar os dados do gráfico",
+      "reload_time": "60000"
+    }
+
+}}
+
+<div id='chart_{{local_kopere_bi_id}}'></div>
+
+{{#js}}
+    require(['jquery', "core/notification"], function($, Notification) {
+
+        function loadDataChart{{local_kopere_bi_id}}() {
+            $.ajax({
+                dataType: 'json',
+                url: "{{{ajax_url}}}",
+                success: function(json) {
+                    $("#chart_{{local_kopere_bi_id}}").html(json.html);
+                },
+                error: function() {
+                    $("#chart_{{local_kopere_bi_id}}").html("{{error_data_loader}}");
+                    Notification.exception({message: "{{error_data_loader}}"});
+                }
+            });
+        }
+
+        window.addEventListener('load', loadDataChart{{local_kopere_bi_id}});
+
+        var reloadTime = parseInt("{{{reload_time}}}");
+        if (reloadTime) {
+            setInterval(loadDataChart{{local_kopere_bi_id}}, reloadTime);
+        }
+    });
+{{/js}}

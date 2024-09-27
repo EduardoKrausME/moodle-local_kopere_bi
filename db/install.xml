@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/kopere_bi/db" VERSION="20230414" COMMENT="Kopere Bi data"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
+    <TABLES>
+        <TABLE NAME="local_kopere_bi_cat" COMMENT="BI Page Categories">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="title" TYPE="char" LENGTH="250" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="sortorder" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="local_kopere_bi_page" COMMENT="BI Pages">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="cat_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="title" TYPE="char" LENGTH="250" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="user_id" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="sortorder" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="time" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="local_kopere_bi_block" COMMENT="Page blocks">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="page_id" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="type" TYPE="char" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="sequence" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="time" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="page_id" UNIQUE="false" FIELDS="page_id"/>
+            </INDEXES>
+        </TABLE>
+        <TABLE NAME="local_kopere_bi_element" COMMENT="Elements of each Block">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="title" TYPE="char" LENGTH="250" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="block_id" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="block_num" TYPE="int" LENGTH="2" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="type" TYPE="char" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+
+                <FIELD NAME="theme" TYPE="char" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="css" TYPE="char" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="html_before" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="html_after" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="commandsql" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="cache" TYPE="char" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="reload" TYPE="char" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+
+                <FIELD NAME="info" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="time" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="block_id" UNIQUE="false" FIELDS="block_id"/>
+            </INDEXES>
+        </TABLE>
+
+        <TABLE NAME="local_kopere_bi_online" COMMENT="Online Users Report">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="moduleid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="seconds" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="currenttime" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+
+                <FIELD NAME="client_type" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="client_name" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="client_version" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="os_name" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="os_version" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+
+                <FIELD NAME="lastip" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="city_name" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="country_name" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="country_code" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="latitude" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="longitude" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+                <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+                <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="userid" UNIQUE="false" FIELDS="userid"/>
+                <INDEX NAME="courseid" UNIQUE="false" FIELDS="courseid"/>
+                <INDEX NAME="moduleid" UNIQUE="false" FIELDS="moduleid"/>
+
+                <INDEX NAME="client_type" UNIQUE="false" FIELDS="client_type"/>
+                <INDEX NAME="client_name" UNIQUE="false" FIELDS="client_name"/>
+                <INDEX NAME="client_version" UNIQUE="false" FIELDS="client_version"/>
+                <INDEX NAME="os_name" UNIQUE="false" FIELDS="os_name"/>
+                <INDEX NAME="os_version" UNIQUE="false" FIELDS="os_version"/>
+
+                <INDEX NAME="city_name" UNIQUE="false" FIELDS="city_name"/>
+                <INDEX NAME="country_name" UNIQUE="false" FIELDS="country_name"/>
+                <INDEX NAME="country_code" UNIQUE="false" FIELDS="country_code"/>
+            </INDEXES>
+        </TABLE>
+
+        <TABLE NAME="local_kopere_bi_statistic" COMMENT="Statistic Users">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="moduleid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="seconds" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+
+                <FIELD NAME="weekday" TYPE="char" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="year" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="month" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="day" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+
+                <FIELD NAME="client_type" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="client_name" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="client_version" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="os_name" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="os_version" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+
+                <FIELD NAME="lastip" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="city_name" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="country_name" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="country_code" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="latitude" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="longitude" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+                <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+                <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+                <KEY NAME="unique" TYPE="unique" FIELDS="userid,courseid,moduleid,year,month,day"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="userid" UNIQUE="false" FIELDS="userid"/>
+                <INDEX NAME="courseid" UNIQUE="false" FIELDS="courseid"/>
+                <INDEX NAME="moduleid" UNIQUE="false" FIELDS="moduleid"/>
+                <INDEX NAME="weekday" UNIQUE="false" FIELDS="weekday"/>
+
+                <INDEX NAME="client_type" UNIQUE="false" FIELDS="client_type"/>
+                <INDEX NAME="client_name" UNIQUE="false" FIELDS="client_name"/>
+                <INDEX NAME="client_version" UNIQUE="false" FIELDS="client_version"/>
+                <INDEX NAME="os_name" UNIQUE="false" FIELDS="os_name"/>
+                <INDEX NAME="os_version" UNIQUE="false" FIELDS="os_version"/>
+
+                <INDEX NAME="city_name" UNIQUE="false" FIELDS="city_name"/>
+                <INDEX NAME="country_name" UNIQUE="false" FIELDS="country_name"/>
+                <INDEX NAME="country_code" UNIQUE="false" FIELDS="country_code"/>
+            </INDEXES>
+        </TABLE>
+
+    </TABLES>
+</XMLDB>

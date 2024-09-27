@@ -1,0 +1,88 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_kopere_bi/dashboard_start
+
+    Example context (json):
+    {
+      "categorys": [
+        {
+          "category_title": "Categoria 1",
+          "editing": true,
+          "category_id": "1",
+          "pages": [
+            {
+              "page_id": "101",
+              "page_title": "Relatório 1",
+              "description_crop": "Uma breve descrição do relatório 1.",
+              "is_description_crop": true,
+              "user_fullname": "Usuário 1",
+              "is_user_fullname": true
+            }
+        }
+      ],
+      "editing": true
+    }
+}}
+
+{{#categorys}}
+    <div class="category-name">
+        <h3>{{{category_title}}}</h3>
+        {{#editing}}
+            <div>
+                <a href="?classname=bi-dashboard&method=edit&cat_id={{category_id}}"
+                class="btn btn-primary">{{#str}}page_new_cat,local_kopere_bi{{/str}}</a>
+                <a href="?classname=bi-dashboard&method=edit_cat&cat_id={{category_id}}"
+                class="btn btn-success">{{#str}}cat_edit,local_kopere_bi{{/str}}</a>
+            </div>
+        {{/editing}}
+    </div>
+    <div class="element-box">
+        {{#pages}}
+            <div class="lista-reports">
+                <div class="line-titles">
+                    <a class="line-title" href="?classname=bi-dashboard&method=preview&page_id={{page_id}}"
+                    >{{page_title}}</a>
+                    <div class="line-description">
+                        {{#is_description_crop}}
+                            <div class="line-description-text">
+                                {{#pix}} icons/text, local_kopere_bi {{/pix}}
+                                <span>{{description_crop}}</span>
+                            </div>
+                        {{/is_description_crop}}
+                        {{#is_user_fullname}}
+                            <div class="line-description-user">
+                                {{#pix}} icons/user, local_kopere_bi {{/pix}}
+                                <span>{{user_fullname}}</span>
+                            </div>
+                        {{/is_user_fullname}}
+                    </div>
+                </div>
+                <div class="line-icon">
+                    {{#pix}} icons/arrow, local_kopere_bi {{/pix}}
+                </div>
+            </div>
+        {{/pages}}
+    </div>
+{{/categorys}}
+
+{{#editing}}
+    <div style="margin-top: 20px;display: flex;justify-content: flex-end;">
+        <a href="?classname=bi-dashboard&method=edit_cat" class="btn btn-success">{{#str}}
+            cat_new,local_kopere_bi{{/str}}</a>
+    </div>
+{{/editing}}

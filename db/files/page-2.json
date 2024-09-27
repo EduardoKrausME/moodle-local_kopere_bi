@@ -1,0 +1,91 @@
+{
+    "title": "lang::report_2_cat_title::local_kopere_bi",
+    "description": "lang::report_2_description::local_kopere_bi",
+    "user_id": null,
+    "category": {
+        "title": "lang::report_2_cat_title::local_kopere_bi",
+        "description": "lang::report_2_cat_description::local_kopere_bi"
+    },
+    "blocks": [
+        {
+            "type": "block-1",
+            "sequence": 1726940256,
+            "elements": [
+                {
+                    "title": "lang::report_2_completion_progress::local_kopere_bi",
+                    "block_num": 1,
+                    "type": "table",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT u.id AS u_id,\r\n       u.firstname,\r\n       u.lastname,\r\n       u.firstnamephonetic,\r\n       u.lastnamephonetic,\r\n       u.middlename,\r\n       u.alternatename,\r\n       u.email,\r\n       u.institution,\r\n       u.department,\r\n       u.phone1,\r\n       u.phone2,\r\n       u.address,\r\n       u.city,\r\n       u.country,\r\n       u.timezone,\r\n       u.firstaccess,\r\n       u.lastaccess,\r\n       ue.timecreated,\r\n       IFNULL(MAX(cc.timecompleted), 0) AS timecompleted,\r\n       CONCAT(IFNULL(ROUND(((MAX(cmc.completed) \/ MAX(m.modules)) * 100), 0), 0), ' %') AS course_completed\r\n  FROM {user_enrolments} ue\r\n  JOIN {user} u ON u.id = ue.userid\r\n  JOIN {enrol} e ON e.id = ue.enrolid\r\n  JOIN {course} c ON c.id = e.courseid\r\n  LEFT JOIN {course_completions} cc ON cc.timecompleted > 0\r\n                                   AND cc.course = e.courseid\r\n                                   AND cc.userid = ue.userid\r\n  LEFT JOIN (\r\n        SELECT course,\r\n               COUNT(id) AS modules\r\n          FROM {course_modules}\r\n         WHERE visible = 1\r\n           AND completion > 0\r\n           AND deletioninprogress = 0\r\n      GROUP BY course\r\n      ) AS m ON m.course = c.id\r\n  LEFT JOIN (\r\n        SELECT cm_i.course,\r\n               cmc_i.userid,\r\n               COUNT(DISTINCT cmc_i.id) AS completed\r\n          FROM {course_modules} cm_i,\r\n               {course_modules_completion} cmc_i\r\n         WHERE cmc_i.coursemoduleid = cm_i.id\r\n           AND cm_i.visible = 1\r\n           AND cmc_i.completionstate IN (1, 2)\r\n           AND cm_i.deletioninprogress = 0\r\n      GROUP BY cm_i.course,\r\n               cmc_i.userid\r\n      ) AS cmc ON cmc.course = c.id\r\n              AND cmc.userid = ue.userid\r\n WHERE ue.id > 0\r\n   AND u.id > 1\r\n   AND u.deleted = 0\r\n   AND u.suspended = 0\r\n   AND ue.status = 0\r\n   AND e.status = 0\r\n   AND c.id = :courseid\r\nGROUP BY u.id\r\n",
+                    "cache": "6h",
+                    "reload": "30m",
+                    "info": "{\n    \"column\": {\n        \"name\": {\n            \"u_id\": \"#\",\n            \"firstname\": \"lang::u_fullname::local_kopere_bi\",\n            \"lastname\": \"lang::lastname::moodle\",\n            \"firstnamephonetic\": \"lang::firstnamephonetic::moodle\",\n            \"lastnamephonetic\": \"lang::lastnamephonetic::moodle\",\n            \"middlename\": \"lang::middlename::moodle\",\n            \"alternatename\": \"lang::alternatename::moodle\",\n            \"email\": \"lang::email::moodle\",\n            \"institution\": \"lang::institution::moodle\",\n            \"department\": \"lang::department::moodle\",\n            \"phone1\": \"lang::phone1::moodle\",\n            \"phone2\": \"lang::phone2::moodle\",\n            \"address\": \"lang::address::moodle\",\n            \"city\": \"lang::city::moodle\",\n            \"country\": \"lang::country::moodle\",\n            \"timezone\": \"lang::timezone::moodle\",\n            \"firstaccess\": \"lang::firstaccess::moodle\",\n            \"lastaccess\": \"lang::lastaccess::moodle\",\n            \"timecreated\": \"lang::timecreated::moodle\",\n            \"timecompleted\": \"lang::timecompleted::local_kopere_bi\",\n            \"course_completed\": \"lang::course_completed::local_kopere_bi\"\n        },\n        \"type\": {\n            \"u_id\": \"number\",\n            \"firstname\": \"fullname\",\n            \"lastname\": \"none\",\n            \"firstnamephonetic\": \"none\",\n            \"lastnamephonetic\": \"none\",\n            \"middlename\": \"none\",\n            \"alternatename\": \"none\",\n            \"email\": \"string\",\n            \"institution\": \"string\",\n            \"department\": \"string\",\n            \"phone1\": \"string\",\n            \"phone2\": \"string\",\n            \"address\": \"string\",\n            \"city\": \"string\",\n            \"country\": \"string\",\n            \"timezone\": \"none\",\n            \"firstaccess\": \"datetimeRenderer\",\n            \"lastaccess\": \"datetimeRenderer\",\n            \"timecreated\": \"datetimeRenderer\",\n            \"timecompleted\": \"datetimeRenderer\",\n            \"course_completed\": \"number\"\n        }\n    }\n}",
+                    "time": 1727259728
+                }
+            ]
+        },
+        {
+            "type": "block-1",
+            "sequence": 1727028638,
+            "elements": [
+                {
+                    "title": "lang::report_2_course_progress::local_kopere_bi",
+                    "block_num": 1,
+                    "type": "table",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT u.id AS u_id,\r\n       u.firstname,\r\n       u.lastname,\r\n       u.email,\r\n       MIN(gc.grade) AS grade\r\n  FROM mdl_user_enrolments ue\r\n  LEFT JOIN mdl_user u ON u.id = ue.userid\r\n  LEFT JOIN mdl_enrol e ON e.id = ue.enrolid\r\n  LEFT JOIN mdl_course c ON c.id = e.courseid\r\n  LEFT JOIN (\r\n             SELECT course, COUNT(id) AS cmnums\r\n               FROM mdl_course_modules\r\n              WHERE visible = 1\r\n           GROUP BY course\r\n            ) AS cm ON cm.course = c.id\r\n  LEFT JOIN (\r\n             SELECT course, COUNT(id) AS cmnumx\r\n               FROM mdl_course_modules\r\n              WHERE visible = 1\r\n                AND completion > 0\r\n           GROUP BY course\r\n            ) cmx ON cmx.course = c.id\r\n  LEFT JOIN (\r\n             SELECT cm.course, cmc.userid, COUNT(cmc.id) AS cmcnums\r\n               FROM mdl_course_modules cm,\r\n                    mdl_course_modules_completion cmc\r\n              WHERE cmc.coursemoduleid = cm.id\r\n                AND cm.visible = 1\r\n                AND cmc.completionstate IN (1, 2)\r\n           GROUP BY cm.course, cmc.userid\r\n            ) cmc ON cmc.course = c.id\r\n                AND cmc.userid = u.id\r\n  LEFT JOIN (\r\n             SELECT cm.course, cmc.userid, COUNT(cmc.id) AS cmcnuma\r\n               FROM mdl_course_modules cm,\r\n                    mdl_course_modules_completion cmc\r\n              WHERE cmc.coursemoduleid = cm.id\r\n                AND cm.module = 1\r\n                AND cm.visible = 1\r\n                AND cmc.completionstate IN (1, 2)\r\n           GROUP BY cm.course, cmc.userid\r\n            ) AS cmca ON cmca.course = c.id\r\n                   AND cmca.userid = u.id\r\n  LEFT JOIN (\r\n             SELECT gi.courseid,\r\n                    g.userid,\r\n                    ROUND((CASE WHEN g.rawgrademax > 0 THEN (g.finalgrade \/ g.rawgrademax) * 100 ELSE g.finalgrade END), 0) AS grade\r\n               FROM mdl_grade_items gi,\r\n                    mdl_grade_grades g\r\n              WHERE gi.itemtype = 'course'\r\n                AND g.itemid = gi.id\r\n                AND g.finalgrade IS NOT NULL\r\n           GROUP BY gi.courseid, g.userid, g.finalgrade, g.rawgrademax\r\n            ) AS gc ON gc.courseid = c.id\r\n                AND gc.userid = u.id\r\n WHERE ue.id > 0\r\n   AND e.courseid = :courseid\r\n   AND u.deleted = 0\r\n   AND u.suspended = 0\r\n   AND c.visible = 1\r\nGROUP BY u.id, c.id\r\n",
+                    "cache": "none",
+                    "reload": "none",
+                    "info": "{\n    \"column\": {\n        \"name\": {\n            \"u_id\": \"#\",\n            \"firstname\": \"lang::u_fullname::local_kopere_bi\",\n            \"lastname\": \"lang::lastname::moodle\",\n            \"email\": \"lang::email::moodle\",\n            \"grade\": \"lang::grade::local_kopere_bi\"\n        },\n        \"type\": {\n            \"u_id\": \"string\",\n            \"firstname\": \"fullname\",\n            \"lastname\": \"none\",\n            \"email\": \"string\",\n            \"grade\": \"number\"\n        }\n    }\n}",
+                    "time": 1727259728
+                }
+            ]
+        },
+        {
+            "type": "block-1",
+            "sequence": 1727029353,
+            "elements": [
+                {
+                    "title": "lang::report_2_course_access_statistics::local_kopere_bi",
+                    "block_num": 1,
+                    "type": "table",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT u.id                    AS u_id,\r\n       u.firstname,\r\n       u.lastname,\r\n       u.email,\r\n       c.id                    AS c_id,\r\n       c.fullname              AS c_fullname,\r\n       l.contextinstanceid     AS cm_cmid,\r\n       l.objecttable           AS l_objecttable,\r\n       l.origin                AS l_origin,\r\n       l.ip                    AS l_ip,\r\n       l.timecreated           AS l_timecreated\r\n       \r\n     FROM mdl_logstore_standard_log l\r\nLEFT JOIN mdl_course       c  ON c.id = l.courseid\r\nLEFT JOIN mdl_user         u  ON u.id = l.userid\r\nLEFT JOIN mdl_modules      m  ON m.name = SUBSTRING(l.component, 5)\r\nLEFT JOIN mdl_course_modules cm ON cm.id = l.contextinstanceid\r\n\r\nWHERE l.component LIKE '%mod_%'\r\n  AND l.courseid = :courseid\r\n  AND u.deleted = 0\r\n  AND u.suspended = 0\r\n  AND c.visible = 1\r\n  AND cm.visible = 1",
+                    "cache": "6h",
+                    "reload": "30m",
+                    "info": "{\n    \"column\": {\n        \"name\": {\n            \"u_id\": \"#\",\n            \"firstname\": \"lang::u_fullname::local_kopere_bi\",\n            \"lastname\": \"lang::lastname::moodle\",\n            \"email\": \"lang::email::moodle\",\n            \"c_id\": \"lang::c_id::local_kopere_bi\",\n            \"c_fullname\": \"lang::c_fullname::local_kopere_bi\",\n            \"cm_cmid\": \"lang::cm_cmid::local_kopere_bi\",\n            \"l_objecttable\": \"lang::l_objecttable::local_kopere_bi\",\n            \"l_origin\": \"lang::l_origin::local_kopere_bi\",\n            \"l_ip\": \"lang::l_ip::local_kopere_bi\",\n            \"l_timecreated\": \"lang::l_timecreated::local_kopere_bi\"\n        },\n        \"type\": {\n            \"u_id\": \"number\",\n            \"firstname\": \"fullname\",\n            \"lastname\": \"none\",\n            \"email\": \"string\",\n            \"c_id\": \"number\",\n            \"c_fullname\": \"string\",\n            \"cm_cmid\": \"string\",\n            \"l_objecttable\": \"string\",\n            \"l_origin\": \"string\",\n            \"l_ip\": \"string\",\n            \"l_timecreated\": \"datetimeRenderer\"\n        }\n    }\n}",
+                    "time": 1727259728
+                }
+            ]
+        },
+        {
+            "type": "block-1",
+            "sequence": 1727029796,
+            "elements": [
+                {
+                    "title": "lang::report_2_course_analysis_participation_completion::local_kopere_bi",
+                    "block_num": 1,
+                    "type": "table",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT u.id        AS u_id,\r\n       u.firstname,\r\n       u.lastname,\r\n       u.email,\r\n       CASE \r\n           WHEN ul.id IS NULL THEN 'lang::case_never_accessed::local_kopere_bi'\r\n           WHEN comp.userid IS NOT NULL THEN 'lang::case_complete::local_kopere_bi'\r\n           ELSE 'lang::case_incomplete::local_kopere_bi'\r\n       END AS status\r\n       \r\nFROM mdl_role_assignments ra\r\n       JOIN mdl_context ctx                                   ON ctx.id = ra.contextid \r\n                                                            AND ctx.contextlevel = 50\r\n       JOIN mdl_course c                                     ON c.id = ctx.instanceid\r\n       JOIN mdl_user u                                      ON u.id = ra.userid\r\n       \r\n       LEFT JOIN (SELECT cm.course, cmc.userid\r\n                  FROM   mdl_course_modules cm\r\n                         JOIN mdl_course_modules_completion cmc ON cmc.coursemoduleid = cm.id \r\n                                                              AND cmc.completionstate = 1\r\n                  WHERE  cmc.id > 0\r\n                  GROUP BY cm.course, cmc.userid\r\n                 ) comp ON comp.userid = u.id \r\n                         AND comp.course = c.id\r\n       \r\n       LEFT JOIN mdl_user_lastaccess ul                         ON ul.courseid = c.id \r\n                                                            AND ul.userid = ra.userid\r\n       \r\nWHERE  c.id = :courseid \r\n  AND  u.deleted = 0 \r\n  AND  u.suspended = 0  \r\n  AND  c.visible = 1 \r\n  AND  ra.roleid = 5\r\nGROUP BY u.id",
+                    "cache": "6h",
+                    "reload": "30m",
+                    "info": "{\n    \"column\": {\n        \"name\": {\n            \"u_id\": \"#\",\n            \"firstname\": \"lang::u_fullname::local_kopere_bi\",\n            \"lastname\": \"lang::lastname::moodle\",\n            \"email\": \"lang::email::moodle\",\n            \"status\": \"lang::status::moodle\"\n        },\n        \"type\": {\n            \"u_id\": \"number\",\n            \"firstname\": \"fullname\",\n            \"lastname\": \"none\",\n            \"email\": \"string\",\n            \"status\": \"translate\"\n        }\n    }\n}",
+                    "time": 1727259728
+                }
+            ]
+        }
+    ]
+}
