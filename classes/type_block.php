@@ -66,7 +66,7 @@ class type_block {
         dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"),
             "?classname=bi-dashboard&method=start");
         dashboard_util::add_breadcrumb(string_util::get_string($page->title),
-            "?classname=bi-dashboard&method=details&page_id={$page->id}");
+            "?classname=bi-dashboard&method=edit_page&page_id={$page->id}");
         dashboard_util::add_breadcrumb(get_string("select_report_select_type", "local_kopere_bi"));
         dashboard_util::start_page();
 
@@ -215,7 +215,7 @@ class type_block {
             if ($block->is_edit_columns()) {
                 header::location("?classname=bi-dashboard&method=type_block_edit_columns&item_id={$koperebielement->id}");
             } else {
-                header::location("?classname=bi-dashboard&method=details&page_id={$koperebipage->id}");
+                header::location("?classname=bi-dashboard&method=edit_page&page_id={$koperebipage->id}");
             }
         }
     }
@@ -250,7 +250,7 @@ class type_block {
             $DB->update_record("local_kopere_bi_element", $koperebielement);
             cache_util::delete($koperebielement->id);
 
-            header::location("?classname=bi-dashboard&method=details&page_id={$koperebipage->id}");
+            header::location("?classname=bi-dashboard&method=edit_page&page_id={$koperebipage->id}");
         }
     }
 }
