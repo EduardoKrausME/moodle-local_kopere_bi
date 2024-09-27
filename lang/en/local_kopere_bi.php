@@ -253,9 +253,9 @@ $string['sql_replace_keys'] = '<h4>Replacement Keys</h4>
 $string['sql_replace_keys_mdl'] = '<h4>The database prefix</h4>
 <p>You can always use the <code>mdl_</code> prefix even if your database uses the <code>{$a}</code> prefix. Business intelligence will handle this substitution.</p>';
 $string['table_col_title'] = 'Column title';
-$string['table_collumn_not_configured'] = 'Columns not configured in this table';
+$string['table_column_not_configured'] = 'Columns not configured in this table';
 $string['table_desc'] = 'Displays a table with data pagination.';
-$string['table_edit_collumn'] = 'Column';
+$string['table_edit_column'] = 'Column';
 $string['table_first_5'] = 'The first five records of the query';
 $string['table_info_secound'] = 'Here you can define a name for each column and then specify the desired format for displaying the data.
 <ul>
