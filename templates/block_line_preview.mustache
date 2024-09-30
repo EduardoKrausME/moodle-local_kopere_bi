@@ -69,15 +69,18 @@
                 chart.render();
             }
             catch (e) {
+                console.error(e);
                 Notification.exception({message: "{{error_chart_renderer}}"});
             }
         }
 
         function loadDataChart{{local_kopere_bi_id}}() {
+            console.log( "loadDataChart{{local_kopere_bi_id}}" );
             $.ajax({
                 dataType: "json",
                 url: "{{{ajax_url}}}",
                 success: function(json) {
+                    console.log( json );
                     showChart{{local_kopere_bi_id}}(json.labels, json.series);
                 },
                 error: function() {
@@ -86,7 +89,8 @@
             });
         }
 
-        window.addEventListener("load", loadDataChart{{local_kopere_bi_id}});
+        loadDataChart{{local_kopere_bi_id}}();
+
         var reloadTime = parseInt("{{{reload_time}}}");
         if (reloadTime) {
             setInterval(loadDataChart{{local_kopere_bi_id}}, reloadTime);

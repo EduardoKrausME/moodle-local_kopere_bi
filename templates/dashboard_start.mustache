@@ -39,46 +39,54 @@
     }
 }}
 
-{{#categorys}}
-    <div class="category-name">
-        <h3>{{{category_title}}}</h3>
-        {{#editing}}
-            <div>
-                <a href="?classname=bi-dashboard&method=edit&cat_id={{category_id}}"
-                class="btn btn-primary">{{#str}}page_new_cat,local_kopere_bi{{/str}}</a>
-                <a href="?classname=bi-dashboard&method=edit_cat&cat_id={{category_id}}"
-                class="btn btn-success">{{#str}}cat_edit,local_kopere_bi{{/str}}</a>
-            </div>
-        {{/editing}}
-    </div>
-    <div class="element-box">
-        {{#pages}}
-            <div class="lista-reports">
-                <div class="line-titles">
-                    <a class="line-title" href="?classname=bi-dashboard&method=preview&page_id={{page_id}}"
-                    >{{page_title}}</a>
-                    <div class="line-description">
-                        {{#is_description_crop}}
-                            <div class="line-description-text">
-                                {{#pix}} icons/text, local_kopere_bi {{/pix}}
-                                <span>{{description_crop}}</span>
-                            </div>
-                        {{/is_description_crop}}
-                        {{#is_user_fullname}}
-                            <div class="line-description-user">
-                                {{#pix}} icons/user, local_kopere_bi {{/pix}}
-                                <span>{{user_fullname}}</span>
-                            </div>
-                        {{/is_user_fullname}}
+<div class="dashboard-homes">
+    {{#categorys}}
+        <div class="dashboard-home"
+             data-category_id="{{{category_id}}}">
+            <div class="category-name">
+                <h3>{{{category_title}}}</h3>
+                {{#editing}}
+                    <div class="buttons-move">
+                        <i class="btn-move-up   fa-solid fa-arrow-up  " style="display:none"></i>
+                        <i class="btn-move-down fa-solid fa-arrow-down" style="display:none"></i>
+
+                        <a href="?classname=bi-dashboard&method=edit&cat_id={{category_id}}"
+                        class="btn btn-primary">{{#str}}page_new_cat,local_kopere_bi{{/str}}</a>
+                        <a href="?classname=bi-dashboard&method=edit_cat&cat_id={{category_id}}"
+                        class="btn btn-success">{{#str}}cat_edit,local_kopere_bi{{/str}}</a>
                     </div>
-                </div>
-                <div class="line-icon">
-                    {{#pix}} icons/arrow, local_kopere_bi {{/pix}}
-                </div>
+                {{/editing}}
             </div>
-        {{/pages}}
-    </div>
-{{/categorys}}
+            <div class="category-box">
+                {{#pages}}
+                    <div class="lista-reports">
+                        <div class="line-titles">
+                            <a class="line-title"
+                               href="?classname=bi-dashboard&method=preview&page_id={{page_id}}">{{page_title}}</a>
+                            <div class="line-description">
+                                {{#is_description_crop}}
+                                    <div class="line-description-text">
+                                        {{#pix}} icons/text, local_kopere_bi {{/pix}}
+                                        <span>{{description_crop}}</span>
+                                    </div>
+                                {{/is_description_crop}}
+                                {{#is_user_fullname}}
+                                    <div class="line-description-user">
+                                        {{#pix}} icons/user, local_kopere_bi {{/pix}}
+                                        <span>{{user_fullname}}</span>
+                                    </div>
+                                {{/is_user_fullname}}
+                            </div>
+                        </div>
+                        <div class="line-icon">
+                            {{#pix}} icons/arrow, local_kopere_bi {{/pix}}
+                        </div>
+                    </div>
+                {{/pages}}
+            </div>
+        </div>
+    {{/categorys}}
+</div>
 
 {{#editing}}
     <div style="margin-top: 20px;display: flex;justify-content: flex-end;">
@@ -86,3 +94,36 @@
             cat_new,local_kopere_bi{{/str}}</a>
     </div>
 {{/editing}}
+
+{{#js}}
+    require(["jquery", "core/ajax",], function($, ajax) {
+        $(".btn-move-up,.btn-move-down").show();
+        $(".dashboard-home").each(clickIcons);
+
+        function clickIcons(id, element) {
+            var $element = $(element);
+            $element.find(".btn-move-down").click(function() {
+                $element.next().insertBefore($element);
+                saveOrderCategories();
+            });
+            $element.find(".btn-move-up").click(function() {
+                $element.prev().insertAfter($element);
+                saveOrderCategories();
+            });
+        }
+
+        function saveOrderCategories() {
+            var itens = "";
+            $(".dashboard-home").each(function() {
+                itens += "," + $(this).attr("data-category_id")
+            });
+
+            ajax.call([{
+                methodname : "local_kopere_bi_cat_sortorder",
+                args       : {
+                    itens : itens
+                }
+            }])[0];
+        }
+    });
+{{/js}}
