@@ -73,8 +73,10 @@ function local_kopere_bi_before_footer() {
     }
 
     if (!isset($USER->koperebionline_id[$key])) {
+        $lastip = local_kopere_bi_getremoteaddr();
+
         $dataagent = access_analyze::agent();
-        $dataip = local_kopere_bi_iplookup_find_location(getremoteaddr());
+        $dataip = local_kopere_bi_iplookup_find_location($lastip);
 
         $koperebionline = (object)[
             'userid' => $USER->id,
@@ -89,7 +91,7 @@ function local_kopere_bi_before_footer() {
             'os_name' => $dataagent->os_name,
             'os_version' => $dataagent->os_version,
 
-            'lastip' => local_kopere_bi_getremoteaddr(),
+            'lastip' => $lastip,
             'city_name' => $dataip->city,
             'country_name' => $dataip->country,
             'country_code' => isset($dataip->country_code) ? $dataip->country_code : $dataip->country,
