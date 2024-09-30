@@ -22,7 +22,6 @@ use local_kopere_bi\block\util\database_util;
 use local_kopere_bi\block\util\reload_util;
 use local_kopere_bi\util\sql_util;
 use local_kopere_bi\util\string_util;
-use local_kopere_dashboard\html\form;
 use local_kopere_dashboard\util\mensagem;
 
 /**
@@ -91,34 +90,34 @@ class column extends line {
 
         $cache = cache_util::get_cache_make($koperebielement->cache);
 
-        if (false &&  $cache->has($koperebielement->id)) {
+        if (false && $cache->has($koperebielement->id)) {
             $lines = $cache->get($koperebielement->id);
         } else {
 
             $comand = sql_util::prepare_sql($koperebielement->commandsql);
             try {
-                $dadoscolumn = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
+                $dadoscolumns = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
             } catch (\Exception $e) {
                 mensagem::print_danger($e->getMessage());
                 return;
             }
 
-            $columns = array_keys((array)$dadoscolumn[0]);
+            $columns = array_keys((array)$dadoscolumns[0]);
 
             $optionsxaxiscategories = false;
             $optionsseries = [];
             foreach ($columns as $column) {
                 if ($optionsxaxiscategories === false) {
 
-                    // Aqui pega a primeira column para ser o X.
+                    // Aqui pega a primeira coluna para ser o X.
 
-                    $optionsxaxiscategories = array_column($dadoscolumn, $column);
+                    $optionsxaxiscategories = array_column($dadoscolumns, $column);
                 } else {
 
-                    // Demais column são séries.
-                    // Nome da column é o name da série.
+                    // Demais colunas são séries.
+                    // Nome da coluna é o name da série.
 
-                    $valores = array_column($dadoscolumn, $column);
+                    $valores = array_column($dadoscolumns, $column);
                     $optionsseries[] = (object)[
                         "name" => string_util::get_string($column),
                         "data" => $valores,
@@ -150,14 +149,14 @@ class column extends line {
 
         $comand = sql_util::prepare_sql($koperebielement->commandsql);
         try {
-            $dadoscolumn = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
+            $dadoscolumns = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
         } catch (\Exception $e) {
             mensagem::print_danger($e->getMessage());
             return;
         }
 
         $arraycolumns = false;
-        foreach ($dadoscolumn as $key => $values) {
+        foreach ($dadoscolumns as $key => $values) {
 
             if (!$arraycolumns) {
                 $names = [];

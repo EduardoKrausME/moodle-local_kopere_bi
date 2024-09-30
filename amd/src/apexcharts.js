@@ -99,7 +99,7 @@
                         var i                                                              = this.getBBox(), a                                          = this.transformPoint(e),
                             s                                                              = this.startPoints.box.x + a.x - this.startPoints.point.x,
                             r = this.startPoints.box.y + a.y - this.startPoints.point.y, n = this.constraint,
-                            o                                                              = a.x - this.startPoints.point.x, l = a.y - this.startPoints.point.y;
+                            o                                                              = a.x - this.startPoints.point.x, l                          = a.y - this.startPoints.point.y;
                         if (this.el.fire("dragmove", {
                             event   : e,
                             p       : a,
@@ -469,7 +469,7 @@
                             case"A":
                                 t = (e = function(t, e) {
                                     var i, a, s, r, n, o, l, c, h, d, u, g, f, p, x, b, v, m, y, w, k, A, S, C, P, L,
-                                        T                                                                    = Math.abs(e[1]), O = Math.abs(e[2]), E                            = e[3] % 360, M = e[4], I = e[5],
+                                        T                                                                    = Math.abs(e[1]), O                                                = Math.abs(e[2]), E = e[3] % 360, M = e[4], I = e[5],
                                         z = e[6], X = e[7], Y = new SVG.Point(t), F = new SVG.Point(z, X), R = [];
                                     if (0 === T || 0 === O || Y.x === F.x && Y.y === F.y) return [["C", Y.x, Y.y, F.x, F.y, F.x, F.y]];
                                     for ((a = (i = new SVG.Point((Y.x - F.x) / 2, (Y.y - F.y) / 2).transform((new SVG.Matrix).rotate(E))).x * i.x / (T * T) + i.y * i.y / (O * O)) > 1 && (T *= a = Math.sqrt(a), O *= a), s = (new SVG.Matrix).rotate(E).scale(1 / T, 1 / O).rotate(-E), Y = Y.transform(s), o = (r = [(F = F.transform(s)).x - Y.x, F.y - Y.y])[0] * r[0] + r[1] * r[1], n = Math.sqrt(o), r[0] /= n, r[1] /= n, l = o < 4 ? Math.sqrt(1 - o / 4) : 0, M === I && (l *= -1), c = new SVG.Point((F.x + Y.x) / 2 + l * -r[1], (F.y + Y.y) / 2 + l * r[0]), h = new SVG.Point(Y.x - c.x, Y.y - c.y), d = new SVG.Point(F.x - c.x, F.y - c.y), u = Math.acos(h.x / Math.sqrt(h.x * h.x + h.y * h.y)), h.y < 0 && (u *= -1), g = Math.acos(d.x / Math.sqrt(d.x * d.x + d.y * d.y)), d.y < 0 && (g *= -1), I && u > g && (g += 2 * Math.PI), !I && u < g && (g -= 2 * Math.PI), b = [], v = u, f = (g - u) / (p = Math.ceil(2 * Math.abs(u - g) / Math.PI)), x = 4 * Math.tan(f / 4) / 3, k = 0; k <= p; k++) y = Math.cos(v), m = Math.sin(v), w = new SVG.Point(c.x + y, c.y + m), b[k] = [new SVG.Point(w.x + x * m, w.y - x * y), w, new SVG.Point(w.x - x * m, w.y + x * y)], v += f;
@@ -1112,14 +1112,14 @@
                         }
                     }], (i = [{
                         key : "shadeRGBColor", value : function(t, e) {
-                            var i                                                          = e.split(","), a                                        = t < 0 ? 0 : 255, s = t < 0 ? -1 * t : t,
+                            var i                                                          = e.split(","), a = t < 0 ? 0 : 255, s = t < 0 ? -1 * t : t,
                                 r = parseInt(i[0].slice(4), 10), n = parseInt(i[1], 10), o = parseInt(i[2], 10);
                             return "rgb(" + (Math.round((a - r) * s) + r) + "," + (Math.round((a - n) * s) + n) + "," + (Math.round((a - o) * s) + o) + ")"
                         }
                     }, {
                         key : "shadeHexColor", value : function(t, e) {
                             var i = parseInt(e.slice(1), 16), a = t < 0 ? 0 : 255, s = t < 0 ? -1 * t : t, r = i >> 16,
-                                n                                                                            = i >> 8 & 255, o                                                          = 255 & i;
+                                n                                                                            = i >> 8 & 255, o = 255 & i;
                             return "#" + (16777216 + 65536 * (Math.round((a - r) * s) + r) + 256 * (Math.round((a - n) * s) + n) + (Math.round((a - o) * s) + o)).toString(16).slice(1)
                         }
                     }, {
@@ -1452,11 +1452,11 @@
                         }
                     }, {
                         key : "drawPath", value : function(t) {
-                            var e                                                                          = t.d, i = void 0 === e ? "" : e, a = t.stroke, s = void 0 === a ? "#a8a8a8" : a,
-                                r                                                                          = t.strokeWidth, n                                                       = void 0 === r ? 1 : r, o = t.fill, l = t.fillOpacity,
+                            var e                                                                          = t.d, i = void 0 === e ? "" : e, a = t.stroke, s                        = void 0 === a ? "#a8a8a8" : a,
+                                r                                                                          = t.strokeWidth, n = void 0 === r ? 1 : r, o = t.fill, l                 = t.fillOpacity,
                                 c = void 0 === l ? 1 : l, h = t.strokeOpacity, d = void 0 === h ? 1 : h, u = t.classes,
-                                g                                                                          = t.strokeLinecap, f                                                     = void 0 === g ? null : g, p                        = t.strokeDashArray,
-                                x                                                                          = void 0 === p ? 0 : p, b = this.w;
+                                g                                                                          = t.strokeLinecap, f                                                     = void 0 === g ? null : g, p = t.strokeDashArray,
+                                x                                                                          = void 0 === p ? 0 : p, b                                                = this.w;
                             return null === f && (f = b.config.stroke.lineCap), (i.indexOf("undefined") > -1 || i.indexOf("NaN") > -1) && (i = "M 0 ".concat(b.globals.gridHeight)), b.globals.dom.Paper.path(i).attr({
                                 fill               : o,
                                 "fill-opacity"     : c,
@@ -1500,12 +1500,12 @@
                         }
                     }, {
                         key : "renderPaths", value : function(t) {
-                            var e, i                                                          = t.j, a = t.realIndex, s                                = t.pathFrom, r = t.pathTo, n = t.stroke,
-                                l                                                             = t.strokeWidth, h                                          = t.strokeLinecap, u                     = t.fill, g = t.animationDelay,
+                            var e, i                                                          = t.j, a                                                 = t.realIndex, s = t.pathFrom, r = t.pathTo, n = t.stroke,
+                                l                                                             = t.strokeWidth, h = t.strokeLinecap, u = t.fill, g = t.animationDelay,
                                 f = t.initialSpeed, p = t.dataChangeSpeed, x = t.className, b = t.shouldClipToGrid,
-                                v                                                             = void 0 === b || b, m                                      = t.bindEventsOnPaths, y             = void 0 === m || m,
-                                w                                                             = t.drawShadow, k                                           = void 0 === w || w, A = this.w, S = new c(this.ctx),
-                                C                                                             = new o(this.ctx), P                                        = this.w.config.chart.animations.enabled,
+                                v                                                             = void 0 === b || b, m = t.bindEventsOnPaths, y = void 0 === m || m,
+                                w                                                             = t.drawShadow, k                                           = void 0 === w || w, A                    = this.w, S        = new c(this.ctx),
+                                C                                                             = new o(this.ctx), P = this.w.config.chart.animations.enabled,
                                 L                                                             = P && this.w.config.chart.animations.dynamicAnimation.enabled,
                                 T                                                             = !!(P && !A.globals.resized || L && A.globals.dataChanged && A.globals.shouldAnimate);
                             T ? e = s : (e = r, A.globals.animationEnded = !0);
@@ -1591,13 +1591,13 @@
                         }
                     }, {
                         key : "getTextBasedOnMaxWidth", value : function(t) {
-                            var e                                                         = t.text, i = t.maxWidth, a = t.fontSize, s = t.fontFamily,
+                            var e                                                         = t.text, i = t.maxWidth, a                             = t.fontSize, s = t.fontFamily,
                                 r = this.getTextRects(e, a, s), n = r.width / e.length, o = Math.floor(i / n);
                             return i < r.width ? e.slice(0, o - 3) + "..." : e
                         }
                     }, {
                         key : "drawText", value : function(t) {
-                            var e                                                                     = this, i                                                           = t.x, a = t.y, s = t.text, r                             = t.textAnchor, n = t.fontSize,
+                            var e                                                                     = this, i = t.x, a                                                  = t.y, s = t.text, r                             = t.textAnchor, n = t.fontSize,
                                 o = t.fontFamily, l = t.fontWeight, c = t.foreColor, h = t.opacity, u = t.maxWidth,
                                 g                                                                     = t.cssClass, f = void 0 === g ? "" : g, p = t.isPlainText, x = void 0 === p || p,
                                 b                                                                     = this.w;
@@ -1977,7 +1977,7 @@
                             var i = this.w;
                             if (!t || void 0 === e.label.text || void 0 !== e.label.text && !String(e.label.text).trim()) return null;
                             var a                                  = i.globals.dom.baseEl.querySelector(".apexcharts-grid").getBoundingClientRect(),
-                                s                                  = t.getBoundingClientRect(), r = e.label.style.padding.left,
+                                s                                  = t.getBoundingClientRect(), r   = e.label.style.padding.left,
                                 n = e.label.style.padding.right, o = e.label.style.padding.top,
                                 l                                  = e.label.style.padding.bottom;
                             "vertical" === e.label.orientation && (o = e.label.style.padding.left, l = e.label.style.padding.right, r = e.label.style.padding.top, n = e.label.style.padding.bottom);
@@ -3153,13 +3153,13 @@
                         }
                     }, {
                         key : "addText", value : function(t, e) {
-                            var i                                                                   = t.x, a = t.y, s                                                 = t.text, r                                     = t.textAnchor, n = t.foreColor, o = t.fontSize,
-                                l                                                                   = t.fontFamily, c                                                 = t.fontWeight, h                               = t.cssClass, d               = t.backgroundColor,
-                                u                                                                   = t.borderWidth, g                                                = t.strokeDashArray, f = t.borderRadius, p = t.borderColor,
+                            var i                                                                   = t.x, a                                                          = t.y, s = t.text, r = t.textAnchor, n = t.foreColor, o = t.fontSize,
+                                l                                                                   = t.fontFamily, c = t.fontWeight, h                               = t.cssClass, d = t.backgroundColor,
+                                u                                                                   = t.borderWidth, g = t.strokeDashArray, f = t.borderRadius, p = t.borderColor,
                                 x = t.appendTo, b = void 0 === x ? ".apexcharts-annotations" : x, v = t.paddingLeft,
-                                m                                                                   = void 0 === v ? 4 : v, y                                         = t.paddingRight, w = void 0 === y ? 4 : y,
-                                k                                                                   = t.paddingBottom, A                                              = void 0 === k ? 2 : k, S                    = t.paddingTop,
-                                C                                                                   = void 0 === S ? 2 : S, P                                         = this.w, L = this.graphics.drawText({
+                                m                                                                   = void 0 === v ? 4 : v, y = t.paddingRight, w = void 0 === y ? 4 : y,
+                                k                                                                   = t.paddingBottom, A = void 0 === k ? 2 : k, S = t.paddingTop,
+                                C                                                                   = void 0 === S ? 2 : S, P                                         = this.w, L                             = this.graphics.drawText({
                                     x          : i,
                                     y          : a,
                                     text       : s,
@@ -3402,7 +3402,7 @@
                     }, {
                         key : "plotChartMarkers", value : function(t, e, i, a) {
                             var s, n = arguments.length > 4 && void 0 !== arguments[4] && arguments[4], o = this.w,
-                                l                                                                         = e, h                                                                  = t, d                                                           = null, u = new f(this.ctx),
+                                l                                                                         = e, h = t, d = null, u = new f(this.ctx),
                                 g                                                                         = o.config.markers.discrete && o.config.markers.discrete.length;
                             if ((o.globals.markers.size[e] > 0 || n || g) && (d = u.group({class : n || g ? "" : "apexcharts-series-markers"})).attr("clip-path", "url(#gridRectMarkerMask".concat(o.globals.cuid, ")")), Array.isArray(h.x)) for (var p = 0; p < h.x.length; p++) {
                                 var x = i;
@@ -3422,9 +3422,9 @@
                         }
                     }, {
                         key : "getMarkerConfig", value : function(t) {
-                            var e                                                              = t.cssClass, i                                              = t.seriesIndex, a = t.dataPointIndex, s = void 0 === a ? null : a,
+                            var e                                                              = t.cssClass, i = t.seriesIndex, a = t.dataPointIndex, s     = void 0 === a ? null : a,
                                 r = t.finishRadius, n = void 0 === r ? null : r, o = this.w, l = this.getMarkerStyle(i),
-                                c                                                              = o.globals.markers.size[i], h = o.config.markers;
+                                c                                                              = o.globals.markers.size[i], h                               = o.config.markers;
                             return null !== s && h.discrete.length && h.discrete.map((function(t) {
                                 t.seriesIndex === i && t.dataPointIndex === s && (l.pointStrokeColor = t.strokeColor, l.pointFillColor = t.fillColor, c = t.size, l.pointShape = t.shape)
                             })), {
@@ -3501,7 +3501,7 @@
                     }, {
                         key : "drawPoint", value : function(t, e, i, a, s, r, n) {
                             var l = this.w, h = s, d = new o(this.ctx), u = new c(this.ctx), g = new M(this.ctx),
-                                p                                                              = new z(this.ctx), x                                         = new f(this.ctx), b = p.getMarkerConfig({
+                                p                                                              = new z(this.ctx), x = new f(this.ctx), b = p.getMarkerConfig({
                                     cssClass       : "apexcharts-marker",
                                     seriesIndex    : h,
                                     dataPointIndex : r,
@@ -3601,7 +3601,7 @@
                         }
                     }, {
                         key : "drawDataLabel", value : function(t, e, i) {
-                            var a                                                                                = this, s = arguments.length > 4 && void 0 !== arguments[4] ? arguments[4] : 2,
+                            var a                                                                                = this, s                                                                      = arguments.length > 4 && void 0 !== arguments[4] ? arguments[4] : 2,
                                 r = this.w, n = new f(this.ctx), o = r.config.dataLabels, l = 0, c = 0, h = i, d = null;
                             if (!o.enabled || !Array.isArray(t.x)) return d;
                             d = n.group({class : "apexcharts-data-labels"});
@@ -3635,7 +3635,7 @@
                         }
                     }, {
                         key : "plotDataLabelsText", value : function(t) {
-                            var e                                                                         = this.w, i = new f(this.ctx), a = t.x, s                               = t.y, r = t.i, n = t.j, o = t.text,
+                            var e                                                                         = this.w, i                                                             = new f(this.ctx), a                                        = t.x, s = t.y, r = t.i, n = t.j, o = t.text,
                                 l = t.textAnchor, h = t.fontSize, d = t.parent, u = t.dataLabelsConfig, g = t.color,
                                 p                                                                         = t.alwaysDrawDataLabel, x = t.offsetCorrection;
                             if (!(Array.isArray(e.config.dataLabels.enabledOnSeries) && e.config.dataLabels.enabledOnSeries.indexOf(r) < 0)) {
@@ -3738,8 +3738,8 @@
                     return e = t, (i = [{
                         key : "handleBarDataLabels", value : function(t) {
                             var e = t.x, i = t.y, a = t.y1, s = t.y2, r = t.i, n = t.j, o = t.realIndex, l = t.series,
-                                c                                                                          = t.barHeight, h                                                         = t.barWidth, d = t.barYPosition, u                     = t.visibleSeries,
-                                g                                                                          = t.renderedPath, p                                                      = this.w, x                                          = new f(this.barCtx.ctx),
+                                c                                                                          = t.barHeight, h                                                         = t.barWidth, d                                         = t.barYPosition, u = t.visibleSeries,
+                                g                                                                          = t.renderedPath, p                                                      = this.w, x = new f(this.barCtx.ctx),
                                 b                                                                          = Array.isArray(this.barCtx.strokeWidth) ? this.barCtx.strokeWidth[o] : this.barCtx.strokeWidth,
                                 v                                                                          = e + parseFloat(h * u), m                                               = i + parseFloat(c * u);
                             p.globals.isXNumeric && !p.globals.isBarHorizontal && (v = e + parseFloat(h * (u + 1)), m = i + parseFloat(c * (u + 1)) - b);
@@ -3790,8 +3790,8 @@
                     }, {
                         key : "calculateColumnsDataLabelsPosition", value : function(t) {
                             var e, i = this.w, a = t.i, s = t.j, r = t.y, n = t.bcx, o = t.barWidth, l = t.barHeight,
-                                c                                                                      = t.textRects, h                                                     = t.dataLabelsY, d = t.barDataLabelsConfig, u = t.strokeWidth,
-                                g                                                                      = t.offX, f = t.offY;
+                                c                                                                      = t.textRects, h = t.dataLabelsY, d = t.barDataLabelsConfig, u = t.strokeWidth,
+                                g                                                                      = t.offX, f                                                          = t.offY;
                             l = Math.abs(l);
                             var p = "vertical" === i.config.plotOptions.bar.dataLabels.orientation;
                             n -= u / 2;
@@ -3818,8 +3818,8 @@
                     }, {
                         key : "calculateBarsDataLabelsPosition", value : function(t) {
                             var e = this.w, i = t.x, a = t.i, s = t.j, r = t.bcy, n = t.barHeight, o = t.barWidth,
-                                l                                                                    = t.textRects, c                                                   = t.dataLabelsX, h = t.strokeWidth, d             = t.barDataLabelsConfig,
-                                u                                                                    = t.offX, g                                                        = t.offY, f = e.globals.gridHeight / e.globals.dataPoints;
+                                l                                                                    = t.textRects, c                                                   = t.dataLabelsX, h = t.strokeWidth, d = t.barDataLabelsConfig,
+                                u                                                                    = t.offX, g = t.offY, f = e.globals.gridHeight / e.globals.dataPoints;
                             o = Math.abs(o);
                             var p                                   = r - (this.barCtx.isRangeBar ? 0 : f) + n / 2 + l.height / 2 + g - 3,
                                 x = this.barCtx.series[a][s] < 0, b = i;
@@ -3843,7 +3843,7 @@
                     }, {
                         key : "drawCalculatedDataLabels", value : function(t) {
                             var e = t.x, i = t.y, a = t.val, s = t.i, r = t.j, n = t.textRects, o = t.barHeight,
-                                l                                                                 = t.barWidth, c = t.dataLabelsConfig, h = this.w, d = "rotate(0)";
+                                l                                                                 = t.barWidth, c                                                 = t.dataLabelsConfig, h = this.w, d = "rotate(0)";
                             "vertical" === h.config.plotOptions.bar.dataLabels.orientation && (d = "rotate(-90, ".concat(e, ", ").concat(i, ")"));
                             var u = new R(this.barCtx.ctx), g = new f(this.barCtx.ctx), p = c.formatter, x = null,
                                 b                                                                          = h.globals.collapsedSeriesIndices.indexOf(s) > -1;
@@ -4160,7 +4160,7 @@
                     }, {
                         key : "barBackground", value : function(t) {
                             var e = t.j, i = t.i, a = t.x1, s = t.x2, r = t.y1, n = t.y2, o = t.elSeries, l = this.w,
-                                c                                                                           = new f(this.barCtx.ctx), h                                               = new j(this.barCtx.ctx).getActiveConfigSeriesIndex();
+                                c                                                                           = new f(this.barCtx.ctx), h = new j(this.barCtx.ctx).getActiveConfigSeriesIndex();
                             if (this.barCtx.barOptions.colors.backgroundBarColors.length > 0 && h === i) {
                                 e >= this.barCtx.barOptions.colors.backgroundBarColors.length && (e %= this.barCtx.barOptions.colors.backgroundBarColors.length);
                                 var d = this.barCtx.barOptions.colors.backgroundBarColors[e],
@@ -4171,7 +4171,7 @@
                     }, {
                         key : "getColumnPaths", value : function(t) {
                             var e = t.barWidth, i = t.barXPosition, a = t.yRatio, s = t.y1, r = t.y2, n = t.strokeWidth,
-                                o                                                                       = t.series, l                                                         = t.realIndex, c = t.i, h = t.j, d = t.w, u = new f(this.barCtx.ctx);
+                                o                                                                       = t.series, l = t.realIndex, c = t.i, h = t.j, d = t.w, u = new f(this.barCtx.ctx);
                             (n = Array.isArray(n) ? n[l] : n) || (n = 0);
                             var g                                                           = {barWidth : e, strokeWidth : n, yRatio : a, barXPosition : i, y1 : s, y2 : r},
                                 p = this.getRoundedBars(d, g, o, c, h), x = i, b = i + e, v = u.move(x, s),
@@ -4183,7 +4183,7 @@
                         }
                     }, {
                         key : "getBarpaths", value : function(t) {
-                            var e                                                           = t.barYPosition, i = t.barHeight, a = t.x1, s = t.x2, r = t.strokeWidth,
+                            var e                                                           = t.barYPosition, i                                       = t.barHeight, a = t.x1, s            = t.x2, r = t.strokeWidth,
                                 n = t.series, o = t.realIndex, l = t.i, c = t.j, h = t.w, d = new f(this.barCtx.ctx);
                             (r = Array.isArray(r) ? r[o] : r) || (r = 0);
                             var u                                                           = {barHeight : i, strokeWidth : r, barYPosition : e, x2 : s, x1 : a},
@@ -4246,7 +4246,7 @@
                     }, {
                         key : "drawGoalLine", value : function(t) {
                             var e = t.barXPosition, i = t.barYPosition, a = t.goalX, s = t.goalY, r = t.barWidth,
-                                n                                                                   = t.barHeight, o                                                  = new f(this.barCtx.ctx),
+                                n                                                                   = t.barHeight, o = new f(this.barCtx.ctx),
                                 l                                                                   = o.group({className : "apexcharts-bar-goals-groups"}), c         = null;
                             return this.barCtx.isHorizontal ? Array.isArray(a) && a.forEach((function(t) {
                                 var e = void 0 !== t.attrs.strokeHeight ? t.attrs.strokeHeight : n / 2,
@@ -4317,7 +4317,7 @@
                             i.config.dataLabels.enabled && this.totalItems > this.barOptions.dataLabels.maxItems && console.warn("WARNING: DataLabels are enabled but there are too many to display. This may cause performance issue when rendering.");
                             for (var o = 0, l = 0; o < t.length; o++, l++) {
                                 var c, h, d, u, g = void 0, p = void 0, b = [], v = [],
-                                    m                                             = i.globals.comboCharts ? e[o] : o, y = a.group({
+                                    m                                             = i.globals.comboCharts ? e[o] : o, y       = a.group({
                                         class            : "apexcharts-series",
                                         rel              : o + 1,
                                         seriesName       : r.escapeString(i.globals.seriesNames[m]),
@@ -4387,11 +4387,11 @@
                         }
                     }, {
                         key : "renderSeries", value : function(t) {
-                            var e                                                                              = t.realIndex, i                                                             = t.pathFill, a                                             = t.lineFill, s = t.j, r = t.i, n = t.pathFrom,
+                            var e                                                                              = t.realIndex, i = t.pathFill, a = t.lineFill, s = t.j, r = t.i, n           = t.pathFrom,
                                 o = t.pathTo, l = t.strokeWidth, h = t.elSeries, d = t.x, u = t.y, g = t.y1, p = t.y2,
                                 x                                                                              = t.series, b = t.barHeight, v = t.barWidth, m = t.barYPosition,
-                                y                                                                              = t.elDataLabelsWrap, w = t.elGoalsMarkers, k = t.visibleSeries, A           = t.type,
-                                S                                                                              = this.w, C                                                                  = new f(this.ctx);
+                                y                                                                              = t.elDataLabelsWrap, w = t.elGoalsMarkers, k = t.visibleSeries, A = t.type,
+                                S                                                                              = this.w, C = new f(this.ctx);
                             a || (a = this.barOptions.distributed ? S.globals.stroke.colors[s] : S.globals.stroke.colors[e]), S.config.series[r].data[s] && S.config.series[r].data[s].strokeColor && (a = S.config.series[r].data[s].strokeColor), this.isNullValue && (i = "none");
                             var P = s / S.config.chart.animations.animateGradually.delay * (S.config.chart.animations.speed / S.globals.dataPoints) / 2.4,
                                 L = C.renderPaths({
@@ -4432,7 +4432,7 @@
                     }, {
                         key : "drawBarPaths", value : function(t) {
                             var e = t.indexes, i = t.barHeight, a = t.strokeWidth, s = t.zeroW, r = t.x, n = t.y,
-                                o                                                                          = t.yDivision, l = t.elSeries, c = this.w, h = e.i, d = e.j;
+                                o                                                                          = t.yDivision, l                                                         = t.elSeries, c = this.w, h = e.i, d = e.j;
                             c.globals.isXNumeric && (n = (c.globals.seriesX[h][d] - c.globals.minX) / this.invertedXRatio - i);
                             var u = n + i * this.visibleI;
                             r = this.barHelpers.getXForValue(this.series[h][d], s);
@@ -4465,7 +4465,7 @@
                         }
                     }, {
                         key : "drawColumnPaths", value : function(t) {
-                            var e                                                                          = t.indexes, i = t.x, a                                                  = t.y, s = t.xDivision, r = t.barWidth, n = t.zeroH,
+                            var e                                                                          = t.indexes, i = t.x, a = t.y, s = t.xDivision, r = t.barWidth, n = t.zeroH,
                                 o = t.strokeWidth, l = t.elSeries, c = this.w, h = e.realIndex, d = e.i, u = e.j,
                                 g                                                                          = e.bc;
                             if (c.globals.isXNumeric) {
@@ -4577,7 +4577,7 @@
                         key : "formatDate", value : function(t, e) {
                             var i                                 = this.w.globals.locale, a = this.w.config.xaxis.labels.datetimeUTC,
                                 s = ["\0"].concat(Q(i.months)), r = [""].concat(Q(i.shortMonths)),
-                                n                                 = [""].concat(Q(i.days)), o = [""].concat(Q(i.shortDays));
+                                n                                 = [""].concat(Q(i.days)), o    = [""].concat(Q(i.shortDays));
 
                             function l(t, e) {
                                 var i = t + "";
@@ -4882,7 +4882,7 @@
                     }, {
                         key : "detectOverlappingBars", value : function(t) {
                             var e = t.i, i = t.j, a = t.barYPosition, s = t.srty, r = t.barHeight, n = t.yDivision,
-                                o                                                                    = t.initPositions, l                                               = this.w, c = [], h                           = l.config.series[e].data[i].rangeName,
+                                o                                                                    = t.initPositions, l = this.w, c = [], h = l.config.series[e].data[i].rangeName,
                                 d                                                                    = l.config.series[e].data[i].x, u                                  = l.globals.labels.indexOf(d),
                                 g                                                                    = l.globals.seriesRangeBar[e].findIndex((function(t) {
                                     return t.x === d && t.overlaps.length > 0
@@ -4895,8 +4895,8 @@
                     }, {
                         key : "drawRangeColumnPaths", value : function(t) {
                             var e = t.indexes, i = t.x, a = (t.strokeWidth, t.xDivision), s = t.barWidth, r = t.zeroH,
-                                n                                                                           = this.w, o = e.i, l                                                      = e.j, c = this.yRatio[this.yaxisIndex], h = e.realIndex,
-                                d                                                                           = this.getRangeValue(h, l), u                                             = Math.min(d.start, d.end),
+                                n                                                                           = this.w, o                                                               = e.i, l = e.j, c                                             = this.yRatio[this.yaxisIndex], h = e.realIndex,
+                                d                                                                           = this.getRangeValue(h, l), u = Math.min(d.start, d.end),
                                 g                                                                           = Math.max(d.start, d.end);
                             n.globals.isXNumeric && (i = (n.globals.seriesX[o][l] - n.globals.minX) / this.xRatio - s / 2);
                             var f = i + s * this.visibleI;
@@ -4926,7 +4926,7 @@
                     }, {
                         key : "drawRangeBarPaths", value : function(t) {
                             var e = t.indexes, i = t.y, a = t.y1, s = t.y2, r = t.yDivision, n = t.barHeight,
-                                o                                                              = t.barYPosition, l = t.zeroW, c                             = this.w, h = l + a / this.invertedYRatio,
+                                o                                                              = t.barYPosition, l = t.zeroW, c = this.w, h = l + a / this.invertedYRatio,
                                 d                                                              = l + s / this.invertedYRatio, u                             = Math.abs(d - h), g = this.barHelpers.getBarpaths({
                                     barYPosition : o,
                                     barHeight    : n,
@@ -4956,9 +4956,9 @@
                     }, {
                         key : "getTooltipValues", value : function(t) {
                             var e = t.ctx, i = t.seriesIndex, a = t.dataPointIndex, s = t.y1, r = t.y2, n = t.w,
-                                o                                                                         = n.globals.seriesRangeStart[i][a], l = n.globals.seriesRangeEnd[i][a],
+                                o                                                                         = n.globals.seriesRangeStart[i][a], l                                   = n.globals.seriesRangeEnd[i][a],
                                 c                                                                         = n.globals.labels[a], h                                                = n.config.series[i].name ? n.config.series[i].name : "",
-                                d                                                                         = n.config.tooltip.y.formatter, u = n.config.tooltip.y.title.formatter,
+                                d                                                                         = n.config.tooltip.y.formatter, u                                       = n.config.tooltip.y.title.formatter,
                                 g                                                                         = {w : n, seriesIndex : i, dataPointIndex : a, start : o, end : l};
                             "function" == typeof u && (h = u(h, g)), Number.isFinite(s) && Number.isFinite(r) && (o = s, l = r, n.config.series[i].data[a].x && (c = n.config.series[i].data[a].x + ":"), "function" == typeof d && (c = d(c, g)));
                             var f = "", p = "", x = n.globals.colors[i];
@@ -5100,7 +5100,7 @@
                                     shared : !1, followCursor : !0, custom : function(t) {
                                         return t.w.config.plotOptions && t.w.config.plotOptions.bar && t.w.config.plotOptions.bar.horizontal ? function(t) {
                                             var e = new dt(t.ctx, null), i = e.getTooltipValues(t), a = i.color,
-                                                s                                                     = i.seriesName, r = i.ylabel, n = i.startVal, o = i.endVal;
+                                                s                                                     = i.seriesName, r                                   = i.ylabel, n                     = i.startVal, o = i.endVal;
                                             return e.buildCustomTooltipHTML({
                                                 color      : a,
                                                 seriesName : s,
@@ -5110,7 +5110,7 @@
                                             })
                                         }(t) : function(t) {
                                             var e = new dt(t.ctx, null), i = e.getTooltipValues(t), a = i.color,
-                                                s                                                     = i.seriesName, r                                   = i.ylabel, n                     = i.start, o = i.end;
+                                                s                                                     = i.seriesName, r = i.ylabel, n                     = i.start, o = i.end;
                                             return e.buildCustomTooltipHTML({
                                                 color      : a,
                                                 seriesName : s,
@@ -5378,8 +5378,8 @@
                         }
                     }, {
                         key : "_getBoxTooltip", value : function(t, e, i, a, s) {
-                            var r                                    = t.globals.seriesCandleO[e][i], n = t.globals.seriesCandleH[e][i],
-                                o = t.globals.seriesCandleM[e][i], l = t.globals.seriesCandleL[e][i],
+                            var r = t.globals.seriesCandleO[e][i], n = t.globals.seriesCandleH[e][i],
+                                o                                    = t.globals.seriesCandleM[e][i], l = t.globals.seriesCandleL[e][i],
                                 c                                    = t.globals.seriesCandleC[e][i];
                             return t.config.series[e].type && t.config.series[e].type !== s ? '<div class="apexcharts-custom-tooltip">\n          '.concat(t.config.series[e].name ? t.config.series[e].name : "series-" + (e + 1), ": <strong>").concat(t.globals.series[e][i], "</strong>\n        </div>") : '<div class="apexcharts-tooltip-box apexcharts-tooltip-'.concat(t.config.chart.type, '">') + "<div>".concat(a[0], ': <span class="value">') + r + "</span></div>" + "<div>".concat(a[1], ': <span class="value">') + n + "</span></div>" + (o ? "<div>".concat(a[2], ': <span class="value">') + o + "</span></div>" : "") + "<div>".concat(a[3], ': <span class="value">') + l + "</span></div>" + "<div>".concat(a[4], ': <span class="value">') + c + "</span></div></div>"
                         }
@@ -5749,7 +5749,7 @@
                         key : "handleCandleStickBoxDataFormat", value : function(t, e, i) {
                             var a                                                                                 = this.w,
                                 s = "boxPlot" === a.config.chart.type || "boxPlot" === a.config.series[i].type, r = [],
-                                n                                                                                 = [], o                                                                         = [], l                                                                 = [], c = [];
+                                n                                                                                 = [], o                                                                         = [], l = [], c = [];
                             if ("array" === t) if (s && 6 === e[i].data[0].length || !s && 5 === e[i].data[0].length) for (var h = 0; h < e[i].data.length; h++) r.push(e[i].data[h][1]), n.push(e[i].data[h][2]), s ? (o.push(e[i].data[h][3]), l.push(e[i].data[h][4]), c.push(e[i].data[h][5])) : (l.push(e[i].data[h][3]), c.push(e[i].data[h][4])); else for (var d = 0; d < e[i].data.length; d++) Array.isArray(e[i].data[d][1]) && (r.push(e[i].data[d][1][0]), n.push(e[i].data[d][1][1]), s ? (o.push(e[i].data[d][1][2]), l.push(e[i].data[d][1][3]), c.push(e[i].data[d][1][4])) : (l.push(e[i].data[d][1][2]), c.push(e[i].data[d][1][3]))); else if ("xy" === t) for (var u = 0; u < e[i].data.length; u++) Array.isArray(e[i].data[u].y) && (r.push(e[i].data[u].y[0]), n.push(e[i].data[u].y[1]), s ? (o.push(e[i].data[u].y[2]), l.push(e[i].data[u].y[3]), c.push(e[i].data[u].y[4])) : (l.push(e[i].data[u].y[2]), c.push(e[i].data[u].y[3])));
                             return {o : r, h : n, m : o, l, c}
                         }
@@ -5943,8 +5943,8 @@
                             var s                                                                         = arguments.length > 4 && void 0 !== arguments[4] ? arguments[4] : [],
                                 r                                                                         = arguments.length > 5 && void 0 !== arguments[5] ? arguments[5] : "12px",
                                 n = !(arguments.length > 6 && void 0 !== arguments[6]) || arguments[6], o = this.w,
-                                l                                                                         = void 0 === t[a] ? "" : t[a], c                                        = l, h = o.globals.xLabelFormatter,
-                                d                                                                         = o.config.xaxis.labels.formatter, u                                    = !1, g = new St(this.ctx), p = l;
+                                l                                                                         = void 0 === t[a] ? "" : t[a], c                                        = l, h                                 = o.globals.xLabelFormatter,
+                                d                                                                         = o.config.xaxis.labels.formatter, u = !1, g = new St(this.ctx), p = l;
                             n && (c = g.xLabelFormat(h, l, p, {
                                 i             : a,
                                 dateFormatter : new et(this.ctx).formatDate,
@@ -6117,9 +6117,9 @@
                         }
                     }, {
                         key : "exportToCSV", value : function(t) {
-                            var e                                                                  = this, i = t.series, a = t.columnDelimiter, s = t.lineDelimiter,
+                            var e                                                                  = this, i                                                        = t.series, a = t.columnDelimiter, s = t.lineDelimiter,
                                 n = void 0 === s ? "\n" : s, o = this.w, l = [], c = [], h = "", d = new kt(this.ctx),
-                                u                                                                  = new Pt(this.ctx), g = function(t) {
+                                u                                                                  = new Pt(this.ctx), g                                            = function(t) {
                                     var i = "";
                                     if (o.globals.axisCharts) {
                                         if ("category" === o.config.xaxis.type || o.config.xaxis.convertedCatToNumeric) if (o.globals.isBarHorizontal) {
@@ -6220,7 +6220,7 @@
                     }, {
                         key : "drawXAxisLabelAndGroup", value : function(t, e, i, a, s, r) {
                             var n, o                                                      = this, l                                            = arguments.length > 6 && void 0 !== arguments[6] ? arguments[6] : {},
-                                c                                                         = [], h                                                 = [], d = this.w, u = l.xaxisFontSize || this.xaxisFontSize,
+                                c                                                         = [], h                                                 = [], d = this.w, u                             = l.xaxisFontSize || this.xaxisFontSize,
                                 g                                                         = l.xaxisFontFamily || this.xaxisFontFamily,
                                 f                                                         = l.xaxisForeColors || this.xaxisForeColors,
                                 p                                                         = l.fontWeight || d.config.xaxis.labels.style.fontWeight,
@@ -6453,7 +6453,7 @@
                     }, {
                         key : "_drawGridBandRect", value : function(t) {
                             var e = t.c, i = t.x1, a = t.y1, s = t.x2, r = t.y2, n = t.type, o = this.w,
-                                l                                                              = new f(this.ctx), c                                         = o.globals.barPadForNumericAxis;
+                                l                                                              = new f(this.ctx), c = o.globals.barPadForNumericAxis;
                             if ("column" !== n || "datetime" !== o.config.xaxis.type) {
                                 var h = o.config.grid[n].colors[e],
                                     d = l.drawRect(i - ("row" === n ? c : 0), a, s + ("row" === n ? 2 * c : 0), r, 0, h, o.config.grid[n].opacity);
@@ -6666,7 +6666,7 @@
                     }, {
                         key : "setMultipleYScales", value : function() {
                             var t = this, e = this.w.globals, i = this.w.config, a = e.minYArr.concat([]),
-                                s                                                  = e.maxYArr.concat([]), r                        = [];
+                                s                                                  = e.maxYArr.concat([]), r = [];
                             i.yaxis.forEach((function(e, n) {
                                 var o = n;
                                 i.series.forEach((function(t, i) {
@@ -6925,7 +6925,7 @@
                     var e, i;
                     return e = t, (i = [{
                         key : "drawYaxis", value : function(t) {
-                            var e                                                     = this, i = this.w, a = new f(this.ctx), s = i.config.yaxis[t].labels.style,
+                            var e                                                     = this, i = this.w, a                               = new f(this.ctx), s = i.config.yaxis[t].labels.style,
                                 r = s.fontSize, n = s.fontFamily, o = s.fontWeight, l = a.group({
                                     class     : "apexcharts-yaxis",
                                     rel       : t,
@@ -6935,7 +6935,7 @@
                             var c = a.group({class : "apexcharts-yaxis-texts-g"});
                             l.add(c);
                             var h = i.globals.yAxisScale[t].result.length - 1, d = i.globals.gridHeight / h,
-                                u                                                = i.globals.translateY, g                      = i.globals.yLabelFormatters[t],
+                                u                                                = i.globals.translateY, g = i.globals.yLabelFormatters[t],
                                 p                                                = i.globals.yAxisScale[t].result.slice();
                             p = this.axesUtils.checkForReversedLabels(t, p);
                             var x = "";
@@ -6990,15 +6990,15 @@
                         }
                     }, {
                         key : "drawYaxisInversed", value : function(t) {
-                            var e                                                                      = this.w, i = new f(this.ctx),
+                            var e                                                                      = this.w, i                                                          = new f(this.ctx),
                                 a = i.group({class : "apexcharts-xaxis apexcharts-yaxis-inversed"}), s = i.group({
                                     class     : "apexcharts-xaxis-texts-g",
                                     transform : "translate(".concat(e.globals.translateXAxisX, ", ").concat(e.globals.translateXAxisY, ")")
                                 });
                             a.add(s);
                             var r = e.globals.yAxisScale[t].result.length - 1, n = e.globals.gridWidth / r + .1,
-                                o                                                = n + e.config.xaxis.labels.offsetX, l = e.globals.xLabelFormatter,
-                                c                                                = e.globals.yAxisScale[t].result.slice(), h = e.globals.timescaleLabels;
+                                o                                                = n + e.config.xaxis.labels.offsetX, l         = e.globals.xLabelFormatter,
+                                c                                                = e.globals.yAxisScale[t].result.slice(), h    = e.globals.timescaleLabels;
                             h.length > 0 && (this.xaxisLabels = h.slice(), r = (c = h.slice()).length), c = this.axesUtils.checkForReversedLabels(t, c);
                             var d = h.length;
                             if (e.config.xaxis.labels.show) for (var u = d ? 0 : r; d ? u < d : u >= 0; d ? u++ : u--) {
@@ -7252,9 +7252,9 @@
                         key : "drawXCrosshairs", value : function() {
                             var t                                                                             = this.w, e = new f(this.ctx), i                                            = new c(this.ctx),
                                 a                                                                             = t.config.xaxis.crosshairs.fill.gradient, s                                = t.config.xaxis.crosshairs.dropShadow,
-                                n                                                                             = t.config.xaxis.crosshairs.fill.type, o = a.colorFrom, l = a.colorTo,
+                                n                                                                             = t.config.xaxis.crosshairs.fill.type, o = a.colorFrom, l                   = a.colorTo,
                                 h = a.opacityFrom, d = a.opacityTo, u = a.stops, g = s.enabled, p = s.left, x = s.top,
-                                b                                                                             = s.blur, v = s.color, m = s.opacity, y = t.config.xaxis.crosshairs.fill.color;
+                                b                                                                             = s.blur, v = s.color, m                                                    = s.opacity, y = t.config.xaxis.crosshairs.fill.color;
                             if (t.config.xaxis.crosshairs.show) {
                                 "gradient" === n && (y = e.drawGradient("vertical", o, l, h, d, null, u, null));
                                 var w = e.drawRect();
@@ -7468,7 +7468,7 @@
                         }
                     }, {
                         key : "drawTitleSubtitle", value : function(t) {
-                            var e                                            = this.w, i = "title" === t ? e.config.title : e.config.subtitle,
+                            var e                                            = this.w, i                                = "title" === t ? e.config.title : e.config.subtitle,
                                 a = e.globals.svgWidth / 2, s = i.offsetY, r = "middle";
                             if ("left" === i.align ? (a = 10, r = "start") : "right" === i.align && (a = e.globals.svgWidth - 10, r = "end"), a += i.offsetX, s = s + parseInt(i.style.fontSize, 10) + i.margin / 2, void 0 !== i.text) {
                                 var n = new f(this.ctx).drawText({
@@ -8096,9 +8096,9 @@
                                 var b = document.createElement("span");
                                 b.classList.add("apexcharts-legend-marker");
                                 var v                                          = e.config.legend.markers.offsetX, m = e.config.legend.markers.offsetY,
-                                    y                                          = e.config.legend.markers.height, w      = e.config.legend.markers.width,
+                                    y                                          = e.config.legend.markers.height, w = e.config.legend.markers.width,
                                     k = e.config.legend.markers.strokeWidth, A = e.config.legend.markers.strokeColor,
-                                    S                                          = e.config.legend.markers.radius, C = b.style;
+                                    S                                          = e.config.legend.markers.radius, C      = b.style;
                                 C.background = s[c], C.color = s[c], C.setProperty("background", s[c], "important"), e.config.legend.markers.fillColors && e.config.legend.markers.fillColors[c] && (C.background = e.config.legend.markers.fillColors[c]), void 0 !== e.globals.seriesColors[c] && (C.background = e.globals.seriesColors[c], C.color = e.globals.seriesColors[c]), C.height = Array.isArray(y) ? parseFloat(y[c]) + "px" : parseFloat(y) + "px", C.width = Array.isArray(w) ? parseFloat(w[c]) + "px" : parseFloat(w) + "px", C.left = (Array.isArray(v) ? parseFloat(v[c]) : parseFloat(v)) + "px", C.top = (Array.isArray(m) ? parseFloat(m[c]) : parseFloat(m)) + "px", C.borderWidth = Array.isArray(k) ? k[c] : k, C.borderColor = Array.isArray(A) ? A[c] : A, C.borderRadius = Array.isArray(S) ? parseFloat(S[c]) + "px" : parseFloat(S) + "px", e.config.legend.markers.customHTML && (Array.isArray(e.config.legend.markers.customHTML) ? e.config.legend.markers.customHTML[c] && (b.innerHTML = e.config.legend.markers.customHTML[c]()) : b.innerHTML = e.config.legend.markers.customHTML()), f.setAttrs(b, {
                                     rel              : c + 1,
                                     "data:collapsed" : d || u
@@ -8123,7 +8123,7 @@
                         }
                     }, {
                         key : "setLegendWrapXY", value : function(t, e) {
-                            var i                                       = this.w, a = i.globals.dom.baseEl.querySelector(".apexcharts-legend"),
+                            var i                                       = this.w, a                           = i.globals.dom.baseEl.querySelector(".apexcharts-legend"),
                                 s = a.getBoundingClientRect(), r = 0, n = 0;
                             if ("bottom" === i.config.legend.position) n += i.globals.svgHeight - s.height / 2; else if ("top" === i.config.legend.position) {
                                 var o = new he(this.ctx), l = o.dimHelpers.getTitleSubtitleCoords("title").height,
@@ -8138,7 +8138,7 @@
                         key : "legendAlignHorizontal", value : function() {
                             var t = this.w;
                             t.globals.dom.baseEl.querySelector(".apexcharts-legend").style.right = 0;
-                            var e                                                      = this.legendHelpers.getLegendBBox(), i = new he(this.ctx),
+                            var e                                                      = this.legendHelpers.getLegendBBox(), i              = new he(this.ctx),
                                 a                                                      = i.dimHelpers.getTitleSubtitleCoords("title"),
                                 s = i.dimHelpers.getTitleSubtitleCoords("subtitle"), r = 0;
                             "bottom" === t.config.legend.position ? r = -e.clwh / 1.8 : "top" === t.config.legend.position && (r = a.height + s.height + t.config.title.margin + t.config.subtitle.margin - 10), this.setLegendWrapXY(20, r)
@@ -8174,7 +8174,7 @@
                     }]) && ge(e.prototype, i), t
                 }();
                 var pe = i(798), xe = i.n(pe), be = i(688), ve = i.n(be), me = i(149), ye = i.n(me), we = i(323),
-                    ke                                                                                  = i.n(we), Ae                                                                    = i(686), Se                                                       = i.n(Ae), Ce = i(618), Pe = i.n(Ce), Le = i(355), Te = i.n(Le);
+                    ke                                                                                  = i.n(we), Ae                                                                    = i(686), Se = i.n(Ae), Ce = i(618), Pe = i.n(Ce), Le = i(355), Te = i.n(Le);
 
                 function Oe(t, e) {
                     for (var i = 0; i < e.length; i++) {
@@ -8594,9 +8594,9 @@
                         }
                     }, {
                         key : "selectionDrawing", value : function(t) {
-                            var e, i                                                                         = t.context, a                                                          = t.zoomtype, s                                          = this.w, r = i,
+                            var e, i                                                                         = t.context, a                                                          = t.zoomtype, s = this.w, r                              = i,
                                 n = this.gridRect.getBoundingClientRect(), o = r.startX - 1, l = r.startY, c = !1,
-                                h                                                                            = !1, d = r.clientX - n.left - o, u = r.clientY - n.top - l;
+                                h                                                                            = !1, d                                                                    = r.clientX - n.left - o, u                                        = r.clientY - n.top - l;
                             return Math.abs(d + o) > s.globals.gridWidth ? d = s.globals.gridWidth - o : r.clientX - n.left < 0 && (d = o), o > r.clientX - n.left && (c = !0, d = Math.abs(d)), l > r.clientY - n.top && (h = !0, u = Math.abs(u)), e = "x" === a ? {
                                 x      : c ? o - d : o,
                                 y      : 0,
@@ -8710,7 +8710,7 @@
                     }, {
                         key : "panScrolled", value : function(t, e) {
                             var i = this.w, a = this.xyRatios, s = r.clone(i.globals.initialConfig.yaxis), n = a.xRatio,
-                                o                                                                            = i.globals.minX, l = i.globals.maxX;
+                                o                                                                            = i.globals.minX, l                                                        = i.globals.maxX;
                             i.globals.isRangeBar && (n = a.invertedYRatio, o = i.globals.minY, l = i.globals.maxY), "left" === this.moveDirection ? (t = o + i.globals.gridWidth / 15 * n, e = l + i.globals.gridWidth / 15 * n) : "right" === this.moveDirection && (t = o - i.globals.gridWidth / 15 * n, e = l - i.globals.gridWidth / 15 * n), i.globals.isRangeBar || (t < i.globals.initialMinX || e > i.globals.initialMaxX) && (t = o, e = l);
                             var c = {min : t, max : e};
                             i.config.chart.zoom.autoScaleYaxis && (s = new Xt(this.ctx).autoScaleY(this.ctx, s, {xaxis : c}));
@@ -8769,8 +8769,8 @@
                     var e, i;
                     return e = t, (i = [{
                         key : "getNearestValues", value : function(t) {
-                            var e                                                                   = t.hoverArea, i = t.elGrid, a = t.clientX, s                     = t.clientY, n = this.w,
-                                o                                                                   = i.getBoundingClientRect(), l                                    = o.width, c = o.height,
+                            var e                                                                   = t.hoverArea, i = t.elGrid, a = t.clientX, s = t.clientY, n = this.w,
+                                o                                                                   = i.getBoundingClientRect(), l                                    = o.width, c                       = o.height,
                                 h = l / (n.globals.dataPoints - 1), d = c / n.globals.dataPoints, u = this.hasBars();
                             !n.globals.comboCharts && !u || n.config.xaxis.convertedCatToNumeric || (h = l / n.globals.dataPoints);
                             var g = a - o.left - n.globals.barPadForNumericAxis, f = s - o.top;
@@ -8953,7 +8953,7 @@
                     var e, i;
                     return e = t, (i = [{
                         key : "drawSeriesTexts", value : function(t) {
-                            var e                                                                    = t.shared, i                                                      = void 0 === e || e, a = t.ttItems, s = t.i, r = void 0 === s ? 0 : s,
+                            var e                                                                    = t.shared, i = void 0 === e || e, a                               = t.ttItems, s                = t.i, r = void 0 === s ? 0 : s,
                                 n = t.j, o = void 0 === n ? null : n, l = t.y1, c = t.y2, h = t.e, d = this.w;
                             void 0 !== d.config.tooltip.custom ? this.handleCustomTooltip({
                                 i  : r,
@@ -8970,9 +8970,9 @@
                     }, {
                         key : "printLabels", value : function(t) {
                             var e, i = this, a = t.i, s = t.j, r = t.values, n = t.ttItems, o = t.shared, l = t.e,
-                                c                                                                           = this.w, h                                                               = [], d = function(t) {
+                                c                                                                           = this.w, h = [], d                                                       = function(t) {
                                     return c.globals.seriesGoals[t] && c.globals.seriesGoals[t][s] && Array.isArray(c.globals.seriesGoals[t][s])
-                                }, u                                                                        = r.xVal, g                                                            = r.zVal, f = r.xAxisTTVal, p = "", x                      = c.globals.colors[a];
+                                }, u                                                                        = r.xVal, g = r.zVal, f = r.xAxisTTVal, p                              = "", x = c.globals.colors[a];
                             null !== s && c.config.plotOptions.bar.distributed && (x = c.globals.colors[s]);
                             for (var b = function(t, r) {
                                 var b = i.getFormatters(a);
@@ -9063,9 +9063,9 @@
                     }, {
                         key : "DOMHandling", value : function(t) {
                             t.i;
-                            var e                                                                      = t.t, i                                                             = t.j, a = t.ttItems, s                                     = t.values, r = t.seriesName, n = t.shared,
+                            var e                                                                      = t.t, i                                                             = t.j, a                                                    = t.ttItems, s = t.values, r                       = t.seriesName, n     = t.shared,
                                 o = t.pColor, l = this.w, c = this.ttCtx, h = s.val, d = s.goalVals, u = s.xVal,
-                                g                                                                      = s.xAxisTTVal, f                                                    = s.zVal, p                                        = null;
+                                g                                                                      = s.xAxisTTVal, f = s.zVal, p                                        = null;
                             p = a[e].children, l.config.tooltip.fillSeriesColor && (a[e].style.backgroundColor = o, p[0].style.display = "none"), c.showTooltipTitle && (null === c.tooltipTitle && (c.tooltipTitle = l.globals.dom.baseEl.querySelector(".apexcharts-tooltip-title")), c.tooltipTitle.innerHTML = u), c.isXAxisTooltipEnabled && (c.xaxisTooltipText.innerHTML = "" !== g ? g : u);
                             var x = a[e].querySelector(".apexcharts-tooltip-text-y-label");
                             x && (x.innerHTML = r || "");
@@ -9096,7 +9096,7 @@
                     }, {
                         key : "getValuesToPrint", value : function(t) {
                             var e = t.i, i = t.j, a = this.w, s = this.ctx.series.filteredSeriesX(), r = "", n = "",
-                                o                                                                              = null, l = null,
+                                o                                                                              = null, l                                                                    = null,
                                 c                                                                              = {series : a.globals.series, seriesIndex : e, dataPointIndex : i, w : a},
                                 h                                                                              = a.globals.ttZFormatter;
                             null === i ? l = a.globals.series[e] : a.globals.isXNumeric && "treemap" !== a.config.chart.type ? (r = s[e][i], 0 === s[e].length && (r = s[this.tooltipUtil.getFirstActiveXArray(s)][i])) : r = void 0 !== a.globals.labels[i] ? a.globals.labels[i] : "";
@@ -9200,7 +9200,7 @@
                         }
                     }, {
                         key : "moveDynamicPointOnHover", value : function(t, e) {
-                            var i, a, s                                    = this.w, r = this.ttCtx, n = s.globals.pointsArray,
+                            var i, a, s                                    = this.w, r                        = this.ttCtx, n = s.globals.pointsArray,
                                 o = r.tooltipUtil.getHoverMarkerSize(e), l = s.config.series[e].type;
                             if (!l || "column" !== l && "candlestick" !== l && "boxPlot" !== l) {
                                 i = n[e][t][0], a = n[e][t][1] ? n[e][t][1] : 0;
@@ -9377,7 +9377,7 @@
                             var e = t.e, i = t.opt, a = t.x, s = t.y, r = t.type, n = this.ttCtx, o = this.w;
                             if (e.target.classList.contains("apexcharts-".concat(r, "-rect"))) {
                                 var l = this.getAttr(e, "i"), c = this.getAttr(e, "j"), h = this.getAttr(e, "cx"),
-                                    d                                                     = this.getAttr(e, "cy"), u                          = this.getAttr(e, "width"),
+                                    d                                                     = this.getAttr(e, "cy"), u = this.getAttr(e, "width"),
                                     g                                                     = this.getAttr(e, "height");
                                 if (n.tooltipLabels.drawSeriesTexts({
                                     ttItems : i.ttItems,
@@ -9420,7 +9420,7 @@
                     }, {
                         key : "handleBarTooltip", value : function(t) {
                             var e, i, a = t.e, s = t.opt, r = this.w, n = this.ttCtx, o = n.getElTooltip(), l = 0,
-                                c                                                                             = 0, h                                                                      = 0, d = this.getBarTooltipXY({e : a, opt : s});
+                                c                                                                             = 0, h = 0, d                                                               = this.getBarTooltipXY({e : a, opt : s});
                             e = d.i;
                             var u = d.barHeight, g = d.j;
                             r.globals.capturedSeriesIndex = e, r.globals.capturedDataPointIndex = g, r.globals.isBarHorizontal && n.tooltipUtil.hasBars() || !r.config.tooltip.shared ? (c = d.x, h = d.y, i = Array.isArray(r.config.stroke.width) ? r.config.stroke.width[e] : r.config.stroke.width, l = c) : r.globals.comboCharts || r.config.tooltip.shared || (l /= 2), isNaN(h) ? h = r.globals.svgHeight - n.tooltipRect.ttHeight : h < 0 && (h = 0);
@@ -9611,7 +9611,7 @@
                             var t = this.w, e = t.config.chart.type, i = this.getElTooltip(),
                                 a                                      = !("bar" !== e && "candlestick" !== e && "boxPlot" !== e && "rangeBar" !== e),
                                 s                                      = "area" === e || "line" === e || "scatter" === e || "bubble" === e || "radar" === e,
-                                r                                      = t.globals.dom.Paper.node, n = this.getElGrid();
+                                r                                      = t.globals.dom.Paper.node, n        = this.getElGrid();
                             n && (this.seriesBound = n.getBoundingClientRect());
                             var o, l = [], c = [], h = {
                                 hoverArea : r,
@@ -10089,7 +10089,7 @@
                     }, {
                         key : "drawStackedColumnPaths", value : function(t) {
                             var e = t.indexes, i = t.x, a = t.y, s = t.xDivision, r = t.barWidth, n = t.zeroH,
-                                o                                                                   = (t.strokeWidth, t.elSeries), l = this.w, c = e.i, h = e.j, d = e.bc;
+                                o                                                                   = (t.strokeWidth, t.elSeries), l                                  = this.w, c = e.i, h = e.j, d = e.bc;
                             if (l.globals.isXNumeric) {
                                 var u = l.globals.seriesX[c][h];
                                 u || (u = 0), i = (u - l.globals.minX) / this.xRatio - r / 2
@@ -10265,7 +10265,7 @@
                             for (var l = s.group({class : "apexcharts-".concat(a.config.chart.type, "-series apexcharts-plot-series")}), c = function(o) {
                                 i.isBoxPlot = "boxPlot" === a.config.chart.type || "boxPlot" === a.config.series[o].type;
                                 var c, h, d, u, g, f, p = void 0, x = void 0, b = [], v = [],
-                                    m                                                   = a.globals.comboCharts ? e[o] : o, y = s.group({
+                                    m                                                   = a.globals.comboCharts ? e[o] : o, y             = s.group({
                                         class            : "apexcharts-series",
                                         seriesName       : r.escapeString(a.globals.seriesNames[m]),
                                         rel              : o + 1,
@@ -10328,10 +10328,10 @@
                         }
                     }, {
                         key : "drawVerticalBoxPaths", value : function(t) {
-                            var e                                                                       = t.indexes, i                                                        = t.x, a = (t.y, t.xDivision), s = t.barWidth, r = t.zeroH,
+                            var e                                                                       = t.indexes, i                                                        = t.x, a                                               = (t.y, t.xDivision), s = t.barWidth, r = t.zeroH,
                                 n = t.strokeWidth, o = this.w, l = new f(this.ctx), c = e.i, h = e.j, d = !0,
                                 u                                                                       = o.config.plotOptions.candlestick.colors.upward,
-                                g                                                                       = o.config.plotOptions.candlestick.colors.downward, p = "";
+                                g                                                                       = o.config.plotOptions.candlestick.colors.downward, p                 = "";
                             this.isBoxPlot && (p = [this.boxOptions.colors.lower, this.boxOptions.colors.upper]);
                             var x = this.yRatio[this.yaxisIndex], b = e.realIndex, v = this.getOHLCValue(b, h), m = r,
                                 y                                                                                 = r;
@@ -10353,7 +10353,7 @@
                     }, {
                         key : "drawHorizontalBoxPaths", value : function(t) {
                             var e = t.indexes, i = (t.x, t.y), a = t.yDivision, s = t.barHeight, r = t.zeroW,
-                                n                                                                  = t.strokeWidth, o = this.w, l                                   = new f(this.ctx), c = e.i, h = e.j,
+                                n                                                                  = t.strokeWidth, o                                               = this.w, l = new f(this.ctx), c              = e.i, h = e.j,
                                 d                                                                  = this.boxOptions.colors.lower;
                             this.isBoxPlot && (d = [this.boxOptions.colors.lower, this.boxOptions.colors.upper]);
                             var u = this.invertedYRatio, g = e.realIndex, p = this.getOHLCValue(g, h), x = r, b = r,
@@ -10459,7 +10459,7 @@
                         }
                     }, {
                         key : "calculateDataLabels", value : function(t) {
-                            var e                                                                         = t.text, i                                                             = t.x, a = t.y, s = t.i, r                                  = t.j, n = t.colorProps, o = t.fontSize,
+                            var e                                                                         = t.text, i                                                             = t.x, a = t.y, s = t.i, r = t.j, n = t.colorProps, o = t.fontSize,
                                 l = this.w.config.dataLabels, c = new f(this.ctx), h = new R(this.ctx), d = null;
                             if (l.enabled) {
                                 d = c.group({class : "apexcharts-data-labels"});
@@ -10697,7 +10697,7 @@
                         key : "drawArcs", value : function(t, e) {
                             var i = this.w, a = new c(this.ctx), s = new f(this.ctx), n = new M(this.ctx),
                                 o                                                       = s.group({class : "apexcharts-slices"}), l           = this.initialAngle,
-                                h                                                       = this.initialAngle, d                                = this.initialAngle, u         = this.initialAngle;
+                                h                                                       = this.initialAngle, d = this.initialAngle, u = this.initialAngle;
                             this.strokeWidth = i.config.stroke.show ? i.config.stroke.width : 0;
                             for (var g = 0; g < t.length; g++) {
                                 var p = s.group({
@@ -10855,10 +10855,10 @@
                     }, {
                         key : "getPiePath", value : function(t) {
                             var e = t.me, i = t.startAngle, a = t.angle, s = t.size, n = i,
-                                o                                                      = Math.PI * (n - 90) / 180, l                        = a + i;
+                                o                                                      = Math.PI * (n - 90) / 180, l = a + i;
                             Math.ceil(l) >= this.fullAngle + this.w.config.plotOptions.pie.startAngle % this.fullAngle && (l = this.fullAngle + this.w.config.plotOptions.pie.startAngle % this.fullAngle - .01), Math.ceil(l) > this.fullAngle && (l -= this.fullAngle);
                             var c                                                               = Math.PI * (l - 90) / 180, h = e.centerX + s * Math.cos(o),
-                                d                                                               = e.centerY + s * Math.sin(o), u                              = e.centerX + s * Math.cos(c),
+                                d                                                               = e.centerY + s * Math.sin(o), u = e.centerX + s * Math.cos(c),
                                 g                                                               = e.centerY + s * Math.sin(c),
                                 f                                                               = r.polarToCartesian(e.centerX, e.centerY, e.donutSize, l),
                                 p = r.polarToCartesian(e.centerX, e.centerY, e.donutSize, n), x = a > 180 ? 1 : 0,
@@ -10868,9 +10868,9 @@
                     }, {
                         key : "drawPolarElements", value : function(t) {
                             var e = this.w, i = new Xt(this.ctx), a = new f(this.ctx), s = new Ei(this.ctx),
-                                r                                                        = a.group(), n                                         = a.group(),
+                                r                                                        = a.group(), n = a.group(),
                                 o                                                        = i.niceScale(0, Math.ceil(this.maxY), e.config.yaxis[0].tickAmount, 0, !0),
-                                l                                                        = o.result.reverse(), c                                = o.result.length;
+                                l                                                        = o.result.reverse(), c = o.result.length;
                             this.maxY = o.niceMax;
                             for (var h = e.globals.radialSize, d = h / (c - 1), u = 0; u < c - 1; u++) {
                                 var g = a.drawCircle(h);
@@ -11334,7 +11334,7 @@
                         }
                     }, {
                         key : "drawTracks", value : function(t) {
-                            var e                                           = this.w, i                               = new f(this.ctx), a          = i.group({class : "apexcharts-tracks"}),
+                            var e                                           = this.w, i = new f(this.ctx), a          = i.group({class : "apexcharts-tracks"}),
                                 s = new c(this.ctx), r = new M(this.ctx), n = this.getStrokeWidth(t);
                             t.size = t.size - n / 2;
                             for (var o = 0; o < t.series.length; o++) {
@@ -11378,7 +11378,7 @@
                     }, {
                         key : "drawArcs", value : function(t) {
                             var e = this.w, i = new f(this.ctx), a = new M(this.ctx), s = new c(this.ctx),
-                                n                                                       = i.group(), o = this.getStrokeWidth(t);
+                                n                                                       = i.group(), o                                        = this.getStrokeWidth(t);
                             t.size = t.size - o / 2;
                             var l = e.config.plotOptions.radialBar.hollow.background,
                                 h = t.size - o * t.series.length - this.margin * t.series.length - o * parseInt(e.config.plotOptions.radialBar.track.strokeWidth, 10) / 100 / 2,
@@ -11415,7 +11415,7 @@
                                     "data:realIndex" : v
                                 }), this.ctx.series.addCollapsedClassToSeries(m, v), t.size = t.size - o - this.margin;
                                 var y                                                        = a.fillPath({seriesNumber : v, size : t.size, value : t.series[v]}),
-                                    w                                                        = this.startAngle, k                                   = void 0,
+                                    w                                                        = this.startAngle, k = void 0,
                                     A                                                        = r.negToZero(t.series[v] > 100 ? 100 : t.series[v]) / 100,
                                     S = Math.round(this.totalAngle * A) + this.startAngle, C = void 0;
                                 e.globals.dataChanged && (k = this.startAngle, C = Math.round(this.totalAngle * r.negToZero(e.globals.previousPaths[v]) / 100) + k), Math.abs(S) + Math.abs(w) >= 360 && (S -= .01), Math.abs(C) + Math.abs(k) >= 360 && (C -= .01);
@@ -11846,8 +11846,8 @@
                     }, {
                         key : "_createPaths", value : function(t) {
                             var e = t.series, i = t.i, a = t.realIndex, s = t.j, r = t.x, n = t.y, o = t.pX, l = t.pY,
-                                c                                                                              = t.linePath, h = t.areaPath, d = t.linePaths, u = t.areaPaths, g = t.seriesIndex,
-                                p                                                                              = this.w, x = new f(this.ctx), b = p.config.stroke.curve, v = this.areaBottomY;
+                                c                                                                              = t.linePath, h                                                              = t.areaPath, d = t.linePaths, u = t.areaPaths, g = t.seriesIndex,
+                                p                                                                              = this.w, x = new f(this.ctx), b = p.config.stroke.curve, v                  = this.areaBottomY;
                             if (Array.isArray(p.config.stroke.curve) && (b = Array.isArray(g) ? p.config.stroke.curve[g[i]] : p.config.stroke.curve[i]), "smooth" === b) {
                                 var m = .35 * (r - o);
                                 p.globals.hasNullValues ? (null !== e[i][s] && (null !== e[i][s + 1] ? (c = x.move(o, l) + x.curve(o + m, l, r - m, n, r + 1, n), h = x.move(o + 1, l) + x.curve(o + m, l, r - m, n, r + 1, n) + x.line(r, v) + x.line(o, v) + "z") : (c = x.move(o, l), h = x.move(o, l) + "z")), d.push(c), u.push(h)) : (c += x.curve(o + m, l, r - m, n, r, n), h += x.curve(o + m, l, r - m, n, r, n)), o = r, l = n, s === e[i].length - 2 && (h = h + x.curve(o, l, r, n, r, v) + x.move(r, n) + "z", p.globals.hasNullValues || (d.push(c), u.push(h)))
@@ -12043,7 +12043,7 @@
                             this.determineInterval(r), a.globals.disableZoomIn = !1, a.globals.disableZoomOut = !1, r < .00011574074074074075 ? a.globals.disableZoomIn = !0 : r > 5e4 && (a.globals.disableZoomOut = !0);
                             var n                                                             = s.getTimeUnitsfromTimestamp(t, e, this.utc), o = a.globals.gridWidth / r,
                                 l = o / 24, c = l / 60, h = c / 60, d = Math.floor(24 * r), u = Math.floor(1440 * r),
-                                g                                                             = Math.floor(86400 * r), f = Math.floor(r), p = Math.floor(r / 30),
+                                g                                                             = Math.floor(86400 * r), f                                  = Math.floor(r), p = Math.floor(r / 30),
                                 x                                                             = Math.floor(r / 365), b = {
                                     minMillisecond : n.minMillisecond,
                                     minSecond      : n.minSecond,
@@ -12214,7 +12214,7 @@
                         }
                     }, {
                         key : "generateYearScale", value : function(t) {
-                            var e                                                                  = t.firstVal, i                                                  = t.currentMonth, a = t.currentYear, s = t.daysWidthOnXAxis,
+                            var e                                                                  = t.firstVal, i                                                  = t.currentMonth, a                              = t.currentYear, s = t.daysWidthOnXAxis,
                                 n = t.numberOfYears, o = e.minYear, l = 0, c = new et(this.ctx), h = "year";
                             if (e.minDate > 1 || e.minMonth > 0) {
                                 var d = c.determineRemainingDaysOfYear(e.minYear, e.minMonth, e.minDate);
@@ -12243,7 +12243,7 @@
                     }, {
                         key : "generateMonthScale", value : function(t) {
                             var e = t.firstVal, i = t.currentMonthDate, a = t.currentMonth, s = t.currentYear,
-                                n                                                             = t.daysWidthOnXAxis, o = t.numberOfMonths, l = a, c = 0, h = new et(this.ctx),
+                                n                                                             = t.daysWidthOnXAxis, o                                     = t.numberOfMonths, l               = a, c = 0, h = new et(this.ctx),
                                 d                                                             = "month", u = 0;
                             if (e.minDate > 1) {
                                 c = (h.determineDaysOfMonths(a + 1, e.minYear) - i + 1) * n, l = r.monthMod(a + 1);
@@ -12278,11 +12278,11 @@
                         }
                     }, {
                         key : "generateDayScale", value : function(t) {
-                            var e                                                                         = t.firstVal, i = t.currentMonth, a                                     = t.currentYear, s                  = t.hoursWidthOnXAxis,
+                            var e                                                                         = t.firstVal, i = t.currentMonth, a = t.currentYear, s = t.hoursWidthOnXAxis,
                                 n = t.numberOfDays, o = new et(this.ctx), l = "day", c = e.minDate + 1, h = c,
                                 d                                                                         = function(t, e, i) {
                                     return t > o.determineDaysOfMonths(e + 1, i) ? (h = 1, l = "month", g = e += 1, e) : e
-                                }, u                                                                      = (24 - e.minHour) * s, g = c, f                                     = d(h, i, a);
+                                }, u                                                                      = (24 - e.minHour) * s, g = c, f = d(h, i, a);
                             0 === e.minHour && 1 === e.minDate ? (u = 0, g = r.monthMod(e.minMonth), l = "month", h = e.minDate, n++) : 1 !== e.minDate && 0 === e.minHour && 0 === e.minMinute && (u = 0, c = e.minDate, g = c, f = d(h = c, i, a)), this.timeScaleArray.push({
                                 position : u,
                                 value    : g,
@@ -12308,8 +12308,8 @@
                         }
                     }, {
                         key : "generateHourScale", value : function(t) {
-                            var e                                                                             = t.firstVal, i                                                             = t.currentDate, a = t.currentMonth, s = t.currentYear,
-                                n                                                                             = t.minutesWidthOnXAxis, o = t.numberOfHours, l = new et(this.ctx), c = "hour",
+                            var e                                                                             = t.firstVal, i = t.currentDate, a = t.currentMonth, s = t.currentYear,
+                                n                                                                             = t.minutesWidthOnXAxis, o = t.numberOfHours, l                             = new et(this.ctx), c = "hour",
                                 h                                                                             = function(t, e) {
                                     return t > l.determineDaysOfMonths(e + 1, s) && (x = 1, e += 1), {
                                         month : e,
@@ -12488,9 +12488,9 @@
                         }
                     }, {
                         key : "plotChartType", value : function(t, e) {
-                            var i                                                       = this.w, a                                           = i.config, s                             = i.globals, r = {series : [], i : []},
-                                n                                                       = {series : [], i : []}, o                            = {series : [], i : []}, l = {series : [], i : []},
-                                c = {series : [], i : []}, h = {series : [], i : []}, d = {series : [], i : []};
+                            var i                                                       = this.w, a = i.config, s = i.globals, r = {series : [], i : []},
+                                n = {series : [], i : []}, o = {series : [], i : []}, l = {series : [], i : []},
+                                c                                                       = {series : [], i : []}, h = {series : [], i : []}, d = {series : [], i : []};
                             s.series.map((function(e, u) {
                                 var g = 0;
                                 void 0 !== t[u].type ? ("column" === t[u].type || "bar" === t[u].type ? (s.series.length > 1 && a.plotOptions.bar.horizontal && console.warn("Horizontal bars are not supported in a mixed/combo chart. Please turn off `plotOptions.bar.horizontal`"), c.series.push(e), c.i.push(u), g++, i.globals.columnSeries = c.series) : "area" === t[u].type ? (n.series.push(e), n.i.push(u), g++) : "line" === t[u].type ? (r.series.push(e), r.i.push(u), g++) : "scatter" === t[u].type ? (o.series.push(e), o.i.push(u)) : "bubble" === t[u].type ? (l.series.push(e), l.i.push(u), g++) : "candlestick" === t[u].type ? (h.series.push(e), h.i.push(u), g++) : "boxPlot" === t[u].type ? (d.series.push(e), d.i.push(u), g++) : console.warn("You have specified an unrecognized chart type. Available types for this property are line/area/column/bar/scatter/bubble"), g > 1 && (s.comboCharts = !0)) : (r.series.push(e), r.i.push(u))
@@ -12998,8 +12998,8 @@
                         }
                     }, {
                         key : "mount", value : function() {
-                            var t           = this, e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
-                                i = this, a = i.w;
+                            var t = this, e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
+                                i           = this, a = i.w;
                             return new Promise((function(s, r) {
                                 if (null === i.el) return r(new Error("Not enough data to display or target element not found"));
                                 (null === e || a.globals.allSeriesCollapsed) && i.series.handleNoData(), "treemap" !== a.config.chart.type && i.axes.drawAxis(a.config.chart.type, e.xyRatios), i.grid = new It(i);

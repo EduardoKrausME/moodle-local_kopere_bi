@@ -34,10 +34,35 @@
             }
         }
     }
-    .category-name {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+    .dashboard-homes {
+        .dashboard-home {
+            .category-name {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .buttons-move {
+                    display: flex;
+                    align-items: center;
+                    gap: 7px;
+                    i {
+                        cursor: pointer;
+                    }
+                }
+            }
+            .category-box {
+                background-color: #fff;
+            }
+            &:first-child {
+                .fa-arrow-up {
+                    display: none !important;
+                }
+            }
+            &:last-child {
+                .fa-arrow-down {
+                    display: none !important;
+                }
+            }
+        }
     }
     .lista-reports {
         display: flex;
@@ -310,14 +335,14 @@
         &.type-table {
             .block-heading {
                 .block-title {
-                    text-align: right;
+                    // text-align: right;
                 }
             }
         }
         .group-controls {
-            left: 2px;
-            right: initial;
-            top: -44px;
+            // left: 2px;
+            // right: initial;
+            // top: -44px;
             input[type=search] {
                 width: 120px;
                 font-size: 16px !important;
@@ -421,7 +446,7 @@
         .maps-online,
         .table,
         .area-chart {
-            margin: 0 -16px -16px;
+            margin: 0 -16px 0 -16px;
             width: calc(100% + 16px + 16px) !important;
             max-width: 150% !important;
         }
@@ -436,8 +461,8 @@
                 margin-top: -45px;
                 .apexcharts-toolbar {
                     position: absolute;
-                    right: auto !important;
-                    left: 10px;
+                    //right: auto !important;
+                    //left: 10px;
                     top: 4px !important;
                 }
             }
@@ -564,7 +589,7 @@
     .group-controls {
         position: absolute;
         right: -10px;
-        top: -36px;
+        top: -44px;
     }
 }
 .kopere-dashboard-modal {

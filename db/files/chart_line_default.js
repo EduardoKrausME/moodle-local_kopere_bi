@@ -14,9 +14,9 @@ json = {
         }
     },
     stroke      : {
-        curve  : "smooth",
-        width  : 2,
-        show   : true
+        curve : "smooth",
+        width : 2,
+        show  : true
     },
     dataLabels  : {
         enabled : false

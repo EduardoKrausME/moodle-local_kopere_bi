@@ -15,7 +15,7 @@ define(['core/ajax'], function(ajax) {
                     args       : {
                         online_id : online_id,
                         cache_key : key,
-                        seconds  : Math.round(tempoTotal)
+                        seconds   : Math.round(tempoTotal)
                     }
                 }]);
 

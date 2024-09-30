@@ -25,6 +25,15 @@
 defined('MOODLE_INTERNAL') || die;
 
 $functions = [
+    "local_kopere_bi_cat_sortorder" => [
+        "classpath" => "local/kopere_bi/classes/external/categorie.php",
+        "classname" => "\\local_kopere_bi\\external\\categorie",
+        "methodname" => "sortorder",
+        "description" => "Salva o sortorder das categorias",
+        "type" => "write",
+        "ajax" => true,
+        "capabilities" => "local/kopere_dashboard:view",
+    ],
     "local_kopere_bi_block_sequence" => [
         "classpath" => "local/kopere_bi/classes/external/block.php",
         "classname" => "\\local_kopere_bi\\external\\block",

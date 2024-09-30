@@ -40,11 +40,13 @@ class data_export {
         global $DB;
 
         $string = [];
-        require_once(__DIR__ . "/../lang/en/local_kopere_bi.php");
+        require_once(__DIR__ . "/../lang/pt_br/local_kopere_bi.php");
         $stringbi = $string;
 
         $string = [];
-        require_once(__DIR__ . "/../../../lang/pt_br/moodle.php");
+        if (file_exists(__DIR__ . "/../../../lang/pt_br/moodle.php")) {
+            require_once(__DIR__ . "/../../../lang/pt_br/moodle.php");
+        }
         $stringmoodle = $string;
 
         $pageid = optional_param("page_id", 0, PARAM_INT);
@@ -90,7 +92,7 @@ class data_export {
                         }
 
                         if ($key == "firstname") {
-                            $string = $this->get_key_by_value($stringbi, $string, $key);
+                            $string = "lang::u_fullname::local_kopere_bi";
                         } else if (isset($stringmoodle[$key])) {
                             $string = "lang::{$key}::moodle";
                         } else {
@@ -117,8 +119,11 @@ class data_export {
             $data->blocks[] = $koperebiblock;
         }
 
-        if ($this->missingstrings) {
-            $data->missingstrings = $this->missingstrings;
+        if ($this->missingstrings1) {
+            $data->missingstrings1 = "Complete as KEYS em ingles das strings abaixos e nao mexa nos valores: " . implode("\n", $this->missingstrings1);
+        }
+        if ($this->missingstrings2) {
+            $data->missingstrings2 = "Preencha os valores das strings e nao mexa nas KEYs: " . implode("\n", $this->missingstrings2);
         }
 
         ob_clean();
@@ -127,7 +132,7 @@ class data_export {
         header("Cache-Control: no-cache, must-revalidate");
         header("Expires: 0");
         header("Content-Disposition: attachment; filename=\"page-{$pageid}.json\"");
-        die(json_encode($data, JSON_NUMERIC_CHECK + JSON_PRETTY_PRINT));
+        die(json_encode($data, JSON_NUMERIC_CHECK + JSON_PRETTY_PRINT) . "\n");
     }
 
     /**
@@ -138,8 +143,10 @@ class data_export {
      * @param string $stringkey
      *
      * @return string
+     * @throws \coding_exception
      */
     private function get_key_by_value($string, $value, $stringkey = "") {
+        $pageid = optional_param("page_id", 0, PARAM_INT);
 
         if (strpos($value, "::") || $value == "#" || $value == "") {
             return $value;
@@ -147,10 +154,13 @@ class data_export {
 
         if ($key = array_search($value, $string)) {
             // Return the key if the value is found.
-            return "lang::{$key}";
+            return "lang::{$key}::local_kopere_bi";
         } else {
-            $this->missingstrings = true;
-            echo "\$string['{$stringkey}'] = '{$value}';<br>";
+            if (!$stringkey) {
+                $this->missingstrings1[] = "\$string['report_{$pageid}_'] = '{$value}';";
+            } else {
+                $this->missingstrings2[] = "\$string['{$value}'] = '';";
+            }
 
             // Return $value if the value is not found in the array.
             return $value;
@@ -160,7 +170,8 @@ class data_export {
     /**
      * Var missingstrings
      *
-     * @var bool
+     * @var array
      */
-    private $missingstrings = false;
+    private $missingstrings1 = [];
+    private $missingstrings2 = [];
 }

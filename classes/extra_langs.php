@@ -30,63 +30,6 @@ use tool_customlang_utils;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class extra_langs {
-    /**
-     * Var existinginlang
-     *
-     * @var array
-     */
-    private $existinginlang = [
-        // Student-related keys.
-        'u_id',                 // Unique ID of the student.
-        'u_fullname',           // Full name of the student.
-        'u_idnumber',           // Student's identification number.
-        'num_user',             // Number of students.
-        'country_name',         // Name of the country.
-
-        // Course completion details.
-        'timecompleted',        // Time when enrollment was completed.
-        'course_completed',     // Percentage of the course completed.
-        'grade',                // Grade or score received.
-
-        // Module-related keys.
-        'cm_cmid',              // Course Module ID.
-        'l_objecttable',        // Name of the module or object.
-        'l_origin',             // Origin of the log or event.
-        'l_ip',                 // IP address related to the log or event.
-        'l_timecreated',        // Timestamp when the event was created.
-
-        // Enrollment-related keys.
-        'cc_id',                // Completed course ID.
-        'cc_timecompleted',     // Time when the course was completed.
-        'ue_id',                // Enrollment ID.
-        'ue_timecreated',       // Timestamp when enrollment was created.
-        'ue_timeend',           // Timestamp when enrollment ends.
-        'ue_status',            // Enrollment status.
-        'ul_timeaccess',        // Last access time of the user.
-        'e_enrol',              // Type of enrollment.
-        'g_finalgrade',         // Final grade received.
-
-        // Course-related keys.
-        'ctx_instanceid',       // Courses the user is enrolled in.
-        'ca_completed_activities', // Number of completed activities.
-        'c_id',                 // Course ID.
-        'c_shortname',          // Short name of the course.
-        'c_format',             // Format of the course (e.g., weekly, topics).
-        'c_fullname',           // Full name of the course.
-        'c_timemodified',       // Timestamp when the course was last modified.
-        'c_enablecompletion',   // Whether course completion is enabled.
-        'c_tempo',              // Time spent in the course.
-
-        // User location details.
-        'firstname',            // First name of the student.
-        'city_name',            // City of the student.
-        'country_name',         // Country of the student.
-
-        // Client and operating system details.
-        'client_name',          // Name of the browser used by the student.
-        'client_version',       // Version of the browser.
-        'os_name',              // Operating system used by the student.
-    ];
 
     /**
      * Function index
@@ -113,37 +56,26 @@ class extra_langs {
         ]);
         $filter->display();
 
-        $existinginlang = [];
-        if ($component == "local_kopere_bi") {
-            foreach ($this->existinginlang as $identifier) {
-                $existinginlang[] = [
-                    "identifier" => $identifier,
-                    "string" => get_string($identifier, "local_kopere_bi"),
-                ];
+        tool_customlang_utils::checkout($_SESSION['SESSION']->lang);
+
+        $sql = "SELECT tl.stringid, tl.original
+                  FROM {tool_customlang} tl
+                  JOIN {tool_customlang_components} tlc ON tlc.id = tl.componentid
+                 WHERE tlc.name = :component
+                   AND tl.lang  = :lang";
+        $langs = $DB->get_records_sql($sql, [
+            "component" => $component,
+            "lang" => $USER->lang,
+        ]);
+
+        foreach ($langs as $lang) {
+            if (isset($lang->original[40])) {
+                continue;
             }
-        } else {
-            tool_customlang_utils::checkout($_SESSION['SESSION']->lang);
-
-            $sql = "SELECT tl.stringid, tl.original
-                      FROM {tool_customlang} tl
-                      JOIN {tool_customlang_components} tlc ON tlc.id = tl.componentid
-                     WHERE tlc.name = :component
-                       AND tl.lang  = :lang";
-            $langs = $DB->get_records_sql($sql, [
-                "component" => $component,
-                "lang" => $USER->lang,
-            ]);
-
-            foreach ($langs as $lang) {
-                if (isset($lang->original[40])) {
-                    continue;
-                }
-                $existinginlang[] = [
-                    "identifier" => $lang->stringid,
-                    "string" => get_string($lang->stringid, $component),
-                ];
-            }
-
+            $existinginlang[] = [
+                "identifier" => $lang->stringid,
+                "string" => get_string($lang->stringid, $component),
+            ];
         }
 
         echo $OUTPUT->render_from_template("local_kopere_bi/extra_langs_existinginlang_index", [

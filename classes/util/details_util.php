@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\util;
 
+use local_kopere_bi\block\i_type;
 use local_kopere_bi\vo\local_kopere_bi_element;
 use local_kopere_dashboard\html\button;
 use local_kopere_dashboard\util\header;
@@ -136,8 +137,17 @@ class details_util {
         /** @var local_kopere_bi_element $koperebielement */
         $koperebielement = $DB->get_record("local_kopere_bi_element", ["block_id" => $blockid, "block_num" => $blocknum]);
         if ($koperebielement) {
+
+            /** @var i_type $blockclass */
+            $blockclass = "\\local_kopere_bi\\block\\{$koperebielement->type}";
+            if (class_exists($blockclass)) {
+                $title = string_util::get_string($koperebielement->title) . ": {$blockclass::get_name()}";
+            } else {
+                $title = string_util::get_string($koperebielement->title);
+            }
+
             return
-                "<h4 class='block-title'>".string_util::get_string($koperebielement->title)."</h4>" .
+                "<h4 class='block-title details_block_item'>{$title}</h4>" .
                 button::edit(get_string('edit_report', 'local_kopere_bi'),
                     "?classname=bi-dashboard&method=type_block_edit&item_id={$koperebielement->id}", 'mr-4', false, true) .
                 button::icon_confirm('delete',

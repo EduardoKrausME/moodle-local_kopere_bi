@@ -22,6 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['all_learners'] = 'Todos os alunos';
 $string['area_desc'] = 'Monta um gráfico de área';
 $string['area_name'] = 'Gráfico de Área';
 $string['block_add'] = 'Adicionar novo Bloco';
@@ -44,6 +45,7 @@ $string['c_id'] = 'ID do Curso';
 $string['c_shortname'] = 'Nome curto';
 $string['c_tempo'] = 'Tempo de permanência';
 $string['c_timemodified'] = 'Modificado em';
+$string['c_visible'] = 'Visivel';
 $string['ca_completed_activities'] = 'Módulos completos';
 $string['cache_time'] = 'Tempo de cache';
 $string['cache_time_15min'] = '15 minutos';
@@ -66,7 +68,7 @@ $string['cc_id'] = 'Cursos concluídos';
 $string['cc_timecompleted'] = 'Completo em';
 $string['chart_area_default'] = 'Configuração padrão do Gráfico de Área';
 $string['chart_column_default'] = 'Configuração padrão do Gráfico de Colunas';
-$string['chart_default_desc'] = 'Alteração deste valor não afeta nenhum dos gráficos já adicionados<br>Só edite se você conhece o Apex Charts. Veja em <a target=\'_blank\' href=\'https://apexcharts.com/docs/series/\'>apexcharts.com/docs</a>';
+$string['chart_default_desc'] = 'Alteração deste valor não afeta nenhum dos gráficos já adicionados<br>Só edite se você conhece o Apex Charts. Veja em <a target="_blank" href="https://apexcharts.com/docs/series/">apexcharts.com/docs</a>';
 $string['chart_line_default'] = 'Configuração padrão do Gráfico de Linhas';
 $string['chart_pie_default'] = 'Configuração padrão do Gráfico de Pizza';
 $string['city_name'] = 'Cidade';
@@ -77,6 +79,9 @@ $string['client_version'] = 'Versão';
 $string['cm_cmid'] = 'Course Module ID';
 $string['column_desc'] = 'Monta um gráfico de Colunas';
 $string['column_name'] = 'Gráfico de Colunas';
+$string['completed_learners'] = 'Estudantes que completaram os cursos';
+$string['completion_status'] = 'Rastreamento';
+$string['completionstate_status'] = 'Conclusão';
 $string['country_name'] = 'País';
 $string['course_completed'] = 'Porcentagem concluído';
 $string['create'] = 'Criar';
@@ -89,6 +94,8 @@ $string['delete_report_text'] = 'Deseja realmente excluir este relatório?';
 $string['delete_report_title'] = 'Excluir relatório';
 $string['e_enrol'] = 'Tipo de matrícula';
 $string['edit_report'] = 'Editar relatório';
+$string['enrol_status'] = 'Status da matrícula';
+$string['enrol_timeend'] = 'Conclusão da matrícula';
 $string['error_chart_renderer'] = 'Erro ao renderizar o gráfico';
 $string['error_data_loader'] = 'Erro ao carregar os dados do gráfico';
 $string['extra_langs_customs_title'] = 'Para lhe ajudar com novas strings, deixei alguns campos vazios:';
@@ -101,6 +108,7 @@ $string['extra_options'] = 'Opções avançadas do bloco';
 $string['firstname'] = 'Nome do estudante';
 $string['g_finalgrade'] = 'Nota final';
 $string['grade'] = 'Nota';
+$string['grade_course'] = 'Nota do curso';
 $string['html_after'] = 'Texto (ou HTML) opcional depois do gráfico';
 $string['html_block'] = 'HTML do Bloco';
 $string['html_block_desc'] = '<p>Os valores gerados pelo SQL devem ser substituídos por chaves.</p><p>Se você tem a SQL <code>SELECT <b>email</b>, <b>fullname</b> FROM mdl_user WHERE id = :userid</code> você pode usar no HTML as chaves <code>{email}</code> e <code>{fullname}</code> para substituir no HTML.</p>';
@@ -117,7 +125,6 @@ $string['item_not_found'] = 'Item não localizado';
 $string['kopere_bi:manage'] = 'Gerenciar Business intelligence';
 $string['kopere_bi:view'] = 'Ver Business intelligence';
 $string['l_ip'] = 'IP';
-$string['l_objecttable'] = 'Nome do módulo';
 $string['l_origin'] = 'Origem';
 $string['l_timecreated'] = 'Criado em';
 $string['line_desc'] = 'Monta um gráfico de linhas';
@@ -152,6 +159,7 @@ $string['maps_name'] = 'Mapa de estudantes online';
 $string['maps_online'] = '{a1} estudante online';
 $string['maps_onlines'] = '{a1} estudantes online';
 $string['maps_sql_warning'] = '<p>Lembre-se de que a SQL abaixo deve retornar apenas uma coluna, e essa coluna deve conter um IP válido.<br>Exemplo: a SQL <code>SELECT lastip FROM {user} WHERE lastaccess > UNIX_TIMESTAMP() - (10 * 60)</code> retorna todos os estudantes que acessaram o Moodle nos últimos 10 minutos</p>';
+$string['module_name'] = 'Nome do módulo';
 $string['modulename'] = 'Business Intelligence';
 $string['new_block'] = 'Novo bloco nesta página';
 $string['new_block_1'] = 'Um bloco';
@@ -162,12 +170,17 @@ $string['new_block_25'] = 'Um largo e um estreito';
 $string['new_block_3'] = 'Três blocos';
 $string['new_block_4'] = 'Quatro blocos';
 $string['new_block_52'] = 'Um estreito e um largo';
+$string['not_accessed_learners'] = 'Estudantes que não acessaram a plataforma';
+$string['not_completed_learners'] = 'Estudantes que não completaram os cursos';
+$string['num_activelearners'] = 'Número de estudantes ativos';
+$string['num_completedlearners'] = 'Número de estudantes que completaram cursos';
+$string['num_courses'] = 'Número de cursos disponíveis';
+$string['num_learners'] = 'Número total de estudantes';
 $string['num_user'] = 'Quantidade de estudantes';
 $string['os_name'] = 'Sistema operacional';
 $string['page_description'] = 'Descrição da página';
 $string['page_edit'] = 'Editar página';
 $string['page_name'] = 'Nome da página';
-$string['page_new'] = 'Nova página';
 $string['page_new_cat'] = 'Nova página';
 $string['page_new_sequence'] = 'Arraste os blocos para mudar a ordem dos blocos.';
 $string['page_not_found'] = 'Página não localizada';
@@ -195,7 +208,6 @@ $string['reload_time_none'] = 'Nunca';
 $string['report_1_cat_description'] = 'Relatórios sobre o desempenho e progresso dos estudantes em seus cursos.';
 $string['report_1_cat_title'] = 'Estudantes';
 $string['report_1_categories'] = 'Categorias';
-$string['report_1_courses'] = 'Cursos';
 $string['report_1_description'] = 'Relatórios de status dos estudantes';
 $string['report_1_modules'] = 'Módulos';
 $string['report_1_title'] = 'Estudantes ativos';
@@ -210,6 +222,9 @@ $string['report_2_course_analysis_participation_completion'] = 'Análise do curs
 $string['report_2_course_progress'] = 'Progresso do curso';
 $string['report_2_description'] = 'Relatório de cursos';
 $string['report_2_title'] = 'Cursos';
+$string['report_2_total_engagement'] = 'Total Engajamento por Curso';
+$string['report_3_cat_description'] = 'Relatório de todos online no Moodle';
+$string['report_3_cat_title'] = 'Online';
 $string['report_3_course_access_time'] = 'Tempo de acesso aos cursos';
 $string['report_3_description'] = 'Mostra os estudantes online e principais regiões';
 $string['report_3_operating_systems'] = 'Sistemas operacionais';
@@ -220,6 +235,32 @@ $string['report_3_users_online'] = 'Estudantes online';
 $string['report_3_users_online_list'] = 'Lista de estudantes online';
 $string['report_4_cat_description'] = 'Relatórios de matrículas, cobrindo histórico, status atual e tendências de inscrições nos cursos.';
 $string['report_4_cat_title'] = 'Matrículas';
+$string['report_4_description'] = 'Relatórios de matrículas, cobrindo histórico, status atual e tendências de inscrições nos cursos.';
+$string['report_4_title'] = 'Estatísticas';
+$string['report_5_cat_description'] = 'Este relatório fornece uma visão geral das principais métricas e informações do sistema, permitindo uma análise abrangente de seu desempenho e operação.';
+$string['report_5_cat_title'] = 'Sistema';
+$string['report_5_component'] = 'Componente';
+$string['report_5_coursefilesizes'] = 'Arquivos do curso';
+$string['report_5_coursefilesizes_title'] = 'Espaço ocupado por cada curso';
+$string['report_5_description'] = 'O relatório Geral oferece um resumo detalhado de todos os aspectos do sistema, incluindo dados de uso, desempenho e áreas de melhoria. Ideal para administradores e gerentes que buscam otimizar a eficiência do sistema.';
+$string['report_5_filesize'] = 'Tamanho do arquivo';
+$string['report_5_filesizes'] = 'Tamanho dos arquivos';
+$string['report_5_modulesdeleting'] = 'Módulos apagando';
+$string['report_5_modulesfilesizes'] = 'Arquivos dos Módulos';
+$string['report_5_numfiles'] = 'Número de arquivos';
+$string['report_5_title'] = 'Geral';
+$string['report_5_upload_title'] = 'Espaço ocupado por cada módulo';
+$string['report_6_login'] = 'Logins';
+$string['report_6_cat_description'] = 'Monitoramento e estatísticas de logins no sistema';
+$string['report_6_login_report'] = 'Relatório de logins do Moodle';
+$string['report_6_cat_title'] = 'Relatórios de logins';
+$string['report_7_inactive'] = 'Matrículas inativas';
+$string['report_7_inactive_report'] = 'Relatório de Matrículas inativas';
+$string['report_7_users_not_accessed_course'] = 'Os usuários registrados, que não acessaram seu curso';
+$string['report_8_engagement'] = 'Engajamento';
+$string['report_8_student_teacher_engagement'] = 'Relatório de engajamento dos estudantes e professores';
+$string['report_8_teacher_access'] = 'Acesso de professores';
+$string['report_8_total_engagement_per_course'] = 'Total Engajamento por Curso';
 $string['report_new'] = 'Novo relatório de "{$a}"';
 $string['report_preview'] = 'Pré-visualizar relatório';
 $string['report_save'] = 'Salvar & ir para configuração das colunas';
@@ -227,6 +268,7 @@ $string['report_title'] = 'Título do relatório';
 $string['reports_selectcourse'] = 'Selecione o curso para gerar o relatório';
 $string['reports_selectuser'] = 'Selecione o estudante para gerar o relatório';
 $string['return_edit'] = '<< Voltar à edição';
+$string['rolename'] = 'Nome do papel';
 $string['save'] = 'Salvar';
 $string['secounds'] = 'Quantos segundos';
 $string['select_report_select_type'] = 'Selecione o tipo de relatório';
@@ -234,7 +276,7 @@ $string['select_report_select_type_desc'] = 'Primeiro, escolha qual tipo de rela
 $string['select_report_type'] = 'Tipo de relatório';
 $string['select_report_type_desc'] = 'Você pode alternar entre os tipos "{$a->line}", "{$a->area}" ou "{$a->column}"';
 $string['setting_apex'] = 'Configurações do Apex Charts';
-$string['setting_apex_desc'] = 'Só edite se você conhecer o Apex Charts. Veja em <a target=\'_blank\' href=\'https://apexcharts.com/docs/series/\'>apexcharts.com/docs</a>';
+$string['setting_apex_desc'] = 'Só edite se você conhecer o Apex Charts. Veja em <a target="_blank" href="https://apexcharts.com/docs/series/">apexcharts.com/docs</a>';
 $string['sql_read_only'] = 'Todas as consultas SQL estão protegidas por conexão de somente leitura e não há como executar comandos de INSERT/UPDATE/DELETE.';
 $string['sql_replace_keys'] = '<h4>Chaves de substituição</h4>
 <ul>
@@ -267,9 +309,9 @@ $string['table_info_secound'] = 'Aqui você pode definir um nome para cada colun
     <li><strong>Números</strong>: Formata a coluna para exibir apenas valores numéricos, aplicando as regras padrão de exibição de números, como separadores de milhares e decimais.</li>
     <li><strong>Converter a coluna para nome completo "fullname()"</strong>: Executa a função fullname() para criar o nome completo baseado na linguagem do estudante.</li>
     <li><strong>Converter ID do estudante para foto de perfil</strong>: Substitui o ID do estudante na coluna por sua respectiva foto de perfil, permitindo uma identificação visual imediata dos estudantes.</li>
-    <li><strong>Campo binário para Verdadeiro/False</strong>: Interpreta o valor binário na coluna como um indicador de status, onde \'0\' ou \'false\' significa inativo e \'1\' ou \'true\' significa ativo.</li>
-    <li><strong>Campo binário para Ativo/Inativo</strong>: Usa o valor binário para determinar a visibilidade, onde \'0\' ou \'false\' representa Inativo e \'1\' ou \'true\' representa Inativo.</li>
-    <li><strong>Campo binário para Visível/Invisível</strong>: Usa o valor binário para determinar a visibilidade, onde \'0\' ou \'false\' representa invisível e \'1\' ou \'true\' representa visível.</li>
+    <li><strong>Campo binário para Verdadeiro/False</strong>: Interpreta o valor binário na coluna como um indicador de status, onde "0" ou "false" significa inativo e "1" ou "true" significa ativo.</li>
+    <li><strong>Campo binário para Ativo/Inativo</strong>: Usa o valor binário para determinar a visibilidade, onde "0" ou "false" representa Inativo e "1" ou "true" representa Inativo.</li>
+    <li><strong>Campo binário para Visível/Invisível</strong>: Usa o valor binário para determinar a visibilidade, onde "0" ou "false" representa invisível e "1" ou "true" representa visível.</li>
     <li><strong>Campo binário para ativo/deletado:</strong> Este campo identifica o status de um item como ativo (0) ou deletado (1), permitindo a gestão e recuperação de dados em sistemas de armazenamento.</li>
     <li><strong>Campo "time" formatado para data</strong>: Converte o valor de tempo (timestamp) na coluna para uma data legível, exibindo apenas a data (dia/mês/ano).</li>
     <li><strong>Campo "time" formatado para data e hora</strong>: Exibe o valor de tempo (timestamp) na coluna como uma data completa, incluindo a hora (dia/mês/ano e horas:minutos).</li>
@@ -280,6 +322,7 @@ $string['table_name'] = 'Tabela de dados';
 $string['table_renderer_date'] = 'Campo "time" formatado para data';
 $string['table_renderer_datetime'] = 'Campo "time" formatado para data e hora';
 $string['table_renderer_deleted'] = 'Campo binário para ativo/deletado';
+$string['table_renderer_filesize'] = 'Converte para tamanho de dados em disco';
 $string['table_renderer_fullname'] = 'Converter a coluna para nome completo "fullname()"';
 $string['table_renderer_none'] = 'Não mostrar esta coluna';
 $string['table_renderer_number'] = 'Números';

@@ -146,7 +146,7 @@ class pie implements i_type {
     public function get_chart_data($koperebielement) {
         $cache = cache_util::get_cache_make($koperebielement->cache);
 
-        if ($cache->has($koperebielement->id)) {
+        if (false &&$cache->has($koperebielement->id)) {
             $lines = $cache->get($koperebielement->id);
         } else {
             $comand = sql_util::prepare_sql($koperebielement->commandsql);

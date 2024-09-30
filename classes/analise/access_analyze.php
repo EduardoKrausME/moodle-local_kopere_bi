@@ -17,7 +17,6 @@
 namespace local_kopere_bi\analise;
 
 use DeviceDetector\DeviceDetector;
-use DeviceDetector\Parser\Device\AbstractDeviceParser;
 
 /**
  * Class access_analyze

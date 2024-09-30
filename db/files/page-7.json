@@ -1,0 +1,31 @@
+{
+    "title": "lang::report_7_inactive::local_kopere_bi",
+    "description": "lang::report_7_inactive_report::local_kopere_bi",
+    "user_id": null,
+    "category": {
+        "title": "lang::report_4_cat_title::local_kopere_bi",
+        "description": "lang::report_4_cat_description::local_kopere_bi"
+    },
+    "blocks": [
+        {
+            "type": "block-1",
+            "sequence": 1727486360,
+            "elements": [
+                {
+                    "title": "lang::report_7_users_not_accessed_course::local_kopere_bi",
+                    "block_num": 1,
+                    "type": "table",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT u.id AS u_id,\r\n       u.firstname,\r\n       u.lastname,\r\n       u.email,\r\n       u.phone1,\r\n       u.city,\r\n       u.country,\r\n       u.firstaccess,\r\n       u.lastaccess,\r\n       u.lastlogin,\r\n       u.lastip,\r\n       c.fullname as c_fullname,\r\n       (SELECT r.name\r\n           FROM {user_enrolments} ue2\r\n           JOIN {enrol} e ON e.id = ue2.enrolid\r\n           JOIN {role}  r ON e.id = r.id\r\n          WHERE ue2.userid = u.id\r\n            AND e.courseid = c.id ) AS rolename\r\n  FROM mdl_user_enrolments ue\r\n  JOIN mdl_enrol  e ON e.id = ue.enrolid\r\n  JOIN mdl_course c ON c.id = e.courseid\r\n  JOIN mdl_user   u ON u.id = ue.userid\r\nLEFT JOIN {user_lastaccess} ul ON ul.userid = u.id\r\n WHERE ul.timeaccess IS NULL",
+                    "cache": "none",
+                    "reload": "none",
+                    "info": "{\n    \"column\": {\n        \"name\": {\n            \"u_id\": \"#\",\n            \"firstname\": \"lang::u_fullname::local_kopere_bi\",\n            \"lastname\": \"\",\n            \"email\": \"lang::email::moodle\",\n            \"phone1\": \"lang::phone1::moodle\",\n            \"city\": \"lang::city_name::local_kopere_bi\",\n            \"country\": \"lang::country_name::local_kopere_bi\",\n            \"firstaccess\": \"lang::firstaccess::moodle\",\n            \"lastaccess\": \"lang::lastaccess::moodle\",\n            \"lastlogin\": \"lang::lastlogin::moodle\",\n            \"lastip\": \"lang::lastip::moodle\",\n            \"c_fullname\": \"lang::c_fullname::local_kopere_bi\",\n            \"rolename\": \"lang:: rolename::local_kopere_bi\"\n        },\n        \"type\": {\n            \"u_id\": \"userphotoRenderer\",\n            \"firstname\": \"fullname\",\n            \"lastname\": \"none\",\n            \"email\": \"string\",\n            \"phone1\": \"string\",\n            \"city\": \"string\",\n            \"country\": \"string\",\n            \"firstaccess\": \"string\",\n            \"lastaccess\": \"string\",\n            \"lastlogin\": \"string\",\n            \"lastip\": \"string\",\n            \"c_fullname\": \"string\",\n            \"rolename\": \"string\"\n        }\n    }\n}",
+                    "time": 1727486508
+                }
+            ]
+        }
+    ]
+}

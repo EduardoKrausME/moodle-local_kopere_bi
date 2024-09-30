@@ -133,7 +133,7 @@ class table implements i_type {
 
             mensagem::print_info(get_string("table_info_secound", "local_kopere_bi"));
             foreach ($lines[0] as $id => $line) {
-                echo "<h3>" . get_string("table_edit_collumn", "local_kopere_bi") . ": <strong><em>{$id}</em></strong></h3>";
+                echo "<h3>" . get_string("table_edit_column", "local_kopere_bi") . ": <strong><em>{$id}</em></strong></h3>";
                 $this->select_data($koperebielement, $id);
             }
         } else {
@@ -194,6 +194,9 @@ class table implements i_type {
             ], [
                 "key" => "translate",
                 "value" => get_string("table_renderer_translate", "local_kopere_bi"),
+            ], [
+                "key" => table_header_item::RENDERER_FILESIZE,
+                "value" => get_string("table_renderer_filesize", "local_kopere_bi"),
             ],
         ];
 
@@ -213,6 +216,8 @@ class table implements i_type {
                 $typedefault = table_header_item::RENDERER_STATUS;
             } else if (strpos($collname, "visible") !== false) {
                 $typedefault = table_header_item::RENDERER_VISIBLE;
+            } else if (strpos($collname, "filesize") !== false) {
+                $typedefault = table_header_item::RENDERER_FILESIZE;
             } else {
                 $typedefault = "string";
             }
@@ -253,11 +258,10 @@ class table implements i_type {
         $table = new data_table();
 
         if (!isset($koperebielement->info_obj["column"]["type"])) {
-            return mensagem::danger(get_string("table_collumn_not_configured", "local_kopere_bi"));
+            return mensagem::danger(get_string("table_column_not_configured", "local_kopere_bi"));
         }
 
         foreach ($koperebielement->info_obj["column"]["type"] as $key => $type) {
-
             if ($type == "none") {
                 continue;
             }
@@ -292,6 +296,9 @@ class table implements i_type {
                     break;
                 case table_header_item::RENDERER_TIME:
                     $table->add_header($name, $key, table_header_item::RENDERER_TIME);
+                    break;
+                case table_header_item::RENDERER_FILESIZE:
+                    $table->add_header($name, $key, table_header_item::RENDERER_FILESIZE);
                     break;
                 default:
                     $table->add_header($name, $key);
@@ -374,7 +381,7 @@ class table implements i_type {
     public function preview_google($koperebielement) {
         global $OUTPUT;
 
-        $addcollumn = [];
+        $addcolumn = [];
         $formatter = [];
 
         $comand = sql_util::prepare_sql($koperebielement->commandsql);
@@ -388,7 +395,7 @@ class table implements i_type {
         $columns = array_keys((array)$lines[0]);
 
         foreach ($columns as $column) {
-            $addcollumn[] = "data.addColumn('string', '{$column}');";
+            $addcolumn[] = "data.addColumn('string', '{$column}');";
         }
 
         $linechart = [];
@@ -404,7 +411,7 @@ class table implements i_type {
 
         return $OUTPUT->render_from_template("local_kopere_bi/block_table_preview_google", [
             "koperebiitem_id" => $koperebielement->id,
-            "addcollumn" => $addcollumn,
+            "addcolumn" => $addcolumn,
             "linechart" => json_encode($linechart, JSON_PRETTY_PRINT),
             "formatter" => implode("\n\t\t\t\t", $formatter),
         ]);

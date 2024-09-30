@@ -111,7 +111,7 @@ class info implements i_type {
 
         $cache = cache_util::get_cache_make($koperebielement->cache);
 
-        if ($cache->has($koperebielement->id)) {
+        if (false &&$cache->has($koperebielement->id)) {
             $retorno = $cache->get($koperebielement->id);
         } else {
 

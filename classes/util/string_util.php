@@ -60,13 +60,15 @@ class string_util {
      */
     public static function get_string($string) {
         if (strpos($string, "lang::") === false || $string == "#" || $string == "") {
-            return "XXXX-{$string}";
+            return $string;
+            // return "XXXX-{$string}";
         }
 
         $strings = explode("::", $string);
         if (isset($strings[2])) {
             return get_string($strings[1], $strings[2]);
         }
-        return "ZZZZZ-{$string}";
+        return $string;
+        // return "ZZZZZ-{$string}";
     }
 }

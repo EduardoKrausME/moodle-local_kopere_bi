@@ -1,0 +1,51 @@
+{
+    "title": "lang::report_6_login::local_kopere_bi",
+    "description": "lang::report_6_login_report::local_kopere_bi",
+    "user_id": null,
+    "category": {
+        "title": "lang::report_6_cat_title::local_kopere_bi",
+        "description": "lang::report_6_cat_description::local_kopere_bi"
+    },
+    "blocks": [
+        {
+            "type": "block-1",
+            "sequence": 1727485996,
+            "elements": [
+                {
+                    "title": "lang::reports_report_user-5::local_kopere_dashboard",
+                    "block_num": 1,
+                    "type": "table",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT u.id, \r\n       u.firstname, \r\n       u.lastname, \r\n       u.email,\r\n       u.phone1, \r\n       u.phone2, \r\n       u.city, \r\n       u.country, \r\n       u.timecreated\r\n  FROM mdl_user u\r\n WHERE u.deleted    = 0\r\n   AND u.lastlogin  = 0\r\n   AND u.id         > 1\r\n   AND u.lastaccess = 0",
+                    "cache": "30m",
+                    "reload": "30m",
+                    "info": "{\n    \"column\": {\n        \"name\": {\n            \"id\": \"#\",\n            \"firstname\": \"lang::u_fullname::local_kopere_bi\",\n            \"lastname\": \"\",\n            \"email\": \"lang::email::moodle\",\n            \"phone1\": \"lang::phone1::moodle\",\n            \"phone2\": \"lang::phone2::moodle\",\n            \"city\": \"lang::city_name::local_kopere_bi\",\n            \"country\": \"lang::country_name::local_kopere_bi\",\n            \"timecreated\": \"lang::timecreated::moodle\"\n        },\n        \"type\": {\n            \"id\": \"userphotoRenderer\",\n            \"firstname\": \"fullname\",\n            \"lastname\": \"none\",\n            \"email\": \"string\",\n            \"phone1\": \"string\",\n            \"phone2\": \"string\",\n            \"city\": \"string\",\n            \"country\": \"string\",\n            \"timecreated\": \"datetimeRenderer\"\n        }\n    }\n}",
+                    "time": 1727486108
+                }
+            ]
+        },
+        {
+            "type": "block-1",
+            "sequence": 1727486150,
+            "elements": [
+                {
+                    "title": "lang::reports_report_user-4::local_kopere_dashboard",
+                    "block_num": 1,
+                    "type": "table",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT u.id, \r\n       u.firstname,\r\n       u.lastname,\r\n       u.email,\r\n       u.phone1,\r\n       u.phone2,\r\n       u.city,\r\n       u.country,\r\n       u.firstaccess,\r\n       u.lastaccess,\r\n       u.lastlogin,\r\n       u.lastip, \r\n       u.timecreated\r\n  FROM mdl_user u\r\n WHERE u.deleted    = 0\r\n   AND u.lastlogin  = 0\r\n   AND u.id         > 1\r\n   AND u.lastaccess = 0",
+                    "cache": "none",
+                    "reload": "none",
+                    "info": "{\n    \"column\": {\n        \"name\": {\n            \"id\": \"#\",\n            \"firstname\": \"lang::u_fullname::local_kopere_bi\",\n            \"lastname\": \"\",\n            \"email\": \"lang::email::moodle\",\n            \"phone1\": \"lang::phone1::moodle\",\n            \"phone2\": \"lang::phone2::moodle\",\n            \"city\": \"lang::city_name::local_kopere_bi\",\n            \"country\": \"lang::country_name::local_kopere_bi\",\n            \"firstaccess\": \"lang::firstaccess::moodle\",\n            \"lastaccess\": \"lang::lastaccess::moodle\",\n            \"lastlogin\": \"lang::lastlogin::moodle\",\n            \"lastip\": \"lang::lastip::moodle\",\n            \"timecreated\": \"lang::timecreated::moodle\"\n        },\n        \"type\": {\n            \"id\": \"userphotoRenderer\",\n            \"firstname\": \"fullname\",\n            \"lastname\": \"none\",\n            \"email\": \"string\",\n            \"phone1\": \"string\",\n            \"phone2\": \"string\",\n            \"city\": \"string\",\n            \"country\": \"dateRenderer\",\n            \"firstaccess\": \"string\",\n            \"lastaccess\": \"dateRenderer\",\n            \"lastlogin\": \"dateRenderer\",\n            \"lastip\": \"string\",\n            \"timecreated\": \"datetimeRenderer\"\n        }\n    }\n}",
+                    "time": 1727486242
+                }
+            ]
+        }
+    ]
+}

@@ -1,5 +1,5 @@
 {
-    "title": "lang::report_2_cat_title::local_kopere_bi",
+    "title": "lang::report_2_title::local_kopere_bi",
     "description": "lang::report_2_description::local_kopere_bi",
     "user_id": null,
     "category": {
@@ -23,7 +23,7 @@
                     "cache": "6h",
                     "reload": "30m",
                     "info": "{\n    \"column\": {\n        \"name\": {\n            \"u_id\": \"#\",\n            \"firstname\": \"lang::u_fullname::local_kopere_bi\",\n            \"lastname\": \"lang::lastname::moodle\",\n            \"firstnamephonetic\": \"lang::firstnamephonetic::moodle\",\n            \"lastnamephonetic\": \"lang::lastnamephonetic::moodle\",\n            \"middlename\": \"lang::middlename::moodle\",\n            \"alternatename\": \"lang::alternatename::moodle\",\n            \"email\": \"lang::email::moodle\",\n            \"institution\": \"lang::institution::moodle\",\n            \"department\": \"lang::department::moodle\",\n            \"phone1\": \"lang::phone1::moodle\",\n            \"phone2\": \"lang::phone2::moodle\",\n            \"address\": \"lang::address::moodle\",\n            \"city\": \"lang::city::moodle\",\n            \"country\": \"lang::country::moodle\",\n            \"timezone\": \"lang::timezone::moodle\",\n            \"firstaccess\": \"lang::firstaccess::moodle\",\n            \"lastaccess\": \"lang::lastaccess::moodle\",\n            \"timecreated\": \"lang::timecreated::moodle\",\n            \"timecompleted\": \"lang::timecompleted::local_kopere_bi\",\n            \"course_completed\": \"lang::course_completed::local_kopere_bi\"\n        },\n        \"type\": {\n            \"u_id\": \"number\",\n            \"firstname\": \"fullname\",\n            \"lastname\": \"none\",\n            \"firstnamephonetic\": \"none\",\n            \"lastnamephonetic\": \"none\",\n            \"middlename\": \"none\",\n            \"alternatename\": \"none\",\n            \"email\": \"string\",\n            \"institution\": \"string\",\n            \"department\": \"string\",\n            \"phone1\": \"string\",\n            \"phone2\": \"string\",\n            \"address\": \"string\",\n            \"city\": \"string\",\n            \"country\": \"string\",\n            \"timezone\": \"none\",\n            \"firstaccess\": \"datetimeRenderer\",\n            \"lastaccess\": \"datetimeRenderer\",\n            \"timecreated\": \"datetimeRenderer\",\n            \"timecompleted\": \"datetimeRenderer\",\n            \"course_completed\": \"number\"\n        }\n    }\n}",
-                    "time": 1727259728
+                    "time": 1727467240
                 }
             ]
         },
@@ -43,7 +43,7 @@
                     "cache": "none",
                     "reload": "none",
                     "info": "{\n    \"column\": {\n        \"name\": {\n            \"u_id\": \"#\",\n            \"firstname\": \"lang::u_fullname::local_kopere_bi\",\n            \"lastname\": \"lang::lastname::moodle\",\n            \"email\": \"lang::email::moodle\",\n            \"grade\": \"lang::grade::local_kopere_bi\"\n        },\n        \"type\": {\n            \"u_id\": \"string\",\n            \"firstname\": \"fullname\",\n            \"lastname\": \"none\",\n            \"email\": \"string\",\n            \"grade\": \"number\"\n        }\n    }\n}",
-                    "time": 1727259728
+                    "time": 1727467240
                 }
             ]
         },
@@ -59,11 +59,11 @@
                     "css": "",
                     "html_before": null,
                     "html_after": null,
-                    "commandsql": "SELECT u.id                    AS u_id,\r\n       u.firstname,\r\n       u.lastname,\r\n       u.email,\r\n       c.id                    AS c_id,\r\n       c.fullname              AS c_fullname,\r\n       l.contextinstanceid     AS cm_cmid,\r\n       l.objecttable           AS l_objecttable,\r\n       l.origin                AS l_origin,\r\n       l.ip                    AS l_ip,\r\n       l.timecreated           AS l_timecreated\r\n       \r\n     FROM mdl_logstore_standard_log l\r\nLEFT JOIN mdl_course       c  ON c.id = l.courseid\r\nLEFT JOIN mdl_user         u  ON u.id = l.userid\r\nLEFT JOIN mdl_modules      m  ON m.name = SUBSTRING(l.component, 5)\r\nLEFT JOIN mdl_course_modules cm ON cm.id = l.contextinstanceid\r\n\r\nWHERE l.component LIKE '%mod_%'\r\n  AND l.courseid = :courseid\r\n  AND u.deleted = 0\r\n  AND u.suspended = 0\r\n  AND c.visible = 1\r\n  AND cm.visible = 1",
+                    "commandsql": "SELECT u.id                    AS u_id,\r\n       u.firstname,\r\n       u.lastname,\r\n       u.email,\r\n       c.id                    AS c_id,\r\n       c.fullname              AS c_fullname,\r\n       l.contextinstanceid     AS cm_cmid,\r\n       l.objecttable           AS module_name,\r\n       l.origin                AS l_origin,\r\n       l.ip                    AS l_ip,\r\n       l.timecreated           AS l_timecreated\r\n       \r\n     FROM mdl_logstore_standard_log l\r\nLEFT JOIN mdl_course       c  ON c.id = l.courseid\r\nLEFT JOIN mdl_user         u  ON u.id = l.userid\r\nLEFT JOIN mdl_modules      m  ON m.name = SUBSTRING(l.component, 5)\r\nLEFT JOIN mdl_course_modules cm ON cm.id = l.contextinstanceid\r\n\r\nWHERE l.component LIKE '%mod_%'\r\n  AND l.courseid = :courseid\r\n  AND u.deleted = 0\r\n  AND u.suspended = 0\r\n  AND c.visible = 1\r\n  AND cm.visible = 1",
                     "cache": "6h",
                     "reload": "30m",
-                    "info": "{\n    \"column\": {\n        \"name\": {\n            \"u_id\": \"#\",\n            \"firstname\": \"lang::u_fullname::local_kopere_bi\",\n            \"lastname\": \"lang::lastname::moodle\",\n            \"email\": \"lang::email::moodle\",\n            \"c_id\": \"lang::c_id::local_kopere_bi\",\n            \"c_fullname\": \"lang::c_fullname::local_kopere_bi\",\n            \"cm_cmid\": \"lang::cm_cmid::local_kopere_bi\",\n            \"l_objecttable\": \"lang::l_objecttable::local_kopere_bi\",\n            \"l_origin\": \"lang::l_origin::local_kopere_bi\",\n            \"l_ip\": \"lang::l_ip::local_kopere_bi\",\n            \"l_timecreated\": \"lang::l_timecreated::local_kopere_bi\"\n        },\n        \"type\": {\n            \"u_id\": \"number\",\n            \"firstname\": \"fullname\",\n            \"lastname\": \"none\",\n            \"email\": \"string\",\n            \"c_id\": \"number\",\n            \"c_fullname\": \"string\",\n            \"cm_cmid\": \"string\",\n            \"l_objecttable\": \"string\",\n            \"l_origin\": \"string\",\n            \"l_ip\": \"string\",\n            \"l_timecreated\": \"datetimeRenderer\"\n        }\n    }\n}",
-                    "time": 1727259728
+                    "info": "{\n    \"column\": {\n        \"name\": {\n            \"u_id\": \"#\",\n            \"firstname\": \"lang::u_fullname::local_kopere_bi\",\n            \"lastname\": \"lang::lastname::moodle\",\n            \"email\": \"lang::email::moodle\",\n            \"c_id\": \"lang::c_id::local_kopere_bi\",\n            \"c_fullname\": \"lang::c_fullname::local_kopere_bi\",\n            \"cm_cmid\": \"lang::cm_cmid::local_kopere_bi\",\n            \"module_name\": \"lang::module_name::local_kopere_bi\",\n            \"l_origin\": \"lang::l_origin::local_kopere_bi\",\n            \"l_ip\": \"lang::l_ip::local_kopere_bi\",\n            \"l_timecreated\": \"lang::l_timecreated::local_kopere_bi\"\n        },\n        \"type\": {\n            \"u_id\": \"number\",\n            \"firstname\": \"fullname\",\n            \"lastname\": \"none\",\n            \"email\": \"string\",\n            \"c_id\": \"number\",\n            \"c_fullname\": \"string\",\n            \"cm_cmid\": \"string\",\n            \"module_name\": \"translate\",\n            \"l_origin\": \"string\",\n            \"l_ip\": \"string\",\n            \"l_timecreated\": \"datetimeRenderer\"\n        }\n    }\n}",
+                    "time": 1727467240
                 }
             ]
         },
@@ -83,7 +83,7 @@
                     "cache": "6h",
                     "reload": "30m",
                     "info": "{\n    \"column\": {\n        \"name\": {\n            \"u_id\": \"#\",\n            \"firstname\": \"lang::u_fullname::local_kopere_bi\",\n            \"lastname\": \"lang::lastname::moodle\",\n            \"email\": \"lang::email::moodle\",\n            \"status\": \"lang::status::moodle\"\n        },\n        \"type\": {\n            \"u_id\": \"number\",\n            \"firstname\": \"fullname\",\n            \"lastname\": \"none\",\n            \"email\": \"string\",\n            \"status\": \"translate\"\n        }\n    }\n}",
-                    "time": 1727259728
+                    "time": 1727467240
                 }
             ]
         }

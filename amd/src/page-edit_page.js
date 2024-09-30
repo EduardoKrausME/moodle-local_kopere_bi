@@ -11,7 +11,7 @@ define(["jquery", "jqueryui", "core/ajax", "core/notification"], function($, $ui
                     });
 
                     ajax.call([{
-                        methodname : "local_kopere_bi_block_order",
+                        methodname : "local_kopere_bi_block_sequence",
                         args       : {
                             itens : itens
                         }
@@ -27,7 +27,7 @@ define(["jquery", "jqueryui", "core/ajax", "core/notification"], function($, $ui
         page_blocks : function(page_id) {
 
             // Botão adicionar novo Bloco
-            var $bt_add_block = $('<span class="btn btn-primary btn-add-block">' + M.util.get_string('block_add', 'local_kopere_bi')  + "</span>");
+            var $bt_add_block = $('<span class="btn btn-primary btn-add-block">' + M.util.get_string('block_add', 'local_kopere_bi') + "</span>");
             $("#page-edit-sort").append($bt_add_block);
             $bt_add_block.click(function() {
                 $("#dialog-confirm-block-add").dialog({
@@ -48,7 +48,7 @@ define(["jquery", "jqueryui", "core/ajax", "core/notification"], function($, $ui
                     },
                     buttons   : [
                         {
-                            text  : M.util.get_string('close','admin'),
+                            text  : M.util.get_string('close', 'admin'),
                             click : function() {
                                 $(this).dialog("close");
                             }

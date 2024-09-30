@@ -130,7 +130,7 @@ class type_block {
             echo "
                 <div class='type-chart'>
                     <div class='type-chart-text'>
-                        <h4 class='block-title'>{$button["title"]}</h4>
+                        <h4 class='block-title select_type'>{$button["title"]}</h4>
                         <p>{$button["description"]}</p>
                         <a href='{$button["link"]}' class='btn btn-info'>Usar este tipo</a>
                     </div>

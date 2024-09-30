@@ -136,7 +136,7 @@ class html implements i_type {
 
         $cache = cache_util::get_cache_make($koperebielement->cache);
 
-        if ($cache->has($koperebielement->id)) {
+        if (false &&$cache->has($koperebielement->id)) {
             $returnhtml = $cache->get($koperebielement->id);
         } else {
             $comand = sql_util::prepare_sql($koperebielement->commandsql);
@@ -174,7 +174,7 @@ class html implements i_type {
     public function preview_google($koperebielement) {
         global $OUTPUT;
 
-        $addcollumn = [];
+        $addcolumn = [];
         $formatter = [];
 
         $comand = sql_util::prepare_sql($koperebielement->commandsql);
@@ -188,7 +188,7 @@ class html implements i_type {
         $columns = array_keys((array)$lines[0]);
 
         foreach ($columns as $column) {
-            $addcollumn[] = "data.addColumn('string', '{$column}');";
+            $addcolumn[] = "data.addColumn('string', '{$column}');";
         }
 
         $linechart = [];
@@ -203,10 +203,10 @@ class html implements i_type {
         }
 
         return $OUTPUT->render_from_template("local_kopere_bi/block_html_preview_google", [
-                "koperebiitem_id" => $koperebielement->id,
-                "collumn" => implode("\n\t\t\t\t", $addcollumn),
-                "linechart" => json_encode($linechart, JSON_PRETTY_PRINT),
-                "formatter" => implode("\n\t\t\t\t", $formatter),
-            ]);
+            "koperebiitem_id" => $koperebielement->id,
+            "column" => implode("\n\t\t\t\t", $addcolumn),
+            "linechart" => json_encode($linechart, JSON_PRETTY_PRINT),
+            "formatter" => implode("\n\t\t\t\t", $formatter),
+        ]);
     }
 }

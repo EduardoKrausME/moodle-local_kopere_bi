@@ -136,7 +136,7 @@ class dashboard {
                 "description" => $pagedescription,
                 "time" => time(),
             ];
-            $title = get_string('page_new', 'local_kopere_bi');
+            $title = get_string('page_new_cat', 'local_kopere_bi');
 
             if (form::check_post() && isset($pagetitle[3])) {
                 unset($page->id);
@@ -154,6 +154,9 @@ class dashboard {
         $form = new form("?classname=bi-dashboard&method=edit&page_id={$page->id}");
 
         $koperebicats = $DB->get_records("local_kopere_bi_cat", null, "title ASC");
+        foreach ($koperebicats as $key => $koperebicat) {
+            $koperebicats[$key]->title = string_util::get_string($koperebicats[$key]->title);
+        }
         $form->add_input(
             input_select::new_instance()
                 ->set_title(get_string('cat_title', 'local_kopere_bi'))
@@ -269,6 +272,8 @@ class dashboard {
     public function edit_page() {
         global $DB, $PAGE;
 
+        header::notfound_null(null, "aaaaa");
+
         $pageid = optional_param("page_id", 0, PARAM_INT);
         /** @var local_kopere_bi_page $koperebipage */
         $koperebipage = $DB->get_record("local_kopere_bi_page", ["id" => $pageid]);
@@ -332,7 +337,7 @@ class dashboard {
      * @throws \ScssPhp\ScssPhp\Exception\SassException
      */
     public function preview() {
-        global $DB;
+        global $DB, $USER;
 
         $pageid = optional_param("page_id", 0, PARAM_INT);
         /** @var local_kopere_bi_page $koperebipage */
@@ -340,10 +345,12 @@ class dashboard {
         header::notfound_null($koperebipage, get_string('page_not_found', 'local_kopere_bi'));
 
         $context = \context_system::instance();
-        $editbooton = has_capability('moodle/site:config', $context) ?
-            button::add(get_string('page_edit', 'local_kopere_bi'),
-                "?classname=bi-dashboard&method=edit_page&page_id={$koperebipage->id}",
-                "margin-left-10", false, true) : "";
+        if (isset($USER->editing) && $USER->editing) {
+            $editbooton = has_capability('moodle/site:config', $context) ?
+                button::add(get_string('page_edit', 'local_kopere_bi'),
+                    "?classname=bi-dashboard&method=edit_page&page_id={$koperebipage->id}",
+                    "margin-left-10", false, true) : "";
+        }
 
         dashboard_util::add_breadcrumb(get_string('title', 'local_kopere_bi'), "?classname=bi-dashboard&method=start");
         dashboard_util::add_breadcrumb(string_util::get_string($koperebipage->title),
@@ -352,7 +359,7 @@ class dashboard {
         dashboard_util::start_page();
 
         if ($koperebipage->description) {
-            echo "<p>" . string_util::get_string($koperebipage->description) . "</p>";
+            // echo "<p class='page-description'>" . string_util::get_string($koperebipage->description) . "</p>";
         }
 
         $koperebiblocks = $DB->get_records("local_kopere_bi_block", ["page_id" => $koperebipage->id], "sequence ASC");
@@ -423,7 +430,7 @@ class dashboard {
         echo "<div class='chart-box' id='chart-box-{$koperebielement->id}'>";
         echo "<div class='element-box theme-{$koperebielement->theme} type-{$koperebielement->type}'>";
 
-        echo "<h4 class='block-title'>" . string_util::get_string($koperebielement->title) . "</h4>";
+        echo "<h4 class='block-title type_block_preview'>" . string_util::get_string($koperebielement->title) . "</h4>";
 
         echo $koperebielement->html_before;
 

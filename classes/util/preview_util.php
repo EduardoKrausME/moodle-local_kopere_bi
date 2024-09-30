@@ -174,20 +174,30 @@ class preview_util {
             $return .= "<div class='chart-box' id='chart-box-{$koperebielement->id}'>";
             $return .= "<div class='element-box theme-{$koperebielement->theme} type-{$koperebielement->type}'>";
 
-            $class = "\\local_kopere_bi\\block\\{$koperebielement->type}";
-            if (class_exists($class)) {
-                /** @var i_type $block */
-                $block = new $class();
+            /** @var i_type $blockclass */
+            $blockclass = "\\local_kopere_bi\\block\\{$koperebielement->type}";
+            if (class_exists($blockclass)) {
+                $title = string_util::get_string($koperebielement->title);
 
-                $return .= "
-                    <div class='block-heading'>
-                        <h4 class='block-title'>".string_util::get_string($koperebielement->title)."</h4>
-                        {$block->title_extra($koperebielement)}
-                        <div class='block-controls'></div>
-                    </div>
-                    {$koperebielement->html_before}
-                    {$block->preview($koperebielement)}
-                    {$koperebielement->html_after}";
+                /** @var i_type $block */
+                $block = new $blockclass();
+                if (class_exists($blockclass)) {
+                    $return .= "
+                            <div class='block-heading'>
+                                <h4 class='block-title preview-details_block_item'>{$title}</h4>
+                                {$block->title_extra($koperebielement)}
+                                <div class='block-controls'></div>
+                            </div>
+                            {$koperebielement->html_before}
+                            {$block->preview($koperebielement)}
+                            {$koperebielement->html_after}";
+                } else {
+                    $return .= "
+                            <div class='block-heading'>
+                                <h4 class='block-title preview-details_block_item'>{$title}</h4>
+                                <div class='block-controls'></div>
+                            </div>";
+                }
             } else {
                 mensagem::print_danger(get_string('block_not_found', 'local_kopere_bi'));
             }

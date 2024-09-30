@@ -1,0 +1,133 @@
+{
+    "title": "lang::report_5_title::local_kopere_bi",
+    "description": "lang::report_5_description::local_kopere_bi",
+    "user_id": null,
+    "category": {
+        "title": "lang::report_5_cat_title::local_kopere_bi",
+        "description": "lang::report_5_cat_description::local_kopere_bi"
+    },
+    "blocks": [
+        {
+            "type": "block-4",
+            "sequence": 1,
+            "elements": [
+                {
+                    "title": "lang::report_1_users::local_kopere_bi",
+                    "block_num": 1,
+                    "type": "info",
+                    "theme": "blue",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT COUNT(*)\r\n  FROM mdl_user\r\n WHERE id > 0\r\n   AND deleted = 0\r\n   AND suspended = 0\r\n   AND username != 'guest'",
+                    "cache": "30m",
+                    "reload": "30m",
+                    "info": "[]",
+                    "time": 1727467240
+                },
+                {
+                    "title": "lang::report_2_title::local_kopere_bi",
+                    "block_num": 2,
+                    "type": "info",
+                    "theme": "green",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT COUNT(*)\r\n  FROM mdl_course\r\n WHERE category > 0\r\n   AND visible = 1",
+                    "cache": "30m",
+                    "reload": "30m",
+                    "info": "[]",
+                    "time": 1727467240
+                },
+                {
+                    "title": "lang::report_1_modules::local_kopere_bi",
+                    "block_num": 3,
+                    "type": "info",
+                    "theme": "orange",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT COUNT(*)\r\n  FROM mdl_course_modules\r\n WHERE id > 0\r\n   AND visible = 1",
+                    "cache": "30m",
+                    "reload": "30m",
+                    "info": "[]",
+                    "time": 1727467240
+                },
+                {
+                    "title": "lang::report_1_categories::local_kopere_bi",
+                    "block_num": 4,
+                    "type": "info",
+                    "theme": "pink",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT COUNT(*)\r\n  FROM mdl_course_categories\r\n WHERE visible = 1",
+                    "cache": "30m",
+                    "reload": "30m",
+                    "info": "[]",
+                    "time": 1727467240
+                }
+            ]
+        },
+        {
+            "type": "block-1",
+            "sequence": 3,
+            "elements": [
+                {
+                    "title": "lang::report_5_upload_title::local_kopere_bi",
+                    "block_num": 1,
+                    "type": "table",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT f.component, \r\n       COUNT(f.id)     AS num_files,\r\n       SUM(f.filesize) AS filesize\r\nFROM  mdl_files f\r\nWHERE f.filesize > 0\r\nGROUP BY f.component",
+                    "cache": "1d",
+                    "reload": "2h",
+                    "info": "{\n    \"column\": {\n        \"name\": {\n            \"component\": \"lang::report_5_component::local_kopere_bi\",\n            \"num_files\": \"lang::report_5_numfiles::local_kopere_bi\",\n            \"filesize\": \"lang::report_5_filesizes::local_kopere_bi\"\n        },\n        \"type\": {\n            \"component\": \"string\",\n            \"num_files\": \"number\",\n            \"filesize\": \"filesizeRenderer\"\n        }\n    }\n}",
+                    "time": 1727467506
+                }
+            ]
+        },
+        {
+            "type": "block-1",
+            "sequence": 4,
+            "elements": [
+                {
+                    "title": "lang::report_5_coursefilesizes_title::local_kopere_bi",
+                    "block_num": 1,
+                    "type": "table",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT \r\n    c.id, \r\n    c.fullname, \r\n    c.shortname, \r\n    c.visible, \r\n    c.timecreated,\r\n    (\r\n        SELECT SUM(f.filesize)\r\n          FROM mdl_files   f\r\n          JOIN mdl_context ctx\r\n         WHERE ctx.id           = f.contextid\r\n           AND ctx.contextlevel = 50\r\n           AND ctx.instanceid   = c.id\r\n      GROUP BY ctx.instanceid\r\n    ) AS coursefilesizes,\r\n    (\r\n        SELECT SUM(f.filesize) AS modulessize\r\n          FROM mdl_context        ctx\r\n          JOIN mdl_files          f   ON ctx.id = f.contextid\r\n          JOIN mdl_course_modules cm  ON cm.id  = ctx.instanceid\r\n         WHERE ctx.contextlevel      = 70\r\n           AND cm.course             = c.id\r\n           AND cm.deletioninprogress = 0\r\n      GROUP BY cm.course\r\n    ) AS modulesfilesizes,\r\n    (\r\n        SELECT SUM(f.filesize) AS modulessize\r\n          FROM mdl_context        ctx\r\n          JOIN mdl_files          f   ON ctx.id = f.contextid\r\n          JOIN mdl_course_modules cm  ON cm.id  = ctx.instanceid\r\n         WHERE ctx.contextlevel      = 70\r\n           AND cm.course             = c.id\r\n           AND cm.deletioninprogress != 0\r\n      GROUP BY cm.course\r\n    ) AS modulesfilesizesdeleting\r\nFROM \r\n    mdl_course c\r\nWHERE \r\n    c.id > 1",
+                    "cache": "1d",
+                    "reload": "1h",
+                    "info": "{\n    \"column\": {\n        \"name\": {\n            \"id\": \"#\",\n            \"fullname\": \"lang::c_fullname::local_kopere_bi\",\n            \"shortname\": \"shortname\",\n            \"visible\": \"lang::c_visible::local_kopere_bi\",\n            \"timecreated\": \"lang::c_timemodified::local_kopere_bi\",\n            \"coursefilesizes\": \"lang::report_5_coursefilesizes::local_kopere_bi\",\n            \"modulesfilesizes\": \"lang::report_5_modulesfilesizes::local_kopere_bi\",\n            \"modulesfilesizesdeleting\": \"lang::report_5_modulesdeleting::local_kopere_bi\"\n        },\n        \"type\": {\n            \"id\": \"string\",\n            \"fullname\": \"string\",\n            \"shortname\": \"none\",\n            \"visible\": \"visibleRenderer\",\n            \"timecreated\": \"datetimeRenderer\",\n            \"coursefilesizes\": \"filesizeRenderer\",\n            \"modulesfilesizes\": \"filesizeRenderer\",\n            \"modulesfilesizesdeleting\": \"filesizeRenderer\"\n        }\n    }\n}",
+                    "time": 1727468835
+                }
+            ]
+        },
+        {
+            "type": "block-1",
+            "sequence": 2,
+            "elements": [
+                {
+                    "title": "lang::report_5_coursefilesizes_title::local_kopere_bi",
+                    "block_num": 1,
+                    "type": "line",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT c.fullname,\r\n    (\r\n        SELECT SUM(f.filesize)\r\n          FROM mdl_files   f\r\n          JOIN mdl_context ctx\r\n         WHERE ctx.id           = f.contextid\r\n           AND ctx.contextlevel = 50\r\n           AND ctx.instanceid   = c.id\r\n      GROUP BY ctx.instanceid\r\n    ) AS 'lang::report_5_modulesfilesizes::local_kopere_bi',\r\n    (\r\n        SELECT SUM(f.filesize) AS modulessize\r\n          FROM mdl_context        ctx\r\n          JOIN mdl_files          f   ON ctx.id = f.contextid\r\n          JOIN mdl_course_modules cm  ON cm.id  = ctx.instanceid\r\n         WHERE ctx.contextlevel      = 70\r\n           AND cm.course             = c.id\r\n           AND cm.deletioninprogress != 0\r\n      GROUP BY cm.course\r\n    ) AS 'lang::report_5_coursefilesizes::local_kopere_bi'\r\nFROM mdl_course c",
+                    "cache": "30m",
+                    "reload": "30m",
+                    "info": "{\"chart_options\":\"{\\r\\n    stroke : {\\r\\n        colors : [\\\"#2E93fA\\\", \\\"#66DA26\\\", \\\"#546E7A\\\", \\\"#E91E63\\\", \\\"#FF9800\\\"]\\r\\n    },\\r\\n    yaxis : {\\r\\n        labels : {\\r\\n            formatter: (value) => { \\r\\n                    if (value == null || value < 1) {\\r\\n                        return '0 b';\\r\\n                    } else if (value < 1000) {\\r\\n                        return value + ' b';\\r\\n                    } else if (value < 1000 * 1000) {\\r\\n                        value = value \\\/ (1000);\\r\\n                        return value.toFixed(2) + ' Kb';\\r\\n                    } else if (value < 1000 * 1000 * 1000) {\\r\\n                        value = value \\\/ (1000 * 1000);\\r\\n                        return value.toFixed(2) + ' Mb';\\r\\n                    } else if (value < 1000 * 1000 * 1000 * 1000) {\\r\\n                        value = value \\\/ (1000 * 1000 * 1000);\\r\\n                        return value.toFixed(2) + ' Gb';\\r\\n                    } else {\\r\\n                        return value.toFixed(2) + ' Tb';\\r\\n                    }\\r\\n                 },\\r\\n        },\\r\\n    },\\r\\n}\"}",
+                    "time": 1727479734
+                }
+            ]
+        }
+    ]
+}
