@@ -118,7 +118,7 @@ class maps implements i_type {
 
         return "
             <iframe id='maps-online-{$id}'
-                    class='maps-online' 
+                    class='maps-online'
                     width='100%' height='525' frameborder='0' allowfullscreen
                     sandbox='allow-scripts allow-same-origin allow-popups'
                     allow=':encrypted-media; :picture-in-picture'

@@ -135,18 +135,18 @@ $string['line_name'] = 'Line Chart';
 $string['line_sql_warning'] = '<p>Remember that the SQL below should return with the following structure:</p>
 <ul>
     <li>The first column should contain the text that will be used as the names of the X-axis.</li>
-    <li>The remaining columns should be structured as follows: 
+    <li>The remaining columns should be structured as follows:
         <ul>
             <li>The name of the column will be used as the name of the series. You can use the translation strings, as explained on the <a href="?classname=bi-extra_langs&method=index" target="_blank">strings page</a>.</li>
             <li>The value of the column will represent the data of the series in the graph.</li>
         </ul>
     </li>
 </ul>
-<blockquote>In the example below, the first column returns the course name and the second column returns the number of news items for each course: 
-<pre>SELECT fullname, 
-       newsitems AS "Number of course news items" 
+<blockquote>In the example below, the first column returns the course name and the second column returns the number of news items for each course:
+<pre>SELECT fullname,
+       newsitems AS "Number of course news items"
   FROM mdl_course</pre></blockquote>
-<blockquote>In the example below, in addition to the first column being the course name, it generates two more lines in the graph, with translations of the column names: 
+<blockquote>In the example below, in addition to the first column being the course name, it generates two more lines in the graph, with translations of the column names:
 <pre>  SELECT c.fullname AS course_name,
          COUNT(cm.section) AS \'lang::thiscourse::theme_rebel\',
          COUNT(cm.module)  AS \'lang::ca_completed_activities::local_kopere_bi\'

@@ -358,7 +358,7 @@ class dashboard {
             $editbooton);
         dashboard_util::start_page();
 
-        if ($koperebipage->description) {
+        if ($koperebipage->description) { // phpcs:disable
             // echo "<p class='page-description'>" . string_util::get_string($koperebipage->description) . "</p>";
         }
 

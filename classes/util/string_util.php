@@ -61,7 +61,6 @@ class string_util {
     public static function get_string($string) {
         if (strpos($string, "lang::") === false || $string == "#" || $string == "") {
             return $string;
-            // return "XXXX-{$string}";
         }
 
         $strings = explode("::", $string);
@@ -69,6 +68,5 @@ class string_util {
             return get_string($strings[1], $strings[2]);
         }
         return $string;
-        // return "ZZZZZ-{$string}";
     }
 }

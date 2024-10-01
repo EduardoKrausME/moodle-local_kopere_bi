@@ -86,7 +86,7 @@ class ClassLoader
         return $this->classMap;
     }
 
-    
+
     public function addClassMap(array $classMap)
     {
         if ($this->classMap) {

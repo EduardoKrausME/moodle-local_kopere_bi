@@ -6,7 +6,7 @@ use Psr\Cache\CacheItemPoolInterface;
 
 class PSR6Bridge implements Cache
 {
-    
+
     private $pool;
 
     /**
@@ -18,20 +18,20 @@ class PSR6Bridge implements Cache
         $this->pool = $pool;
     }
 
-    
+
     public function fetch($id)
     {
         $item = $this->pool->getItem($id);
         return $item->isHit() ? $item->get() : false;
     }
 
-    
+
     public function contains($id)
     {
         return $this->pool->hasItem($id);
     }
 
-    
+
     public function save($id, $data, $lifeTime = 0)
     {
         $item = $this->pool->getItem($id);
@@ -42,13 +42,13 @@ class PSR6Bridge implements Cache
         return $this->pool->save($item);
     }
 
-    
+
     public function delete($id)
     {
         return $this->pool->deleteItem($id);
     }
 
-    
+
     public function flushAll()
     {
         return $this->pool->clear();

@@ -11,16 +11,16 @@ use Exception;
 
 /**
  * Class Pecl
- * 
+ *
  * Parses a YAML file with LibYAML library
- * 
+ *
  * @package DeviceDetector\Yaml
  * @see http://php.net/manual/en/function.yaml-parse-file.php
  */
 class Pecl implements Parser
 {
     /**
-     * 
+     *
      * @return mixed The YAML converted to a PHP value or FALSE on failure
      * @throws Exception If the YAML extension is not installed
      */
@@ -30,7 +30,7 @@ class Pecl implements Parser
         {
             throw new Exception('Pecl YAML extension is not installed');
         }
-        
+
         return yaml_parse_file($file);
     }
 }

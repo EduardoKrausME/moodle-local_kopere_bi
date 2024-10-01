@@ -347,7 +347,7 @@ class Browser extends ClientParserAbstract
     }
 
 
-    
+
     public static function getBrowserFamily($browserLabel)
     {
         foreach (self::$browserFamilies as $browserFamily => $browserLabels) {

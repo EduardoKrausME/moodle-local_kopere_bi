@@ -11,14 +11,14 @@ class ComposerStaticInitde7bb0b441b2c62407187ae29e384f61
     );
 
     public static $prefixLengthsPsr4 = array (
-        'D' => 
+        'D' =>
         array (
             'DeviceDetector\\' => 15,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'DeviceDetector\\' => 
+        'DeviceDetector\\' =>
         array (
             0 => __DIR__ . '/..' . '/matomo/device-detector',
         ),

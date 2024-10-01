@@ -120,10 +120,10 @@ class DeviceDetector
      */
     protected $bot = null;
 
-    
+
     protected $discardBotInformation = false;
 
-    
+
     protected $skipBotDetection = false;
 
     /**
@@ -138,16 +138,16 @@ class DeviceDetector
      */
     protected $yamlParser = null;
 
-    
+
     protected $clientParsers = array();
 
-    
+
     protected $deviceParsers = array();
 
-    
+
     public $botParsers = array();
 
-    
+
     private $parsed = false;
 
     /**
@@ -220,7 +220,7 @@ class DeviceDetector
         $this->parsed = false;
     }
 
-    
+
     public function addClientParser($parser)
     {
         if (is_string($parser) && class_exists('DeviceDetector\\Parser\\Client\\' . $parser)) {
@@ -242,7 +242,7 @@ class DeviceDetector
         return $this->clientParsers;
     }
 
-    
+
     public function addDeviceParser($parser)
     {
         if (is_string($parser) && class_exists('DeviceDetector\\Parser\\Device\\' . $parser)) {
@@ -263,7 +263,7 @@ class DeviceDetector
         return $this->deviceParsers;
     }
 
-    
+
     public function addBotParser(BotParserAbstract $parser)
     {
         $this->botParsers[] = $parser;

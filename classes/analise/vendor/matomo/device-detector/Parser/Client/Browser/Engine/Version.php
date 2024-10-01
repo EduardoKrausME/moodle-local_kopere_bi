@@ -20,7 +20,7 @@ use DeviceDetector\Parser\Client\ClientParserAbstract;
  */
 class Version extends ClientParserAbstract
 {
-    
+
     private $engine;
 
     /**

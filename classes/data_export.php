@@ -120,10 +120,12 @@ class data_export {
         }
 
         if ($this->missingstrings1) {
-            $data->missingstrings1 = "Complete as KEYS em ingles das strings abaixos e nao mexa nos valores: " . implode("\n", $this->missingstrings1);
+            $data->missingstrings1 = "Complete as KEYS em ingles das strings abaixos e nao mexa nos valores: " .
+                implode("\n", $this->missingstrings1);
         }
         if ($this->missingstrings2) {
-            $data->missingstrings2 = "Preencha os valores das strings e nao mexa nas KEYs: " . implode("\n", $this->missingstrings2);
+            $data->missingstrings2 = "Preencha os valores das strings e nao mexa nas KEYs: " .
+                implode("\n", $this->missingstrings2);
         }
 
         ob_clean();
@@ -168,10 +170,15 @@ class data_export {
     }
 
     /**
-     * Var missingstrings
+     * Var missingstrings1
      *
      * @var array
      */
     private $missingstrings1 = [];
+    /**
+     * Var missingstrings2
+     *
+     * @var array
+     */
     private $missingstrings2 = [];
 }
