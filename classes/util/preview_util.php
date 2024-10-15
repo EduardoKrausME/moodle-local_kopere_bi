@@ -17,7 +17,7 @@
 namespace local_kopere_bi\util;
 
 use local_kopere_bi\block\i_type;
-use local_kopere_bi\filter;
+use local_kopere_bi\output\renderer_bi_mustache;
 use local_kopere_bi\vo\local_kopere_bi_block;
 use local_kopere_bi\vo\local_kopere_bi_element;
 use local_kopere_dashboard\util\mensagem;
@@ -41,109 +41,68 @@ class preview_util {
      * @throws \ScssPhp\ScssPhp\Exception\SassException
      */
     public function details_block($block) {
+        global $OUTPUT;
+
         switch ($block->type) {
             case 'block-1':
-                return "
-                    <div class='row'>
-                        <div class='col-md-12'>
-                            {$this->details_block_item($block->id, 1)}
-                        </div>
-                    </div>";
+                $data = [
+                    'details_block_item_1' => $this->details_block_item($block->id, 1),
+                ];
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks/preview-block-1", $data);
                 break;
             case 'block-2':
-                return "
-                    <div class='row'>
-                        <div class='col-lg-6'>
-                            {$this->details_block_item($block->id, 1)}
-                          </div>
-                        <div class='col-lg-6'>
-                            {$this->details_block_item($block->id, 2)}
-                          </div>
-                    </div>";
+                $data = [
+                    'details_block_item_1' => $this->details_block_item($block->id, 1),
+                    'details_block_item_2' => $this->details_block_item($block->id, 2),
+                ];
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks/preview-block-2", $data);
                 break;
-
-            case 'block-25':
-                return "
-                    <div class='row'>
-                        <div class='col-xl-8'>
-                            {$this->details_block_item($block->id, 1)}
-                          </div>
-                        <div class='col-xl-4'>
-                            {$this->details_block_item($block->id, 2)}
-                          </div>
-                    </div>";
-                break;
-
-            case 'block-52':
-                return "
-                    <div class='row'>
-                        <div class='col-xl-4'>
-                            {$this->details_block_item($block->id, 1)}
-                          </div>
-                        <div class='col-xl-8'>
-                            {$this->details_block_item($block->id, 2)}
-                          </div>
-                    </div>";
-                break;
-
             case 'block-3':
-                return "
-                    <div class='row'>
-                        <div class='col-xl-4'>
-                            {$this->details_block_item($block->id, 1)}
-                          </div>
-                        <div class='col-xl-4'>
-                            {$this->details_block_item($block->id, 2)}
-                          </div>
-                        <div class='col-xl-4'>
-                            {$this->details_block_item($block->id, 3)}
-                          </div>
-                    </div>";
-                break;
-            case 'block-12':
-                return "
-                    <div class='row'>
-                        <div class='col-xl-6'>
-                            {$this->details_block_item($block->id, 1)}
-                          </div>
-                        <div class='col-xl-3'>
-                            {$this->details_block_item($block->id, 2)}
-                          </div>
-                        <div class='col-xl-3'>
-                            {$this->details_block_item($block->id, 3)}
-                          </div>
-                    </div>";
-                break;
-            case 'block-21':
-                return "
-                    <div class='row'>
-                        <div class='col-xl-3'>
-                            {$this->details_block_item($block->id, 1)}
-                          </div>
-                        <div class='col-xl-3'>
-                            {$this->details_block_item($block->id, 2)}
-                          </div>
-                        <div class='col-xl-6'>
-                            {$this->details_block_item($block->id, 3)}
-                          </div>
-                    </div>";
+                $data = [
+                    'details_block_item_1' => $this->details_block_item($block->id, 1),
+                    'details_block_item_2' => $this->details_block_item($block->id, 2),
+                    'details_block_item_3' => $this->details_block_item($block->id, 3),
+                ];
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks/preview-block-3", $data);
                 break;
             case 'block-4':
-                return "
-                    <div class='row'>
-                        <div class='col-xl-3'>
-                            {$this->details_block_item($block->id, 1)}
-                          </div>
-                        <div class='col-xl-3'>
-                            {$this->details_block_item($block->id, 2)}
-                          </div>
-                        <div class='col-xl-3'>
-                            {$this->details_block_item($block->id, 3)}
-                          </div>
-                        <div class='col-xl-3'>
-                            {$this->details_block_item($block->id, 4)}
-                          </div>
-                    </div>";
+                $data = [
+                    'details_block_item_1' => $this->details_block_item($block->id, 1),
+                    'details_block_item_2' => $this->details_block_item($block->id, 2),
+                    'details_block_item_3' => $this->details_block_item($block->id, 3),
+                    'details_block_item_4' => $this->details_block_item($block->id, 4),
+                ];
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks/preview-block-4", $data);
+                break;
+            case 'block-12':
+                $data = [
+                    'details_block_item_1' => $this->details_block_item($block->id, 1),
+                    'details_block_item_2' => $this->details_block_item($block->id, 2),
+                    'details_block_item_3' => $this->details_block_item($block->id, 3),
+                ];
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks/preview-block-12", $data);
+                break;
+            case 'block-21':
+                $data = [
+                    'details_block_item_1' => $this->details_block_item($block->id, 1),
+                    'details_block_item_2' => $this->details_block_item($block->id, 2),
+                    'details_block_item_3' => $this->details_block_item($block->id, 3),
+                ];
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks/preview-block-21", $data);
+                break;
+            case 'block-25':
+                $data = [
+                    'details_block_item_1' => $this->details_block_item($block->id, 1),
+                    'details_block_item_2' => $this->details_block_item($block->id, 2),
+                ];
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks/preview-block-25", $data);
+                break;
+            case 'block-52':
+                $data = [
+                    'details_block_item_1' => $this->details_block_item($block->id, 1),
+                    'details_block_item_2' => $this->details_block_item($block->id, 2),
+                ];
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks/preview-block-52", $data);
                 break;
         }
 
@@ -161,7 +120,7 @@ class preview_util {
      * @throws \ScssPhp\ScssPhp\Exception\SassException
      */
     private function details_block_item($blockid, $blocknum) {
-        global $DB;
+        global $DB, $OUTPUT;
 
         $return = "";
 
@@ -171,7 +130,7 @@ class preview_util {
         if (isset($koperebielement->id)) {
             $koperebielement->info_obj = json_decode($koperebielement->info, true);
 
-            $return .= "<div class='chart-box' id='chart-box-{$koperebielement->id}'>";
+            $return .= "<div class='chart-box chart-box-{$koperebielement->type}' id='chart-box-{$koperebielement->id}'>";
             $return .= "<div class='element-box theme-{$koperebielement->theme} type-{$koperebielement->type}'>";
 
             /** @var i_type $blockclass */
@@ -181,30 +140,31 @@ class preview_util {
 
                 /** @var i_type $block */
                 $block = new $blockclass();
+
+                $mustache = new renderer_bi_mustache();
+
+                $htmlbefore = $mustache->render_from_string($koperebielement->html_before, [], "html-before");
+                $htmlafter = $mustache->render_from_string($koperebielement->html_after, [], "html-after");
                 if (class_exists($blockclass)) {
-                    $return .= "
-                            <div class='block-heading'>
-                                <h4 class='block-title preview-details_block_item'>{$title}</h4>
-                                {$block->title_extra($koperebielement)}
-                                <div class='block-controls'></div>
-                            </div>
-                            {$koperebielement->html_before}
-                            {$block->preview($koperebielement)}
-                            {$koperebielement->html_after}";
+                    $data = [
+                        "title" => $title,
+                        "title_extra" => $block->title_extra($koperebielement),
+                        "preview" => $block->preview($koperebielement),
+                        "htmlbefore" => $htmlbefore,
+                        "htmlafter" => $htmlafter,
+                    ];
+                    $return .= $OUTPUT->render_from_template("local_kopere_bi/blocks/details_block_item", $data);
                 } else {
-                    $return .= "
-                            <div class='block-heading'>
-                                <h4 class='block-title preview-details_block_item'>{$title}</h4>
-                                <div class='block-controls'></div>
-                            </div>";
+                    $data = ["title" => $title];
+                    $return .= $OUTPUT->render_from_template("local_kopere_bi/blocks/details_block_item", $data);
                 }
             } else {
-                mensagem::print_danger(get_string('block_not_found', 'local_kopere_bi'));
+                mensagem::print_danger(get_string("block_not_found", "local_kopere_bi"));
             }
 
             $return .= scss_util::build_css($koperebielement);
 
-            $return .= '</div></div>';
+            $return .= "</div></div>";
         }
         return $return;
     }
