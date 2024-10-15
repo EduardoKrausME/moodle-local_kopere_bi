@@ -87,10 +87,14 @@ abstract class ParserAbstract
      */
     const VERSION_TRUNCATION_NONE  = null;
 
-
+    /**
+     * @var Cache|\Doctrine\Common\Cache\CacheProvider
+     */
     protected $cache;
 
-
+    /**
+     * @var YamlParser
+     */
     protected $yamlParser;
 
     abstract public function parse();
@@ -156,7 +160,9 @@ abstract class ParserAbstract
         return $this->regexList;
     }
 
-
+    /**
+     * @return string
+     */
     protected function getRegexesDirectory()
     {
         return dirname(__DIR__);
@@ -189,7 +195,11 @@ abstract class ParserAbstract
         return false;
     }
 
-
+    /**
+     * @param string $item
+     * @param array $matches
+     * @return string type
+     */
     protected function buildByMatch($item, $matches)
     {
         for ($nb=1;$nb<=3;$nb++) {

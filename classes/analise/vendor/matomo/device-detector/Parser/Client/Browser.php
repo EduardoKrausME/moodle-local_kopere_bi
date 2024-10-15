@@ -347,7 +347,10 @@ class Browser extends ClientParserAbstract
     }
 
 
-
+    /**
+     * @param string $browserLabel
+     * @return bool|string If false, "Unknown"
+     */
     public static function getBrowserFamily($browserLabel)
     {
         foreach (self::$browserFamilies as $browserFamily => $browserLabels) {

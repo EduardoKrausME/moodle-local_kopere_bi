@@ -86,7 +86,9 @@ class ClassLoader
         return $this->classMap;
     }
 
-
+    /**
+     * @param array $classMap Class to filename map
+     */
     public function addClassMap(array $classMap)
     {
         if ($this->classMap) {
