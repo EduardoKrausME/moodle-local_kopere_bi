@@ -37,7 +37,7 @@ class database_util {
     private function ready_only($sql) {
         global $DB, $CFG;
 
-        // Evita que SQL apaguem, alterem ou insiram dados.
+        // Prevents SQL from deleting, altering, or inserting data.
         if ($CFG->dbtype == "mysqli" || $CFG->dbtype = "mariadb") {
             $DB->execute("SET @@SESSION.transaction_read_only = ON");
             $DB->execute("SET SESSION transaction_read_only = ON");
@@ -49,7 +49,7 @@ class database_util {
             throw new \Exception("only mysqli and pgsql");
         }
 
-        $sql = preg_replace('/;(\s+)?$/s', '', $sql);
+        $sql = preg_replace('/;(\s+)?$/s', "", $sql);
 
         return $sql;
     }
@@ -65,21 +65,7 @@ class database_util {
      * @throws \Exception
      */
     public function get_record_sql_block($sql, $params = null) {
-        global $DB;
-
-        $sql = $this->ready_only($sql);
-        $result = $DB->get_recordset_sql($sql);
-
-        if (!$result) {
-            return null;
-        }
-
-        foreach ($result as $row) {
-            $result->close();
-            return (object)$row;
-        }
-
-        return null;
+        return (object)$this->get_records_sql_block($sql, $params, true);
     }
 
     /**
@@ -87,12 +73,14 @@ class database_util {
      *
      * @param $sql
      * @param array|null $params
+     * @param bool $onerow
      *
      * @return array
      *
+     * @throws \dml_exception
      * @throws \Exception
      */
-    public function get_records_sql_block($sql, $params = null) {
+    public function get_records_sql_block($sql, $params = null, $onerow = false) {
         global $DB;
 
         $sql = $this->ready_only($sql);
@@ -100,10 +88,15 @@ class database_util {
 
         $return = [];
         foreach ($result as $row) {
+            if ($onerow) {
+                $result->close();
+                return $row;
+            }
+
             $return[] = (object)$row;
         }
-        $result->close();
 
+        $result->close();
         return $return;
     }
 

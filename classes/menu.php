@@ -40,6 +40,6 @@ class menu {
                 ->set_classname("bi-dashboard")
                 ->set_methodname("start")
                 ->set_icon("dashboard")
-                ->set_name(get_string('title', 'local_kopere_bi')));
+                ->set_name(get_string("title", "local_kopere_bi")));
     }
 }

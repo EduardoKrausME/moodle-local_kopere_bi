@@ -27,54 +27,54 @@ defined('MOODLE_INTERNAL') || die;
 global $removetitle;
 if (!$removetitle) {
     $settings->add(
-        new admin_setting_heading('kopere_bi_title', get_string("pluginname", "local_kopere_bi"), "")
+        new admin_setting_heading("kopere_bi_title", get_string("pluginname", "local_kopere_bi"), "")
     );
 }
 
 $options = [
-    "default" => get_string('theme_palette_default', 'local_kopere_bi'),
-    "palette1" => get_string('theme_palette_palette1', 'local_kopere_bi'),
-    "palette2" => get_string('theme_palette_palette2', 'local_kopere_bi'),
-    "palette3" => get_string('theme_palette_palette3', 'local_kopere_bi'),
-    "palette4" => get_string('theme_palette_palette4', 'local_kopere_bi'),
-    "palette5" => get_string('theme_palette_palette5', 'local_kopere_bi'),
-    "palette6" => get_string('theme_palette_palette6', 'local_kopere_bi'),
-    "palette7" => get_string('theme_palette_palette7', 'local_kopere_bi'),
-    "palette8" => get_string('theme_palette_palette8', 'local_kopere_bi'),
-    "palette9" => get_string('theme_palette_palette9', 'local_kopere_bi'),
-    "palette10" => get_string('theme_palette_palette10', 'local_kopere_bi'),
+    "default" => get_string("theme_palette_default", "local_kopere_bi"),
+    "palette1" => get_string("theme_palette_palette1", "local_kopere_bi"),
+    "palette2" => get_string("theme_palette_palette2", "local_kopere_bi"),
+    "palette3" => get_string("theme_palette_palette3", "local_kopere_bi"),
+    "palette4" => get_string("theme_palette_palette4", "local_kopere_bi"),
+    "palette5" => get_string("theme_palette_palette5", "local_kopere_bi"),
+    "palette6" => get_string("theme_palette_palette6", "local_kopere_bi"),
+    "palette7" => get_string("theme_palette_palette7", "local_kopere_bi"),
+    "palette8" => get_string("theme_palette_palette8", "local_kopere_bi"),
+    "palette9" => get_string("theme_palette_palette9", "local_kopere_bi"),
+    "palette10" => get_string("theme_palette_palette10", "local_kopere_bi"),
 ];
 $name = 'local_kopere_bi/theme_palette';
-$title = get_string('theme_palette_title', 'local_kopere_bi');
+$title = get_string("theme_palette_title", "local_kopere_bi");
 $description =
-    "<div id='id_s_local_kopere_bi_theme_palette_html'>" . get_string('theme_palette_desc', 'local_kopere_bi') . " </div>" .
+    "<div id='id_s_local_kopere_bi_theme_palette_html'>" . get_string("theme_palette_desc", "local_kopere_bi") . " </div>" .
     "<a target='_blank' href='https://apexcharts.com/docs/options/theme/#palette'>" .
-    get_string('theme_palette_desc2', 'local_kopere_bi') . "</a>";
+    get_string("theme_palette_desc2", "local_kopere_bi") . "</a>";
 $setting = new admin_setting_configselect($name, $title, $description, "default", $options);
 $settings->add($setting);
 
-// JS do campo theme_palette.
+// JS from the theme_palette field.
 $PAGE->requires->js_call_amd("local_kopere_bi/setting", "theme_palette");
 
 $name = 'local_kopere_bi/chart_pie_default';
-$title = get_string('chart_pie_default', 'local_kopere_bi');
-$setting = new admin_setting_configtextarea($name, $title, get_string('chart_default_desc', 'local_kopere_bi'), "");
+$title = get_string("chart_pie_default", "local_kopere_bi");
+$setting = new admin_setting_configtextarea($name, $title, get_string("chart_default_desc", "local_kopere_bi"), "");
 $settings->add($setting);
 
 $name = 'local_kopere_bi/chart_column_default';
-$title = get_string('chart_column_default', 'local_kopere_bi');
-$setting = new admin_setting_configtextarea($name, $title, get_string('chart_default_desc', 'local_kopere_bi'), "");
+$title = get_string("chart_column_default", "local_kopere_bi");
+$setting = new admin_setting_configtextarea($name, $title, get_string("chart_default_desc", "local_kopere_bi"), "");
 $settings->add($setting);
 
 $name = 'local_kopere_bi/chart_area_default';
-$title = get_string('chart_area_default', 'local_kopere_bi');
-$setting = new admin_setting_configtextarea($name, $title, get_string('chart_default_desc', 'local_kopere_bi'), "");
+$title = get_string("chart_area_default", "local_kopere_bi");
+$setting = new admin_setting_configtextarea($name, $title, get_string("chart_default_desc", "local_kopere_bi"), "");
 $settings->add($setting);
 
 $name = 'local_kopere_bi/chart_line_default';
-$title = get_string('chart_line_default', 'local_kopere_bi');
-$setting = new admin_setting_configtextarea($name, $title, get_string('chart_default_desc', 'local_kopere_bi'), "");
+$title = get_string("chart_line_default", "local_kopere_bi");
+$setting = new admin_setting_configtextarea($name, $title, get_string("chart_default_desc", "local_kopere_bi"), "");
 $settings->add($setting);
 
-// JS dos campos chart_XXX_default.
+// JS of the fields chart_XXX_default.
 $PAGE->requires->js_call_amd("local_kopere_bi/setting", "chart_default");

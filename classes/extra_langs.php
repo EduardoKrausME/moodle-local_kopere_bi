@@ -29,7 +29,7 @@ use tool_customlang_utils;
  * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class extra_langs {
+class extra_langs extends bi_all {
 
     /**
      * Function index
@@ -41,7 +41,7 @@ class extra_langs {
     public function index() {
         global $OUTPUT, $PAGE, $USER, $DB;
 
-        dashboard_util::add_breadcrumb(get_string('title', 'local_kopere_bi'), "?classname=bi-dashboard&method=start");
+        dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"), "?classname=bi-dashboard&method=start");
         dashboard_util::start_page();
 
         $component = optional_param("component", "local_kopere_bi", PARAM_TEXT);
@@ -56,7 +56,7 @@ class extra_langs {
         ]);
         $filter->display();
 
-        tool_customlang_utils::checkout($_SESSION['SESSION']->lang);
+        tool_customlang_utils::checkout($_SESSION["SESSION"]->lang);
 
         $sql = "SELECT tl.stringid, tl.original
                   FROM {tool_customlang} tl
@@ -86,12 +86,12 @@ class extra_langs {
         if ($component == "local_kopere_bi") {
 
             if (form::check_post()) {
-                $toolcustomlangcomponent = $DB->get_record('tool_customlang_components', ["name" => "local_kopere_bi"]);
+                $toolcustomlangcomponent = $DB->get_record("tool_customlang_components", ["name" => "local_kopere_bi"]);
 
                 for ($i = 0; $i < 80; $i++) {
                     $identifier = "word_extra_" . substr("0{$i}", -2);
                     $toolcustomlang = $DB->get_record("tool_customlang", [
-                        "lang" => $_SESSION['SESSION']->lang,
+                        "lang" => $_SESSION["SESSION"]->lang,
                         "componentid" => $toolcustomlangcomponent->id,
                         "stringid" => $identifier,
                     ]);
@@ -101,11 +101,11 @@ class extra_langs {
 
                     $DB->update_record("tool_customlang", $toolcustomlang);
                 }
-                tool_customlang_utils::checkin($_SESSION['SESSION']->lang);
+                tool_customlang_utils::checkin($_SESSION["SESSION"]->lang);
 
                 header::location("?{$_SERVER["QUERY_STRING"]}");
             }
-            tool_customlang_utils::checkout($_SESSION['SESSION']->lang);
+            tool_customlang_utils::checkout($_SESSION["SESSION"]->lang);
 
             $customs = [];
             $countempty = 0;
@@ -133,7 +133,7 @@ class extra_langs {
                 "component" => $component,
             ]);
 
-            $form->create_submit_input(get_string('save', 'local_kopere_bi'));
+            $form->create_submit_input(get_string("save", "local_kopere_bi"));
 
             $form->close();
         }

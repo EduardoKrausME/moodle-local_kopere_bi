@@ -40,7 +40,7 @@ class column extends line {
      * @throws \coding_exception
      */
     public static function get_name() {
-        return get_string('column_name', 'local_kopere_bi');
+        return get_string("column_name", "local_kopere_bi");
     }
 
     /**
@@ -50,7 +50,7 @@ class column extends line {
      * @throws \coding_exception
      */
     public static function get_description() {
-        return get_string('column_desc', 'local_kopere_bi');
+        return get_string("column_desc", "local_kopere_bi");
     }
 
     /**
@@ -71,10 +71,10 @@ class column extends line {
                 ["item_id" => $koperebielement->id], "view-ajax"),
             "local_kopere_bi_id" => $koperebielement->id,
             "chart_default" => get_config("local_kopere_bi", "chart_column_default"),
-            "chart_options" => code_util::get_js_options($koperebielement->info_obj['chart_options']),
+            "chart_options" => code_util::get_js_options($koperebielement->info_obj["chart_options"]),
             "code_util_get_js_theme" => code_util::get_js_theme($koperebielement),
-            "error_chart_renderer" => get_string('error_chart_renderer', 'local_kopere_bi'),
-            "error_data_loader" => get_string('error_data_loader', 'local_kopere_bi'),
+            "error_chart_renderer" => get_string("error_chart_renderer", "local_kopere_bi"),
+            "error_data_loader" => get_string("error_data_loader", "local_kopere_bi"),
             "reload_time" => reload_util::convert($koperebielement->reload),
         ]);
     }
@@ -96,28 +96,28 @@ class column extends line {
 
             $comand = sql_util::prepare_sql($koperebielement->commandsql);
             try {
-                $dadoscolumns = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
+                $rowscolumns = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
             } catch (\Exception $e) {
                 mensagem::print_danger($e->getMessage());
                 return;
             }
 
-            $columns = array_keys((array)$dadoscolumns[0]);
+            $columns = array_keys((array)$rowscolumns[0]);
 
             $optionsxaxiscategories = false;
             $optionsseries = [];
             foreach ($columns as $column) {
                 if ($optionsxaxiscategories === false) {
 
-                    // Aqui pega a primeira coluna para ser o X.
+                    // Here take the first column to be the X.
 
-                    $optionsxaxiscategories = array_column($dadoscolumns, $column);
+                    $optionsxaxiscategories = array_column($rowscolumns, $column);
                 } else {
 
-                    // Demais colunas são séries.
-                    // Nome da coluna é o name da série.
+                    // Other columns are series.
+                    // Column name is the name of the series.
 
-                    $valores = array_column($dadoscolumns, $column);
+                    $valores = array_column($rowscolumns, $column);
                     $optionsseries[] = (object)[
                         "name" => string_util::get_string($column),
                         "data" => $valores,
@@ -142,6 +142,8 @@ class column extends line {
      *
      * @param $koperebielement
      *
+     * @return string
+     *
      * @throws \Exception
      */
     public function preview_google($koperebielement) {
@@ -149,14 +151,14 @@ class column extends line {
 
         $comand = sql_util::prepare_sql($koperebielement->commandsql);
         try {
-            $dadoscolumns = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
+            $rowscolumns = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
         } catch (\Exception $e) {
             mensagem::print_danger($e->getMessage());
-            return;
+            return null;
         }
 
         $arraycolumns = false;
-        foreach ($dadoscolumns as $key => $values) {
+        foreach ($rowscolumns as $key => $values) {
 
             if (!$arraycolumns) {
                 $names = [];

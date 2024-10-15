@@ -41,9 +41,9 @@ class online_update extends external_api {
      */
     public static function api_parameters() {
         return new external_function_parameters([
-            'online_id' => new external_value(PARAM_INT, 'The online id'),
-            'cache_key' => new external_value(PARAM_TEXT, 'The cache id'),
-            'seconds' => new external_value(PARAM_INT, 'The time spent by the user on the page'),
+            "online_id" => new external_value(PARAM_INT, 'The online id'),
+            "cache_key" => new external_value(PARAM_TEXT, 'The cache id'),
+            "seconds" => new external_value(PARAM_INT, 'The time spent by the user on the page'),
         ]);
     }
 
@@ -54,7 +54,7 @@ class online_update extends external_api {
      */
     public static function api_returns() {
         return new external_single_structure([
-            'success' => new external_value(PARAM_BOOL, "Operation Success", VALUE_OPTIONAL),
+            "success" => new external_value(PARAM_BOOL, "Operation Success", VALUE_OPTIONAL),
         ]);
     }
 
@@ -84,21 +84,21 @@ class online_update extends external_api {
             $USER->koperebionline_time[$cachekey] = time();
         }
 
-        // Resgata a instância do contexto de sistema.
+        // Retrieve the instance from the system context.
         $systemcontext = \context_system::instance();
 
-        // Valida o contexto do sistema.
+        // Validate the system context.
         self::validate_context($systemcontext);
 
         /** @var local_kopere_bi_online $online */
-        $online = $DB->get_record('local_kopere_bi_online', ['id' => $onlineid]);
+        $online = $DB->get_record("local_kopere_bi_online", ["id" => $onlineid]);
         if ($online) {
             $online->currenttime = time();
             $online->seconds = $online->seconds + $seconds;
 
-            $DB->update_record('local_kopere_bi_online', $online);
+            $DB->update_record("local_kopere_bi_online", $online);
         }
-        return ['success' => true];
+        return ["success" => true];
     }
 }
 

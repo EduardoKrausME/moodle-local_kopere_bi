@@ -50,8 +50,8 @@ class online_delete extends \core\task\scheduled_task {
     public function execute() {
         global $DB;
 
-        $DB->delete_records_select('local_kopere_bi_online', 'onlineat < DATE_SUB(NOW(), INTERVAL :month MONTH)',
-            ['month' => $this->month]);
+        $DB->delete_records_select("local_kopere_bi_online", 'onlineat < DATE_SUB(NOW(), INTERVAL :month MONTH)',
+            ["month" => $this->month]);
         mtrace("Completed cleaning of results from the last {$this->month} months.");
     }
 }

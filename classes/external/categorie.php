@@ -20,10 +20,6 @@ use external_api;
 use external_function_parameters;
 use external_single_structure;
 use external_value;
-use local_kopere_bi\util\details_util;
-use local_kopere_bi\util\sql_util;
-use local_kopere_bi\vo\local_kopere_bi_block;
-use local_kopere_bi\vo\local_kopere_bi_cat;
 
 defined('MOODLE_INTERNAL') || die;
 global $CFG;

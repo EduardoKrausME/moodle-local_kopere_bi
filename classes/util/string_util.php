@@ -16,6 +16,8 @@
 
 namespace local_kopere_bi\util;
 
+use coding_exception;
+
 /**
  * Class string_util
  *
@@ -36,7 +38,7 @@ class string_util {
     public static function trunc($string, $maxlength) {
         $string = self::get_string($string);
         $string = strip_tags($string);
-        $stringarray = explode(' ', $string);
+        $stringarray = explode(" ", $string);
 
         $stringreturn = "";
         foreach ($stringarray as $palavra) {
@@ -65,7 +67,13 @@ class string_util {
 
         $strings = explode("::", $string);
         if (isset($strings[2])) {
-            return get_string($strings[1], $strings[2]);
+            $identifier = $strings[1];
+
+            if (clean_param($identifier, PARAM_STRINGID) === "") {
+                throw new coding_exception("Invalid string identifier '{$identifier}' in '{$string}'.", DEBUG_DEVELOPER);
+            }
+
+            return get_string($identifier, $strings[2]);
         }
         return $string;
     }

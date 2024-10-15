@@ -61,20 +61,20 @@ $functions = [
         "ajax" => true,
         "capabilities" => "local/kopere_dashboard:view",
     ],
-    'local_kopere_bi_online_update' => [
+    "local_kopere_bi_online_update" => [
         "classpath" => "local/kopere_bi/classes/external/online_update.php",
-        'classname' => '\local_kopere_bi\external\online_update',
-        'methodname' => 'api',
-        'description' => 'Contabiliza o tempo gasto de um usuário para o dashboard',
-        'type' => 'write',
-        'ajax' => true,
+        "classname" => '\local_kopere_bi\external\online_update',
+        "methodname" => "api",
+        "description" => 'Contabiliza o tempo gasto de um usuário para o dashboard',
+        "type" => "write",
+        "ajax" => true,
     ],
-    'local_kopere_bi_page_html' => [
+    "local_kopere_bi_page_html" => [
         "classpath" => "local/kopere_bi/classes/external/page_html.php",
-        'classname' => '\local_kopere_bi\external\page_html',
-        'methodname' => 'api',
-        'description' => 'Contabiliza o tempo gasto de um usuário para o dashboard',
-        'type' => 'write',
-        'ajax' => true,
+        "classname" => '\local_kopere_bi\external\page_html',
+        "methodname" => "api",
+        "description" => 'Contabiliza o tempo gasto de um usuário para o dashboard',
+        "type" => "write",
+        "ajax" => true,
     ],
 ];

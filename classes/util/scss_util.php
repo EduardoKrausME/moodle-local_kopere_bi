@@ -56,7 +56,7 @@ class scss_util {
             $css = $compiler->compileString($scss);
 
             if (isset($css[18])) {
-                $css = preg_replace('/\s+/', ' ', $css);
+                $css = preg_replace('/\s+/', " ", $css);
                 return "<style>{$css}</style>";
             }
         }

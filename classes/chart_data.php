@@ -41,7 +41,7 @@ class chart_data {
         /** @var local_kopere_bi_element $koperebielement */
         $koperebielement = $DB->get_record("local_kopere_bi_element", ["id" => $elementid]);
         if (!$koperebielement) {
-            json::error(get_string('block_not_found', 'local_kopere_bi'));
+            json::error(get_string("block_not_found", "local_kopere_bi"));
         }
 
         $koperebielement->info_obj = @json_decode($koperebielement->info, true);
@@ -52,7 +52,7 @@ class chart_data {
             $block = new $class();
             $block->get_chart_data($koperebielement);
         } else {
-            json::error(get_string('class_not_found', 'local_kopere_bi'));
+            json::error(get_string("class_not_found", "local_kopere_bi"));
         }
 
         die();

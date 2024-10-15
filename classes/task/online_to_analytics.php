@@ -54,10 +54,10 @@ class online_to_analytics extends \core\task\scheduled_task {
                 $this->save_statistic($row->userid);
             }
 
-            $weekday = date('w', $row->currenttime); // Convert timestamp to the day of the week (e.g., 0 Sunday).
-            $year = date('Y', $row->currenttime);    // Convert timestamp to the year (e.g., 2024).
-            $month = date('m', $row->currenttime);   // Convert timestamp to the month (e.g., 09 for September).
-            $day = date('d', $row->currenttime);     // Convert timestamp to the day (e.g., 24 for the 24th day).
+            $weekday = date("w", $row->currenttime); // Convert timestamp to the day of the week (e.g., 0 Sunday).
+            $year = date("Y", $row->currenttime);    // Convert timestamp to the year (e.g., 2024).
+            $month = date("m", $row->currenttime);   // Convert timestamp to the month (e.g., 09 for September).
+            $day = date("d", $row->currenttime);     // Convert timestamp to the day (e.g., 24 for the 24th day).
 
             $key = "{$weekday}-{$year}-{$month}-{$day}";
             if (isset($this->statistics[$key])) {

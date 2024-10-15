@@ -89,21 +89,21 @@ class sql_util {
     public static function chaves_replace() {
         global $CFG;
 
-        if ($CFG->prefix != 'mdl_') {
+        if ($CFG->prefix != "mdl_") {
             return
                 mensagem::info(
-                    get_string('sql_replace_keys', 'local_kopere_bi') .
-                    get_string('sql_replace_keys_mdl', 'local_kopere_bi', $CFG->prefix)
+                    get_string("sql_replace_keys", "local_kopere_bi") .
+                    get_string("sql_replace_keys_mdl", "local_kopere_bi", $CFG->prefix)
                 ) .
                 mensagem::warning(
-                    get_string('sql_read_only', 'local_kopere_bi')
+                    get_string("sql_read_only", "local_kopere_bi")
                 );
         } else {
             return mensagem::info(
-                    get_string('sql_replace_keys', 'local_kopere_bi')
+                    get_string("sql_replace_keys", "local_kopere_bi")
                 ) .
                 mensagem::warning(
-                    get_string('sql_read_only', 'local_kopere_bi')
+                    get_string("sql_read_only", "local_kopere_bi")
                 );
         }
     }

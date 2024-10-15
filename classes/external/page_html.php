@@ -45,7 +45,7 @@ class page_html extends external_api {
      */
     public static function api_parameters() {
         return new external_function_parameters([
-            'page_id' => new external_value(PARAM_INT, 'The online id'),
+            "page_id" => new external_value(PARAM_INT, 'The online id'),
         ]);
     }
 
@@ -56,7 +56,7 @@ class page_html extends external_api {
      */
     public static function api_returns() {
         return new external_single_structure([
-            'html' => new external_value(PARAM_RAW, "HTML of Kopere BI", VALUE_REQUIRED),
+            "html" => new external_value(PARAM_RAW, "HTML of Kopere BI", VALUE_REQUIRED),
         ]);
     }
 
@@ -114,7 +114,7 @@ class page_html extends external_api {
         $text .= "</div>";
         $text .= "FIMMMMMMMMMMMMMMMMMMMMMM";
 
-        $PAGE->set_pagelayout('print');
+        $PAGE->set_pagelayout("print");
         $PAGE->set_context(context_system::instance());
 
         $return = "";
@@ -128,7 +128,7 @@ class page_html extends external_api {
         preg_match_all("/({$parte1}|{$parte2})/s", $return, $returnitens);
 
         $return = preg_replace('/.*(<div class=\'kopere_dashboard_div\')/s', '$1', $return);
-        $return = preg_replace('/FIMMMMMMMMMMMMMMMMMMMMMM.*/s', '', $return);
+        $return = preg_replace('/FIMMMMMMMMMMMMMMMMMMMMMM.*/s', "", $return);
 
         $js = "\n";
         foreach ($returnitens[0] as $returnitem) {
@@ -138,6 +138,6 @@ class page_html extends external_api {
         $return .= load_kopere_bi_assets();
         $return .= "\n\n<script>{$js}</script>";
 
-        return ['html' => $return];
+        return ["html" => $return];
     }
 }

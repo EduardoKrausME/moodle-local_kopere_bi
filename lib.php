@@ -28,17 +28,6 @@ use local_kopere_bi\vo\local_kopere_bi_block;
 use local_kopere_bi\vo\local_kopere_bi_page;
 
 /**
- * Function local_kopere_bi_before_standard_html_head
- *
- * @throws coding_exception
- */
-function local_kopere_bi_before_standard_html_head() {
-    global $PAGE;
-
-    $PAGE->requires->css("/local/kopere_bi/assets/dashboard.css");
-}
-
-/**
  * Function local_kopere_bi_before_footer
  *
  * @throws coding_exception
@@ -79,27 +68,27 @@ function local_kopere_bi_before_footer() {
         $dataip = local_kopere_bi_iplookup_find_location($lastip);
 
         $koperebionline = (object)[
-            'userid' => $USER->id,
-            'courseid' => $COURSE->id,
-            'moduleid' => $moduleid,
-            'seconds' => 0,
-            'currenttime' => time(),
+            "userid" => $USER->id,
+            "courseid" => $COURSE->id,
+            "moduleid" => $moduleid,
+            "seconds" => 0,
+            "currenttime" => time(),
 
-            'client_type' => $dataagent->client_type,
-            'client_name' => $dataagent->client_name,
-            'client_version' => $dataagent->client_version,
-            'os_name' => $dataagent->os_name,
-            'os_version' => $dataagent->os_version,
+            "client_type" => $dataagent->client_type,
+            "client_name" => $dataagent->client_name,
+            "client_version" => $dataagent->client_version,
+            "os_name" => $dataagent->os_name,
+            "os_version" => $dataagent->os_version,
 
-            'lastip' => $lastip,
-            'city_name' => $dataip->city,
-            'country_name' => $dataip->country,
-            'country_code' => isset($dataip->country_code) ? $dataip->country_code : $dataip->country,
-            'latitude' => $dataip->latitude,
-            'longitude' => $dataip->longitude,
+            "lastip" => $lastip,
+            "city_name" => $dataip->city,
+            "country_name" => $dataip->country,
+            "country_code" => isset($dataip->country_code) ? $dataip->country_code : $dataip->country,
+            "latitude" => $dataip->latitude,
+            "longitude" => $dataip->longitude,
         ];
         try {
-            $koperebionlineid = $DB->insert_record('local_kopere_bi_online', $koperebionline);
+            $koperebionlineid = $DB->insert_record("local_kopere_bi_online", $koperebionline);
             $USER->koperebionline_id[$key] = $koperebionlineid;
             $USER->koperebionline_time[$key] = time();
         } catch (dml_exception $e) {
@@ -108,9 +97,9 @@ function local_kopere_bi_before_footer() {
     }
 
     if (isset($USER->koperebionline_id[$key])) {
-        $PAGE->requires->js_call_amd('local_kopere_bi/online', 'init', [$USER->koperebionline_id[$key], $key]);
+        $PAGE->requires->js_call_amd("local_kopere_bi/online", "init", [$USER->koperebionline_id[$key], $key]);
     }
-    $PAGE->requires->js_call_amd('local_kopere_bi/mod_koperebi', 'init');
+    $PAGE->requires->js_call_amd("local_kopere_bi/mod_koperebi", "init");
 }
 
 /**
@@ -140,7 +129,7 @@ function local_kopere_bi_iplookup_find_location($ip) {
 
     require_once("{$CFG->dirroot}/iplookup/lib.php");
 
-    $cache = \cache::make('local_kopere_bi', 'ip_user_location');
+    $cache = \cache::make("local_kopere_bi", "ip_user_location");
 
     if ($cache->has($ip)) {
         $dataip = $cache->get($ip);
@@ -166,12 +155,11 @@ function load_kopere_bi_assets() {
 
         get_kopere_lang();
 
-        $code = "";
-        $code .= "<link rel='stylesheet' type='text/css' href='{$CFG->wwwroot}/local/kopere_dashboard/assets/all-bi-embed.css'/>\n";
-        $code .= "<link rel='stylesheet' type='text/css' href='{$CFG->wwwroot}/local/kopere_bi/assets/mod_koperebi.css'/>\n";
-        $code .= "<link rel='stylesheet' type='text/css' href='{$CFG->wwwroot}/local/kopere_bi/assets/dashboard.css'/>\n";
-
         require_once("{$CFG->dirroot}/local/kopere_dashboard/autoload-lang-js.php");
+
+        $code = "";
+        $code .= "<link rel='stylesheet' type='text/css' href='{$CFG->wwwroot}/local/kopere_dashboard/style.css'/>\n";
+        $code .= "<link rel='stylesheet' type='text/css' href='{$CFG->wwwroot}/local/kopere_bi/style.css'/>\n";
 
         return $code;
     }
@@ -234,7 +222,7 @@ function load_kopere_bi_ajax($coursemoduleid, $pageid) {
     $text = load_kopere_bi_assets();
     $text .= "<div class='kopere_dashboard_div-ajax'
                    id='kopere_dashboard_div-coursemodule_{$coursemoduleid}'
-                   data-koperebi='{$pageid}'>" . get_string('loading', 'local_kopere_bi') . "</div>";
+                   data-koperebi='{$pageid}'>" . get_string("loading", "local_kopere_bi") . "</div>";
 
     return $text;
 }

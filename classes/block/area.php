@@ -40,7 +40,7 @@ class area extends line {
      * @throws \coding_exception
      */
     public static function get_name() {
-        return get_string('area_name', 'local_kopere_bi');
+        return get_string("area_name", "local_kopere_bi");
     }
 
     /**
@@ -50,7 +50,7 @@ class area extends line {
      * @throws \coding_exception
      */
     public static function get_description() {
-        return get_string('area_desc', 'local_kopere_bi');
+        return get_string("area_desc", "local_kopere_bi");
     }
 
     /**
@@ -82,10 +82,10 @@ class area extends line {
                 ["item_id" => $koperebielement->id], "view-ajax"),
             "local_kopere_bi_id" => $koperebielement->id,
             "chart_default" => get_config("local_kopere_bi", "chart_area_default"),
-            "chart_options" => code_util::get_js_options($koperebielement->info_obj['chart_options']),
+            "chart_options" => code_util::get_js_options($koperebielement->info_obj["chart_options"]),
             "code_util_get_js_theme" => code_util::get_js_theme($koperebielement),
-            "error_chart_renderer" => get_string('error_chart_renderer', 'local_kopere_bi'),
-            "error_data_loader" => get_string('error_data_loader', 'local_kopere_bi'),
+            "error_chart_renderer" => get_string("error_chart_renderer", "local_kopere_bi"),
+            "error_data_loader" => get_string("error_data_loader", "local_kopere_bi"),
             "reload_time" => reload_util::convert($koperebielement->reload),
         ]);
     }
@@ -107,28 +107,28 @@ class area extends line {
 
             $comand = sql_util::prepare_sql($koperebielement->commandsql);
             try {
-                $dadoscolumns = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
+                $rowscolumns = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
             } catch (\Exception $e) {
                 mensagem::print_danger($e->getMessage());
                 return;
             }
 
-            $columns = array_keys((array)$dadoscolumns[0]);
+            $columns = array_keys((array)$rowscolumns[0]);
 
             $optionsxaxiscategories = false;
             $optionsseries = [];
             foreach ($columns as $column) {
                 if ($optionsxaxiscategories === false) {
 
-                    // Aqui pega a primeira coluna para ser o X.
+                    // Here take the first column to be the X.
 
-                    $optionsxaxiscategories = array_column($dadoscolumns, $column);
+                    $optionsxaxiscategories = array_column($rowscolumns, $column);
                 } else {
 
-                    // Demais colunas são séries.
-                    // Nome da coluna é o name da série.
+                    // Other columns are series.
+                    // Column name is the name of the series.
 
-                    $valores = array_column($dadoscolumns, $column);
+                    $valores = array_column($rowscolumns, $column);
                     $optionsseries[] = (object)[
                         "name" => string_util::get_string($column),
                         "data" => $valores,
@@ -161,14 +161,14 @@ class area extends line {
 
         $comand = sql_util::prepare_sql($koperebielement->commandsql);
         try {
-            $dadosarea = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
+            $rowsarea = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
         } catch (\Exception $e) {
             mensagem::print_danger($e->getMessage());
             return "";
         }
 
         $arrayareas = false;
-        foreach ($dadosarea as $key => $values) {
+        foreach ($rowsarea as $key => $values) {
 
             if (!$arrayareas) {
                 $names = [];

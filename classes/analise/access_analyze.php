@@ -35,10 +35,10 @@ class access_analyze {
     public static function agent() {
         require_once(__DIR__ . '/vendor/autoload.php');
 
-        $dd = new DeviceDetector($_SERVER['HTTP_USER_AGENT']);
+        $dd = new DeviceDetector($_SERVER["HTTP_USER_AGENT"]);
         $dd->parse();
 
-        $data = ['user_agent' => $_SERVER['HTTP_USER_AGENT']];
+        $data = ["user_agent" => $_SERVER["HTTP_USER_AGENT"]];
 
         $client = $dd->getClient();
         $data["client_type"] = isset($client["type"]) ? $client["type"] : "unknown";

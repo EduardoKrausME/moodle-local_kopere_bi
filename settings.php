@@ -47,7 +47,7 @@ if ($ADMIN->fulltree) {
         require(__DIR__ . "/settings_kopere.php");
 
         $settings->add(
-            new admin_setting_heading('kopere_bi_title', "", "")
+            new admin_setting_heading("kopere_bi_title", "", "")
         );
     }
 }
