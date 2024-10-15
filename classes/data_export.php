@@ -40,7 +40,11 @@ class data_export {
         global $DB;
 
         $string = [];
-        require_once(__DIR__ . "/../lang/pt_br/local_kopere_bi.php");
+        if (file_exists(__DIR__ . "/../lang/pt_br/local_kopere_bi.php")) {
+            require_once(__DIR__ . "/../lang/pt_br/local_kopere_bi.php");
+        } else {
+            require_once(__DIR__ . "/../lang/en/local_kopere_bi.php");
+        }
         $stringbi = $string;
 
         $string = [];
@@ -87,7 +91,7 @@ class data_export {
 
                     foreach ($infos->column->name as $key => $string) {
 
-                        if ($infos->column->type[$key] == 'none') {
+                        if ($infos->column->type[$key] == "none") {
                             continue;
                         }
 

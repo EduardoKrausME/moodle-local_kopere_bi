@@ -25,7 +25,7 @@ use local_kopere_dashboard\util\json;
  * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class column {
+class column extends bi_all {
 
     /**
      * Function by_sql
@@ -39,7 +39,7 @@ class column {
         $firstline = $DB->get_record_sql($sql);
 
         if (!$firstline) {
-            json::error(get_string('data_not_found', 'local_kopere_bi'));
+            json::error(get_string("data_not_found", "local_kopere_bi"));
         }
 
         $campos = [];
