@@ -45,7 +45,7 @@ $string['c_id'] = 'ID do Curso';
 $string['c_shortname'] = 'Nome curto';
 $string['c_tempo'] = 'Tempo de permanência';
 $string['c_timemodified'] = 'Modificado em';
-$string['c_visible'] = 'Visivel';
+$string['c_visible'] = 'Visível';
 $string['ca_completed_activities'] = 'Módulos completos';
 $string['cache_time'] = 'Tempo de cache';
 $string['cache_time_15min'] = '15 minutos';
@@ -53,7 +53,7 @@ $string['cache_time_1d'] = '24 horas';
 $string['cache_time_1h'] = '1 hora';
 $string['cache_time_30min'] = '30 minutos';
 $string['cache_time_6h'] = '6 horas';
-$string['cache_time_desc'] = 'Tempo que os resultados da SQL devem ficar em cache antes de ser limpo';
+$string['cache_time_desc'] = 'Tempo que os resultados SQL devem permanecer em cache antes de serem limpos';
 $string['cache_time_no'] = 'Sem cache';
 $string['case_complete'] = 'Completo';
 $string['case_incomplete'] = 'Incompleto';
@@ -87,7 +87,7 @@ $string['course_completed'] = 'Porcentagem concluído';
 $string['create'] = 'Criar';
 $string['create_report'] = 'Criar relatório';
 $string['css_extra'] = 'CSS Extra';
-$string['css_extra_desc'] = 'Adicione estilos CSS, ou SCSS a este bloco.<br> O CSS adicionado será aplicado apenas ao conteúdos deste Bloco, e não terá nenhum efeito sobre qualquer outra parte do Moodle';
+$string['css_extra_desc'] = 'Adicione estilos CSS, ou SCSS a este bloco. O CSS adicionado será aplicado apenas aos conteúdos deste bloco e não terá nenhum efeito sobre qualquer outra parte do Moodle.';
 $string['ctx_instanceid'] = 'Cursos inscritos';
 $string['data_not_found'] = 'Nenhum dado encontrado';
 $string['delete_report_text'] = 'Deseja realmente excluir este relatório?';
@@ -109,13 +109,38 @@ $string['firstname'] = 'Nome do estudante';
 $string['g_finalgrade'] = 'Nota final';
 $string['grade'] = 'Nota';
 $string['grade_course'] = 'Nota do curso';
-$string['html_after'] = 'Texto (ou HTML) opcional depois do gráfico';
-$string['html_block'] = 'HTML do Bloco';
-$string['html_block_desc'] = '<p>Os valores gerados pelo SQL devem ser substituídos por chaves.</p><p>Se você tem a SQL <code>SELECT <b>email</b>, <b>fullname</b> FROM mdl_user WHERE id = :userid</code> você pode usar no HTML as chaves <code>{email}</code> e <code>{fullname}</code> para substituir no HTML.</p>';
+$string['html_after'] = 'Texto adicional opcional (em formato Texto, HTML ou Mustache) exibido após o gráfico.';
+$string['html_before'] = 'Texto adicional opcional (em formato Texto, HTML ou Mustache) exibido acima do gráfico';
+$string['html_block'] = 'HTML do Bloco com suporte a Mustache';
+$string['html_block_desc'] = '<p>O HTML adicionado a este campo deve seguir o formato do <strong>Mustache</strong>, que permite a substituição dinâmica de dados nas suas páginas. Utilize as chaves duplas <code>{{ }}</code> para referenciar os valores das colunas SQL diretamente no HTML, garantindo que os dados sejam corretamente inseridos.</p>
+<blockquote>
+    <p>Por exemplo, ao utilizar a consulta SQL:</p>
+    <pre>SELECT firstname, lastname, email FROM mdl_user WHERE id = :userid</pre>
+    <p>Você pode referenciar os valores retornados no seu HTML utilizando a seguinte sintaxe:</p>
+    <pre>&lt;p&gt;Email: {{{email}}}&lt;/p&gt;
+    &lt;p&gt;Nome completo: {{{firstname}}} {{{lastname}}}&lt;/p&gt;</pre>
+</blockquote>
+<blockquote>
+    <p>Neste exemplo, quero exibir várias linhas de um resultado SQL, que retorna uma lista de usuários cadastrados com autenticação manual. O SQL usado para isso é:</p>
+    <pre>SELECT firstname, lastname, email FROM mdl_user WHERE auth = \'manual\'</pre>
+    <p>Para iterar sobre os resultados e exibir os dados em formato de tabela, utilizo o <code>{{#lines}}</code> no template para repetir o conteúdo conforme o número de registros retornados. O template ficaria assim:</p>
+    <pre>&lt;table class="table table-bordered"&gt;
+    &lt;tr&gt;
+        &lt;th&gt;E-mail&lt;/th&gt;
+        &lt;th&gt;Nome completo&lt;/th&gt;
+    &lt;/tr&gt;
+    <strong>{{#lines}}</strong>
+        &lt;tr&gt;
+            &lt;td&gt;{{{email}}}&lt;/td&gt;
+            &lt;td&gt;{{{firstname}}} {{{lastname}}}&lt;/td&gt;
+        &lt;/tr&gt;
+    <strong>{{/lines}}</strong>
+&lt;/table&gt;</pre>
+</blockquote>
+<p>As chaves triplas <code>{{{ }}}</code> permitem que o valor seja inserido sem escape de HTML, sendo útil para exibir conteúdo que pode conter tags HTML.</p>
+<p>Para mais informações sobre o uso de templates Mustache no Moodle, consulte a documentação oficial: <a href="https://moodledev.io/docs/guides/templates" target="_blank">Moodle Templates Guide</a>.</p>';
 $string['html_desc'] = 'Mostra um Bloco, com formatação HTML, com dados vindo do banco de dados';
-$string['html_extra'] = 'Texto (ou HTML) opcional acima do gráfico';
 $string['html_name'] = 'Bloco de HTML';
-$string['html_sql_warning'] = 'Lembre-se que a SQL abaixo só irá retornar uma única linha.';
 $string['info_desc'] = 'Apenas uma informação. Ideal para mostrar o nome do estudante, status de matrícula, etc...';
 $string['info_error_sql'] = 'Erro ao executar SQL';
 $string['info_name'] = 'Linha de Informação';
@@ -140,7 +165,7 @@ $string['line_sql_warning'] = '<p>Lembre-se que a SQL abaixo deve retornar com a
         </ul>
     </li>
 </ul>
-<blockquote>No exemplo abaixo a primeiroa coluna retorna o nome do curso e a segujnda coluna retorna a quantidade de notícias de cada curso:
+<blockquote>No exemplo abaixo a primeira coluna retorna o nome do curso e a segunda coluna retorna a quantidade de notícias de cada curso:
 <pre>SELECT fullname,
        newsitems AS "Quantidade de notícias do curso"
   FROM mdl_course</pre></blockquote>
@@ -152,7 +177,7 @@ $string['line_sql_warning'] = '<p>Lembre-se que a SQL abaixo deve retornar com a
     JOIN mdl_course_modules AS cm ON c.id = cm.course
 GROUP BY c.id</pre></blockquote>';
 $string['loading'] = 'Carregando...';
-$string['maps_1_city'] = '{a1} e mais uma cidade';
+$string['maps_1_city'] = '{a1} e uma outra cidade';
 $string['maps_desc'] = 'Monta um mapa de estudantes online, baseado no IP deles';
 $string['maps_many_city'] = '{a1} e outras {a2} cidades';
 $string['maps_name'] = 'Mapa de estudantes online';
@@ -163,19 +188,19 @@ $string['module_name'] = 'Nome do módulo';
 $string['modulename'] = 'Business Intelligence';
 $string['new_block'] = 'Novo bloco nesta página';
 $string['new_block_1'] = 'Um bloco';
-$string['new_block_12'] = 'Um mais dois blocos';
+$string['new_block_12'] = 'Um bloco mais dois';
 $string['new_block_2'] = 'Dois blocos';
-$string['new_block_21'] = 'Dois mais um blocos';
-$string['new_block_25'] = 'Um largo e um estreito';
+$string['new_block_21'] = 'Dois blocos mais um';
+$string['new_block_25'] = 'Um bloco largo e um estreito';
 $string['new_block_3'] = 'Três blocos';
 $string['new_block_4'] = 'Quatro blocos';
-$string['new_block_52'] = 'Um estreito e um largo';
+$string['new_block_52'] = 'Um bloco estreito e um largo';
 $string['not_accessed_learners'] = 'Estudantes que não acessaram a plataforma';
 $string['not_completed_learners'] = 'Estudantes que não completaram os cursos';
-$string['num_activelearners'] = 'Número de estudantes ativos';
-$string['num_completedlearners'] = 'Número de estudantes que completaram cursos';
-$string['num_courses'] = 'Número de cursos disponíveis';
-$string['num_learners'] = 'Número total de estudantes';
+$string['num_activelearners'] = 'Quantidade de estudantes ativos';
+$string['num_completedlearners'] = 'Quantidade de estudantes que completaram cursos';
+$string['num_courses'] = 'Quantidade de cursos disponíveis';
+$string['num_learners'] = 'Quantidade total de estudantes';
 $string['num_user'] = 'Quantidade de estudantes';
 $string['os_name'] = 'Sistema operacional';
 $string['page_description'] = 'Descrição da página';
@@ -226,18 +251,32 @@ $string['report_2_total_engagement'] = 'Total Engajamento por Curso';
 $string['report_3_cat_description'] = 'Relatório de todos online no Moodle';
 $string['report_3_cat_title'] = 'Online';
 $string['report_3_course_access_time'] = 'Tempo de acesso aos cursos';
+$string['report_3_course_last30days'] = 'Dados referentes apenas aos últimos 30 dias';
 $string['report_3_description'] = 'Mostra os estudantes online e principais regiões';
-$string['report_3_operating_systems'] = 'Sistemas operacionais';
+$string['report_3_operating_systems'] = 'Sistemas operacionais com mais tempo de acesso';
 $string['report_3_title'] = 'Estudantes online';
-$string['report_3_top_browsers'] = 'Navegadores mais utilizados';
-$string['report_3_top_country_access'] = 'Países com mais acessos';
+$string['report_3_top_browsers'] = 'Navegadores com mais tempo de acesso';
+$string['report_3_top_country_access'] = 'Cidades/Países com mais tempo de acessos';
 $string['report_3_users_online'] = 'Estudantes online';
 $string['report_3_users_online_list'] = 'Lista de estudantes online';
 $string['report_4_cat_description'] = 'Relatórios de matrículas, cobrindo histórico, status atual e tendências de inscrições nos cursos.';
 $string['report_4_cat_title'] = 'Matrículas';
 $string['report_4_description'] = 'Relatórios de matrículas, cobrindo histórico, status atual e tendências de inscrições nos cursos.';
+$string['report_4_enrolpercourse'] = 'Matriculas por curso';
 $string['report_4_title'] = 'Estatísticas';
 $string['report_5_cat_description'] = 'Este relatório fornece uma visão geral das principais métricas e informações do sistema, permitindo uma análise abrangente de seu desempenho e operação.';
+$string['report_4_coursesenrollmentstatus'] = 'Status de inscrição nos cursos';
+$string['report_4_completionstate_0'] = 'Atividade não concluída';
+$string['report_4_completionstate_1'] = 'Atividade concluída, mas sem especificar aprovação ou reprovação';
+$string['report_4_completionstate_2'] = 'Atividade concluída com nota acima da mínima para aprovação';
+$string['report_4_completionstate_3'] = 'Atividade concluída com nota abaixo da mínima para aprovação';
+$string['report_4_completionstate_4'] = 'Recebeu nota de reprovação em item oculto';
+$string['report_4_completionstate_none'] = 'Conclusão desconhecida';
+$string['report_4_completion_0'] = 'Rastreamento de conclusão desativado para esta atividade';
+$string['report_4_completion_1'] = 'Rastreamento de conclusão manual habilitado para esta atividade';
+$string['report_4_completion_2'] = 'Rastreamento de conclusão automático habilitado para esta atividade';
+$string['report_4_completion_none'] = 'Conclusão desconhecida';
+$string['report_4_enrolpercourse'] = 'Matriculas por curso';
 $string['report_5_cat_title'] = 'Sistema';
 $string['report_5_component'] = 'Componente';
 $string['report_5_coursefilesizes'] = 'Arquivos do curso';
@@ -245,7 +284,7 @@ $string['report_5_coursefilesizes_title'] = 'Espaço ocupado por cada curso';
 $string['report_5_description'] = 'O relatório Geral oferece um resumo detalhado de todos os aspectos do sistema, incluindo dados de uso, desempenho e áreas de melhoria. Ideal para administradores e gerentes que buscam otimizar a eficiência do sistema.';
 $string['report_5_filesize'] = 'Tamanho do arquivo';
 $string['report_5_filesizes'] = 'Tamanho dos arquivos';
-$string['report_5_modulesdeleting'] = 'Módulos apagando';
+$string['report_5_modulesdeleting'] = 'Módulos sendo apagados';
 $string['report_5_modulesfilesizes'] = 'Arquivos dos Módulos';
 $string['report_5_numfiles'] = 'Número de arquivos';
 $string['report_5_title'] = 'Geral';
@@ -270,7 +309,7 @@ $string['reports_selectuser'] = 'Selecione o estudante para gerar o relatório';
 $string['return_edit'] = '<< Voltar à edição';
 $string['rolename'] = 'Nome do papel';
 $string['save'] = 'Salvar';
-$string['secounds'] = 'Quantos segundos';
+$string['seconds'] = 'Quantos segundos';
 $string['select_report_select_type'] = 'Selecione o tipo de relatório';
 $string['select_report_select_type_desc'] = 'Primeiro, escolha qual tipo de relatório você deseja para este bloco';
 $string['select_report_type'] = 'Tipo de relatório';
@@ -302,17 +341,14 @@ $string['table_column_not_configured'] = 'Colunas não configuradas nesta tabela
 $string['table_desc'] = 'Mostra uma tabela com paginação de dados.';
 $string['table_edit_column'] = 'Coluna';
 $string['table_first_5'] = 'Os cinco primeiros registros da consulta';
-$string['table_info_secound'] = 'Aqui você pode definir um nome para cada coluna e, em seguida, especificar o formato desejado para a exibição dos dados.
+$string['table_info_second'] = 'Aqui você pode definir um nome para cada coluna e, em seguida, especificar o formato desejado para a exibição dos dados.
 <ul>
-    <li><strong>Não mostrar esta coluna</strong>: Oculta a coluna selecionada na visualização, tornando-a invisível para o estudante, sem afetar os dados armazenados.</li>
+    <li><strong>Não mostrar esta coluna</strong>: Oculta a coluna selecionada na visualização.</li>
     <li><strong>Sem formatação</strong>: Exibe o conteúdo da coluna exatamente como está armazenado, sem aplicar qualquer formatação adicional, garantindo a visualização dos dados brutos.</li>
     <li><strong>Números</strong>: Formata a coluna para exibir apenas valores numéricos, aplicando as regras padrão de exibição de números, como separadores de milhares e decimais.</li>
     <li><strong>Converter a coluna para nome completo "fullname()"</strong>: Executa a função fullname() para criar o nome completo baseado na linguagem do estudante.</li>
     <li><strong>Converter ID do estudante para foto de perfil</strong>: Substitui o ID do estudante na coluna por sua respectiva foto de perfil, permitindo uma identificação visual imediata dos estudantes.</li>
-    <li><strong>Campo binário para Verdadeiro/False</strong>: Interpreta o valor binário na coluna como um indicador de status, onde "0" ou "false" significa inativo e "1" ou "true" significa ativo.</li>
-    <li><strong>Campo binário para Ativo/Inativo</strong>: Usa o valor binário para determinar a visibilidade, onde "0" ou "false" representa Inativo e "1" ou "true" representa Inativo.</li>
     <li><strong>Campo binário para Visível/Invisível</strong>: Usa o valor binário para determinar a visibilidade, onde "0" ou "false" representa invisível e "1" ou "true" representa visível.</li>
-    <li><strong>Campo binário para ativo/deletado:</strong> Este campo identifica o status de um item como ativo (0) ou deletado (1), permitindo a gestão e recuperação de dados em sistemas de armazenamento.</li>
     <li><strong>Campo "time" formatado para data</strong>: Converte o valor de tempo (timestamp) na coluna para uma data legível, exibindo apenas a data (dia/mês/ano).</li>
     <li><strong>Campo "time" formatado para data e hora</strong>: Exibe o valor de tempo (timestamp) na coluna como uma data completa, incluindo a hora (dia/mês/ano e horas:minutos).</li>
     <li><strong>Campo "time" formatado para hora</strong>: Formata o valor de tempo (timestamp) na coluna para exibir apenas a hora (horas:minutos), omitindo a data.</li>
@@ -321,18 +357,18 @@ $string['table_info_topo'] = 'Primeiro, você verá uma prévia dos resultados d
 $string['table_name'] = 'Tabela de dados';
 $string['table_renderer_date'] = 'Campo "time" formatado para data';
 $string['table_renderer_datetime'] = 'Campo "time" formatado para data e hora';
-$string['table_renderer_deleted'] = 'Campo binário para ativo/deletado';
 $string['table_renderer_filesize'] = 'Converte para tamanho de dados em disco';
-$string['table_renderer_fullname'] = 'Converter a coluna para nome completo "fullname()"';
+$string['table_renderer_mustache'] = 'HTML no formato
+    <a href="https://moodledev.io/docs/guides/templates" target="_blank">Mustache</a> da coluna';
 $string['table_renderer_none'] = 'Não mostrar esta coluna';
 $string['table_renderer_number'] = 'Números';
 $string['table_renderer_seconds'] = 'Campo "time" formatado para hora';
-$string['table_renderer_status'] = 'Campo binário para Ativo/Inativo';
 $string['table_renderer_title'] = 'Formatação da coluna';
 $string['table_renderer_translate'] = 'Use o get_string("identificador","component") para traduzir a coluna';
-$string['table_renderer_truefalse'] = 'Campo binário para Verdadeiro/Falso';
+$string['table_renderer_userfullname'] = 'Converter a coluna para nome completo do aluno com a função "fullname()"';
 $string['table_renderer_userphoto'] = 'Converter ID do estudante para foto de perfil';
 $string['table_renderer_visible'] = 'Campo binário para Visível/Invisível';
+$string['table_renderer_status'] = 'Campo binário para Ativo/Inativo';
 $string['theme_palette_default'] = 'Paleta Padrão';
 $string['theme_palette_desc'] = 'Cores da paleta:';
 $string['theme_palette_desc2'] = 'Veja todos os temas aqui';
@@ -357,6 +393,8 @@ $string['ue_status'] = 'Status da Matrícula';
 $string['ue_timecreated'] = 'Matrícula criada em';
 $string['ue_timeend'] = 'Matrícula termina em';
 $string['ul_timeaccess'] = 'Último acesso';
+$string['unknown'] = 'Unknown';
+$string['use_this_type'] = 'Usar este tipo';
 $string['word_extra_00'] = '';
 $string['word_extra_01'] = '';
 $string['word_extra_02'] = '';
