@@ -22,14 +22,13 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['active_enrolments'] = 'Matrículas Ativas';
 $string['all_learners'] = 'All learners';
-$string['area_desc'] = 'Builds an area chart';
+$string['area_desc'] = 'Generates an area chart';
 $string['area_name'] = 'Area Chart';
 $string['block_add'] = 'Add new Block';
-$string['block_delete_message'] = 'Do you really want to permanently delete this block and <br> its reports?';
+$string['block_delete_message'] = 'Do you really want to delete this block and <br> its reports permanently?';
 $string['block_delete_title'] = 'Delete Block';
-$string['block_extra'] = 'Advanced chart options';
+$string['block_extra'] = 'Very advanced chart options';
 $string['block_not_found'] = 'Block not found';
 $string['block_theme'] = 'Block theme';
 $string['block_theme_blue'] = 'Blue Theme';
@@ -41,20 +40,20 @@ $string['block_theme_pink'] = 'Pink Theme';
 $string['blocktype_not_found'] = 'Block type not found';
 $string['c_enablecompletion'] = 'Completion enabled';
 $string['c_format'] = 'Course Format';
-$string['c_fullname'] = 'Course name';
+$string['c_fullname'] = 'Full course name';
 $string['c_id'] = 'Course ID';
 $string['c_shortname'] = 'Short name';
 $string['c_tempo'] = 'Time spent';
 $string['c_timemodified'] = 'Modified on';
 $string['c_visible'] = 'Visible';
-$string['ca_completed_activities'] = 'Completed modules';
+$string['ca_completed_activities'] = 'Completed activities';
 $string['cache_time'] = 'Cache time';
 $string['cache_time_15min'] = '15 minutes';
 $string['cache_time_1d'] = '24 hours';
 $string['cache_time_1h'] = '1 hour';
 $string['cache_time_30min'] = '30 minutes';
 $string['cache_time_6h'] = '6 hours';
-$string['cache_time_desc'] = 'Time that SQL results should be cached before being cleared';
+$string['cache_time_desc'] = 'Time that the SQL results should remain cached before being cleared';
 $string['cache_time_no'] = 'No cache';
 $string['case_complete'] = 'Complete';
 $string['case_incomplete'] = 'Incomplete';
@@ -67,18 +66,18 @@ $string['cat_not_found'] = 'Category not found';
 $string['cat_title'] = 'Category';
 $string['cc_id'] = 'Completed courses';
 $string['cc_timecompleted'] = 'Completed on';
-$string['chart_area_default'] = 'Default Area Chart settings';
-$string['chart_column_default'] = 'Default Column Chart settings';
-$string['chart_default_desc'] = 'Changing this value will not affect any already added charts.<br>Edit only if you are familiar with Apex Charts. See at <a target="_blank" href="https://apexcharts.com/docs/series/">apexcharts.com/docs</a>';
-$string['chart_line_default'] = 'Default Line Chart settings';
-$string['chart_pie_default'] = 'Default Pie Chart settings';
+$string['chart_area_default'] = 'Default Area Chart configuration';
+$string['chart_column_default'] = 'Default Column Chart configuration';
+$string['chart_default_desc'] = 'Changing this value will not affect any existing charts<br>Only edit if you are familiar with Apex Charts. See more at <a target="_blank" href="https://apexcharts.com/docs/series/">apexcharts.com/docs</a>';
+$string['chart_line_default'] = 'Default Line Chart configuration';
+$string['chart_pie_default'] = 'Default Pie Chart configuration';
 $string['city_name'] = 'City';
 $string['class_not_found'] = 'Class not found';
 $string['click_new_block'] = 'Click on the type of Block you want to add.';
 $string['client_name'] = 'Browser';
 $string['client_version'] = 'Version';
 $string['cm_cmid'] = 'Course Module ID';
-$string['column_desc'] = 'Builds a Column chart';
+$string['column_desc'] = 'Generates a Column chart';
 $string['column_name'] = 'Column Chart';
 $string['completed_learners'] = 'Learners who completed the courses';
 $string['completion_status'] = 'Tracking';
@@ -88,7 +87,7 @@ $string['course_completed'] = 'Completion percentage';
 $string['create'] = 'Create';
 $string['create_report'] = 'Create report';
 $string['css_extra'] = 'Extra CSS';
-$string['css_extra_desc'] = 'Add CSS or SCSS styles to this block.<br>The added CSS will only apply to this Block’s contents and will not affect any other part of Moodle';
+$string['css_extra_desc'] = 'Add CSS or SCSS styles to this block.<br> The added CSS will only apply to the content of this Block, and will have no effect on any other part of Moodle';
 $string['ctx_instanceid'] = 'Enrolled courses';
 $string['data_not_found'] = 'No data found';
 $string['delete_report_text'] = 'Do you really want to delete this report?';
@@ -99,30 +98,53 @@ $string['enrol_status'] = 'Enrollment status';
 $string['enrol_timeend'] = 'Enrollment completion';
 $string['error_chart_renderer'] = 'Error rendering the chart';
 $string['error_data_loader'] = 'Error loading chart data';
-$string['expired_enrolments'] = 'Matrículas Expiradas';
-$string['extra_langs_customs_title'] = 'To assist you with new strings, I left a few fields blank:';
+$string['extra_langs_customs_title'] = 'To assist you with new strings, I left some fields blank:';
 $string['extra_langs_filter_component'] = 'Component';
 $string['extra_langs_header_identifier'] = 'Identifier';
 $string['extra_langs_header_lang_key'] = 'Replacement key';
 $string['extra_langs_header_string'] = 'Current text';
-$string['extra_langs_title'] = 'Existing keys:';
+$string['extra_langs_title'] = 'Keys that already exist:';
 $string['extra_options'] = 'Advanced block options';
-$string['firstname'] = 'Student\'s first name';
+$string['firstname'] = 'Student name';
 $string['g_finalgrade'] = 'Final grade';
 $string['grade'] = 'Grade';
-$string['grade_course'] = 'Grade course';
-$string['html_after'] = 'Optional text (or HTML) after the chart';
-$string['html_block'] = 'Block HTML';
-$string['html_block_desc'] = '<p>The values generated by the SQL should be replaced by keys.</p><p>If you have the SQL <code>SELECT <b>email</b>, <b>fullname</b> FROM mdl_user WHERE id = :userid</code>, you can use the keys <code>{email}</code> and <code>{fullname}</code> in the HTML to replace them.</p>';
-$string['html_desc'] = 'Displays a block, with HTML formatting, with data from the database';
-$string['html_extra'] = 'Optional text (or HTML) above the chart';
+$string['grade_course'] = 'Course grade';
+$string['html_after'] = 'Optional additional text (in Text, HTML, or Mustache format) displayed after the chart.';
+$string['html_before'] = 'Optional additional text (in Text, HTML, or Mustache format) displayed above the chart';
+$string['html_block'] = 'HTML Block with Mustache support';
+$string['html_block_desc'] = '<p>The HTML added to this field should follow the <strong>Mustache</strong> format, allowing dynamic data substitution in your pages. Use double braces <code>{{ }}</code> to reference SQL column values directly in the HTML, ensuring that the data is correctly inserted.</p>
+<blockquote>
+    <p>For example, using the following SQL query:</p>
+    <pre>SELECT firstname, lastname, email FROM mdl_user WHERE id = :userid</pre>
+    <p>You can reference the returned values in your HTML using the following syntax:</p>
+    <pre>&lt;p&gt;Email: {{{email}}}&lt;/p&gt;
+    &lt;p&gt;Full name: {{{firstname}}} {{{lastname}}}&lt;/p&gt;</pre>
+</blockquote>
+<blockquote>
+    <p>In this example, I want to display multiple rows from an SQL result, which returns a list of users registered with manual authentication. The SQL used for this is:</p>
+    <pre>SELECT firstname, lastname, email FROM mdl_user WHERE auth = \'manual\'</pre>
+    <p>To iterate over the results and display the data in a table format, I use the <code>{{#lines}}</code> in the template to repeat the content for each returned record. The template would look like this:</p>
+    <pre>&lt;table class="table table-bordered"&gt;
+    &lt;tr&gt;
+        &lt;th&gt;E-mail&lt;/th&gt;
+        &lt;th&gt;Full name&lt;/th&gt;
+    &lt;/tr&gt;
+    <strong>{{#lines}}</strong>
+        &lt;tr&gt;
+            &lt;td&gt;{{{email}}}&lt;/td&gt;
+            &lt;td&gt;{{{firstname}}} {{{lastname}}}&lt;/td&gt;
+        &lt;/tr&gt;
+    <strong>{{/lines}}</strong>
+&lt;/table&gt;</pre>
+</blockquote>
+<p>Triple braces <code>{{{ }}}</code> allow the value to be inserted without escaping HTML, which is useful for displaying content that may contain HTML tags.</p>
+<p>For more information on using Mustache templates in Moodle, see the official documentation: <a href="https://moodledev.io/docs/guides/templates" target="_blank">Moodle Templates Guide</a>.</p>';
+$string['html_desc'] = 'Displays an HTML Block with data coming from the database';
 $string['html_name'] = 'HTML Block';
-$string['html_sql_warning'] = 'Remember that the SQL below will only return a single row.';
-$string['inactive_enrolments'] = 'Matrículas Inativas';
-$string['info_desc'] = 'Just an information. Ideal for displaying the student\'s name, enrollment status, etc.';
+$string['info_desc'] = 'Just information. Ideal for showing student name, enrollment status, etc.';
 $string['info_error_sql'] = 'Error executing SQL';
-$string['info_name'] = 'Information line';
-$string['info_sql_warning'] = 'Remember that the SQL below should return only a single row with one column.';
+$string['info_name'] = 'Information Line';
+$string['info_sql_warning'] = 'Remember that the SQL below must return only one row with just one column.';
 $string['integracaoroot'] = 'Integrations';
 $string['item_not_found'] = 'Item not found';
 $string['kopere_bi:manage'] = 'Manage Business Intelligence';
@@ -132,21 +154,22 @@ $string['l_origin'] = 'Origin';
 $string['l_timecreated'] = 'Created on';
 $string['line_desc'] = 'Generates a line chart';
 $string['line_name'] = 'Line Chart';
-$string['line_sql_warning'] = '<p>Remember that the SQL below should return with the following structure:</p>
+$string['line_sql_warning'] = '<p>Remember that the SQL below must return with the following structure:</p>
 <ul>
-    <li>The first column should contain the text that will be used as the names of the X-axis.</li>
-    <li>The remaining columns should be structured as follows:
+    <li>The first column should contain the text that will be used as the X-axis names.</li>
+    <li>The other columns should be structured as follows:
         <ul>
-            <li>The name of the column will be used as the name of the series. You can use the translation strings, as explained on the <a href="?classname=bi-extra_langs&method=index" target="_blank">strings page</a>.</li>
-            <li>The value of the column will represent the data of the series in the graph.</li>
+            <li>The column name will be used as the series name. You can use translation strings as explained on the
+                <a href="?classname=bi-extra_langs&method=index" target="_blank">strings page</a>.</li>
+            <li>The column value will represent the series data in the chart.</li>
         </ul>
     </li>
 </ul>
-<blockquote>In the example below, the first column returns the course name and the second column returns the number of news items for each course:
+<blockquote>In the example below, the first column returns the course name, and the second column returns the number of news items for each course:
 <pre>SELECT fullname,
-       newsitems AS "Number of course news items"
+       newsitems AS "Course news items count"
   FROM mdl_course</pre></blockquote>
-<blockquote>In the example below, in addition to the first column being the course name, it generates two more lines in the graph, with translations of the column names:
+<blockquote>In the example below, besides the first column being the course name, it generates two additional lines on the chart, with translated column names:
 <pre>  SELECT c.fullname AS course_name,
          COUNT(cm.section) AS \'lang::thiscourse::theme_rebel\',
          COUNT(cm.module)  AS \'lang::ca_completed_activities::local_kopere_bi\'
@@ -155,44 +178,44 @@ $string['line_sql_warning'] = '<p>Remember that the SQL below should return with
 GROUP BY c.id</pre></blockquote>';
 $string['loading'] = 'Loading...';
 $string['maps_1_city'] = '{a1} and one more city';
-$string['maps_desc'] = 'Generates an online students map, based on their IP';
-$string['maps_many_city'] = '{a1} and {a2} other cities';
+$string['maps_desc'] = 'Creates a map of online students based on their IPs';
+$string['maps_many_city'] = '{a1} and {a2} more cities';
 $string['maps_name'] = 'Online students map';
 $string['maps_online'] = '{a1} student online';
 $string['maps_onlines'] = '{a1} students online';
-$string['maps_sql_warning'] = '<p>Remember that the SQL below must return only one column, and that column must contain a valid IP.<br>Example: the SQL <code>SELECT lastip FROM {user} WHERE lastaccess > UNIX_TIMESTAMP() - (10 * 60)</code> returns all students who accessed Moodle in the last 10 minutes</p>';
+$string['maps_sql_warning'] = '<p>Remember that the SQL below should return only one column, and that column should contain a valid IP.<br>Example: the SQL <code>SELECT lastip FROM {user} WHERE lastaccess > UNIX_TIMESTAMP() - (10 * 60)</code> returns all students who accessed Moodle in the last 10 minutes</p>';
 $string['module_name'] = 'Module name';
-$string['modulename'] = 'Business intelligence';
-$string['new_block'] = 'New Block on this page';
+$string['modulename'] = 'Business Intelligence';
+$string['new_block'] = 'New block on this page';
 $string['new_block_1'] = 'One block';
-$string['new_block_12'] = 'One plus two Blocks';
+$string['new_block_12'] = 'One plus two blocks';
 $string['new_block_2'] = 'Two blocks';
-$string['new_block_21'] = 'Two plus one Blocks';
-$string['new_block_25'] = 'One wide and one narrow block';
-$string['new_block_3'] = 'Three Blocks';
-$string['new_block_4'] = 'Four Blocks';
-$string['new_block_52'] = 'One narrow and one wide block';
-$string['not_accessed_learners'] = 'Learners who did not access the platform';
-$string['not_completed_learners'] = 'Learners who did not complete the courses';
-$string['num_activelearners'] = 'Number of active learners';
-$string['num_completedlearners'] = 'Number of learners who completed courses';
+$string['new_block_21'] = 'Two plus one block';
+$string['new_block_25'] = 'One wide and one narrow';
+$string['new_block_3'] = 'Three blocks';
+$string['new_block_4'] = 'Four blocks';
+$string['new_block_52'] = 'One narrow and one wide';
+$string['not_accessed_learners'] = 'Students who haven’t accessed the platform';
+$string['not_completed_learners'] = 'Students who haven’t completed courses';
+$string['num_activelearners'] = 'Number of active students';
+$string['num_completedlearners'] = 'Number of students who completed courses';
 $string['num_courses'] = 'Number of available courses';
-$string['num_learners'] = 'Total number of learners';
-$string['num_user'] = 'Number of Students';
-$string['os_name'] = 'Operating System';
+$string['num_learners'] = 'Total number of students';
+$string['num_user'] = 'Number of students';
+$string['os_name'] = 'Operating system';
 $string['page_description'] = 'Page description';
-$string['page_edit'] = 'Edit Page';
+$string['page_edit'] = 'Edit page';
 $string['page_name'] = 'Page name';
 $string['page_new_cat'] = 'New page';
-$string['page_new_sequence'] = 'Drag the Block to change the block order.';
+$string['page_new_sequence'] = 'Drag blocks to change the block order.';
 $string['page_not_found'] = 'Page not found';
-$string['page_preview'] = 'Page Preview';
-$string['page_title_edit'] = 'Edit this Page\'s title';
-$string['page_title_export'] = 'Export Page';
-$string['pie_desc'] = 'Generates a pie chart';
-$string['pie_name'] = 'Pie Chart';
-$string['pie_sql_warning'] = '<p>The SQL below must return only two columns.</p><p>The first column will be the name and the second column must be a numeric value.</p>';
-$string['pluginname'] = 'Business intelligence';
+$string['page_preview'] = 'Preview page';
+$string['page_title_edit'] = 'Edit this page’s title';
+$string['page_title_export'] = 'Export page';
+$string['pie_desc'] = 'Creates a pie chart';
+$string['pie_name'] = 'Pie chart';
+$string['pie_sql_warning'] = '<p>The SQL below should return only two columns.</p><p>The first column will be the column name, and the second column must be a numeric value.</p>';
+$string['pluginname'] = 'Business Intelligence';
 $string['privacy:metadata'] = 'The Business Intelligence plugin does not store any personal data.';
 $string['reload_time'] = 'Reload data every';
 $string['reload_time_10m'] = '10 minutes';
@@ -211,51 +234,53 @@ $string['report_1_cat_title'] = 'Students';
 $string['report_1_categories'] = 'Categories';
 $string['report_1_description'] = 'Student status reports';
 $string['report_1_modules'] = 'Modules';
-$string['report_1_title'] = 'Active Students';
-$string['report_1_user_status'] = 'Student Status';
-$string['report_1_user_summary'] = 'Summary of Active Students';
+$string['report_1_title'] = 'Active students';
+$string['report_1_user_status'] = 'Student status';
+$string['report_1_user_summary'] = 'Summary of active students';
 $string['report_1_users'] = 'Students';
-$string['report_2_cat_description'] = 'Comprehensive analysis of all available courses, performance, progress, and student development.';
+$string['report_2_cat_description'] = 'Comprehensive analyses of all available courses, student performance, progress, and development.';
 $string['report_2_cat_title'] = 'Courses';
-$string['report_2_completion_progress'] = 'Progress with completion percentage';
-$string['report_2_course_access_statistics'] = 'Course Access Statistics';
-$string['report_2_course_analysis_participation_completion'] = 'Course Analysis: Participation and Completion';
-$string['report_2_course_progress'] = 'Course Progress';
-$string['report_2_description'] = 'Course Report';
+$string['report_2_completion_progress'] = 'Completion progress percentage';
+$string['report_2_course_access_statistics'] = 'Course access statistics';
+$string['report_2_course_analysis_participation_completion'] = 'Course analysis: Participation and completion';
+$string['report_2_course_progress'] = 'Course progress';
+$string['report_2_description'] = 'Course report';
 $string['report_2_title'] = 'Courses';
 $string['report_2_total_engagement'] = 'Total Engagement by Course';
-$string['report_3_cat_description'] = 'Report of all online in Moodle';
+$string['report_3_cat_description'] = 'Report of everyone online on Moodle';
 $string['report_3_cat_title'] = 'Online';
-$string['report_3_course_access_time'] = 'Course Access Time';
+$string['report_3_course_access_time'] = 'Course access time';
+$string['report_3_course_last30days'] = 'Data from the last 30 days only';
 $string['report_3_description'] = 'Shows online students and top regions';
-$string['report_3_operating_systems'] = 'Operating Systems';
+$string['report_3_operating_systems'] = 'Operating systems with the most access time';
 $string['report_3_title'] = 'Online Students';
-$string['report_3_top_browsers'] = 'Most Used Browsers';
-$string['report_3_top_country_access'] = 'Countries with Most Access';
+$string['report_3_top_browsers'] = 'Browsers with the most access time';
+$string['report_3_top_country_access'] = 'Cities/Countries with the most access time';
 $string['report_3_users_online'] = 'Online Students';
-$string['report_3_users_online_list'] = 'List of Online Students';
-$string['report_4_cat_description'] = '';
-$string['report_4_cat_title'] = 'Estatísticas de Conclusão';
-$string['report_4_completion_0'] = 'Rastreamento de conclusão desativado para esta atividade';
-$string['report_4_completion_1'] = 'Rastreamento de conclusão manual habilitado para esta atividade';
-$string['report_4_completion_2'] = 'Rastreamento de conclusão automático habilitado para esta atividade';
-$string['report_4_completion_none'] = 'Conclusão desconhecida';
-$string['report_4_completionstate_0'] = 'Atividade não concluída';
-$string['report_4_completionstate_1'] = 'Atividade concluída, mas sem especificar aprovação ou reprovação';
-$string['report_4_completionstate_2'] = 'Atividade concluída com nota acima da mínima para aprovação';
-$string['report_4_completionstate_3'] = 'Atividade concluída com nota abaixo da mínima para aprovação';
-$string['report_4_completionstate_4'] = 'Recebeu nota de reprovação em item oculto';
-$string['report_4_completionstate_none'] = 'Conclusão desconhecida';
+$string['report_3_users_online_list'] = 'List of online students';
+$string['report_4_cat_description'] = 'Enrollment reports covering history, current status, and enrollment trends in courses.';
+$string['report_4_cat_title'] = 'Enrollments';
+$string['report_4_description'] = 'Enrollment reports covering history, current status, and enrollment trends in courses.';
+$string['report_4_enrolpercourse'] = 'Enrollments per course';
+$string['report_4_title'] = 'Statistics';
+$string['report_5_cat_description'] = 'This report provides an overview of key system metrics and information, enabling a comprehensive analysis of its performance and operation.';
 $string['report_4_coursesenrollmentstatus'] = 'Courses enrollment status';
-$string['report_4_description'] = '';
-$string['report_4_enrolpercourse'] = 'Matriculas por curso';
-$string['report_4_title'] = 'Estatísticas';
-$string['report_5_cat_description'] = 'This report provides an overview of the main metrics and information of the system, allowing for a comprehensive analysis of its performance and operation.';
+$string['report_4_completionstate_0'] = 'Activity not completed';
+$string['report_4_completionstate_1'] = 'Activity completed, but pass or fail not specified';
+$string['report_4_completionstate_2'] = 'Activity completed with a grade above the minimum required for passing';
+$string['report_4_completionstate_3'] = 'Activity completed with a grade below the minimum required for passing';
+$string['report_4_completionstate_4'] = 'Failed a hidden item';
+$string['report_4_completionstate_none'] = 'Completion unknown';
+$string['report_4_completion_0'] = 'Completion tracking disabled for this activity';
+$string['report_4_completion_1'] = 'Manual completion tracking enabled for this activity';
+$string['report_4_completion_2'] = 'Automatic completion tracking enabled for this activity';
+$string['report_4_completion_none'] = 'Completion unknown';
+$string['report_4_enrolpercourse'] = 'Enrollments per course';
 $string['report_5_cat_title'] = 'System';
 $string['report_5_component'] = 'Component';
-$string['report_5_coursefilesizes'] = 'Course files';
+$string['report_5_coursefilesizes'] = 'Course Files';
 $string['report_5_coursefilesizes_title'] = 'Space occupied by each course';
-$string['report_5_description'] = 'The General report offers a detailed summary of all aspects of the system, including usage data, performance, and areas for improvement. Ideal for administrators and managers looking to optimize system efficiency.';
+$string['report_5_description'] = 'The General report offers a detailed summary of all system aspects, including usage data, performance, and areas for improvement. Ideal for administrators and managers seeking to optimize system efficiency.';
 $string['report_5_filesize'] = 'File size';
 $string['report_5_filesizes'] = 'File sizes';
 $string['report_5_modulesdeleting'] = 'Modules deleting';
@@ -263,7 +288,7 @@ $string['report_5_modulesfilesizes'] = 'Module files';
 $string['report_5_numfiles'] = 'Number of files';
 $string['report_5_title'] = 'General';
 $string['report_5_upload_title'] = 'Space occupied by each module';
-$string['report_6_cat_description'] = 'Login Monitoring and Statistics in the System';
+$string['report_6_cat_description'] = 'Monitoring and statistics of system logins';
 $string['report_6_cat_title'] = 'Login Reports';
 $string['report_6_login'] = 'Logins';
 $string['report_6_login_report'] = 'Moodle Login Report';
@@ -276,77 +301,75 @@ $string['report_8_teacher_access'] = 'Teacher Access';
 $string['report_8_total_engagement_per_course'] = 'Total Engagement by Course';
 $string['report_new'] = 'New report for "{$a}"';
 $string['report_preview'] = 'Preview report';
-$string['report_save'] = 'Save & go to column settings';
-$string['report_title'] = 'Report Title';
+$string['report_save'] = 'Save & go to column configuration';
+$string['report_title'] = 'Report title';
 $string['reports_selectcourse'] = 'Select the course to generate the report';
 $string['reports_selectuser'] = 'Select the student to generate the report';
-$string['return_edit'] = '<< Return to editing';
+$string['return_edit'] = '<< Return to edit';
 $string['rolename'] = 'Role name';
 $string['save'] = 'Save';
-$string['secounds'] = 'How long';
-$string['select_report_select_type'] = 'Select the Report Type';
+$string['seconds'] = 'How many seconds';
+$string['select_report_select_type'] = 'Select report type';
 $string['select_report_select_type_desc'] = 'First, choose which report type you want for this block';
-$string['select_report_type'] = 'Report Type';
-$string['select_report_type_desc'] = 'You can switch between types "{$a->line}", "{$a->area}", or "{$a->column}"';
-$string['setting_apex'] = 'Apex Charts Settings';
-$string['setting_apex_desc'] = 'Edit only if you are familiar with Apex Charts. See more at <a target="_blank" href="https://apexcharts.com/docs/series/">apexcharts.com/docs</a>';
-$string['sql_read_only'] = 'All SQL queries are protected by a read-only connection, and there is no way to execute INSERT/UPDATE/DELETE commands.';
-$string['sql_replace_keys'] = '<h4>Replacement Keys</h4>
+$string['select_report_type'] = 'Report type';
+$string['select_report_type_desc'] = 'You can switch between "{$a->line}", "{$a->area}", or "{$a->column}" types';
+$string['setting_apex'] = 'Apex Charts settings';
+$string['setting_apex_desc'] = 'Only edit if you are familiar with Apex Charts. See more at <a target="_blank" href="https://apexcharts.com/docs/series/">apexcharts.com/docs</a>';
+$string['sql_read_only'] = 'All SQL queries are protected by a read-only connection, and it is not possible to execute INSERT/UPDATE/DELETE commands.';
+$string['sql_replace_keys'] = '<h4>Replacement keys</h4>
 <ul>
     <li><b>:userid</b> Student ID to generate the report.</li>
     <li><b>:courseid</b> Course ID to generate the report.</li>
 </ul>
 <h4>Multi-language</h4>
-<p>To return columns that will be translated based on Moodle\'s language packs, it is necessary to follow a specific format that allows strings to be processed and localized properly. The correct format is:</p>
+<p>To return columns that will be translated based on Moodle language packs, a specific format is required that allows strings to be processed and properly localized. The correct format is:</p>
 <pre>lang::{identifier}::{component}</pre>
 <p>Where:</p>
 <ul>
     <li><b>{identifier}</b>: Represents the string identifier, which will be used to fetch the translation from the language pack.</li>
-    <li><b>{component}</b>: Refers to the component where the language string is defined, usually the plugin name (for example, <code>mod_forum</code>, <code>local_kopere_dashboard</code>, <code>theme_degrade</code>).</li>
+    <li><b>{component}</b>: Refers to the component where the language string is defined and is typically the name of the plugin (e.g., <code>mod_forum</code>, <code>local_kopere_dashboard</code>, <code>theme_degrade</code>).</li>
 </ul>
 <p><em>Example: If you need to return a translated string for the <code>mod_forum</code> component with the identifier <code>postmessage</code>, the return should be structured as follows:</em></p>
 <pre>SELECT \'<b>lang::postmessage::mod_forum</b>\' FROM mdl_forum</pre>
 <p>Visit the <a href="?classname=bi-extra_langs&method=index" target="_blank">strings page</a> to see all available strings.</p>';
-$string['sql_replace_keys_mdl'] = '<h4>The database prefix</h4>
-<p>You can always use the <code>mdl_</code> prefix even if your database uses the <code>{$a}</code> prefix. Business intelligence will handle this substitution.</p>';
+$string['sql_replace_keys_mdl'] = '<h4>Database prefix</h4>
+<p>You can always use the <code>mdl_</code> prefix even if your database uses the <code>{$a}</code> prefix.
+        Business intelligence will handle this replacement.</p>';
 $string['table_col_title'] = 'Column title';
 $string['table_column_not_configured'] = 'Columns not configured in this table';
 $string['table_desc'] = 'Displays a table with data pagination.';
 $string['table_edit_column'] = 'Column';
 $string['table_first_5'] = 'The first five records of the query';
-$string['table_info_secound'] = 'Here you can define a name for each column and then specify the desired format for displaying the data.
+$string['table_info_secound'] = 'Here you can define a name for each column and then specify the desired format for data display.
 <ul>
-    <li><strong>Do not show this column</strong>: Hides the selected column from view, making it invisible to the student without affecting the stored data.</li>
-    <li><strong>No formatting</strong>: Displays the column content exactly as stored, without applying any additional formatting, ensuring raw data visibility.</li>
-    <li><strong>Numbers</strong>: Formats the column to display only numerical values, applying standard number display rules such as thousand and decimal separators.</li>
-    <li><strong>Convert column to full name "fullname()"</strong>: Executes the fullname() function to create the full name based on the student’s language.</li>
-    <li><strong>Convert student ID to profile picture</strong>: Replaces the student ID in the column with their respective profile picture, allowing immediate visual identification of students.</li>
-    <li><strong>Binary field to True/False</strong>: Interprets the binary value in the column as a status indicator, where "0" or "false" means inactive and "1" or "true" means active.</li>
-    <li><strong>Binary field to Active/Inactive</strong>: Uses the binary value to determine visibility, where "0" or "false" represents Inactive and "1" or "true" represents Active.</li>
-    <li><strong>Binary field to Visible/Invisible</strong>: Uses the binary value to determine visibility, where "0" or "false" represents invisible and "1" or "true" represents visible.</li>
-    <li><strong>Binary field to active/deleted</strong>: This field identifies the status of an item as active (0) or deleted (1), allowing data management and recovery in storage systems.</li>
-    <li><strong>"Time" field formatted to date</strong>: Converts the time (timestamp) value in the column into a readable date, displaying only the date (day/month/year).</li>
-    <li><strong>"Time" field formatted to date and time</strong>: Displays the time (timestamp) value in the column as a full date, including the time (day/month/year and hours:minutes).</li>
-    <li><strong>"Time" field formatted to time</strong>: Formats the time (timestamp) value in the column to display only the time (hours:minutes), omitting the date.</li>
+    <li><strong>Do not display this column</strong>: Hides the selected column from view.</li>
+    <li><strong>No formatting</strong>: Displays the column content exactly as stored, without applying any additional formatting, ensuring the raw data is visible.</li>
+    <li><strong>Numbers</strong>: Formats the column to display only numerical values, applying standard number formatting rules like thousand and decimal separators.</li>
+    <li><strong>Convert column to full name "fullname()"</strong>: Executes the fullname() function to create the full name based on the student\'s language.</li>
+    <li><strong>Convert student ID to profile picture</strong>: Replaces the student ID in the column with their respective profile picture, allowing for immediate visual identification of students.</li>
+    <li><strong>Binary field for Visible/Invisible</strong>: Uses the binary value to determine visibility, where "0" or "false" represents invisible and "1" or "true" represents visible.</li>
+    <li><strong>"Time" field formatted as date</strong>: Converts the time (timestamp) value in the column into a readable date, showing only the date (day/month/year).</li>
+    <li><strong>"Time" field formatted as date and time</strong>: Displays the time (timestamp) value in the column as a complete date, including the time (day/month/year and hours:minutes).</li>
+    <li><strong>"Time" field formatted as time</strong>: Formats the time (timestamp) value in the column to display only the time (hours:minutes), omitting the date.</li>
 </ul>';
-$string['table_info_topo'] = 'First, you will see a preview of the search results. Then, a sequence of columns will be presented for you to name the titles and define the format of the data for each column.';
+$string['table_info_topo'] = 'First, you will see a preview of the search results. Then, a series of columns will be presented for you to name the titles and define the format of each column’s data.';
 $string['table_name'] = 'Data table';
-$string['table_renderer_date'] = '"Time" field formatted to date';
-$string['table_renderer_datetime'] = '"Time" field formatted to date and time';
-$string['table_renderer_deleted'] = 'Binary field to active/deleted';
+$string['table_renderer_date'] = '"Time" field formatted as date';
+$string['table_renderer_datetime'] = '"Time" field formatted as date and time';
 $string['table_renderer_filesize'] = 'Converts to disk data size';
-$string['table_renderer_fullname'] = 'Convert column to full name "fullname()"';
-$string['table_renderer_none'] = 'Do not show this column';
+$string['table_renderer_mustache'] = 'HTML of the
+<a href="https://moodledev.io/docs/guides/templates" target="_blank">Mustache</a> column';
+$string['table_renderer_none'] = 'Do not display this column';
 $string['table_renderer_number'] = 'Numbers';
-$string['table_renderer_seconds'] = '"Time" field formatted to time';
-$string['table_renderer_status'] = 'Binary field to Active/Inactive';
+$string['table_renderer_seconds'] = '"Time" field formatted as time';
 $string['table_renderer_title'] = 'Column formatting';
-$string['table_renderer_translate'] = 'Use get_string("identifier","component") to translate the column';
-$string['table_renderer_truefalse'] = 'Binary field to True/False';
+$string['table_renderer_translate'] = 'Use get_string("identifier", "component") to translate the column';
+$string['table_renderer_userfullname'] = 'Convert the column to the student’s full name with the "fullname()" function';
 $string['table_renderer_userphoto'] = 'Convert student ID to profile picture';
-$string['table_renderer_visible'] = 'Binary field to Visible/Invisible';
+$string['table_renderer_visible'] = 'Binary field for Visible/Invisible';
+$string['table_renderer_status'] = 'Binary field for Active/Inactive';
 $string['theme_palette_default'] = 'Default Palette';
-$string['theme_palette_desc'] = 'Colors of this palette:';
+$string['theme_palette_desc'] = 'Palette colors:';
 $string['theme_palette_desc2'] = 'See all themes here';
 $string['theme_palette_palette1'] = 'Palette 1';
 $string['theme_palette_palette10'] = 'Palette 10';
@@ -358,17 +381,19 @@ $string['theme_palette_palette6'] = 'Palette 6';
 $string['theme_palette_palette7'] = 'Palette 7';
 $string['theme_palette_palette8'] = 'Palette 8';
 $string['theme_palette_palette9'] = 'Palette 9';
-$string['theme_palette_title'] = 'Color palette';
+$string['theme_palette_title'] = 'Color Palette';
 $string['timecompleted'] = 'Enrollment completed';
-$string['title'] = 'Business intelligence';
-$string['u_fullname'] = 'Student name';
+$string['title'] = 'Business Intelligence';
+$string['u_fullname'] = 'Student’s full name';
 $string['u_id'] = 'Student ID';
-$string['u_idnumber'] = 'Identification number';
+$string['u_idnumber'] = 'ID number';
 $string['ue_id'] = 'Enrollment ID';
-$string['ue_status'] = 'Enrollment status';
+$string['ue_status'] = 'Enrollment Status';
 $string['ue_timecreated'] = 'Enrollment created on';
 $string['ue_timeend'] = 'Enrollment ends on';
 $string['ul_timeaccess'] = 'Last access';
+$string['unknown'] = 'Unknown';
+$string['use_this_type'] = 'Use this type';
 $string['word_extra_00'] = '';
 $string['word_extra_01'] = '';
 $string['word_extra_02'] = '';
