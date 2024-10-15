@@ -65,7 +65,7 @@ class filter {
      * @throws \Exception
      */
     public static function create_filter($commandsql) {
-        global $DB, $OUTPUT, $USER, $COURSE, $PAGE;
+        global $DB, $OUTPUT, $USER, $COURSE, $PAGE, $CFG;
 
         $return = "";
 
@@ -105,6 +105,7 @@ class filter {
                 if (isset($comand->params["courseid"])) {
                     $paramsurl["courseid"] = $comand->params["courseid"];
                 }
+                $CFG->debugdeveloper = false;
                 $data = [
                     "user_fullname" => fullname($user),
                     "url_ajax" => local_kopere_dashboard_makeurl("users", "load_all_users", [], "view-ajax"),
@@ -141,7 +142,7 @@ class filter {
      * @throws \Exception
      */
     public function find_user() {
-        global $DB;
+        global $DB, $CFG;
 
         $q = optional_param("q", "", PARAM_TEXT);
         $sqlfullname = $DB->sql_fullname();
@@ -149,6 +150,8 @@ class filter {
         $users = $DB->get_records_select("user",
             "{$sqlfullname} LIKE ? AND id > 1 AND confirmed = 1 AND deleted = 0 AND suspended = 0",
             ["%{$q}%"], "", "id,firstname,lastname", 0, 20);
+
+        $CFG->debugdeveloper = false;
 
         $returnuser = [];
         foreach ($users as $user) {
