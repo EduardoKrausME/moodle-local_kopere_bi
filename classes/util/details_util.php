@@ -40,82 +40,76 @@ class details_util {
      * @throws \Exception
      */
     public function html_details_block($block) {
+        global $OUTPUT;
+
         switch ($block->type) {
             case 'block-1':
-                return "
-                    <div class='line' id='blockid-{$block->id}' data-blockid='{$block->id}'>
-                        <div class='blocks'>
-                            <div class='block'>{$this->details_block_item($block->id, 1)}</div>
-                        </div>
-                    </div>";
+                $data = [
+                    "block_id" => $block->id,
+                    'details_block_item_1' => $this->details_block_item($block->id, 1),
+                ];
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks/edit-block-1", $data);
                 break;
             case 'block-2':
-                return "
-                    <div class='line' id='blockid-{$block->id}' data-blockid='{$block->id}'>
-                        <div class='blocks'>
-                            <div class='block'>{$this->details_block_item($block->id, 1)}</div>
-                            <div class='block'>{$this->details_block_item($block->id, 2)}</div>
-                        </div>
-                    </div>";
+                $data = [
+                    "block_id" => $block->id,
+                    'details_block_item_1' => $this->details_block_item($block->id, 1),
+                    'details_block_item_2' => $this->details_block_item($block->id, 2),
+                ];
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks/edit-block-2", $data);
                 break;
             case 'block-3':
-                return "
-                    <div class='line' id='blockid-{$block->id}' data-blockid='{$block->id}'>
-                        <div class='blocks'>
-                            <div class='block'>{$this->details_block_item($block->id, 1)}</div>
-                            <div class='block'>{$this->details_block_item($block->id, 2)}</div>
-                            <div class='block'>{$this->details_block_item($block->id, 3)}</div>
-                        </div>
-                    </div>";
+                $data = [
+                    "block_id" => $block->id,
+                    'details_block_item_1' => $this->details_block_item($block->id, 1),
+                    'details_block_item_2' => $this->details_block_item($block->id, 2),
+                    'details_block_item_3' => $this->details_block_item($block->id, 3),
+                ];
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks/edit-block-3", $data);
                 break;
             case 'block-12':
-                return "
-                    <div class='line' id='blockid-{$block->id}' data-blockid='{$block->id}'>
-                        <div class='blocks'>
-                            <div class='block' style='width:225%'>{$this->details_block_item($block->id, 1)}</div>
-                            <div class='block'>{$this->details_block_item($block->id, 2)}</div>
-                            <div class='block'>{$this->details_block_item($block->id, 3)}</div>
-                        </div>
-                    </div>";
+                $data = [
+                    "block_id" => $block->id,
+                    'details_block_item_1' => $this->details_block_item($block->id, 1),
+                    'details_block_item_2' => $this->details_block_item($block->id, 2),
+                    'details_block_item_3' => $this->details_block_item($block->id, 3),
+                ];
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks/edit-block-12", $data);
                 break;
             case 'block-21':
-                return "
-                    <div class='line' id='blockid-{$block->id}' data-blockid='{$block->id}'>
-                        <div class='blocks'>
-                            <div class='block'>{$this->details_block_item($block->id, 1)}</div>
-                            <div class='block'>{$this->details_block_item($block->id, 2)}</div>
-                            <div class='block' style='width:225%'>{$this->details_block_item($block->id, 3)}</div>
-                        </div>
-                    </div>";
+                $data = [
+                    "block_id" => $block->id,
+                    'details_block_item_1' => $this->details_block_item($block->id, 1),
+                    'details_block_item_2' => $this->details_block_item($block->id, 2),
+                    'details_block_item_3' => $this->details_block_item($block->id, 3),
+                ];
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks/edit-block-21", $data);
                 break;
             case 'block-25':
-                return "
-                    <div class='line' id='blockid-{$block->id}' data-blockid='{$block->id}'>
-                        <div class='blocks'>
-                            <div class='block' style='width:225%'>{$this->details_block_item($block->id, 1)}</div>
-                            <div class='block'>{$this->details_block_item($block->id, 2)}</div>
-                        </div>
-                    </div>";
+                $data = [
+                    "block_id" => $block->id,
+                    'details_block_item_1' => $this->details_block_item($block->id, 1),
+                    'details_block_item_2' => $this->details_block_item($block->id, 2),
+                ];
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks/edit-block-25", $data);
                 break;
             case 'block-52':
-                return "
-                    <div class='line' id='blockid-{$block->id}' data-blockid='{$block->id}'>
-                        <div class='blocks'>
-                            <div class='block'>{$this->details_block_item($block->id, 1)}</div>
-                            <div class='block' style='width:225%'>{$this->details_block_item($block->id, 2)}</div>
-                        </div>
-                    </div>";
+                $data = [
+                    "block_id" => $block->id,
+                    'details_block_item_1' => $this->details_block_item($block->id, 1),
+                    'details_block_item_2' => $this->details_block_item($block->id, 2),
+                ];
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks/edit-block-52", $data);
                 break;
             case 'block-4':
-                return "
-                    <div class='line' id='blockid-{$block->id}' data-blockid='{$block->id}'>
-                        <div class='blocks'>
-                            <div class='block'>{$this->details_block_item($block->id, 1)}</div>
-                            <div class='block'>{$this->details_block_item($block->id, 2)}</div>
-                            <div class='block'>{$this->details_block_item($block->id, 3)}</div>
-                            <div class='block'>{$this->details_block_item($block->id, 4)}</div>
-                        </div>
-                    </div>";
+                $data = [
+                    "block_id" => $block->id,
+                    'details_block_item_1' => $this->details_block_item($block->id, 1),
+                    'details_block_item_2' => $this->details_block_item($block->id, 2),
+                    'details_block_item_3' => $this->details_block_item($block->id, 3),
+                    'details_block_item_4' => $this->details_block_item($block->id, 4),
+                ];
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks/edit-block-4", $data);
                 break;
         }
 
@@ -148,17 +142,17 @@ class details_util {
 
             return
                 "<h4 class='block-title details_block_item'>{$title}</h4>" .
-                button::edit(get_string('edit_report', 'local_kopere_bi'),
+                button::edit(get_string("edit_report", "local_kopere_bi"),
                     "?classname=bi-dashboard&method=type_block_edit&item_id={$koperebielement->id}", 'mr-4', false, true) .
-                button::icon_confirm('delete',
+                button::icon_confirm("delete",
                     "?classname=bi-dashboard&method=type_block_delete&item_id={$koperebielement->id}",
                     get_string("delete_report_text", "local_kopere_bi"),
                     get_string("delete_report_title", "local_kopere_bi"));
 
         } else {
-            return button::add(get_string('create_report', 'local_kopere_bi'),
+            return button::add(get_string("create_report", "local_kopere_bi"),
                 "?classname=bi-dashboard&method=type_block_select_type&block_id={$blockid}&block_num={$blocknum}",
-                '', false, true);
+                "", false, true);
         }
     }
 
@@ -170,79 +164,8 @@ class details_util {
      * @throws \coding_exception
      */
     public static function html_details_add($pageid) {
+        global $OUTPUT;
 
-        echo "
-            <div style='display:none' id='dialog-confirm-block-add'
-                 title='" . get_string('new_block', 'local_kopere_bi') . "'>
-                <div>" . get_string('click_new_block', 'local_kopere_bi') . "</div>
-
-                <span class='line line-add' data-type='block-1'>
-                    <span>" . get_string('new_block_1', 'local_kopere_bi') . "</span>
-                    <div class='blocks'>
-                        <div class='block block-empty'></div>
-                    </div>
-                </span>
-
-                <span class='line line-add' data-type='block-2'>
-                    <span>" . get_string('new_block_2', 'local_kopere_bi') . "</span>
-                    <div class='blocks'>
-                        <div class='block block-empty'></div>
-                        <div class='block block-empty'></div>
-                    </div>
-                </span>
-
-                <span class='line line-add' data-type='block-25'>
-                    <span>" . get_string('new_block_25', 'local_kopere_bi') . "</span>
-                    <div class='blocks'>
-                        <div class='block block-empty' style='width:225%'></div>
-                        <div class='block block-empty'></div>
-                    </div>
-                </span>
-
-                <span class='line line-add' data-type='block-52'>
-                    <span>" . get_string('new_block_52', 'local_kopere_bi') . "</span>
-                    <div class='blocks'>
-                        <div class='block block-empty'></div>
-                        <div class='block block-empty' style='width:225%'></div>
-                    </div>
-                </span>
-
-                <span class='line line-add' data-type='block-3'>
-                    <span>" . get_string('new_block_3', 'local_kopere_bi') . "</span>
-                    <div class='blocks'>
-                        <div class='block block-empty'></div>
-                        <div class='block block-empty'></div>
-                        <div class='block block-empty'></div>
-                    </div>
-                </span>
-
-                <span class='line line-add' data-type='block-12'>
-                    <span>" . get_string('new_block_12', 'local_kopere_bi') . "</span>
-                    <div class='blocks'>
-                        <div class='block block-empty' style='width:225%'></div>
-                        <div class='block block-empty'></div>
-                        <div class='block block-empty'></div>
-                    </div>
-                </span>
-
-                <span class='line line-add' data-type='block-21'>
-                    <span>" . get_string('new_block_21', 'local_kopere_bi') . "</span>
-                    <div class='blocks'>
-                        <div class='block block-empty'></div>
-                        <div class='block block-empty'></div>
-                        <div class='block block-empty' style='width:225%'></div>
-                    </div>
-                </span>
-
-                <span class='line line-add' data-type='block-4'>
-                    <span>" . get_string('new_block_4', 'local_kopere_bi') . "</span>
-                    <div class='blocks'>
-                        <div class='block block-empty'></div>
-                        <div class='block block-empty'></div>
-                        <div class='block block-empty'></div>
-                        <div class='block block-empty'></div>
-                    </div>
-                </span>
-            </div>";
+        echo $OUTPUT->render_from_template("local_kopere_bi/blocks/details_add");
     }
 }
