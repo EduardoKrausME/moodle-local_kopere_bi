@@ -20,6 +20,7 @@ use local_kopere_bi\block\util\cache_util;
 use local_kopere_bi\block\util\code_util;
 use local_kopere_bi\block\util\database_util;
 use local_kopere_bi\block\util\reload_util;
+use local_kopere_bi\output\renderer_bi_mustache;
 use local_kopere_bi\util\sql_util;
 use local_kopere_dashboard\html\form;
 use local_kopere_dashboard\html\inputs\input_textarea;
@@ -41,7 +42,7 @@ class html implements i_type {
      * @throws \coding_exception
      */
     public static function get_name() {
-        return get_string('html_name', 'local_kopere_bi');
+        return get_string("html_name", "local_kopere_bi");
     }
 
     /**
@@ -51,7 +52,7 @@ class html implements i_type {
      * @throws \coding_exception
      */
     public static function get_description() {
-        return get_string('html_desc', 'local_kopere_bi');
+        return get_string("html_desc", "local_kopere_bi");
     }
 
     /**
@@ -74,17 +75,19 @@ class html implements i_type {
      * @throws \Exception
      */
     public function edit(form $form, $koperebielement) {
-        mensagem::print_warning(get_string('html_sql_warning', 'local_kopere_bi'));
+        global $PAGE;
 
-        code_util::load_ace_commandsql($form, $koperebielement);
+        mensagem::print_info(get_string("html_block_desc", "local_kopere_bi"));
 
         $form->add_input(
             input_textarea::new_instance()
-                ->set_title(get_string('html_block', 'local_kopere_bi'))
+                ->set_title(get_string("html_block", "local_kopere_bi"))
                 ->set_style("width:100%;font-family:monospace;white-space:nowrap;")
                 ->set_name("infohtml")
-                ->set_value(@$koperebielement->info_obj['html'])
-                ->set_description(get_string('html_block_desc', 'local_kopere_bi')));
+                ->set_value(@$koperebielement->info_obj["html"]));
+        $PAGE->requires->js_call_amd("local_kopere_bi/ace", "load", ["infohtml", "html"]);
+
+        code_util::input_commandsql($form, $koperebielement);
     }
 
     /**
@@ -120,7 +123,7 @@ class html implements i_type {
             "ajax_url" => local_kopere_dashboard_makeurl("bi-chart_data", "load_data",
                 ["item_id" => $koperebielement->id], "view-ajax"),
             "local_kopere_bi_id" => $koperebielement->id,
-            "error_data_loader" => get_string('error_data_loader', 'local_kopere_bi'),
+            "error_data_loader" => get_string("error_data_loader", "local_kopere_bi"),
             "reload_time" => reload_util::convert($koperebielement->reload),
         ]);
     }
@@ -134,31 +137,45 @@ class html implements i_type {
      */
     public function get_chart_data($koperebielement) {
 
+        ob_clean();
+        header('Content-Type: application/json; charset: utf-8');
+
         $cache = cache_util::get_cache_make($koperebielement->cache);
 
-        if (false &&$cache->has($koperebielement->id)) {
+        if (false && $cache->has($koperebielement->id)) {
             $returnhtml = $cache->get($koperebielement->id);
         } else {
             $comand = sql_util::prepare_sql($koperebielement->commandsql);
-            try {
-                $line = (new database_util())->get_record_sql_block($comand->sql, $comand->params);
-            } catch (\Exception $e) {
-                mensagem::print_danger($e->getMessage());
-                return;
-            }
 
-            $returnhtml = $koperebielement->info_obj['html'];
-            foreach ($line as $key => $value) {
-                echo "replace \"{{$key}}\" => \"$value\"\n";
-
-                $returnhtml = str_replace("{{$key}}", $value, $returnhtml);
+            $mustache = new renderer_bi_mustache();
+            $html = $koperebielement->info_obj["html"];
+            if (strpos($html, "{{#lines}}") === false) {
+                try {
+                    $line = (new database_util())->get_record_sql_block($comand->sql, $comand->params);
+                } catch (\Exception $e) {
+                    echo json_encode([
+                        "html" => mensagem::danger($e->getMessage()),
+                        "trace" => $e->getTrace(),
+                    ]);
+                    die();
+                }
+                $returnhtml = $mustache->render_from_string($html, $line);
+            } else {
+                try {
+                    $lines = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
+                } catch (\Exception $e) {
+                    echo json_encode([
+                        "html" => mensagem::danger($e->getMessage()),
+                        "trace" => $e->getTrace(),
+                    ]);
+                    die();
+                }
+                $returnhtml = $mustache->render_from_string($html, ["lines" => json_decode(json_encode($lines))]);
             }
 
             $cache->set($koperebielement->id, $returnhtml);
         }
 
-        ob_clean();
-        header('Content-Type: application/json; charset: utf-8');
         echo json_encode(["html" => $returnhtml]);
         die();
     }

@@ -44,6 +44,12 @@ class cache_util {
 
         $cache = \cache::make("local_kopere_bi", "block_chart_data_1d");
         $cache->delete($id);
+
+        $cache = \cache::make("local_kopere_bi", "mustache_nosql");
+        $cache->delete($id);
+
+        $cache = \cache::make("local_kopere_bi", "mustache_sql");
+        $cache->delete($id);
     }
 
     /**
