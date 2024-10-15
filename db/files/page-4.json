@@ -1,51 +1,51 @@
 {
-    "title": "lang::report_4_title::local_kopere_bi",
-    "description": "lang::report_4_description::local_kopere_bi",
-    "user_id": null,
-    "category": {
-        "title": "lang::report_4_cat_title::local_kopere_bi",
-        "description": "lang::report_4_cat_description::local_kopere_bi"
-    },
-    "blocks": [
+  "title": "lang::report_4_title::local_kopere_bi",
+  "description": "lang::report_4_description::local_kopere_bi",
+  "user_id": null,
+  "category": {
+    "title": "lang::report_4_cat_title::local_kopere_bi",
+    "description": "lang::report_4_cat_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "type": "block-1",
+      "sequence": 2,
+      "elements": [
         {
-            "type": "block-1",
-            "sequence": 2,
-            "elements": [
-                {
-                    "title": "lang::report_4_coursesenrollmentstatus::local_kopere_bi",
-                    "block_num": 1,
-                    "type": "table",
-                    "theme": "light",
-                    "css": "",
-                    "html_before": null,
-                    "html_after": null,
-                    "commandsql": "SELECT \r\n    u.id AS u_id,\r\n    u.firstname,\r\n    u.lastname,\r\n    u.email,\r\n    u.city,\r\n    u.country,\r\n    c.fullname AS c_fullname,\r\n    CONCAT('lang::pluginname::',m.name)     AS module_name,\r\n    ROUND(\r\n        CASE\r\n            WHEN g.rawgrademax > 0 THEN (g.finalgrade \/ g.rawgrademax) * 100\r\n            ELSE g.finalgrade\r\n        END, 0\r\n    ) AS grade,\r\n    CASE\r\n        WHEN cmc.completionstate = 0 THEN 'lang::report_4_completionstate_0::local_kopere_bi'\r\n        WHEN cmc.completionstate = 1 THEN 'lang::report_4_completionstate_1::local_kopere_bi'\r\n        WHEN cmc.completionstate = 2 THEN 'lang::report_4_completionstate_2::local_kopere_bi'\r\n        WHEN cmc.completionstate = 3 THEN 'lang::report_4_completionstate_3::local_kopere_bi'\r\n        WHEN cmc.completionstate = 4 THEN 'lang::report_4_completionstate_4::local_kopere_bi'\r\n        ELSE 'lang::report_4_completionstate_none::local_kopere_bi'\r\n    END AS completionstate_status,\r\n    CASE\r\n        WHEN cm.completion = 0 THEN 'lang::report_4_completion_0::local_kopere_bi'\r\n        WHEN cm.completion = 1 THEN 'lang::report_4_completion_1::local_kopere_bi'\r\n        WHEN cm.completion = 2 THEN 'lang::report_4_completion_2::local_kopere_bi'\r\n        ELSE 'lang::report_4_completion_none::local_kopere_bi'\r\n    END AS completion_status,\r\n    ue.enrol_status AS enrol_status,\r\n    ue.timeend       AS enrol_timeend\r\nFROM (\r\n    SELECT MIN(ue1.id) AS id, \r\n           ue1.userid, \r\n           e1.courseid, \r\n           MIN(ue1.status) AS enrol_status, \r\n           MIN(ue1.timeend) AS timeend\r\n    FROM mdl_user_enrolments ue1\r\n    JOIN mdl_enrol e1 ON e1.id = ue1.enrolid\r\n    GROUP BY ue1.userid, e1.courseid\r\n) ue\r\nJOIN mdl_user u \r\n         ON u.id = ue.userid\r\nJOIN mdl_course c \r\n         ON c.id = ue.courseid\r\nJOIN mdl_course_modules cm \r\n         ON cm.course = c.id\r\n        AND cm.instance > 0\r\nJOIN mdl_modules m \r\n         ON m.id = cm.module\r\nLEFT JOIN mdl_grade_items gi \r\n         ON gi.itemtype = 'mod'\r\n        AND gi.iteminstance = cm.instance\r\n        AND gi.itemmodule = m.name\r\n        AND gi.gradetype = 1\r\nLEFT JOIN mdl_grade_grades g \r\n         ON g.itemid = gi.id\r\n        AND g.userid = u.id\r\nLEFT JOIN mdl_course_modules_completion cmc \r\n         ON cmc.coursemoduleid = cm.id\r\n        AND cmc.userid = u.id\r\nLEFT JOIN (\r\n    SELECT i.itemid, \r\n           GROUP_CONCAT(DISTINCT t.rawname) AS tags\r\n     FROM mdl_tag_instance i\r\n     JOIN mdl_tag t ON t.id = i.tagid\r\n    WHERE i.itemtype = 'course_modules'\r\n    GROUP BY i.itemid\r\n) ta ON ta.itemid = cm.id\r\nWHERE c.id = :courseid\r\n  AND u.deleted = 0\r\n  AND u.suspended = 0\r\n  AND c.visible = 1\r\n  AND cm.visible = 1",
-                    "cache": "30m",
-                    "reload": "30m",
-                    "info": "{\n    \"column\": {\n        \"name\": {\n            \"u_id\": \"#\",\n            \"firstname\": \"lang::u_fullname::local_kopere_bi\",\n            \"lastname\": \"\",\n            \"email\": \"lang::email::moodle\",\n            \"city\": \"lang::city_name::local_kopere_bi\",\n            \"country\": \"lang::country_name::local_kopere_bi\",\n            \"c_fullname\": \"lang::c_fullname::local_kopere_bi\",\n            \"module_name\": \"lang::module_name::local_kopere_bi\",\n            \"grade\": \"lang::grade::local_kopere_bi\",\n            \"completionstate_status\": \"lang::completionstate_status::local_kopere_bi\",\n            \"completion_status\": \"lang::completion_status::local_kopere_bi\",\n            \"enrol_status\": \"lang::enrol_status::local_kopere_bi\",\n            \"enrol_timeend\": \"lang::enrol_timeend::local_kopere_bi\"\n        },\n        \"type\": {\n            \"u_id\": \"number\",\n            \"firstname\": \"fullname\",\n            \"lastname\": \"none\",\n            \"email\": \"string\",\n            \"city\": \"none\",\n            \"country\": \"none\",\n            \"c_fullname\": \"string\",\n            \"module_name\": \"translate\",\n            \"grade\": \"number\",\n            \"completionstate_status\": \"translate\",\n            \"completion_status\": \"translate\",\n            \"enrol_status\": \"visibleRenderer\",\n            \"enrol_timeend\": \"dateRenderer\"\n        }\n    }\n}",
-                    "time": 1727471816
-                }
-            ]
-        },
-        {
-            "type": "block-1",
-            "sequence": 1,
-            "elements": [
-                {
-                    "title": "lang::report_4_enrolpercourse::local_kopere_bi",
-                    "block_num": 1,
-                    "type": "area",
-                    "theme": "light",
-                    "css": "",
-                    "html_before": null,
-                    "html_after": null,
-                    "commandsql": "SELECT c.fullname,\r\n       SUM(CASE \r\n               WHEN ue.status = 0 AND (ue.timeend = 0 OR ue.timeend > UNIX_TIMESTAMP()) THEN 1\r\n               ELSE 0\r\n           END) AS 'lang::active_enrolments::local_kopere_bi',\r\n       SUM(CASE \r\n               WHEN ue.status = 1 THEN 1\r\n               ELSE 0\r\n           END) AS 'lang::inactive_enrolments::local_kopere_bi',\r\n       SUM(CASE \r\n               WHEN ue.status = 0 AND ue.timeend > 0 AND ue.timeend < UNIX_TIMESTAMP() THEN 1\r\n               ELSE 0\r\n           END) AS 'lang::expired_enrolments::local_kopere_bi'\r\nFROM mdl_course c\r\nJOIN mdl_enrol e ON e.courseid = c.id\r\nJOIN mdl_user_enrolments ue ON ue.enrolid = e.id\r\nGROUP BY c.id\r\nORDER BY c.fullname",
-                    "cache": "30m",
-                    "reload": "30m",
-                    "info": "{\"chart_options\":\"{\\r\\n    stroke : {\\r\\n        colors : [\\\"#2E93fA\\\", \\\"#66DA26\\\", \\\"#546E7A\\\", \\\"#E91E63\\\", \\\"#FF9800\\\"]\\r\\n    },\\r\\n    yaxis : {\\r\\n        labels : {\\r\\n            formatter: (value) => { return value },\\r\\n        },\\r\\n    },\\r\\n}\"}",
-                    "time": 1727482562
-                }
-            ]
+          "title": "lang::report_4_coursesenrollmentstatus::local_kopere_bi",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT \r\n    u.id AS u_id,\r\n    u.firstname,\r\n    u.lastname,\r\n    u.email,\r\n    u.city,\r\n    u.country,\r\n    c.id       AS c_id,\r\n    c.fullname AS c_fullname,\r\n    CONCAT('lang::pluginname::',m.name)     AS module_name,\r\n    ROUND(\r\n        CASE\r\n            WHEN g.rawgrademax > 0 THEN (g.finalgrade \/ g.rawgrademax) * 100\r\n            ELSE g.finalgrade\r\n        END, 0\r\n    ) AS grade,\r\n    CASE\r\n        WHEN cmc.completionstate = 0 THEN 'lang::report_4_completionstate_0::local_kopere_bi'\r\n        WHEN cmc.completionstate = 1 THEN 'lang::report_4_completionstate_1::local_kopere_bi'\r\n        WHEN cmc.completionstate = 2 THEN 'lang::report_4_completionstate_2::local_kopere_bi'\r\n        WHEN cmc.completionstate = 3 THEN 'lang::report_4_completionstate_3::local_kopere_bi'\r\n        WHEN cmc.completionstate = 4 THEN 'lang::report_4_completionstate_4::local_kopere_bi'\r\n        ELSE 'lang::report_4_completionstate_none::local_kopere_bi'\r\n    END AS completionstate_status,\r\n    CASE\r\n        WHEN cm.completion = 0 THEN 'lang::report_4_completion_0::local_kopere_bi'\r\n        WHEN cm.completion = 1 THEN 'lang::report_4_completion_1::local_kopere_bi'\r\n        WHEN cm.completion = 2 THEN 'lang::report_4_completion_2::local_kopere_bi'\r\n        ELSE 'lang::report_4_completion_none::local_kopere_bi'\r\n    END AS completion_status,\r\n    ue.enrol_status AS enrol_status,\r\n    ue.timeend       AS enrol_timeend\r\nFROM (\r\n    SELECT MIN(ue1.id) AS id, \r\n           ue1.userid, \r\n           e1.courseid, \r\n           MIN(ue1.status) AS enrol_status, \r\n           MIN(ue1.timeend) AS timeend\r\n    FROM mdl_user_enrolments ue1\r\n    JOIN mdl_enrol e1 ON e1.id = ue1.enrolid\r\n    GROUP BY ue1.userid, e1.courseid\r\n) ue\r\nJOIN mdl_user u \r\n         ON u.id = ue.userid\r\nJOIN mdl_course c \r\n         ON c.id = ue.courseid\r\nJOIN mdl_course_modules cm \r\n         ON cm.course = c.id\r\n        AND cm.instance > 0\r\nJOIN mdl_modules m \r\n         ON m.id = cm.module\r\nLEFT JOIN mdl_grade_items gi \r\n         ON gi.itemtype = 'mod'\r\n        AND gi.iteminstance = cm.instance\r\n        AND gi.itemmodule = m.name\r\n        AND gi.gradetype = 1\r\nLEFT JOIN mdl_grade_grades g \r\n         ON g.itemid = gi.id\r\n        AND g.userid = u.id\r\nLEFT JOIN mdl_course_modules_completion cmc \r\n         ON cmc.coursemoduleid = cm.id\r\n        AND cmc.userid = u.id\r\nLEFT JOIN (\r\n    SELECT i.itemid, \r\n           GROUP_CONCAT(DISTINCT t.rawname) AS tags\r\n     FROM mdl_tag_instance i\r\n     JOIN mdl_tag t ON t.id = i.tagid\r\n    WHERE i.itemtype = 'course_modules'\r\n    GROUP BY i.itemid\r\n) ta ON ta.itemid = cm.id\r\nWHERE c.id = :courseid\r\n  AND u.deleted = 0\r\n  AND u.suspended = 0\r\n  AND c.visible = 1\r\n  AND cm.visible = 1",
+          "cache": "30m",
+          "reload": "30m",
+          "info": "{\n    \"column\": {\n        \"u_id\": {\n            \"key\": \"u_id\",\n            \"title\": \"#\",\n            \"type\": \"number\",\n            \"mustache\": \"\"\n        },\n        \"firstname\": {\n            \"key\": \"firstname\",\n            \"title\": \"lang::u_fullname::local_kopere_bi\",\n            \"type\": \"userfullname\",\n            \"mustache\": \"\"\n        },\n        \"lastname\": {\n            \"key\": \"lastname\",\n            \"title\": \"\",\n            \"type\": \"none\",\n            \"mustache\": \"\"\n        },\n        \"email\": {\n            \"key\": \"email\",\n            \"title\": \"lang::email::moodle\",\n            \"type\": \"string\",\n            \"mustache\": \"\"\n        },\n        \"city\": {\n            \"key\": \"city\",\n            \"title\": \"lang::city_name::local_kopere_bi\",\n            \"type\": \"none\",\n            \"mustache\": \"\"\n        },\n        \"country\": {\n            \"key\": \"country\",\n            \"title\": \"lang::country_name::local_kopere_bi\",\n            \"type\": \"none\",\n            \"mustache\": \"\"\n        },\n        \"c_id\": {\n            \"key\": \"c_id\",\n            \"title\": \"c_id\",\n            \"type\": \"none\",\n            \"mustache\": \"\"\n        },\n        \"c_fullname\": {\n            \"key\": \"c_fullname\",\n            \"title\": \"lang::c_fullname::local_kopere_bi\",\n            \"type\": \"string\",\n            \"mustache\": \"\"\n        },\n        \"module_name\": {\n            \"key\": \"module_name\",\n            \"title\": \"lang::module_name::local_kopere_bi\",\n            \"type\": \"translate\",\n            \"mustache\": \"\"\n        },\n        \"grade\": {\n            \"key\": \"grade\",\n            \"title\": \"lang::grade::local_kopere_bi\",\n            \"type\": \"number\",\n            \"mustache\": \"\"\n        },\n        \"completionstate_status\": {\n            \"key\": \"completionstate_status\",\n            \"title\": \"lang::completionstate_status::local_kopere_bi\",\n            \"type\": \"translate\",\n            \"mustache\": \"\"\n        },\n        \"completion_status\": {\n            \"key\": \"completion_status\",\n            \"title\": \"lang::completion_status::local_kopere_bi\",\n            \"type\": \"translate\",\n            \"mustache\": \"\"\n        },\n        \"enrol_status\": {\n            \"key\": \"enrol_status\",\n            \"title\": \"lang::enrol_status::local_kopere_bi\",\n            \"type\": \"visibleRenderer\",\n            \"mustache\": \"\"\n        },\n        \"enrol_timeend\": {\n            \"key\": \"enrol_timeend\",\n            \"title\": \"lang::enrol_timeend::local_kopere_bi\",\n            \"type\": \"dateRenderer\",\n            \"mustache\": \"\"\n        }\n    }\n}",
+          "time": 1728937350
         }
-    ]
+      ]
+    },
+    {
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_4_enrolpercourse::local_kopere_bi",
+          "block_num": 1,
+          "type": "area",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT c.fullname,\r\n       SUM(CASE \r\n               WHEN ue.status = 0 AND (ue.timeend = 0 OR ue.timeend > UNIX_TIMESTAMP()) THEN 1\r\n               ELSE 0\r\n           END) AS 'lang::active_enrolments::local_kopere_bi',\r\n       SUM(CASE \r\n               WHEN ue.status = 1 THEN 1\r\n               ELSE 0\r\n           END) AS 'lang::inactive_enrolments::local_kopere_bi',\r\n       SUM(CASE \r\n               WHEN ue.status = 0 AND ue.timeend > 0 AND ue.timeend < UNIX_TIMESTAMP() THEN 1\r\n               ELSE 0\r\n           END) AS 'lang::expired_enrolments::local_kopere_bi'\r\nFROM mdl_course c\r\nJOIN mdl_enrol e ON e.courseid = c.id\r\nJOIN mdl_user_enrolments ue ON ue.enrolid = e.id\r\nGROUP BY c.id\r\nORDER BY c.fullname",
+          "cache": "30m",
+          "reload": "30m",
+          "info": "{\"chart_options\":\"{\\r\\n    stroke : {\\r\\n        colors : [\\\"#2E93fA\\\", \\\"#66DA26\\\", \\\"#546E7A\\\", \\\"#E91E63\\\", \\\"#FF9800\\\"]\\r\\n    },\\r\\n    yaxis : {\\r\\n        labels : {\\r\\n            formatter: (value) => { return value },\\r\\n        },\\r\\n    },\\r\\n}\"}",
+          "time": 1728937350
+        }
+      ]
+    }
+  ]
 }

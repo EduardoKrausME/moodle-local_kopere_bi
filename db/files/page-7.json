@@ -1,31 +1,51 @@
 {
-    "title": "lang::report_7_inactive::local_kopere_bi",
-    "description": "lang::report_7_inactive_report::local_kopere_bi",
-    "user_id": null,
-    "category": {
-        "title": "lang::report_4_cat_title::local_kopere_bi",
-        "description": "lang::report_4_cat_description::local_kopere_bi"
-    },
-    "blocks": [
+  "title": "lang::report_8_engagement::local_kopere_bi",
+  "description": "lang::report_8_student_teacher_engagement::local_kopere_bi",
+  "user_id": null,
+  "category": {
+    "title": "lang::report_6_cat_title::local_kopere_bi",
+    "description": "lang::report_6_cat_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "type": "block-1",
+      "sequence": 1727726264,
+      "elements": [
         {
-            "type": "block-1",
-            "sequence": 1727486360,
-            "elements": [
-                {
-                    "title": "lang::report_7_users_not_accessed_course::local_kopere_bi",
-                    "block_num": 1,
-                    "type": "table",
-                    "theme": "light",
-                    "css": "",
-                    "html_before": null,
-                    "html_after": null,
-                    "commandsql": "SELECT u.id AS u_id,\r\n       u.firstname,\r\n       u.lastname,\r\n       u.email,\r\n       u.phone1,\r\n       u.city,\r\n       u.country,\r\n       u.firstaccess,\r\n       u.lastaccess,\r\n       u.lastlogin,\r\n       u.lastip,\r\n       c.fullname as c_fullname,\r\n       (SELECT r.name\r\n           FROM {user_enrolments} ue2\r\n           JOIN {enrol} e ON e.id = ue2.enrolid\r\n           JOIN {role}  r ON e.id = r.id\r\n          WHERE ue2.userid = u.id\r\n            AND e.courseid = c.id ) AS rolename\r\n  FROM mdl_user_enrolments ue\r\n  JOIN mdl_enrol  e ON e.id = ue.enrolid\r\n  JOIN mdl_course c ON c.id = e.courseid\r\n  JOIN mdl_user   u ON u.id = ue.userid\r\nLEFT JOIN {user_lastaccess} ul ON ul.userid = u.id\r\n WHERE ul.timeaccess IS NULL",
-                    "cache": "none",
-                    "reload": "none",
-                    "info": "{\n    \"column\": {\n        \"name\": {\n            \"u_id\": \"#\",\n            \"firstname\": \"lang::u_fullname::local_kopere_bi\",\n            \"lastname\": \"\",\n            \"email\": \"lang::email::moodle\",\n            \"phone1\": \"lang::phone1::moodle\",\n            \"city\": \"lang::city_name::local_kopere_bi\",\n            \"country\": \"lang::country_name::local_kopere_bi\",\n            \"firstaccess\": \"lang::firstaccess::moodle\",\n            \"lastaccess\": \"lang::lastaccess::moodle\",\n            \"lastlogin\": \"lang::lastlogin::moodle\",\n            \"lastip\": \"lang::lastip::moodle\",\n            \"c_fullname\": \"lang::c_fullname::local_kopere_bi\",\n            \"rolename\": \"lang:: rolename::local_kopere_bi\"\n        },\n        \"type\": {\n            \"u_id\": \"userphotoRenderer\",\n            \"firstname\": \"fullname\",\n            \"lastname\": \"none\",\n            \"email\": \"string\",\n            \"phone1\": \"string\",\n            \"city\": \"string\",\n            \"country\": \"string\",\n            \"firstaccess\": \"string\",\n            \"lastaccess\": \"string\",\n            \"lastlogin\": \"string\",\n            \"lastip\": \"string\",\n            \"c_fullname\": \"string\",\n            \"rolename\": \"string\"\n        }\n    }\n}",
-                    "time": 1727486508
-                }
-            ]
+          "title": "lang::report_8_teacher_access::local_kopere_bi",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT \r\n    u.id        AS u_id,\r\n    u.firstname,\r\n    u.lastname,\r\n    COUNT(DISTINCT ctx.instanceid)  AS num_courses,\r\n    SUM(l.learners)                 AS num_learners,\r\n    SUM(l1.activelearners)          AS num_activelearners,\r\n    SUM(cc.completed)               AS num_completedlearners,\r\n    AVG(g.grade)                    AS grade\r\nFROM \r\n    mdl_user u\r\nLEFT JOIN mdl_role_assignments AS ra ON ra.userid = u.id\r\nLEFT JOIN mdl_context AS ctx ON ctx.id = ra.contextid\r\nJOIN mdl_course c ON ctx.instanceid = c.id AND c.visible = 1\r\nLEFT JOIN (\r\n    SELECT \r\n        ctx.instanceid, \r\n        COUNT(DISTINCT ra.userid) AS learners\r\n    FROM \r\n        mdl_role_assignments ra,\r\n        mdl_context ctx\r\n    WHERE \r\n        ctx.id = ra.contextid\r\n        AND ctx.contextlevel = 50\r\n        AND ra.roleid = 5\r\n    GROUP BY \r\n        ctx.instanceid\r\n) AS l ON l.instanceid = ctx.instanceid\r\nLEFT JOIN (\r\n    SELECT \r\n        ctx.instanceid, \r\n        COUNT(DISTINCT ra.userid) AS activelearners\r\n    FROM \r\n        mdl_role_assignments ra,\r\n        mdl_user u,\r\n        mdl_context ctx\r\n    WHERE \r\n        ctx.id = ra.contextid\r\n        AND ctx.contextlevel = 50\r\n        AND u.id = ra.userid\r\n        -- AND u.lastaccess BETWEEN 1707755694 AND 1710347694\r\n        AND u.deleted = 0\r\n        AND u.suspended = 0\r\n        AND ra.roleid = 5\r\n    GROUP BY \r\n        ctx.instanceid\r\n) AS l1 ON l1.instanceid = ctx.instanceid\r\nLEFT JOIN (\r\n    SELECT \r\n        course, \r\n        COUNT(id) AS completed\r\n    FROM \r\n        mdl_course_completions\r\n    WHERE \r\n        timecompleted > 0\r\n    GROUP BY \r\n        course\r\n) cc ON cc.course = ctx.instanceid\r\nLEFT JOIN (\r\n    SELECT \r\n        gi.courseid,\r\n        ROUND(AVG(CASE\r\n            WHEN g.rawgrademax > 0 THEN (g.finalgrade \/ g.rawgrademax) * 100\r\n            ELSE g.finalgrade \r\n        END), 0) AS grade\r\n    FROM \r\n        mdl_grade_items gi,\r\n        mdl_grade_grades g\r\n    WHERE \r\n        gi.itemtype = 'course'\r\n        AND g.itemid = gi.id\r\n        AND g.finalgrade IS NOT NULL\r\n    GROUP BY \r\n        gi.courseid\r\n) g ON g.courseid = ctx.instanceid\r\nWHERE ctx.contextlevel = 50\r\n  AND ra.roleid        = 3\r\n  AND u.deleted        = 0\r\n  AND u.suspended      = 0\r\nGROUP BY u.id, u.firstname, u.lastname",
+          "cache": "30m",
+          "reload": "30m",
+          "info": "{\"column\":{\"u_id\":{\"key\":\"u_id\",\"title\":\"#\",\"type\":\"userphotoRenderer\",\"mustache\":\"\"},\"firstname\":{\"key\":\"firstname\",\"title\":\"lang::u_fullname::local_kopere_bi\",\"type\":\"userfullname\",\"mustache\":\"\"},\"lastname\":{\"key\":\"lastname\",\"title\":\"\",\"type\":\"none\",\"mustache\":\"\"},\"num_courses\":{\"key\":\"num_courses\",\"title\":\"lang::num_courses::local_kopere_bi\",\"type\":\"number\",\"mustache\":\"\"},\"num_learners\":{\"key\":\"num_learners\",\"title\":\"lang::num_learners::local_kopere_bi\",\"type\":\"number\",\"mustache\":\"\"},\"num_activelearners\":{\"key\":\"num_activelearners\",\"title\":\"lang::num_activelearners::local_kopere_bi\",\"type\":\"number\",\"mustache\":\"\"},\"num_completedlearners\":{\"key\":\"num_completedlearners\",\"title\":\"lang::num_completedlearners::local_kopere_bi\",\"type\":\"number\",\"mustache\":\"\"},\"grade\":{\"key\":\"grade\",\"title\":\"lang::grade::local_kopere_bi\",\"type\":\"number\",\"mustache\":\"\"}}}",
+          "time": 1728937350
         }
-    ]
+      ]
+    },
+    {
+      "type": "block-1",
+      "sequence": 1727726381,
+      "elements": [
+        {
+          "title": "lang::report_2_total_engagement::local_kopere_bi",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT c.id       AS c_id,\r\n       c.fullname AS c_fullname,\r\n       COUNT(DISTINCT ra.userid) AS num_learners,\r\n       COUNT(DISTINCT CASE\r\n           WHEN comp.userid IS NOT NULL AND ula.id IS NOT NULL THEN u.id\r\n           ELSE NULL \r\n       END) AS completed_learners,\r\n       COUNT(DISTINCT CASE\r\n           WHEN comp.userid IS NULL AND ula.id IS NOT NULL THEN u.id\r\n           ELSE NULL \r\n       END) AS not_completed_learners,\r\n       COUNT(DISTINCT CASE \r\n           WHEN ula.id IS NULL THEN u.id \r\n           ELSE NULL \r\n       END) AS not_accessed_learners\r\nFROM mdl_role_assignments ra\r\nJOIN mdl_context AS ctx \r\n    ON ctx.id = ra.contextid AND ctx.contextlevel = 50\r\nJOIN mdl_course c \r\n    ON c.id = ctx.instanceid\r\nJOIN mdl_user u \r\n    ON u.id = ra.userid\r\nLEFT JOIN (\r\n    SELECT cm.course, cmc.userid\r\n    FROM mdl_course_modules cm\r\n    JOIN mdl_course_modules_completion cmc \r\n        ON cmc.coursemoduleid = cm.id AND cmc.completionstate = 1\r\n    WHERE cmc.id > 0\r\n    GROUP BY cm.course, cmc.userid\r\n) comp \r\n    ON comp.userid = u.id AND comp.course = c.id\r\nLEFT JOIN mdl_user_lastaccess ula \r\n    ON ula.courseid = c.id AND ula.userid = ra.userid\r\nWHERE c.id > 0\r\n  AND u.deleted = 0\r\n  AND u.suspended = 0\r\n  AND c.visible = 1\r\n  AND ra.roleid = 5\r\nGROUP BY c.id",
+          "cache": "30m",
+          "reload": "30m",
+          "info": "{\n    \"column\": {\n        \"c_id\": {\n            \"key\": \"c_id\",\n            \"title\": \"#\",\n            \"type\": \"number\",\n            \"mustache\": \"\"\n        },\n        \"c_fullname\": {\n            \"key\": \"c_fullname\",\n            \"title\": \"lang::c_fullname::local_kopere_bi\",\n            \"type\": \"string\",\n            \"mustache\": \"\"\n        },\n        \"num_learners\": {\n            \"key\": \"num_learners\",\n            \"title\": \"lang::num_learners::local_kopere_bi\",\n            \"type\": \"number\",\n            \"mustache\": \"\"\n        },\n        \"completed_learners\": {\n            \"key\": \"completed_learners\",\n            \"title\": \"lang::completed_learners::local_kopere_bi\",\n            \"type\": \"number\",\n            \"mustache\": \"\"\n        },\n        \"not_completed_learners\": {\n            \"key\": \"not_completed_learners\",\n            \"title\": \"lang::not_completed_learners::local_kopere_bi\",\n            \"type\": \"number\",\n            \"mustache\": \"\"\n        },\n        \"not_accessed_learners\": {\n            \"key\": \"not_accessed_learners\",\n            \"title\": \"lang::not_accessed_learners::local_kopere_bi\",\n            \"type\": \"number\",\n            \"mustache\": \"\"\n        }\n    }\n}",
+          "time": 1728937350
+        }
+      ]
+    }
+  ]
 }

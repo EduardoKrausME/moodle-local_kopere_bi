@@ -1,113 +1,91 @@
 {
-    "title": "lang::report_3_title::local_kopere_bi",
-    "description": "lang::report_3_description::local_kopere_bi",
-    "user_id": null,
-    "category": {
-        "title": "lang::report_3_cat_title::local_kopere_bi",
-        "description": "lang::report_3_cat_description::local_kopere_bi"
-    },
-    "blocks": [
+  "title": "lang::report_2_title::local_kopere_bi",
+  "description": "lang::report_2_description::local_kopere_bi",
+  "user_id": null,
+  "category": {
+    "title": "lang::report_2_cat_title::local_kopere_bi",
+    "description": "lang::report_2_cat_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "type": "block-1",
+      "sequence": 1726940256,
+      "elements": [
         {
-            "type": "block-52",
-            "sequence": 1,
-            "elements": [
-                {
-                    "title": "lang::report_3_users_online::local_kopere_bi",
-                    "block_num": 2,
-                    "type": "maps",
-                    "theme": "light",
-                    "css": "",
-                    "html_before": null,
-                    "html_after": null,
-                    "commandsql": "SELECT lastip\n  FROM mdl_local_kopere_bi_online\n WHERE currenttime > UNIX_TIMESTAMP() - (5 * 60)",
-                    "cache": "none",
-                    "reload": null,
-                    "info": "{}",
-                    "time": 1727732994
-                },
-                {
-                    "title": "lang::report_3_users_online_list::local_kopere_bi",
-                    "block_num": 1,
-                    "type": "table",
-                    "theme": "light",
-                    "css": "",
-                    "html_before": null,
-                    "html_after": null,
-                    "commandsql": "SELECT DISTINCT \r\n    u.id AS u_id, \r\n    u.firstname,\r\n    u.lastname,\r\n    kbo.city_name,\r\n    kbo.country_name\r\nFROM \r\n    mdl_local_kopere_bi_online kbo\r\nJOIN \r\n    mdl_user u ON u.id = kbo.userid\r\nWHERE \r\n    kbo.currenttime > UNIX_TIMESTAMP() - (5 * 60)",
-                    "cache": "none",
-                    "reload": "none",
-                    "info": "{\n    \"column\": {\n        \"name\": {\n            \"u_id\": \"#\",\n            \"firstname\": \"lang::u_fullname::local_kopere_bi\",\n            \"lastname\": \"lang::lastname::moodle\",\n            \"city_name\": \"lang::city_name::local_kopere_bi\",\n            \"country_name\": \"lang::country_name::local_kopere_bi\"\n        },\n        \"type\": {\n            \"u_id\": \"dataUserphotoRenderer\",\n            \"firstname\": \"fullname\",\n            \"lastname\": \"none\",\n            \"city_name\": \"string\",\n            \"country_name\": \"string\"\n        }\n    }\n}",
-                    "time": 1727732994
-                }
-            ]
-        },
-        {
-            "type": "block-1",
-            "sequence": 3,
-            "elements": [
-                {
-                    "title": "lang::report_3_course_access_time::local_kopere_bi",
-                    "block_num": 1,
-                    "type": "line",
-                    "theme": "light",
-                    "css": "",
-                    "html_before": null,
-                    "html_after": null,
-                    "commandsql": "SELECT \r\n    c.fullname,\r\n    count(DISTINCT kbo.userid) AS 'lang::num_user::local_kopere_bi',\r\n    SUM(kbo.seconds)           AS 'lang::secounds::local_kopere_bi'\r\nFROM \r\n    mdl_course c\r\nLEFT JOIN \r\n    mdl_local_kopere_bi_online kbo ON kbo.courseid = c.id\r\nGROUP BY \r\n    c.id",
-                    "cache": "30m",
-                    "reload": "30m",
-                    "info": "{\"chart_options\":\"{\\r\\n    colors : [\\\"#2E93fA\\\", \\\"#66DA26\\\", \\\"#546E7A\\\", \\\"#E91E63\\\", \\\"#FF9800\\\"],\\r\\n    stroke : {\\r\\n        colors : [\\\"#2E93fA\\\", \\\"#66DA26\\\", \\\"#546E7A\\\", \\\"#E91E63\\\", \\\"#FF9800\\\"],\\r\\n    },\\r\\n    yaxis : {\\r\\n        labels : {\\r\\n            formatter: (seconds) => { \\r\\n                var hours = Math.floor(seconds \\\/ 3600);\\r\\n                var minutes = Math.floor((seconds % 3600) \\\/ 60);\\r\\n                return `${hours}h ${minutes}m`;\\r\\n            },\\r\\n        },\\r\\n    },\\r\\n    toolbar: {\\r\\n        show    : true,\\r\\n        offsetX : 0,\\r\\n        offsetY : 0\\r\\n    }\\r\\n}\"}",
-                    "time": 1727732994
-                }
-            ]
-        },
-        {
-            "type": "block-3",
-            "sequence": 2,
-            "elements": [
-                {
-                    "title": "lang::report_3_top_browsers::local_kopere_bi",
-                    "block_num": 2,
-                    "type": "pie",
-                    "theme": "light",
-                    "css": "",
-                    "html_before": null,
-                    "html_after": null,
-                    "commandsql": "SELECT \r\n    kbo.client_name,\r\n    COUNT(DISTINCT kbo.userid) AS num_users\r\nFROM \r\n    mdl_local_kopere_bi_online kbo\r\nJOIN \r\n    mdl_user c ON c.id = kbo.userid\r\nGROUP BY \r\n    kbo.client_name, \r\n    kbo.client_version\r\nLIMIT 15",
-                    "cache": "30m",
-                    "reload": "30m",
-                    "info": "{\"chart_options\":\"{\\r\\n    colors : [\\\"#4285F4\\\", \\\"#FF7139\\\", \\\"#0078D7\\\", \\\"#5AC8FA\\\", \\\"#FF1B2D\\\", \\\"#AAAAAA\\\"],\\r\\n    yaxis : {\\r\\n        labels : {\\r\\n            formatter: (seconds) => { \\r\\n                var hours = Math.floor(seconds \\\/ 3600);\\r\\n                var minutes = Math.floor((seconds % 3600) \\\/ 60);\\r\\n                return `${hours}h ${minutes}m`;\\r\\n            },\\r\\n        },\\r\\n    },\\r\\n}\"}",
-                    "time": 1727732994
-                },
-                {
-                    "title": "lang::report_3_operating_systems::local_kopere_bi",
-                    "block_num": 3,
-                    "type": "pie",
-                    "theme": "light",
-                    "css": "",
-                    "html_before": null,
-                    "html_after": null,
-                    "commandsql": "SELECT \r\n    kbo.os_name, \r\n    COUNT(DISTINCT kbo.userid) AS num_users\r\nFROM \r\n    mdl_local_kopere_bi_online kbo\r\nJOIN \r\n    mdl_user c ON c.id = kbo.userid\r\nGROUP BY \r\n    kbo.os_name\r\nLIMIT 15",
-                    "cache": "30m",
-                    "reload": "30m",
-                    "info": "{\"chart_options\":\"{\\r\\n    colors: [\\\"#9467bd\\\", \\\"#8c564b\\\", \\\"#e377c2\\\", \\\"#7f7f7f\\\", \\\"#bcbd22\\\", \\\"#17becf\\\", \\\"#1f77b4\\\", \\\"#ff7f0e\\\", \\\"#2ca02c\\\", \\\"#d62728\\\" ],\\r\\n    yaxis : {\\r\\n        labels : {\\r\\n            formatter: (seconds) => { \\r\\n                var hours = Math.floor(seconds \\\/ 3600);\\r\\n                var minutes = Math.floor((seconds % 3600) \\\/ 60);\\r\\n                return `${hours}h ${minutes}m`;\\r\\n            },\\r\\n        },\\r\\n    },\\r\\n}\"}",
-                    "time": 1727732994
-                },
-                {
-                    "title": "lang::report_3_top_country_access::local_kopere_bi",
-                    "block_num": 1,
-                    "type": "pie",
-                    "theme": "light",
-                    "css": "",
-                    "html_before": null,
-                    "html_after": null,
-                    "commandsql": "SELECT\r\n    kbo.country_name, \r\n    COUNT(DISTINCT kbo.userid)\r\nFROM \r\n    mdl_local_kopere_bi_online kbo\r\nJOIN \r\n    mdl_user c ON c.id = kbo.userid\r\nGROUP BY \r\n    kbo.city_name, \r\n    kbo.country_name\r\nLIMIT 15",
-                    "cache": "30m",
-                    "reload": "30m",
-                    "info": "{\"chart_options\":\"{\\r\\n    colors : [ \\\"#ff7f0e\\\", \\\"#2ca02c\\\", \\\"#d62728\\\", \\\"#9467bd\\\", \\\"#8c564b\\\", \\\"#e377c2\\\", \\\"#7f7f7f\\\", \\\"#bcbd22\\\", \\\"#17becf\\\", \\\"#1f77b4\\\" ],\\r\\n    yaxis : {\\r\\n        labels : {\\r\\n            formatter: (seconds) => { \\r\\n                var hours = Math.floor(seconds \\\/ 3600);\\r\\n                var minutes = Math.floor((seconds % 3600) \\\/ 60);\\r\\n                return `${hours}h ${minutes}m`;\\r\\n            },\\r\\n        },\\r\\n    },\\r\\n}\"}",
-                    "time": 1727732994
-                }
-            ]
+          "title": "lang::report_2_completion_progress::local_kopere_bi",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT u.id AS u_id,\r\n       u.firstname,\r\n       u.lastname,\r\n       u.firstnamephonetic,\r\n       u.lastnamephonetic,\r\n       u.middlename,\r\n       u.alternatename,\r\n       u.email,\r\n       u.institution,\r\n       u.department,\r\n       u.phone1,\r\n       u.phone2,\r\n       u.address,\r\n       u.city,\r\n       u.country,\r\n       u.timezone,\r\n       u.firstaccess,\r\n       u.lastaccess,\r\n       ue.timecreated,\r\n       IFNULL(MAX(cc.timecompleted), 0) AS timecompleted,\r\n       CONCAT(IFNULL(ROUND(((MAX(cmc.completed) \/ MAX(m.modules)) * 100), 0), 0), ' %') AS course_completed\r\n  FROM {user_enrolments} ue\r\n  JOIN {user} u ON u.id = ue.userid\r\n  JOIN {enrol} e ON e.id = ue.enrolid\r\n  JOIN {course} c ON c.id = e.courseid\r\n  LEFT JOIN {course_completions} cc ON cc.timecompleted > 0\r\n                                   AND cc.course = e.courseid\r\n                                   AND cc.userid = ue.userid\r\n  LEFT JOIN (\r\n        SELECT course,\r\n               COUNT(id) AS modules\r\n          FROM {course_modules}\r\n         WHERE visible = 1\r\n           AND completion > 0\r\n           AND deletioninprogress = 0\r\n      GROUP BY course\r\n      ) AS m ON m.course = c.id\r\n  LEFT JOIN (\r\n        SELECT cm_i.course,\r\n               cmc_i.userid,\r\n               COUNT(DISTINCT cmc_i.id) AS completed\r\n          FROM {course_modules} cm_i,\r\n               {course_modules_completion} cmc_i\r\n         WHERE cmc_i.coursemoduleid = cm_i.id\r\n           AND cm_i.visible = 1\r\n           AND cmc_i.completionstate IN (1, 2)\r\n           AND cm_i.deletioninprogress = 0\r\n      GROUP BY cm_i.course,\r\n               cmc_i.userid\r\n      ) AS cmc ON cmc.course = c.id\r\n              AND cmc.userid = ue.userid\r\n WHERE ue.id > 0\r\n   AND u.id > 1\r\n   AND u.deleted = 0\r\n   AND u.suspended = 0\r\n   AND ue.status = 0\r\n   AND e.status = 0\r\n   AND c.id = :courseid\r\nGROUP BY u.id\r\n",
+          "cache": "6h",
+          "reload": "30m",
+          "info": "{\n    \"column\": {\n        \"u_id\": {\n            \"key\": \"u_id\",\n            \"title\": \"#\",\n            \"type\": \"number\",\n            \"mustache\": \"\"\n        },\n        \"firstname\": {\n            \"key\": \"firstname\",\n            \"title\": \"lang::u_fullname::local_kopere_bi\",\n            \"type\": \"userfullname\",\n            \"mustache\": \"\"\n        },\n        \"lastname\": {\n            \"key\": \"lastname\",\n            \"title\": \"lang::lastname::moodle\",\n            \"type\": \"none\",\n            \"mustache\": \"\"\n        },\n        \"firstnamephonetic\": {\n            \"key\": \"firstnamephonetic\",\n            \"title\": \"lang::firstnamephonetic::moodle\",\n            \"type\": \"none\",\n            \"mustache\": \"\"\n        },\n        \"lastnamephonetic\": {\n            \"key\": \"lastnamephonetic\",\n            \"title\": \"lang::lastnamephonetic::moodle\",\n            \"type\": \"none\",\n            \"mustache\": \"\"\n        },\n        \"middlename\": {\n            \"key\": \"middlename\",\n            \"title\": \"lang::middlename::moodle\",\n            \"type\": \"none\",\n            \"mustache\": \"\"\n        },\n        \"alternatename\": {\n            \"key\": \"alternatename\",\n            \"title\": \"lang::alternatename::moodle\",\n            \"type\": \"none\",\n            \"mustache\": \"\"\n        },\n        \"email\": {\n            \"key\": \"email\",\n            \"title\": \"lang::email::moodle\",\n            \"type\": \"string\",\n            \"mustache\": \"\"\n        },\n        \"institution\": {\n            \"key\": \"institution\",\n            \"title\": \"lang::institution::moodle\",\n            \"type\": \"string\",\n            \"mustache\": \"\"\n        },\n        \"department\": {\n            \"key\": \"department\",\n            \"title\": \"lang::department::moodle\",\n            \"type\": \"string\",\n            \"mustache\": \"\"\n        },\n        \"phone1\": {\n            \"key\": \"phone1\",\n            \"title\": \"lang::phone1::moodle\",\n            \"type\": \"string\",\n            \"mustache\": \"\"\n        },\n        \"phone2\": {\n            \"key\": \"phone2\",\n            \"title\": \"lang::phone2::moodle\",\n            \"type\": \"string\",\n            \"mustache\": \"\"\n        },\n        \"address\": {\n            \"key\": \"address\",\n            \"title\": \"lang::address::moodle\",\n            \"type\": \"string\",\n            \"mustache\": \"\"\n        },\n        \"city\": {\n            \"key\": \"city\",\n            \"title\": \"lang::city::moodle\",\n            \"type\": \"string\",\n            \"mustache\": \"\"\n        },\n        \"country\": {\n            \"key\": \"country\",\n            \"title\": \"lang::country::moodle\",\n            \"type\": \"string\",\n            \"mustache\": \"\"\n        },\n        \"timezone\": {\n            \"key\": \"timezone\",\n            \"title\": \"lang::timezone::moodle\",\n            \"type\": \"none\",\n            \"mustache\": \"\"\n        },\n        \"firstaccess\": {\n            \"key\": \"firstaccess\",\n            \"title\": \"lang::firstaccess::moodle\",\n            \"type\": \"datetimeRenderer\",\n            \"mustache\": \"\"\n        },\n        \"lastaccess\": {\n            \"key\": \"lastaccess\",\n            \"title\": \"lang::lastaccess::moodle\",\n            \"type\": \"datetimeRenderer\",\n            \"mustache\": \"\"\n        },\n        \"timecreated\": {\n            \"key\": \"timecreated\",\n            \"title\": \"lang::timecreated::moodle\",\n            \"type\": \"datetimeRenderer\",\n            \"mustache\": \"\"\n        },\n        \"timecompleted\": {\n            \"key\": \"timecompleted\",\n            \"title\": \"lang::timecompleted::local_kopere_bi\",\n            \"type\": \"datetimeRenderer\",\n            \"mustache\": \"\"\n        },\n        \"course_completed\": {\n            \"key\": \"course_completed\",\n            \"title\": \"lang::course_completed::local_kopere_bi\",\n            \"type\": \"number\",\n            \"mustache\": \"\"\n        }\n    }\n}",
+          "time": 1728937350
         }
-    ]
+      ]
+    },
+    {
+      "type": "block-1",
+      "sequence": 1727028638,
+      "elements": [
+        {
+          "title": "lang::report_2_course_progress::local_kopere_bi",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT u.id AS u_id,\r\n       u.firstname,\r\n       u.lastname,\r\n       u.email,\r\n       MIN(gc.grade) AS grade\r\n  FROM mdl_user_enrolments ue\r\n  LEFT JOIN mdl_user u ON u.id = ue.userid\r\n  LEFT JOIN mdl_enrol e ON e.id = ue.enrolid\r\n  LEFT JOIN mdl_course c ON c.id = e.courseid\r\n  LEFT JOIN (\r\n             SELECT course, COUNT(id) AS cmnums\r\n               FROM mdl_course_modules\r\n              WHERE visible = 1\r\n           GROUP BY course\r\n            ) AS cm ON cm.course = c.id\r\n  LEFT JOIN (\r\n             SELECT course, COUNT(id) AS cmnumx\r\n               FROM mdl_course_modules\r\n              WHERE visible = 1\r\n                AND completion > 0\r\n           GROUP BY course\r\n            ) cmx ON cmx.course = c.id\r\n  LEFT JOIN (\r\n             SELECT cm.course, cmc.userid, COUNT(cmc.id) AS cmcnums\r\n               FROM mdl_course_modules cm,\r\n                    mdl_course_modules_completion cmc\r\n              WHERE cmc.coursemoduleid = cm.id\r\n                AND cm.visible = 1\r\n                AND cmc.completionstate IN (1, 2)\r\n           GROUP BY cm.course, cmc.userid\r\n            ) cmc ON cmc.course = c.id\r\n                AND cmc.userid = u.id\r\n  LEFT JOIN (\r\n             SELECT cm.course, cmc.userid, COUNT(cmc.id) AS cmcnuma\r\n               FROM mdl_course_modules cm,\r\n                    mdl_course_modules_completion cmc\r\n              WHERE cmc.coursemoduleid = cm.id\r\n                AND cm.module = 1\r\n                AND cm.visible = 1\r\n                AND cmc.completionstate IN (1, 2)\r\n           GROUP BY cm.course, cmc.userid\r\n            ) AS cmca ON cmca.course = c.id\r\n                   AND cmca.userid = u.id\r\n  LEFT JOIN (\r\n             SELECT gi.courseid,\r\n                    g.userid,\r\n                    ROUND((CASE WHEN g.rawgrademax > 0 THEN (g.finalgrade \/ g.rawgrademax) * 100 ELSE g.finalgrade END), 0) AS grade\r\n               FROM mdl_grade_items gi,\r\n                    mdl_grade_grades g\r\n              WHERE gi.itemtype = 'course'\r\n                AND g.itemid = gi.id\r\n                AND g.finalgrade IS NOT NULL\r\n           GROUP BY gi.courseid, g.userid, g.finalgrade, g.rawgrademax\r\n            ) AS gc ON gc.courseid = c.id\r\n                AND gc.userid = u.id\r\n WHERE ue.id > 0\r\n   AND e.courseid = :courseid\r\n   AND u.deleted = 0\r\n   AND u.suspended = 0\r\n   AND c.visible = 1\r\nGROUP BY u.id, c.id\r\n",
+          "cache": "none",
+          "reload": "none",
+          "info": "{\n    \"column\": {\n        \"u_id\": {\n            \"key\": \"u_id\",\n            \"title\": \"#\",\n            \"type\": \"string\",\n            \"mustache\": \"\"\n        },\n        \"firstname\": {\n            \"key\": \"firstname\",\n            \"title\": \"lang::u_fullname::local_kopere_bi\",\n            \"type\": \"userfullname\",\n            \"mustache\": \"\"\n        },\n        \"lastname\": {\n            \"key\": \"lastname\",\n            \"title\": \"lang::lastname::moodle\",\n            \"type\": \"none\",\n            \"mustache\": \"\"\n        },\n        \"email\": {\n            \"key\": \"email\",\n            \"title\": \"lang::email::moodle\",\n            \"type\": \"string\",\n            \"mustache\": \"\"\n        },\n        \"grade\": {\n            \"key\": \"grade\",\n            \"title\": \"lang::grade::local_kopere_bi\",\n            \"type\": \"number\",\n            \"mustache\": \"\"\n        }\n    }\n}",
+          "time": 1728937350
+        }
+      ]
+    },
+    {
+      "type": "block-1",
+      "sequence": 1727029353,
+      "elements": [
+        {
+          "title": "lang::report_2_course_access_statistics::local_kopere_bi",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT u.id                    AS u_id,\r\n       u.firstname,\r\n       u.lastname,\r\n       u.email,\r\n       l.contextinstanceid     AS cm_cmid,\r\n       l.objecttable           AS module_name,\r\n       l.origin                AS l_origin,\r\n       l.ip                    AS l_ip,\r\n       l.timecreated           AS l_timecreated\r\n       \r\n     FROM mdl_logstore_standard_log l\r\nLEFT JOIN mdl_course       c  ON c.id = l.courseid\r\nLEFT JOIN mdl_user         u  ON u.id = l.userid\r\nLEFT JOIN mdl_modules      m  ON m.name = SUBSTRING(l.component, 5)\r\nLEFT JOIN mdl_course_modules cm ON cm.id = l.contextinstanceid\r\n\r\nWHERE l.component LIKE '%mod_%'\r\n  AND l.courseid = :courseid\r\n  AND u.deleted = 0\r\n  AND u.suspended = 0\r\n  AND c.visible = 1\r\n  AND cm.visible = 1",
+          "cache": "6h",
+          "reload": "30m",
+          "info": "{\n    \"column\": {\n        \"u_id\": {\n            \"key\": \"u_id\",\n            \"title\": \"#\",\n            \"type\": \"number\",\n            \"mustache\": \"\"\n        },\n        \"firstname\": {\n            \"key\": \"firstname\",\n            \"title\": \"lang::u_fullname::local_kopere_bi\",\n            \"type\": \"userfullname\",\n            \"mustache\": \"\"\n        },\n        \"lastname\": {\n            \"key\": \"lastname\",\n            \"title\": \"lang::lastname::moodle\",\n            \"type\": \"none\",\n            \"mustache\": \"\"\n        },\n        \"email\": {\n            \"key\": \"email\",\n            \"title\": \"lang::email::moodle\",\n            \"type\": \"string\",\n            \"mustache\": \"\"\n        },\n        \"cm_cmid\": {\n            \"key\": \"cm_cmid\",\n            \"title\": \"lang::cm_cmid::local_kopere_bi\",\n            \"type\": \"string\",\n            \"mustache\": \"\"\n        },\n        \"module_name\": {\n            \"key\": \"module_name\",\n            \"title\": \"lang::module_name::local_kopere_bi\",\n            \"type\": \"translate\",\n            \"mustache\": \"\"\n        },\n        \"l_origin\": {\n            \"key\": \"l_origin\",\n            \"title\": \"lang::l_origin::local_kopere_bi\",\n            \"type\": \"string\",\n            \"mustache\": \"\"\n        },\n        \"l_ip\": {\n            \"key\": \"l_ip\",\n            \"title\": \"lang::l_ip::local_kopere_bi\",\n            \"type\": \"string\",\n            \"mustache\": \"\"\n        },\n        \"l_timecreated\": {\n            \"key\": \"l_timecreated\",\n            \"title\": \"lang::l_timecreated::local_kopere_bi\",\n            \"type\": \"datetimeRenderer\",\n            \"mustache\": \"\"\n        }\n    }\n}",
+          "time": 1728937350
+        }
+      ]
+    },
+    {
+      "type": "block-1",
+      "sequence": 1727029796,
+      "elements": [
+        {
+          "title": "lang::report_2_course_analysis_participation_completion::local_kopere_bi",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT u.id        AS u_id,\r\n       u.firstname,\r\n       u.lastname,\r\n       u.email,\r\n       CASE \r\n           WHEN ul.id IS NULL THEN 'lang::case_never_accessed::local_kopere_bi'\r\n           WHEN comp.userid IS NOT NULL THEN 'lang::case_complete::local_kopere_bi'\r\n           ELSE 'lang::case_incomplete::local_kopere_bi'\r\n       END AS status\r\n       \r\nFROM mdl_role_assignments ra\r\n       JOIN mdl_context ctx                                   ON ctx.id = ra.contextid \r\n                                                            AND ctx.contextlevel = 50\r\n       JOIN mdl_course c                                     ON c.id = ctx.instanceid\r\n       JOIN mdl_user u                                      ON u.id = ra.userid\r\n       \r\n       LEFT JOIN (SELECT cm.course, cmc.userid\r\n                  FROM   mdl_course_modules cm\r\n                         JOIN mdl_course_modules_completion cmc ON cmc.coursemoduleid = cm.id \r\n                                                              AND cmc.completionstate = 1\r\n                  WHERE  cmc.id > 0\r\n                  GROUP BY cm.course, cmc.userid\r\n                 ) comp ON comp.userid = u.id \r\n                         AND comp.course = c.id\r\n       \r\n       LEFT JOIN mdl_user_lastaccess ul                         ON ul.courseid = c.id \r\n                                                            AND ul.userid = ra.userid\r\n       \r\nWHERE  c.id = :courseid \r\n  AND  u.deleted = 0 \r\n  AND  u.suspended = 0  \r\n  AND  c.visible = 1 \r\n  AND  ra.roleid = 5\r\nGROUP BY u.id",
+          "cache": "6h",
+          "reload": "30m",
+          "info": "{\n    \"column\": {\n        \"u_id\": {\n            \"key\": \"u_id\",\n            \"title\": \"#\",\n            \"type\": \"number\",\n            \"mustache\": \"\"\n        },\n        \"firstname\": {\n            \"key\": \"firstname\",\n            \"title\": \"lang::u_fullname::local_kopere_bi\",\n            \"type\": \"userfullname\",\n            \"mustache\": \"\"\n        },\n        \"lastname\": {\n            \"key\": \"lastname\",\n            \"title\": \"lang::lastname::moodle\",\n            \"type\": \"none\",\n            \"mustache\": \"\"\n        },\n        \"email\": {\n            \"key\": \"email\",\n            \"title\": \"lang::email::moodle\",\n            \"type\": \"string\",\n            \"mustache\": \"\"\n        },\n        \"status\": {\n            \"key\": \"status\",\n            \"title\": \"lang::status::moodle\",\n            \"type\": \"translate\",\n            \"mustache\": \"\"\n        }\n    }\n}",
+          "time": 1728937350
+        }
+      ]
+    }
+  ]
 }
