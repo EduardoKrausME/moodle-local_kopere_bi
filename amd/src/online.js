@@ -6,12 +6,11 @@ define(['core/ajax'], function(ajax) {
 
             var online_update_send = function() {
 
-                // console.log("Enviar: " + tempoTotal);
                 if (tempoTotal == 0) return;
 
-                // Envia a notificação para o webservice sobre o tempo gasto a casa 1 minuto
+                // Sends notification to the webservice about time spent at home 1 minute
                 ajax.call([{
-                    methodname : 'local_kopere_bi_online_update',
+                    methodname : "local_kopere_bi_online_update",
                     args       : {
                         online_id : online_id,
                         cache_key : key,
@@ -29,19 +28,16 @@ define(['core/ajax'], function(ajax) {
                     tempoTotal += 2;
                 }
                 if (tempoTotal >= 30) {
-                    // console.log("Vamos enviar: " + tempoTotal);
                     online_update_send();
                 }
-                // console.log("tempoTotal: " + tempoTotal);
             }, 2 * 1000); // 2 seconds
 
-            // Após 20 minutos, pausa o envio do minutos
+            // After 20 minutes, pause sending minutes.
             setTimeout(function() {
-                // console.log("Fimmmm");
                 online_update_send();
                 clearInterval(intervalId);
                 online_update_send = console.log;
-            }, 2 * 60 * 1000); // 2 minutos
+            }, 2 * 60 * 1000); // 2 minutes
         }
     };
 });
