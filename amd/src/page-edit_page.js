@@ -2,11 +2,11 @@ define(["jquery", "jqueryui", "core/ajax", "core/notification"], function($, $ui
     return {
 
         page_sortable : function(page_id) {
-            $("#page-edit-sort").sortable({
+            $("#page-block-sort").sortable({
                 placeholder : "ui-state-highlight",
                 update      : function(event, ui) {
                     var itens = "";
-                    $("#page-edit-sort .line").each(function() {
+                    $("#page-block-sort .line").each(function() {
                         itens += "," + $(this).attr("data-blockid")
                     });
 
@@ -27,8 +27,8 @@ define(["jquery", "jqueryui", "core/ajax", "core/notification"], function($, $ui
         page_blocks : function(page_id) {
 
             // Botão adicionar novo Bloco
-            var $bt_add_block = $('<span class="btn btn-primary btn-add-block">' + M.util.get_string('block_add', 'local_kopere_bi') + "</span>");
-            $("#page-edit-sort").append($bt_add_block);
+            var $bt_add_block = $('<span class="btn btn-primary btn-add-block">' + M.util.get_string("block_add", "local_kopere_bi") + "</span>");
+            $("#page-block-sort").append($bt_add_block);
             $bt_add_block.click(function() {
                 $("#dialog-confirm-block-add").dialog({
                     resizable : false,
@@ -48,7 +48,7 @@ define(["jquery", "jqueryui", "core/ajax", "core/notification"], function($, $ui
                     },
                     buttons   : [
                         {
-                            text  : M.util.get_string('close', 'admin'),
+                            text  : M.util.get_string("close", "admin"),
                             click : function() {
                                 $(this).dialog("close");
                             }
@@ -78,14 +78,12 @@ define(["jquery", "jqueryui", "core/ajax", "core/notification"], function($, $ui
             });
 
             // Botão delete
-            $("#page-edit-sort .line").each(function(id, element) {
+            $("#page-block-sort .line").each(function(id, element) {
 
                 var $element = $(element);
-                var $deleteButton = $('<span class="delete-page">' + M.util.get_string('delete', 'moodle') + "</span>");
-
+                var $deleteButton = $('<span class="delete-block">' + M.util.get_string("delete", "moodle") + "</span>");
                 $element.append($deleteButton);
                 $deleteButton.click(function() {
-
                     var blockid = $element.attr("data-blockid");
 
                     $("#dialog-confirm-block-" + blockid).dialog({
@@ -106,7 +104,7 @@ define(["jquery", "jqueryui", "core/ajax", "core/notification"], function($, $ui
                         },
                         buttons   : [
                             {
-                                text  : M.util.get_string('delete', 'moodle'),
+                                text  : M.util.get_string("delete", "moodle"),
                                 click : function() {
 
                                     $(this).dialog("close");
@@ -127,7 +125,7 @@ define(["jquery", "jqueryui", "core/ajax", "core/notification"], function($, $ui
                                     //.catch(notification.exception);
                                 }
                             }, {
-                                text  : M.util.get_string('cancel', 'moodle'),
+                                text  : M.util.get_string("cancel", "moodle"),
                                 click : function() {
                                     $(this).dialog("close");
                                 }
@@ -135,7 +133,6 @@ define(["jquery", "jqueryui", "core/ajax", "core/notification"], function($, $ui
                         ]
                     });
                 });
-
             });
         }
     };
