@@ -40,7 +40,7 @@ class pie implements i_type {
      * @throws \coding_exception
      */
     public static function get_name() {
-        return get_string('pie_name', 'local_kopere_bi');
+        return get_string("pie_name", "local_kopere_bi");
     }
 
     /**
@@ -50,7 +50,7 @@ class pie implements i_type {
      * @throws \coding_exception
      */
     public static function get_description() {
-        return get_string('pie_desc', 'local_kopere_bi');
+        return get_string("pie_desc", "local_kopere_bi");
     }
 
     /**
@@ -75,12 +75,12 @@ class pie implements i_type {
      */
     public function edit(form $form, $koperebielement) {
 
-        mensagem::print_warning(get_string('pie_sql_warning', 'local_kopere_bi'));
+        mensagem::print_warning(get_string("pie_sql_warning", "local_kopere_bi"));
 
-        code_util::load_ace_commandsql($form, $koperebielement);
+        code_util::input_commandsql($form, $koperebielement);
 
-        if (isset($koperebielement->info_obj['chart_options'])) {
-            code_util::options($form, $koperebielement->info_obj['chart_options']);
+        if (isset($koperebielement->info_obj["chart_options"])) {
+            code_util::options($form, $koperebielement->info_obj["chart_options"]);
         } else {
             code_util::options($form, trim("
 {
@@ -127,10 +127,10 @@ class pie implements i_type {
                 ["item_id" => $koperebielement->id], "view-ajax"),
             "local_kopere_bi_id" => $koperebielement->id,
             "chart_pie_default" => get_config("local_kopere_bi", "chart_pie_default"),
-            "chart_options" => code_util::get_js_options($koperebielement->info_obj['chart_options']),
+            "chart_options" => code_util::get_js_options($koperebielement->info_obj["chart_options"]),
             "code_util_get_js_theme" => code_util::get_js_theme($koperebielement),
-            "error_chart_renderer" => get_string('error_chart_renderer', 'local_kopere_bi'),
-            "error_data_loader" => get_string('error_data_loader', 'local_kopere_bi'),
+            "error_chart_renderer" => get_string("error_chart_renderer", "local_kopere_bi"),
+            "error_data_loader" => get_string("error_data_loader", "local_kopere_bi"),
             "reload_time" => reload_util::convert($koperebielement->reload),
         ]);
     }
@@ -146,19 +146,19 @@ class pie implements i_type {
     public function get_chart_data($koperebielement) {
         $cache = cache_util::get_cache_make($koperebielement->cache);
 
-        if (false &&$cache->has($koperebielement->id)) {
+        if (false && $cache->has($koperebielement->id)) {
             $lines = $cache->get($koperebielement->id);
         } else {
             $comand = sql_util::prepare_sql($koperebielement->commandsql);
             try {
-                $dados = (new database_util())->get_records_sql_block_array($comand->sql, $comand->params);
+                $rows = (new database_util())->get_records_sql_block_array($comand->sql, $comand->params);
             } catch (\Exception $e) {
                 mensagem::print_danger($e->getMessage());
                 return;
             }
 
             $keys = [];
-            foreach ($dados[0] as $key => $value) {
+            foreach ($rows[0] as $key => $value) {
                 if (!isset($keys[0])) {
                     $keys[0] = $key;
                 } else if (!isset($keys[1])) {
@@ -170,9 +170,9 @@ class pie implements i_type {
 
             $optionslabels = [];
             $optionsserie = [];
-            foreach ($dados as $dado) {
-                $optionslabels[] = $dado[$keys[0]];
-                $optionsserie[] = $dado[$keys[1]];
+            foreach ($rows as $row) {
+                $optionslabels[] = $row[$keys[0]];
+                $optionsserie[] = $row[$keys[1]];
             }
 
             $lines = [
@@ -201,16 +201,16 @@ class pie implements i_type {
 
         $comand = sql_util::prepare_sql($koperebielement->commandsql);
         try {
-            $dadospie = (new database_util())->get_record_sql_block($comand->sql, $comand->params);
+            $rowspie = (new database_util())->get_record_sql_block($comand->sql, $comand->params);
         } catch (\Exception $e) {
             mensagem::print_danger($e->getMessage());
             return "";
         }
 
         $arraypie = "";
-        foreach ($dadospie as $key => $dadopie) {
-            $dadopie = intval($dadopie);
-            $arraypie .= "['{$key}', {$dadopie}],\n";
+        foreach ($rowspie as $key => $rowpie) {
+            $rowpie = intval($rowpie);
+            $arraypie .= "['{$key}', {$rowpie}],\n";
         }
 
         return $OUTPUT->render_from_template("local_kopere_bi/block_pie_preview_google", [

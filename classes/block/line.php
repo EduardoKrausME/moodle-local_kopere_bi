@@ -42,7 +42,7 @@ class line implements i_type {
      * @throws \coding_exception
      */
     public static function get_name() {
-        return get_string('line_name', 'local_kopere_bi');
+        return get_string("line_name", "local_kopere_bi");
     }
 
     /**
@@ -52,7 +52,7 @@ class line implements i_type {
      * @throws \coding_exception
      */
     public static function get_description() {
-        return get_string('line_desc', 'local_kopere_bi');
+        return get_string("line_desc", "local_kopere_bi");
     }
 
     /**
@@ -79,35 +79,35 @@ class line implements i_type {
 
         $values = [
             [
-                'key' => 'line',
-                'value' => self::get_name(),
+                "key" => "line",
+                "value" => self::get_name(),
             ], [
-                'key' => 'area',
-                'value' => area::get_name(),
+                "key" => "area",
+                "value" => area::get_name(),
             ], [
-                'key' => 'column',
-                'value' => column::get_name(),
+                "key" => "column",
+                "value" => column::get_name(),
             ],
         ];
         $names = [
-            'line' => self::get_name(),
-            'area' => area::get_name(),
-            'column' => column::get_name(),
+            "line" => self::get_name(),
+            "area" => area::get_name(),
+            "column" => column::get_name(),
         ];
         $form->add_input(
             input_select::new_instance()
-                ->set_title(get_string('select_report_type', 'local_kopere_bi'))
+                ->set_title(get_string("select_report_type", "local_kopere_bi"))
                 ->set_name("element_type")
                 ->set_value($koperebielement->type)
                 ->set_values($values)
-                ->set_description(get_string('select_report_type_desc', 'local_kopere_bi', $names)));
+                ->set_description(get_string("select_report_type_desc", "local_kopere_bi", $names)));
 
-        mensagem::print_warning(get_string('line_sql_warning', 'local_kopere_bi'));
+        mensagem::print_warning(get_string("line_sql_warning", "local_kopere_bi"));
 
-        code_util::load_ace_commandsql($form, $koperebielement);
+        code_util::input_commandsql($form, $koperebielement);
 
-        if (isset($koperebielement->info_obj['chart_options'])) {
-            code_util::options($form, $koperebielement->info_obj['chart_options']);
+        if (isset($koperebielement->info_obj["chart_options"])) {
+            code_util::options($form, $koperebielement->info_obj["chart_options"]);
         } else {
             code_util::options($form, trim("
 {
@@ -161,10 +161,10 @@ class line implements i_type {
                 ["item_id" => $koperebielement->id], "view-ajax"),
             "local_kopere_bi_id" => $koperebielement->id,
             "chart_line_default" => get_config("local_kopere_bi", "chart_line_default"),
-            "chart_options" => code_util::get_js_options($koperebielement->info_obj['chart_options']),
+            "chart_options" => code_util::get_js_options($koperebielement->info_obj["chart_options"]),
             "code_util_get_js_theme" => code_util::get_js_theme($koperebielement),
-            "error_chart_renderer" => get_string('error_chart_renderer', 'local_kopere_bi'),
-            "error_data_loader" => get_string('error_data_loader', 'local_kopere_bi'),
+            "error_chart_renderer" => get_string("error_chart_renderer", "local_kopere_bi"),
+            "error_data_loader" => get_string("error_data_loader", "local_kopere_bi"),
             "reload_time" => reload_util::convert($koperebielement->reload),
         ];
         return $OUTPUT->render_from_template("local_kopere_bi/block_line_preview", $data);
@@ -187,28 +187,28 @@ class line implements i_type {
 
             $comand = sql_util::prepare_sql($koperebielement->commandsql);
             try {
-                $dadoscolumns = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
+                $rowscolumns = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
             } catch (\Exception $e) {
                 mensagem::print_danger($e->getMessage());
                 return;
             }
 
-            $columns = array_keys((array)$dadoscolumns[0]);
+            $columns = array_keys((array)$rowscolumns[0]);
 
             $optionslabels = false;
             $optionsseries = [];
             foreach ($columns as $column) {
                 if ($optionslabels === false) {
 
-                    // Aqui pega a primeira column para ser o X.
-                    // E o name da column é o valor do Eixo Y.
+                    // Here, take the first column to be the X.
+                    // And the name of the column is the value of the Y Axis.
 
-                    $optionslabels = array_column($dadoscolumns, $column);
+                    $optionslabels = array_column($rowscolumns, $column);
                 } else {
 
-                    // Demais columns são séries.
+                    // Other columns are series.
 
-                    $values = array_column($dadoscolumns, $column);
+                    $values = array_column($rowscolumns, $column);
                     $values = array_map(function ($value) {
                         return $value == null ? 0 : intval($value);
                     }, $values);
@@ -245,14 +245,14 @@ class line implements i_type {
 
         $comand = sql_util::prepare_sql($koperebielement->commandsql);
         try {
-            $dadosline = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
+            $rowsline = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
         } catch (\Exception $e) {
             mensagem::print_danger($e->getMessage());
             return "";
         }
 
         $arraylines = false;
-        foreach ($dadosline as $key => $values) {
+        foreach ($rowsline as $key => $values) {
 
             if (!$arraylines) {
                 $names = [];

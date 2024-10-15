@@ -38,7 +38,7 @@ class maps implements i_type {
      * @throws \coding_exception
      */
     public static function get_name() {
-        return get_string('maps_name', 'local_kopere_bi');
+        return get_string("maps_name", "local_kopere_bi");
     }
 
     /**
@@ -48,7 +48,7 @@ class maps implements i_type {
      * @throws \coding_exception
      */
     public static function get_description() {
-        return get_string('maps_desc', 'local_kopere_bi');
+        return get_string("maps_desc", "local_kopere_bi");
     }
 
     /**
@@ -74,9 +74,9 @@ class maps implements i_type {
      */
     public function edit(form $form, $koperebielement) {
 
-        mensagem::print_warning(get_string('maps_sql_warning', 'local_kopere_bi'));
+        mensagem::print_warning(get_string("maps_sql_warning", "local_kopere_bi"));
 
-        code_util::load_ace_commandsql($form, $koperebielement, false);
+        code_util::input_commandsql($form, $koperebielement, false);
     }
 
     /**
@@ -147,18 +147,18 @@ class maps implements i_type {
 
         $comand = sql_util::prepare_sql($koperebielement->commandsql);
         try {
-            $dados = (new database_util())->get_records_sql_block_array($comand->sql, $comand->params);
+            $rows = (new database_util())->get_records_sql_block_array($comand->sql, $comand->params);
         } catch (\Exception $e) {
             mensagem::print_danger($e->getMessage());
             return;
         }
 
         $data = [];
-        foreach ($dados as $dado) {
-            $dataip = local_kopere_bi_iplookup_find_location($dado[0]);
+        foreach ($rows as $row) {
+            $dataip = local_kopere_bi_iplookup_find_location($row["lastip"]);
             $userinfo = [
                 "nb_visits" => 1,
-                "lastip" => $dado[0],
+                "lastip" => $row[0],
                 "city_name" => $dataip->city,
                 "country_name" => $dataip->country,
                 "country_code" => $dataip->country_code ? $dataip->country_code : $dataip->country,
