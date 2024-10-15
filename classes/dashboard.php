@@ -20,6 +20,7 @@ use local_kopere_bi\block\i_type;
 use local_kopere_bi\block\util\code_util;
 use local_kopere_bi\output\renderer_bi_mustache;
 use local_kopere_bi\util\details_util;
+use local_kopere_bi\util\filter;
 use local_kopere_bi\util\preview_util;
 use local_kopere_bi\util\scss_util;
 use local_kopere_bi\util\string_util;

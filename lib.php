@@ -23,6 +23,7 @@
  */
 
 use local_kopere_bi\analise\access_analyze;
+use local_kopere_bi\util\filter;
 use local_kopere_bi\util\string_util;
 use local_kopere_bi\vo\local_kopere_bi_block;
 use local_kopere_bi\vo\local_kopere_bi_page;
@@ -169,8 +170,12 @@ function load_kopere_bi_assets() {
 
 /**
  *
+ * @param $pageid
+ *
  * @return string
- * @throws Exception
+ * @throws \ScssPhp\ScssPhp\Exception\SassException
+ * @throws coding_exception
+ * @throws dml_exception
  */
 function load_kopere_bi($pageid) {
     global $DB, $CFG;
@@ -193,7 +198,7 @@ function load_kopere_bi($pageid) {
 
         $koperebiblocks = $DB->get_records("local_kopere_bi_block", ["page_id" => $koperebipage->id], "sequence ASC");
 
-        $text .= \local_kopere_bi\filter::create_filter($koperebipage);
+        $text .= filter::create_filter($koperebipage);
 
         /** @var local_kopere_bi_block $koperebiblock */
         foreach ($koperebiblocks as $koperebiblock) {

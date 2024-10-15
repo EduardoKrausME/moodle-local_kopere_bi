@@ -21,7 +21,7 @@ use external_api;
 use external_value;
 use external_single_structure;
 use external_function_parameters;
-use local_kopere_bi\filter;
+use local_kopere_bi\util\filter;
 use local_kopere_bi\util\string_util;
 use local_kopere_bi\vo\local_kopere_bi_block;
 use local_kopere_bi\vo\local_kopere_bi_page;
