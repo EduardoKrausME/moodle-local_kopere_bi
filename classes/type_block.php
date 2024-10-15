@@ -42,7 +42,7 @@ use local_kopere_dashboard\util\header;
  * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class type_block {
+class type_block extends bi_all {
 
     /**
      * Function select_type
@@ -53,7 +53,7 @@ class type_block {
      * @throws \Exception
      */
     public function select_type($blockid, $blocknum) {
-        global $DB, $PAGE;
+        global $DB, $PAGE, $OUTPUT;
 
         /** @var local_kopere_bi_block $block */
         $block = $DB->get_record("local_kopere_bi_block", ["id" => $blockid]);
@@ -81,44 +81,37 @@ class type_block {
                 "description" => info::get_description(),
                 "link" =>
                     "?classname=bi-dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=info",
-            ],
-            [
+            ], [
                 "id" => "pie",
                 "title" => pie::get_name(),
                 "description" => pie::get_description(),
                 "link" => "?classname=bi-dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=pie",
-            ],
-            [
+            ], [
                 "id" => "line",
                 "title" => line::get_name(),
                 "description" => line::get_description(),
                 "link" => "?classname=bi-dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=line",
-            ],
-            [
+            ], [
                 "id" => "area",
                 "title" => area::get_name(),
                 "description" => area::get_description(),
                 "link" => "?classname=bi-dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=area",
-            ],
-            [
+            ], [
                 "id" => "column",
                 "title" => column::get_name(),
                 "description" => column::get_description(),
                 "link" => "?classname=bi-dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=column",
-            ],
-            [
+            ], [
                 "id" => "table",
                 "title" => table::get_name(),
                 "description" => table::get_description(),
                 "link" => "?classname=bi-dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=table",
-            ],
-            [
+            ], [
                 "id" => "maps",
                 "title" => maps::get_name(),
                 "description" => maps::get_description(),
                 "link" => "?classname=bi-dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=maps",
-            ],
-            [
+            ], [
                 "id" => "html",
                 "title" => html::get_name(),
                 "description" => html::get_description(),
@@ -127,15 +120,7 @@ class type_block {
         ];
 
         foreach ($buttons as $button) {
-            echo "
-                <div class='type-chart'>
-                    <div class='type-chart-text'>
-                        <h4 class='block-title select_type'>{$button["title"]}</h4>
-                        <p>{$button["description"]}</p>
-                        <a href='{$button["link"]}' class='btn btn-info'>Usar este tipo</a>
-                    </div>
-                    <div class='type-chart-chart' id='chart-{$button["id"]}'></div>
-                </div>";
+            echo $OUTPUT->render_from_template("local_kopere_bi/dashboard_start", $button);
         }
 
         echo "</div>";
@@ -167,6 +152,9 @@ class type_block {
 
             $koperebielement->theme = optional_param("theme", "", PARAM_TEXT);
             $koperebielement->css = optional_param("css", "", PARAM_TEXT);
+            $koperebielement->html_before = optional_param("html_before", "", PARAM_RAW);
+            $koperebielement->html_after = optional_param("html_after", "", PARAM_RAW);
+
             $info = optional_param_array("info", [], PARAM_TEXT);
 
             $koperebielement->info_obj = array_merge($koperebielement->info_obj, $info);
@@ -207,9 +195,6 @@ class type_block {
                     $koperebielement->time = time();
                     $koperebielement->id = $DB->insert_record("local_kopere_bi_element", $koperebielement);
                 }
-
-                /** @var local_kopere_bi_block $koperebiblock */
-                $koperebiblock = $DB->get_record("local_kopere_bi_block", ["id" => $koperebielement->block_id]);
             }
 
             if ($block->is_edit_columns()) {
@@ -233,17 +218,23 @@ class type_block {
         global $DB;
 
         if (form::check_post()) {
-            $columnname = required_param_array("column-name", PARAM_TEXT);
+            $columntitle = required_param_array("column-title", PARAM_TEXT);
             $columntype = required_param_array("column-type", PARAM_TEXT);
+            $columnmustache = required_param_array("column-mustache", PARAM_RAW);
 
             if (!is_array($koperebielement->info_obj)) {
                 $koperebielement->info_obj = [];
             }
 
-            $koperebielement->info_obj["column"] = [
-                "name" => $columnname,
-                "type" => $columntype,
-            ];
+            $koperebielement->info_obj["column"] = [];
+            foreach ($columntitle as $key => $title) {
+                $koperebielement->info_obj["column"][$key] = [
+                    "key" => $key,
+                    "title" => $title,
+                    "type" => $columntype[$key],
+                    "mustache" => @$columnmustache[$key],
+                ];
+            }
 
             $koperebielement->info = json_encode($koperebielement->info_obj);
 
