@@ -18,6 +18,7 @@ namespace local_kopere_bi\block;
 
 use local_kopere_bi\block\util\cache_util;
 use local_kopere_bi\block\util\code_util;
+use local_kopere_bi\block\util\database_util;
 use local_kopere_bi\util\sql_util;
 use local_kopere_dashboard\html\form;
 use local_kopere_dashboard\util\mensagem;
@@ -38,7 +39,7 @@ class info implements i_type {
      * @throws \coding_exception
      */
     public static function get_name() {
-        return get_string('info_name', 'local_kopere_bi');
+        return get_string("info_name", "local_kopere_bi");
     }
 
     /**
@@ -48,7 +49,7 @@ class info implements i_type {
      * @throws \coding_exception
      */
     public static function get_description() {
-        return get_string('info_desc', 'local_kopere_bi');
+        return get_string("info_desc", "local_kopere_bi");
     }
 
     /**
@@ -73,9 +74,9 @@ class info implements i_type {
      */
     public function edit(form $form, $koperebielement) {
 
-        mensagem::print_warning(get_string('info_sql_warning', 'local_kopere_bi'));
+        mensagem::print_warning(get_string("info_sql_warning", "local_kopere_bi"));
 
-        code_util::load_ace_commandsql($form, $koperebielement);
+        code_util::input_commandsql($form, $koperebielement);
     }
 
     /**
@@ -107,20 +108,19 @@ class info implements i_type {
      * @throws \Exception
      */
     public function preview($koperebielement) {
-        global $DB;
 
         $cache = cache_util::get_cache_make($koperebielement->cache);
 
-        if (false &&$cache->has($koperebielement->id)) {
+        if (false && $cache->has($koperebielement->id)) {
             $retorno = $cache->get($koperebielement->id);
         } else {
 
             $comand = sql_util::prepare_sql($koperebielement->commandsql);
 
             try {
-                $line = $DB->get_record_sql($comand->sql, $comand->params, IGNORE_MULTIPLE);
-            } catch (\dml_exception $e) {
-                mensagem::print_danger(get_string('info_error_sql', 'local_kopere_bi'));
+                $line = (new database_util())->get_record_sql_block($comand->sql, $comand->params);
+            } catch (\Exception $e) {
+                mensagem::print_danger(get_string("info_error_sql", "local_kopere_bi"));
                 return "";
             }
 
