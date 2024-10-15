@@ -25,42 +25,53 @@
 defined('MOODLE_INTERNAL') || die;
 
 $definitions = [
-    // Faz cache da localização dos IP's.
+    // Caches the location of IPs.
     "ip_user_location" => [
         "mode" => cache_store::MODE_APPLICATION,
-        'ttl' => 10 * 24 * 60 * 60, // 10d.
-        'staticacceleration' => true,
+        "ttl" => 10 * 24 * 60 * 60, // 10d.
+        "staticacceleration" => true,
     ],
 
-    // Faz cache das pesquisas.
+    // Caches searches.
     "block_chart_data_none" => [
         "mode" => cache_store::MODE_APPLICATION,
-        'ttl' => 1 * 60, // 1 minuto.
-        'staticacceleration' => true,
+        "ttl" => 1 * 60, // 1 minute.
+        "staticacceleration" => true,
     ],
     "block_chart_data_15m" => [
         "mode" => cache_store::MODE_APPLICATION,
-        'ttl' => 15 * 60, // 15 minutos.
-        'staticacceleration' => true,
+        "ttl" => 15 * 60, // 15 minutes.
+        "staticacceleration" => true,
     ],
     "block_chart_data_30m" => [
         "mode" => cache_store::MODE_APPLICATION,
-        'ttl' => 30 * 60, // 15 minutos.
-        'staticacceleration' => true,
+        "ttl" => 30 * 60, // 15 minutes.
+        "staticacceleration" => true,
     ],
     "block_chart_data_1h" => [
         "mode" => cache_store::MODE_APPLICATION,
-        'ttl' => 1 * 60 * 60, // 1 hora.
-        'staticacceleration' => true,
+        "ttl" => 1 * 60 * 60, // 1 hour.
+        "staticacceleration" => true,
     ],
     "block_chart_data_6h" => [
         "mode" => cache_store::MODE_APPLICATION,
-        'ttl' => 6 * 60 * 60, // 6 horas.
-        'staticacceleration' => true,
+        "ttl" => 6 * 60 * 60, // 6 hours.
+        "staticacceleration" => true,
     ],
     "block_chart_data_1d" => [
         "mode" => cache_store::MODE_APPLICATION,
-        'ttl' => 24 * 60 * 60, // 24 horas.
-        'staticacceleration' => true,
+        "ttl" => 24 * 60 * 60, // 24 hours.
+        "staticacceleration" => true,
+    ],
+
+    "mustache_sql" => [
+        "mode" => cache_store::MODE_APPLICATION,
+        "ttl" => 1 * 60 * 60, // 1 hours.
+        "staticacceleration" => true,
+    ],
+    "mustache_nosql" => [
+        "mode" => cache_store::MODE_APPLICATION,
+        "ttl" => 24 * 60 * 60, // 24 hours.
+        "staticacceleration" => true,
     ],
 ];
