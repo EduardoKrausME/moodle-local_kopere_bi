@@ -133,7 +133,7 @@ class table implements i_type {
             echo "</table>";
             echo "</div>";
 
-            mensagem::print_info(get_string("table_info_secound", "local_kopere_bi"));
+            mensagem::print_info(get_string("table_info_second", "local_kopere_bi"));
             foreach ($lines[0] as $id => $line) {
                 echo
                     "<fieldset><legend>" . get_string("table_edit_column", "local_kopere_bi") .
