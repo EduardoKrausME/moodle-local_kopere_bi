@@ -21,6 +21,25 @@
  * @copyright 2020 Eduardo Kraus {@link http://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+/**
+ * Function xmldb_local_kopere_bi_upgrade
+ *
+ * @param $oldversion
+ *
+ * @return bool
+ * @throws downgrade_exception
+ * @throws upgrade_exception
+ * @throws dml_exception
+ */
 function xmldb_local_kopere_bi_upgrade($oldversion) {
+
+    if ($oldversion < 2023101500) {
+        require_once("db-config.php");
+        reset_bi_reports();
+
+        upgrade_plugin_savepoint(true, 2023101500, "local", "kopere_bi");
+    }
+
     return true;
 }
