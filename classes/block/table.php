@@ -19,12 +19,14 @@ namespace local_kopere_bi\block;
 use local_kopere_bi\block\util\cache_util;
 use local_kopere_bi\block\util\code_util;
 use local_kopere_bi\block\util\database_util;
+use local_kopere_bi\output\renderer_bi_mustache;
 use local_kopere_bi\util\sql_util;
 use local_kopere_bi\util\string_util;
 use local_kopere_dashboard\html\data_table;
 use local_kopere_dashboard\html\form;
 use local_kopere_dashboard\html\inputs\input_select;
 use local_kopere_dashboard\html\inputs\input_text;
+use local_kopere_dashboard\html\inputs\input_textarea;
 use local_kopere_dashboard\html\table_header_item;
 use local_kopere_dashboard\util\json;
 use local_kopere_dashboard\util\mensagem;
@@ -79,7 +81,7 @@ class table implements i_type {
      * @throws \Exception
      */
     public function edit(form $form, $koperebielement) {
-        code_util::load_ace_commandsql($form, $koperebielement);
+        code_util::input_commandsql($form, $koperebielement);
     }
 
     /**
@@ -133,8 +135,11 @@ class table implements i_type {
 
             mensagem::print_info(get_string("table_info_secound", "local_kopere_bi"));
             foreach ($lines[0] as $id => $line) {
-                echo "<h3>" . get_string("table_edit_column", "local_kopere_bi") . ": <strong><em>{$id}</em></strong></h3>";
+                echo
+                    "<fieldset><legend>" . get_string("table_edit_column", "local_kopere_bi") .
+                    ": <strong><em>{$id}</em></strong></legend>";
                 $this->select_data($koperebielement, $id);
+                echo "</fieldset>";
             }
         } else {
             mensagem::print_warning("0 rows");
@@ -148,11 +153,12 @@ class table implements i_type {
      * Function select_data
      *
      * @param $koperebielement
-     * @param $collname
+     * @param $collkey
      *
      * @throws \Exception
      */
-    private function select_data($koperebielement, $collname) {
+    private function select_data($koperebielement, $collkey) {
+        global $PAGE;
 
         $types = [
             [
@@ -165,23 +171,17 @@ class table implements i_type {
                 "key" => "number",
                 "value" => get_string("table_renderer_number", "local_kopere_bi"),
             ], [
-                "key" => "fullname",
-                "value" => get_string("table_renderer_fullname", "local_kopere_bi"),
+                "key" => "userfullname",
+                "value" => get_string("table_renderer_userfullname", "local_kopere_bi"),
             ], [
                 "key" => table_header_item::RENDERER_USERPHOTO,
                 "value" => get_string("table_renderer_userphoto", "local_kopere_bi"),
             ], [
-                "key" => table_header_item::RENDERER_TRUEFALSE,
-                "value" => get_string("table_renderer_truefalse", "local_kopere_bi"),
-            ], [
-                "key" => table_header_item::RENDERER_STATUS,
-                "value" => get_string("table_renderer_status", "local_kopere_bi"),
-            ], [
                 "key" => table_header_item::RENDERER_VISIBLE,
                 "value" => get_string("table_renderer_visible", "local_kopere_bi"),
             ], [
-                "key" => table_header_item::RENDERER_DELETED,
-                "value" => get_string("table_renderer_deleted", "local_kopere_bi"),
+                "key" => table_header_item::RENDERER_STATUS,
+                "value" => get_string("table_renderer_status", "local_kopere_bi"),
             ], [
                 "key" => table_header_item::RENDERER_DATE,
                 "value" => get_string("table_renderer_date", "local_kopere_bi"),
@@ -200,50 +200,68 @@ class table implements i_type {
             ],
         ];
 
-        $typedefault = null;
-        if (isset($koperebielement->info_obj["column"]["type"][$collname])) {
-            $typedefault = $koperebielement->info_obj["column"]["type"][$collname];
-        } else {
-            if ($collname == "firstname") {
-                $typedefault = "fullname";
-            } else if ($collname == "lastname") {
-                $typedefault = "none";
-            } else if (str_ends_with($collname, '_id')) {
-                $typedefault = "number";
-            } else if (strpos($collname, "time") !== false || strpos($collname, "date") !== false) {
-                $typedefault = table_header_item::RENDERER_DATETIME;
-            } else if (strpos($collname, "status") !== false || strpos($collname, "enable") !== false) {
-                $typedefault = table_header_item::RENDERER_STATUS;
-            } else if (strpos($collname, "visible") !== false) {
-                $typedefault = table_header_item::RENDERER_VISIBLE;
-            } else if (strpos($collname, "filesize") !== false) {
-                $typedefault = table_header_item::RENDERER_FILESIZE;
-            } else {
-                $typedefault = "string";
-            }
+        // Titles.
+        $valuedefault = $collkey;
+        if (isset($koperebielement->info_obj["column"][$collkey]["title"])) {
+            $valuedefault = $koperebielement->info_obj["column"][$collkey]["title"];
         }
-
-        $valuedefault = $collname;
-        if (isset($koperebielement->info_obj["column"]["name"][$collname])) {
-            $valuedefault = $koperebielement->info_obj["column"]["name"][$collname];
-        }
-
         $form = new form();
-        echo "<div class='d-flex' style='gap:10px'>";
         $form->add_input(
             input_text::new_instance()
                 ->set_title(get_string("table_col_title", "local_kopere_bi"))
-                ->set_name("column-name[{$collname}]")
+                ->set_name("column-title[{$collkey}]")
                 ->set_value($valuedefault)
         );
+
+        // Types.
+        $typedefault = "string";
+        $valuemustache = "";
+        if (isset($koperebielement->info_obj["column"][$collkey]["type"])) {
+            $typedefault = $koperebielement->info_obj["column"][$collkey]["type"];
+        } else {
+            if ($collkey == "firstname") {
+                $typedefault = "userfullname";
+                $valuemustache =
+                    "<a href='{{{wwwroot}}}/user/view.php?id={{{u_id}}}'" .
+                    "  target='profile'>{{#userfullname}} {{.}} {{/userfullname}}";
+            } else if ($collkey == "lastname") {
+                $typedefault = "none";
+            } else if ($collkey == "c_fullname") {
+                $valuemustache = "<a href='{{{wwwroot}}}/course/view.php?id={{{c_id}}}' target='profile'>{{{c_fullname}}}</a>";
+            } else if (str_ends_with($collkey, "_id")) {
+                $typedefault = "number";
+            } else if (strpos($collkey, "time") !== false || strpos($collkey, "date") !== false) {
+                $typedefault = table_header_item::RENDERER_DATETIME;
+            } else if (strpos($collkey, "status") !== false || strpos($collkey, "enable") !== false) {
+                $typedefault = table_header_item::RENDERER_STATUS;
+            } else if (strpos($collkey, "visible") !== false) {
+                $typedefault = table_header_item::RENDERER_VISIBLE;
+            } else if (strpos($collkey, "filesize") !== false) {
+                $typedefault = table_header_item::RENDERER_FILESIZE;
+            }
+        }
         $form->add_input(
             input_select::new_instance()
                 ->set_title(get_string("table_renderer_title", "local_kopere_bi"))
-                ->set_name("column-type[{$collname}]")
+                ->set_name("column-type[{$collkey}]")
                 ->set_values($types)
                 ->set_value($typedefault)
         );
-        echo "</div>";
+
+        // Mustaches.
+        if (isset($koperebielement->info_obj["column"][$collkey]["mustache"])) {
+            $valuemustache = $koperebielement->info_obj["column"][$collkey]["mustache"];
+        }
+        $form->add_input(
+            input_textarea::new_instance()
+                ->set_title(get_string("table_renderer_mustache", "local_kopere_bi"))
+                ->set_name("column-mustache[{$collkey}]")
+                ->set_value($valuemustache)
+                ->set_style("height:45px;max-height:350px;")
+                ->add_extras('oninput="this.style.height=\'\';this.style.height=(this.scrollHeight+5)+\'px\'"')
+                ->add_extras('onfocus="this.style.height=\'\';this.style.height=(this.scrollHeight+5)+\'px\'"')
+        );
+        $PAGE->requires->js_call_amd("local_kopere_bi/ace", "load", ["columnmustache{$collkey}", "html", 3]);
     }
 
     /**
@@ -257,36 +275,67 @@ class table implements i_type {
     public function preview($koperebielement) {
         $table = new data_table();
 
-        if (!isset($koperebielement->info_obj["column"]["type"])) {
+        if (!isset($koperebielement->info_obj["column"])) {
             return mensagem::danger(get_string("table_column_not_configured", "local_kopere_bi"));
         }
 
-        foreach ($koperebielement->info_obj["column"]["type"] as $key => $type) {
-            if ($type == "none") {
+        $returnhtml = "";
+        $mustachedata = ["u_fullname" => "[[u_fullname]]"];
+        foreach ($koperebielement->info_obj["column"] as $key => $column) {
+            $mustachedata[$key] = "[[$key]]";
+        }
+
+        $mustache = new renderer_bi_mustache();
+        foreach ($koperebielement->info_obj["column"] as $key => $column) {
+
+            if ($column["type"] == "none") {
                 continue;
             }
 
-            $name = $koperebielement->info_obj["column"]["name"][$key];
+            $name = $koperebielement->info_obj["column"][$key]["title"];
             $name = string_util::get_string($name);
 
-            switch ($type) {
+            switch ($column["type"]) {
                 case "number":
                     $table->add_header($name, $key, table_header_item::TYPE_INT);
                     break;
                 case table_header_item::RENDERER_USERPHOTO:
-                    $table->add_header($name, $key, table_header_item::RENDERER_USERPHOTO);
-                    break;
-                case table_header_item::RENDERER_TRUEFALSE:
-                    $table->add_header($name, $key, table_header_item::RENDERER_TRUEFALSE);
+                    if (!isset($column["mustache"][3])) {
+                        $url = "{{{globals.config.wwwroot}}}/local/kopere_dashboard/profile-image.php";
+                        $column["mustache"] = "
+                            <div class='text-center'>
+                                <img class='media-object'
+                                     src='{$url}?type=photo_user&id={{{{$key}}}}'
+                                     style='width:35px;height:35px'/>
+                            </div>";
+                        $table->add_header($name, $key);
+                    } else {
+                        $table->add_header($name, $key, table_header_item::RENDERER_USERPHOTO);
+                    }
                     break;
                 case table_header_item::RENDERER_STATUS:
-                    $table->add_header($name, $key, table_header_item::RENDERER_STATUS);
+                    if (!isset($column["mustache"][3])) {
+                        $column["mustache"] = "<span class='kopere-bi-renderer-status-{{{{$key}}}}'></span>";
+                        $table->add_header($name, $key);
+                    } else {
+                        $table->add_header($name, $key, table_header_item::RENDERER_STATUS);
+                    }
                     break;
                 case table_header_item::RENDERER_VISIBLE:
-                    $table->add_header($name, $key, table_header_item::RENDERER_VISIBLE);
+                    if (!isset($column["mustache"][3])) {
+                        $column["mustache"] = "<span class='kopere-bi-renderer-visible-{{{{$key}}}}'></span>";
+                        $table->add_header($name, $key);
+                    } else {
+                        $table->add_header($name, $key, table_header_item::RENDERER_VISIBLE);
+                    }
                     break;
                 case table_header_item::RENDERER_DELETED:
-                    $table->add_header($name, $key, table_header_item::RENDERER_DELETED);
+                    if (!isset($column["mustache"][3])) {
+                        $column["mustache"] = "<span class='kopere-bi-renderer-deleted-{{{{$key}}}}'></span>";
+                        $table->add_header($name, $key);
+                    } else {
+                        $table->add_header($name, $key, table_header_item::RENDERER_DELETED);
+                    }
                     break;
                 case table_header_item::RENDERER_DATE:
                     $table->add_header($name, $key, table_header_item::RENDERER_DATE);
@@ -303,9 +352,17 @@ class table implements i_type {
                 default:
                     $table->add_header($name, $key);
             }
-        }
 
-        $returnhtml = "";
+            if (isset($column["mustache"][3])) {
+
+                $html = $column["mustache"];
+                $html = str_replace("'", '"', $html);
+                $html = $mustache->render_from_string($html, $mustachedata);
+
+                $html = htmlspecialchars(trim($html), ENT_COMPAT);
+                $returnhtml .= "\n<input type='hidden' id='mustache_{$key}' value='{$html}'/>\n";
+            }
+        }
 
         $table->set_ajax_url("?classname=bi-chart_data&method=load_data&item_id={$koperebielement->id}");
         $returnhtml .= $table->print_header("", true, true);
@@ -323,11 +380,12 @@ class table implements i_type {
      * @throws \Exception
      */
     public function get_chart_data($koperebielement) {
+        global $CFG;
 
         $numexecs = 0;
         $execs = [];
         foreach ($koperebielement->info_obj["column"]["type"] as $key => $type) {
-            if ($type == "fullname" || $type == "translate") {
+            if ($type == "userfullname" || $type == "translate") {
                 $execs[$key] = $type;
                 $numexecs++;
             }
@@ -345,12 +403,13 @@ class table implements i_type {
                 return;
             }
 
+            $CFG->debugdeveloper = false;
             if ($numexecs) {
                 $returnlines = [];
                 foreach ($lines as $line) {
                     foreach ($execs as $key => $type) {
-                        if ($type == "fullname") {
-                            $line->$key = fullname($line);
+                        if ($type == "userfullname") {
+                            $line->u_fullname = $line->$key = fullname($line);
                         }
                         if ($type == "translate") {
                             $line->$key = string_util::get_string($line->$key);
