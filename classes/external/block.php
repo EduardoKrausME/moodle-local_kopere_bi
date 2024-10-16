@@ -196,7 +196,9 @@ class block extends external_api {
      * @throws \Exception
      */
     public static function add($pageid, $type) {
-        global $DB;
+        global $DB, $PAGE;
+
+        $PAGE->set_context(\context_system::instance());
 
         $koperebiblock = (object)[
             "page_id" => $pageid,
