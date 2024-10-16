@@ -288,7 +288,7 @@ class dashboard extends bi_all {
             echo "<p>" . string_util::get_string($koperebipage->description) . "</p>";
         }
 
-        echo $OUTPUT->render_from_template("kopere_bi/dashboard/topo-edit-page",
+        echo $OUTPUT->render_from_template("local_kopere_bi/dashboard/topo-edit-page",
             ["koperebipage_id" => $koperebipage->id]);
 
         echo '<div class="element-box">';
@@ -302,7 +302,7 @@ class dashboard extends bi_all {
         foreach ($koperebiblocks as $koperebiblock) {
             echo (new details_util())->html_details_block($koperebiblock);
 
-            echo $OUTPUT->render("local_kopere_bi/dashboard/dialog-confirm-block",
+            echo $OUTPUT->render_from_template("local_kopere_bi/dashboard/dialog-confirm-block",
                 ["koperebipage_id" => $koperebipage->id]);
         }
 
