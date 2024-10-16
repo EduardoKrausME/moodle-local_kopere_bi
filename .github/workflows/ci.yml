@@ -87,6 +87,7 @@ jobs:
       if: ${{ !cancelled() }}
       run: moodle-plugin-ci savepoints
 
+
     - name: Mustache Lint
       if: ${{ !cancelled() }}
       run: moodle-plugin-ci mustache
