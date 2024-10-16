@@ -33,7 +33,7 @@
 <div class="area-chart area-chart-area" id="chart_{{local_kopere_bi_id}}"></div>
 
 {{#js}}
-    require(["jquery", "core/notification", "local_kopere_bi/apexcharts"], function($, Notification, ApexCharts) {
+    require(["jquery", "core/notification"], function($, Notification) {
         function showChart(xaxisCategories, series) {
             try {
                 var options = {{{chart_default}}};
