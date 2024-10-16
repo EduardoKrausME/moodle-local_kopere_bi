@@ -293,30 +293,21 @@ class table implements i_type {
                     $table->add_header($name, $key, table_header_item::TYPE_INT);
                     break;
                 case table_header_item::RENDERER_USERPHOTO:
-                    if (!isset($column["mustache"][3])) {
-                        $url = "{{{config.wwwroot}}}/local/kopere_dashboard/profile-image.php";
-                        $column["mustache"] = "
-                            <div class='text-center'>
-                                <img class='media-object'
-                                     src='{$url}?type=photo_user&id={{{{$key}}}}'
-                                     style='width:35px;height:35px'/>
-                            </div>";
+                    if (isset($column["mustache"][3])) {
                         $table->add_header($name, $key);
                     } else {
                         $table->add_header($name, $key, table_header_item::RENDERER_USERPHOTO);
                     }
                     break;
                 case table_header_item::RENDERER_STATUS:
-                    if (!isset($column["mustache"][3])) {
-                        $column["mustache"] = "<span class='kopere-bi-renderer-status-{{{{$key}}}}'></span>";
+                    if (isset($column["mustache"][3])) {
                         $table->add_header($name, $key);
                     } else {
                         $table->add_header($name, $key, table_header_item::RENDERER_STATUS);
                     }
                     break;
                 case table_header_item::RENDERER_VISIBLE:
-                    if (!isset($column["mustache"][3])) {
-                        $column["mustache"] = "<span class='kopere-bi-renderer-visible-{{{{$key}}}}'></span>";
+                    if (isset($column["mustache"][3])) {
                         $table->add_header($name, $key);
                     } else {
                         $table->add_header($name, $key, table_header_item::RENDERER_VISIBLE);
@@ -388,9 +379,9 @@ class table implements i_type {
 
             $CFG->debugdeveloper = false;
             $mustache = new renderer_bi_mustache();
-            if ($numexecs) {
-                $newlines = [];
-                foreach ($lines as $line) {
+            $newlines = [];
+            foreach ($lines as $line) {
+                if ($numexecs) {
                     foreach ($execs as $key => $type) {
                         if ($type == "userfullname") {
                             $line->u_fullname = fullname($line);
@@ -399,23 +390,24 @@ class table implements i_type {
                             $line->$key = string_util::get_string($line->$key);
                         }
                     }
-
-                    $value = $line->$key;
-                    foreach ($koperebielement->info_obj["column"] as $key => $column) {
-                        if (isset($column["mustache"][3]) &&
-                            $column["mustache"] != "{{{{$key}}}}" &&
-                            isset($value[0])
-                        ) {
-                            $line->{"{$key}_mustache"} = $mustache->render_from_string($column["mustache"], $line);
-                        }
-                    }
-
-                    $newlines[] = $line;
                 }
 
-                $lines = $newlines;
+                $mustacheline = $line;
+
+                $value = $line->$key;
+                foreach ($koperebielement->info_obj["column"] as $key => $column) {
+                    if (isset($column["mustache"][3]) &&
+                        $column["mustache"] != "{{{{$key}}}}" &&
+                        isset($value[0])
+                    ) {
+                        $line->{"{$key}_mustache"} = $mustache->render_from_string($column["mustache"], $mustacheline);
+                    }
+                }
+
+                $newlines[] = $line;
             }
 
+            $lines = $newlines;
             $cache->set($koperebielement->id, $lines);
         }
 
