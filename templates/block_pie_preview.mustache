@@ -50,11 +50,7 @@
                 chart.render();
             }
             catch (e) {
-                Notification.exception(
-                    {
-                        message: "{{error_chart_renderer}}"
-                    }
-                );
+                Notification.exception({message: "{{error_chart_renderer}}"});
             }
         }
 
@@ -66,11 +62,7 @@
                     showChart(json.labels, json.series);
                 },
                 error: function() {
-                    Notification.exception(
-                        {
-                            message: "{{error_data_loader}}"
-                        }
-                    );
+                    Notification.exception({message: "{{error_data_loader}}"});
                 }
             });
         }
