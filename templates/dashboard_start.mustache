@@ -115,13 +115,13 @@
         function saveOrderCategories() {
             var itens = "";
             $(".dashboard-home").each(function() {
-                itens += "," + $(this).attr("data-category_id")
+                itens += "," + $(this).attr("data-category_id");
             });
 
             ajax.call([{
-                methodname : "local_kopere_bi_cat_sortorder",
-                args       : {
-                    itens : itens
+                methodname: "local_kopere_bi_cat_sortorder",
+                args: {
+                    itens: itens
                 }
             }])[0];
         }
