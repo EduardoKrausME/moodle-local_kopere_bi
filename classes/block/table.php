@@ -400,10 +400,12 @@ class table implements i_type {
                         }
                     }
 
+                    $value = $line->$key;
                     foreach ($koperebielement->info_obj["column"] as $key => $column) {
                         if (isset($column["mustache"][3]) &&
                             $column["mustache"] != "{{{{$key}}}}" &&
-                            isset($line->$key[0])) {
+                            isset($value[0])
+                        ) {
                             $line->{"{$key}_mustache"} = $mustache->render_from_string($column["mustache"], $line);
                         }
                     }

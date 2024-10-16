@@ -24,7 +24,7 @@
 
 namespace local_kopere_bi\output;
 
-use local_kopere_dashboard\util\string_util;
+use local_kopere_bi\util\string_util;
 use Mustache_Engine;
 
 
@@ -94,7 +94,7 @@ class renderer_bi_mustache extends Mustache_Engine {
                     "execute",
                 ],
                 "uniqid" => function () {
-                    return "uniqid_" . string_util::generate_random_string();
+                    return "uniqid_" .uniqid();
                 },
 
             ],
@@ -125,7 +125,8 @@ class renderer_bi_mustache extends Mustache_Engine {
         if (!isset($template[3])) {
             return $template;
         }
-        //  $template = string_util::get_string($template);
+
+        $template = string_util::get_string($template);
 
         if ($class) {
             $template = "<div class='{$class}'>{$template}</div>";
