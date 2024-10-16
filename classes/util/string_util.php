@@ -61,20 +61,20 @@ class string_util {
      * @throws \coding_exception
      */
     public static function get_string($string) {
-        if (strpos($string, "lang::") === false || $string == "#" || $string == "") {
+        if (!isset($string[8]) || strpos($string, "lang::") === false) {
             return $string;
         }
 
-        $strings = explode("::", $string);
-        if (isset($strings[2])) {
-            $identifier = $strings[1];
+        preg_match_all('/lang::([a-zA-Z0-9_\-]+)::(\w+)/', $string, $langs);
+        foreach ($langs[0] as $key => $str) {
 
-            if (clean_param($identifier, PARAM_STRINGID) === "") {
-                throw new coding_exception("Invalid string identifier '{$identifier}' in '{$string}'.", DEBUG_DEVELOPER);
-            }
+            $identifier = $langs[1][$key];
+            $component = $langs[2][$key];
 
-            return get_string($identifier, $strings[2]);
+            $newstring = get_string($identifier, $component);
+            $string = str_replace($str, $newstring, $string);
         }
-        return $string;
+
+        return  $string;
     }
 }
