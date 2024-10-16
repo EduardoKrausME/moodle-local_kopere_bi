@@ -76,12 +76,6 @@ class type_block extends bi_all {
 
         $buttons = [
             [
-                "id" => "info",
-                "title" => info::get_name(),
-                "description" => info::get_description(),
-                "link" =>
-                    "?classname=bi-dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=info",
-            ], [
                 "id" => "pie",
                 "title" => pie::get_name(),
                 "description" => pie::get_description(),
@@ -112,6 +106,12 @@ class type_block extends bi_all {
                 "description" => maps::get_description(),
                 "link" => "?classname=bi-dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=maps",
             ], [
+                "id" => "info",
+                "title" => info::get_name(),
+                "description" => info::get_description(),
+                "link" =>
+                    "?classname=bi-dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=info",
+            ], [
                 "id" => "html",
                 "title" => html::get_name(),
                 "description" => html::get_description(),
@@ -120,7 +120,7 @@ class type_block extends bi_all {
         ];
 
         foreach ($buttons as $button) {
-            echo $OUTPUT->render_from_template("local_kopere_bi/dashboard_start", $button);
+            echo $OUTPUT->render_from_template("local_kopere_bi/type_block/select_type", $button);
         }
 
         echo "</div>";
