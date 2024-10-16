@@ -20,6 +20,7 @@ use local_kopere_bi\block\i_type;
 use local_kopere_bi\output\renderer_bi_mustache;
 use local_kopere_bi\vo\local_kopere_bi_block;
 use local_kopere_bi\vo\local_kopere_bi_element;
+use local_kopere_dashboard\html\button;
 use local_kopere_dashboard\util\mensagem;
 
 /**
@@ -120,7 +121,7 @@ class preview_util {
      * @throws \ScssPhp\ScssPhp\Exception\SassException
      */
     private function details_block_item($blockid, $blocknum) {
-        global $DB, $OUTPUT;
+        global $DB, $OUTPUT, $USER;
 
         $return = "";
 
@@ -137,6 +138,11 @@ class preview_util {
             $blockclass = "\\local_kopere_bi\\block\\{$koperebielement->type}";
             if (class_exists($blockclass)) {
                 $title = string_util::get_string($koperebielement->title);
+
+                if (isset($USER->editing) && $USER->editing) {
+                    $title = $title . button::edit(get_string("edit_report", "local_kopere_bi"),
+                            "?classname=bi-dashboard&method=type_block_edit&item_id={$koperebielement->id}", 'mr-4', false, true);
+                }
 
                 /** @var i_type $block */
                 $block = new $blockclass();
@@ -158,6 +164,7 @@ class preview_util {
                     $data = ["title" => $title];
                     $return .= $OUTPUT->render_from_template("local_kopere_bi/blocks/details_block_item", $data);
                 }
+
             } else {
                 mensagem::print_danger(get_string("block_not_found", "local_kopere_bi"));
             }
