@@ -29,6 +29,17 @@ define(["jquery"], function($) {
                     editorDiv.height(newHeight);
                     editor.resize();
                 });
+                editor.session.on("changeAnnotation", function() {
+                    var annotations = editor.session.getAnnotations() || [], i = len = annotations.length;
+                    while (i--) {
+                        if (/doctype first\. Expected/.test(annotations[i].text)) {
+                            annotations.splice(i, 1);
+                        }
+                    }
+                    if (len > annotations.length) {
+                        editor.session.setAnnotations(annotations);
+                    }
+                });
 
                 if (!minLines) {
                     minLines = 6;
@@ -36,8 +47,10 @@ define(["jquery"], function($) {
 
                 editor.setOptions({
                     maxLines : 21,
-                    minLines : 6,
+                    minLines : minLines,
                 });
+
+                window[`editor_${id_key}`] = editor;
             });
         },
 
