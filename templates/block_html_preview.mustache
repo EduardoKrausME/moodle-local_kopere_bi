@@ -32,7 +32,7 @@
 {{#js}}
     require(["jquery", "core/notification"], function($, Notification) {
 
-        function loadDataChart{{local_kopere_bi_id}}() {
+        function loadDataChart() {
             $.ajax({
                 dataType: "json",
                 url: "{{{ajax_url}}}",
@@ -46,11 +46,11 @@
             });
         }
 
-        loadDataChart{{local_kopere_bi_id}}();
+        loadDataChart();
 
         var reloadTime = parseInt("{{{reload_time}}}");
         if (reloadTime) {
-            setInterval(loadDataChart{{local_kopere_bi_id}}, reloadTime);
+            setInterval(loadDataChart, reloadTime);
         }
     });
 {{/js}}

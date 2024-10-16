@@ -34,7 +34,7 @@
 
 {{#js}}
     require(["jquery", "core/notification"], function($, Notification) {
-        function showChart{{local_kopere_bi_id}}(labels, series) {
+        function showChart(labels, series) {
             try {
                 var options = {{{chart_pie_default}}};
 
@@ -59,13 +59,12 @@
             }
         }
 
-        function loadDataChart{{local_kopere_bi_id}}() {
-            console.log("{{{ajax_url}}}");
+        function loadDataChart() {
             $.ajax({
                 dataType: "json",
                 url: "{{{ajax_url}}}",
                 success: function(json) {
-                    showChart{{local_kopere_bi_id}}(json.labels, json.series);
+                    showChart(json.labels, json.series);
                 },
                 error: function() {
                     Notification.exception({message: "{{error_data_loader}}"});
@@ -73,11 +72,11 @@
             });
         }
 
-        loadDataChart{{local_kopere_bi_id}}();
+        loadDataChart();
 
         var reloadTime = parseInt("{{{reload_time}}}");
         if (reloadTime) {
-            setInterval(loadDataChart{{local_kopere_bi_id}}, reloadTime);
+            setInterval(loadDataChart, reloadTime);
         }
     });
 {{/js}}
