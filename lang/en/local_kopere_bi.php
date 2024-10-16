@@ -22,6 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['active_enrolments'] = 'Active Enrolments';
 $string['all_learners'] = 'All learners';
 $string['area_desc'] = 'Generates an area chart';
 $string['area_name'] = 'Area Chart';
@@ -98,6 +99,7 @@ $string['enrol_status'] = 'Enrollment status';
 $string['enrol_timeend'] = 'Enrollment completion';
 $string['error_chart_renderer'] = 'Error rendering the chart';
 $string['error_data_loader'] = 'Error loading chart data';
+$string['expired_enrolments'] = 'Expired Enrolments';
 $string['extra_langs_customs_title'] = 'To assist you with new strings, I left some fields blank:';
 $string['extra_langs_filter_component'] = 'Component';
 $string['extra_langs_header_identifier'] = 'Identifier';
@@ -141,6 +143,7 @@ $string['html_block_desc'] = '<p>The HTML added to this field should follow the 
 <p>For more information on using Mustache templates in Moodle, see the official documentation: <a href="https://moodledev.io/docs/guides/templates" target="_blank">Moodle Templates Guide</a>.</p>';
 $string['html_desc'] = 'Displays an HTML Block with data coming from the database';
 $string['html_name'] = 'HTML Block';
+$string['inactive_enrolments'] = 'Inactive Enrolments';
 $string['info_desc'] = 'Just information. Ideal for showing student name, enrollment status, etc.';
 $string['info_error_sql'] = 'Error executing SQL';
 $string['info_name'] = 'Information Line';

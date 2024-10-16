@@ -22,6 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['active_enrolments'] = 'Matrículas Ativas';
 $string['all_learners'] = 'Todos os alunos';
 $string['area_desc'] = 'Monta um gráfico de área';
 $string['area_name'] = 'Gráfico de Área';
@@ -98,6 +99,7 @@ $string['enrol_status'] = 'Status da matrícula';
 $string['enrol_timeend'] = 'Conclusão da matrícula';
 $string['error_chart_renderer'] = 'Erro ao renderizar o gráfico';
 $string['error_data_loader'] = 'Erro ao carregar os dados do gráfico';
+$string['expired_enrolments'] = 'Matrículas Expiradas';
 $string['extra_langs_customs_title'] = 'Para lhe ajudar com novas strings, deixei alguns campos vazios:';
 $string['extra_langs_filter_component'] = 'Componente';
 $string['extra_langs_header_identifier'] = 'Identificador';
@@ -141,6 +143,7 @@ $string['html_block_desc'] = '<p>O HTML adicionado a este campo deve seguir o fo
 <p>Para mais informações sobre o uso de templates Mustache no Moodle, consulte a documentação oficial: <a href="https://moodledev.io/docs/guides/templates" target="_blank">Moodle Templates Guide</a>.</p>';
 $string['html_desc'] = 'Mostra um Bloco, com formatação HTML, com dados vindo do banco de dados';
 $string['html_name'] = 'Bloco de HTML';
+$string['inactive_enrolments'] = 'Matrículas Inativas';
 $string['info_desc'] = 'Apenas uma informação. Ideal para mostrar o nome do estudante, status de matrícula, etc...';
 $string['info_error_sql'] = 'Erro ao executar SQL';
 $string['info_name'] = 'Linha de Informação';
