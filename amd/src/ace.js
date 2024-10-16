@@ -46,7 +46,7 @@ define(["jquery"], function($) {
                 }
 
                 editor.setOptions({
-                    maxLines : 21,
+                    // maxLines : 21,
                     minLines : minLines,
                 });
 
