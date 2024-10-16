@@ -867,5 +867,23 @@
   font-size: 12px !important;
   line-height: normal !important;
 }
+.kopere-bi #chart-course-button-open {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.kopere-bi #chart-course-datatable-select {
+  min-width: 800px;
+  min-height: 450px !important;
+}
+.kopere-bi #chart-user-button-open {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.kopere-bi #chart-user-datatable-select {
+  min-width: 800px;
+  min-height: 450px !important;
+}
 
 /*# sourceMappingURL=style.css.map */
