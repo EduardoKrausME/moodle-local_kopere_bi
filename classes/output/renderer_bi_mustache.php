@@ -59,6 +59,14 @@ class renderer_bi_mustache extends Mustache_Engine {
                     $texts = explode(",", $text);
                     $identifier = trim(array_shift($texts));
                     $component = trim(array_shift($texts));
+
+                    if (strpos($identifier, "{{") !== false) {
+                        $identifier = $this->render_from_string($identifier, $this->data);
+                    }
+                    if (strpos($component, "{{") !== false) {
+                        $component = $this->render_from_string($component, $this->data);
+                    }
+
                     return get_string($identifier, $component);
                 },
                 "shortentext" => function ($args) {
@@ -93,9 +101,6 @@ class renderer_bi_mustache extends Mustache_Engine {
                     new mustache_sql_oneitem_helper(),
                     "execute",
                 ],
-                "uniqid" => function () {
-                    return "uniqid_" .uniqid();
-                },
 
             ],
             "pragmas" => [Mustache_Engine::PRAGMA_BLOCKS],
@@ -110,16 +115,23 @@ class renderer_bi_mustache extends Mustache_Engine {
     public $template;
 
     /**
+     * Var data
+     *
+     * @var array
+     */
+    public $data;
+
+    /**
      * Function render_from_string
      *
      * @param $template
-     * @param array $context
+     * @param array $data
      * @param string $class
      *
      * @return string
      * @throws \coding_exception
      */
-    public function render_from_string($template, $context = [], $class = null) {
+    public function render_from_string($template, $data = [], $class = null) {
         global $PAGE, $OUTPUT;
 
         if (!isset($template[3])) {
@@ -127,18 +139,11 @@ class renderer_bi_mustache extends Mustache_Engine {
         }
 
         $template = string_util::get_string($template);
-
         if ($class) {
             $template = "<div class='{$class}'>{$template}</div>";
         }
-
+        $cacheid = md5($template . json_encode($data));
         $this->template = $template;
-
-        if (!is_array($context)) {
-            $context = (array)$context;
-        }
-
-        $context["config"] = $PAGE->requires->get_config_for_javascript($PAGE, $OUTPUT);
 
         if (strpos($this->template, "{{#sql") === false) {
             $cache = \cache::make("local_kopere_bi", "mustache_nosql");
@@ -146,12 +151,18 @@ class renderer_bi_mustache extends Mustache_Engine {
             $cache = \cache::make("local_kopere_bi", "mustache_sql");
         }
 
-        $cacheid = md5($this->template);
         if ($cache->has($cacheid)) {
             return $cache->get($cacheid);
         }
 
-        $html = $this->render($this->template, $context);
+        if (!is_array($data)) {
+            $data = (array)$data;
+        }
+        $data["config"] = $PAGE->requires->get_config_for_javascript($PAGE, $OUTPUT);
+        $data["uniqid"] = "uniqid_" . uniqid();
+        $this->data = $data;
+
+        $html = $this->render($this->template, $data);
 
         $cache->set($cacheid, $html);
 
