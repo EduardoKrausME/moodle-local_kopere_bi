@@ -24,13 +24,7 @@
 
 namespace local_kopere_bi\output;
 
-use core\output\mustache_pix_helper;
-use core\output\mustache_quote_helper;
-use core\output\mustache_shorten_text_helper;
-use core\output\mustache_string_helper;
-use core\output\mustache_uniqid_helper;
-use core\output\mustache_user_date_helper;
-use local_kopere_bi\util\string_util;
+use local_kopere_dashboard\util\string_util;
 use Mustache_Engine;
 
 
@@ -54,38 +48,54 @@ class renderer_bi_mustache extends Mustache_Engine {
      * renderer_bi_mustache constructor.
      */
     public function __construct() {
-        global $PAGE, $OUTPUT;
+        global $PAGE;
 
         $themerev = theme_get_revision();
         parent::__construct([
             "cache" => make_localcache_directory("mustache/{$themerev}/{$PAGE->theme->name}"),
             "escape" => "s",
             "helpers" => [
-                "str" => [
-                    new mustache_string_helper(),
-                    "str",
-                ],
-                "quote" => [
-                    new mustache_quote_helper(),
-                    "quote",
-                ],
-                "shortentext" => [
-                    new mustache_shorten_text_helper(),
-                    "shorten",
-                ],
-                "pix" => [
-                    new mustache_pix_helper($OUTPUT),
-                    "pix",
-                ],
-                "userdate" => [
-                    new mustache_user_date_helper(),
-                    "transform",
-                ],
+                "str" => function ($text) {
+                    $texts = explode(",", $text);
+                    $identifier = trim(array_shift($texts));
+                    $component = trim(array_shift($texts));
+                    return get_string($identifier, $component);
+                },
+                "shortentext" => function ($args) {
+                    list($length, $text) = explode(',', $args, 2);
+                    $length = trim($length);
+                    $text = trim($text);
+
+                    return shorten_text($text, $length);
+                },
+                "pix" => function ($text) {
+                    global $OUTPUT;
+                    $key = strtok($text, ",");
+                    $key = trim($key);
+                    $component = strtok(",");
+                    $component = trim($component);
+                    if (!$component) {
+                        $component = '';
+                    }
+                    $text = strtok("");
+                    $text = htmlspecialchars_decode($text, ENT_COMPAT);
+
+                    return trim($OUTPUT->renderer->pix_icon($key, $text, $component));
+                },
+                "userdate" => function ($args) {
+                    list($timestamp, $format) = explode(',', $args, 2);
+                    $timestamp = trim($timestamp);
+                    $format = trim($format);
+
+                    return userdate($timestamp, $format);
+                },
                 "sqloneitem" => [
                     new mustache_sql_oneitem_helper(),
                     "execute",
                 ],
-                "uniqid", new mustache_uniqid_helper(),
+                "uniqid" => function () {
+                    return "uniqid_" . string_util::generate_random_string();
+                },
 
             ],
             "pragmas" => [Mustache_Engine::PRAGMA_BLOCKS],
@@ -115,7 +125,7 @@ class renderer_bi_mustache extends Mustache_Engine {
         if (!isset($template[3])) {
             return $template;
         }
-        $template = string_util::get_string($template);
+        //  $template = string_util::get_string($template);
 
         if ($class) {
             $template = "<div class='{$class}'>{$template}</div>";
@@ -127,9 +137,7 @@ class renderer_bi_mustache extends Mustache_Engine {
             $context = (array)$context;
         }
 
-        $context["globals"] = [
-            "config" => $PAGE->requires->get_config_for_javascript($PAGE, $OUTPUT),
-        ];
+        $context["config"] = $PAGE->requires->get_config_for_javascript($PAGE, $OUTPUT);
 
         if (strpos($this->template, "{{#sql") === false) {
             $cache = \cache::make("local_kopere_bi", "mustache_nosql");
@@ -158,6 +166,6 @@ class renderer_bi_mustache extends Mustache_Engine {
      * @return string
      */
     public function getTemplateClassName($source) {
-        return "__Mustache_" . md5($this->template);
+        return "__StringMustache_00" . md5($this->template);
     }
 }
