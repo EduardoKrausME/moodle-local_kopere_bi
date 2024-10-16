@@ -33,7 +33,7 @@
 <div class="area-chart area-chart-pie" id="chart_{{local_kopere_bi_id}}"></div>
 
 {{#js}}
-    require(["jquery", "core/notification"], function($, Notification) {
+    require(["jquery", "core/notification", "local_kopere_bi/apexcharts"], function($, Notification, ApexCharts) {
         function showChart(labels, series) {
             try {
                 var options = {{{chart_pie_default}}};
@@ -45,16 +45,11 @@
 
                 {{{code_util_get_js_theme}}}
 
-                if (false) { // moodle-plugin-ci mustache
-                    class ApexCharts {}
-                }
-
                 var element = document.querySelector("#chart_{{local_kopere_bi_id}}");
                 var chart = new ApexCharts(element, options);
                 chart.render();
             }
             catch (e) {
-                console.error(e);
                 Notification.exception({message: "{{error_chart_renderer}}"});
             }
         }
