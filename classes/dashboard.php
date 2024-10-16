@@ -303,7 +303,7 @@ class dashboard extends bi_all {
             echo (new details_util())->html_details_block($koperebiblock);
 
             echo $OUTPUT->render_from_template("local_kopere_bi/dashboard/dialog-confirm-block",
-                ["koperebipage_id" => $koperebipage->id]);
+                ["koperebiblock_id" => $koperebiblock->id]);
         }
 
         echo "</div>";
