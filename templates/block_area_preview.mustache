@@ -50,6 +50,10 @@
 
                 {{{code_util_get_js_theme}}}
 
+                if (false) { // moodle-plugin-ci mustache
+                    class ApexCharts {}
+                }
+
                 var element = document.querySelector("#chart_{{local_kopere_bi_id}}");
                 var chart = new ApexCharts(element, options);
                 chart.render();
