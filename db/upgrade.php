@@ -34,11 +34,11 @@
  */
 function xmldb_local_kopere_bi_upgrade($oldversion) {
 
-    if ($oldversion < 2023101500) {
+    if ($oldversion < 2023101600) {
         require_once("db-config.php");
         reset_bi_reports();
 
-        upgrade_plugin_savepoint(true, 2023101500, "local", "kopere_bi");
+        upgrade_plugin_savepoint(true, 2023101600, "local", "kopere_bi");
     }
 
     return true;
