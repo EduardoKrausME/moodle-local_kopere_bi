@@ -93,7 +93,7 @@ class dashboard extends bi_all {
             ];
         }
 
-        echo $OUTPUT->render_from_template("local_kopere_bi/dashboard_start", [
+        echo $OUTPUT->render_from_template("local_kopere_bi/dashboard/dashboard_start", [
             "categorys" => $categorys,
             "editing" => isset($USER->editing) ? $USER->editing : 0,
             "wwwroot" => $CFG->wwwroot,
