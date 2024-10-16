@@ -59,10 +59,16 @@ define(["jquery"], function($) {
                         show_mustache(time);
                             if (true) {
                             mustachehtml =
-                                `<span class="w-100 badge {{{#${collkey}}}bg-success{{/${collkey}}}{{^${collkey}}}bg-danger{{/${collkey}}}">\n` +
-                                `    {{#${collkey}}} {{#str}} emaildisplayno,moodle {{/str}} {{/${collkey}}}\n` +
-                                `    {{^${collkey}}} {{#str}}        visible,moodle {{/str}} {{/${collkey}}}\n` +
-                                `</span>`;
+                                `{{#${collkey}}}\n`+
+                                `    <span class="w-100 badge bg-success">\n` +
+                                `        {{#str}} emaildisplayno,moodle {{/str}}\n` +
+                                `    </span>\n`+
+                                `{{/${collkey}}}\n`+
+                                `{{^${collkey}}}\n`+
+                                `    <span class="w-100 badge bg-danger">\n` +
+                                `        {{#str}} visible,moodle {{/str}}\n` +
+                                `    </span>\n`+
+                                `{{/${collkey}}}`;
                             set_mustache(mustachehtml);
                         }
                         break;
@@ -70,10 +76,16 @@ define(["jquery"], function($) {
                         show_mustache(time);
                         if (true) {
                             mustachehtml =
-                                `<span class="w-100 badge {{{#${collkey}}}bg-success{{/${collkey}}}{{^${collkey}}}bg-danger{{/${collkey}}}">\n` +
-                                `    {{#${collkey}}} {{#str}} inactive,moodle {{/str}} {{/${collkey}}}\n` +
-                                `    {{^${collkey}}} {{#str}}   active,moodle {{/str}} {{/${collkey}}}\n` +
-                                `</span>`;
+                                `{{#${collkey}}}\n`+
+                                `    <span class="w-100 badge bg-danger">\n` +
+                                `        {{#str}} inactive,moodle {{/str}}\n` +
+                                `    </span>\n`+
+                                `{{/${collkey}}}\n`+
+                                `{{^${collkey}}}\n`+
+                                `    <span class="w-100 badge bg-success">\n` +
+                                `        {{#str}} active,moodle {{/str}}\n` +
+                                `    </span>\n`+
+                                `{{/${collkey}}}`;
                             set_mustache(mustachehtml);
                         }
                         break;
