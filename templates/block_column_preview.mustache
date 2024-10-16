@@ -35,7 +35,7 @@
 
 {{#js}}
     require(["jquery", "core/notification", "local_kopere_bi/apexcharts"], function($, Notification, ApexCharts) {
-        function showChart(xaxis_categories, series) {
+        function showChart(xaxisCategories, series) {
             try {
                 var options = {{{chart_default}}};
 
@@ -43,7 +43,7 @@
 
                 var optionsData = {
                     xaxis: {
-                        categories: xaxis_categories
+                        categories: xaxisCategories
                     },
                     series: series
                 };
@@ -56,7 +56,9 @@
                 chart.render();
             }
             catch (e) {
-                Notification.exception({message: "{{error_chart_renderer}}"});
+                Notification.exception({
+                    message: "{{error_chart_renderer}}"
+                });
             }
         }
 
@@ -65,7 +67,7 @@
                 dataType: "json",
                 url: "{{{ajax_url}}}",
                 success: function(json) {
-                    showChart(json.xaxis_categories, json.series);
+                    showChart(json.xaxisCategories, json.series);
                 },
                 error: function() {
                     Notification.exception({message: "{{error_data_loader}}"});

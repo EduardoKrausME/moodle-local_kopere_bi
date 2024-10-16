@@ -50,7 +50,9 @@
                 chart.render();
             }
             catch (e) {
-                Notification.exception({message: "{{error_chart_renderer}}"});
+                Notification.exception({
+                    message: "{{error_chart_renderer}}"
+                });
             }
         }
 
