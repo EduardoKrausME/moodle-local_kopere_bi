@@ -69,7 +69,9 @@
                     showChart(json.xaxisCategories, json.series);
                 },
                 error: function() {
-                    Notification.exception({message: "{{error_data_loader}}"});
+                    Notification.exception({
+                        message: "{{error_data_loader}}"
+                    });
                 }
             });
         }

@@ -64,7 +64,9 @@
                     showChart(json.labels, json.series);
                 },
                 error: function() {
-                    Notification.exception({message: "{{error_data_loader}}"});
+                    Notification.exception({
+                        message: "{{error_data_loader}}"
+                    });
                 }
             });
         }
