@@ -133,7 +133,7 @@ class table implements i_type {
             echo "</table>";
             echo "</div>";
 
-            mensagem::print_info(get_string("table_info_second", "local_kopere_bi"));
+            mensagem::print_info(get_string("table_info_types", "local_kopere_bi"));
             foreach ($lines[0] as $id => $line) {
                 echo
                     "<fieldset><legend>" . get_string("table_edit_column", "local_kopere_bi") .
@@ -142,7 +142,7 @@ class table implements i_type {
                 echo "</fieldset>";
             }
         } else {
-            mensagem::print_warning("0 rows");
+            mensagem::print_warning(get_string("sql_no_rows", "local_kopere_bi"));
             return false;
         }
 
@@ -215,19 +215,14 @@ class table implements i_type {
 
         // Types.
         $typedefault = "string";
-        $valuemustache = "";
         if (isset($koperebielement->info_obj["column"][$collkey]["type"])) {
             $typedefault = $koperebielement->info_obj["column"][$collkey]["type"];
+            $changemustache = false;
         } else {
             if ($collkey == "firstname") {
                 $typedefault = "userfullname";
-                $valuemustache =
-                    "<a href='{{{wwwroot}}}/user/view.php?id={{{u_id}}}'" .
-                    "  target='profile'>{{#userfullname}} {{.}} {{/userfullname}}";
             } else if ($collkey == "lastname") {
                 $typedefault = "none";
-            } else if ($collkey == "c_fullname") {
-                $valuemustache = "<a href='{{{wwwroot}}}/course/view.php?id={{{c_id}}}' target='profile'>{{{c_fullname}}}</a>";
             } else if (str_ends_with($collkey, "_id")) {
                 $typedefault = "number";
             } else if (strpos($collkey, "time") !== false || strpos($collkey, "date") !== false) {
@@ -239,6 +234,8 @@ class table implements i_type {
             } else if (strpos($collkey, "filesize") !== false) {
                 $typedefault = table_header_item::RENDERER_FILESIZE;
             }
+
+            $changemustache = true;
         }
         $form->add_input(
             input_select::new_instance()
@@ -247,8 +244,11 @@ class table implements i_type {
                 ->set_values($types)
                 ->set_value($typedefault)
         );
+        $PAGE->requires->strings_for_js(['inactive', 'active', 'visible', 'emaildisplayno'], 'moodle');
+        $PAGE->requires->js_call_amd("local_kopere_bi/table", "select", [$collkey, $changemustache]);
 
         // Mustaches.
+        $valuemustache = "";
         if (isset($koperebielement->info_obj["column"][$collkey]["mustache"])) {
             $valuemustache = $koperebielement->info_obj["column"][$collkey]["mustache"];
         }
@@ -279,13 +279,6 @@ class table implements i_type {
             return mensagem::danger(get_string("table_column_not_configured", "local_kopere_bi"));
         }
 
-        $returnhtml = "";
-        $mustachedata = ["u_fullname" => "[[u_fullname]]"];
-        foreach ($koperebielement->info_obj["column"] as $key => $column) {
-            $mustachedata[$key] = "[[$key]]";
-        }
-
-        $mustache = new renderer_bi_mustache();
         foreach ($koperebielement->info_obj["column"] as $key => $column) {
 
             if ($column["type"] == "none") {
@@ -301,7 +294,7 @@ class table implements i_type {
                     break;
                 case table_header_item::RENDERER_USERPHOTO:
                     if (!isset($column["mustache"][3])) {
-                        $url = "{{{globals.config.wwwroot}}}/local/kopere_dashboard/profile-image.php";
+                        $url = "{{{config.wwwroot}}}/local/kopere_dashboard/profile-image.php";
                         $column["mustache"] = "
                             <div class='text-center'>
                                 <img class='media-object'
@@ -352,20 +345,10 @@ class table implements i_type {
                 default:
                     $table->add_header($name, $key);
             }
-
-            if (isset($column["mustache"][3])) {
-
-                $html = $column["mustache"];
-                $html = str_replace("'", '"', $html);
-                $html = $mustache->render_from_string($html, $mustachedata);
-
-                $html = htmlspecialchars(trim($html), ENT_COMPAT);
-                $returnhtml .= "\n<input type='hidden' id='mustache_{$key}' value='{$html}'/>\n";
-            }
         }
 
         $table->set_ajax_url("?classname=bi-chart_data&method=load_data&item_id={$koperebielement->id}");
-        $returnhtml .= $table->print_header("", true, true);
+        $returnhtml = $table->print_header("", true, true);
         $returnhtml .= $table->close(false, null, true, string_util::get_string($koperebielement->title));
 
         return $returnhtml;
@@ -384,9 +367,9 @@ class table implements i_type {
 
         $numexecs = 0;
         $execs = [];
-        foreach ($koperebielement->info_obj["column"]["type"] as $key => $type) {
-            if ($type == "userfullname" || $type == "translate") {
-                $execs[$key] = $type;
+        foreach ($koperebielement->info_obj["column"] as $key => $column) {
+            if ($column["type"] == "userfullname" || $column["type"] == "translate") {
+                $execs[$key] = $column["type"];
                 $numexecs++;
             }
         }
@@ -404,22 +387,31 @@ class table implements i_type {
             }
 
             $CFG->debugdeveloper = false;
+            $mustache = new renderer_bi_mustache();
             if ($numexecs) {
-                $returnlines = [];
+                $newlines = [];
                 foreach ($lines as $line) {
                     foreach ($execs as $key => $type) {
                         if ($type == "userfullname") {
-                            $line->u_fullname = $line->$key = fullname($line);
+                            $line->u_fullname = fullname($line);
                         }
                         if ($type == "translate") {
                             $line->$key = string_util::get_string($line->$key);
                         }
                     }
 
-                    $returnlines[] = $line;
+                    foreach ($koperebielement->info_obj["column"] as $key => $column) {
+                        if (isset($column["mustache"][3]) &&
+                            $column["mustache"] != "{{{{$key}}}}" &&
+                            isset($line->$key[0])) {
+                            $line->{"{$key}_mustache"} = $mustache->render_from_string($column["mustache"], $line);
+                        }
+                    }
+
+                    $newlines[] = $line;
                 }
 
-                $lines = $returnlines;
+                $lines = $newlines;
             }
 
             $cache->set($koperebielement->id, $lines);
