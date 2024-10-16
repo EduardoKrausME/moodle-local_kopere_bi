@@ -83,6 +83,7 @@ class data_export {
             foreach ($koperebielements as $koperebielement) {
                 unset($koperebielement->id);
                 unset($koperebielement->block_id);
+                unset($koperebielement->time);
 
                 $infos = json_decode($koperebielement->info);
                 if (isset($infos->column->name)) {
