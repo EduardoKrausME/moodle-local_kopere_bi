@@ -166,6 +166,6 @@ class details_util {
     public static function html_details_add($pageid) {
         global $OUTPUT;
 
-        echo $OUTPUT->render_from_template("local_kopere_bi/blocks/details_add");
+        echo $OUTPUT->render_from_template("local_kopere_bi/blocks/details_add", []);
     }
 }
