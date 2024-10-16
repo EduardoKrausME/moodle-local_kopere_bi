@@ -169,7 +169,7 @@ class type_block extends bi_all {
                 $koperebielement->type = $elementtype;
             }
 
-            $koperebielement->info = json_encode($koperebielement->info_obj);
+            $koperebielement->info = json_encode($koperebielement->info_obj, JSON_PRETTY_PRINT);
 
             if (isset($koperebielement->id)) {
                 $DB->update_record("local_kopere_bi_element", $koperebielement);
@@ -236,7 +236,7 @@ class type_block extends bi_all {
                 ];
             }
 
-            $koperebielement->info = json_encode($koperebielement->info_obj);
+            $koperebielement->info = json_encode($koperebielement->info_obj, JSON_PRETTY_PRINT);
 
             $DB->update_record("local_kopere_bi_element", $koperebielement);
             cache_util::delete($koperebielement->id);
