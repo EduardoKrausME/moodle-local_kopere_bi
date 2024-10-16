@@ -315,6 +315,7 @@ $string['select_report_type'] = 'Tipo de relatório';
 $string['select_report_type_desc'] = 'Você pode alternar entre os tipos "{$a->line}", "{$a->area}" ou "{$a->column}"';
 $string['setting_apex'] = 'Configurações do Apex Charts';
 $string['setting_apex_desc'] = 'Só edite se você conhecer o Apex Charts. Veja em <a target="_blank" href="https://apexcharts.com/docs/series/">apexcharts.com/docs</a>';
+$string['sql_no_rows'] = 'O SQL retornou 0 linhas. Para configurar as colunas, é necessário que a consulta SQL retorne pelo menos 1 linha.';
 $string['sql_read_only'] = 'Todas as consultas SQL estão protegidas por conexão de somente leitura e não há como executar comandos de INSERT/UPDATE/DELETE.';
 $string['sql_replace_keys'] = '<h4>Chaves de substituição</h4>
 <ul>
@@ -340,19 +341,25 @@ $string['table_column_not_configured'] = 'Colunas não configuradas nesta tabela
 $string['table_desc'] = 'Mostra uma tabela com paginação de dados.';
 $string['table_edit_column'] = 'Coluna';
 $string['table_first_5'] = 'Os cinco primeiros registros da consulta';
-$string['table_info_second'] = 'Aqui você pode definir um nome para cada coluna e, em seguida, especificar o formato desejado para a exibição dos dados.
-<ul>
-    <li><strong>Não mostrar esta coluna</strong>: Oculta a coluna selecionada na visualização.</li>
-    <li><strong>Sem formatação</strong>: Exibe o conteúdo da coluna exatamente como está armazenado, sem aplicar qualquer formatação adicional, garantindo a visualização dos dados brutos.</li>
-    <li><strong>Números</strong>: Formata a coluna para exibir apenas valores numéricos, aplicando as regras padrão de exibição de números, como separadores de milhares e decimais.</li>
-    <li><strong>Converter a coluna para nome completo "fullname()"</strong>: Executa a função fullname() para criar o nome completo baseado na linguagem do estudante.</li>
-    <li><strong>Converter ID do estudante para foto de perfil</strong>: Substitui o ID do estudante na coluna por sua respectiva foto de perfil, permitindo uma identificação visual imediata dos estudantes.</li>
-    <li><strong>Campo binário para Visível/Invisível</strong>: Usa o valor binário para determinar a visibilidade, onde "0" ou "false" representa invisível e "1" ou "true" representa visível.</li>
-    <li><strong>Campo "time" formatado para data</strong>: Converte o valor de tempo (timestamp) na coluna para uma data legível, exibindo apenas a data (dia/mês/ano).</li>
-    <li><strong>Campo "time" formatado para data e hora</strong>: Exibe o valor de tempo (timestamp) na coluna como uma data completa, incluindo a hora (dia/mês/ano e horas:minutos).</li>
-    <li><strong>Campo "time" formatado para hora</strong>: Formata o valor de tempo (timestamp) na coluna para exibir apenas a hora (horas:minutos), omitindo a data.</li>
-</ul>';
 $string['table_info_topo'] = 'Primeiro, você verá uma prévia dos resultados da busca. Em seguida, será apresentada uma sequência de colunas para que você possa nomear os títulos e definir o formato dos dados de cada coluna.';
+$string['table_info_types'] = 'Agora você pode definir um nome para a coluna e, em seguida, especificar o formato desejado e se você quer alguma formatação extra com Mustache.
+<ul>
+    <li><strong>Sem formatação</strong>: Exibe o conteúdo exatamente como está ou aplica o Mustache, caso você adicione.</li>
+    <li><strong>Não mostrar esta coluna</strong>: Oculta a coluna selecionada na visualização mas o dado fica disponível para execução pelo Mustache</li>
+    <ul><li>Mustache não disponível</li></ul>
+    <li><strong>Números</strong>: Formata a coluna para exibir apenas valores numéricos, aplicando as regras padrão de exibição de números, como separadores de milhares e decimais.</li>
+    <ul><li>Mustache não disponível</li></ul>
+    <li><strong>Converter a coluna para nome completo "fullname()"</strong>: Executa a função <code>fullname()</code> para gerar o nome completo com base na linguagem, que será armazenado nesta mesma coluna. Para isso, é imprescindível ter a coluna <code>lastname</code>, a qual deve ser ocultada, se possível.</li>
+    <li><strong>Converter ID do estudante para foto de perfil</strong>: Utilize o ID desta coluna para criar a foto de perfil.</li>
+    <li><strong>Campo binário para Visível/Invisível</strong>: Usa o valor binário para determinar a visibilidade, onde "0"/"false" representa invisível e "1"/"true" representa visível.</li>
+    <li><strong>Campo binário para Ativo/Inativo</strong>: Usa o valor binário para determinar o Status, onde "0"/"false" representa Inativo e "1"/"true" representa Ativo.</li>
+    <li><strong>Campo "time" formatado para data</strong>: Converte o valor de tempo (timestamp) na coluna para uma data legível, exibindo apenas a data (dia/mês/ano).</li>
+    <ul><li>Mustache não disponível</li></ul>
+    <li><strong>Campo "time" formatado para data e hora</strong>: Exibe o valor de tempo (timestamp) na coluna como uma data completa, incluindo a hora (dia/mês/ano e horas:minutos).</li>
+    <ul><li>Mustache não disponível</li></ul>
+    <li><strong>Campo "time" formatado para hora</strong>: Formata o valor de tempo (timestamp) na coluna para exibir apenas a hora (horas:minutos), omitindo a data.</li>
+    <ul><li>Mustache não disponível</li></ul>
+</ul>';
 $string['table_name'] = 'Tabela de dados';
 $string['table_renderer_date'] = 'Campo "time" formatado para data';
 $string['table_renderer_datetime'] = 'Campo "time" formatado para data e hora';

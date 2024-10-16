@@ -314,6 +314,7 @@ $string['select_report_type'] = 'Report type';
 $string['select_report_type_desc'] = 'You can switch between "{$a->line}", "{$a->area}", or "{$a->column}" types';
 $string['setting_apex'] = 'Apex Charts settings';
 $string['setting_apex_desc'] = 'Only edit if you are familiar with Apex Charts. See more at <a target="_blank" href="https://apexcharts.com/docs/series/">apexcharts.com/docs</a>';
+$string['sql_no_rows'] = 'The SQL returned 0 rows. To configure the columns, the SQL query must return at least 1 row.';
 $string['sql_read_only'] = 'All SQL queries are protected by a read-only connection, and it is not possible to execute INSERT/UPDATE/DELETE commands.';
 $string['sql_replace_keys'] = '<h4>Replacement keys</h4>
 <ul>
@@ -339,19 +340,26 @@ $string['table_column_not_configured'] = 'Columns not configured in this table';
 $string['table_desc'] = 'Displays a table with data pagination.';
 $string['table_edit_column'] = 'Column';
 $string['table_first_5'] = 'The first five records of the query';
-$string['table_info_secound'] = 'Here you can define a name for each column and then specify the desired format for data display.
-<ul>
-    <li><strong>Do not display this column</strong>: Hides the selected column from view.</li>
-    <li><strong>No formatting</strong>: Displays the column content exactly as stored, without applying any additional formatting, ensuring the raw data is visible.</li>
-    <li><strong>Numbers</strong>: Formats the column to display only numerical values, applying standard number formatting rules like thousand and decimal separators.</li>
-    <li><strong>Convert column to full name "fullname()"</strong>: Executes the fullname() function to create the full name based on the student\'s language.</li>
-    <li><strong>Convert student ID to profile picture</strong>: Replaces the student ID in the column with their respective profile picture, allowing for immediate visual identification of students.</li>
-    <li><strong>Binary field for Visible/Invisible</strong>: Uses the binary value to determine visibility, where "0" or "false" represents invisible and "1" or "true" represents visible.</li>
-    <li><strong>"Time" field formatted as date</strong>: Converts the time (timestamp) value in the column into a readable date, showing only the date (day/month/year).</li>
-    <li><strong>"Time" field formatted as date and time</strong>: Displays the time (timestamp) value in the column as a complete date, including the time (day/month/year and hours:minutes).</li>
-    <li><strong>"Time" field formatted as time</strong>: Formats the time (timestamp) value in the column to display only the time (hours:minutes), omitting the date.</li>
-</ul>';
 $string['table_info_topo'] = 'First, you will see a preview of the search results. Then, a series of columns will be presented for you to name the titles and define the format of each column’s data.';
+$string['table_info_types'] = 'You can now set a name for the column and then specify the desired format and whether you want any extra formatting with Mustache.
+<ul>
+    <li><strong>No formatting</strong>: Displays the content exactly as it is or applies Mustache if you add it.</li>
+    <li><strong>Do not show this column</strong>: Hides the selected column in the view, but the data remains available for Mustache processing.</li>
+    <ul><li>Mustache not available</li></ul>
+    <li><strong>Numbers</strong>: Formats the column to display only numeric values, applying standard number display rules, such as thousands and decimal separators.</li>
+    <ul><li>Mustache not available</li></ul>
+    <li><strong>Convert column to full name "fullname()"</strong>: Runs the <code>fullname()</code> function to generate the full name based on the language, which will be stored in this same column. For this to work, the <code>lastname</code> column is required and should be hidden if possible.</li>
+    <li><strong>Convert student ID to profile picture</strong>: Uses the ID from this column to create the profile picture.</li>
+    <li><strong>Binary field for Visible/Invisible</strong>: Uses the binary value to determine visibility, where "0"/"false" means invisible and "1"/"true" means visible.</li>
+    <li><strong>Binary field for Active/Inactive</strong>: Uses the binary value to determine the status, where "0"/"false" means Inactive and "1"/"true" means Active.</li>
+    <li><strong>"Time" field formatted as date</strong>: Converts the time value (timestamp) in the column to a readable date, displaying only the date (day/month/year).</li>
+    <ul><li>Mustache not available</li></ul>
+    <li><strong>"Time" field formatted as date and time</strong>: Displays the time value (timestamp) in the column as a full date, including the time (day/month/year and hours:minutes).</li>
+    <ul><li>Mustache not available</li></ul>
+    <li><strong>"Time" field formatted as time</strong>: Formats the time value (timestamp) in the column to display only the time (hours:minutes), omitting the date.</li>
+    <ul><li>Mustache not available</li></ul>
+</ul>';
+
 $string['table_name'] = 'Data table';
 $string['table_renderer_date'] = '"Time" field formatted as date';
 $string['table_renderer_datetime'] = '"Time" field formatted as date and time';
