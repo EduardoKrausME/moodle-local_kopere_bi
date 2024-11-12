@@ -35,6 +35,5 @@ class bi_all {
         global $PAGE;
 
         $PAGE->add_body_class("kopere-bi");
-        $PAGE->requires->css("/local/kopere_bi/style.css");
     }
 }

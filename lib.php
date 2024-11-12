@@ -158,11 +158,7 @@ function load_kopere_bi_assets() {
 
         require_once("{$CFG->dirroot}/local/kopere_dashboard/autoload-lang-js.php");
 
-        $code = "";
-        $code .= "<link rel='stylesheet' type='text/css' href='{$CFG->wwwroot}/local/kopere_dashboard/style.css'/>\n";
-        $code .= "<link rel='stylesheet' type='text/css' href='{$CFG->wwwroot}/local/kopere_bi/style.css'/>\n";
-
-        return $code;
+        return "";
     }
 
     return "";
