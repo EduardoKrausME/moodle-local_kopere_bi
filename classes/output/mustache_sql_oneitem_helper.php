@@ -32,8 +32,6 @@ use Mustache_LambdaHelper;
 
 /**
  * Class mustache_sql_oneitem_helper
- *
- * @package local_kopere_bi\output
  */
 class mustache_sql_oneitem_helper {
     /**

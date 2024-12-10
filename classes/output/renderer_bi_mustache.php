@@ -30,8 +30,6 @@ use Mustache_Engine;
 
 /**
  * Class renderer_bi_mustache
- *
- * @package local_kopere_bi\output
  */
 class renderer_bi_mustache extends Mustache_Engine {
 

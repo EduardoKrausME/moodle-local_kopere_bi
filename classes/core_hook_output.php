@@ -17,9 +17,9 @@
 /**
  * Class injector
  *
- * @package    local_kopere_bi
- * @copyright  2024 Eduardo Kraus {@link http://eduardokraus.com}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   local_kopere_bi
+ * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace local_kopere_bi;
@@ -32,8 +32,6 @@ use local_kopere_bi\analise\access_analyze;
 
 /**
  * Class core_hook_output
- *
- * @package local_kopere_bi
  */
 class core_hook_output {
 
