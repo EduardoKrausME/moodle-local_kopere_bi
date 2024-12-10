@@ -886,4 +886,35 @@
   min-height: 450px !important;
 }
 
+@media (prefers-color-scheme: dark) {
+  .kopere-bi .kopere_dashboard_div .dashboard-homes .dashboard-home .category-box,
+  .kopere-bi .kopere-dashboard-modal .dashboard-homes .dashboard-home .category-box {
+    background-color: rgba(255, 255, 255, 0.0509803922);
+  }
+  .kopere-bi .kopere_dashboard_div .lista-reports .line-titles .line-title,
+  .kopere-bi .kopere-dashboard-modal .lista-reports .line-titles .line-title {
+    color: #dbdbdc;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .kopere-bi .kopere_dashboard_div .chart-box .theme-light,
+  .kopere-bi .kopere-dashboard-modal .chart-box .theme-light {
+    background-color: ffffff14 !important;
+  }
+}
+[data-bs-theme=dark] .kopere-bi .kopere_dashboard_div .dashboard-homes .dashboard-home .category-box,
+[data-bs-theme=dark] .kopere-bi .kopere-dashboard-modal .dashboard-homes .dashboard-home .category-box {
+  background-color: rgba(255, 255, 255, 0.0509803922);
+}
+[data-bs-theme=dark] .kopere-bi .kopere_dashboard_div .lista-reports .line-titles .line-title,
+[data-bs-theme=dark] .kopere-bi .kopere-dashboard-modal .lista-reports .line-titles .line-title {
+  color: #dbdbdc;
+  font-size: 20px;
+  font-weight: 600;
+}
+[data-bs-theme=dark] .kopere-bi .kopere_dashboard_div .chart-box .theme-light,
+[data-bs-theme=dark] .kopere-bi .kopere-dashboard-modal .chart-box .theme-light {
+  background-color: ffffff14 !important;
+}
+
 /*# sourceMappingURL=styles.css.map */
