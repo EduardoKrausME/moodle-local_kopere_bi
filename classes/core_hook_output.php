@@ -1,5 +1,5 @@
 <?php
-// This file is part of the Local Analytics plugin for Moodle
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -37,6 +37,9 @@ use local_kopere_bi\analise\access_analyze;
  */
 class core_hook_output {
 
+    /**
+     * Function before_footer_html_generation
+     */
     public static function before_footer_html_generation() {
         global $USER, $DB, $COURSE, $PAGE;
 
