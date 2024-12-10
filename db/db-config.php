@@ -52,10 +52,14 @@ function reset_bi_reports() {
     $json = str_replace("json = ", "", $json);
     set_config("chart_line_default", $json, "local_kopere_bi");
 
-    $DB->delete_records("local_kopere_bi_cat");
-    $DB->delete_records("local_kopere_bi_page");
-    $DB->delete_records("local_kopere_bi_block");
-    $DB->delete_records("local_kopere_bi_element");
+    try {
+        $DB->delete_records("local_kopere_bi_cat");
+        $DB->delete_records("local_kopere_bi_page");
+        $DB->delete_records("local_kopere_bi_block");
+        $DB->delete_records("local_kopere_bi_element");
+    } catch (Exception $e) {
+        return;
+    }
 
     // Load default pages.
     $pagefiles = glob(__DIR__ . "/files/page-*.json");

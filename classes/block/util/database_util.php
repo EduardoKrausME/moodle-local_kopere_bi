@@ -39,12 +39,26 @@ class database_util {
 
         // Prevents SQL from deleting, altering, or inserting data.
         if ($CFG->dbtype == "mysqli" || $CFG->dbtype = "mariadb") {
-            $DB->execute("SET @@SESSION.transaction_read_only = ON");
-            $DB->execute("SET SESSION transaction_read_only = ON");
-            $DB->execute("SET SESSION TRANSACTION READ ONLY");
+            try {
+                $DB->execute("SET @@SESSION.transaction_read_only = ON");
+            } catch (\Exception $e) {
+            }
+            try {
+                $DB->execute("SET SESSION transaction_read_only = ON");
+            } catch (\Exception $e) {
+            }
+
+            try {
+                $DB->execute("SET SESSION TRANSACTION READ ONLY");
+            } catch (\Exception $e) {
+            }
         } else if ($CFG->dbtype == "pgsql") {
-            $DB->execute("SET default_transaction_read_only = ON");
-            $DB->execute("SET TRANSACTION READ ONLY");
+            try {
+                $DB->execute("SET default_transaction_read_only = ON");
+            }catch (\Exception $e){}
+            try {
+                $DB->execute("SET TRANSACTION READ ONLY");
+            }catch (\Exception $e){}
         } else {
             throw new \Exception("only mysqli and pgsql");
         }
