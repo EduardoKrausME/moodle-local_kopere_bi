@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * phpcs:moodle.Files.MoodleInternal.MoodleInternalGlobalState
+ * 
  * index file
  *
  * @package   local_kopere_bi
