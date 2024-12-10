@@ -14,4 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * index file
+ *
+ * @package   local_kopere_bi
+ * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @license   http://www.gnu.org/boost_darkleft/gpl.html GNU GPL v3 or later
+ */
+
 header("Location: ../kopere_dashboard/view.php?classname=bi-dashboard&method=start");
