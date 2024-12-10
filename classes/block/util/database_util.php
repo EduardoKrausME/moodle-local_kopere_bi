@@ -42,23 +42,30 @@ class database_util {
             try {
                 $DB->execute("SET @@SESSION.transaction_read_only = ON");
             } catch (\Exception $e) {
+                // phpcs:Generic.CodeAnalysis.EmptyStatement.DetectedCatch
             }
             try {
                 $DB->execute("SET SESSION transaction_read_only = ON");
             } catch (\Exception $e) {
+                // phpcs:Generic.CodeAnalysis.EmptyStatement.DetectedCatch
             }
 
             try {
                 $DB->execute("SET SESSION TRANSACTION READ ONLY");
             } catch (\Exception $e) {
+                // phpcs:Generic.CodeAnalysis.EmptyStatement.DetectedCatch
             }
         } else if ($CFG->dbtype == "pgsql") {
             try {
                 $DB->execute("SET default_transaction_read_only = ON");
-            }catch (\Exception $e){}
+            } catch (\Exception $e) {
+                // phpcs:Generic.CodeAnalysis.EmptyStatement.DetectedCatch
+            }
             try {
                 $DB->execute("SET TRANSACTION READ ONLY");
-            }catch (\Exception $e){}
+            } catch (\Exception $e) {
+                // phpcs:Generic.CodeAnalysis.EmptyStatement.DetectedCatch
+            }
         } else {
             throw new \Exception("only mysqli and pgsql");
         }
