@@ -901,6 +901,10 @@
   .kopere-bi .kopere-dashboard-modal .chart-box .theme-light {
     background-color: ffffff14 !important;
   }
+  .kopere-bi .kopere_dashboard_div .element-box .block-heading .block-title,
+  .kopere-bi .kopere-dashboard-modal .element-box .block-heading .block-title {
+    color: #d7d4d4;
+  }
 }
 [data-bs-theme=dark] .kopere-bi .kopere_dashboard_div .dashboard-homes .dashboard-home .category-box,
 [data-bs-theme=dark] .kopere-bi .kopere-dashboard-modal .dashboard-homes .dashboard-home .category-box {
@@ -915,6 +919,10 @@
 [data-bs-theme=dark] .kopere-bi .kopere_dashboard_div .chart-box .theme-light,
 [data-bs-theme=dark] .kopere-bi .kopere-dashboard-modal .chart-box .theme-light {
   background-color: ffffff14 !important;
+}
+[data-bs-theme=dark] .kopere-bi .kopere_dashboard_div .element-box .block-heading .block-title,
+[data-bs-theme=dark] .kopere-bi .kopere-dashboard-modal .element-box .block-heading .block-title {
+  color: #d7d4d4;
 }
 
 /*# sourceMappingURL=styles.css.map */
