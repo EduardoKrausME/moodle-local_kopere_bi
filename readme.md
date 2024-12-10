@@ -1,6 +1,9 @@
 # Moodle Local Kopere BI
 
-This plugin was developed to provide visual and interactive data analysis for Moodle environments, enabling educators and administrators to better understand student performance and engagement.
+The **Kopere BI** plugin was designed to provide **visual and interactive data analysis** for Moodle environments. It empowers educators and administrators with actionable insights into student performance, engagement, and overall course effectiveness.  
+
+## Requirements  
+To function properly, **Kopere BI** requires the [**local_kopere_dashboard**](https://github.com/EduardoKrausME/moodle-local-kopere_dashboard) plugin to be installed.
 
 ## Features
 
