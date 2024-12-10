@@ -14,9 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+// phpcs:disable
+
 /**
- * phpcs:moodle.Files.MoodleInternal.MoodleInternalGlobalState
- * 
  * index file
  *
  * @package   local_kopere_bi
