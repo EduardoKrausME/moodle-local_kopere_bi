@@ -887,41 +887,41 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .kopere-bi .kopere_dashboard_div .dashboard-homes .dashboard-home .category-box,
-  .kopere-bi .kopere-dashboard-modal .dashboard-homes .dashboard-home .category-box {
+  [data-bs-theme] .kopere-bi .kopere_dashboard_div .dashboard-homes .dashboard-home .category-box,
+  [data-bs-theme] .kopere-bi .kopere-dashboard-modal .dashboard-homes .dashboard-home .category-box {
     background-color: rgba(255, 255, 255, 0.0509803922);
   }
-  .kopere-bi .kopere_dashboard_div .lista-reports .line-titles .line-title,
-  .kopere-bi .kopere-dashboard-modal .lista-reports .line-titles .line-title {
+  [data-bs-theme] .kopere-bi .kopere_dashboard_div .lista-reports .line-titles .line-title,
+  [data-bs-theme] .kopere-bi .kopere-dashboard-modal .lista-reports .line-titles .line-title {
     color: #dbdbdc;
     font-size: 20px;
     font-weight: 600;
   }
-  .kopere-bi .kopere_dashboard_div .chart-box .theme-light,
-  .kopere-bi .kopere-dashboard-modal .chart-box .theme-light {
+  [data-bs-theme] .kopere-bi .kopere_dashboard_div .chart-box .theme-light,
+  [data-bs-theme] .kopere-bi .kopere-dashboard-modal .chart-box .theme-light {
     background-color: ffffff14 !important;
   }
-  .kopere-bi .kopere_dashboard_div .element-box .block-heading .block-title,
-  .kopere-bi .kopere-dashboard-modal .element-box .block-heading .block-title {
+  [data-bs-theme] .kopere-bi .kopere_dashboard_div .element-box .block-heading .block-title,
+  [data-bs-theme] .kopere-bi .kopere-dashboard-modal .element-box .block-heading .block-title {
     color: #d7d4d4;
   }
 }
-[data-bs-theme=dark] .kopere-bi .kopere_dashboard_div .dashboard-homes .dashboard-home .category-box,
-[data-bs-theme=dark] .kopere-bi .kopere-dashboard-modal .dashboard-homes .dashboard-home .category-box {
+[data-bs-theme=dark] [data-bs-theme] .kopere-bi .kopere_dashboard_div .dashboard-homes .dashboard-home .category-box,
+[data-bs-theme=dark] [data-bs-theme] .kopere-bi .kopere-dashboard-modal .dashboard-homes .dashboard-home .category-box {
   background-color: rgba(255, 255, 255, 0.0509803922);
 }
-[data-bs-theme=dark] .kopere-bi .kopere_dashboard_div .lista-reports .line-titles .line-title,
-[data-bs-theme=dark] .kopere-bi .kopere-dashboard-modal .lista-reports .line-titles .line-title {
+[data-bs-theme=dark] [data-bs-theme] .kopere-bi .kopere_dashboard_div .lista-reports .line-titles .line-title,
+[data-bs-theme=dark] [data-bs-theme] .kopere-bi .kopere-dashboard-modal .lista-reports .line-titles .line-title {
   color: #dbdbdc;
   font-size: 20px;
   font-weight: 600;
 }
-[data-bs-theme=dark] .kopere-bi .kopere_dashboard_div .chart-box .theme-light,
-[data-bs-theme=dark] .kopere-bi .kopere-dashboard-modal .chart-box .theme-light {
+[data-bs-theme=dark] [data-bs-theme] .kopere-bi .kopere_dashboard_div .chart-box .theme-light,
+[data-bs-theme=dark] [data-bs-theme] .kopere-bi .kopere-dashboard-modal .chart-box .theme-light {
   background-color: ffffff14 !important;
 }
-[data-bs-theme=dark] .kopere-bi .kopere_dashboard_div .element-box .block-heading .block-title,
-[data-bs-theme=dark] .kopere-bi .kopere-dashboard-modal .element-box .block-heading .block-title {
+[data-bs-theme=dark] [data-bs-theme] .kopere-bi .kopere_dashboard_div .element-box .block-heading .block-title,
+[data-bs-theme=dark] [data-bs-theme] .kopere-bi .kopere-dashboard-modal .element-box .block-heading .block-title {
   color: #d7d4d4;
 }
 

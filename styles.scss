@@ -679,24 +679,25 @@
         min-height: 450px !important;
     }
 }
-
 @mixin local_kopere_bi_darkmodecode {
-    .kopere-bi .kopere_dashboard_div ,
-    .kopere-bi .kopere-dashboard-modal {
-        .dashboard-homes .dashboard-home .category-box {
-            background-color: #ffffff0d;
-        }
-        .lista-reports .line-titles .line-title {
-            color: #dbdbdc;
-            font-size: 20px;
-            font-weight: 600;
-        }
-        
-        .chart-box .theme-light {
-            background-color: ffffff14!important;
-        }
-        .element-box .block-heading .block-title {
-            color: #d7d4d4;
+    [data-bs-theme] {
+        .kopere-bi .kopere_dashboard_div,
+        .kopere-bi .kopere-dashboard-modal {
+            .dashboard-homes .dashboard-home .category-box {
+                background-color: #ffffff0d;
+            }
+            .lista-reports .line-titles .line-title {
+                color: #dbdbdc;
+                font-size: 20px;
+                font-weight: 600;
+            }
+            
+            .chart-box .theme-light {
+                background-color: ffffff14 !important;
+            }
+            .element-box .block-heading .block-title {
+                color: #d7d4d4;
+            }
         }
     }
 }
