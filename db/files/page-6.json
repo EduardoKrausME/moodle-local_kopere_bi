@@ -2,17 +2,21 @@
   "title": "lang::report_6_login::local_kopere_bi",
   "description": "lang::report_6_login_report::local_kopere_bi",
   "user_id": null,
+  "refkey": "login_report",
   "category": {
+    "refkey": "login_reports",
     "title": "lang::report_6_cat_title::local_kopere_bi",
     "description": "lang::report_6_cat_description::local_kopere_bi"
   },
   "blocks": [
     {
+      "refkey": "login_reports-1",
       "type": "block-1",
-      "sequence": 1727485996,
+      "sequence": 1,
       "elements": [
         {
           "title": "lang::reports_report_user-5::local_kopere_dashboard",
+          "refkey": "reports_report_user-5",
           "block_num": 1,
           "type": "table",
           "theme": "light",
@@ -27,11 +31,13 @@
       ]
     },
     {
+      "refkey": "login_reports-1",
       "type": "block-1",
-      "sequence": 1727486150,
+      "sequence": 2,
       "elements": [
         {
           "title": "lang::reports_report_user-4::local_kopere_dashboard",
+          "refkey": "reports_report_user-4",
           "block_num": 1,
           "type": "table",
           "theme": "light",

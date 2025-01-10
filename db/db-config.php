@@ -72,10 +72,13 @@ function reset_bi_reports() {
         unset($koperebipage->blocks);
 
         /** @var local_kopere_bi_cat $category */
-        $category = $DB->get_record("local_kopere_bi_cat", ["title" => $page->category->title]);
+        $category = $DB->get_record("local_kopere_bi_cat", ["refkey" => $page->category->refkey]);
         if (!$category) {
-            $category = $page->category;
-            $category->id = $DB->insert_record("local_kopere_bi_cat", $category);
+            $category = $DB->get_record("local_kopere_bi_cat", ["title" => $page->category->title]);
+            if (!$category) {
+                $category = $page->category;
+                $category->id = $DB->insert_record("local_kopere_bi_cat", $category);
+            }
         }
 
         $koperebipage->time = time();

@@ -2,17 +2,21 @@
   "title": "lang::report_7_inactive::local_kopere_bi",
   "description": "lang::report_7_inactive_report::local_kopere_bi",
   "user_id": null,
+  "refkey": "inactive_enrollments",
   "category": {
+    "refkey": "enrollments",
     "title": "lang::report_4_cat_title::local_kopere_bi",
     "description": "lang::report_4_cat_description::local_kopere_bi"
   },
   "blocks": [
     {
+      "refkey": "enrollments-1",
       "type": "block-1",
-      "sequence": 1727486360,
+      "sequence": 1,
       "elements": [
         {
           "title": "lang::report_7_users_not_accessed_course::local_kopere_bi",
+          "refkey": "report_7_users_not_accessed_course",
           "block_num": 1,
           "type": "table",
           "theme": "light",

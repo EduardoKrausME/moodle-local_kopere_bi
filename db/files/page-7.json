@@ -2,17 +2,21 @@
   "title": "lang::report_8_engagement::local_kopere_bi",
   "description": "lang::report_8_student_teacher_engagement::local_kopere_bi",
   "user_id": null,
+  "refkey": "engagement",
   "category": {
+    "refkey": "login_reports",
     "title": "lang::report_6_cat_title::local_kopere_bi",
     "description": "lang::report_6_cat_description::local_kopere_bi"
   },
   "blocks": [
     {
+      "refkey": "login_reports-1",
       "type": "block-1",
-      "sequence": 1727726264,
+      "sequence": 1,
       "elements": [
         {
           "title": "lang::report_8_teacher_access::local_kopere_bi",
+          "refkey": "report_8_teacher_access",
           "block_num": 1,
           "type": "table",
           "theme": "light",
@@ -27,11 +31,13 @@
       ]
     },
     {
+      "refkey": "login_reports-2",
       "type": "block-1",
-      "sequence": 1727726381,
+      "sequence": 2,
       "elements": [
         {
           "title": "lang::report_2_total_engagement::local_kopere_bi",
+          "refkey": "report_2_total_engagement",
           "block_num": 1,
           "type": "table",
           "theme": "light",

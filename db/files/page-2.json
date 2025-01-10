@@ -2,17 +2,21 @@
   "title": "lang::report_1_title::local_kopere_bi",
   "description": "lang::report_1_description::local_kopere_bi",
   "user_id": null,
+  "refkey": "active_students",
   "category": {
+    "refkey": "students",
     "title": "lang::report_1_cat_title::local_kopere_bi",
     "description": "lang::report_1_cat_description::local_kopere_bi"
   },
   "blocks": [
     {
+      "refkey": "students-1",
       "type": "block-1",
-      "sequence": 5,
+      "sequence": 1,
       "elements": [
         {
           "title": "lang::report_1_user_summary::local_kopere_bi",
+          "refkey": "report_1_user_summary",
           "block_num": 1,
           "type": "table",
           "theme": "light",

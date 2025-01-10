@@ -189,6 +189,7 @@ class type_block extends bi_all {
 
                     cache_util::delete($koperebielement->id);
                 } else {
+                    $koperebielement->refkey = uniqid();
                     $koperebielement->block_id = $blockid;
                     $koperebielement->block_num = $blocknum;
                     $koperebielement->type = required_param("type", PARAM_TEXT);

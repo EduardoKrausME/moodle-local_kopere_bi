@@ -2,17 +2,21 @@
   "title": "lang::report_4_title::local_kopere_bi",
   "description": "lang::report_4_description::local_kopere_bi",
   "user_id": null,
+  "refkey": "statistics",
   "category": {
+    "refkey": "enrollments",
     "title": "lang::report_4_cat_title::local_kopere_bi",
     "description": "lang::report_4_cat_description::local_kopere_bi"
   },
   "blocks": [
     {
+      "refkey": "enrollments-2",
       "type": "block-1",
       "sequence": 2,
       "elements": [
         {
           "title": "lang::report_4_coursesenrollmentstatus::local_kopere_bi",
+          "refkey": "report_4_coursesenrollmentstatus",
           "block_num": 1,
           "type": "table",
           "theme": "light",
@@ -27,11 +31,13 @@
       ]
     },
     {
+      "refkey": "enrollments-1",
       "type": "block-1",
       "sequence": 1,
       "elements": [
         {
           "title": "lang::report_4_enrolpercourse::local_kopere_bi",
+          "refkey": "report_4_enrolpercourse",
           "block_num": 1,
           "type": "area",
           "theme": "light",

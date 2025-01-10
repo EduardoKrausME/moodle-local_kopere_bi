@@ -6,6 +6,7 @@
         <TABLE NAME="local_kopere_bi_cat" COMMENT="BI Page Categories">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="refkey" TYPE="char" LENGTH="50" NOTNULL="false" SEQUENCE="false"/>
                 <FIELD NAME="title" TYPE="char" LENGTH="250" NOTNULL="false" SEQUENCE="false"/>
                 <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
                 <FIELD NAME="sortorder" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
@@ -17,6 +18,7 @@
         <TABLE NAME="local_kopere_bi_page" COMMENT="BI Pages">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="refkey" TYPE="char" LENGTH="50" NOTNULL="false" SEQUENCE="false"/>
                 <FIELD NAME="cat_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
                 <FIELD NAME="title" TYPE="char" LENGTH="250" NOTNULL="false" SEQUENCE="false"/>
                 <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
@@ -31,6 +33,7 @@
         <TABLE NAME="local_kopere_bi_block" COMMENT="Page blocks">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="refkey" TYPE="char" LENGTH="50" NOTNULL="false" SEQUENCE="false"/>
                 <FIELD NAME="page_id" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
                 <FIELD NAME="type" TYPE="char" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
                 <FIELD NAME="sequence" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
@@ -46,6 +49,7 @@
         <TABLE NAME="local_kopere_bi_element" COMMENT="Elements of each Block">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="refkey" TYPE="char" LENGTH="50" NOTNULL="false" SEQUENCE="false"/>
                 <FIELD NAME="title" TYPE="char" LENGTH="250" NOTNULL="false" SEQUENCE="false"/>
                 <FIELD NAME="block_id" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
                 <FIELD NAME="block_num" TYPE="int" LENGTH="2" NOTNULL="false" SEQUENCE="false"/>

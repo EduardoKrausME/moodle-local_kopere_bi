@@ -2,17 +2,21 @@
   "title": "lang::report_3_title::local_kopere_bi",
   "description": "lang::report_3_description::local_kopere_bi",
   "user_id": null,
+  "refkey": "online_students",
   "category": {
+    "refkey": "online",
     "title": "lang::report_3_cat_title::local_kopere_bi",
     "description": "lang::report_3_cat_description::local_kopere_bi"
   },
   "blocks": [
     {
+      "refkey": "online-1",
       "type": "block-52",
       "sequence": 1,
       "elements": [
         {
           "title": "lang::report_3_users_online::local_kopere_bi",
+          "refkey": "report_3_users_online",
           "block_num": 2,
           "type": "maps",
           "theme": "light",
@@ -26,6 +30,7 @@
         },
         {
           "title": "lang::report_3_users_online_list::local_kopere_bi",
+          "refkey": "report_3_users_online_list",
           "block_num": 1,
           "type": "table",
           "theme": "light",
@@ -40,11 +45,13 @@
       ]
     },
     {
+      "refkey": "online-2",
       "type": "block-1",
       "sequence": 3,
       "elements": [
         {
           "title": "lang::report_3_course_access_time::local_kopere_bi",
+          "refkey": "report_3_course_access_time",
           "block_num": 1,
           "type": "line",
           "theme": "light",
@@ -59,11 +66,13 @@
       ]
     },
     {
+      "refkey": "onlin-3",
       "type": "block-3",
       "sequence": 2,
       "elements": [
         {
           "title": "lang::report_3_top_browsers::local_kopere_bi",
+          "refkey": "report_3_top_browsers",
           "block_num": 2,
           "type": "pie",
           "theme": "light",
@@ -77,6 +86,7 @@
         },
         {
           "title": "lang::report_3_operating_systems::local_kopere_bi",
+          "refkey": "report_3_operating_systems",
           "block_num": 3,
           "type": "pie",
           "theme": "light",
@@ -90,6 +100,7 @@
         },
         {
           "title": "lang::report_3_top_country_access::local_kopere_bi",
+          "refkey": "report_3_top_country_access",
           "block_num": 1,
           "type": "pie",
           "theme": "light",

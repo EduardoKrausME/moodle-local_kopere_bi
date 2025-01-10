@@ -33,12 +33,39 @@
  * @throws dml_exception
  */
 function xmldb_local_kopere_bi_upgrade($oldversion) {
+    global $DB;
 
-    if ($oldversion < 2023101600) {
+    $dbman = $DB->get_manager();
+
+    if ($oldversion < 2025011001) {
+        $table = new xmldb_table("local_kopere_bi_cat");
+        $field = new xmldb_field("refkey", XMLDB_TYPE_CHAR, 50, null, null, null, null, "id");
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        $table = new xmldb_table("local_kopere_bi_page");
+        $field = new xmldb_field("refkey", XMLDB_TYPE_CHAR, 50, null, null, null, null, "id");
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        $table = new xmldb_table("local_kopere_bi_block");
+        $field = new xmldb_field("refkey", XMLDB_TYPE_CHAR, 50, null, null, null, null, "id");
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        $table = new xmldb_table("local_kopere_bi_element");
+        $field = new xmldb_field("refkey", XMLDB_TYPE_CHAR, 50, null, null, null, null, "id");
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
         require_once("db-config.php");
         reset_bi_reports();
 
-        upgrade_plugin_savepoint(true, 2023101600, "local", "kopere_bi");
+        upgrade_plugin_savepoint(true, 2025011001, "local", "kopere_bi");
     }
 
     return true;

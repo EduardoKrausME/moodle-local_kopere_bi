@@ -2,17 +2,21 @@
   "title": "lang::report_dashboard_page_1_title::local_kopere_bi",
   "description": "",
   "user_id": null,
+  "refkey": "dashboard",
   "category": {
+    "refkey": "dashboard",
     "title": "lang::report_dashboard_cat_title::local_kopere_bi",
     "description": ""
   },
   "blocks": [
     {
+      "refkey": "dashboard-1",
       "type": "block-3",
-      "sequence": 1729096872,
+      "sequence": 1,
       "elements": [
         {
           "title": "lang::report_dashboard_page_1_users::local_kopere_bi",
+          "refkey": "report_dashboard_page_1_users",
           "block_num": 1,
           "type": "info",
           "theme": "blue",
@@ -26,6 +30,7 @@
         },
         {
           "title": "lang::report_dashboard_page_1_online::local_kopere_bi",
+          "refkey": "report_dashboard_page_1_online",
           "block_num": 2,
           "type": "info",
           "theme": "green",
@@ -39,6 +44,7 @@
         },
         {
           "title": "lang::report_dashboard_page_1_cursos::local_kopere_bi",
+          "refkey": "report_dashboard_page_1_cursos",
           "block_num": 3,
           "type": "info",
           "theme": "orange",
@@ -53,11 +59,13 @@
       ]
     },
     {
+      "refkey": "dashboard-2",
       "type": "block-1",
-      "sequence": 1729098524,
+      "sequence": 2,
       "elements": [
         {
           "title": "lang::report_4_enrolpercourse::local_kopere_bi",
+          "refkey": "report_4_enrolpercourse",
           "block_num": 1,
           "type": "line",
           "theme": "light",
@@ -72,11 +80,13 @@
       ]
     },
     {
+      "refkey": "dashboard-3",
       "type": "block-1",
-      "sequence": 1729099228,
+      "sequence": 3,
       "elements": [
         {
           "title": "lang::report_dashboard_page_1_newusers::local_kopere_bi",
+          "refkey": "report_dashboard_page_1_newusers",
           "block_num": 1,
           "type": "line",
           "theme": "light",

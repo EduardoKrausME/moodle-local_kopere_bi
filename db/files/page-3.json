@@ -2,17 +2,21 @@
   "title": "lang::report_2_title::local_kopere_bi",
   "description": "lang::report_2_description::local_kopere_bi",
   "user_id": null,
+  "refkey": "courses",
   "category": {
+    "refkey": "courses",
     "title": "lang::report_2_cat_title::local_kopere_bi",
     "description": "lang::report_2_cat_description::local_kopere_bi"
   },
   "blocks": [
     {
+      "refkey": "courses-1",
       "type": "block-1",
-      "sequence": 1726940256,
+      "sequence": 1,
       "elements": [
         {
           "title": "lang::report_2_completion_progress::local_kopere_bi",
+          "refkey": "report_2_completion_progress",
           "block_num": 1,
           "type": "table",
           "theme": "light",
@@ -27,11 +31,13 @@
       ]
     },
     {
+      "refkey": "courses-2",
       "type": "block-1",
-      "sequence": 1727028638,
+      "sequence": 1,
       "elements": [
         {
           "title": "lang::report_2_course_progress::local_kopere_bi",
+          "refkey": "report_2_course_progress",
           "block_num": 1,
           "type": "table",
           "theme": "light",
@@ -46,11 +52,13 @@
       ]
     },
     {
+      "refkey": "courses-3",
       "type": "block-1",
-      "sequence": 1727029353,
+      "sequence": 2,
       "elements": [
         {
           "title": "lang::report_2_course_access_statistics::local_kopere_bi",
+          "refkey": "report_2_course_access_statistics",
           "block_num": 1,
           "type": "table",
           "theme": "light",
@@ -65,11 +73,13 @@
       ]
     },
     {
+      "refkey": "courses-4",
       "type": "block-1",
-      "sequence": 1727029796,
+      "sequence": 3,
       "elements": [
         {
           "title": "lang::report_2_course_analysis_participation_completion::local_kopere_bi",
+          "refkey": "report_2_course_analysis_participation_completion",
           "block_num": 1,
           "type": "table",
           "theme": "light",

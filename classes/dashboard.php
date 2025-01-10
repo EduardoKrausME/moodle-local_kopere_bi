@@ -143,6 +143,7 @@ class dashboard extends bi_all {
             if (form::check_post() && isset($pagetitle[3])) {
                 unset($page->id);
 
+                $page->refkey = uniqid();
                 $page->id = $DB->insert_record("local_kopere_bi_page", $page);
                 header::location("?classname=bi-dashboard&method=edit_page&page_id={$page->id}");
             }
@@ -229,6 +230,7 @@ class dashboard extends bi_all {
             if (form::check_post() && isset($cattitle[3])) {
                 unset($cat->id);
 
+                $cat->refkey = uniqid();
                 $cat->id = $DB->insert_record("local_kopere_bi_cat", $cat);
                 header::location("?classname=bi-dashboard&method=start");
             }
