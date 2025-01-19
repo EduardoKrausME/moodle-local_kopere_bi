@@ -24,7 +24,7 @@ use local_kopere_bi\util\sql_util;
 use local_kopere_bi\util\string_util;
 use local_kopere_dashboard\html\form;
 use local_kopere_dashboard\html\inputs\input_select;
-use local_kopere_dashboard\util\mensagem;
+use local_kopere_dashboard\util\message;
 
 /**
  * Class line
@@ -102,7 +102,7 @@ class line implements i_type {
                 ->set_values($values)
                 ->set_description(get_string("select_report_type_desc", "local_kopere_bi", $names)));
 
-        mensagem::print_warning(get_string("line_sql_warning", "local_kopere_bi"));
+        message::print_warning(get_string("line_sql_warning", "local_kopere_bi"));
 
         code_util::input_commandsql($form, $koperebielement);
 
@@ -189,8 +189,17 @@ class line implements i_type {
             try {
                 $rowscolumns = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
             } catch (\Exception $e) {
-                mensagem::print_danger($e->getMessage());
-                return;
+                if (AJAX_SCRIPT) {
+                    echo json_encode([
+                        "sql" => $comand->sql,
+                        "error" => $e->getMessage(),
+                        "trace" => $e->getTraceAsString(),
+                    ]);
+                    die;
+                } else {
+                    message::print_danger($e->getMessage());
+                    return;
+                }
             }
 
             $columns = array_keys((array)$rowscolumns[0]);
@@ -247,8 +256,17 @@ class line implements i_type {
         try {
             $rowsline = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
         } catch (\Exception $e) {
-            mensagem::print_danger($e->getMessage());
-            return "";
+            if (AJAX_SCRIPT) {
+                echo json_encode([
+                    "sql" => $comand->sql,
+                    "error" => $e->getMessage(),
+                    "trace" => $e->getTraceAsString(),
+                ]);
+                die;
+            } else {
+                message::print_danger($e->getMessage());
+                return "";
+            }
         }
 
         $arraylines = false;

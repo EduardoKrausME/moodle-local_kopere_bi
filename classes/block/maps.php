@@ -20,7 +20,7 @@ use local_kopere_bi\block\util\code_util;
 use local_kopere_bi\block\util\database_util;
 use local_kopere_bi\util\sql_util;
 use local_kopere_dashboard\html\form;
-use local_kopere_dashboard\util\mensagem;
+use local_kopere_dashboard\util\message;
 
 /**
  * Class maps
@@ -74,7 +74,7 @@ class maps implements i_type {
      */
     public function edit(form $form, $koperebielement) {
 
-        mensagem::print_warning(get_string("maps_sql_warning", "local_kopere_bi"));
+        message::print_warning(get_string("maps_sql_warning", "local_kopere_bi"));
 
         code_util::input_commandsql($form, $koperebielement, false);
     }
@@ -149,8 +149,17 @@ class maps implements i_type {
         try {
             $rows = (new database_util())->get_records_sql_block_array($comand->sql, $comand->params);
         } catch (\Exception $e) {
-            mensagem::print_danger($e->getMessage());
-            return;
+            if (AJAX_SCRIPT) {
+                echo json_encode([
+                    "sql" => $comand->sql,
+                    "error" => $e->getMessage(),
+                    "trace" => $e->getTraceAsString(),
+                ]);
+                die;
+            } else {
+                message::print_danger($e->getMessage());
+                return;
+            }
         }
 
         $data = [];

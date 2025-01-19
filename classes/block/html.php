@@ -24,7 +24,7 @@ use local_kopere_bi\output\renderer_bi_mustache;
 use local_kopere_bi\util\sql_util;
 use local_kopere_dashboard\html\form;
 use local_kopere_dashboard\html\inputs\input_textarea;
-use local_kopere_dashboard\util\mensagem;
+use local_kopere_dashboard\util\message;
 
 /**
  * Class html
@@ -77,7 +77,7 @@ class html implements i_type {
     public function edit(form $form, $koperebielement) {
         global $PAGE;
 
-        mensagem::print_info(get_string("html_block_desc", "local_kopere_bi"));
+        message::print_info(get_string("html_block_desc", "local_kopere_bi"));
 
         $form->add_input(
             input_textarea::new_instance()
@@ -154,7 +154,8 @@ class html implements i_type {
                     $line = (new database_util())->get_record_sql_block($comand->sql, $comand->params);
                 } catch (\Exception $e) {
                     echo json_encode([
-                        "html" => mensagem::danger($e->getMessage()),
+                        "sql" => $comand->sql,
+                        "html" => message::danger($e->getMessage()),
                         "trace" => $e->getTrace(),
                     ]);
                     die();
@@ -165,7 +166,8 @@ class html implements i_type {
                     $lines = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
                 } catch (\Exception $e) {
                     echo json_encode([
-                        "html" => mensagem::danger($e->getMessage()),
+                        "sql" => $comand->sql,
+                        "html" => message::danger($e->getMessage()),
                         "trace" => $e->getTrace(),
                     ]);
                     die();
@@ -198,8 +200,17 @@ class html implements i_type {
         try {
             $lines = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
         } catch (\Exception $e) {
-            mensagem::print_danger($e->getMessage());
-            return "";
+            if (AJAX_SCRIPT) {
+                echo json_encode([
+                    "sql" => $comand->sql,
+                    "error" => $e->getMessage(),
+                    "trace" => $e->getTraceAsString(),
+                ]);
+                die;
+            } else {
+                message::print_danger($e->getMessage());
+                return "";
+            }
         }
 
         $columns = array_keys((array)$lines[0]);

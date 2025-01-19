@@ -27,7 +27,7 @@ namespace local_kopere_bi\output;
 
 use local_kopere_bi\block\util\database_util;
 use local_kopere_bi\util\sql_util;
-use local_kopere_dashboard\util\mensagem;
+use local_kopere_dashboard\util\message;
 use Mustache_LambdaHelper;
 
 /**
@@ -49,7 +49,16 @@ class mustache_sql_oneitem_helper {
         try {
             $line = (new database_util())->get_record_sql_block($comand->sql, $comand->params);
         } catch (\Exception $e) {
-            return mensagem::danger(get_string("info_error_sql", "local_kopere_bi"));
+            if (AJAX_SCRIPT) {
+                echo json_encode([
+                    "sql" => $comand->sql,
+                    "error" => $e->getMessage(),
+                    "trace" => $e->getTraceAsString(),
+                ]);
+                die;
+            } else {
+                return message::danger(get_string("info_error_sql", "local_kopere_bi"));
+            }
         }
 
         foreach ($line as $column) {

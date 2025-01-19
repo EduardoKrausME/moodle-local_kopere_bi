@@ -22,7 +22,7 @@ use local_kopere_bi\block\util\database_util;
 use local_kopere_bi\block\util\reload_util;
 use local_kopere_bi\util\sql_util;
 use local_kopere_bi\util\string_util;
-use local_kopere_dashboard\util\mensagem;
+use local_kopere_dashboard\util\message;
 
 /**
  * Class area
@@ -109,8 +109,16 @@ class area extends line {
             try {
                 $rowscolumns = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
             } catch (\Exception $e) {
-                mensagem::print_danger($e->getMessage());
-                return;
+                if (AJAX_SCRIPT) {
+                    echo json_encode([
+                        "sql" => $comand->sql,
+                        "error" => $e->getMessage(),
+                        "trace" => $e->getTraceAsString(),
+                    ]);
+                    die;
+                } else {
+                    message::print_danger($e->getMessage());
+                }
             }
 
             $columns = array_keys((array)$rowscolumns[0]);
@@ -163,8 +171,16 @@ class area extends line {
         try {
             $rowsarea = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
         } catch (\Exception $e) {
-            mensagem::print_danger($e->getMessage());
-            return "";
+            if (AJAX_SCRIPT) {
+                echo json_encode([
+                    "error" => $e->getMessage(),
+                    "trace" => $e->getTraceAsString(),
+                ]);
+                die;
+            } else {
+                message::print_danger($e->getMessage());
+                return "";
+            }
         }
 
         $arrayareas = false;
