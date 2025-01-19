@@ -21,7 +21,7 @@ use local_kopere_bi\output\renderer_bi_mustache;
 use local_kopere_bi\vo\local_kopere_bi_block;
 use local_kopere_bi\vo\local_kopere_bi_element;
 use local_kopere_dashboard\html\button;
-use local_kopere_dashboard\util\mensagem;
+use local_kopere_dashboard\util\message;
 
 /**
  * Class preview_util
@@ -166,7 +166,7 @@ class preview_util {
                 }
 
             } else {
-                mensagem::print_danger(get_string("block_not_found", "local_kopere_bi"));
+                message::print_danger(get_string("block_not_found", "local_kopere_bi"));
             }
 
             $return .= scss_util::build_css($koperebielement);

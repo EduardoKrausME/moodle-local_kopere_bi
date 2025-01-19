@@ -20,7 +20,6 @@ use local_kopere_bi\util\sql_util;
 use local_kopere_dashboard\html\form;
 use local_kopere_dashboard\html\inputs\input_select;
 use local_kopere_dashboard\html\inputs\input_textarea;
-use local_kopere_dashboard\util\mensagem;
 
 /**
  * Class code_util

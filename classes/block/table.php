@@ -29,7 +29,7 @@ use local_kopere_dashboard\html\inputs\input_text;
 use local_kopere_dashboard\html\inputs\input_textarea;
 use local_kopere_dashboard\html\table_header_item;
 use local_kopere_dashboard\util\json;
-use local_kopere_dashboard\util\mensagem;
+use local_kopere_dashboard\util\message;
 
 /**
  * Class table
@@ -109,11 +109,19 @@ class table implements i_type {
         try {
             $lines = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
         } catch (\Exception $e) {
-            mensagem::print_danger($e->getMessage());
+            if (AJAX_SCRIPT) {
+                echo json_encode([
+                    "error" => $e->getMessage(),
+                    "trace" => $e->getTraceAsString(),
+                ]);
+                die;
+            } else {
+                message::print_danger($e->getMessage());
+            }
             return false;
         }
 
-        mensagem::print_info(get_string("table_info_topo", "local_kopere_bi"));
+        message::print_info(get_string("table_info_topo", "local_kopere_bi"));
         if (isset($lines[0])) {
             echo "<h3>" . get_string("table_first_5", "local_kopere_bi") . "</h3>";
             echo "<div style='white-space: nowrap;overflow: auto;margin-bottom: 20px;'>";
@@ -133,7 +141,7 @@ class table implements i_type {
             echo "</table>";
             echo "</div>";
 
-            mensagem::print_info(get_string("table_info_types", "local_kopere_bi"));
+            message::print_info(get_string("table_info_types", "local_kopere_bi"));
             foreach ($lines[0] as $id => $line) {
                 echo
                     "<fieldset><legend>" . get_string("table_edit_column", "local_kopere_bi") .
@@ -142,7 +150,7 @@ class table implements i_type {
                 echo "</fieldset>";
             }
         } else {
-            mensagem::print_warning(get_string("sql_no_rows", "local_kopere_bi"));
+            message::print_warning(get_string("sql_no_rows", "local_kopere_bi"));
             return false;
         }
 
@@ -276,7 +284,7 @@ class table implements i_type {
         $table = new data_table();
 
         if (!isset($koperebielement->info_obj["column"])) {
-            return mensagem::danger(get_string("table_column_not_configured", "local_kopere_bi"));
+            return message::danger(get_string("table_column_not_configured", "local_kopere_bi"));
         }
 
         foreach ($koperebielement->info_obj["column"] as $key => $column) {
@@ -338,7 +346,7 @@ class table implements i_type {
             }
         }
 
-        $table->set_ajax_url("?classname=bi-chart_data&method=load_data&item_id={$koperebielement->id}");
+        $table->set_ajax_url("view-ajax.php?classname=bi-chart_data&method=load_data&item_id={$koperebielement->id}");
         $returnhtml = $table->print_header("", true, true);
         $returnhtml .= $table->close(false, null, true, string_util::get_string($koperebielement->title));
 
@@ -373,8 +381,17 @@ class table implements i_type {
             try {
                 $lines = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
             } catch (\Exception $e) {
-                mensagem::print_danger($e->getMessage());
-                return;
+                if (AJAX_SCRIPT) {
+                    echo json_encode([
+                        "sql" => $comand->sql,
+                        "error" => $e->getMessage(),
+                        "trace" => $e->getTraceAsString(),
+                    ]);
+                    die;
+                } else {
+                    message::print_danger($e->getMessage());
+                    return;
+                }
             }
 
             $CFG->debugdeveloper = false;
@@ -433,8 +450,16 @@ class table implements i_type {
         try {
             $lines = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
         } catch (\Exception $e) {
-            mensagem::print_danger($e->getMessage());
-            return "";
+            if (AJAX_SCRIPT) {
+                echo json_encode([
+                    "error" => $e->getMessage(),
+                    "trace" => $e->getTraceAsString(),
+                ]);
+                die;
+            } else {
+                message::print_danger($e->getMessage());
+                return "";
+            }
         }
 
         $columns = array_keys((array)$lines[0]);

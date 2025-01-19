@@ -16,9 +16,7 @@
 
 namespace local_kopere_bi\util;
 
-use local_kopere_bi\vo\local_kopere_bi_block;
-use local_kopere_bi\vo\local_kopere_bi_element;
-use local_kopere_dashboard\util\mensagem;
+use local_kopere_dashboard\util\message;
 
 /**
  * Class sql_util
@@ -77,6 +75,9 @@ class sql_util {
             $sql = preg_replace('/mdl_(\w+)/', "{$CFG->prefix}\$1", $sql);
         }
 
+        $sql = preg_replace('/UNIX_TIMESTAMP[\s+]?\([\s+]?\)/', time(), $sql);
+        $sql = preg_replace('/AS[\s+]?\'(.*?)\'/', 'AS "$1"', $sql);
+
         return (object)["sql" => $sql, "params" => $params];
     }
 
@@ -91,18 +92,18 @@ class sql_util {
 
         if ($CFG->prefix != "mdl_") {
             return
-                mensagem::info(
+                message::info(
                     get_string("sql_replace_keys", "local_kopere_bi") .
                     get_string("sql_replace_keys_mdl", "local_kopere_bi", $CFG->prefix)
                 ) .
-                mensagem::warning(
+                message::warning(
                     get_string("sql_read_only", "local_kopere_bi")
                 );
         } else {
-            return mensagem::info(
+            return message::info(
                     get_string("sql_replace_keys", "local_kopere_bi")
                 ) .
-                mensagem::warning(
+                message::warning(
                     get_string("sql_read_only", "local_kopere_bi")
                 );
         }

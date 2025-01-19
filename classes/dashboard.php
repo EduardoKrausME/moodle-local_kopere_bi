@@ -35,7 +35,7 @@ use local_kopere_dashboard\html\inputs\input_text;
 use local_kopere_dashboard\html\inputs\input_textarea;
 use local_kopere_dashboard\util\dashboard_util;
 use local_kopere_dashboard\util\header;
-use local_kopere_dashboard\util\mensagem;
+use local_kopere_dashboard\util\message;
 
 /**
  * Class dashboard
@@ -434,7 +434,7 @@ class dashboard extends bi_all {
             $block = new $class();
             echo $block->preview($koperebielement);
         } else {
-            mensagem::print_danger(get_string("block_not_found", "local_kopere_bi"));
+            message::print_danger(get_string("block_not_found", "local_kopere_bi"));
         }
 
         echo renderer_bi_mustache::new_instance()->render_from_string($koperebielement->html_after);
@@ -482,7 +482,7 @@ class dashboard extends bi_all {
         /** @var i_type $class */
         $class = "\\local_kopere_bi\\block\\{$koperebielement->type}";
         if (!class_exists($class)) {
-            mensagem::print_danger(get_string("blocktype_not_found", "local_kopere_bi"));
+            message::print_danger(get_string("blocktype_not_found", "local_kopere_bi"));
         }
 
         /** @var i_type $block */
@@ -578,7 +578,7 @@ class dashboard extends bi_all {
         /** @var i_type $blockclass */
         $blockclass = "\\local_kopere_bi\\block\\{$koperebielement->type}";
         if (!class_exists($blockclass)) {
-            mensagem::print_danger(get_string("blocktype_not_found", "local_kopere_bi"));
+            message::print_danger(get_string("blocktype_not_found", "local_kopere_bi"));
         }
 
         /** @var i_type $block */
