@@ -76,7 +76,7 @@ function reset_bi_reports() {
                 $ok = false;
                 if ($CFG->dbtype == "mysqli") {
                     $ok = true;
-                } else if ($CFG->dbtype =="mariadb") {
+                } else if ($CFG->dbtype == "mariadb") {
                     $ok = true;
                 }
                 if (!$ok) {
@@ -108,7 +108,7 @@ function reset_bi_reports() {
                     $ok = false;
                     if ($CFG->dbtype == "mysqli") {
                         $ok = true;
-                    } else if ($CFG->dbtype =="mariadb") {
+                    } else if ($CFG->dbtype == "mariadb") {
                         $ok = true;
                     }
                     if (!$ok) {
@@ -129,7 +129,7 @@ function reset_bi_reports() {
                         $ok = false;
                         if ($CFG->dbtype == "mysqli") {
                             $ok = true;
-                        } else if ($CFG->dbtype =="mariadb") {
+                        } else if ($CFG->dbtype == "mariadb") {
                             $ok = true;
                         }
                         if (!$ok) {
