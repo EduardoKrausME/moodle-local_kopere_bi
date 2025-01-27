@@ -85,6 +85,7 @@
       "sequence": 3,
       "elements": [
         {
+          "pre_requisit": "mysql",
           "title": "lang::report_dashboard_page_1_newusers::local_kopere_bi",
           "refkey": "report_dashboard_page_1_newusers",
           "block_num": 1,

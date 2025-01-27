@@ -3,6 +3,7 @@
   "description": "lang::report_2_description::local_kopere_bi",
   "user_id": null,
   "refkey": "courses",
+  "pre_requisit": "mysql",
   "category": {
     "refkey": "courses",
     "title": "lang::report_2_cat_title::local_kopere_bi",

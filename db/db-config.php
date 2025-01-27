@@ -32,7 +32,7 @@ use local_kopere_bi\vo\local_kopere_bi_cat;
  * @throws dml_exception
  */
 function reset_bi_reports() {
-    global $DB;
+    global $DB, $CFG;
 
     set_config("theme_palette", "default", "local_kopere_bi");
 
@@ -71,6 +71,20 @@ function reset_bi_reports() {
         $koperebipage = clone $page;
         unset($koperebipage->blocks);
 
+        if (isset($koperebipage->pre_requisit)) {
+            if ($koperebipage->pre_requisit == "mysql") {
+                $ok = false;
+                if ($CFG->dbtype == "mysqli") {
+                    $ok = true;
+                } else if ($CFG->dbtype =="mariadb") {
+                    $ok = true;
+                }
+                if (!$ok) {
+                    continue;
+                }
+            }
+        }
+
         /** @var local_kopere_bi_cat $category */
         $category = $DB->get_record("local_kopere_bi_cat", ["refkey" => $page->category->refkey]);
         if (!$category) {
@@ -89,12 +103,40 @@ function reset_bi_reports() {
             $koperebiblock = clone $block;
             unset($koperebiblock->elements);
 
+            if (isset($koperebiblock->pre_requisit)) {
+                if ($koperebiblock->pre_requisit == "mysql") {
+                    $ok = false;
+                    if ($CFG->dbtype == "mysqli") {
+                        $ok = true;
+                    } else if ($CFG->dbtype =="mariadb") {
+                        $ok = true;
+                    }
+                    if (!$ok) {
+                        continue;
+                    }
+                }
+            }
+
             $koperebiblock->page_id = $page->id;
             $koperebiblock->time = time();
             $block->id = $DB->insert_record("local_kopere_bi_block", $koperebiblock);
 
             foreach ($block->elements as $element) {
                 $koperebielement = clone $element;
+
+                if (isset($koperebielement->pre_requisit)) {
+                    if ($koperebielement->pre_requisit == "mysql") {
+                        $ok = false;
+                        if ($CFG->dbtype == "mysqli") {
+                            $ok = true;
+                        } else if ($CFG->dbtype =="mariadb") {
+                            $ok = true;
+                        }
+                        if (!$ok) {
+                            continue;
+                        }
+                    }
+                }
 
                 $koperebielement->block_id = $block->id;
                 $koperebielement->time = time();

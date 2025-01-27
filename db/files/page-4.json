@@ -15,6 +15,7 @@
       "sequence": 2,
       "elements": [
         {
+          "pre_requisit": "mysql",
           "title": "lang::report_4_coursesenrollmentstatus::local_kopere_bi",
           "refkey": "report_4_coursesenrollmentstatus",
           "block_num": 1,
