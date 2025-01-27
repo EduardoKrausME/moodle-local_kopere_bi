@@ -78,4 +78,3 @@ $functions = [
         "ajax" => true,
     ],
 ];
-
