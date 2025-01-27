@@ -80,6 +80,8 @@ class online_update extends external_api {
     public static function api($onlineid, $cachekey, $seconds) {
         global $DB, $USER;
 
+        require_capability("local/kopere_bi:manage", \context_system::instance());
+
         if (isset($USER->koperebionline_time[$cachekey])) {
             $USER->koperebionline_time[$cachekey] = time();
         }

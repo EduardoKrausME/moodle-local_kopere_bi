@@ -78,6 +78,8 @@ class block extends external_api {
     public static function sequence($elements) {
         global $DB;
 
+        require_capability("local/kopere_bi:manage", \context_system::instance());
+
         $elements = explode(",", $elements);
         $sequence = 0;
         foreach ($elements as $element) {
@@ -136,6 +138,8 @@ class block extends external_api {
      */
     public static function delete($blockid) {
         global $DB;
+
+        require_capability("local/kopere_bi:manage", \context_system::instance());
 
         /** @var local_kopere_bi_block $koperebiblock */
         $koperebiblock = $DB->get_record("local_kopere_bi_block", ["id" => $blockid]);
@@ -197,6 +201,8 @@ class block extends external_api {
      */
     public static function add($pageid, $type) {
         global $DB, $PAGE;
+
+        require_capability("local/kopere_bi:manage", \context_system::instance());
 
         $PAGE->set_context(\context_system::instance());
 

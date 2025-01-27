@@ -72,7 +72,7 @@ class page_html extends external_api {
     /**
      * API para contabilizar o tempo gasto na plataforma pelos usuários
      *
-     * @param $onlineid
+     * @param int $pageid
      *
      * @return array
      * @throws \Exception
@@ -80,6 +80,8 @@ class page_html extends external_api {
      */
     public static function api($pageid) {
         global $DB, $CFG, $OUTPUT, $PAGE;
+
+        require_capability("local/kopere_bi:view", \context_system::instance());
 
         require_once("{$CFG->dirroot}/local/kopere_dashboard/autoload.php");
         require_once("{$CFG->dirroot}/local/kopere_bi/lib.php");
