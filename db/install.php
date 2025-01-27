@@ -32,8 +32,8 @@
 function xmldb_local_kopere_bi_install() {
     global $CFG;
 
-    if ($CFG->dbtype != "mysqli") {
-        new moodle_exception("Infelizmente, no momento somente aceito Moodle rodando sobre MySql!");
+    if ($CFG->dbtype == "mysqli" || $CFG->dbtype = "mariadb" || $CFG->dbtype == "pgsql") {
+        new moodle_exception("Unfortunately, at the moment I only accept Moodle running on MySql and PostgreSQL!");
     }
 
     require_once("db-config.php");
