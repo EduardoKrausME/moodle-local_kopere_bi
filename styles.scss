@@ -560,29 +560,50 @@
                 &.buttons-copy,
                 &.buttons-excel {
                     display: inline-block;
-                    font: normal normal normal 14px/1 FontAwesome;
-                    text-rendering: auto;
-                    -webkit-font-smoothing: antialiased;
-                    font-size: 0;
                     padding: 10px 9px;
                     &::before {
+                        content: " ";
+                        background-size: contain;
+                        height: 20px;
+                        width: 20px;
+                        display: block;
                         font-size: 19px;
+                    }
+                    span {
+                        display: none;
+                        opacity: 0;
+                        z-index: 9;
+                        position: absolute;
+                        left: -5px;
+                        bottom: 0;
+                        transition: all ease .3s;
+                    }
+                    &:hover {
+                        overflow: initial;
+                        span {
+                            display: inline-block;
+                            opacity: 1;
+                            left: -29px;
+                            bottom: -18px;
+                            width: 100px;
+                            text-align: center;
+                        }
                     }
                 }
                 &.buttons-print::before {
-                    content: "\f02f";
+                    background-image: url('[[pix:local_kopere_bi|action-table/print]]');
                 }
                 &.buttons-pdf::before {
-                    content: "\f1c1";
+                    background-image: url('[[pix:local_kopere_bi|action-table/pdf]]');
                 }
                 &.buttons-csv::before {
-                    content: "\f6dd";
+                    background-image: url('[[pix:local_kopere_bi|action-table/csv]]');
                 }
                 &.buttons-copy::before {
-                    content: "\f0c5";
+                    background-image: url('[[pix:local_kopere_bi|action-table/copy]]');
                 }
                 &.buttons-excel::before {
-                    content: "\f1c3";
+                    background-image: url('[[pix:local_kopere_bi|action-table/excel]]');
                 }
             }
         }
