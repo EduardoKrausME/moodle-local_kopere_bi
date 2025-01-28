@@ -85,7 +85,7 @@ class html implements i_type {
                 ->set_style("width:100%;font-family:monospace;white-space:nowrap;")
                 ->set_name("infohtml")
                 ->set_value(@$koperebielement->info_obj["html"]));
-        $PAGE->requires->js_call_amd("local_kopere_bi/ace", "load", ["infohtml", "html"]);
+        $PAGE->requires->js_call_amd("local_kopere_bi/load_ace", "getScript", ["infohtml", "html"]);
 
         code_util::input_commandsql($form, $koperebielement);
     }

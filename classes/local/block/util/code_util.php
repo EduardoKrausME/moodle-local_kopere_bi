@@ -52,7 +52,7 @@ class code_util {
                 ->set_name("commandsql")
                 ->set_value($commandsql)
                 ->set_description(sql_util::chaves_replace()));
-        $PAGE->requires->js_call_amd("local_kopere_bi/ace", "load", ["commandsql", "sql"]);
+        $PAGE->requires->js_call_amd("local_kopere_bi/load_ace", "getScript", ["commandsql", "sql"]);
 
         if ($iscache) {
             $form->add_input(
@@ -129,7 +129,7 @@ class code_util {
                 ->set_name("css")
                 ->set_value(@$koperebielement->css)
                 ->set_description(get_string("css_extra_desc", "local_kopere_bi")));
-        $PAGE->requires->js_call_amd("local_kopere_bi/ace", "load", ["css", "css"]);
+        $PAGE->requires->js_call_amd("local_kopere_bi/load_ace", "getScript", ["css", "css"]);
 
         $form->add_input(
             input_textarea::new_instance()
@@ -147,8 +147,8 @@ class code_util {
 
         echo "</div></div></fieldset>";
 
-        $PAGE->requires->js_call_amd("local_kopere_bi/ace", "load", ["html_before", "html"]);
-        $PAGE->requires->js_call_amd("local_kopere_bi/ace", "load", ["html_after", "html"]);
+        $PAGE->requires->js_call_amd("local_kopere_bi/load_ace", "getScript", ["html_before", "html"]);
+        $PAGE->requires->js_call_amd("local_kopere_bi/load_ace", "getScript", ["html_after", "html"]);
         $PAGE->requires->js_call_amd("local_kopere_bi/theme", "changue", ["Amostra"]);
     }
 
@@ -183,7 +183,7 @@ class code_util {
 
         echo "</div></div></fieldset>";
 
-        $PAGE->requires->js_call_amd("local_kopere_bi/ace", "load", ["infochart_options", "json5"]);
+        $PAGE->requires->js_call_amd("local_kopere_bi/load_ace", "getScript", ["infochart_options", "json5"]);
         $PAGE->requires->js_call_amd("local_kopere_bi/theme", "collapse_options");
     }
 

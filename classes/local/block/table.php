@@ -269,7 +269,7 @@ class table implements i_type {
                 ->add_extras('oninput="this.style.height=\'\';this.style.height=(this.scrollHeight+5)+\'px\'"')
                 ->add_extras('onfocus="this.style.height=\'\';this.style.height=(this.scrollHeight+5)+\'px\'"')
         );
-        $PAGE->requires->js_call_amd("local_kopere_bi/ace", "load", ["columnmustache{$collkey}", "html", 3]);
+        $PAGE->requires->js_call_amd("local_kopere_bi/load_ace", "getScript", ["columnmustache{$collkey}", "html", 3]);
     }
 
     /**
