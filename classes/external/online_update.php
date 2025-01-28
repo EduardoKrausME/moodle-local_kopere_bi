@@ -20,7 +20,7 @@ use external_api;
 use external_value;
 use external_single_structure;
 use external_function_parameters;
-use local_kopere_bi\vo\local_kopere_bi_online;
+use local_kopere_bi\local\vo\local_kopere_bi_online;
 
 defined('MOODLE_INTERNAL') || die;
 global $CFG;

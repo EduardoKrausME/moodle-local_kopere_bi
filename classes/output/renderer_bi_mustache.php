@@ -24,7 +24,7 @@
 
 namespace local_kopere_bi\output;
 
-use local_kopere_bi\util\string_util;
+use local_kopere_bi\local\util\string_util;
 use Mustache_Engine;
 
 

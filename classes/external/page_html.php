@@ -21,10 +21,10 @@ use external_api;
 use external_value;
 use external_single_structure;
 use external_function_parameters;
-use local_kopere_bi\util\filter;
-use local_kopere_bi\util\string_util;
-use local_kopere_bi\vo\local_kopere_bi_block;
-use local_kopere_bi\vo\local_kopere_bi_page;
+use local_kopere_bi\local\util\filter;
+use local_kopere_bi\local\util\string_util;
+use local_kopere_bi\local\vo\local_kopere_bi_block;
+use local_kopere_bi\local\vo\local_kopere_bi_page;
 
 defined('MOODLE_INTERNAL') || die;
 global $CFG;
@@ -106,7 +106,7 @@ class page_html extends external_api {
 
             /** @var local_kopere_bi_block $koperebiblock */
             foreach ($koperebiblocks as $koperebiblock) {
-                $text .= (new \local_kopere_bi\util\preview_util())->details_block($koperebiblock);
+                $text .= (new \local_kopere_bi\local\util\preview_util())->details_block($koperebiblock);
             }
         }
 

@@ -16,18 +16,18 @@
 
 namespace local_kopere_bi;
 
-use local_kopere_bi\block\i_type;
-use local_kopere_bi\block\util\code_util;
+use local_kopere_bi\local\block\i_type;
+use local_kopere_bi\local\block\util\code_util;
 use local_kopere_bi\output\renderer_bi_mustache;
-use local_kopere_bi\util\details_util;
-use local_kopere_bi\util\filter;
-use local_kopere_bi\util\preview_util;
-use local_kopere_bi\util\scss_util;
-use local_kopere_bi\util\string_util;
-use local_kopere_bi\vo\local_kopere_bi_block;
-use local_kopere_bi\vo\local_kopere_bi_cat;
-use local_kopere_bi\vo\local_kopere_bi_element;
-use local_kopere_bi\vo\local_kopere_bi_page;
+use local_kopere_bi\local\util\details_util;
+use local_kopere_bi\local\util\filter;
+use local_kopere_bi\local\util\preview_util;
+use local_kopere_bi\local\util\scss_util;
+use local_kopere_bi\local\util\string_util;
+use local_kopere_bi\local\vo\local_kopere_bi_block;
+use local_kopere_bi\local\vo\local_kopere_bi_cat;
+use local_kopere_bi\local\vo\local_kopere_bi_element;
+use local_kopere_bi\local\vo\local_kopere_bi_page;
 use local_kopere_dashboard\html\button;
 use local_kopere_dashboard\html\form;
 use local_kopere_dashboard\html\inputs\input_select;
@@ -428,7 +428,7 @@ class dashboard extends bi_all {
 
         echo $koperebielement->html_before;
 
-        $class = "\\local_kopere_bi\\block\\{$koperebielement->type}";
+        $class = "\\local_kopere_bi\\local\\block\\{$koperebielement->type}";
         if (class_exists($class)) {
             /** @var i_type $block */
             $block = new $class();
@@ -480,7 +480,7 @@ class dashboard extends bi_all {
         header::notfound_null($koperebipage, get_string("page_not_found", "local_kopere_bi"));
 
         /** @var i_type $class */
-        $class = "\\local_kopere_bi\\block\\{$koperebielement->type}";
+        $class = "\\local_kopere_bi\\local\\block\\{$koperebielement->type}";
         if (!class_exists($class)) {
             message::print_danger(get_string("blocktype_not_found", "local_kopere_bi"));
         }
@@ -496,7 +496,7 @@ class dashboard extends bi_all {
             "?classname=bi-dashboard&method=edit_page&page_id={$koperebipage->id}");
         if ($elementid) {
             /** @var i_type $blockname */
-            $blockname = "\\local_kopere_bi\\block\\{$koperebielement->type}";
+            $blockname = "\\local_kopere_bi\\local\\block\\{$koperebielement->type}";
             if (class_exists($blockname)) {
                 dashboard_util::add_breadcrumb(string_util::get_string($koperebielement->title) . ": {$blockname::get_name()}");
             } else {
@@ -576,7 +576,7 @@ class dashboard extends bi_all {
         header::notfound_null($koperebipage, get_string("page_not_found", "local_kopere_bi"));
 
         /** @var i_type $blockclass */
-        $blockclass = "\\local_kopere_bi\\block\\{$koperebielement->type}";
+        $blockclass = "\\local_kopere_bi\\local\\block\\{$koperebielement->type}";
         if (!class_exists($blockclass)) {
             message::print_danger(get_string("blocktype_not_found", "local_kopere_bi"));
         }

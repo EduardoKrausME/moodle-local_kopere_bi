@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die;
 require_once(__DIR__ . "/../lib.php");
 
 use dml_exception;
-use local_kopere_bi\analise\access_analyze;
+use local_kopere_bi\local\analise\access_analyze;
 
 /**
  * Class core_hook_output

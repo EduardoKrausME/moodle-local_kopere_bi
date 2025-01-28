@@ -23,10 +23,10 @@
  */
 
 use local_kopere_bi\core_hook_output;
-use local_kopere_bi\util\filter;
-use local_kopere_bi\util\string_util;
-use local_kopere_bi\vo\local_kopere_bi_block;
-use local_kopere_bi\vo\local_kopere_bi_page;
+use local_kopere_bi\local\util\filter;
+use local_kopere_bi\local\util\string_util;
+use local_kopere_bi\local\vo\local_kopere_bi_block;
+use local_kopere_bi\local\vo\local_kopere_bi_page;
 
 /**
  * Function local_kopere_bi_before_footer
@@ -132,7 +132,7 @@ function load_kopere_bi($pageid) {
 
         /** @var local_kopere_bi_block $koperebiblock */
         foreach ($koperebiblocks as $koperebiblock) {
-            $text .= (new \local_kopere_bi\util\preview_util())->details_block($koperebiblock);
+            $text .= (new \local_kopere_bi\local\util\preview_util())->details_block($koperebiblock);
         }
     }
 

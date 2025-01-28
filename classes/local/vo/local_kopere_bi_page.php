@@ -14,18 +14,57 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace local_kopere_bi\local\vo;
+
 /**
- * Hooks
+ * phpcs:disable
+ * Class local_kopere_bi_page
  *
  * @package   local_kopere_bi
  * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+class local_kopere_bi_page extends \stdClass {
 
-defined('MOODLE_INTERNAL') || die;
-$callbacks = [
-    [
-        "hook" => \core\hook\output\before_footer_html_generation::class,
-        "callback" => "\\local_kopere_bi\\core_hook_output::before_footer_html_generation",
-    ],
-];
+    /**
+     * Var id
+     *
+     * @var int
+     */
+    public $id;
+
+    /**
+     * Var cat_id
+     *
+     * @var int
+     */
+    public $cat_id;
+
+    /**
+     * Var title
+     *
+     * @var string
+     */
+    public $title;
+
+    /**
+     * Var description
+     *
+     * @var string
+     */
+    public $description;
+
+    /**
+     * Var user_id
+     *
+     * @var int
+     */
+    public $user_id;
+
+    /**
+     * Var time
+     *
+     * @var int
+     */
+    public $time;
+}

@@ -25,8 +25,8 @@
 namespace local_kopere_bi\output;
 
 
-use local_kopere_bi\block\util\database_util;
-use local_kopere_bi\util\sql_util;
+use local_kopere_bi\local\block\util\database_util;
+use local_kopere_bi\local\util\sql_util;
 use local_kopere_dashboard\util\message;
 use Mustache_LambdaHelper;
 

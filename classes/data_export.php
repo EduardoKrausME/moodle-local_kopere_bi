@@ -16,10 +16,10 @@
 
 namespace local_kopere_bi;
 
-use local_kopere_bi\vo\local_kopere_bi_block;
-use local_kopere_bi\vo\local_kopere_bi_cat;
-use local_kopere_bi\vo\local_kopere_bi_element;
-use local_kopere_bi\vo\local_kopere_bi_page;
+use local_kopere_bi\local\vo\local_kopere_bi_block;
+use local_kopere_bi\local\vo\local_kopere_bi_cat;
+use local_kopere_bi\local\vo\local_kopere_bi_element;
+use local_kopere_bi\local\vo\local_kopere_bi_page;
 use local_kopere_dashboard\util\header;
 
 /**

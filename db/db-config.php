@@ -24,7 +24,7 @@
  * @throws Exception
  */
 
-use local_kopere_bi\vo\local_kopere_bi_cat;
+use local_kopere_bi\local\vo\local_kopere_bi_cat;
 
 /**
  * Function reset_bi_reports
