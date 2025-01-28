@@ -1,7 +1,7 @@
 define(["jquery"], function($) {
     return {
 
-        load : function(id_key, type, minLines) {
+        getScript : function(id_key, type, minLines) {
             $.getScript("https://ajaxorg.github.io/ace-builds/src-min-noconflict/ace.js", function() {
                 var html = `
                     <div id="editor_${id_key}_area">
