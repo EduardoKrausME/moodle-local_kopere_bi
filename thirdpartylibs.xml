@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <libraries>
     <library>
-        <location>classes/analise/vendor/matomo/device-detector</location>
+        <location>classes/local/analise/vendor/matomo/device-detector</location>
         <name>matomo/device-detector</name>
         <version>3.13.1</version>
         <license>LGPL-3.0-or-later</license>
     </library>
 
     <library>
-        <location>classes/analise/vendor/mustangostang/spyc</location>
+        <location>classes/local/analise/vendor/mustangostang/spyc</location>
         <name>mustangostang/spyc</name>
         <version>0.6.3</version>
         <license>MIT</license>
     </library>
 
     <library>
-        <location>classes/analise/vendor</location>
+        <location>classes/local/analise/vendor</location>
         <name>Composer</name>
         <version>1.0.0.0</version>
         <license>no-license-set</license>
