@@ -105,6 +105,5 @@ class core_hook_output {
         if (isset($USER->koperebionline_id[$key])) {
             $PAGE->requires->js_call_amd("local_kopere_bi/online", "init", [$USER->koperebionline_id[$key], $key]);
         }
-        $PAGE->requires->js_call_amd("local_kopere_bi/mod_koperebi", "init");
     }
 }
