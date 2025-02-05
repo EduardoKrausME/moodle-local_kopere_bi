@@ -80,7 +80,7 @@ class categorie extends external_api {
             "itens" => $elements,
         ]);
 
-        $context=\context_system::instance();
+        $context = \context_system::instance();
         require_capability("local/kopere_bi:manage", $context);
         self::validate_context($context);
 
