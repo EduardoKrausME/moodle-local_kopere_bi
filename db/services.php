@@ -69,12 +69,4 @@ $functions = [
         "type" => "write",
         "ajax" => true,
     ],
-    "local_kopere_bi_page_html" => [
-        "classpath" => "local/kopere_bi/classes/external/page_html.php",
-        "classname" => '\local_kopere_bi\external\page_html',
-        "methodname" => "api",
-        "description" => 'Records the time spent by a user for the dashboard',
-        "type" => "write",
-        "ajax" => true,
-    ],
 ];
