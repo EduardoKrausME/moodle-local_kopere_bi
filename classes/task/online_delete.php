@@ -50,16 +50,18 @@ class online_delete extends \core\task\scheduled_task {
     public function execute() {
         global $DB, $CFG;
 
-        if ($CFG->dbtype == "mysqli" || $CFG->dbtype = "mariadb") {
-            $where = 'onlineat < DATE_SUB(NOW(), INTERVAL :month MONTH)';
+        if ($CFG->dbtype == "mysqli" || $CFG->dbtype == "mariadb") {
+            $where = 'currenttime < DATE_SUB(NOW(), INTERVAL :month MONTH)';
+            $DB->delete_records_select("local_kopere_bi_online", $where, ["month" => $this->month]);
         } else if ($CFG->dbtype == "pgsql") {
-            $where = "onlineat < CURRENT_DATE - INTERVAL ':month MONTH'";
+            $where = "currenttime < :month";
+            $time = strtotime("-{$this->month} months", time());
+            $DB->delete_records_select("local_kopere_bi_online", $where, ["month" => $time]);
         } else {
             mtrace("only mysqli and pgsql");
             return;
         }
 
-        $DB->delete_records_select("local_kopere_bi_online", $where, ["month" => $this->month]);
         mtrace("Completed cleaning of results from the last {$this->month} months.");
     }
 }
