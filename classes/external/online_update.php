@@ -86,7 +86,7 @@ class online_update extends external_api {
             "seconds" => $seconds,
         ]);
 
-       $context= \context_user::instance($USER->id);
+        $context = \context_user::instance($USER->id);
         require_capability("local/kopere_bi:view", $context);
         self::validate_context($context);
 
