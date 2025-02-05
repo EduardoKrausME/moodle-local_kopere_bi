@@ -71,32 +71,34 @@ class online_update extends external_api {
      * API para contabilizar o tempo gasto na plataforma pelos usuários
      *
      * @param $onlineid
+     * @param $cachekey
+     * @param $seconds
      *
      * @return array
-     * @throws \Exception
-     * @throws \invalid_parameter_exception
-     * @throws \restricted_context_exception
+     * @throws \dml_exception
      */
     public static function api($onlineid, $cachekey, $seconds) {
         global $DB, $USER;
 
-        require_capability("local/kopere_bi:manage", \context_system::instance());
+        $params = self::validate_parameters(self::api_parameters(), [
+            "online_id" => $onlineid,
+            "cache_key" => $cachekey,
+            "seconds" => $seconds,
+        ]);
 
-        if (isset($USER->koperebionline_time[$cachekey])) {
-            $USER->koperebionline_time[$cachekey] = time();
+       $context= \context_user::instance($USER->id);
+        require_capability("local/kopere_bi:view", $context);
+        self::validate_context($context);
+
+        if (isset($USER->koperebionline_time[$params["cache_key"]])) {
+            $USER->koperebionline_time[$params["cache_key"]] = time();
         }
 
-        // Retrieve the instance from the system context.
-        $systemcontext = \context_system::instance();
-
-        // Validate the system context.
-        self::validate_context($systemcontext);
-
         /** @var local_kopere_bi_online $online */
-        $online = $DB->get_record("local_kopere_bi_online", ["id" => $onlineid]);
+        $online = $DB->get_record("local_kopere_bi_online", ["id" => $params["online_id"]]);
         if ($online) {
             $online->currenttime = time();
-            $online->seconds = $online->seconds + $seconds;
+            $online->seconds = $online->seconds + $params["seconds"];
 
             $DB->update_record("local_kopere_bi_online", $online);
         }

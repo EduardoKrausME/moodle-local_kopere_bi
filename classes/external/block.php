@@ -78,9 +78,14 @@ class block extends external_api {
     public static function sequence($elements) {
         global $DB;
 
-        require_capability("local/kopere_bi:manage", \context_system::instance());
+        $params = self::validate_parameters(self::sequence_parameters(), [
+            "itens" => $elements,
+        ]);
+        $context = \context_system::instance();
+        require_capability("local/kopere_bi:manage", $context);
+        self::validate_context($context);
 
-        $elements = explode(",", $elements);
+        $elements = explode(",", $params["itens"]);
         $sequence = 0;
         foreach ($elements as $element) {
             if ($element) {
@@ -139,18 +144,23 @@ class block extends external_api {
     public static function delete($blockid) {
         global $DB;
 
-        require_capability("local/kopere_bi:manage", \context_system::instance());
+        $params = self::validate_parameters(self::delete_parameters(), [
+            "block_id" => $blockid,
+        ]);
+        $context = \context_system::instance();
+        require_capability("local/kopere_bi:manage", $context);
+        self::validate_context($context);
 
         /** @var local_kopere_bi_block $koperebiblock */
-        $koperebiblock = $DB->get_record("local_kopere_bi_block", ["id" => $blockid]);
+        $koperebiblock = $DB->get_record("local_kopere_bi_block", ["id" => $params["block_id"]]);
         if (!$koperebiblock) {
             return [
                 "status" => "ERRO",
             ];
         }
 
-        $DB->delete_records("local_kopere_bi_block", ["id" => $blockid]);
-        $DB->delete_records("local_kopere_bi_element", ["block_id" => $blockid]);
+        $DB->delete_records("local_kopere_bi_block", ["id" => $params["block_id"]]);
+        $DB->delete_records("local_kopere_bi_element", ["block_id" => $params["block_id"]]);
 
         return [
             "status" => "OK",
@@ -202,13 +212,19 @@ class block extends external_api {
     public static function add($pageid, $type) {
         global $DB, $PAGE;
 
-        require_capability("local/kopere_bi:manage", \context_system::instance());
+        $params = self::validate_parameters(self::add_parameters(), [
+            "page_id" => $pageid,
+            "type" => $type,
+        ]);
+        $context = \context_system::instance();
+        require_capability("local/kopere_bi:manage", $context);
+        self::validate_context($context);
 
         $PAGE->set_context(\context_system::instance());
 
         $koperebiblock = (object)[
-            "page_id" => $pageid,
-            "type" => $type,
+            "page_id" => $params["page_id"],
+            "type" => $params["type"],
             "sequence" => time(),
             "time" => time(),
         ];

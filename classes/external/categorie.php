@@ -76,9 +76,15 @@ class categorie extends external_api {
     public static function sortorder($elements) {
         global $DB;
 
-        require_capability("local/kopere_bi:manage", \context_system::instance());
+        $params = self::validate_parameters(self::sortorder_parameters(), [
+            "itens" => $elements,
+        ]);
 
-        $elements = explode(",", $elements);
+        $context=\context_system::instance();
+        require_capability("local/kopere_bi:manage", $context);
+        self::validate_context($context);
+
+        $elements = explode(",", $params["itens"]);
         $sortorder = 0;
         foreach ($elements as $element) {
             if ($element) {
