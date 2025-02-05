@@ -40,7 +40,7 @@ class database_util {
         global $DB, $CFG;
 
         // Prevents SQL from deleting, altering, or inserting data.
-        if ($CFG->dbtype == "mysqli" || $CFG->dbtype = "mariadb") {
+        if ($CFG->dbtype == "mysqli" || $CFG->dbtype == "mariadb") {
             try {
                 $DB->execute("SET @@SESSION.transaction_read_only = ON");
             } catch (\Exception $e) {
