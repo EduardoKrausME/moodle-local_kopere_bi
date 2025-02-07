@@ -199,6 +199,7 @@ $string['maps_sql_warning'] = '<p>Remember that the SQL below should return only
 $string['missingstrings1'] = 'Complete the KEYS in English for the strings below and do not modify the values: {$a}';
 $string['missingstrings2'] = 'Fill in the values for the strings and do not modify the KEYS: {$a}';
 $string['module_name'] = 'Module name';
+$string['module_count'] = 'Module count';
 $string['modulename'] = 'Business Intelligence';
 $string['new_block'] = 'New block on this page';
 $string['new_block_1'] = 'One block';
@@ -331,6 +332,9 @@ $string['report_8_engagement'] = 'Engagement';
 $string['report_8_student_teacher_engagement'] = 'Student and Teacher Engagement Report';
 $string['report_8_teacher_access'] = 'Teacher Access';
 $string['report_8_total_engagement_per_course'] = 'Total Engagement by Course';
+$string['report_9_category_title'] = 'Course Modules';
+$string['report_9_category_desc'] = 'Report on course modules';
+$string['report_9_report_1_name'] = 'Module Statistics';
 $string['report_dashboard_cat_title'] = 'Dashboard';
 $string['report_dashboard_page_1_cursos'] = 'Courses / Visible';
 $string['report_dashboard_page_1_newusers'] = 'New users in the last 12 months';
@@ -521,3 +525,5 @@ $string['word_extra_77'] = '';
 $string['word_extra_78'] = '';
 $string['word_extra_79'] = '';
 $string['word_extra_80'] = '';
+
+
