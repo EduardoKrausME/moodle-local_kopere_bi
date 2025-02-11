@@ -489,6 +489,14 @@ class table implements i_type {
 }
 
 if (!function_exists('str_ends_with')) {
+    /**
+     * Function str_ends_with
+     *
+     * @param $haystack
+     * @param $needle
+     *
+     * @return bool
+     */
     function str_ends_with($haystack, $needle) {
         if ('' === $needle || $needle === $haystack) {
             return true;
@@ -498,8 +506,8 @@ if (!function_exists('str_ends_with')) {
             return false;
         }
 
-        $needleLength = \strlen($needle);
+        $needlelength = \strlen($needle);
 
-        return $needleLength <= \strlen($haystack) && 0 === substr_compare($haystack, $needle, -$needleLength);
+        return $needlelength <= \strlen($haystack) && 0 === substr_compare($haystack, $needle, -$needlelength);
     }
 }

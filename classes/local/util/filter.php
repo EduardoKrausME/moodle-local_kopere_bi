@@ -114,21 +114,6 @@ class filter {
                 $PAGE->requires->js_call_amd("local_kopere_bi/filter_user", "init");
             }
 
-            //if (!isset($comand->params["userid"])) {
-            //    if (isset($USER->filter_userid)) {
-            //        $comand->params["userid"] = $USER->filter_userid;
-            //    } else {
-            //        $comand->params["userid"] = $USER->id;
-            //    }
-            //}
-            //if (!isset($comand->params["courseid"])) {
-            //    if (isset($USER->filter_courseid)) {
-            //        $comand->params["courseid"] = $USER->filter_courseid;
-            //    } else {
-            //        $comand->params["courseid"] = $COURSE->id;
-            //    }
-            //}
-
             $return .= "</div>";
         }
 

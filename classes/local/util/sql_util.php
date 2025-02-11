@@ -66,8 +66,8 @@ class sql_util {
                         return ":count_{$i}_userid";
                     },
                     $sql,
-                    -1, // Substituir todas as ocorrências
-                    $count // Contador de substituições
+                    -1, // Substituir todas as ocorrências.
+                    $count // Contador de substituições.
                 );
 
                 for ($i = 1; $i <= $count; $i++) {
@@ -75,7 +75,6 @@ class sql_util {
                 }
             }
         }
-
 
         if ($isfiltercourse) {
             $courseid = optional_param("courseid", 0, PARAM_INT);
@@ -101,8 +100,8 @@ class sql_util {
                         return ":count_{$i}_courseid";
                     },
                     $sql,
-                    -1, // Substituir todas as ocorrências
-                    $count // Contador de substituições
+                    -1, // Substituir todas as ocorrências.
+                    $count // Contador de substituições.
                 );
 
                 for ($i = 1; $i <= $count; $i++) {
