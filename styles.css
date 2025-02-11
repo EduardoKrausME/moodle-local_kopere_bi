@@ -417,7 +417,6 @@
 .kopere-bi .kopere-dashboard-modal .chart-box {
     height: 100%;
     position: relative;
-    overflow: hidden;
 }
 .kopere-bi .kopere_dashboard_div .chart-box.select-theme,
 .kopere-bi .kopere-dashboard-modal .chart-box.select-theme {
