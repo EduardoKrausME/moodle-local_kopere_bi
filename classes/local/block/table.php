@@ -487,3 +487,19 @@ class table implements i_type {
         ]);
     }
 }
+
+if (!function_exists('str_ends_with')) {
+    function str_ends_with($haystack, $needle) {
+        if ('' === $needle || $needle === $haystack) {
+            return true;
+        }
+
+        if ('' === $haystack) {
+            return false;
+        }
+
+        $needleLength = \strlen($needle);
+
+        return $needleLength <= \strlen($haystack) && 0 === substr_compare($haystack, $needle, -$needleLength);
+    }
+}
