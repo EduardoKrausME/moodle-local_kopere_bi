@@ -69,7 +69,8 @@ class filter {
 
         $comand = sql_util::prepare_sql($commandsql);
 
-        if (isset($comand->params["userid"]) || isset($comand->params["courseid"])) {
+        if (isset($comand->params["userid"]) || isset($comand->params["count_1_userid"]) ||
+            isset($comand->params["courseid"]) || isset($comand->params["count_1_courseid"])) {
             $return .= "<div id='chart-filter' class='d-flex' style='gap: 12px;'>";
 
             $classname = optional_param("classname", false, PARAM_TEXT);
@@ -79,7 +80,7 @@ class filter {
 
             $paramsurl = ["item_id" => $elementid, "page_id" => $pageid];
 
-            if (isset($comand->params["courseid"])) {
+            if (isset($comand->params["courseid"]) || isset($comand->params["count_1_courseid"])) {
                 $course = $DB->get_record("course", ["id" => $comand->params["courseid"]]);
 
                 $paramsurl["courseid"] = "{id}";
@@ -92,16 +93,16 @@ class filter {
                     "url_ajax" => local_kopere_dashboard_makeurl("courses", "load_all_courses", [], "view-ajax"),
                     "url_click" => local_kopere_dashboard_makeurl($classname, $method, $paramsurl),
                 ];
-                $return .= $OUTPUT->render_from_template('local_kopere_bi/filter/course', $data);
+                $return .= $OUTPUT->render_from_template('local_kopere_bi/filter-course', $data);
                 $PAGE->requires->js_call_amd("local_kopere_bi/filter_course", "init");
             }
 
-            if (isset($comand->params["userid"])) {
+            if (isset($comand->params["userid"]) || isset($comand->params["count_1_userid"])) {
                 $user = $DB->get_record("user", ["id" => $comand->params["userid"]]);
 
                 $paramsurl["userid"] = "{id}";
-                if (isset($comand->params["courseid"])) {
-                    $paramsurl["courseid"] = $comand->params["courseid"];
+                if (isset($comand->params["userid"]) || isset($comand->params["count_1_userid"])) {
+                    $paramsurl["userid"] = $comand->params["userid"];
                 }
                 $CFG->debugdeveloper = false;
                 $data = [
@@ -109,24 +110,24 @@ class filter {
                     "url_ajax" => local_kopere_dashboard_makeurl("users", "load_all_users", [], "view-ajax"),
                     "url_click" => local_kopere_dashboard_makeurl($classname, $method, $paramsurl),
                 ];
-                $return .= $OUTPUT->render_from_template('local_kopere_bi/filter/user', $data);
+                $return .= $OUTPUT->render_from_template('local_kopere_bi/filter-user', $data);
                 $PAGE->requires->js_call_amd("local_kopere_bi/filter_user", "init");
             }
 
-            if (!isset($comand->params["userid"])) {
-                if (isset($USER->filter_userid)) {
-                    $comand->params["userid"] = $USER->filter_userid;
-                } else {
-                    $comand->params["userid"] = $USER->id;
-                }
-            }
-            if (!isset($comand->params["courseid"])) {
-                if (isset($USER->filter_courseid)) {
-                    $comand->params["courseid"] = $USER->filter_courseid;
-                } else {
-                    $comand->params["courseid"] = $COURSE->id;
-                }
-            }
+            //if (!isset($comand->params["userid"])) {
+            //    if (isset($USER->filter_userid)) {
+            //        $comand->params["userid"] = $USER->filter_userid;
+            //    } else {
+            //        $comand->params["userid"] = $USER->id;
+            //    }
+            //}
+            //if (!isset($comand->params["courseid"])) {
+            //    if (isset($USER->filter_courseid)) {
+            //        $comand->params["courseid"] = $USER->filter_courseid;
+            //    } else {
+            //        $comand->params["courseid"] = $COURSE->id;
+            //    }
+            //}
 
             $return .= "</div>";
         }

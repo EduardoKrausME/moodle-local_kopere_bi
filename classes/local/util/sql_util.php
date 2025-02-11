@@ -51,10 +51,32 @@ class sql_util {
                     $userid = $USER->id;
                 }
             }
-
-            $params["userid"] = $userid;
             $USER->filter_userid = $userid;
+
+            $count = mb_substr_count($sql, ":userid");
+            $params["userid"] = $userid;
+            if ($count == 1) {
+                $params["userid"] = $userid;
+            } else {
+                $i = 0;
+                $sql = preg_replace_callback(
+                    '/:userid/',
+                    function () use (&$i) {
+                        $i++;
+                        return ":count_{$i}_userid";
+                    },
+                    $sql,
+                    -1, // Substituir todas as ocorrências
+                    $count // Contador de substituições
+                );
+
+                for ($i = 1; $i <= $count; $i++) {
+                    $params["count_{$i}_userid"] = $userid;
+                }
+            }
         }
+
+
         if ($isfiltercourse) {
             $courseid = optional_param("courseid", 0, PARAM_INT);
             if (!$courseid) {
@@ -64,9 +86,29 @@ class sql_util {
                     $courseid = $COURSE->id;
                 }
             }
-
-            $params["courseid"] = $courseid;
             $USER->filter_courseid = $courseid;
+
+            $count = mb_substr_count($sql, ":courseid");
+            $params["courseid"] = $courseid;
+            if ($count == 1) {
+                $params["courseid"] = $courseid;
+            } else {
+                $i = 0;
+                $sql = preg_replace_callback(
+                    '/:courseid/',
+                    function () use (&$i) {
+                        $i++;
+                        return ":count_{$i}_courseid";
+                    },
+                    $sql,
+                    -1, // Substituir todas as ocorrências
+                    $count // Contador de substituições
+                );
+
+                for ($i = 1; $i <= $count; $i++) {
+                    $params["count_{$i}_courseid"] = $courseid;
+                }
+            }
         }
 
         $sql = preg_replace('/\{([a-z][a-z0-9_]*)\}/', "{$CFG->prefix}$1", $sql);
