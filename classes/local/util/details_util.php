@@ -46,7 +46,7 @@ class details_util {
                     "block_id" => $block->id,
                     'details_block_item_1' => $this->details_block_item($block->id, 1),
                 ];
-                return $OUTPUT->render_from_template("local_kopere_bi/blocks/edit-block-1", $data);
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks-edit-block-1", $data);
                 break;
             case 'block-2':
                 $data = [
@@ -54,7 +54,7 @@ class details_util {
                     'details_block_item_1' => $this->details_block_item($block->id, 1),
                     'details_block_item_2' => $this->details_block_item($block->id, 2),
                 ];
-                return $OUTPUT->render_from_template("local_kopere_bi/blocks/edit-block-2", $data);
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks-edit-block-2", $data);
                 break;
             case 'block-3':
                 $data = [
@@ -63,7 +63,7 @@ class details_util {
                     'details_block_item_2' => $this->details_block_item($block->id, 2),
                     'details_block_item_3' => $this->details_block_item($block->id, 3),
                 ];
-                return $OUTPUT->render_from_template("local_kopere_bi/blocks/edit-block-3", $data);
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks-edit-block-3", $data);
                 break;
             case 'block-12':
                 $data = [
@@ -72,7 +72,7 @@ class details_util {
                     'details_block_item_2' => $this->details_block_item($block->id, 2),
                     'details_block_item_3' => $this->details_block_item($block->id, 3),
                 ];
-                return $OUTPUT->render_from_template("local_kopere_bi/blocks/edit-block-12", $data);
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks-edit-block-12", $data);
                 break;
             case 'block-21':
                 $data = [
@@ -81,7 +81,7 @@ class details_util {
                     'details_block_item_2' => $this->details_block_item($block->id, 2),
                     'details_block_item_3' => $this->details_block_item($block->id, 3),
                 ];
-                return $OUTPUT->render_from_template("local_kopere_bi/blocks/edit-block-21", $data);
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks-edit-block-21", $data);
                 break;
             case 'block-25':
                 $data = [
@@ -89,7 +89,7 @@ class details_util {
                     'details_block_item_1' => $this->details_block_item($block->id, 1),
                     'details_block_item_2' => $this->details_block_item($block->id, 2),
                 ];
-                return $OUTPUT->render_from_template("local_kopere_bi/blocks/edit-block-25", $data);
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks-edit-block-25", $data);
                 break;
             case 'block-52':
                 $data = [
@@ -97,7 +97,7 @@ class details_util {
                     'details_block_item_1' => $this->details_block_item($block->id, 1),
                     'details_block_item_2' => $this->details_block_item($block->id, 2),
                 ];
-                return $OUTPUT->render_from_template("local_kopere_bi/blocks/edit-block-52", $data);
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks-edit-block-52", $data);
                 break;
             case 'block-4':
                 $data = [
@@ -107,7 +107,7 @@ class details_util {
                     'details_block_item_3' => $this->details_block_item($block->id, 3),
                     'details_block_item_4' => $this->details_block_item($block->id, 4),
                 ];
-                return $OUTPUT->render_from_template("local_kopere_bi/blocks/edit-block-4", $data);
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks-edit-block-4", $data);
                 break;
         }
 
@@ -164,6 +164,6 @@ class details_util {
     public static function html_details_add($pageid) {
         global $OUTPUT;
 
-        echo $OUTPUT->render_from_template("local_kopere_bi/blocks/details_add", []);
+        echo $OUTPUT->render_from_template("local_kopere_bi/blocks-details_add", []);
     }
 }

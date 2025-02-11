@@ -70,7 +70,6 @@ class type_block extends bi_all {
         dashboard_util::start_page();
 
         echo '<div class="element-box">';
-
         echo "<h3>" . get_string("select_report_select_type_desc", "local_kopere_bi") . "</h3>";
 
         $buttons = [
@@ -119,7 +118,7 @@ class type_block extends bi_all {
         ];
 
         foreach ($buttons as $button) {
-            echo $OUTPUT->render_from_template("local_kopere_bi/type_block/select_type", $button);
+            echo $OUTPUT->render_from_template("local_kopere_bi/type_block-select_type", $button);
         }
 
         echo "</div>";
@@ -184,6 +183,7 @@ class type_block extends bi_all {
                 $element = $DB->get_record("local_kopere_bi_element", ["block_id" => $blockid, "block_num" => $blocknum]);
 
                 if ($element) {
+                    $koperebielement->id = $element->id;
                     $DB->update_record("local_kopere_bi_element", $koperebielement);
 
                     cache_util::delete($koperebielement->id);

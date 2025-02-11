@@ -49,14 +49,14 @@ class preview_util {
                 $data = [
                     'details_block_item_1' => $this->details_block_item($block->id, 1),
                 ];
-                return $OUTPUT->render_from_template("local_kopere_bi/blocks/preview-block-1", $data);
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks-preview-block-1", $data);
                 break;
             case 'block-2':
                 $data = [
                     'details_block_item_1' => $this->details_block_item($block->id, 1),
                     'details_block_item_2' => $this->details_block_item($block->id, 2),
                 ];
-                return $OUTPUT->render_from_template("local_kopere_bi/blocks/preview-block-2", $data);
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks-preview-block-2", $data);
                 break;
             case 'block-3':
                 $data = [
@@ -64,7 +64,7 @@ class preview_util {
                     'details_block_item_2' => $this->details_block_item($block->id, 2),
                     'details_block_item_3' => $this->details_block_item($block->id, 3),
                 ];
-                return $OUTPUT->render_from_template("local_kopere_bi/blocks/preview-block-3", $data);
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks-preview-block-3", $data);
                 break;
             case 'block-4':
                 $data = [
@@ -73,7 +73,7 @@ class preview_util {
                     'details_block_item_3' => $this->details_block_item($block->id, 3),
                     'details_block_item_4' => $this->details_block_item($block->id, 4),
                 ];
-                return $OUTPUT->render_from_template("local_kopere_bi/blocks/preview-block-4", $data);
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks-preview-block-4", $data);
                 break;
             case 'block-12':
                 $data = [
@@ -81,7 +81,7 @@ class preview_util {
                     'details_block_item_2' => $this->details_block_item($block->id, 2),
                     'details_block_item_3' => $this->details_block_item($block->id, 3),
                 ];
-                return $OUTPUT->render_from_template("local_kopere_bi/blocks/preview-block-12", $data);
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks-preview-block-12", $data);
                 break;
             case 'block-21':
                 $data = [
@@ -89,21 +89,21 @@ class preview_util {
                     'details_block_item_2' => $this->details_block_item($block->id, 2),
                     'details_block_item_3' => $this->details_block_item($block->id, 3),
                 ];
-                return $OUTPUT->render_from_template("local_kopere_bi/blocks/preview-block-21", $data);
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks-preview-block-21", $data);
                 break;
             case 'block-25':
                 $data = [
                     'details_block_item_1' => $this->details_block_item($block->id, 1),
                     'details_block_item_2' => $this->details_block_item($block->id, 2),
                 ];
-                return $OUTPUT->render_from_template("local_kopere_bi/blocks/preview-block-25", $data);
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks-preview-block-25", $data);
                 break;
             case 'block-52':
                 $data = [
                     'details_block_item_1' => $this->details_block_item($block->id, 1),
                     'details_block_item_2' => $this->details_block_item($block->id, 2),
                 ];
-                return $OUTPUT->render_from_template("local_kopere_bi/blocks/preview-block-52", $data);
+                return $OUTPUT->render_from_template("local_kopere_bi/blocks-preview-block-52", $data);
                 break;
         }
 
@@ -159,10 +159,10 @@ class preview_util {
                         "htmlbefore" => $htmlbefore,
                         "htmlafter" => $htmlafter,
                     ];
-                    $return .= $OUTPUT->render_from_template("local_kopere_bi/blocks/details_block_item", $data);
+                    $return .= $OUTPUT->render_from_template("local_kopere_bi/blocks-details_block_item", $data);
                 } else {
                     $data = ["title" => $title];
-                    $return .= $OUTPUT->render_from_template("local_kopere_bi/blocks/details_block_item", $data);
+                    $return .= $OUTPUT->render_from_template("local_kopere_bi/blocks-details_block_item", $data);
                 }
 
             } else {

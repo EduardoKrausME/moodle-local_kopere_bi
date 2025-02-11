@@ -15,22 +15,23 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template local_kopere_bi/dashboard/topo-edit-page
+    @template local_kopere_bi/blocks-preview-block-21
 
     Example context (json):
     {
-        "koperebipage_id": "id_1278"
+        "details_block_item_1": "<div></div>",
+        "details_block_item_2": "<div></div>"
     }
 }}
 
-<div style="width: 100%;min-height: 30px;padding: 0 0 20px;display: flex;gap: 7px;">
-    <a href="?classname=bi-dashboard&method=edit&page_id={{{koperebipage_id}}}"
-       class="btn btn-success"
-       target="_blank">{{#str}}page_title_edit,local_kopere_bi{{/str}}</a>
-    <a href="?classname=bi-dashboard&method=preview&page_id={{{koperebipage_id}}}"
-       class="btn btn-info"
-       target="_blank">{{#str}}page_preview,local_kopere_bi{{/str}}</a>
-    <a href="?classname=bi-data_export&method=json&page_id={{{koperebipage_id}}}"
-       class="btn btn-primary"
-       target="_blank">{{#str}}page_title_export,local_kopere_bi{{/str}}</a>
+<div class="row">
+    <div class="col-xl-3">
+        {{{details_block_item_1}}}
+    </div>
+    <div class="col-xl-3">
+        {{{details_block_item_2}}}
+    </div>
+    <div class="col-xl-6">
+        {{{details_block_item_3}}}
+    </div>
 </div>

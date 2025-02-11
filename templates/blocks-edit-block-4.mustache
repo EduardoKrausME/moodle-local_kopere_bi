@@ -15,20 +15,23 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template local_kopere_bi/blocks/preview-block-2
+    @template local_kopere_bi/blocks-edit-block-4
 
     Example context (json):
     {
+        "block_id": "block-12345",
         "details_block_item_1": "<div></div>",
-        "details_block_item_2": "<div></div>"
+        "details_block_item_2": "<div></div>",
+        "details_block_item_3": "<div></div>",
+        "details_block_item_4": "<div></div>"
     }
 }}
 
-<div class="row">
-    <div class="col-lg-6">
-        {{{details_block_item_1}}}
-    </div>
-    <div class="col-lg-6">
-        {{{details_block_item_2}}}
+<div class="line" id="blockid-{{{block_id}}}" data-blockid="{{{block_id}}}">
+    <div class="blocks">
+        <div class="block">{{{details_block_item_1}}}</div>
+        <div class="block">{{{details_block_item_2}}}</div>
+        <div class="block">{{{details_block_item_3}}}</div>
+        <div class="block">{{{details_block_item_4}}}</div>
     </div>
 </div>

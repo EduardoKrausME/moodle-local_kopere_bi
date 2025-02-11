@@ -15,20 +15,23 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template local_kopere_bi/blocks/preview-block-52
+    @template local_kopere_bi/type_block-select_type
 
     Example context (json):
     {
-        "details_block_item_1": "<div></div>",
-        "details_block_item_2": "<div></div>"
+        "title": "Title",
+        "description": "Description",
+        "link": "https://moodle.org/",
+        "id": "123456"
     }
 }}
 
-<div class="row">
-    <div class="col-xl-4">
-        {{{details_block_item_1}}}
+<div class="type-chart">
+    <div class="type-chart-text">
+        <h4 class="block-title select_type">{{{title}}}</h4>
+        <p>{{{description}}}</p>
+        <a href="{{{link}}}"
+           class="btn btn-info">{{#str}}use_this_type,local_kopere_bi{{/str}}</a>
     </div>
-    <div class="col-xl-8">
-        {{{details_block_item_2}}}
-    </div>
+    <div class="type-chart-chart" id="chart-{{{id}}}"></div>
 </div>

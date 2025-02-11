@@ -15,36 +15,33 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template local_kopere_bi/filter/course
+    @template local_kopere_bi/filter-user
 
     Example context (json):
     {
-      "course_fullname": "Curso de Desenvolvimento Web",
+      "user_fullname": "João da Silva",
       "url_ajax": "https://example.com/user_ajax_endpoint",
       "url_click": "https://example.com/user_click_endpoint"
     }
 }}
-
-<div id="chart-course-button-open" style="display: none"
+<div id="chart-user-button-open" style="display: none"
      data-urlajax="{{{url_ajax}}}"
      data-urlclick="{{{url_click}}}"
      data-strclose="{{#str}}close,admin{{/str}}">
-    <span>{{#str}}course{{/str}}:</span>
+    <span>{{#str}}defaultcoursestudent{{/str}}:</span>
     <span class="select">
-        {{{course_fullname}}}
+        {{{user_fullname}}}
     </span>
 </div>
-<div id="chart-course-datatable-select" style="display:none;"
-     title="{{#str}}reports_selectcourse,local_kopere_bi{{/str}}">
-    <table id="datatable_course_select" class="table table-hover">
+<div id="chart-user-datatable-select" style="display:none;"
+     title="{{#str}}reports_selectuser,local_kopere_bi{{/str}}">
+    <table id="datatable_user_select" class="table table-hover">
         <thead>
         <tr>
-            <th class="text-center th_id" style="width: 20px">#</th>
-            <th class="text-center th_fullname">{{#str}}courses_name,local_kopere_dashboard{{/str}}</th>
-            <th class="text-center th_shortname">{{#str}}courses_shortname,local_kopere_dashboard{{/str}}</th>
-            <th class="text-center th_visible">{{#str}}visible,local_kopere_dashboard{{/str}}</th>
-            <th class="text-center th_inscritos"
-                style="width:50px;white-space:nowrap;">{{#str}}courses_enrol,local_kopere_dashboard{{/str}}</th>
+            <th class="text-center th_id">#</th>
+            <th class="text-center th_fullname">{{#str}}user_table_fullname,local_kopere_dashboard{{/str}}</th>
+            <th class="text-center th_username">{{#str}}user_table_username,local_kopere_dashboard{{/str}}</th>
+            <th class="text-center th_email">{{#str}}user_table_email,local_kopere_dashboard{{/str}}</th>
         </tr>
         </thead>
         <tbody class="hover-pointer"></tbody>

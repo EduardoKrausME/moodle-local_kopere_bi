@@ -15,21 +15,18 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template local_kopere_bi/blocks/edit-block-21
+    @template local_kopere_bi/dashboard-dialog-confirm-block
 
     Example context (json):
     {
-        "block_id": "block-12345",
-        "details_block_item_1": "<div></div>",
-        "details_block_item_2": "<div></div>",
-        "details_block_item_3": "<div></div>"
+        "koperebipage_id": "id_1278"
     }
 }}
 
-<div class="line" id="blockid-{{{block_id}}}" data-blockid="{{{block_id}}}">
-    <div class="blocks">
-        <div class="block">{{{details_block_item_1}}}</div>
-        <div class="block">{{{details_block_item_2}}}</div>
-        <div class="block" style="width:225%">{{{details_block_item_3}}}</div>
-    </div>
+<div style="display:none" id="dialog-confirm-block-{{{koperebiblock_id}}}"
+     title="{{#str}}block_delete_title,local_kopere_bi{{/str}}">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+        {{#str}}block_delete_message,local_kopere_bi{{/str}}
+    </p>
 </div>

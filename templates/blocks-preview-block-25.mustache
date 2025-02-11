@@ -15,16 +15,20 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template local_kopere_bi/blocks/preview-block-1
+    @template local_kopere_bi/blocks-preview-block-25
 
     Example context (json):
     {
-        "details_block_item_1": "<div></div>"
+        "details_block_item_1": "<div></div>",
+        "details_block_item_2": "<div></div>"
     }
 }}
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-xl-8">
         {{{details_block_item_1}}}
+    </div>
+    <div class="col-xl-4">
+        {{{details_block_item_2}}}
     </div>
 </div>
