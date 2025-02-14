@@ -455,6 +455,8 @@
             .theme-green,
             .theme-orange,
             .theme-pink {
+                position: relative;
+                overflow: hidden;
                 height: 100%;
                 &:before {
                     content: " ";

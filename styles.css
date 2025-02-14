@@ -558,6 +558,8 @@
 .kopere-bi .kopere-dashboard-modal .chart-box .theme-green,
 .kopere-bi .kopere-dashboard-modal .chart-box .theme-orange,
 .kopere-bi .kopere-dashboard-modal .chart-box .theme-pink {
+    position: relative;
+    overflow: hidden;
     height: 100%;
 }
 .kopere-bi .kopere_dashboard_div .chart-box .theme-blue:before,
