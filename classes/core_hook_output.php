@@ -49,6 +49,10 @@ class core_hook_output {
             return;
         }
 
+        if (!$PAGE->get_popup_notification_allowed()) {
+            return;
+        }
+
         $moduleid = 0;
         if ($PAGE->cm && $PAGE->cm->id) {
             $moduleid = $PAGE->cm->id;
