@@ -144,6 +144,15 @@ class filter {
         return $return;
     }
 
+    /**
+     * Function create_filter_course
+     *
+     * @param $course
+     * @param $paramsurl
+     *
+     * @return mixed
+     * @throws \coding_exception
+     */
     private static function create_filter_course($course, $paramsurl) {
         global $OUTPUT, $PAGE;
 
@@ -159,6 +168,15 @@ class filter {
         return $OUTPUT->render_from_template('local_kopere_bi/filter-course', $data);
     }
 
+    /**
+     * Function create_filter_user
+     *
+     * @param $user
+     * @param $paramsurl
+     *
+     * @return mixed
+     * @throws \coding_exception
+     */
     private static function create_filter_user($user, $paramsurl) {
         global $OUTPUT, $PAGE;
 
