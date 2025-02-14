@@ -104,23 +104,14 @@ class table implements i_type {
      */
     public function edit_columns(form $form, $koperebielement) {
 
-        $comand = sql_util::prepare_sql($koperebielement->commandsql . " LIMIT 5");
+        $comand = sql_util::prepare_sql($koperebielement->commandsql);
 
         try {
-            $lines = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
-        } catch (\Exception $e) {
-            if (AJAX_SCRIPT) {
-                echo json_encode([
-                    "error" => $e->getMessage(),
-                    "trace" => $e->getTraceAsString(),
-                ]);
-                die;
-            } else {
-                message::print_danger($e->getMessage());
-            }
+            $lines = (new database_util())->get_records_sql_block($comand->sql, $comand->params, false, 5);
+        } catch (\dml_read_exception $e) {
+            message::print_danger("<div style='white-space:break-spaces'>{$e->debuginfo}</div>");
             return false;
         }
-
         message::print_info(get_string("table_info_topo", "local_kopere_bi"));
         if (isset($lines[0])) {
             echo "<h3>" . get_string("table_first_5", "local_kopere_bi") . "</h3>";

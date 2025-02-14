@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\local\util;
 
+use local_kopere_bi\local\vo\external_report;
 use local_kopere_dashboard\util\message;
 
 /**
@@ -36,10 +37,47 @@ class sql_util {
      * @throws \Exception
      */
     public static function prepare_sql($sql) {
-        global $CFG, $USER, $COURSE;
+        global $CFG;
 
-        $isfilteruser = strpos($sql, ":userid");
-        $isfiltercourse = strpos($sql, ":courseid");
+        if (preg_match('/^\\\\\w+\\\\\w+/', $sql)) {
+            /** @var external_report $class */
+            $class = $sql;
+            $parameters = $class::parameters();
+
+            list($s, $params) = self::params($sql, $parameters->isfilteruser, $parameters->isfilterusercourse);
+
+            return (object)["sql" => $sql, "params" => $params];
+        } else {
+            $isfilteruser = strpos($sql, ":userid");
+            $isfiltercourse = strpos($sql, ":courseid");
+
+            list($sql, $params) = self::params($sql, $isfilteruser, $isfiltercourse);
+
+            $sql = preg_replace('/\{([a-z][a-z0-9_]*)\}/', "{$CFG->prefix}$1", $sql);
+
+            if ($CFG->prefix != "mdl_") {
+                $sql = preg_replace('/mdl_(\w+)/', "{$CFG->prefix}\$1", $sql);
+            }
+
+            $sql = preg_replace('/UNIX_TIMESTAMP[\s+]?\([\s+]?\)/', time(), $sql);
+            $sql = preg_replace('/AS[\s+]?\'(.*?)\'/', 'AS "$1"', $sql);
+
+            return (object)["sql" => $sql, "params" => $params];
+        }
+    }
+
+    /**
+     * Function params
+     *
+     * @param $sql
+     * @param bool $isfilteruser
+     * @param bool $isfiltercourse
+     *
+     * @return array
+     * @throws \coding_exception
+     */
+    public static function params($sql, $isfilteruser = false, $isfiltercourse = false) {
+        global $USER, $COURSE;
 
         $params = [];
         if ($isfilteruser) {
@@ -110,16 +148,7 @@ class sql_util {
             }
         }
 
-        $sql = preg_replace('/\{([a-z][a-z0-9_]*)\}/', "{$CFG->prefix}$1", $sql);
-
-        if ($CFG->prefix != "mdl_") {
-            $sql = preg_replace('/mdl_(\w+)/', "{$CFG->prefix}\$1", $sql);
-        }
-
-        $sql = preg_replace('/UNIX_TIMESTAMP[\s+]?\([\s+]?\)/', time(), $sql);
-        $sql = preg_replace('/AS[\s+]?\'(.*?)\'/', 'AS "$1"', $sql);
-
-        return (object)["sql" => $sql, "params" => $params];
+        return [$sql, $params];
     }
 
     /**

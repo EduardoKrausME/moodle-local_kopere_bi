@@ -16,6 +16,8 @@
 
 namespace local_kopere_bi\local\util;
 
+use local_kopere_bi\local\vo\external_report;
+
 /**
  * Class filter
  *
@@ -63,22 +65,55 @@ class filter {
      * @throws \Exception
      */
     public static function create_filter($commandsql) {
-        global $DB, $OUTPUT, $USER, $COURSE, $PAGE, $CFG;
+        global $DB, $CFG;
 
         $return = "";
+
+        $elementid = optional_param("item_id", false, PARAM_INT);
+        $pageid = optional_param("page_id", false, PARAM_INT);
+        $paramsurl = ["item_id" => $elementid, "page_id" => $pageid];
+
+        if (preg_match('/^\\\\\w+\\\\\w+/', $commandsql)) {
+            /** @var external_report $class */
+            $class = $commandsql;
+            $parameters = $class::parameters();
+
+            if ($parameters->isfilterusercourse || $parameters->isfilteruser) {
+                $return .= "<div id='chart-filter' class='d-flex' style='gap: 12px;'>";
+                list($sql, $params) = sql_util::params($commandsql, $parameters->isfilteruser, $parameters->isfilterusercourse);
+
+                if ($parameters->isfilterusercourse) {
+                    $course = $DB->get_record("course", ["id" => $params["courseid"]]);
+
+                    $paramsurl["courseid"] = "{id}";
+                    if (isset($params["userid"])) {
+                        $paramsurl["userid"] = $params["userid"];
+                    }
+
+                    $return .= self::create_filter_course($course, $paramsurl);
+                }
+                if ($parameters->isfilteruser) {
+                    $user = $DB->get_record("user", ["id" => $params["userid"]]);
+
+                    $paramsurl["userid"] = "{id}";
+                    if (isset($params["courseid"])) {
+                        $paramsurl["courseid"] = $params["courseid"];
+                    }
+
+                    $return .= self::create_filter_user($user, $paramsurl);
+                }
+
+                $return .= "</div>";
+            }
+
+            return $return;
+        }
 
         $comand = sql_util::prepare_sql($commandsql);
 
         if (isset($comand->params["userid"]) || isset($comand->params["count_1_userid"]) ||
             isset($comand->params["courseid"]) || isset($comand->params["count_1_courseid"])) {
             $return .= "<div id='chart-filter' class='d-flex' style='gap: 12px;'>";
-
-            $classname = optional_param("classname", false, PARAM_TEXT);
-            $method = optional_param("method", false, PARAM_TEXT);
-            $elementid = optional_param("item_id", false, PARAM_INT);
-            $pageid = optional_param("page_id", false, PARAM_INT);
-
-            $paramsurl = ["item_id" => $elementid, "page_id" => $pageid];
 
             if (isset($comand->params["courseid"]) || isset($comand->params["count_1_courseid"])) {
                 $course = $DB->get_record("course", ["id" => $comand->params["courseid"]]);
@@ -88,36 +123,55 @@ class filter {
                     $paramsurl["userid"] = $comand->params["userid"];
                 }
 
-                $data = [
-                    "course_fullname" => $course->fullname,
-                    "url_ajax" => local_kopere_dashboard_makeurl("courses", "load_all_courses", [], "view-ajax"),
-                    "url_click" => local_kopere_dashboard_makeurl($classname, $method, $paramsurl),
-                ];
-                $return .= $OUTPUT->render_from_template('local_kopere_bi/filter-course', $data);
-                $PAGE->requires->js_call_amd("local_kopere_bi/filter_course", "init");
+                $return .= self::create_filter_course($course, $paramsurl);
             }
 
             if (isset($comand->params["userid"]) || isset($comand->params["count_1_userid"])) {
                 $user = $DB->get_record("user", ["id" => $comand->params["userid"]]);
 
                 $paramsurl["userid"] = "{id}";
-                if (isset($comand->params["userid"]) || isset($comand->params["count_1_userid"])) {
-                    $paramsurl["userid"] = $comand->params["userid"];
+                if (isset($comand->params["courseid"])) {
+                    $paramsurl["courseid"] = $comand->params["courseid"];
                 }
                 $CFG->debugdeveloper = false;
-                $data = [
-                    "user_fullname" => fullname($user),
-                    "url_ajax" => local_kopere_dashboard_makeurl("users", "load_all_users", [], "view-ajax"),
-                    "url_click" => local_kopere_dashboard_makeurl($classname, $method, $paramsurl),
-                ];
-                $return .= $OUTPUT->render_from_template('local_kopere_bi/filter-user', $data);
-                $PAGE->requires->js_call_amd("local_kopere_bi/filter_user", "init");
+
+                self::create_filter_user($user, $paramsurl);
             }
 
             $return .= "</div>";
         }
 
         return $return;
+    }
+
+    private static function create_filter_course($course, $paramsurl) {
+        global $OUTPUT, $PAGE;
+
+        $classname = optional_param("classname", false, PARAM_TEXT);
+        $method = optional_param("method", false, PARAM_TEXT);
+
+        $data = [
+            "course_fullname" => $course->fullname,
+            "url_ajax" => local_kopere_dashboard_makeurl("courses", "load_all_courses", [], "view-ajax"),
+            "url_click" => local_kopere_dashboard_makeurl($classname, $method, $paramsurl),
+        ];
+        $PAGE->requires->js_call_amd("local_kopere_bi/filter_course", "init");
+        return $OUTPUT->render_from_template('local_kopere_bi/filter-course', $data);
+    }
+
+    private static function create_filter_user($user, $paramsurl) {
+        global $OUTPUT, $PAGE;
+
+        $classname = optional_param("classname", false, PARAM_TEXT);
+        $method = optional_param("method", false, PARAM_TEXT);
+
+        $data = [
+            "user_fullname" => fullname($user),
+            "url_ajax" => local_kopere_dashboard_makeurl("users", "load_all_users", [], "view-ajax"),
+            "url_click" => local_kopere_dashboard_makeurl($classname, $method, $paramsurl),
+        ];
+        $PAGE->requires->js_call_amd("local_kopere_bi/filter_user", "init");
+        return $OUTPUT->render_from_template('local_kopere_bi/filter-user', $data);
     }
 
     /**

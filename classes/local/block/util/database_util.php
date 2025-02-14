@@ -16,6 +16,8 @@
 
 namespace local_kopere_bi\local\block\util;
 
+use local_kopere_bi\local\vo\external_report;
+
 /**
  * Class database_util
  *
@@ -98,24 +100,36 @@ class database_util {
      * @throws \dml_exception
      * @throws \Exception
      */
-    public function get_records_sql_block($sql, $params = null, $onerow = false) {
+    public function get_records_sql_block($sql, $params = null, $onerow = false, $limit = 0) {
         global $DB;
 
-        $sql = $this->ready_only($sql);
-        $result = $DB->get_recordset_sql($sql, $params);
+        if (preg_match('/^\\\\\w+\\\\\w+/', $sql)) {
+            /** @var external_report $class */
+            $class = $sql;
 
-        $return = [];
-        foreach ($result as $row) {
-            if ($onerow) {
-                $result->close();
-                return $row;
+            return $class::get_data($params["courseid"], $params["userid"]);
+        } else {
+
+            if ($limit) {
+                $sql = "{$sql} LIMIT {$limit}";
             }
 
-            $return[] = (object)$row;
-        }
+            $sql = $this->ready_only($sql);
+            $result = $DB->get_recordset_sql($sql, $params);
 
-        $result->close();
-        return $return;
+            $return = [];
+            foreach ($result as $row) {
+                if ($onerow) {
+                    $result->close();
+                    return $row;
+                }
+
+                $return[] = (object)$row;
+            }
+
+            $result->close();
+            return $return;
+        }
     }
 
     /**
