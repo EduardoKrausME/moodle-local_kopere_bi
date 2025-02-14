@@ -619,6 +619,11 @@
                 td {
                     // padding: 4px !important;
                 }
+                .hover-pointer {
+                    tr {
+                        cursor: pointer;
+                    }
+                }
             }
             .dataTables_info {
                 padding-top: 5px;
@@ -628,6 +633,7 @@
                 border: none !important;
                 background: #e7e7e7;
                 margin: 0 1px;
+                cursor: pointer;
             }
             .media-object {
                 border-radius: 50%;

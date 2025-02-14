@@ -25,16 +25,15 @@
     }
 }}
 
-<div id="chart-course-button-open" style="display: none"
-     data-urlajax="{{{url_ajax}}}"
-     data-urlclick="{{{url_click}}}"
-     data-strclose="{{#str}}close,admin{{/str}}">
+<div id="chart-course-button-open" style="display: none">
     <span>{{#str}}course{{/str}}:</span>
     <span class="select">
         {{{course_fullname}}}
     </span>
 </div>
 <div id="chart-course-datatable-select" style="display:none;"
+     data-urlajax="{{{url_ajax}}}"
+     data-urlclick="{{{url_click}}}"
      title="{{#str}}reports_selectcourse,local_kopere_bi{{/str}}">
     <table id="datatable_course_select" class="table table-hover">
         <thead>

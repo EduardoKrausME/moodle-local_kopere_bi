@@ -24,16 +24,15 @@
       "url_click": "https://example.com/user_click_endpoint"
     }
 }}
-<div id="chart-user-button-open" style="display: none"
-     data-urlajax="{{{url_ajax}}}"
-     data-urlclick="{{{url_click}}}"
-     data-strclose="{{#str}}close,admin{{/str}}">
+<div id="chart-user-button-open" style="display: none">
     <span>{{#str}}defaultcoursestudent{{/str}}:</span>
     <span class="select">
         {{{user_fullname}}}
     </span>
 </div>
 <div id="chart-user-datatable-select" style="display:none;"
+     data-urlajax="{{{url_ajax}}}"
+     data-urlclick="{{{url_click}}}"
      title="{{#str}}reports_selectuser,local_kopere_bi{{/str}}">
     <table id="datatable_user_select" class="table table-hover">
         <thead>

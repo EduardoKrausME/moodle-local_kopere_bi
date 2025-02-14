@@ -845,6 +845,10 @@
     vertical-align: middle !important;
     line-height: 1.25 !important;
 }
+.kopere-bi .kopere_dashboard_div .dataTables_wrapper table.dataTable .hover-pointer tr,
+.kopere-bi .kopere-dashboard-modal .dataTables_wrapper table.dataTable .hover-pointer tr {
+    cursor: pointer;
+}
 .kopere-bi .kopere_dashboard_div .dataTables_wrapper .dataTables_info,
 .kopere-bi .kopere-dashboard-modal .dataTables_wrapper .dataTables_info {
     padding-top: 5px;
@@ -855,6 +859,7 @@
     border: none !important;
     background: #e7e7e7;
     margin: 0 1px;
+    cursor: pointer;
 }
 .kopere-bi .kopere_dashboard_div .dataTables_wrapper .media-object,
 .kopere-bi .kopere-dashboard-modal .dataTables_wrapper .media-object {
