@@ -707,6 +707,14 @@
         min-width: 800px;
         min-height: 450px !important;
     }
+    .modal-xl {
+        @media (min-width: 992px) {
+            max-width: 800px !important;
+        }
+        @media (min-width: 1200px) {
+            max-width: 1140px !important;
+        }
+    }
 }
 @mixin local_kopere_bi_darkmodecode {
     [data-bs-theme] {

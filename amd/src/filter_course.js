@@ -59,7 +59,7 @@ define(["jquery", "jqueryui", "core/modal_factory", "local_kopere_dashboard/data
                                     {data: "fullname"},
                                     {data: "shortname"},
                                     {data: "visible"},
-                                    {data: "inscritos"},
+                                    {data: "enrolments"},
                                 ],
                                 columnDefs: [
                                     {
