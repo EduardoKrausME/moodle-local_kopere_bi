@@ -24,9 +24,9 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version = 2025021400;
+$plugin->version = 2025021500;
 $plugin->requires = 2019052000;
-$plugin->release = "2.5.1";
+$plugin->release = "2.5.2";
 $plugin->maturity = MATURITY_STABLE;
 $plugin->component = "local_kopere_bi";
 
