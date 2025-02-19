@@ -33,16 +33,16 @@ if (!$removetitle) {
 
 $options = [
     "default" => get_string("theme_palette_default", "local_kopere_bi"),
-    "palette1" => get_string("theme_palette_palette1", "local_kopere_bi"),
-    "palette2" => get_string("theme_palette_palette2", "local_kopere_bi"),
-    "palette3" => get_string("theme_palette_palette3", "local_kopere_bi"),
-    "palette4" => get_string("theme_palette_palette4", "local_kopere_bi"),
-    "palette5" => get_string("theme_palette_palette5", "local_kopere_bi"),
-    "palette6" => get_string("theme_palette_palette6", "local_kopere_bi"),
-    "palette7" => get_string("theme_palette_palette7", "local_kopere_bi"),
-    "palette8" => get_string("theme_palette_palette8", "local_kopere_bi"),
-    "palette9" => get_string("theme_palette_palette9", "local_kopere_bi"),
-    "palette10" => get_string("theme_palette_palette10", "local_kopere_bi"),
+    "palette1" => get_string("theme_palette_palette", "local_kopere_bi", "1"),
+    "palette2" => get_string("theme_palette_palette", "local_kopere_bi", "2"),
+    "palette3" => get_string("theme_palette_palette", "local_kopere_bi", "3"),
+    "palette4" => get_string("theme_palette_palette", "local_kopere_bi", "4"),
+    "palette5" => get_string("theme_palette_palette", "local_kopere_bi", "5"),
+    "palette6" => get_string("theme_palette_palette", "local_kopere_bi", "6"),
+    "palette7" => get_string("theme_palette_palette", "local_kopere_bi", "7"),
+    "palette8" => get_string("theme_palette_palette", "local_kopere_bi", "8"),
+    "palette9" => get_string("theme_palette_palette", "local_kopere_bi", "9"),
+    "palette10" => get_string("theme_palette_palette", "local_kopere_bi", "10"),
 ];
 $name = 'local_kopere_bi/theme_palette';
 $title = get_string("theme_palette_title", "local_kopere_bi");
