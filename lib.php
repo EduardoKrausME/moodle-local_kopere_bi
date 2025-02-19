@@ -26,6 +26,7 @@ use local_kopere_bi\core_hook_output;
 use local_kopere_bi\local\util\filter;
 use local_kopere_bi\local\util\string_util;
 use local_kopere_bi\local\vo\local_kopere_bi_block;
+use local_kopere_bi\local\vo\local_kopere_bi_cat;
 use local_kopere_bi\local\vo\local_kopere_bi_page;
 
 /**
@@ -85,12 +86,9 @@ function load_kopere_bi_assets() {
     static $koperebiloaded = false;
 
     if (!$koperebiloaded) {
-        global $CFG;
         $koperebiloaded = true;
 
         get_kopere_lang();
-
-        require_once("{$CFG->dirroot}/local/kopere_dashboard/autoload-lang-js.php");
 
         return "";
     }
@@ -160,4 +158,48 @@ function load_kopere_bi_ajax($coursemoduleid, $pageid) {
                    data-koperebi='{$pageid}'>" . get_string("loading", "local_kopere_bi") . "</div>";
 
     return $text;
+}
+
+/**
+ * Function local_kopere_bi_extend_navigation_course
+ *
+ * @param $navigation
+ * @param $course
+ * @param $context
+ *
+ * @throws \core\exception\moodle_exception
+ * @throws coding_exception
+ * @throws dml_exception
+ */
+function local_kopere_bi_extend_navigation_course($navigation, $course, $context) {
+    if (!has_capability("local/kopere_bi:view", $context)) {
+        return;
+    }
+
+    $reportnode = $navigation->get('coursereports');
+    if (empty($reportnode)) {
+        return;
+    }
+
+    global $DB;
+
+    $pluginname = get_string("pluginname", "local_kopere_bi");
+    $koperebipages = $DB->get_records("local_kopere_bi_page", [], "sortorder ASC");
+    /** @var local_kopere_bi_page $koperebipage */
+    foreach ($koperebipages as $koperebipage) {
+
+        $params = [
+            "classname" => "bi-dashboard",
+            "method" => "preview",
+            "page_id" => $koperebipage->id,
+            "courseid" => $course->id,
+        ];
+
+        $url = new moodle_url("/local/kopere_dashboard/view.php", $params);
+        $name = $pluginname . " - " . string_util::get_string($koperebipage->title);
+        $settingsnode = navigation_node::create($name, $url, navigation_node::TYPE_SETTING);
+        if (isset($settingsnode)) {
+            $reportnode->add_node($settingsnode);
+        }
+    }
 }
