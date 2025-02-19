@@ -26,7 +26,6 @@ use local_kopere_bi\core_hook_output;
 use local_kopere_bi\local\util\filter;
 use local_kopere_bi\local\util\string_util;
 use local_kopere_bi\local\vo\local_kopere_bi_block;
-use local_kopere_bi\local\vo\local_kopere_bi_cat;
 use local_kopere_bi\local\vo\local_kopere_bi_page;
 
 /**
