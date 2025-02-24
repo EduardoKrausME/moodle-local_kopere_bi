@@ -29,7 +29,6 @@
               "page_id": "101",
               "page_title": "Relatório 1",
               "description_crop": "Uma breve descrição do relatório 1.",
-              "is_description_crop": true,
               "user_fullname": "Usuário 1",
               "is_user_fullname": true
             }
@@ -41,10 +40,9 @@
 
 <div class="dashboard-homes">
     {{#categorys}}
-        <div class="dashboard-home"
-             data-category_id="{{{category_id}}}">
+        <div class="card dashboard-home" data-category_id="{{{category_id}}}">
             <div class="category-name">
-                <h3>{{{category_title}}}</h3>
+                <h3 class="header-title-text">{{{category_title}}}</h3>
                 {{#editing}}
                     <div class="buttons-move">
                         <i class="btn-move-up   fa-solid fa-arrow-up  " style="display:none"></i>
@@ -57,29 +55,26 @@
                     </div>
                 {{/editing}}
             </div>
-            <div class="category-box">
+
+            <div class="list-reports mt-3">
                 {{#pages}}
-                    <div class="lista-reports">
-                        <div class="line-titles">
-                            <a class="line-title"
-                               href="?classname=bi-dashboard&method=preview&page_id={{page_id}}">{{page_title}}</a>
-                            <div class="line-description">
-                                {{#is_description_crop}}
-                                    <div class="line-description-text">
-                                        {{#pix}} icons/text, local_kopere_bi {{/pix}}
-                                        <span>{{description_crop}}</span>
-                                    </div>
-                                {{/is_description_crop}}
-                                {{#is_user_fullname}}
-                                    <div class="line-description-user">
-                                        {{#pix}} icons/user, local_kopere_bi {{/pix}}
-                                        <span>{{user_fullname}}</span>
-                                    </div>
-                                {{/is_user_fullname}}
-                            </div>
-                        </div>
+                    <div class="list-reports-item">
                         <div class="line-icon">
-                            {{#pix}} icons/arrow, local_kopere_bi {{/pix}}
+                            {{#pix}} icons/report, local_kopere_bi {{/pix}}
+                        </div>
+                        <div class="line-description">
+                            <a class="line-title"
+                               href="?classname=bi-dashboard&method=preview&page_id={{page_id}}">
+                                {{page_title}}</a>
+                            <div class="line-description-text">
+                                <span>{{description_crop}}</span>
+                            </div>
+                            {{#is_user_fullname}}
+                                <div class="line-description-user">
+                                    {{#pix}} icons/user, local_kopere_bi {{/pix}}
+                                    <span>{{user_fullname}}</span>
+                                </div>
+                            {{/is_user_fullname}}
                         </div>
                     </div>
                 {{/pages}}

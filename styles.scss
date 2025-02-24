@@ -37,10 +37,21 @@
         }
         .dashboard-homes {
             .dashboard-home {
+                box-shadow: 0 0 21px 3px rgba(139, 132, 118, .05);
+                border: none;
+                margin-bottom: 1.25rem;
+                transition: all .3s ease;
+                border-radius: 0.8rem;
+                background: #fff !important;
+                padding: 0.75rem 1.25rem;
                 .category-name {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
+                    h3 {
+                        padding: 0;
+                        margin: 0;
+                    }
                     .buttons-move {
                         display: flex;
                         align-items: center;
@@ -50,60 +61,39 @@
                         }
                     }
                 }
-                .category-box {
-                    background-color: #fff;
-                }
-                &:first-child {
-                    .fa-arrow-up {
-                        display: none !important;
-                    }
-                }
-                &:last-child {
-                    .fa-arrow-down {
-                        display: none !important;
-                    }
-                }
-            }
-        }
-        .lista-reports {
-            display: flex;
-            width: 100%;
-            border-bottom: 1px solid rgba(30, 41, 59, 0.51);
-            padding: 8px 0 8px 20px;
-            .line-titles {
-                display: flex;
-                width: 100%;
-                flex-direction: column;
-                .line-title {
-                    color: #1e293b;
-                    font-size: 20px;
-                    font-weight: 600;
-                }
-                .line-description {
-                    display: flex;
-                    @media (max-width: 700px) {
-                        flex-direction: column;
-                    }
-                    * {
-                        color: #64748b;
-                        fill: #acb7c7;
-                        img {
-                            height: 20px;
+                .list-reports {
+                    margin-top: 0.25rem !important;
+                    .list-reports-item {
+                        position: relative;
+                        padding: 0.8rem 0;
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                        .line-icon {
+                            .icon {
+                                width: 50px;
+                                min-width: 50px;
+                                height: 50px;
+                                min-height: 50px;
+                            }
+                        }
+                        .line-title {
+                            white-space: nowrap;
+                            font-size: 18px;
+                            margin-bottom: 0;
+                            line-height: 1.4;
+                            color: #15264b;
+                            margin-top: 0;
+                            font-weight: 500;
+                        }
+                        .line-description {
+                            font-size: 13px;
+                            color: #8b8476;
+                        }
+                        + .list-reports-item {
+                            border-top: 1px dashed #b8b8b8;
                         }
                     }
-                    .line-description-user {
-                        min-width: 20%;
-                        margin-right: 20px;
-                    }
-                    .line-description-text {
-                    }
-                }
-            }
-            .line-icon {
-                height: 30px;
-                img {
-                    height: 30px;
-                    width: 30px;
                 }
             }
         }
@@ -723,7 +713,7 @@
             .dashboard-homes .dashboard-home .category-box {
                 background-color: #ffffff0d;
             }
-            .lista-reports .line-titles .line-title {
+            .list-reports .line-titles .line-title {
                 color: #dbdbdc;
                 font-size: 20px;
                 font-weight: 600;

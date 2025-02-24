@@ -79,8 +79,6 @@ class dashboard extends bi_all {
 
                     "is_user_fullname" => (bool)strlen($userfullname),
                     "user_fullname" => $userfullname,
-
-                    "is_description_crop" => (bool)strlen($descriptioncrop),
                     "description_crop" => $descriptioncrop,
                 ];
             }
