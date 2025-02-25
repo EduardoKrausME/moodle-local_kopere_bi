@@ -71,14 +71,13 @@ class dashboard extends bi_all {
                 $user = $DB->get_record("user", ["id" => $koperebipage->user_id]);
 
                 $userfullname = $user ? fullname($user) : "";
-
                 $newpages[] = [
                     "page_id" => $koperebipage->id,
                     "page_title" => string_util::get_string($koperebipage->title),
 
                     "is_user_fullname" => (bool)strlen($userfullname),
                     "user_fullname" => $userfullname,
-                    "description" => $koperebipage->description,
+                    "description" => string_util::get_string($koperebipage->description),
                 ];
             }
 
