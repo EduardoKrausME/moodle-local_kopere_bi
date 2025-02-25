@@ -88,14 +88,16 @@ class data_export {
                     } else if ($col["key"] != "name" && isset($stringmoodle[$col["key"]])) {
                         $col["title"] = "lang::{$col["key"]}::moodle";
                     } else {
-                        $col["title"] = $this->get_key_by_value($koperebipage->refkey, $col["title"], "{$koperebielement->refkey}_{$col["key"]}");
+                        $col["title"] = $this->get_key_by_value(
+                            $koperebipage->refkey, $col["title"], "{$koperebielement->refkey}_{$col["key"]}");
                     }
 
                     $infos["column"][$key]["title"] = $col["title"];
                 }
 
                 $koperebielement->info = json_encode($infos, JSON_PRETTY_PRINT);
-                $koperebielement->title = $this->get_key_by_value($koperebipage->refkey, $koperebielement->title, "{$koperebielement->refkey}_cat_title");
+                $koperebielement->title = $this->get_key_by_value(
+                    $koperebipage->refkey, $koperebielement->title, "{$koperebielement->refkey}_cat_title");
 
                 $elements[] = $koperebielement;
             }
@@ -150,7 +152,6 @@ class data_export {
 
         $this->missingstrings = true;
         echo '<pre style="background: #FFEB3B55;padding: 7px;margin: 8px;">';
-//        echo (new \Exception())->getTraceAsString()."\n\n";
         echo "\$string['report_{$refkey}_{$stringlast}'] = '{$value}';";
         echo '</pre>';
 
