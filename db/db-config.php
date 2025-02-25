@@ -24,7 +24,7 @@
  * @throws Exception
  */
 
-use local_kopere_bi\local\vo\local_kopere_bi_cat;
+use local_kopere_bi\local\util\install_for_file;
 
 /**
  * Function reset_bi_reports
@@ -32,7 +32,7 @@ use local_kopere_bi\local\vo\local_kopere_bi_cat;
  * @throws dml_exception
  */
 function reset_bi_reports() {
-    global $DB, $CFG;
+    global $DB;
 
     set_config("theme_palette", "default", "local_kopere_bi");
 
@@ -61,87 +61,9 @@ function reset_bi_reports() {
         return;
     }
 
-    // Load default pages.
+    // Load report pages.
     $pagefiles = glob(__DIR__ . "/files/page-*.json");
     foreach ($pagefiles as $pagefile) {
-        $jsonpage = file_get_contents($pagefile);
-
-        $page = json_decode($jsonpage);
-
-        $koperebipage = clone $page;
-        unset($koperebipage->blocks);
-
-        if (isset($koperebipage->pre_requisit)) {
-            if ($koperebipage->pre_requisit == "mysql") {
-                $ok = false;
-                if ($CFG->dbtype == "mysqli") {
-                    $ok = true;
-                } else if ($CFG->dbtype == "mariadb") {
-                    $ok = true;
-                }
-                if (!$ok) {
-                    continue;
-                }
-            }
-        }
-
-        /** @var local_kopere_bi_cat $category */
-        $category = $DB->get_record("local_kopere_bi_cat", ["refkey" => $page->category->refkey]);
-        if (!$category) {
-            $category = $DB->get_record("local_kopere_bi_cat", ["title" => $page->category->title]);
-            if (!$category) {
-                $category = $page->category;
-                $category->id = $DB->insert_record("local_kopere_bi_cat", $category);
-            }
-        }
-
-        $koperebipage->time = time();
-        $koperebipage->cat_id = $category->id;
-        $page->id = $DB->insert_record("local_kopere_bi_page", $koperebipage);
-
-        foreach ($page->blocks as $block) {
-            $koperebiblock = clone $block;
-            unset($koperebiblock->elements);
-
-            if (isset($koperebiblock->pre_requisit)) {
-                if ($koperebiblock->pre_requisit == "mysql") {
-                    $ok = false;
-                    if ($CFG->dbtype == "mysqli") {
-                        $ok = true;
-                    } else if ($CFG->dbtype == "mariadb") {
-                        $ok = true;
-                    }
-                    if (!$ok) {
-                        continue;
-                    }
-                }
-            }
-
-            $koperebiblock->page_id = $page->id;
-            $koperebiblock->time = time();
-            $block->id = $DB->insert_record("local_kopere_bi_block", $koperebiblock);
-
-            foreach ($block->elements as $element) {
-                $koperebielement = clone $element;
-
-                if (isset($koperebielement->pre_requisit)) {
-                    if ($koperebielement->pre_requisit == "mysql") {
-                        $ok = false;
-                        if ($CFG->dbtype == "mysqli") {
-                            $ok = true;
-                        } else if ($CFG->dbtype == "mariadb") {
-                            $ok = true;
-                        }
-                        if (!$ok) {
-                            continue;
-                        }
-                    }
-                }
-
-                $koperebielement->block_id = $block->id;
-                $koperebielement->time = time();
-                $element->id = $DB->insert_record("local_kopere_bi_element", $koperebielement);
-            }
-        }
+        install_for_file::page_file($pagefile);
     }
 }
