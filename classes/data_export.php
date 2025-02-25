@@ -136,7 +136,7 @@ class data_export {
         header("Content-Description: File Transfer");
         header("Cache-Control: no-cache, must-revalidate");
         header("Expires: 0");
-        header("Content-Disposition: attachment; filename=\"page-{$pageid}.json\"");
+        header("Content-Disposition: attachment; filename=\"page-{$koperebipage->refkey}.json\"");
         die(json_encode($data, JSON_NUMERIC_CHECK + JSON_PRETTY_PRINT) . "\n");
     }
 
