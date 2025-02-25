@@ -94,11 +94,11 @@ class database_util {
      * @param $sql
      * @param array|null $params
      * @param bool $onerow
+     * @param int $limit
      *
      * @return array
      *
      * @throws \dml_exception
-     * @throws \Exception
      */
     public function get_records_sql_block($sql, $params = null, $onerow = false, $limit = 0) {
         global $DB;
@@ -111,6 +111,7 @@ class database_util {
         } else {
 
             if ($limit) {
+                $sql = preg_replace('/LIMIT.*/', '', $sql);
                 $sql = "{$sql} LIMIT {$limit}";
             }
 
