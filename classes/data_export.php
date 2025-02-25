@@ -40,14 +40,6 @@ class data_export {
         global $DB;
 
         $string = [];
-        if (file_exists(__DIR__ . "/../lang/pt_br/local_kopere_bi.php")) {
-            require_once(__DIR__ . "/../lang/pt_br/local_kopere_bi.php");
-        } else {
-            require_once(__DIR__ . "/../lang/en/local_kopere_bi.php");
-        }
-        $stringbi = $string;
-
-        $string = [];
         if (file_exists(__DIR__ . "/../../../lang/pt_br/moodle.php")) {
             require_once(__DIR__ . "/../../../lang/pt_br/moodle.php");
         }
@@ -56,19 +48,19 @@ class data_export {
         $pageid = optional_param("page_id", 0, PARAM_INT);
         /** @var local_kopere_bi_page $koperebipage */
         $koperebipage = $DB->get_record("local_kopere_bi_page", ["id" => $pageid]);
-        header::notfound_null($koperebipage, get_string("page_not_found"));
+        header::notfound_null($koperebipage, get_string("page_not_found", "local_kopere_bi"));
 
         /** @var local_kopere_bi_cat $koperebicat */
         $koperebicat = $DB->get_record("local_kopere_bi_cat", ["id" => $koperebipage->cat_id]);
-        header::notfound_null($koperebicat, get_string("cat_not_found"));
+        header::notfound_null($koperebicat, get_string("cat_not_found", "local_kopere_bi"));
 
         $data = (object)[
-            "title" => $this->get_key_by_value($stringbi, $koperebipage->title),
-            "description" => $this->get_key_by_value($stringbi, $koperebipage->description),
+            "title" => $this->get_key_by_value($koperebipage->refkey, $koperebipage->title, "page_title"),
+            "description" => $this->get_key_by_value($koperebipage->refkey, $koperebipage->description, "page_description"),
             "user_id" => $koperebipage->user_id,
             "category" => (object)[
-                "title" => $this->get_key_by_value($stringbi, $koperebicat->title),
-                "description" => $this->get_key_by_value($stringbi, $koperebicat->description),
+                "title" => $this->get_key_by_value($koperebipage->refkey, $koperebicat->title, "category_title"),
+                "description" => $this->get_key_by_value($koperebipage->refkey, $koperebicat->description, "category_description"),
             ],
             "blocks" => [],
         ];
@@ -85,32 +77,25 @@ class data_export {
                 unset($koperebielement->block_id);
                 unset($koperebielement->time);
 
-                $infos = json_decode($koperebielement->info);
-                if (isset($infos->column->name)) {
-                    $infos->column->name = (array)$infos->column->name;
-                    $infos->column->type = (array)$infos->column->type;
-
-                    foreach ($infos->column->name as $key => $string) {
-
-                        if ($infos->column->type[$key] == "none") {
-                            continue;
-                        }
-
-                        if ($key == "firstname") {
-                            $string = "lang::u_fullname::local_kopere_bi";
-                        } else if (isset($stringmoodle[$key])) {
-                            $string = "lang::{$key}::moodle";
-                        } else {
-                            $string = $this->get_key_by_value($stringbi, $string, $key);
-                        }
-
-                        $infos->column->name[$key] = $string;
+                $infos = json_decode($koperebielement->info, true);
+                foreach ($infos["column"] as $key => $col) {
+                    if ($col["type"] == "none") {
+                        continue;
                     }
 
-                    $koperebielement->info = json_encode($infos, JSON_PRETTY_PRINT);
+                    if ($col["key"] == "firstname") {
+                        $col["title"] = "lang::u_fullname::local_kopere_bi";
+                    } else if ($col["key"] != "name" && isset($stringmoodle[$col["key"]])) {
+                        $col["title"] = "lang::{$col["key"]}::moodle";
+                    } else {
+                        $col["title"] = $this->get_key_by_value($koperebipage->refkey, $col["title"], "{$koperebielement->refkey}_{$col["key"]}");
+                    }
+
+                    $infos["column"][$key]["title"] = $col["title"];
                 }
 
-                $koperebielement->title = $this->get_key_by_value($stringbi, $koperebielement->title);
+                $koperebielement->info = json_encode($infos, JSON_PRETTY_PRINT);
+                $koperebielement->title = $this->get_key_by_value($koperebipage->refkey, $koperebielement->title, "{$koperebielement->refkey}_cat_title");
 
                 $elements[] = $koperebielement;
             }
@@ -123,19 +108,15 @@ class data_export {
 
             $data->blocks[] = $koperebiblock;
         }
-
-        if ($this->missingstrings1) {
-            $data->missingstrings1 = get_string("missingstrings1", "local_kopere_bi", implode("\n", $this->missingstrings1));
-        }
-        if ($this->missingstrings2) {
-            $data->missingstrings2 = get_string("missingstrings2", "local_kopere_bi", implode("\n", $this->missingstrings2));
+        if ($this->missingstrings) {
+            die;
         }
 
         ob_clean();
         header("Content-Type: application/json; charset: utf-8");
-        header("Content-Description: File Transfer");
         header("Cache-Control: no-cache, must-revalidate");
         header("Expires: 0");
+        header("Content-Description: File Transfer");
         header("Content-Disposition: attachment; filename=\"page-{$koperebipage->refkey}.json\"");
         die(json_encode($data, JSON_NUMERIC_CHECK + JSON_PRETTY_PRINT) . "\n");
     }
@@ -143,33 +124,38 @@ class data_export {
     /**
      * Function to find the key based on a value in an array
      *
-     * @param array $string
+     * @param string $refkey
      * @param string $value
-     * @param string $stringkey
+     * @param string $stringlast
      *
      * @return string
-     * @throws \coding_exception
      */
-    private function get_key_by_value($string, $value, $stringkey = "") {
-        $pageid = optional_param("page_id", 0, PARAM_INT);
+    private function get_key_by_value($refkey, $value, $stringlast = "") {
 
         if (strpos($value, "::") || $value == "#" || $value == "") {
             return $value;
         }
 
-        if ($key = array_search($value, $string)) {
-            // Return the key if the value is found.
-            return "lang::{$key}::local_kopere_bi";
-        } else {
-            if (!$stringkey) {
-                $this->missingstrings1[] = "\$string['report_{$pageid}_'] = '{$value}';";
-            } else {
-                $this->missingstrings2[] = "\$string['{$value}'] = '';";
-            }
+        global $CFG;
+        $filelangs = glob("{$CFG->dirroot}/local/*/lang/pt_br/*.php");
+        foreach ($filelangs as $filelang) {
+            $component = preg_replace('/.*\/(local)\/(\w+)\/lang\/.*/', '$1_$2', $filelang);
 
-            // Return $value if the value is not found in the array.
-            return $value;
+            $string = [];
+            require($filelang);
+            if ($key = array_search($value, $string)) {
+                return "lang::{$key}::{$component}";
+            }
         }
+
+        $this->missingstrings = true;
+        echo '<pre style="background: #FFEB3B55;padding: 7px;margin: 8px;">';
+//        echo (new \Exception())->getTraceAsString()."\n\n";
+        echo "\$string['report_{$refkey}_{$stringlast}'] = '{$value}';";
+        echo '</pre>';
+
+        // Return $value if the value is not found in the array.
+        return $value;
     }
 
     /**
@@ -177,11 +163,5 @@ class data_export {
      *
      * @var array
      */
-    private $missingstrings1 = [];
-    /**
-     * Var missingstrings2
-     *
-     * @var array
-     */
-    private $missingstrings2 = [];
+    private $missingstrings = false;
 }
