@@ -75,6 +75,6 @@ class string_util {
             $string = str_replace($str, $newstring, $string);
         }
 
-        return  $string;
+        return $string;
     }
 }
