@@ -14,6 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * install_for_file file
+ *
+ * @package   local_kopere_bi
+ * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace local_kopere_bi\local\util;
 
 use local_kopere_bi\local\vo\local_kopere_bi_block;
@@ -23,7 +31,7 @@ use local_kopere_bi\local\vo\local_kopere_bi_element;
 /**
  * Class install_for_file
  *
- * @package local_kopere_bi\local\util
+ * @package local_kopere_bi
  */
 class install_for_file {
     /**
