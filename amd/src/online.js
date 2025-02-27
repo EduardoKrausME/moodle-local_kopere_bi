@@ -59,7 +59,10 @@ define(['core/ajax'], function(ajax) {
                 online_update_send();
                 clearInterval(intervalId);
                 online_update_send = console.log;
-            }, 2 * 60 * 1000); // 2 minutes
+            }, 2 * 60 * 1000); // 2 minutes.
+
+            console.log("\n %c Eduardo Kraus %c https://eduardokraus.com \n",
+                "color: #FFFFFF; background: #2196F3; padding:8px 0;border-radius:5px;", "padding:8px 0;");
         }
     };
 });
