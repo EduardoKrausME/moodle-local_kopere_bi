@@ -52,7 +52,7 @@ Feel free to open issues or pull requests with ideas.
 If you encounter any bugs or have suggestions for improvement, don’t hesitate to let us know.
    
 ## License
-This project is licensed under the MIT License.
+This plugin is licensed under the [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html).
    
 ## Contact
 For more information, contact Eduardo Kraus via [Contact](https://eduardokraus.com/contato).
