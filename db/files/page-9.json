@@ -1,32 +1,33 @@
 {
-    "title": "lang::report_9_category_title::local_kopere_bi",
-    "description": "lang::report_9_category_desc::local_kopere_bi",
-    "user_id": null,
-    "category": {
-        "title": "lang::report_2_cat_title::local_kopere_bi",
-        "description": "lang::report_2_cat_description::local_kopere_bi"
-    },
-    "blocks": [
+  "title": "lang::report_9_category_title::local_kopere_bi",
+  "description": "lang::report_9_category_desc::local_kopere_bi",
+  "user_id": null,
+  "category": {
+    "refkey": "course_modules",
+    "title": "lang::report_2_cat_title::local_kopere_bi",
+    "description": "lang::report_2_cat_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "report_9_report_1",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
         {
-            "refkey": null,
-            "type": "block-1",
-            "sequence": 1,
-            "elements": [
-                {
-                    "refkey": "report_9_report_1",
-                    "title": "lang::report_9_report_1_name::local_kopere_bi",
-                    "block_num": 1,
-                    "type": "table",
-                    "theme": "light",
-                    "css": "",
-                    "html_before": "",
-                    "html_after": "",
-                    "commandsql": "  SELECT CONCAT('lang::modulename::', m.name) AS module_name, \r\n         COUNT(cm.id) AS module_count\r\n    FROM mdl_course_modules cm\r\n    JOIN mdl_modules         m ON cm.module = m.id\r\n   WHERE cm.course             = :courseid\r\n     AND cm.deletioninprogress = 0\r\nGROUP BY m.name\r\nORDER BY module_count DESC",
-                    "cache": "1h",
-                    "reload": "1h",
-                    "info": "{\n    \"column\": {\n        \"module_name\": {\n            \"key\": \"module_name\",\n            \"title\": \"lang::module_name::local_kopere_bi\",\n            \"type\": \"translate\",\n            \"mustache\": \"<a href=\\\"{{{config.wwwroot}}}\\\/mod\\\/{{{module_name}}}\\\/view.php?id={{{cm_cmid}}}\\\">\\r\\n    {{{module_name}}}\\r\\n<\\\/a>\"\n        },\n        \"module_count\": {\n            \"key\": \"module_count\",\n            \"title\": \"lang::module_count::local_kopere_bi\",\n            \"type\": \"number\",\n            \"mustache\": \"{{{module_count}}}\"\n        }\n    }\n}"
-                }
-            ]
+          "refkey": "report_9_report_1",
+          "title": "lang::report_9_report_1_name::local_kopere_bi",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "  SELECT CONCAT('lang::modulename::', m.name) AS module_name, \r\n         COUNT(cm.id) AS module_count\r\n    FROM mdl_course_modules cm\r\n    JOIN mdl_modules         m ON cm.module = m.id\r\n   WHERE cm.course             = :courseid\r\n     AND cm.deletioninprogress = 0\r\nGROUP BY m.name\r\nORDER BY module_count DESC",
+          "cache": "1h",
+          "reload": "1h",
+          "info": "{\n    \"column\": {\n        \"module_name\": {\n            \"key\": \"module_name\",\n            \"title\": \"lang::module_name::local_kopere_bi\",\n            \"type\": \"translate\",\n            \"mustache\": \"<a href=\\\"{{{config.wwwroot}}}\\\/mod\\\/{{{module_name}}}\\\/view.php?id={{{cm_cmid}}}\\\">\\r\\n    {{{module_name}}}\\r\\n<\\\/a>\"\n        },\n        \"module_count\": {\n            \"key\": \"module_count\",\n            \"title\": \"lang::module_count::local_kopere_bi\",\n            \"type\": \"number\",\n            \"mustache\": \"{{{module_count}}}\"\n        }\n    }\n}"
         }
-    ]
+      ]
+    }
+  ]
 }
