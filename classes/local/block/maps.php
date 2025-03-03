@@ -21,6 +21,7 @@ use local_kopere_bi\local\block\util\database_util;
 use local_kopere_bi\local\util\sql_util;
 use local_kopere_dashboard\html\form;
 use local_kopere_dashboard\util\message;
+use local_kopere_dashboard\util\url_util;
 
 /**
  * Class maps
@@ -112,7 +113,7 @@ class maps implements i_type {
         $id = uniqid();
 
         $param = ["item_id" => $koperebielement->id, "theme" => $koperebielement->theme];
-        $url = urlencode(local_kopere_dashboard_makeurl("bi-chart_data", "load_data", $param, "view-ajax"));
+        $url = urlencode(url_util::makeurl("bi-chart_data", "load_data", $param, "view-ajax"));
 
         $urlresource = urlencode("{$CFG->wwwroot}/local/kopere_bi/maps/resource/");
 

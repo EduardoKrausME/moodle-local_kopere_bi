@@ -25,6 +25,7 @@ use local_kopere_bi\local\util\sql_util;
 use local_kopere_dashboard\html\form;
 use local_kopere_dashboard\html\inputs\input_textarea;
 use local_kopere_dashboard\util\message;
+use local_kopere_dashboard\util\url_util;
 
 /**
  * Class html
@@ -120,7 +121,7 @@ class html implements i_type {
         global $OUTPUT;
 
         return $OUTPUT->render_from_template("local_kopere_bi/block_html_preview", [
-            "ajax_url" => local_kopere_dashboard_makeurl("bi-chart_data", "load_data",
+            "ajax_url" => url_util::makeurl("bi-chart_data", "load_data",
                 ["item_id" => $koperebielement->id], "view-ajax"),
             "local_kopere_bi_id" => $koperebielement->id,
             "error_data_loader" => get_string("error_data_loader", "local_kopere_bi"),

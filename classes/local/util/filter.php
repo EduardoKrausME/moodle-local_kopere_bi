@@ -17,6 +17,7 @@
 namespace local_kopere_bi\local\util;
 
 use local_kopere_bi\local\vo\external_report;
+use local_kopere_dashboard\util\url_util;
 
 /**
  * Class filter
@@ -161,8 +162,8 @@ class filter {
 
         $data = [
             "course_fullname" => $course->fullname,
-            "url_ajax" => local_kopere_dashboard_makeurl("courses", "load_all_courses", [], "view-ajax"),
-            "url_click" => local_kopere_dashboard_makeurl($classname, $method, $paramsurl),
+            "url_ajax" => url_util::makeurl("courses", "load_all_courses", [], "view-ajax"),
+            "url_click" => url_util::makeurl($classname, $method, $paramsurl),
         ];
         $PAGE->requires->js_call_amd("local_kopere_bi/filter_course", "init");
         return $OUTPUT->render_from_template('local_kopere_bi/filter-course', $data);
@@ -185,8 +186,8 @@ class filter {
 
         $data = [
             "user_fullname" => fullname($user),
-            "url_ajax" => local_kopere_dashboard_makeurl("users", "load_all_users", [], "view-ajax"),
-            "url_click" => local_kopere_dashboard_makeurl($classname, $method, $paramsurl),
+            "url_ajax" => url_util::makeurl("users", "load_all_users", [], "view-ajax"),
+            "url_click" => url_util::makeurl($classname, $method, $paramsurl),
         ];
         $PAGE->requires->js_call_amd("local_kopere_bi/filter_user", "init");
         return $OUTPUT->render_from_template('local_kopere_bi/filter-user', $data);

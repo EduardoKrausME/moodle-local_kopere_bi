@@ -23,6 +23,7 @@ use local_kopere_bi\local\block\util\reload_util;
 use local_kopere_bi\local\util\sql_util;
 use local_kopere_dashboard\html\form;
 use local_kopere_dashboard\util\message;
+use local_kopere_dashboard\util\url_util;
 
 /**
  * Class pie
@@ -123,7 +124,7 @@ class pie implements i_type {
         code_util::add_js_apexcharts();
 
         return $OUTPUT->render_from_template("local_kopere_bi/block_pie_preview", [
-            "ajax_url" => local_kopere_dashboard_makeurl("bi-chart_data", "load_data",
+            "ajax_url" => url_util::makeurl("bi-chart_data", "load_data",
                 ["item_id" => $koperebielement->id], "view-ajax"),
             "local_kopere_bi_id" => $koperebielement->id,
             "chart_pie_default" => get_config("local_kopere_bi", "chart_pie_default"),
