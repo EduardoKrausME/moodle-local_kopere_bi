@@ -45,8 +45,12 @@
                 <h3 class="header-title-text">{{{category_title}}}</h3>
                 {{#editing}}
                     <div class="buttons-move">
-                        <i class="btn-move-up   fa-solid fa-arrow-up  " style="display:none"></i>
-                        <i class="btn-move-down fa-solid fa-arrow-down" style="display:none"></i>
+                        <span class="btn-move-up" style="display:none">
+                            {{#pix}} icons/btn-move-up, local_kopere_bi {{/pix}}
+                        </span>
+                        <span class="btn-move-down" style="display:none">
+                            {{#pix}} icons/btn-move-down, local_kopere_bi {{/pix}}
+                        </span>
 
                         <a href="?classname=bi-dashboard&method=edit&cat_id={{category_id}}"
                         class="btn btn-primary">{{#str}}page_new_cat,local_kopere_bi{{/str}}</a>
