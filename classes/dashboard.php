@@ -281,7 +281,7 @@ class dashboard extends bi_all {
         header::notfound_null($cat, get_string("cat_not_found", "local_kopere_bi"));
 
         if ($status) {
-            $pages = $DB->get_records("local_kopere_bi_page", ["cat_id"=>$cat->id]);
+            $pages = $DB->get_records("local_kopere_bi_page", ["cat_id" => $cat->id]);
             foreach ($pages as $page) {
                 $blocks = $DB->get_records("local_kopere_bi_block", ["page_id" => $page->id]);
                 foreach ($blocks as $block) {
@@ -301,9 +301,10 @@ class dashboard extends bi_all {
             dashboard_util::add_breadcrumb(get_string("delete"));
             dashboard_util::start_page();
 
+            $title = string_util::get_string($cat->title);
             echo "<div class='element-box'>
                           <h3>" . get_string("category_delete_confirm", "local_kopere_bi") . "</h3>
-                          <p>" . get_string("category_delete_message", "local_kopere_bi", string_util::get_string($cat->title)) . "</p>
+                          <p>" . get_string("category_delete_message", "local_kopere_bi", $title) . "</p>
                           <div>";
             button::delete(get_string("yes"),
                 url_util::makeurl("bi-dashboard", "delete_cat", ["cat_id" => $cat->id, "status" => "sim"]), "", false);
@@ -371,6 +372,12 @@ class dashboard extends bi_all {
         dashboard_util::end_page();
     }
 
+    /**
+     * Function delete_page
+     *
+     * @throws \coding_exception
+     * @throws \dml_exception
+     */
     public function delete_page() {
         global $DB;
 
