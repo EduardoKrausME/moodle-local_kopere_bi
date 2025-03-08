@@ -53,9 +53,11 @@
                         </span>
 
                         <a href="?classname=bi-dashboard&method=edit&cat_id={{category_id}}"
-                        class="btn btn-primary">{{#str}}page_new_cat,local_kopere_bi{{/str}}</a>
+                           class="btn btn-primary">{{#str}}page_new_cat,local_kopere_bi{{/str}}</a>
                         <a href="?classname=bi-dashboard&method=edit_cat&cat_id={{category_id}}"
-                        class="btn btn-success">{{#str}}cat_edit,local_kopere_bi{{/str}}</a>
+                           class="btn btn-success">{{#str}}cat_edit,local_kopere_bi{{/str}}</a>
+                        <a href="?classname=bi-dashboard&method=delete_cat&cat_id={{category_id}}"
+                        class="btn btn-danger ml-2">{{#str}}delete{{/str}}</a>
                     </div>
                 {{/editing}}
             </div>

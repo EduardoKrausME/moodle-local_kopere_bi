@@ -140,8 +140,8 @@ class preview_util {
                 $title = string_util::get_string($koperebielement->title);
 
                 if (isset($USER->editing) && $USER->editing) {
-                    $title = $title . button::edit(get_string("edit_report", "local_kopere_bi"),
-                            "?classname=bi-dashboard&method=type_block_edit&item_id={$koperebielement->id}", 'mr-4', false, true);
+                    $title .= button::edit(get_string("edit_report", "local_kopere_bi"),
+                        "?classname=bi-dashboard&method=type_block_edit&item_id={$koperebielement->id}", 'ml-2', false, true);
                 }
 
                 /** @var i_type $block */

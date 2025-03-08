@@ -74,6 +74,8 @@ $string['cat_name'] = 'Category name';
 $string['cat_new'] = 'New category';
 $string['cat_not_found'] = 'Category not found';
 $string['cat_title'] = 'Category';
+$string['category_delete_confirm'] = 'Category Deletion';
+$string['category_delete_message'] = 'Do you really want to delete the category <strong>{$a}</strong> and all pages and blocks?';
 $string['cc_id'] = 'Completed courses';
 $string['cc_timecompleted'] = 'Completed on';
 $string['chart_area_default'] = 'Default Area Chart configuration';
@@ -216,6 +218,8 @@ $string['num_courses'] = 'Number of available courses';
 $string['num_learners'] = 'Total number of students';
 $string['num_user'] = 'Number of students';
 $string['os_name'] = 'Operating system';
+$string['page_delete_confirm'] = 'Page Deletion';
+$string['page_delete_message'] = 'Do you really want to delete the page <strong>{$a}</strong> and all blocks?';
 $string['page_description'] = 'Page description';
 $string['page_edit'] = 'Edit page';
 $string['page_name'] = 'Page name';
@@ -514,5 +518,3 @@ $string['word_extra_77'] = '';
 $string['word_extra_78'] = '';
 $string['word_extra_79'] = '';
 $string['word_extra_80'] = '';
-
-

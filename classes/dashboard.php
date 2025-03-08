@@ -36,6 +36,7 @@ use local_kopere_dashboard\html\inputs\input_textarea;
 use local_kopere_dashboard\util\dashboard_util;
 use local_kopere_dashboard\util\header;
 use local_kopere_dashboard\util\message;
+use local_kopere_dashboard\util\url_util;
 
 /**
  * Class dashboard
@@ -206,7 +207,7 @@ class dashboard extends bi_all {
             /** @var local_kopere_bi_cat $cat */
             $cat = $DB->get_record("local_kopere_bi_cat", ["id" => $catid]);
             header::notfound_null($cat, get_string("cat_not_found", "local_kopere_bi"));
-            $title = get_string("cat_edit", "local_kopere_bi", $cat->title);
+            $title = get_string("cat_edit", "local_kopere_bi", string_util::get_string($cat->title));
 
             if (form::check_post() && isset($cattitle[3])) {
                 $cat->title = $cattitle;
@@ -265,6 +266,57 @@ class dashboard extends bi_all {
     }
 
     /**
+     * Function delete_cat
+     *
+     * @throws \coding_exception
+     * @throws \dml_exception
+     */
+    public function delete_cat() {
+        global $DB;
+
+        $catid = optional_param("cat_id", 0, PARAM_INT);
+        $status = optional_param("status", false, PARAM_TEXT);
+
+        $cat = $DB->get_record("local_kopere_bi_cat", ["id" => $catid]);
+        header::notfound_null($cat, get_string("cat_not_found", "local_kopere_bi"));
+
+        if ($status) {
+            $pages = $DB->get_records("local_kopere_bi_page", ["cat_id"=>$cat->id]);
+            foreach ($pages as $page) {
+                $blocks = $DB->get_records("local_kopere_bi_block", ["page_id" => $page->id]);
+                foreach ($blocks as $block) {
+                    $DB->delete_records("local_kopere_bi_block", ["id" => $block->id]);
+                    $DB->delete_records("local_kopere_bi_element", ["block_id" => $block->id]);
+                }
+
+                $DB->delete_records("local_kopere_bi_page", ["id" => $page->id]);
+            }
+            $DB->delete_records("local_kopere_bi_cat", ["id" => $cat->id]);
+
+            header::location(url_util::makeurl("bi-dashboard", "start"));
+        } else {
+
+            dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"), "?classname=bi-dashboard&method=start");
+            dashboard_util::add_breadcrumb(string_util::get_string($cat->title));
+            dashboard_util::add_breadcrumb(get_string("delete"));
+            dashboard_util::start_page();
+
+            echo "<div class='element-box'>
+                          <h3>" . get_string("category_delete_confirm", "local_kopere_bi") . "</h3>
+                          <p>" . get_string("category_delete_message", "local_kopere_bi", string_util::get_string($cat->title)) . "</p>
+                          <div>";
+            button::delete(get_string("yes"),
+                url_util::makeurl("bi-dashboard", "delete_cat", ["cat_id" => $cat->id, "status" => "sim"]), "", false);
+            button::add(get_string("no"),
+                url_util::makeurl("bi-dashboard", "start"), "margin-left-10", false);
+            echo "    </div>
+                      </div>";
+
+            dashboard_util::end_page();
+        }
+    }
+
+    /**
      * Function edit_page
      *
      * @throws \Exception
@@ -319,6 +371,48 @@ class dashboard extends bi_all {
         dashboard_util::end_page();
     }
 
+    public function delete_page() {
+        global $DB;
+
+        $pageid = optional_param("page_id", 0, PARAM_INT);
+        $status = optional_param("status", false, PARAM_TEXT);
+
+        $page = $DB->get_record("local_kopere_bi_page", ["id" => $pageid]);
+        header::notfound_null($page, get_string("page_not_found", "local_kopere_bi"));
+
+        if ($status) {
+
+            $blocks = $DB->get_records("local_kopere_bi_block", ["page_id" => $page->id]);
+            foreach ($blocks as $block) {
+                $DB->delete_records("local_kopere_bi_block", ["id" => $block->id]);
+                $DB->delete_records("local_kopere_bi_element", ["block_id" => $block->id]);
+            }
+
+            $DB->delete_records("local_kopere_bi_page", ["id" => $page->id]);
+
+            header::location(url_util::makeurl("bi-dashboard", "start"));
+        } else {
+
+            dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"), "?classname=bi-dashboard&method=start");
+            dashboard_util::add_breadcrumb(string_util::get_string($page->title));
+            dashboard_util::add_breadcrumb(get_string("delete"));
+            dashboard_util::start_page();
+
+            echo "<div class='element-box'>
+                          <h3>" . get_string("page_delete_confirm", "local_kopere_bi") . "</h3>
+                          <p>" . get_string("page_delete_message", "local_kopere_bi", string_util::get_string($page->title)) . "</p>
+                          <div>";
+            button::delete(get_string("yes"),
+                url_util::makeurl("bi-dashboard", "delete_page", ["page_id" => $page->id, "status" => "sim"]), "", false);
+            button::add(get_string("no"),
+                url_util::makeurl("bi-dashboard", "preview", ["page_id" => $page->id]), "margin-left-10", false);
+            echo "    </div>
+                      </div>";
+
+            dashboard_util::end_page();
+        }
+    }
+
     /**
      * Function preview
      *
@@ -336,10 +430,13 @@ class dashboard extends bi_all {
         $editbooton = "";
         $context = \context_system::instance();
         if (isset($USER->editing) && $USER->editing) {
-            $editbooton = has_capability('moodle/site:config', $context) ?
-                button::add(get_string("page_edit", "local_kopere_bi"),
-                    "?classname=bi-dashboard&method=edit_page&page_id={$koperebipage->id}",
-                    "margin-left-10", false, true) : "";
+            if (has_capability('moodle/site:config', $context)) {
+                $editbooton =
+                    button::add(get_string("page_edit", "local_kopere_bi"),
+                        "?classname=bi-dashboard&method=edit_page&page_id={$koperebipage->id}", "ml-2", false, true) .
+                    button::delete(get_string("delete"),
+                        "?classname=bi-dashboard&method=delete_page&page_id={$koperebipage->id}", "ml-3", false, true);
+            }
         }
 
         dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"), "?classname=bi-dashboard&method=start");
