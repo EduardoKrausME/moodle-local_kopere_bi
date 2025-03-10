@@ -49,7 +49,7 @@ define(["jquery", "jqueryui", "core/ajax", "core/notification"], function($, $ui
 
         page_blocks : function(page_id) {
 
-            // Botão adicionar novo Bloco
+            // Edit
             var $bt_add_block = $('<span class="btn btn-primary btn-add-block">' + M.util.get_string("block_add", "local_kopere_bi") + "</span>");
             $("#page-block-sort").append($bt_add_block);
             $bt_add_block.click(function() {
@@ -80,7 +80,7 @@ define(["jquery", "jqueryui", "core/ajax", "core/notification"], function($, $ui
                 });
             });
 
-            // Botão add Bloco dentro do
+            // Add
             $(".line-add").click(function() {
 
                 $("#dialog-confirm-block-add").dialog("close");
@@ -100,7 +100,7 @@ define(["jquery", "jqueryui", "core/ajax", "core/notification"], function($, $ui
                 }).catch(notification.exception);
             });
 
-            // Botão delete
+            // Delete
             $("#page-block-sort .line").each(function(id, element) {
 
                 var $element = $(element);
