@@ -42,7 +42,7 @@ class install_for_file {
      * @throws \dml_exception
      */
     public static function page_file($pagefile) {
-        global $CFG, $DB;
+        global $DB;
 
         $jsonpage = file_get_contents($pagefile);
 
@@ -54,9 +54,7 @@ class install_for_file {
         if (isset($koperebipage->pre_requisit)) {
             if ($koperebipage->pre_requisit == "mysql") {
                 $ok = false;
-                if ($CFG->dbtype == "mysqli") {
-                    $ok = true;
-                } else if ($CFG->dbtype == "mariadb") {
+                if ($DB->get_dbfamily() == "mysql") {
                     $ok = true;
                 }
                 if (!$ok) {
@@ -87,9 +85,7 @@ class install_for_file {
             if (isset($koperebiblock->pre_requisit)) {
                 if ($koperebiblock->pre_requisit == "mysql") {
                     $ok = false;
-                    if ($CFG->dbtype == "mysqli") {
-                        $ok = true;
-                    } else if ($CFG->dbtype == "mariadb") {
+                    if ($DB->get_dbfamily() == "mysql") {
                         $ok = true;
                     }
                     if (!$ok) {
@@ -109,9 +105,7 @@ class install_for_file {
                 if (isset($koperebielement->pre_requisit)) {
                     if ($koperebielement->pre_requisit == "mysql") {
                         $ok = false;
-                        if ($CFG->dbtype == "mysqli") {
-                            $ok = true;
-                        } else if ($CFG->dbtype == "mariadb") {
+                        if ($DB->get_dbfamily() == "mysql") {
                             $ok = true;
                         }
                         if (!$ok) {

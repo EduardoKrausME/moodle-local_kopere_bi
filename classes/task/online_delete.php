@@ -48,12 +48,12 @@ class online_delete extends \core\task\scheduled_task {
      * @throws \dml_exception
      */
     public function execute() {
-        global $DB, $CFG;
+        global $DB;
 
-        if ($CFG->dbtype == "mysqli" || $CFG->dbtype == "mariadb") {
+        if ($DB->get_dbfamily() == "mysql") {
             $where = 'currenttime < DATE_SUB(NOW(), INTERVAL :month MONTH)';
             $DB->delete_records_select("local_kopere_bi_online", $where, ["month" => $this->month]);
-        } else if ($CFG->dbtype == "pgsql") {
+        } else if ($DB->get_dbfamily() == "postgres") {
             $where = "currenttime < :month";
             $time = strtotime("-{$this->month} months", time());
             $DB->delete_records_select("local_kopere_bi_online", $where, ["month" => $time]);

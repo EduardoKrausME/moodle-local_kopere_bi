@@ -39,10 +39,10 @@ class database_util {
      * @throws \Exception
      */
     private function ready_only($sql) {
-        global $DB, $CFG;
+        global $DB;
 
         // Prevents SQL from deleting, altering, or inserting data.
-        if ($CFG->dbtype == "mysqli" || $CFG->dbtype == "mariadb") {
+        if ($DB->get_dbfamily() == "mysql") {
             try {
                 $DB->execute("SET @@SESSION.transaction_read_only = ON");
             } catch (\Exception $e) {
@@ -56,7 +56,7 @@ class database_util {
                 $DB->execute("SET SESSION TRANSACTION READ ONLY");
             } catch (\Exception $e) {
             }
-        } else if ($CFG->dbtype == "pgsql") {
+        } else if ($DB->get_dbfamily() == "postgres") {
             try {
                 $DB->execute("SET default_transaction_read_only = ON");
             } catch (\Exception $e) {
