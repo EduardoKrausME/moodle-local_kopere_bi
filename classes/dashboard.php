@@ -30,6 +30,7 @@ use local_kopere_bi\local\vo\local_kopere_bi_element;
 use local_kopere_bi\local\vo\local_kopere_bi_page;
 use local_kopere_dashboard\html\button;
 use local_kopere_dashboard\html\form;
+use local_kopere_dashboard\util\html;
 use local_kopere_dashboard\html\inputs\input_select;
 use local_kopere_dashboard\html\inputs\input_text;
 use local_kopere_dashboard\html\inputs\input_textarea;
@@ -140,7 +141,7 @@ class dashboard extends bi_all {
             if (form::check_post() && isset($pagetitle[3])) {
                 unset($page->id);
 
-                $page->refkey = uniqid();
+                $page->refkey = html::link($page->title);
                 $page->id = $DB->insert_record("local_kopere_bi_page", $page);
                 header::location("?classname=bi-dashboard&method=edit_page&page_id={$page->id}");
             }
@@ -227,7 +228,7 @@ class dashboard extends bi_all {
             if (form::check_post() && isset($cattitle[3])) {
                 unset($cat->id);
 
-                $cat->refkey = uniqid();
+                $cat->refkey = html::link($cat->title);
                 $cat->id = $DB->insert_record("local_kopere_bi_cat", $cat);
                 header::location("?classname=bi-dashboard&method=start");
             }
