@@ -223,6 +223,7 @@ class block extends external_api {
         $PAGE->set_context(\context_system::instance());
 
         $koperebiblock = (object)[
+            "refkey" => uniqid(),
             "page_id" => $params["page_id"],
             "type" => $params["type"],
             "sequence" => time(),

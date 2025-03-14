@@ -130,8 +130,8 @@ class type_block extends bi_all {
     /**
      * Function type_block_edit_salvar
      *
-     * @param $koperebielement
-     * @param $koperebipage
+     * @param local_kopere_bi_element $koperebielement
+     * @param local_kopere_bi_page $koperebipage
      * @param i_type $block
      *
      * @throws \Exception
@@ -188,7 +188,7 @@ class type_block extends bi_all {
 
                     cache_util::delete($koperebielement->id);
                 } else {
-                    $koperebielement->refkey = "{$blockid}-{$blocknum}";
+                    $koperebielement->refkey = \local_kopere_dashboard\util\html::link($koperebielement->title);
                     $koperebielement->block_id = $blockid;
                     $koperebielement->block_num = $blocknum;
                     $koperebielement->type = required_param("type", PARAM_TEXT);
