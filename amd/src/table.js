@@ -136,6 +136,7 @@ define(["jquery"], function($) {
 
             function hide_mustache(time) {
                 $(`#area_column-mustache${collkey}`).hide(time);
+                set_mustache("");
             }
 
             function set_mustache(mustachehtml) {
