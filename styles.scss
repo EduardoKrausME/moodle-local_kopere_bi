@@ -159,7 +159,7 @@
         }
         .type-chart {
             background: #fff;
-            box-shadow: 0 5px 25px rgb(202 214 242 / 40%);
+            box-shadow: 0 5px 25px rgba(202, 214, 242, .4);
             border: 1px solid #dfe9ff;
             border-radius: 20px;
             padding: 28px 30px;
@@ -296,7 +296,7 @@
         .element-box {
             margin-bottom: 11px !important;
             padding: 16px !important;
-            box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgba(15, 22, 36, 0.06), 0 1px 3px 0 rgba(15, 22, 36, .1);
+            box-shadow: 0 0 #00000000, 0 0 #00000000, 0 1px 2px 0 rgba(15, 22, 36, 0.06), 0 1px 3px 0 rgba(15, 22, 36, .1);
             iframe {
                 margin-bottom: -4px;
             }
@@ -374,7 +374,7 @@
                 background-color: #fff !important;
                 &.test-theme {
                     border: 1px dashed #d4d4d4;
-                    box-shadow: 0 0.5rem 1rem rgb(151 149 149 / 15%);
+                    box-shadow: 0 0.5rem 1rem rgba(151, 149, 149, .15);
                 }
             }
             .theme-dark {
@@ -728,9 +728,9 @@
         }
     }
 }
-@media (prefers-color-scheme: dark) {
-    @include local_kopere_bi_darkmodecode;
-}
+//@media (prefers-color-scheme: dark) {
+//    @include local_kopere_bi_darkmodecode;
+//}
 [data-bs-theme=dark] {
     @include local_kopere_bi_darkmodecode;
 }
