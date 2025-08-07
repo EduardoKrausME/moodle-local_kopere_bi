@@ -45,7 +45,10 @@ class data_import {
         $form = new form("?classname=bi-data_import&method=import");
 
         $form->add_input(
-            input_text::new_instance()->set_type("file")->set_title(get_string("cat_upload_filetitle", "local_kopere_bi"))->set_name("cat_upload_file")
+            input_text::new_instance()
+                ->set_type("file")
+                ->set_title(get_string("cat_upload_filetitle", "local_kopere_bi"))
+                ->set_name("cat_upload_file")
         );
 
         $form->create_submit_input(get_string("import"), "button");
@@ -54,6 +57,12 @@ class data_import {
         dashboard_util::end_page();
     }
 
+    /**
+     * import
+     *
+     * @return void
+     * @throws Exception
+     */
     public function import() {
         if (form::check_post()) {
             if (isset($_FILES["cat_upload_file"]["tmp_name"])) {
