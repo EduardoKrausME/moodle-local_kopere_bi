@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Function reset_bi_reports
+ * Function import_reports
  *
  * @package   local_kopere_bi
  * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
@@ -24,14 +24,14 @@
  * @throws Exception
  */
 
-use local_kopere_bi\local\util\install_for_file;
+use local_kopere_bi\local\util\install_reports;
 
 /**
- * Function reset_bi_reports
+ * Function import_reports
  *
- * @throws dml_exception
+ * @throws Exception
  */
-function reset_bi_reports() {
+function import_reports() {
     global $DB;
 
     set_config("theme_palette", "default", "local_kopere_bi");
@@ -64,6 +64,6 @@ function reset_bi_reports() {
     // Load report pages.
     $pagefiles = glob(__DIR__ . "/files/page-*.json");
     foreach ($pagefiles as $pagefile) {
-        install_for_file::page_file($pagefile);
+        install_reports::from_file($pagefile);
     }
 }
