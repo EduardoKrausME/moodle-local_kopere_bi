@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi;
 
+use Exception;
 use local_kopere_bi\local\vo\local_kopere_bi_block;
 use local_kopere_bi\local\vo\local_kopere_bi_cat;
 use local_kopere_bi\local\vo\local_kopere_bi_element;
@@ -33,8 +34,7 @@ class data_export {
     /**
      * Function json
      *
-     * @throws \coding_exception
-     * @throws \dml_exception
+     * @throws Exception
      */
     public function json() {
         global $DB;
@@ -113,6 +113,7 @@ class data_export {
             $data->blocks[] = $koperebiblock;
         }
         if ($this->missingstrings) {
+            echo "<a href='?classname=bi-data_export&method=json&page_id={$pageid}&ignoremissingstrings=1'>Export anyway</a>";
             die;
         }
 
@@ -131,7 +132,6 @@ class data_export {
      * @param string $refkey
      * @param string $value
      * @param string $stringlast
-     *
      * @return string
      */
     private function get_key_by_value($refkey, $value, $stringlast = "") {
@@ -152,10 +152,13 @@ class data_export {
             }
         }
 
-        $this->missingstrings = true;
-        echo '<pre style="background: #FFEB3B55;padding: 7px;margin: 8px;">';
-        echo "\$string['report_{$refkey}_{$stringlast}'] = '{$value}';";
-        echo '</pre>';
+        $ignoremissingstrings = optional_param("ignoremissingstrings", false, PARAM_INT);
+        if (!$ignoremissingstrings) {
+            $this->missingstrings = true;
+            echo '<pre style="background: #FFEB3B55;padding: 7px;margin: 8px;">';
+            echo "\$string['report_{$refkey}_{$stringlast}'] = '{$value}';";
+            echo '</pre>';
+        }
 
         // Return $value if the value is not found in the array.
         return $value;
