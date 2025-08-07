@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi;
 
+use Exception;
 use local_kopere_bi\local\block\i_type;
 use local_kopere_bi\local\block\util\code_util;
 use local_kopere_bi\output\renderer_bi_mustache;
@@ -51,7 +52,7 @@ class dashboard extends bi_all {
     /**
      * Function start
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function start() {
         global $DB, $CFG, $OUTPUT, $USER;
@@ -103,7 +104,7 @@ class dashboard extends bi_all {
     /**
      * Function edit
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function edit() {
         global $DB;
@@ -194,8 +195,7 @@ class dashboard extends bi_all {
     /**
      * Function edit_cat
      *
-     * @throws \coding_exception
-     * @throws \dml_exception
+     * @throws Exception
      */
     public function edit_cat() {
         global $DB;
@@ -269,8 +269,7 @@ class dashboard extends bi_all {
     /**
      * Function delete_cat
      *
-     * @throws \coding_exception
-     * @throws \dml_exception
+     * @throws Exception
      */
     public function delete_cat() {
         global $DB;
@@ -321,7 +320,7 @@ class dashboard extends bi_all {
     /**
      * Function edit_page
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function edit_page() {
         global $DB, $PAGE, $OUTPUT;
@@ -376,8 +375,7 @@ class dashboard extends bi_all {
     /**
      * Function delete_page
      *
-     * @throws \coding_exception
-     * @throws \dml_exception
+     * @throws Exception
      */
     public function delete_page() {
         global $DB;
@@ -424,8 +422,7 @@ class dashboard extends bi_all {
     /**
      * Function preview
      *
-     * @throws \Exception
-     * @throws \ScssPhp\ScssPhp\Exception\SassException
+     * @throws Exception
      */
     public function preview() {
         global $DB, $USER;
@@ -473,7 +470,7 @@ class dashboard extends bi_all {
     /**
      * Function type_block_select_type
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function type_block_select_type() {
         global $DB;
@@ -493,8 +490,7 @@ class dashboard extends bi_all {
     /**
      * Function type_block_preview
      *
-     * @throws \Exception
-     * @throws \ScssPhp\ScssPhp\Exception\SassException
+     * @throws Exception
      */
     public function type_block_preview() {
         global $DB;
@@ -550,7 +546,7 @@ class dashboard extends bi_all {
     /**
      * Function type_block_edit
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function type_block_edit() {
         global $DB;
@@ -656,7 +652,7 @@ class dashboard extends bi_all {
     /**
      * Function type_block_edit_columns
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function type_block_edit_columns() {
         global $DB;
@@ -715,7 +711,7 @@ class dashboard extends bi_all {
     /**
      * Function type_block_delete
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function type_block_delete() {
         global $DB;
@@ -736,7 +732,7 @@ class dashboard extends bi_all {
     /**
      * Function delete_block
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function delete_block() {
         global $DB;

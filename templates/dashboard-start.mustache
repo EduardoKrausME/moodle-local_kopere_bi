@@ -38,6 +38,15 @@
     }
 }}
 
+{{#editing}}
+    <div class="mb-3 d-flex justify-content-end gap-3">
+        <a href="?classname=bi-dashboard&method=edit_cat"
+           class="btn btn-success">{{#str}}cat_new,local_kopere_bi{{/str}}</a>
+        <a href="?classname=bi-data_import&method=cat_upload"
+           class="btn btn-success">{{#str}}cat_upload,local_kopere_bi{{/str}}</a>
+    </div>
+{{/editing}}
+
 <div class="dashboard-homes">
     {{#categorys}}
         <div class="card dashboard-home" data-category_id="{{{category_id}}}">
@@ -88,13 +97,6 @@
         </div>
     {{/categorys}}
 </div>
-
-{{#editing}}
-    <div style="margin-top: 20px;display: flex;justify-content: flex-end;">
-        <a href="?classname=bi-dashboard&method=edit_cat" class="btn btn-success">{{#str}}
-            cat_new,local_kopere_bi{{/str}}</a>
-    </div>
-{{/editing}}
 
 {{#js}}
     require(["jquery", "core/ajax",], function($, ajax) {
