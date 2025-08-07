@@ -40,6 +40,12 @@ class extra_langs extends bi_all {
     public function index() {
         global $OUTPUT, $PAGE, $USER, $DB;
 
+        if (isset($_SESSION["SESSION"]->lang)) {
+            $userlang = $_SESSION["SESSION"]->lang;
+        } else {
+            $userlang = $USER->lang;
+        }
+
         dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"), "?classname=bi-dashboard&method=start");
         dashboard_util::start_page();
 
@@ -55,7 +61,7 @@ class extra_langs extends bi_all {
         ]);
         $filter->display();
 
-        tool_customlang_utils::checkout($_SESSION["SESSION"]->lang);
+        tool_customlang_utils::checkout($userlang);
 
         $sql = "SELECT tl.stringid, tl.original
                   FROM {tool_customlang} tl
@@ -64,7 +70,7 @@ class extra_langs extends bi_all {
                    AND tl.lang  = :lang";
         $langs = $DB->get_records_sql($sql, [
             "component" => $component,
-            "lang" => $USER->lang,
+            "lang" => $userlang,
         ]);
 
         foreach ($langs as $lang) {
@@ -90,7 +96,7 @@ class extra_langs extends bi_all {
                 for ($i = 0; $i < 80; $i++) {
                     $identifier = "word_extra_" . substr("0{$i}", -2);
                     $toolcustomlang = $DB->get_record("tool_customlang", [
-                        "lang" => $_SESSION["SESSION"]->lang,
+                        "lang" => $userlang,
                         "componentid" => $toolcustomlangcomponent->id,
                         "stringid" => $identifier,
                     ]);
@@ -100,11 +106,11 @@ class extra_langs extends bi_all {
 
                     $DB->update_record("tool_customlang", $toolcustomlang);
                 }
-                tool_customlang_utils::checkin($_SESSION["SESSION"]->lang);
+                tool_customlang_utils::checkin($userlang);
 
                 header::location("?{$_SERVER["QUERY_STRING"]}");
             }
-            tool_customlang_utils::checkout($_SESSION["SESSION"]->lang);
+            tool_customlang_utils::checkout($userlang);
 
             $customs = [];
             $countempty = 0;
