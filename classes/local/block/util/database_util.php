@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\local\block\util;
 
+use Exception;
 use local_kopere_bi\local\vo\external_report;
 
 /**
@@ -33,10 +34,8 @@ class database_util {
      * Function ready_only
      *
      * @param $sql
-     *
      * @return string
-     *
-     * @throws \Exception
+     * @throws Exception
      */
     private function ready_only($sql) {
         global $DB;
@@ -45,28 +44,28 @@ class database_util {
         if ($DB->get_dbfamily() == "mysql") {
             try {
                 $DB->execute("SET @@SESSION.transaction_read_only = ON");
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
             }
             try {
                 $DB->execute("SET SESSION transaction_read_only = ON");
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
             }
 
             try {
                 $DB->execute("SET SESSION TRANSACTION READ ONLY");
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
             }
         } else if ($DB->get_dbfamily() == "postgres") {
             try {
                 $DB->execute("SET default_transaction_read_only = ON");
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
             }
             try {
                 $DB->execute("SET TRANSACTION READ ONLY");
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
             }
         } else {
-            throw new \Exception("only mysqli and pgsql");
+            throw new Exception("only mysqli and pgsql");
         }
 
         $sql = preg_replace('/;(\s+)?$/s', "", $sql);
@@ -79,10 +78,8 @@ class database_util {
      *
      * @param $sql
      * @param array|null $params
-     *
      * @return null|object
-     *
-     * @throws \Exception
+     * @throws Exception
      */
     public function get_record_sql_block($sql, $params = null) {
         return (object)$this->get_records_sql_block($sql, $params, true);
@@ -95,10 +92,8 @@ class database_util {
      * @param array|null $params
      * @param bool $onerow
      * @param int $limit
-     *
      * @return array
-     *
-     * @throws \dml_exception
+     * @throws Exception
      */
     public function get_records_sql_block($sql, $params = null, $onerow = false, $limit = 0) {
         global $DB;
@@ -140,7 +135,7 @@ class database_util {
      * @param array|null $params
      *
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function get_records_sql_block_array($sql, $params = null) {
         global $DB;

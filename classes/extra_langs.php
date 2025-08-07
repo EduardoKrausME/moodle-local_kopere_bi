@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi;
 
+use Exception;
 use local_kopere_bi\form\extra_langs_changue_component;
 use local_kopere_dashboard\html\form;
 use local_kopere_dashboard\util\dashboard_util;
@@ -34,9 +35,7 @@ class extra_langs extends bi_all {
     /**
      * Function index
      *
-     * @throws \coding_exception
-     * @throws \dml_exception
-     * @throws \moodle_exception
+     * @throws Exception
      */
     public function index() {
         global $OUTPUT, $PAGE, $USER, $DB;

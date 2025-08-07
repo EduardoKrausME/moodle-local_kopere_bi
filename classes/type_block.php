@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi;
 
+use Exception;
 use local_kopere_bi\local\block\area;
 use local_kopere_bi\local\block\column;
 use local_kopere_bi\local\block\html;
@@ -48,8 +49,7 @@ class type_block extends bi_all {
      *
      * @param $blockid
      * @param $blocknum
-     *
-     * @throws \Exception
+     * @throws Exception
      */
     public function select_type($blockid, $blocknum) {
         global $DB, $PAGE, $OUTPUT;
@@ -133,8 +133,7 @@ class type_block extends bi_all {
      * @param local_kopere_bi_element $koperebielement
      * @param local_kopere_bi_page $koperebipage
      * @param i_type $block
-     *
-     * @throws \Exception
+     * @throws Exception
      */
     public static function type_block_edit_salvar($koperebielement, $koperebipage, i_type $block) {
         global $DB;
@@ -211,8 +210,7 @@ class type_block extends bi_all {
      * @param $koperebielement
      * @param $koperebipage
      * @param i_type $block
-     *
-     * @throws \Exception
+     * @throws Exception
      */
     public static function type_block_edit_columns_salvar($koperebielement, $koperebipage, i_type $block) {
         global $DB;

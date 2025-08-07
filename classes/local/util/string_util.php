@@ -16,7 +16,7 @@
 
 namespace local_kopere_bi\local\util;
 
-use coding_exception;
+use Exception;
 
 /**
  * Class string_util
@@ -33,7 +33,7 @@ class string_util {
      * @param $maxlength
      *
      * @return string
-     * @throws \coding_exception
+     * @throws Exception
      */
     public static function trunc($string, $maxlength) {
         $string = self::get_string($string);
@@ -58,7 +58,7 @@ class string_util {
      * @param $string
      *
      * @return string
-     * @throws \coding_exception
+     * @throws Exception
      */
     public static function get_string($string) {
         if (!isset($string[8]) || strpos($string, "lang::") === false) {

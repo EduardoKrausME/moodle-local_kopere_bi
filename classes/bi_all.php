@@ -17,6 +17,8 @@
 namespace local_kopere_bi;
 
 
+use Exception;
+
 /**
  * Class bi_all
  *
@@ -29,7 +31,7 @@ class bi_all {
     /**
      * bi_all constructor.
      *
-     * @throws \coding_exception
+     * @throws Exception
      */
     public function __construct() {
         global $PAGE;

@@ -24,6 +24,8 @@
 
 namespace local_kopere_bi\local\vo;
 
+use Exception;
+
 /**
  * Interface external_report
  *
@@ -42,9 +44,8 @@ interface external_report {
      *
      * @param int $courseid
      * @param int $userid
-     *
      * @return array
-     * @throws \dml_exception
+     * @throws Exception
      */
     public static function get_data($courseid, $userid);
 }

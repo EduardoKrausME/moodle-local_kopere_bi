@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\local\block;
 
+use Exception;
 use local_kopere_bi\local\block\util\cache_util;
 use local_kopere_bi\local\block\util\code_util;
 use local_kopere_bi\local\block\util\database_util;
@@ -36,7 +37,7 @@ class info implements i_type {
      * Function get_name
      *
      * @return mixed|string
-     * @throws \coding_exception
+     * @throws Exception
      */
     public static function get_name() {
         return get_string("info_name", "local_kopere_bi");
@@ -46,7 +47,7 @@ class info implements i_type {
      * Function get_description
      *
      * @return mixed|string
-     * @throws \coding_exception
+     * @throws Exception
      */
     public static function get_description() {
         return get_string("info_desc", "local_kopere_bi");
@@ -56,7 +57,6 @@ class info implements i_type {
      * Function title_extra
      *
      * @param $koperebielement
-     *
      * @return mixed|string
      */
     public function title_extra($koperebielement) {
@@ -68,9 +68,8 @@ class info implements i_type {
      *
      * @param form $form
      * @param $koperebielement
-     *
      * @return mixed|void
-     * @throws \Exception
+     * @throws Exception
      */
     public function edit(form $form, $koperebielement) {
 
@@ -93,7 +92,6 @@ class info implements i_type {
      *
      * @param form $form
      * @param $koperebielement
-     *
      * @return mixed|void
      */
     public function edit_columns(form $form, $koperebielement) {
@@ -103,9 +101,8 @@ class info implements i_type {
      * Function preview
      *
      * @param $koperebielement
-     *
      * @return mixed|string
-     * @throws \Exception
+     * @throws Exception
      */
     public function preview($koperebielement) {
 
@@ -119,7 +116,7 @@ class info implements i_type {
 
             try {
                 $line = (new database_util())->get_record_sql_block($comand->sql, $comand->params);
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 if (AJAX_SCRIPT) {
                     echo json_encode([
                         "sql" => $comand->sql,
@@ -151,7 +148,6 @@ class info implements i_type {
      * Function get_chart_data
      *
      * @param $koperebielement
-     *
      * @return mixed|void
      */
     public function get_chart_data($koperebielement) {

@@ -16,6 +16,8 @@
 
 namespace local_kopere_bi\task;
 
+use Exception;
+
 /**
  * Class delete_3months
  *
@@ -36,7 +38,7 @@ class online_delete extends \core\task\scheduled_task {
      * Nome da task
      *
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function get_name() {
         return "Delete the last {$this->month} months of online student data";
@@ -45,7 +47,7 @@ class online_delete extends \core\task\scheduled_task {
     /**
      * Executa a tarefa agendada
      *
-     * @throws \dml_exception
+     * @throws Exception
      */
     public function execute() {
         global $DB;

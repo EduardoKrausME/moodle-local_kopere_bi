@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\external;
 
+use Exception;
 use external_api;
 use external_function_parameters;
 use external_single_structure;
@@ -71,9 +72,8 @@ class block extends external_api {
      * Function sequence
      *
      * @param $elements
-     *
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public static function sequence($elements) {
         global $DB;
@@ -139,7 +139,7 @@ class block extends external_api {
      * @param $blockid
      *
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public static function delete($blockid) {
         global $DB;
@@ -207,7 +207,7 @@ class block extends external_api {
      * @param $type
      *
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public static function add($pageid, $type) {
         global $DB, $PAGE;

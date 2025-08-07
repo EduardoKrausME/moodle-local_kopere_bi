@@ -16,6 +16,8 @@
 
 namespace local_kopere_bi\task;
 
+use Exception;
+
 /**
  * Class online_to_analytics
  *
@@ -28,7 +30,7 @@ class online_to_analytics extends \core\task\scheduled_task {
      * Nome da task
      *
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function get_name() {
         return "Converts online data into access statistics";
@@ -37,7 +39,7 @@ class online_to_analytics extends \core\task\scheduled_task {
     /**
      * Executa a tarefa agendada
      *
-     * @throws \dml_exception
+     * @throws Exception
      */
     public function execute() {
         global $DB;

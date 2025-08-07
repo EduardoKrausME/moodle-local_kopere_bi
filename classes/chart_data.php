@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi;
 
+use Exception;
 use local_kopere_bi\local\block\i_type;
 use local_kopere_bi\local\vo\local_kopere_bi_element;
 use local_kopere_dashboard\util\json;
@@ -32,7 +33,7 @@ class chart_data {
     /**
      * Function load_data
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function load_data() {
         global $DB;

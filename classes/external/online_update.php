@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\external;
 
+use Exception;
 use external_api;
 use external_value;
 use external_single_structure;
@@ -73,9 +74,8 @@ class online_update extends external_api {
      * @param $onlineid
      * @param $cachekey
      * @param $seconds
-     *
      * @return array
-     * @throws \dml_exception
+     * @throws Exception
      */
     public static function api($onlineid, $cachekey, $seconds) {
         global $DB, $USER;

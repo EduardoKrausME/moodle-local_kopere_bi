@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\local\util;
 
+use Exception;
 use local_kopere_bi\local\block\i_type;
 use local_kopere_bi\local\vo\local_kopere_bi_element;
 use local_kopere_dashboard\html\button;
@@ -33,9 +34,8 @@ class details_util {
      * Function html_details_block
      *
      * @param $block
-     *
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function html_details_block($block) {
         global $OUTPUT;
@@ -121,7 +121,7 @@ class details_util {
      * @param $blocknum
      *
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     private static function details_block_item($blockid, $blocknum) {
         global $DB;
@@ -158,8 +158,7 @@ class details_util {
      * Function html_details_add
      *
      * @param $pageid
-     *
-     * @throws \coding_exception
+     * @throws Exception
      */
     public static function html_details_add($pageid) {
         global $OUTPUT;

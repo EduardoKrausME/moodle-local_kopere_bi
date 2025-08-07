@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\local\block\util;
 
+use Exception;
 use local_kopere_bi\local\util\sql_util;
 use local_kopere_dashboard\html\form;
 use local_kopere_dashboard\html\inputs\input_select;
@@ -37,8 +38,7 @@ class code_util {
      * @param $koperebielement
      * @param bool $iscache
      * @param bool $isreload
-     *
-     * @throws \Exception
+     * @throws Exception
      */
     public static function input_commandsql(form $form, $koperebielement, $iscache = true, $isreload = true) {
         global $PAGE;
@@ -98,8 +98,7 @@ class code_util {
      *
      * @param form $form
      * @param $koperebielement
-     *
-     * @throws \Exception
+     * @throws Exception
      */
     public static function estilo(form $form, $koperebielement) {
         global $PAGE;
@@ -157,8 +156,7 @@ class code_util {
      *
      * @param form $form
      * @param $value
-     *
-     * @throws \Exception
+     * @throws Exception
      */
     public static function options(form $form, $value) {
         global $PAGE;
@@ -210,7 +208,7 @@ class code_util {
      * @param $koperebielement
      *
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public static function get_js_theme($koperebielement) {
         $extra = "";

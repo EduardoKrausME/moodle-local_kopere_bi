@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\local\block;
 
+use Exception;
 use local_kopere_bi\local\block\util\cache_util;
 use local_kopere_bi\local\block\util\code_util;
 use local_kopere_bi\local\block\util\database_util;
@@ -44,7 +45,7 @@ class table implements i_type {
      * Function get_name
      *
      * @return mixed|string
-     * @throws \Exception
+     * @throws Exception
      */
     public static function get_name() {
         return get_string("table_name", "local_kopere_bi");
@@ -54,7 +55,7 @@ class table implements i_type {
      * Function get_description
      *
      * @return mixed|string
-     * @throws \Exception
+     * @throws Exception
      */
     public static function get_description() {
         return get_string("table_desc", "local_kopere_bi");
@@ -78,7 +79,7 @@ class table implements i_type {
      * @param $koperebielement
      *
      * @return mixed|void
-     * @throws \Exception
+     * @throws Exception
      */
     public function edit(form $form, $koperebielement) {
         code_util::input_commandsql($form, $koperebielement);
@@ -100,7 +101,7 @@ class table implements i_type {
      * @param $koperebielement
      *
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function edit_columns(form $form, $koperebielement) {
 
@@ -153,8 +154,7 @@ class table implements i_type {
      *
      * @param $koperebielement
      * @param $collkey
-     *
-     * @throws \Exception
+     * @throws Exception
      */
     private function select_data($koperebielement, $collkey) {
         global $PAGE;
@@ -269,7 +269,7 @@ class table implements i_type {
      * @param $koperebielement
      *
      * @return mixed|string
-     * @throws \coding_exception
+     * @throws Exception
      */
     public function preview($koperebielement) {
         $table = new data_table();
@@ -350,7 +350,7 @@ class table implements i_type {
      * @param $koperebielement
      *
      * @return mixed|void
-     * @throws \Exception
+     * @throws Exception
      */
     public function get_chart_data($koperebielement) {
         global $CFG;
@@ -371,7 +371,7 @@ class table implements i_type {
             $comand = sql_util::prepare_sql($koperebielement->commandsql);
             try {
                 $lines = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 if (AJAX_SCRIPT) {
                     echo json_encode([
                         "sql" => $comand->sql,
@@ -429,7 +429,7 @@ class table implements i_type {
      * @param $koperebielement
      *
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function preview_google($koperebielement) {
         global $OUTPUT;
@@ -440,7 +440,7 @@ class table implements i_type {
         $comand = sql_util::prepare_sql($koperebielement->commandsql);
         try {
             $lines = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             if (AJAX_SCRIPT) {
                 echo json_encode([
                     "error" => $e->getMessage(),

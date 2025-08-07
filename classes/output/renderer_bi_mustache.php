@@ -24,6 +24,7 @@
 
 namespace local_kopere_bi\output;
 
+use Exception;
 use local_kopere_bi\local\util\string_util;
 use Mustache_Engine;
 
@@ -125,9 +126,8 @@ class renderer_bi_mustache extends Mustache_Engine {
      * @param $template
      * @param array $data
      * @param string $class
-     *
      * @return string
-     * @throws \coding_exception
+     * @throws Exception
      */
     public function render_from_string($template, $data = [], $class = null) {
         global $PAGE, $OUTPUT;

@@ -26,11 +26,8 @@
  * Function xmldb_local_kopere_bi_upgrade
  *
  * @param $oldversion
- *
  * @return bool
- * @throws downgrade_exception
- * @throws upgrade_exception
- * @throws dml_exception
+ * @throws Exception
  */
 function xmldb_local_kopere_bi_upgrade($oldversion) {
     global $DB;
@@ -63,7 +60,7 @@ function xmldb_local_kopere_bi_upgrade($oldversion) {
         }
 
         require_once("db-config.php");
-        reset_bi_reports();
+        import_reports();
 
         upgrade_plugin_savepoint(true, 2025011001, "local", "kopere_bi");
     }

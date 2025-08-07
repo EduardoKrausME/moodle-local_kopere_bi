@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\local\block;
 
+use Exception;
 use local_kopere_bi\local\block\util\cache_util;
 use local_kopere_bi\local\block\util\code_util;
 use local_kopere_bi\local\block\util\database_util;
@@ -40,7 +41,7 @@ class line implements i_type {
      * Function get_name
      *
      * @return mixed|string
-     * @throws \coding_exception
+     * @throws Exception
      */
     public static function get_name() {
         return get_string("line_name", "local_kopere_bi");
@@ -50,7 +51,7 @@ class line implements i_type {
      * Function get_description
      *
      * @return mixed|string
-     * @throws \coding_exception
+     * @throws Exception
      */
     public static function get_description() {
         return get_string("line_desc", "local_kopere_bi");
@@ -60,7 +61,6 @@ class line implements i_type {
      * Function title_extra
      *
      * @param $koperebielement
-     *
      * @return mixed|string
      */
     public function title_extra($koperebielement) {
@@ -72,9 +72,8 @@ class line implements i_type {
      *
      * @param form $form
      * @param $koperebielement
-     *
      * @return mixed|void
-     * @throws \Exception
+     * @throws Exception
      */
     public function edit(form $form, $koperebielement) {
 
@@ -138,7 +137,6 @@ class line implements i_type {
      *
      * @param form $form
      * @param $koperebielement
-     *
      * @return mixed|void
      */
     public function edit_columns(form $form, $koperebielement) {
@@ -148,9 +146,8 @@ class line implements i_type {
      * Function preview
      *
      * @param $koperebielement
-     *
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function preview($koperebielement) {
         global $OUTPUT;
@@ -175,9 +172,8 @@ class line implements i_type {
      * Function get_chart_data
      *
      * @param $koperebielement
-     *
      * @return mixed|void
-     * @throws \Exception
+     * @throws Exception
      */
     public function get_chart_data($koperebielement) {
         $cache = cache_util::get_cache_make($koperebielement->cache);
@@ -189,7 +185,7 @@ class line implements i_type {
             $comand = sql_util::prepare_sql($koperebielement->commandsql);
             try {
                 $rowscolumns = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 if (AJAX_SCRIPT) {
                     echo json_encode([
                         "sql" => $comand->sql,
@@ -246,9 +242,8 @@ class line implements i_type {
      * https://developers.google.com/chart/interactive/docs/gallery/linechart?hl=pt_br
      *
      * @param $koperebielement
-     *
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function preview_google($koperebielement) {
         global $OUTPUT;
@@ -256,7 +251,7 @@ class line implements i_type {
         $comand = sql_util::prepare_sql($koperebielement->commandsql);
         try {
             $rowsline = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             if (AJAX_SCRIPT) {
                 echo json_encode([
                     "sql" => $comand->sql,

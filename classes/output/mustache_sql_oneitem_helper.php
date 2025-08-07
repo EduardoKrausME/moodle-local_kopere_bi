@@ -25,6 +25,7 @@
 namespace local_kopere_bi\output;
 
 
+use Exception;
 use local_kopere_bi\local\block\util\database_util;
 use local_kopere_bi\local\util\sql_util;
 use local_kopere_dashboard\util\message;
@@ -39,16 +40,15 @@ class mustache_sql_oneitem_helper {
      *
      * @param $sql
      * @param Mustache_LambdaHelper $helper
-     *
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function transform($sql, Mustache_LambdaHelper $helper) {
         $comand = sql_util::prepare_sql($sql);
 
         try {
             $line = (new database_util())->get_record_sql_block($comand->sql, $comand->params);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             if (AJAX_SCRIPT) {
                 echo json_encode([
                     "sql" => $comand->sql,

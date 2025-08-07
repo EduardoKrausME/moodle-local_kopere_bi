@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\local\block;
 
+use Exception;
 use local_kopere_bi\local\block\util\cache_util;
 use local_kopere_bi\local\block\util\code_util;
 use local_kopere_bi\local\block\util\database_util;
@@ -38,7 +39,7 @@ class column extends line {
      * Function get_name
      *
      * @return string
-     * @throws \coding_exception
+     * @throws Exception
      */
     public static function get_name() {
         return get_string("column_name", "local_kopere_bi");
@@ -48,7 +49,7 @@ class column extends line {
      * Function get_description
      *
      * @return string
-     * @throws \coding_exception
+     * @throws Exception
      */
     public static function get_description() {
         return get_string("column_desc", "local_kopere_bi");
@@ -60,7 +61,7 @@ class column extends line {
      * @param $koperebielement
      *
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function preview($koperebielement) {
         global $OUTPUT;
@@ -84,8 +85,7 @@ class column extends line {
      * Function get_chart_data
      *
      * @param $koperebielement
-     *
-     * @throws \Exception
+     * @throws Exception
      */
     public function get_chart_data($koperebielement) {
 
@@ -98,7 +98,7 @@ class column extends line {
             $comand = sql_util::prepare_sql($koperebielement->commandsql);
             try {
                 $rowscolumns = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 if (AJAX_SCRIPT) {
                     echo json_encode([
                         "sql" => $comand->sql,
@@ -151,10 +151,8 @@ class column extends line {
      * https://developers.google.com/chart/interactive/docs/gallery/columnchart?hl=pt_br
      *
      * @param $koperebielement
-     *
      * @return string
-     *
-     * @throws \Exception
+     * @throws Exception
      */
     public function preview_google($koperebielement) {
         global $OUTPUT;
@@ -162,7 +160,7 @@ class column extends line {
         $comand = sql_util::prepare_sql($koperebielement->commandsql);
         try {
             $rowscolumns = (new database_util())->get_records_sql_block($comand->sql, $comand->params);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             if (AJAX_SCRIPT) {
                 echo json_encode([
                     "error" => $e->getMessage(),

@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\local\util;
 
+use Exception;
 use local_kopere_bi\local\vo\external_report;
 use local_kopere_dashboard\util\url_util;
 
@@ -32,11 +33,8 @@ class filter {
      * Function create_filter_page
      *
      * @param $pageid
-     *
      * @return string
-     *
-     * @throws \dml_exception
-     * @throws \Exception
+     * @throws Exception
      */
     public static function create_filter_page($pageid) {
         global $DB;
@@ -60,10 +58,8 @@ class filter {
      * Function create_filter
      *
      * @param $commandsql
-     *
      * @return string
-     *
-     * @throws \Exception
+     * @throws Exception
      */
     public static function create_filter($commandsql) {
         global $DB, $CFG;
@@ -152,7 +148,7 @@ class filter {
      * @param $paramsurl
      *
      * @return mixed
-     * @throws \coding_exception
+     * @throws Exception
      */
     private static function create_filter_course($course, $paramsurl) {
         global $OUTPUT, $PAGE;
@@ -176,7 +172,7 @@ class filter {
      * @param $paramsurl
      *
      * @return mixed
-     * @throws \coding_exception
+     * @throws Exception
      */
     private static function create_filter_user($user, $paramsurl) {
         global $OUTPUT, $PAGE;
@@ -196,7 +192,7 @@ class filter {
     /**
      * Function find_user
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function find_user() {
         global $DB, $CFG;
@@ -230,7 +226,7 @@ class filter {
     /**
      * Function find_course
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function find_course() {
         global $DB;

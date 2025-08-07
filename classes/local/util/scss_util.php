@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\local\util;
 
+use Exception;
 use ScssPhp\ScssPhp\Compiler;
 
 /**
@@ -31,11 +32,8 @@ class scss_util {
      * Function build_css
      *
      * @param $koperebielement
-     *
      * @return string
-     *
-     * @throws \Exception
-     * @throws \ScssPhp\ScssPhp\Exception\SassException
+     * @throws Exception
      */
     public static function build_css($koperebielement) {
         global $CFG;

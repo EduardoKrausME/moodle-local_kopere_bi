@@ -37,7 +37,7 @@ function xmldb_local_kopere_bi_install() {
     }
 
     require_once("db-config.php");
-    reset_bi_reports();
+    import_reports();
 
     return true;
 }

@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi;
 
+use Exception;
 use local_kopere_dashboard\util\dashboard_util;
 use local_kopere_dashboard\util\menu_util;
 
@@ -32,7 +33,7 @@ class menu {
      * Function show_menu
      *
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function show_menu() {
         return dashboard_util::add_menu(

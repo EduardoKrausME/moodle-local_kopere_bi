@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\external;
 
+use Exception;
 use external_api;
 use external_function_parameters;
 use external_single_structure;
@@ -69,9 +70,8 @@ class categorie extends external_api {
      * Function sortorder
      *
      * @param $elements
-     *
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public static function sortorder($elements) {
         global $DB;

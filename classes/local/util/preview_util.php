@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\local\util;
 
+use Exception;
 use local_kopere_bi\local\block\i_type;
 use local_kopere_bi\output\renderer_bi_mustache;
 use local_kopere_bi\local\vo\local_kopere_bi_block;
@@ -36,10 +37,8 @@ class preview_util {
      * Function details_block
      *
      * @param local_kopere_bi_block $block
-     *
      * @return string
-     * @throws \Exception
-     * @throws \ScssPhp\ScssPhp\Exception\SassException
+     * @throws Exception
      */
     public function details_block($block) {
         global $OUTPUT;
@@ -117,8 +116,7 @@ class preview_util {
      * @param $blocknum
      *
      * @return string
-     * @throws \Exception
-     * @throws \ScssPhp\ScssPhp\Exception\SassException
+     * @throws Exception
      */
     private function details_block_item($blockid, $blocknum) {
         global $DB, $OUTPUT, $USER;

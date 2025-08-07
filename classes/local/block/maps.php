@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\local\block;
 
+use Exception;
 use local_kopere_bi\local\block\util\code_util;
 use local_kopere_bi\local\block\util\database_util;
 use local_kopere_bi\local\util\sql_util;
@@ -36,7 +37,7 @@ class maps implements i_type {
      * Function get_name
      *
      * @return mixed|string
-     * @throws \coding_exception
+     * @throws Exception
      */
     public static function get_name() {
         return get_string("maps_name", "local_kopere_bi");
@@ -46,7 +47,7 @@ class maps implements i_type {
      * Function get_description
      *
      * @return mixed|string
-     * @throws \coding_exception
+     * @throws Exception
      */
     public static function get_description() {
         return get_string("maps_desc", "local_kopere_bi");
@@ -70,8 +71,8 @@ class maps implements i_type {
      * @param $koperebielement
      *
      * @return mixed|void
-     * @throws \coding_exception
-     * @throws \Exception
+     * @throws Exception
+     * @throws Exception
      */
     public function edit(form $form, $koperebielement) {
 
@@ -139,7 +140,7 @@ class maps implements i_type {
      * @param $koperebielement
      *
      * @return mixed|void
-     * @throws \Exception
+     * @throws Exception
      */
     public function get_chart_data($koperebielement) {
         global $CFG;
@@ -149,7 +150,7 @@ class maps implements i_type {
         $comand = sql_util::prepare_sql($koperebielement->commandsql);
         try {
             $rows = (new database_util())->get_records_sql_block_array($comand->sql, $comand->params);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             if (AJAX_SCRIPT) {
                 echo json_encode([
                     "sql" => $comand->sql,

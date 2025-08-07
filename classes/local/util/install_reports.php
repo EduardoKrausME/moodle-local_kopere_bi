@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * install_for_file file
+ * install_reports file
  *
  * @package   local_kopere_bi
  * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
@@ -24,29 +24,39 @@
 
 namespace local_kopere_bi\local\util;
 
+use Exception;
 use local_kopere_bi\local\vo\local_kopere_bi_block;
 use local_kopere_bi\local\vo\local_kopere_bi_cat;
 use local_kopere_bi\local\vo\local_kopere_bi_element;
 
 /**
- * Class install_for_file
+ * Class install_reports
  *
  * @package local_kopere_bi
  */
-class install_for_file {
+class install_reports {
     /**
-     * Function page_file
+     * Function from_file
      *
      * @param string $pagefile
-     *
-     * @throws \dml_exception
+     * @throws Exception
      */
-    public static function page_file($pagefile) {
-        global $DB;
-
+    public static function from_file($pagefile) {
         $jsonpage = file_get_contents($pagefile);
 
         $page = json_decode($jsonpage);
+        self::from_json($page);
+    }
+
+    /**
+     * from_json
+     *
+     * @param $page
+     * @return void
+     * @throws Exception
+     */
+    public static function from_json($page) {
+        global $DB;
 
         $koperebipage = clone $page;
         unset($koperebipage->blocks);

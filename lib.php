@@ -31,7 +31,7 @@ use local_kopere_bi\local\vo\local_kopere_bi_page;
 /**
  * Function local_kopere_bi_before_footer
  *
- * @throws coding_exception
+ * @throws Exception
  */
 function local_kopere_bi_before_footer() {
     core_hook_output::before_footer_html_generation();
@@ -56,7 +56,6 @@ function local_kopere_bi_getremoteaddr() {
  * Function local_kopere_bi_iplookup_find_location
  *
  * @param $ip
- *
  * @return object
  */
 function local_kopere_bi_iplookup_find_location($ip) {
@@ -87,7 +86,7 @@ function load_kopere_bi_assets() {
     if (!$koperebiloaded) {
         $koperebiloaded = true;
 
-        get_kopere_lang();
+        local_kopere_dashboard_lang();
 
         return "";
     }
@@ -96,13 +95,11 @@ function load_kopere_bi_assets() {
 }
 
 /**
+ * load_kopere_bi
  *
  * @param $pageid
- *
  * @return string
- * @throws \ScssPhp\ScssPhp\Exception\SassException
- * @throws coding_exception
- * @throws dml_exception
+ * @throws Exception
  */
 function load_kopere_bi($pageid) {
     global $DB, $CFG;
@@ -142,6 +139,7 @@ function load_kopere_bi($pageid) {
 }
 
 /**
+ * load_kopere_bi_ajax
  *
  * @return string
  * @throws Exception
@@ -165,10 +163,7 @@ function load_kopere_bi_ajax($coursemoduleid, $pageid) {
  * @param $navigation
  * @param $course
  * @param $context
- *
- * @throws \core\exception\moodle_exception
- * @throws coding_exception
- * @throws dml_exception
+ * @throws Exception
  */
 function local_kopere_bi_extend_navigation_course($navigation, $course, $context) {
     if (!has_capability("local/kopere_bi:view", $context)) {

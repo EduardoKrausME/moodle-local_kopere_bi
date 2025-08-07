@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi;
 
+use Exception;
 use local_kopere_dashboard\util\json;
 
 /**
@@ -30,7 +31,7 @@ class column extends bi_all {
     /**
      * Function by_sql
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function by_sql() {
         global $DB;

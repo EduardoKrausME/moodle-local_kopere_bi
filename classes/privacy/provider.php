@@ -34,6 +34,7 @@ use core_privacy\local\request\transform;
 use core_privacy\local\request\userlist;
 use core_privacy\local\request\writer;
 use context_user;
+use Exception;
 use stdClass;
 use tool_dataprivacy\api;
 use tool_dataprivacy\local\helper as tool_helper;
@@ -106,7 +107,7 @@ class provider implements
      * @param int $userid The user to search.
      *
      * @return contextlist $contextlist The contextlist containing the list of contexts used in this plugin.
-     * @throws \Exception
+     * @throws Exception
      */
     public static function get_contexts_for_userid(int $userid): \core_privacy\local\request\contextlist {
         $sql = "SELECT ctx.id
@@ -149,8 +150,7 @@ class provider implements
      * Export all user data for the specified user, in the specified contexts.
      *
      * @param approved_contextlist $contextlist The approved contexts to export information for.
-     *
-     * @throws \Exception
+     * @throws Exception
      */
     public static function export_user_data(approved_contextlist $contextlist) {
         if (empty($contextlist->count())) {
@@ -206,8 +206,7 @@ class provider implements
      * Delete all data for all users in the specified context.
      *
      * @param context $context The specific context to delete data for.
-     *
-     * @throws \Exception
+     * @throws Exception
      */
     public static function delete_data_for_all_users_in_context(context $context) {
         global $DB;
@@ -225,8 +224,7 @@ class provider implements
      * Delete all user data for the specified user, in the specified contexts.
      *
      * @param approved_contextlist $contextlist The approved contexts and user information to delete information for.
-     *
-     * @throws \Exception
+     * @throws Exception
      */
     public static function delete_data_for_user(approved_contextlist $contextlist) {
         global $DB;
@@ -247,8 +245,7 @@ class provider implements
      * Delete multiple users within a single context.
      *
      * @param approved_userlist $userlist The approved context and user information to delete information for.
-     *
-     * @throws \Exception
+     * @throws Exception
      */
     public static function delete_data_for_users(approved_userlist $userlist) {
         global $DB;

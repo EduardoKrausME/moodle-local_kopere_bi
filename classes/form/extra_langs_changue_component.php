@@ -17,6 +17,7 @@
 namespace local_kopere_bi\form;
 
 use core_component;
+use Exception;
 use moodleform;
 use tool_customlang_utils;
 
@@ -36,7 +37,7 @@ class extra_langs_changue_component extends moodleform {
     /**
      * Function definition
      *
-     * @throws \coding_exception
+     * @throws Exception
      */
     public function definition() {
         global $CFG;

@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\local\util;
 
+use Exception;
 use local_kopere_bi\local\vo\external_report;
 use local_kopere_dashboard\util\message;
 
@@ -34,7 +35,7 @@ class sql_util {
      * @param $sql
      *
      * @return object
-     * @throws \Exception
+     * @throws Exception
      */
     public static function prepare_sql($sql) {
         global $CFG;
@@ -74,7 +75,7 @@ class sql_util {
      * @param bool $isfiltercourse
      *
      * @return array
-     * @throws \coding_exception
+     * @throws Exception
      */
     public static function params($sql, $isfilteruser = false, $isfiltercourse = false) {
         global $USER, $COURSE;
@@ -155,7 +156,7 @@ class sql_util {
      * Function chaves_replace
      *
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public static function chaves_replace() {
         global $CFG;
