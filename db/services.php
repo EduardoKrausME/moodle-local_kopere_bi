@@ -18,7 +18,7 @@
  * service file
  *
  * @package   local_kopere_bi
- * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @copyright 2025 Eduardo Kraus {@link http://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -64,6 +64,14 @@ $functions = [
     "local_kopere_bi_online_update" => [
         "classpath" => "local/kopere_bi/classes/external/online_update.php",
         "classname" => '\local_kopere_bi\external\online_update',
+        "methodname" => "api",
+        "description" => 'Records the time spent by a user for the dashboard',
+        "type" => "write",
+        "ajax" => true,
+    ],
+    "local_kopere_bi_page_html" => [
+        "classpath" => "local/kopere_bi/classes/external/page_html.php",
+        "classname" => '\local_kopere_bi\external\page_html',
         "methodname" => "api",
         "description" => 'Records the time spent by a user for the dashboard',
         "type" => "write",
