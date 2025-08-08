@@ -17,20 +17,20 @@
 namespace local_kopere_bi;
 
 use Exception;
-use local_kopere_bi\local\block\area;
-use local_kopere_bi\local\block\column;
-use local_kopere_bi\local\block\html;
-use local_kopere_bi\local\block\i_type;
-use local_kopere_bi\local\block\info;
-use local_kopere_bi\local\block\line;
-use local_kopere_bi\local\block\maps;
-use local_kopere_bi\local\block\pie;
-use local_kopere_bi\local\block\table;
-use local_kopere_bi\local\block\util\cache_util;
-use local_kopere_bi\local\util\string_util;
-use local_kopere_bi\local\vo\local_kopere_bi_block;
-use local_kopere_bi\local\vo\local_kopere_bi_element;
-use local_kopere_bi\local\vo\local_kopere_bi_page;
+use local_kopere_bi\block\area;
+use local_kopere_bi\block\column;
+use local_kopere_bi\block\html;
+use local_kopere_bi\block\i_type;
+use local_kopere_bi\block\info;
+use local_kopere_bi\block\line;
+use local_kopere_bi\block\maps;
+use local_kopere_bi\block\pie;
+use local_kopere_bi\block\table;
+use local_kopere_bi\block\util\cache_util;
+use local_kopere_bi\block\util\string_util;
+use local_kopere_bi\vo\local_kopere_bi_block;
+use local_kopere_bi\vo\local_kopere_bi_element;
+use local_kopere_bi\vo\local_kopere_bi_page;
 use local_kopere_dashboard\html\form;
 use local_kopere_dashboard\util\dashboard_util;
 use local_kopere_dashboard\util\header;
@@ -39,7 +39,7 @@ use local_kopere_dashboard\util\header;
  * Class type_block
  *
  * @package   local_kopere_bi
- * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @copyright 2025 Eduardo Kraus {@link http://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class type_block extends bi_all {

@@ -18,40 +18,39 @@
  * Privacy Subsystem implementation for local_kopere_bi.
  *
  * @package   local_kopere_bi
- * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @copyright 2025 Eduardo Kraus {@link http://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace local_kopere_bi\privacy;
 
 use context;
-use core_privacy\local\metadata\collection;
-use core_privacy\local\request\approved_contextlist;
-use core_privacy\local\request\approved_userlist;
-use core_privacy\local\request\contextlist;
-use core_privacy\local\request\helper;
-use core_privacy\local\request\transform;
-use core_privacy\local\request\userlist;
-use core_privacy\local\request\writer;
+use core_privacy\metadata\collection;
+use core_privacy\request\approved_contextlist;
+use core_privacy\request\approved_userlist;
+use core_privacy\request\contextlist;
+use core_privacy\request\helper;
+use core_privacy\request\transform;
+use core_privacy\request\userlist;
+use core_privacy\request\writer;
 use context_user;
 use Exception;
 use stdClass;
 use tool_dataprivacy\api;
-use tool_dataprivacy\local\helper as tool_helper;
+use tool_dataprivacy\helper as tool_helper;
 
 /**
  * The local_kopere_bi store data.
  */
 class provider implements
-    \core_privacy\local\metadata\provider,
-    \core_privacy\local\request\core_userlist_provider,
-    \core_privacy\local\request\plugin\provider {
+    \core_privacy\metadata\provider,
+    \core_privacy\request\core_userlist_provider,
+    \core_privacy\request\plugin\provider {
 
     /**
      * Returns metadata.
      *
      * @param collection $collection The initialised collection to add items to.
-     *
      * @return collection A listing of user data stored through this system.
      */
     public static function get_metadata(collection $collection): collection {
@@ -105,11 +104,10 @@ class provider implements
      * Get the list of contexts that contain user information for the specified user.
      *
      * @param int $userid The user to search.
-     *
      * @return contextlist $contextlist The contextlist containing the list of contexts used in this plugin.
      * @throws Exception
      */
-    public static function get_contexts_for_userid(int $userid): \core_privacy\local\request\contextlist {
+    public static function get_contexts_for_userid(int $userid): \core_privacy\request\contextlist {
         $sql = "SELECT ctx.id
                   FROM {%s} kopere
                   JOIN {context} ctx

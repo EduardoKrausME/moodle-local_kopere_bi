@@ -21,7 +21,7 @@ use external_api;
 use external_value;
 use external_single_structure;
 use external_function_parameters;
-use local_kopere_bi\local\vo\local_kopere_bi_online;
+use local_kopere_bi\vo\local_kopere_bi_online;
 
 defined('MOODLE_INTERNAL') || die;
 global $CFG;
@@ -31,7 +31,7 @@ require_once("{$CFG->libdir}/externallib.php");
  * Contabiliza o tempo gasto de um usuário para o dashboard
  *
  * @package   local_kopere_bi
- * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @copyright 2025 Eduardo Kraus {@link http://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class online_update extends external_api {
