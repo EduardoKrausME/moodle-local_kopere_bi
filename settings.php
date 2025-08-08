@@ -32,22 +32,21 @@ if ($hassiteconfig) {
         $ADMIN->add("root", new admin_category("integracaoroot", get_string("integracaoroot", "local_kopere_bi")));
     }
 
-    $ADMIN->add("integracaoroot",
+    $ADMIN->add(
+        "integracaoroot",
         new admin_externalpage(
-            "local_kopere_bi",
-            get_string("modulename", "local_kopere_bi"),
-            "{$CFG->wwwroot}/local/kopere_dashboard/open.php?classname=dashboard&method=start"
+            "local_kopere_bi", get_string("modulename", "local_kopere_bi"), "{$CFG->wwwroot}/local/kopere_dashboard/open.php?classname=dashboard&method=start"
         )
     );
-}
 
-if ($ADMIN->fulltree) {
-    if (method_exists($settings, "add")) {
-        $removetitle = true;
-        require(__DIR__ . "/settings_kopere.php");
+    if ($ADMIN->fulltree) {
+        if (method_exists($settings, "add")) {
+            $removetitle = true;
+            require(__DIR__ . "/settings_kopere.php");
 
-        $settings->add(
-            new admin_setting_heading("kopere_bi_title", "", "")
-        );
+            $settings->add(
+                new admin_setting_heading("kopere_bi_title", "", "")
+            );
+        }
     }
 }
