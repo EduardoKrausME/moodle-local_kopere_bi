@@ -18,7 +18,7 @@
  * setting file
  *
  * @package   local_kopere_bi
- * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @copyright 2025 Eduardo Kraus {@link http://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -35,7 +35,9 @@ if ($hassiteconfig) {
     $ADMIN->add(
         "integracaoroot",
         new admin_externalpage(
-            "local_kopere_bi", get_string("modulename", "local_kopere_bi"), "{$CFG->wwwroot}/local/kopere_dashboard/open.php?classname=dashboard&method=start"
+            "local_kopere_bi",
+            get_string("modulename", "local_kopere_bi"),
+            "{$CFG->wwwroot}/local/kopere_dashboard/open.php?classname=dashboard&method=start"
         )
     );
 
