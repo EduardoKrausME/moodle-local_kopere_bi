@@ -18,7 +18,7 @@
  * Class injector
  *
  * @package   local_kopere_bi
- * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @copyright 2025 Eduardo Kraus {@link http://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die;
 require_once(__DIR__ . "/../lib.php");
 
 use dml_exception;
-use local_kopere_bi\local\analise\access_analyze;
+use local_kopere_bi\analysis\access;
 
 /**
  * Class core_hook_output
@@ -74,7 +74,7 @@ class core_hook_output {
         if (!isset($USER->koperebionline_id[$key])) {
             $lastip = local_kopere_bi_getremoteaddr();
 
-            $dataagent = access_analyze::agent();
+            $dataagent = access::agent();
             $dataip = local_kopere_bi_iplookup_find_location($lastip);
 
             $koperebionline = (object)[
@@ -109,5 +109,6 @@ class core_hook_output {
         if (isset($USER->koperebionline_id[$key])) {
             $PAGE->requires->js_call_amd("local_kopere_bi/online", "init", [$USER->koperebionline_id[$key], $key]);
         }
+        // $PAGE->requires->js_call_amd("local_kopere_bi/mod_koperebi", "init");
     }
 }

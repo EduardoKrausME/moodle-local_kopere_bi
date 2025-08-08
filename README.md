@@ -20,7 +20,6 @@ Kopere BI uses [**ApexCharts**](https://apexcharts.com/) to provide a variety of
 
 In addition to a wide range of chart types, ApexCharts offers customization options such as colors, animations, and interactivity, allowing you to tailor the data presentation to your needs.
 
-
 #### Data Presentation
 
 Data can be displayed in different formats:

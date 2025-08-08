@@ -18,16 +18,15 @@
  * Class renderer_bi_mustache
  *
  * @package   local_kopere_bi
- * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @copyright 2025 Eduardo Kraus {@link http://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace local_kopere_bi\output;
 
 use Exception;
-use local_kopere_bi\local\util\string_util;
+use local_kopere_bi\block\util\string_util;
 use Mustache_Engine;
-
 
 /**
  * Class renderer_bi_mustache
@@ -172,7 +171,6 @@ class renderer_bi_mustache extends Mustache_Engine {
      * Function getTemplateClassName
      *
      * @param \Mustache_Source|string $source
-     *
      * @return string
      */
     public function getTemplateClassName($source) {
