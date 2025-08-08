@@ -18,13 +18,13 @@
  * Function import_reports
  *
  * @package   local_kopere_bi
- * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @copyright 2025 Eduardo Kraus {@link http://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  * @throws Exception
  */
 
-use local_kopere_bi\local\util\install_reports;
+use local_kopere_bi\install\reports;
 
 /**
  * Function import_reports
@@ -64,6 +64,6 @@ function import_reports() {
     // Load report pages.
     $pagefiles = glob(__DIR__ . "/files/page-*.json");
     foreach ($pagefiles as $pagefile) {
-        install_reports::from_file($pagefile);
+        reports::from_file($pagefile);
     }
 }

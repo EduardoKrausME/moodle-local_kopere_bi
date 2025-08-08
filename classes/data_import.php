@@ -17,7 +17,7 @@
 namespace local_kopere_bi;
 
 use Exception;
-use local_kopere_bi\local\util\install_reports;
+use local_kopere_bi\install\reports;
 use local_kopere_dashboard\html\form;
 use local_kopere_dashboard\html\inputs\input_text;
 use local_kopere_dashboard\util\dashboard_util;
@@ -70,7 +70,7 @@ class data_import {
                 $data = json_decode($json);
 
                 if ($data) {
-                    install_reports::from_json($data);
+                    reports::from_json($data);
 
                     header::location("?classname=bi-dashboard&method=start");
                     die;

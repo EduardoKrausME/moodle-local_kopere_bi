@@ -21,8 +21,8 @@ use external_api;
 use external_function_parameters;
 use external_single_structure;
 use external_value;
-use local_kopere_bi\local\util\details_util;
-use local_kopere_bi\local\vo\local_kopere_bi_block;
+use local_kopere_bi\block\util\details_util;
+use local_kopere_bi\vo\local_kopere_bi_block;
 
 defined('MOODLE_INTERNAL') || die;
 global $CFG;
@@ -32,7 +32,7 @@ require_once("{$CFG->libdir}/externallib.php");
  * Class block
  *
  * @package   local_kopere_bi
- * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @copyright 2025 Eduardo Kraus {@link http://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class block extends external_api {
@@ -137,7 +137,6 @@ class block extends external_api {
      * Function delete
      *
      * @param $blockid
-     *
      * @return array
      * @throws Exception
      */
@@ -205,7 +204,6 @@ class block extends external_api {
      *
      * @param $pageid
      * @param $type
-     *
      * @return array
      * @throws Exception
      */
