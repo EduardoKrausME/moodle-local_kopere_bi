@@ -107,7 +107,8 @@ class course {
             ];
 
             global $OUTPUT, $PAGE;
-            $PAGE->requires->js_call_amd("local_kopere_bi/filter", "init", [$data["popupid"], $data["columns"], $data["columnDefs"]]);
+            $PAGE->requires->js_call_amd("local_kopere_bi/filter", "init",
+                [$data["popupid"], $data["columns"], $data["columnDefs"]]);
             return $OUTPUT->render_from_template('local_kopere_bi/filter', $data);
         }
 
