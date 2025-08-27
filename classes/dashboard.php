@@ -434,7 +434,7 @@ class dashboard extends bi_all {
 
         $editbooton = "";
         $context = \context_system::instance();
-        if (isset($USER->editing) && $USER->editing) {
+        if ($PAGE->user_is_editing()) {
             if (has_capability('moodle/site:config', $context)) {
                 $editbooton =
                     button::add(get_string("page_edit", "local_kopere_bi"),

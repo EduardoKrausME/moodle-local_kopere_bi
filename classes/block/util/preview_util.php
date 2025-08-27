@@ -136,7 +136,7 @@ class preview_util {
             if (class_exists($blockclass)) {
                 $title = string_util::get_string($koperebielement->title);
 
-                if (isset($USER->editing) && $USER->editing) {
+                if ($PAGE->user_is_editing()) {
                     $title .= button::edit(get_string("edit_report", "local_kopere_bi"),
                         "?classname=bi-dashboard&method=type_block_edit&item_id={$koperebielement->id}", 'ml-2', false, true);
                 }

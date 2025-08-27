@@ -47,11 +47,21 @@
     </div>
 {{/editing}}
 
-<div class="dashboard-homes">
+<div class="reports-home">
+    <nav class="filters" aria-label="{{#str}}filters{{/str}}">
+        <button class="chip" aria-pressed="true" data-filter="all">{{#str}}all{{/str}}</button>
+        {{#categorys}}
+            <button class="chip" aria-pressed="false"
+                    data-filter="category-{{{category_id}}}">{{{category_title}}}</button>
+        {{/categorys}}
+    </nav>
+
     {{#categorys}}
-        <div class="card dashboard-home" data-category_id="{{{category_id}}}">
-            <div class="category-name">
-                <h3 class="header-title-text">{{{category_title}}}</h3>
+        <section class="group"
+                 data-group="category-{{{category_id}}}"
+                 data-category_id="{{{category_id}}}">
+            <h2 class="group__title">
+                {{{category_title}}}
                 {{#editing}}
                     <div class="buttons-move">
                         <span class="btn-move-up" style="display:none">
@@ -62,46 +72,41 @@
                         </span>
 
                         <a href="?classname=bi-dashboard&method=edit&cat_id={{category_id}}"
-                           class="btn btn-primary">{{#str}}page_new_cat,local_kopere_bi{{/str}}</a>
+                        class="btn btn-primary">{{#str}}page_new_cat,local_kopere_bi{{/str}}</a>
                         <a href="?classname=bi-dashboard&method=edit_cat&cat_id={{category_id}}"
-                           class="btn btn-success">{{#str}}cat_edit,local_kopere_bi{{/str}}</a>
+                        class="btn btn-success">{{#str}}cat_edit,local_kopere_bi{{/str}}</a>
                         <a href="?classname=bi-dashboard&method=delete_cat&cat_id={{category_id}}"
-                        class="btn btn-danger ml-2">{{#str}}delete{{/str}}</a>
+                        class="btn btn-danger ml-2">{{#str}}cat_delete,local_kopere_bi{{/str}}</a>
                     </div>
                 {{/editing}}
-            </div>
-
-            <div class="list-reports mt-3">
+            </h2>
+            <div class="grid">
                 {{#pages}}
-                    <div class="list-reports-item">
-                        <div class="line-icon">
+                    <article class="card" data-category="vendas">
+                        <div class="card__icon" aria-hidden="true">
                             {{#pix}} icons/report, local_kopere_bi {{/pix}}
                         </div>
-                        <div class="line-description">
-                            <a class="line-title"
-                               href="?classname=bi-dashboard&method=preview&page_id={{page_id}}">
-                                {{page_title}}</a>
-                            <div class="line-description-text">
-                                <span>{{description}}</span>
-                            </div>
-                            {{#is_user_fullname}}
-                                <div class="line-description-user">
-                                    {{#pix}} icons/user, local_kopere_bi {{/pix}}
-                                    <span>{{user_fullname}}</span>
-                                </div>
-                            {{/is_user_fullname}}
+                        <div class="card__body">
+                            <h3 class="card__title">{{{page_title}}}</h3>
+                            <p class="card__desc">{{{description}}}</p>
                         </div>
-                    </div>
+                        <div class="card__actions">
+                            <a class="btn btn-primary"
+                               href="?classname=bi-dashboard&method=preview&page_id={{page_id}}">
+                                {{#str}}resourcedisplayopen{{/str}}
+                            </a>
+                        </div>
+                    </article>
                 {{/pages}}
             </div>
-        </div>
+        </section>
     {{/categorys}}
 </div>
 
 {{#js}}
     require(["jquery", "core/ajax",], function($, ajax) {
         $(".btn-move-up,.btn-move-down").show();
-        $(".dashboard-home").each(clickIcons);
+        $(".reports-home").each(clickIcons);
 
         function clickIcons(id, element) {
             var $element = $(element);
@@ -114,7 +119,6 @@
                 saveOrderCategories();
             });
         }
-
         function saveOrderCategories() {
             var itens = "";
             $(".dashboard-home").each(function() {
@@ -129,4 +133,22 @@
             }])[0];
         }
     });
+
+    // Filtro por categoria.
+    const chips = document.querySelectorAll(".chip");
+    const groups = document.querySelectorAll(".group");
+
+    chips.forEach(chip => chip.addEventListener("click", () => {
+        chips.forEach(c => c.setAttribute("aria-pressed", "false"));
+        chip.setAttribute("aria-pressed", "true");
+        const filter = chip.dataset.filter;
+
+        groups.forEach(g => {
+            if (filter === "all") {
+                g.classList.remove("hidden-group");
+            } else {
+                g.classList.toggle("hidden-group", g.dataset.group !== filter);
+            }
+        });
+    }));
 {{/js}}

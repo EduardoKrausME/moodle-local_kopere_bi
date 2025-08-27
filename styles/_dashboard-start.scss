@@ -1,0 +1,142 @@
+:root {
+    --bg: #f7f7fb;
+    --surface: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+    --primary: #2563eb; /* azul do botão */
+    --primary-contrast: #ffffff;
+    --radius: 14px;
+    --shadow: 0 10px 25px rgba(0, 0, 0, .08);
+    --ring: 0 0 0 3px rgba(37, 99, 235, .25);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0b1020;
+        --surface: #111827;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --primary: #3b82f6;
+        --primary-contrast: #0b1020;
+        --shadow: 0 10px 25px rgba(0, 0, 0, .5);
+        --ring: 0 0 0 3px rgba(59, 130, 246, .35);
+    }
+}
+.reports-home {
+    /* filtros */
+    .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 24px;
+    }
+    .chip {
+        border: 1px solid rgba(0, 0, 0, .08);
+        background: var(--surface);
+        color: var(--text);
+        padding: 8px 12px;
+        border-radius: 999px;
+        cursor: pointer;
+        user-select: none;
+        box-shadow: var(--shadow);
+        transition: transform .15s;
+        &[aria-pressed="true"], .chip:hover {
+            transform: translateY(-1px);
+        }
+        &[aria-pressed="true"] {
+            background: var(--primary);
+            color: var(--primary-contrast);
+        }
+        &:focus-visible {
+            outline: none;
+            box-shadow: var(--ring);
+        }
+    }
+    /* grupos (categorias) */
+    .group {
+        margin: 28px 0;
+        transition: all .4s ease;
+        &.hidden-group {
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+        }
+        &:not(.hidden-group) {
+            opacity: 1;
+            max-height: 1000px;
+        }
+        .group__title {
+            display: flex;
+            justify-content: space-between;
+            align-content: center;
+            flex-wrap: wrap;
+            margin: 0 0 14px;
+            font-size: 1.25rem;
+        }
+    }
+    /* grade de cards */
+    .grid {
+        display: grid;
+        grid-template-columns:repeat(12, 1fr);
+        gap: 18px;
+        @media (max-width: 960px) {
+            grid-template-columns:repeat(6, 1fr);
+        }
+        @media (max-width: 620px) {
+            grid-template-columns:repeat(1, 1fr);
+        }
+    }
+    .card {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        align-items: center;
+        gap: 14px;
+        grid-column: span 6;
+        background: var(--surface);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 18px;
+        transition: transform .2s, box-shadow .2s;
+        &:hover {
+            transform: translateY(-4px);
+        }
+        &:focus-within {
+            box-shadow: var(--ring);
+        }
+        .card__icon {
+            font-size: 34px;
+            line-height: 1.1;
+            flex: 0 0 auto;
+            img {
+                width: 53px;
+                height: 53px;
+                max-width: 53px;
+                max-height: 53px;
+            }
+        }
+        .card__body {
+            min-width: 0;
+        }
+        .card__title {
+            margin: 0 0 6px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .card__desc {
+            margin: 0;
+            color: var(--muted);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .card__actions {
+            margin-left: auto;
+            align-self: center;
+        }
+    }
+}
