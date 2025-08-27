@@ -58,7 +58,7 @@ class user {
                     [
                         "id" => "id",
                         "name" => "#",
-                        "style"=>"width:20px",
+                        "style" => "width:20px",
                     ],
                     [
                         "id" => "fullname",
