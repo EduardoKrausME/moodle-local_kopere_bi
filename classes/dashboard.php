@@ -425,7 +425,7 @@ class dashboard extends bi_all {
      * @throws Exception
      */
     public function preview() {
-        global $DB, $USER;
+        global $DB, $PAGE;
 
         $pageid = optional_param("page_id", 0, PARAM_INT);
         /** @var local_kopere_bi_page $koperebipage */

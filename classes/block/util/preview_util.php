@@ -118,7 +118,7 @@ class preview_util {
      * @throws Exception
      */
     private function details_block_item($blockid, $blocknum) {
-        global $DB, $OUTPUT, $USER;
+        global $DB, $OUTPUT, $PAGE;
 
         $return = "";
 
