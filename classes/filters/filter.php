@@ -112,9 +112,9 @@ class filter {
         $filters = "";
         $filters .= user::filter($paramsurl, $comand);
         $filters .= course::filter($paramsurl, $comand);
-        // Cohort
-        // userprofile
-        // date
+        // Cohort.
+        // userprofile.
+        // date.
 
         if (isset($filters[3])) {
             $return .= "<div id='chart-filter' class='d-flex' style='gap: 12px;'>{$filters}</div>";
