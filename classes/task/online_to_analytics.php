@@ -22,7 +22,7 @@ use Exception;
  * Class online_to_analytics
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link http://eduardokraus.com}
+ * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class online_to_analytics extends \core\task\scheduled_task {

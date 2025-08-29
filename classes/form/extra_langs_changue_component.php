@@ -30,7 +30,7 @@ require_once($CFG->dirroot . "/lib/formslib.php");
  * Class filter
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link http://eduardokraus.com}
+ * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class extra_langs_changue_component extends moodleform {

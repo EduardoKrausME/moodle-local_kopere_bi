@@ -28,7 +28,7 @@ use local_kopere_dashboard\util\message;
  * Class info
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link http://eduardokraus.com}
+ * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class info implements i_type {

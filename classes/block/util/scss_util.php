@@ -23,7 +23,7 @@ use ScssPhp\ScssPhp\Compiler;
  * Class scss_util
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link http://eduardokraus.com}
+ * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class scss_util {
