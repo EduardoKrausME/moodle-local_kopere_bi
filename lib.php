@@ -61,8 +61,6 @@ function local_kopere_bi_getremoteaddr() {
 function local_kopere_bi_iplookup_find_location($ip) {
     global $CFG;
 
-    require_once("{$CFG->dirroot}/iplookup/lib.php");
-
     $cache = \cache::make("local_kopere_bi", "ip_user_location");
 
     if ($cache->has($ip)) {
