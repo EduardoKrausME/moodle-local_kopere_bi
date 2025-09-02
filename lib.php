@@ -68,7 +68,15 @@ function local_kopere_bi_iplookup_find_location($ip) {
     if ($cache->has($ip)) {
         $dataip = $cache->get($ip);
     } else {
-        $dataip = (object)iplookup_find_location($ip);
+        $url = "http://ip-api.com/json/{$ip}";
+        $context = stream_context_create(['http' => ['timeout' => 2]]);
+        $dataip = json_decode(file_get_contents($url, false, $context));
+
+        if (isset($dataip->query)) {
+            $dataip->country_code = $dataip->countryCode;
+            $dataip->latitude = $dataip->lat;
+            $dataip->longitude = $dataip->lon;
+        }
         $cache->set($ip, $dataip);
     }
 
