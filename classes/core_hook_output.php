@@ -91,11 +91,11 @@ class core_hook_output {
                 "os_version" => $dataagent->os_version,
 
                 "lastip" => $lastip,
-                "city_name" => $dataip->city,
-                "country_name" => $dataip->country,
+                "city_name" => @$dataip->city,
+                "country_name" => @$dataip->country,
                 "country_code" => isset($dataip->country_code) ? $dataip->country_code : $dataip->country,
-                "latitude" => $dataip->latitude,
-                "longitude" => $dataip->longitude,
+                "latitude" => @$dataip->latitude,
+                "longitude" => @$dataip->longitude,
             ];
             try {
                 $koperebionlineid = $DB->insert_record("local_kopere_bi_online", $koperebionline);
