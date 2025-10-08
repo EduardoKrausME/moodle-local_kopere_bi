@@ -93,7 +93,7 @@ class core_hook_output {
                 "lastip" => $lastip,
                 "city_name" => @$dataip->city,
                 "country_name" => @$dataip->country,
-                "country_code" => isset($dataip->country_code) ? $dataip->country_code : $dataip->country,
+                "country_code" => isset($dataip->country_code) ? $dataip->country_code : @$dataip->country,
                 "latitude" => @$dataip->latitude,
                 "longitude" => @$dataip->longitude,
             ];
