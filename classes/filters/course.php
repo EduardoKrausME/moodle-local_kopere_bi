@@ -102,8 +102,8 @@ class course {
                 ],
 
                 "table-title" => get_string("reports_selectcourse", "local_kopere_bi"),
-                "url_ajax" => url_util::makeurl("courses", "load_all_courses", [], "view-ajax"),
-                "url_click" => url_util::makeurl($classname, $method, $paramsurl),
+                "url-ajax"  => url_util::makeurl("courses", "load_all_courses", [], "view-ajax"),
+                "url-click"  => url_util::makeurl($classname, $method, $paramsurl),
             ];
 
             global $OUTPUT, $PAGE;
