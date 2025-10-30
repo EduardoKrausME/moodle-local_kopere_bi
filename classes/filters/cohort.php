@@ -51,8 +51,8 @@ class cohort {
 
             $data = [
                 "cohort_fullname" => fullname($cohort),
-                "url_ajax" => url_util::makeurl("cohorts", "load_all_cohorts", [], "view-ajax"),
-                "url_click" => url_util::makeurl($classname, $method, $paramsurl),
+                "url-ajax"  => url_util::makeurl("cohorts", "load_all_cohorts", [], "view-ajax"),
+                "url-click"  => url_util::makeurl($classname, $method, $paramsurl),
             ];
 
             global $OUTPUT, $PAGE;
