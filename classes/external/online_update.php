@@ -105,4 +105,3 @@ class online_update extends external_api {
         return ["success" => true];
     }
 }
-

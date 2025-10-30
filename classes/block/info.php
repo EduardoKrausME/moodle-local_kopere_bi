@@ -151,6 +151,5 @@ class info implements i_type {
      * @return mixed|void
      */
     public function get_chart_data($koperebielement) {
-
     }
 }
