@@ -59,6 +59,7 @@ jobs:
             ${{ github.event.head_commit.id }}
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_PAT }}
+          TAGNAME: ${{ needs.auto-release.outputs.tag }}
 
   deploy-to-moodle:
     needs:
@@ -79,6 +80,10 @@ jobs:
       - name: Call the service function
         id: add-version
         run: |
+          if [[ -z "${TAGNAME}" ]]; then
+            echo "No tag name has been provided!"
+            exit 1
+          fi
           if [[ ! -z "${{ github.event.inputs.tag }}" ]]; then
             TAGNAME="${{ github.event.inputs.tag }}"
           elif [[ $GITHUB_REF = refs/tags/* ]]; then
