@@ -28,7 +28,6 @@ use local_kopere_dashboard\util\menu_util;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class menu {
-
     /**
      * Function show_menu
      *
