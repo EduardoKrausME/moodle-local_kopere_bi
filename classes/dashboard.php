@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi;
 
+use context_system;
 use Exception;
 use local_kopere_bi\block\i_type;
 use local_kopere_bi\block\util\code_util;
@@ -433,15 +434,13 @@ class dashboard extends bi_all {
         header::notfound_null($koperebipage, get_string("page_not_found", "local_kopere_bi"));
 
         $editbooton = "";
-        $context = \context_system::instance();
-        if ($PAGE->user_is_editing()) {
-            if (has_capability('moodle/site:config', $context)) {
-                $editbooton =
-                    button::add(get_string("page_edit", "local_kopere_bi"),
-                        "?classname=bi-dashboard&method=edit_page&page_id={$koperebipage->id}", "ml-2", false, true) .
-                    button::delete(get_string("delete"),
-                        "?classname=bi-dashboard&method=delete_page&page_id={$koperebipage->id}", "ml-3", false, true);
-            }
+        $context = context_system::instance();
+        if ($PAGE->user_is_editing() && has_capability("local/kopere_bi:manage", $context)) {
+            $editbooton =
+                button::add(get_string("page_edit", "local_kopere_bi"),
+                    "?classname=bi-dashboard&method=edit_page&page_id={$koperebipage->id}", "ml-2", false, true) .
+                button::delete(get_string("delete"),
+                    "?classname=bi-dashboard&method=delete_page&page_id={$koperebipage->id}", "ml-3", false, true);
         }
 
         dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"), "?classname=bi-dashboard&method=start");
@@ -550,6 +549,8 @@ class dashboard extends bi_all {
      */
     public function type_block_edit() {
         global $DB;
+
+        hequire_capability("local/kopere_bi:manage", context_system::instance());
 
         $elementid = optional_param("item_id", 0, PARAM_INT);
         if ($elementid) {

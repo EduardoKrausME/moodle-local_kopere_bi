@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\block\util;
 
+use context_system;
 use Exception;
 use local_kopere_bi\block\i_type;
 use local_kopere_bi\output\renderer_bi_mustache;
@@ -136,7 +137,7 @@ class preview_util {
             if (class_exists($blockclass)) {
                 $title = string_util::get_string($koperebielement->title);
 
-                if ($PAGE->user_is_editing()) {
+                if ($PAGE->user_is_editing() && has_capability("local/kopere_bi:manage", context_system::instance())) {
                     $title .= button::edit(get_string("edit_report", "local_kopere_bi"),
                         "?classname=bi-dashboard&method=type_block_edit&item_id={$koperebielement->id}", 'ml-2', false, true);
                 }
