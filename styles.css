@@ -900,6 +900,8 @@
   }
 }
 .reports-home {
+  display: flex;
+  flex-direction: column;
   /* filtros */
   /* grupos (categorias) */
   /* grade de cards */
@@ -940,6 +942,7 @@
   opacity: 0;
   max-height: 0;
   overflow: hidden;
+  order: 9999;
 }
 .reports-home .group:not(.hidden-group) {
   opacity: 1;
