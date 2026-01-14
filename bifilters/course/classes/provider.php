@@ -53,14 +53,12 @@ class provider implements i_filter_provider {
                 "popupid" => uniqid(),
                 "btn-title" => get_string("course"),
                 "btn-subtitle" => $course->fullname,
-
                 "cols" => [
                     [
                         "id" => "id",
                         "name" => "#",
                         "style" => "width:20px",
                     ],
-
                     [
                         "id" => "fullname",
                         "name" => get_string("courses_name", "local_kopere_dashboard"),
