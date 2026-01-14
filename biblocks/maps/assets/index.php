@@ -17,7 +17,7 @@
 /**
  * maps index file
  *
- * @package   local_kopere_bi
+ * @package   biblocks_maps
  * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

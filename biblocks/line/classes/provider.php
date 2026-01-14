@@ -34,7 +34,7 @@ use local_kopere_dashboard\util\url_util;
 /**
  * Class line
  *
- * @package   local_kopere_bi
+ * @package   biblocks_line
  * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

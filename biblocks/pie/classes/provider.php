@@ -30,7 +30,7 @@ use local_kopere_dashboard\util\url_util;
 /**
  * Class pie
  *
- * @package   local_kopere_bi
+ * @package   biblocks_pie
  * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
