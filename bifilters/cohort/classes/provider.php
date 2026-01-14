@@ -23,7 +23,7 @@ use local_kopere_dashboard\util\url_util;
 /**
  * Class provider cohort
  *
- * @package   local_kopere_bi
+ * @package   bifilters_cohort
  * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

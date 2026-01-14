@@ -17,7 +17,7 @@
 /**
  * Version file
  *
- * @package   local_kopere_bi
+ * @package   bifilters_user
  * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
