@@ -129,7 +129,7 @@ class filter {
      * get_replace_keys
      *
      * @return string
-     * @throws \coding_exception
+     * @throws Exception
      */
     public static function get_replace_keys() {
         $return = "";
