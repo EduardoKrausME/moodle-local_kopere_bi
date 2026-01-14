@@ -307,7 +307,16 @@ $string['sql_replace_keys2_others'] = '<h4>Replacement keys</h4>
 <p>Visit the <a href="?classname=bi-extra_langs&method=index" target="_blank">strings page</a> to see all available strings.</p>';
 
 $string['sql_replace_keys2_table'] = '<h4>Filters</h4>
-<p>The table filters will be presented in the next step.</p>
+<p>The <code>:xxxx</code> parameter from the list below can be used to add customization to SQL queries in Moodle. When included in the SQL, Kopere BI automatically identifies this parameter and generates a corresponding filter in the plugin, allowing data personalization per student.</p>
+<ul>{$a->replace_keys}</ul>
+<blockquote>
+    <p><b>Example:</b></p>
+    <code>SELECT * FROM mdl_user WHERE id = :userid</code>
+    <p>The <code>:userid</code> is a <b>named parameter</b> in the SQL query. It works as a <b>placeholder</b> that will be dynamically filled at the time the report is executed.</p>
+    <p>When Kopere BI identifies this parameter, it <b>automatically creates a filter</b> for the plugin. This way, the value of <code>userid</code> is defined by the user in the report, without the need to manually change the SQL.</p>
+    <p>In this way, the same query can be reused for different users, returning only the data corresponding to the selected ID, which makes the report more <b>flexible</b>, <b>secure</b>, and <b>reusable</b>.</p>
+    <p>You can manage filter plugins by accessing: <a href="{$a->wwwroot}/local/kopere_bi/admin_plugins.php?subtype=bifilters" target="_blank">{$a->subplugintype_bifilters_title}</a></p>
+</blockquote>
 <h4>Multi-language</h4>
 <p>To return columns that will be translated based on Moodle language packs, a specific format is required that allows strings to be processed and properly localized. The correct format is:</p>
 <pre>lang::{identifier}::{component}</pre>
@@ -324,9 +333,9 @@ $string['sql_replace_keys_mdl'] = '<h4>Database prefix</h4>
 <p>You can always use the <code>mdl_</code> prefix even if your database uses the <code>{$a}</code> prefix.
         Kopere BI will handle this replacement.</p>';
 $string['subplugintype_biblocks_plural'] = 'Blocks plugins';
-$string['subplugintype_biblocks_title'] = 'Kopere By Blocks plugins';
+$string['subplugintype_biblocks_title'] = 'Kopere By - Blocks plugins';
 $string['subplugintype_bifilters_plural'] = 'Filters plugins';
-$string['subplugintype_bifilters_title'] = 'Kopere By Filters plugins';
+$string['subplugintype_bifilters_title'] = 'Kopere By - Filters plugins';
 $string['theme_palette_default'] = 'Default Palette';
 $string['theme_palette_desc'] = 'Palette colors:';
 $string['theme_palette_desc2'] = 'See all themes here';
