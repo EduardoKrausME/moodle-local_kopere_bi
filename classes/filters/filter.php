@@ -125,6 +125,12 @@ class filter {
         return $return;
     }
 
+    /**
+     * get_replace_keys
+     *
+     * @return string
+     * @throws \coding_exception
+     */
     public static function get_replace_keys() {
         $return = "";
         foreach (bifilters::get_enabled_plugins() as $pluginname => $file) {
