@@ -14,20 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace local_kopere_bi\filters;
+namespace bifilters_course;
 
 use Exception;
+use local_kopere_bi\filters\i_filter_provider;
 use local_kopere_dashboard\util\url_util;
 
 /**
- * Class course
+ * Class provider course
  *
- * @package   local_kopere_bi
+ * @package   bifilters_course
  * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class course {
-
+class provider implements i_filter_provider {
     /**
      * filter
      *
@@ -36,7 +36,7 @@ class course {
      * @return bool|string
      * @throws Exception
      */
-    public static function filter($paramsurl, $comand) {
+    public static function filter(&$paramsurl, $comand) {
         global $DB;
         if (isset($comand->params["courseid"]) || isset($comand->params["count_1_courseid"])) {
             $course = $DB->get_record("course", ["id" => $comand->params["courseid"]]);
@@ -100,7 +100,6 @@ class course {
                         "targets" => 4,
                     ],
                 ],
-
                 "table-title" => get_string("reports_selectcourse", "local_kopere_bi"),
                 "url-ajax"  => url_util::makeurl("courses", "load_all_courses", [], "view-ajax"),
                 "url-click"  => url_util::makeurl($classname, $method, $paramsurl),
@@ -109,9 +108,19 @@ class course {
             global $OUTPUT, $PAGE;
             $PAGE->requires->js_call_amd("local_kopere_bi/filter", "init",
                 [$data["popupid"], $data["columns"], $data["columnDefs"]]);
-            return $OUTPUT->render_from_template('local_kopere_bi/filter', $data);
+            return $OUTPUT->render_from_template("local_kopere_bi/filter", $data);
         }
 
         return "";
+    }
+
+    /**
+     * Get key for show filters message
+     *
+     * @return string
+     * @throws Exception
+     */
+    public static function get_key() {
+        return "courseid";
     }
 }

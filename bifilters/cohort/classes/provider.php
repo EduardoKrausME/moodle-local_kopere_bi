@@ -14,19 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace local_kopere_bi\filters;
+namespace bifilters_cohort;
 
 use Exception;
+use local_kopere_bi\filters\i_filter_provider;
 use local_kopere_dashboard\util\url_util;
 
 /**
- * Class cohort
+ * Class provider cohort
  *
- * @package   local_kopere_bi
+ * @package   bifilters_cohort
  * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class cohort {
+class provider implements i_filter_provider {
     /**
      * filter
      *
@@ -61,5 +62,15 @@ class cohort {
         }
 
         return "";
+    }
+
+    /**
+     * Get key for show filters message
+     *
+     * @return string
+     * @throws Exception
+     */
+    public static function get_key() {
+        return "cohortid";
     }
 }
