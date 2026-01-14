@@ -23,7 +23,7 @@
           "css": "",
           "html_before": "",
           "html_after": "",
-          "commandsql": "SELECT CONCAT(\r\n    (SELECT count(*) AS num FROM mdl_user WHERE id > 1 AND deleted = 0),\r\n    ' \/ ',\r\n    (SELECT count(*) AS num FROM mdl_user WHERE id > 1 AND deleted = 0 AND lastaccess > 0)\r\n)",
+          "commandsql": "SELECT CONCAT(\n    (SELECT count(*) AS num FROM mdl_user WHERE id > 1 AND deleted = 0),\n    ' \/ ',\n    (SELECT count(*) AS num FROM mdl_user WHERE id > 1 AND deleted = 0 AND lastaccess > 0)\n)",
           "cache": "1h",
           "reload": "none",
           "info": "[]"
@@ -37,7 +37,7 @@
           "css": "",
           "html_before": "",
           "html_after": "",
-          "commandsql": "SELECT CONCAT(\r\n    (\r\n         SELECT count(id)\r\n           FROM mdl_user\r\n          WHERE lastaccess > UNIX_TIMESTAMP() - 300\r\n       GROUP BY id\r\n    ),\r\n    ' \/ ',\r\n    (\r\n        SELECT count(id)\r\n          FROM mdl_user\r\n         WHERE lastaccess > UNIX_TIMESTAMP() - 3600\r\n      GROUP BY id\r\n    )\r\n)",
+          "commandsql": "SELECT CONCAT(\n    (\n         SELECT count(id)\n           FROM mdl_user\n          WHERE lastaccess > UNIX_TIMESTAMP() - 300\n       GROUP BY id\n    ),\n    ' \/ ',\n    (\n        SELECT count(id)\n          FROM mdl_user\n         WHERE lastaccess > UNIX_TIMESTAMP() - 3600\n      GROUP BY id\n    )\n)",
           "cache": "1h",
           "reload": "none",
           "info": "[]"
@@ -51,7 +51,7 @@
           "css": "",
           "html_before": "",
           "html_after": "",
-          "commandsql": "SELECT CONCAT(\r\n    (\r\n        SELECT count(*) FROM mdl_course WHERE id > 1\r\n    ),\r\n    ' \/ ',\r\n    (\r\n        SELECT count(*) FROM mdl_course WHERE id > 1 AND visible = 1\r\n    )\r\n)",
+          "commandsql": "SELECT CONCAT(\n    (\n        SELECT count(*) FROM mdl_course WHERE id > 1\n    ),\n    ' \/ ',\n    (\n        SELECT count(*) FROM mdl_course WHERE id > 1 AND visible = 1\n    )\n)",
           "cache": "1h",
           "reload": "none",
           "info": "[]"
@@ -72,7 +72,7 @@
           "css": "",
           "html_before": "",
           "html_after": "",
-          "commandsql": "SELECT c.fullname,\r\n       SUM(CASE \r\n               WHEN ue.status = 0 AND (ue.timeend = 0 OR ue.timeend > UNIX_TIMESTAMP()) THEN 1\r\n               ELSE 0\r\n           END) AS 'lang::active_enrolments::local_kopere_bi',\r\n       SUM(CASE \r\n               WHEN ue.status = 1 THEN 1\r\n               ELSE 0\r\n           END) AS 'lang::inactive_enrolments::local_kopere_bi',\r\n       SUM(CASE \r\n               WHEN ue.status = 0 AND ue.timeend > 0 AND ue.timeend < UNIX_TIMESTAMP() THEN 1\r\n               ELSE 0\r\n           END) AS 'lang::expired_enrolments::local_kopere_bi'\r\nFROM mdl_course c\r\nJOIN mdl_enrol e ON e.courseid = c.id\r\nJOIN mdl_user_enrolments ue ON ue.enrolid = e.id\r\nGROUP BY c.id\r\nORDER BY c.fullname",
+          "commandsql": "SELECT c.fullname,\n       SUM(CASE \n               WHEN ue.status = 0 AND (ue.timeend = 0 OR ue.timeend > UNIX_TIMESTAMP()) THEN 1\n               ELSE 0\n           END) AS 'lang::active_enrolments::local_kopere_bi',\n       SUM(CASE \n               WHEN ue.status = 1 THEN 1\n               ELSE 0\n           END) AS 'lang::inactive_enrolments::local_kopere_bi',\n       SUM(CASE \n               WHEN ue.status = 0 AND ue.timeend > 0 AND ue.timeend < UNIX_TIMESTAMP() THEN 1\n               ELSE 0\n           END) AS 'lang::expired_enrolments::local_kopere_bi'\nFROM mdl_course c\nJOIN mdl_enrol e ON e.courseid = c.id\nJOIN mdl_user_enrolments ue ON ue.enrolid = e.id\nGROUP BY c.id\nORDER BY c.fullname",
           "cache": "1h",
           "reload": "none",
           "info": "{\n    \"chart_options\": \"{\\r\\n    stroke : {\\r\\n        colors : [\\\"#2E93fA\\\", \\\"#66DA26\\\", \\\"#546E7A\\\", \\\"#E91E63\\\", \\\"#FF9800\\\"]\\r\\n    },\\r\\n    yaxis : {\\r\\n        labels : {\\r\\n            formatter: (value) => { return value },\\r\\n        },\\r\\n    },\\r\\n}\"\n}"
@@ -94,7 +94,7 @@
           "css": "",
           "html_before": "",
           "html_after": "",
-          "commandsql": "  SELECT FROM_UNIXTIME(timecreated, '%m\/%Y') AS yearmonth,\r\n         COUNT(id) AS 'lang::num_user::local_kopere_bi'\r\n    FROM mdl_user\r\n   WHERE deleted = 0\r\n     AND confirmed = 1\r\n     AND timecreated >= UNIX_TIMESTAMP(DATE_SUB(CURDATE(), INTERVAL 12 MONTH))\r\nGROUP BY yearmonth\r\nORDER BY yearmonth DESC",
+          "commandsql": "  SELECT FROM_UNIXTIME(timecreated, '%m\/%Y') AS yearmonth,\n         COUNT(id) AS 'lang::num_user::local_kopere_bi'\n    FROM mdl_user\n   WHERE deleted = 0\n     AND confirmed = 1\n     AND timecreated >= UNIX_TIMESTAMP(DATE_SUB(CURDATE(), INTERVAL 12 MONTH))\nGROUP BY yearmonth\nORDER BY yearmonth DESC",
           "cache": "none",
           "reload": "none",
           "info": "{\n    \"chart_options\": \"{\\r\\n    stroke : {\\r\\n        colors : [\\\"#2E93fA\\\", \\\"#66DA26\\\", \\\"#546E7A\\\", \\\"#E91E63\\\", \\\"#FF9800\\\"]\\r\\n    },\\r\\n    yaxis : {\\r\\n        labels : {\\r\\n            formatter: (value) => { return value },\\r\\n        },\\r\\n    },\\r\\n}\"\n}"

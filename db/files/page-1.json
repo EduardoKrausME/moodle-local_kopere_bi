@@ -23,7 +23,7 @@
           "css": "",
           "html_before": null,
           "html_after": null,
-          "commandsql": "  SELECT lastip\r\n    FROM mdl_local_kopere_bi_online\r\n   WHERE currenttime > UNIX_TIMESTAMP() - (5 * 60)\r\nGROUP BY userid, lastip",
+          "commandsql": "  SELECT lastip\n    FROM mdl_local_kopere_bi_online\n   WHERE currenttime > UNIX_TIMESTAMP() - (5 * 60)\nGROUP BY userid, lastip",
           "cache": "none",
           "reload": "1m",
           "info": "[]"
@@ -37,7 +37,7 @@
           "css": "",
           "html_before": null,
           "html_after": null,
-          "commandsql": "SELECT DISTINCT \r\n       u.id AS u_id,\r\n       u.firstname,\r\n       u.lastname,\r\n       kbo.city_name,\r\n       kbo.country_name\r\n  FROM mdl_local_kopere_bi_online kbo\r\n  JOIN mdl_user u ON u.id = kbo.userid\r\n WHERE kbo.currenttime > UNIX_TIMESTAMP() - (5 * 60)",
+          "commandsql": "SELECT DISTINCT \n       u.id AS u_id,\n       u.firstname,\n       u.lastname,\n       kbo.city_name,\n       kbo.country_name\n  FROM mdl_local_kopere_bi_online kbo\n  JOIN mdl_user u ON u.id = kbo.userid\n WHERE kbo.currenttime > UNIX_TIMESTAMP() - (5 * 60)",
           "cache": "none",
           "reload": "none",
           "info": "{\"column\":{\"u_id\":{\"key\":\"u_id\",\"title\":\"#\",\"type\":\"userphotoRenderer\",\"mustache\":\"\"},\"firstname\":{\"key\":\"firstname\",\"title\":\"lang::u_fullname::local_kopere_bi\",\"type\":\"userfullname\",\"mustache\":\"<a href=\\\"{{{config.wwwroot}}}\\\/user\\\/view.php?id={{{u_id}}}\\\"\\r\\n   target=\\\"profile\\\">{{{u_fullname}}}<\\\/a>\"},\"lastname\":{\"key\":\"lastname\",\"title\":\"lang::lastname::moodle\",\"type\":\"none\",\"mustache\":\"\"},\"city_name\":{\"key\":\"city_name\",\"title\":\"lang::city_name::local_kopere_bi\",\"type\":\"string\",\"mustache\":\"{{{city_name}}}\"},\"country_name\":{\"key\":\"country_name\",\"title\":\"lang::country_name::local_kopere_bi\",\"type\":\"string\",\"mustache\":\"{{{country_name}}}\"}}}"
@@ -57,8 +57,8 @@
           "theme": "light",
           "css": "",
           "html_before": "",
-          "html_after": "<div class=\"alert alert-info\">\r\n    lang::report_3_course_last30days::local_kopere_bi\r\n<\/div>",
-          "commandsql": "   SELECT c.fullname,\r\n          count(DISTINCT kbo.userid) AS 'lang::num_user::local_kopere_bi',\r\n          SUM(kbo.seconds)           AS 'lang::seconds::local_kopere_bi'\r\n     FROM mdl_course c\r\nLEFT JOIN mdl_local_kopere_bi_online kbo ON kbo.courseid = c.id\r\n    WHERE kbo.currenttime > UNIX_TIMESTAMP() - (30 * 24 * 60 * 60)\r\n GROUP BY c.id",
+          "html_after": "<div class=\"alert alert-info\">\n    lang::report_3_course_last30days::local_kopere_bi\n<\/div>",
+          "commandsql": "   SELECT c.fullname,\n          count(DISTINCT kbo.userid) AS 'lang::num_user::local_kopere_bi',\n          SUM(kbo.seconds)           AS 'lang::seconds::local_kopere_bi'\n     FROM mdl_course c\nLEFT JOIN mdl_local_kopere_bi_online kbo ON kbo.courseid = c.id\n    WHERE kbo.currenttime > UNIX_TIMESTAMP() - (30 * 24 * 60 * 60)\n GROUP BY c.id",
           "cache": "30m",
           "reload": "30m",
           "info": "{\n    \"chart_options\": \"{\\r\\n    colors : [\\\"#2E93fA\\\", \\\"#66DA26\\\", \\\"#546E7A\\\", \\\"#E91E63\\\", \\\"#FF9800\\\"],\\r\\n    stroke : {\\r\\n        colors : [\\\"#2E93fA\\\", \\\"#66DA26\\\", \\\"#546E7A\\\", \\\"#E91E63\\\", \\\"#FF9800\\\"],\\r\\n    },\\r\\n    yaxis : {\\r\\n        labels : {\\r\\n            formatter: (value, index, outro) => { \\r\\n                if(index.seriesIndex==0) \\r\\n                    return value;\\r\\n                var hours = Math.floor(value \\\/ 3600);\\r\\n                var minutes = Math.floor((value % 3600) \\\/ 60);\\r\\n                return `${hours}h ${minutes}m`;\\r\\n            },\\r\\n        },\\r\\n    },\\r\\n    toolbar: {\\r\\n        show    : true,\\r\\n        offsetX : 0,\\r\\n        offsetY : 0\\r\\n    }\\r\\n}\"\n}"
@@ -79,7 +79,7 @@
           "css": "",
           "html_before": null,
           "html_after": null,
-          "commandsql": "  SELECT kbo.client_name,\r\n         SUM(kbo.seconds) as times\r\n    FROM mdl_local_kopere_bi_online kbo\r\n    JOIN mdl_user c ON c.id = kbo.userid\r\nGROUP BY kbo.client_name\r\nORDER BY times DESC\r\n   LIMIT 15",
+          "commandsql": "  SELECT kbo.client_name,\n         SUM(kbo.seconds) as times\n    FROM mdl_local_kopere_bi_online kbo\n    JOIN mdl_user c ON c.id = kbo.userid\nGROUP BY kbo.client_name\nORDER BY times DESC\n   LIMIT 15",
           "cache": "30m",
           "reload": "30m",
           "info": "{\"chart_options\":\"{\\r\\n    colors : [\\\"#4285F4\\\", \\\"#FF7139\\\", \\\"#0078D7\\\", \\\"#5AC8FA\\\", \\\"#FF1B2D\\\", \\\"#AAAAAA\\\"],\\r\\n    yaxis : {\\r\\n        labels : {\\r\\n            formatter: (seconds) => { \\r\\n                var hours = Math.floor(seconds \\\/ 3600);\\r\\n                var minutes = Math.floor((seconds % 3600) \\\/ 60);\\r\\n                return `${hours}h ${minutes}m`;\\r\\n            },\\r\\n        },\\r\\n    },\\r\\n}\"}"
@@ -93,7 +93,7 @@
           "css": "",
           "html_before": null,
           "html_after": null,
-          "commandsql": "  SELECT kbo.os_name,\r\n         SUM(kbo.seconds) as times\r\n    FROM mdl_local_kopere_bi_online kbo\r\n    JOIN mdl_user c ON c.id = kbo.userid\r\nGROUP BY kbo.os_name\r\nORDER BY times DESC\r\n   LIMIT 15",
+          "commandsql": "  SELECT kbo.os_name,\n         SUM(kbo.seconds) as times\n    FROM mdl_local_kopere_bi_online kbo\n    JOIN mdl_user c ON c.id = kbo.userid\nGROUP BY kbo.os_name\nORDER BY times DESC\n   LIMIT 15",
           "cache": "30m",
           "reload": "30m",
           "info": "{\"chart_options\":\"{\\r\\n    colors: [\\\"#9467bd\\\", \\\"#8c564b\\\", \\\"#e377c2\\\", \\\"#7f7f7f\\\", \\\"#bcbd22\\\", \\\"#17becf\\\", \\\"#1f77b4\\\", \\\"#ff7f0e\\\", \\\"#2ca02c\\\", \\\"#d62728\\\" ],\\r\\n    yaxis : {\\r\\n        labels : {\\r\\n            formatter: (seconds) => { \\r\\n                var hours = Math.floor(seconds \\\/ 3600);\\r\\n                var minutes = Math.floor((seconds % 3600) \\\/ 60);\\r\\n                return `${hours}h ${minutes}m`;\\r\\n            },\\r\\n        },\\r\\n    },\\r\\n}\"}"
@@ -107,7 +107,7 @@
           "css": "",
           "html_before": null,
           "html_after": null,
-          "commandsql": "  SELECT CONCAT(kbo.city_name, '\/', kbo.country_name) AS country_name, \r\n         SUM(kbo.seconds) as times\r\n    FROM mdl_local_kopere_bi_online kbo\r\n    JOIN mdl_user c ON c.id = kbo.userid\r\nGROUP BY kbo.city_name, kbo.country_name\r\nORDER BY times DESC\r\n   LIMIT 10",
+          "commandsql": "  SELECT CONCAT(kbo.city_name, '\/', kbo.country_name) AS country_name, \n         SUM(kbo.seconds) as times\n    FROM mdl_local_kopere_bi_online kbo\n    JOIN mdl_user c ON c.id = kbo.userid\nGROUP BY kbo.city_name, kbo.country_name\nORDER BY times DESC\n   LIMIT 10",
           "cache": "30m",
           "reload": "30m",
           "info": "{\"chart_options\":\"{\\r\\n    colors : [ \\\"#ff7f0e\\\", \\\"#2ca02c\\\", \\\"#d62728\\\", \\\"#9467bd\\\", \\\"#8c564b\\\", \\\"#e377c2\\\", \\\"#7f7f7f\\\", \\\"#bcbd22\\\", \\\"#17becf\\\", \\\"#1f77b4\\\" ],\\r\\n    yaxis : {\\r\\n        labels : {\\r\\n            formatter: (seconds) => { \\r\\n                console.log(seconds);\\r\\n                var hours = Math.floor(seconds \\\/ 3600);\\r\\n                var minutes = Math.floor((seconds % 3600) \\\/ 60);\\r\\n                return `${hours}h ${minutes}m`;\\r\\n            },\\r\\n        },\\r\\n    },\\r\\n}\"}"
