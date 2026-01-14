@@ -22,12 +22,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['filter_active'] = 'Yes';
-$string['filter_choose_field_to_filter'] = 'Choose which field you want to filter';
-$string['filter_inactive'] = 'No';
-$string['filter_plugin_status'] = 'Enable the plugin <em>{$a}</em>?';
-$string['filter_save'] = 'Save';
-$string['filter_select'] = 'Select a field';
 $string['pluginname'] = 'Data table';
 $string['pluginname_desc'] = 'Displays a table with data pagination.';
 $string['table_col_title'] = 'Column title';
