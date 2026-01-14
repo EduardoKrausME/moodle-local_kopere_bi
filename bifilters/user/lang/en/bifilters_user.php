@@ -22,5 +22,5 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['message'] = 'Student ID to generate the report.';
+$string['message'] = 'ID of the student used to generate the report.';
 $string['pluginname'] = 'Filter by User';
