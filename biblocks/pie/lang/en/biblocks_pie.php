@@ -22,6 +22,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['pie_sql_warning'] = '<p>The SQL below should return only two columns.</p><p>The first column will be the column name, and the second column must be a numeric value.</p>';
 $string['pluginname'] = 'Pie chart';
 $string['pluginname_desc'] = 'Creates a pie chart';
-$string['pie_sql_warning'] = '<p>The SQL below should return only two columns.</p><p>The first column will be the column name, and the second column must be a numeric value.</p>';

@@ -22,8 +22,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Line Chart';
-$string['pluginname_desc'] = 'Generates a line chart';
 $string['line_sql_warning'] = '<p>Remember that the SQL below must return with the following structure:</p>
 <ul>
     <li>The first column should contain the text that will be used as the X-axis names.</li>
@@ -46,3 +44,5 @@ $string['line_sql_warning'] = '<p>Remember that the SQL below must return with t
     FROM mdl_course AS c
     JOIN mdl_course_modules AS cm ON c.id = cm.course
 GROUP BY c.id</pre></blockquote>';
+$string['pluginname'] = 'Line Chart';
+$string['pluginname_desc'] = 'Generates a line chart';
