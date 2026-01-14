@@ -18,7 +18,7 @@ namespace local_kopere_bi\block\util;
 
 use context_system;
 use Exception;
-use local_kopere_bi\block\i_type;
+use local_kopere_bi\block\i_block_provider;
 use local_kopere_bi\vo\local_kopere_bi_element;
 use local_kopere_dashboard\html\button;
 
@@ -130,8 +130,8 @@ class details_util {
         $koperebielement = $DB->get_record("local_kopere_bi_element", ["block_id" => $blockid, "block_num" => $blocknum]);
         if ($koperebielement) {
 
-            /** @var i_type $blockclass */
-            $blockclass = "\\local_kopere_bi\\block\\{$koperebielement->type}";
+            /** @var i_block_provider $blockclass */
+            $blockclass = "\\biblocks_{$koperebielement->type}\\provider";
             if (class_exists($blockclass)) {
                 $title = string_util::get_string($koperebielement->title) . ": {$blockclass::get_name()}";
             } else {

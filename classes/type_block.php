@@ -20,7 +20,7 @@ use Exception;
 use local_kopere_bi\block\area;
 use local_kopere_bi\block\column;
 use local_kopere_bi\block\html;
-use local_kopere_bi\block\i_type;
+use local_kopere_bi\block\i_block_provider;
 use local_kopere_bi\block\info;
 use local_kopere_bi\block\line;
 use local_kopere_bi\block\maps;
@@ -132,10 +132,10 @@ class type_block extends bi_all {
      *
      * @param local_kopere_bi_element $koperebielement
      * @param local_kopere_bi_page $koperebipage
-     * @param i_type $block
+     * @param i_block_provider $block
      * @throws Exception
      */
-    public static function type_block_edit_salvar($koperebielement, $koperebipage, i_type $block) {
+    public static function type_block_edit_salvar($koperebielement, $koperebipage, i_block_provider $block) {
         global $DB;
 
         if (form::check_post()) {
@@ -209,10 +209,10 @@ class type_block extends bi_all {
      *
      * @param $koperebielement
      * @param $koperebipage
-     * @param i_type $block
+     * @param i_block_provider $block
      * @throws Exception
      */
-    public static function type_block_edit_columns_salvar($koperebielement, $koperebipage, i_type $block) {
+    public static function type_block_edit_columns_salvar($koperebielement, $koperebipage, i_block_provider $block) {
         global $DB;
 
         if (form::check_post()) {

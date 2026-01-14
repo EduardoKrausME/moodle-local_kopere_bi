@@ -50,7 +50,8 @@ class code_util {
                 ->set_title("SQL")
                 ->set_name("commandsql")
                 ->set_value($commandsql)
-                ->set_description(sql_util::chaves_replace()));
+                ->set_description(sql_util::replace_keys_message($koperebielement))
+        );
         $PAGE->requires->js_call_amd("local_kopere_bi/load_ace", "getScript", ["commandsql", "sql"]);
 
         if ($iscache) {
@@ -112,7 +113,7 @@ class code_util {
         echo "<div class=mform>
                   <fieldset id='campo_chart_estilo-fieldset' class='clearfix collapsible {$collapsed}'>
                       <legend>
-                          <a href='#' class='btn-icon'>
+                          <a href='#'>
                               <i class='icon fa fa-chevron-right fa-fw'></i>
                               " . get_string("extra_options", "local_kopere_bi") . "
                           </a>

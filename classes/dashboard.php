@@ -18,7 +18,7 @@ namespace local_kopere_bi;
 
 use context_system;
 use Exception;
-use local_kopere_bi\block\i_type;
+use local_kopere_bi\block\i_block_provider;
 use local_kopere_bi\block\util\code_util;
 use local_kopere_bi\block\util\details_util;
 use local_kopere_bi\block\util\preview_util;
@@ -524,9 +524,9 @@ class dashboard extends bi_all {
 
         echo $koperebielement->html_before;
 
-        $class = "\\local_kopere_bi\\block\\{$koperebielement->type}";
+        $class = "\\biblocks_{$koperebielement->type}\\provider";
         if (class_exists($class)) {
-            /** @var i_type $block */
+            /** @var i_block_provider $block */
             $block = new $class();
             echo $block->preview($koperebielement);
         } else {
@@ -550,7 +550,7 @@ class dashboard extends bi_all {
     public function type_block_edit() {
         global $DB;
 
-        hequire_capability("local/kopere_bi:manage", context_system::instance());
+        require_capability("local/kopere_bi:manage", context_system::instance());
 
         $elementid = optional_param("item_id", 0, PARAM_INT);
         if ($elementid) {
@@ -577,13 +577,13 @@ class dashboard extends bi_all {
         $koperebipage = $DB->get_record("local_kopere_bi_page", ["id" => $koperebiblock->page_id]);
         header::notfound_null($koperebipage, get_string("page_not_found", "local_kopere_bi"));
 
-        /** @var i_type $class */
-        $class = "\\local_kopere_bi\\block\\{$koperebielement->type}";
+        /** @var i_block_provider $class */
+        $class = "\\biblocks_{$koperebielement->type}\\provider";
         if (!class_exists($class)) {
             message::print_danger(get_string("blocktype_not_found", "local_kopere_bi"));
         }
 
-        /** @var i_type $block */
+        /** @var i_block_provider $block */
         $block = new $class();
 
         // Save the data.
@@ -593,8 +593,8 @@ class dashboard extends bi_all {
         dashboard_util::add_breadcrumb(string_util::get_string($koperebipage->title),
             "?classname=bi-dashboard&method=edit_page&page_id={$koperebipage->id}");
         if ($elementid) {
-            /** @var i_type $blockname */
-            $blockname = "\\local_kopere_bi\\block\\{$koperebielement->type}";
+            /** @var i_block_provider $blockname */
+            $blockname = "\\biblocks_{$koperebielement->type}\\provider";
             if (class_exists($blockname)) {
                 dashboard_util::add_breadcrumb(string_util::get_string($koperebielement->title) . ": {$blockname::get_name()}");
             } else {
@@ -673,13 +673,13 @@ class dashboard extends bi_all {
         $koperebipage = $DB->get_record("local_kopere_bi_page", ["id" => $koperebiblock->page_id]);
         header::notfound_null($koperebipage, get_string("page_not_found", "local_kopere_bi"));
 
-        /** @var i_type $blockclass */
-        $blockclass = "\\local_kopere_bi\\block\\{$koperebielement->type}";
+        /** @var i_block_provider $blockclass */
+        $blockclass = "\\biblocks_{$koperebielement->type}\\provider";
         if (!class_exists($blockclass)) {
             message::print_danger(get_string("blocktype_not_found", "local_kopere_bi"));
         }
 
-        /** @var i_type $block */
+        /** @var i_block_provider $block */
         $block = new $blockclass();
 
         // Save the data.

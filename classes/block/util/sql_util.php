@@ -17,7 +17,9 @@
 namespace local_kopere_bi\block\util;
 
 use Exception;
+use local_kopere_bi\filters\filter;
 use local_kopere_bi\vo\external_report;
+use local_kopere_bi\vo\local_kopere_bi_element;
 use local_kopere_dashboard\util\message;
 
 /**
@@ -44,14 +46,14 @@ class sql_util {
             $class = $sql;
             $parameters = $class::parameters();
 
-            list($s, $params) = self::params($sql, $parameters->isfilteruser, $parameters->isfilterusercourse);
+            [$s, $params] = self::params($sql, $parameters->isfilteruser, $parameters->isfilterusercourse);
 
             return (object)["sql" => $sql, "params" => $params];
         } else {
             $isfilteruser = strpos($sql, ":userid");
             $isfiltercourse = strpos($sql, ":courseid");
 
-            list($sql, $params) = self::params($sql, $isfilteruser, $isfiltercourse);
+            [$sql, $params] = self::params($sql, $isfilteruser, $isfiltercourse);
 
             $sql = preg_replace('/\{([a-z][a-z0-9_]*)\}/', "{$CFG->prefix}$1", $sql);
 
@@ -151,30 +153,28 @@ class sql_util {
     }
 
     /**
-     * Function chaves_replace
+     * Function replace_keys_message
      *
+     * @param local_kopere_bi_element $koperebielement
      * @return string
      * @throws Exception
      */
-    public static function chaves_replace() {
+    public static function replace_keys_message($koperebielement) {
         global $CFG;
 
+        $extra = "";
         if ($CFG->prefix != "mdl_") {
+            $extra = get_string("sql_replace_keys_mdl", "local_kopere_bi", $CFG->prefix);
+        }
+
+        if ($koperebielement->type == "table") {
             return
-                message::info(
-                    get_string("sql_replace_keys", "local_kopere_bi") .
-                    get_string("sql_replace_keys_mdl", "local_kopere_bi", $CFG->prefix)
-                ) .
-                message::warning(
-                    get_string("sql_read_only", "local_kopere_bi")
-                );
+                message::info(get_string("sql_replace_keys2_table", "local_kopere_bi", filter::get_replace_keys()) . $extra) .
+                message::warning(get_string("sql_read_only", "local_kopere_bi"));
         } else {
-            return message::info(
-                    get_string("sql_replace_keys", "local_kopere_bi")
-                ) .
-                message::warning(
-                    get_string("sql_read_only", "local_kopere_bi")
-                );
+            return
+                message::info(get_string("sql_replace_keys2_others", "local_kopere_bi", filter::get_replace_keys()) . $extra) .
+                message::warning(get_string("sql_read_only", "local_kopere_bi"));
         }
     }
 }

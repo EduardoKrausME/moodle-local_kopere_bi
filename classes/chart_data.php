@@ -17,7 +17,7 @@
 namespace local_kopere_bi;
 
 use Exception;
-use local_kopere_bi\block\i_type;
+use local_kopere_bi\block\i_block_provider;
 use local_kopere_bi\vo\local_kopere_bi_element;
 use local_kopere_dashboard\util\json;
 
@@ -47,9 +47,9 @@ class chart_data {
 
         $koperebielement->info_obj = @json_decode($koperebielement->info, true);
 
-        $class = "\\local_kopere_bi\\block\\{$koperebielement->type}";
+        $class = "\\biblocks_{$koperebielement->type}\\provider";
         if (class_exists($class)) {
-            /** @var i_type $block */
+            /** @var i_block_provider $block */
             $block = new $class();
             $block->get_chart_data($koperebielement);
         } else {

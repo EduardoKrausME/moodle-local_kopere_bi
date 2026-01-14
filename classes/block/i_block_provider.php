@@ -19,13 +19,13 @@ namespace local_kopere_bi\block;
 use local_kopere_dashboard\html\form;
 
 /**
- * Interface i_type
+ * Interface i_block_provider
  *
  * @package   local_kopere_bi
  * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-interface i_type {
+interface i_block_provider {
 
     /**
      * Function get_name

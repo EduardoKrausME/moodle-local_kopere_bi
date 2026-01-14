@@ -18,6 +18,7 @@ namespace local_kopere_bi\filters;
 
 use Exception;
 use local_kopere_bi\block\util\sql_util;
+use local_kopere_bi\plugininfo\bifilters;
 use local_kopere_bi\vo\external_report;
 use local_kopere_dashboard\util\url_util;
 
@@ -78,7 +79,7 @@ class filter {
 
             if ($parameters->isfilterusercourse || $parameters->isfilteruser) {
                 $return .= "<div id='chart-filter' class='d-flex' style='gap: 12px;'>";
-                list($sql, $params) = sql_util::params($commandsql, $parameters->isfilteruser, $parameters->isfilterusercourse);
+                [$sql, $params] = sql_util::params($commandsql, $parameters->isfilteruser, $parameters->isfilterusercourse);
 
                 if ($parameters->isfilterusercourse) {
                     $course = $DB->get_record("course", ["id" => $params["courseid"]]);
@@ -110,14 +111,29 @@ class filter {
         $comand = sql_util::prepare_sql($commandsql);
 
         $filters = "";
-        $filters .= user::filter($paramsurl, $comand);
-        $filters .= course::filter($paramsurl, $comand);
-        // Cohort.
-        // userprofile.
-        // date.
+        foreach (bifilters::get_enabled_plugins() as $pluginname => $file) {
+            require_once("{$file}/classes/provider.php");
+            /** @var i_filter_provider $plugin */
+            $plugin = "\\bifilters_{$pluginname}\\provider";
+            $filters .= $plugin::filter($paramsurl, $comand);
+        }
 
         if (isset($filters[3])) {
             $return .= "<div id='chart-filter' class='d-flex' style='gap: 12px;'>{$filters}</div>";
+        }
+
+        return $return;
+    }
+
+    public static function get_replace_keys() {
+        $return = "";
+        foreach (bifilters::get_enabled_plugins() as $pluginname => $file) {
+            require_once("{$file}/classes/provider.php");
+            /** @var i_filter_provider $plugin */
+            $plugin = "\\bifilters_{$pluginname}\\provider";
+            $key = $plugin::get_key();
+            $message = get_string("message", "bifilters_{$pluginname}");
+            $return .= "<li><b>:{$key}</b> {$message}</li>";
         }
 
         return $return;

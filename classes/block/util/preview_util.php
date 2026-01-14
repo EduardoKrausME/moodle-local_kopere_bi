@@ -18,7 +18,7 @@ namespace local_kopere_bi\block\util;
 
 use context_system;
 use Exception;
-use local_kopere_bi\block\i_type;
+use local_kopere_bi\block\i_block_provider;
 use local_kopere_bi\output\renderer_bi_mustache;
 use local_kopere_bi\vo\local_kopere_bi_block;
 use local_kopere_bi\vo\local_kopere_bi_element;
@@ -132,8 +132,8 @@ class preview_util {
             $return .= "<div class='chart-box chart-box-{$koperebielement->type}' id='chart-box-{$koperebielement->id}'>";
             $return .= "<div class='element-box theme-{$koperebielement->theme} type-{$koperebielement->type}'>";
 
-            /** @var i_type $blockclass */
-            $blockclass = "\\local_kopere_bi\\block\\{$koperebielement->type}";
+            /** @var i_block_provider $blockclass */
+            $blockclass = "\\biblocks_{$koperebielement->type}\\provider";
             if (class_exists($blockclass)) {
                 $title = string_util::get_string($koperebielement->title);
 
@@ -142,7 +142,7 @@ class preview_util {
                         "?classname=bi-dashboard&method=type_block_edit&item_id={$koperebielement->id}", 'ml-2', false, true);
                 }
 
-                /** @var i_type $block */
+                /** @var i_block_provider $block */
                 $block = new $blockclass();
 
                 $mustache = new renderer_bi_mustache();
@@ -164,7 +164,7 @@ class preview_util {
                 }
 
             } else {
-                message::print_danger(get_string("block_not_found6", "local_kopere_bi"));
+                message::print_danger(get_string("block_not_found", "local_kopere_bi"));
             }
 
             $return .= scss_util::build_css($koperebielement);

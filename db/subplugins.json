@@ -1,0 +1,10 @@
+{
+  "subplugintypes": {
+    "bifilters": "bifilters",
+    "biblocks": "biblocks"
+  },
+  "plugintypes": {
+    "bifilters": "local/kopere_bi/bifilters",
+    "biblocks": "local/kopere_bi/biblocks"
+  }
+}

@@ -24,8 +24,6 @@
 
 $string['active_enrolments'] = 'Active Enrolments';
 $string['all_learners'] = 'All learners';
-$string['area_desc'] = 'Generates an area chart';
-$string['area_name'] = 'Area Chart';
 $string['block_add'] = 'Add new Block';
 $string['block_delete_message'] = 'Do you really want to delete this block and <br> its reports permanently?';
 $string['block_delete_title'] = 'Delete Block';
@@ -92,8 +90,6 @@ $string['click_new_block'] = 'Click on the type of Block you want to add.';
 $string['client_name'] = 'Browser';
 $string['client_version'] = 'Version';
 $string['cm_cmid'] = 'Course Module ID';
-$string['column_desc'] = 'Generates a Column chart';
-$string['column_name'] = 'Column Chart';
 $string['completed_learners'] = 'Learners who completed the courses';
 $string['completion_status'] = 'Tracking';
 $string['completionstate_status'] = 'Completion';
@@ -127,83 +123,20 @@ $string['grade'] = 'Grade';
 $string['grade_course'] = 'Course grade';
 $string['html_after'] = 'Optional additional text (in Text, HTML, or Mustache format) displayed after the chart.';
 $string['html_before'] = 'Optional additional text (in Text, HTML, or Mustache format) displayed above the chart';
-$string['html_block'] = 'HTML Block with Mustache support';
-$string['html_block_desc'] = '<p>The HTML added to this field should follow the <strong>Mustache</strong> format, allowing dynamic data substitution in your pages. Use double braces <code>{{ }}</code> to reference SQL column values directly in the HTML, ensuring that the data is correctly inserted.</p>
-<blockquote>
-    <p>For example, using the following SQL query:</p>
-    <pre>SELECT firstname, lastname, email FROM mdl_user WHERE id = :userid</pre>
-    <p>You can reference the returned values in your HTML using the following syntax:</p>
-    <pre>&lt;p&gt;Email: {{{email}}}&lt;/p&gt;
-    &lt;p&gt;Full name: {{{firstname}}} {{{lastname}}}&lt;/p&gt;</pre>
-</blockquote>
-<blockquote>
-    <p>In this example, I want to display multiple rows from an SQL result, which returns a list of users registered with manual authentication. The SQL used for this is:</p>
-    <pre>SELECT firstname, lastname, email FROM mdl_user WHERE auth = \'manual\'</pre>
-    <p>To iterate over the results and display the data in a table format, I use the <code>{{#lines}}</code> in the template to repeat the content for each returned record. The template would look like this:</p>
-    <pre>&lt;table class="table table-bordered"&gt;
-    &lt;tr&gt;
-        &lt;th&gt;E-mail&lt;/th&gt;
-        &lt;th&gt;Full name&lt;/th&gt;
-    &lt;/tr&gt;
-    <strong>{{#lines}}</strong>
-        &lt;tr&gt;
-            &lt;td&gt;{{{email}}}&lt;/td&gt;
-            &lt;td&gt;{{{firstname}}} {{{lastname}}}&lt;/td&gt;
-        &lt;/tr&gt;
-    <strong>{{/lines}}</strong>
-&lt;/table&gt;</pre>
-</blockquote>
-<p>Triple braces <code>{{{ }}}</code> allow the value to be inserted without escaping HTML, which is useful for displaying content that may contain HTML tags.</p>
-<p>For more information on using Mustache templates in Moodle, see the official documentation: <a href="https://moodledev.io/docs/guides/templates" target="_blank">Moodle Templates Guide</a>.</p>';
-$string['html_desc'] = 'Displays an HTML Block with data coming from the database';
-$string['html_name'] = 'HTML Block';
 $string['inactive_enrolments'] = 'Inactive Enrolments';
-$string['info_desc'] = 'Just information. Ideal for showing student name, enrollment status, etc.';
 $string['info_error_sql'] = 'Error executing SQL';
-$string['info_name'] = 'Information Line';
 $string['info_sql_warning'] = 'Remember that the SQL below must return only one row with just one column.';
 $string['integracaoroot'] = 'Integrations';
 $string['item_not_found'] = 'Item not found';
-$string['kopere_bi:manage'] = 'Manage Business Intelligence';
-$string['kopere_bi:view'] = 'View Business Intelligence';
+$string['kopere_bi:manage'] = 'Manage Kopere BI';
+$string['kopere_bi:view'] = 'View Kopere BI';
 $string['l_ip'] = 'IP';
 $string['l_origin'] = 'Origin';
 $string['l_timecreated'] = 'Created on';
-$string['line_desc'] = 'Generates a line chart';
-$string['line_name'] = 'Line Chart';
-$string['line_sql_warning'] = '<p>Remember that the SQL below must return with the following structure:</p>
-<ul>
-    <li>The first column should contain the text that will be used as the X-axis names.</li>
-    <li>The other columns should be structured as follows:
-        <ul>
-            <li>The column name will be used as the series name. You can use translation strings as explained on the
-                <a href="?classname=bi-extra_langs&method=index" target="_blank">strings page</a>.</li>
-            <li>The column value will represent the series data in the chart.</li>
-        </ul>
-    </li>
-</ul>
-<blockquote>In the example below, the first column returns the course name, and the second column returns the number of news items for each course:
-<pre>SELECT fullname,
-       newsitems AS "Course news items count"
-  FROM mdl_course</pre></blockquote>
-<blockquote>In the example below, besides the first column being the course name, it generates two additional lines on the chart, with translated column names:
-<pre>  SELECT c.fullname AS course_name,
-         COUNT(cm.section) AS \'lang::thiscourse::theme_rebel\',
-         COUNT(cm.module)  AS \'lang::ca_completed_activities::local_kopere_bi\'
-    FROM mdl_course AS c
-    JOIN mdl_course_modules AS cm ON c.id = cm.course
-GROUP BY c.id</pre></blockquote>';
 $string['loading'] = 'Loading...';
-$string['maps_1_city'] = '{a1} and one more city';
-$string['maps_desc'] = 'Creates a map of online students based on their IPs';
-$string['maps_many_city'] = '{a1} and {a2} more cities';
-$string['maps_name'] = 'Online students map';
-$string['maps_online'] = '{a1} student online';
-$string['maps_onlines'] = '{a1} students online';
-$string['maps_sql_warning'] = '<p>Remember that the SQL below should return only one column, and that column should contain a valid IP.<br>Example: the SQL <code>SELECT lastip FROM {user} WHERE lastaccess > UNIX_TIMESTAMP() - (10 * 60)</code> returns all students who accessed Moodle in the last 10 minutes</p>';
 $string['module_count'] = 'Module count';
 $string['module_name'] = 'Module name';
-$string['modulename'] = 'Business Intelligence';
+$string['modulename'] = 'Kopere BI';
 $string['new_block'] = 'New block on this page';
 $string['new_block_1'] = 'One block';
 $string['new_block_12'] = 'One plus two blocks';
@@ -232,30 +165,22 @@ $string['page_not_found'] = 'Page not found';
 $string['page_preview'] = 'Preview page';
 $string['page_title_edit'] = 'Edit this page’s title';
 $string['page_title_export'] = 'Export page';
-$string['pie_desc'] = 'Creates a pie chart';
-$string['pie_name'] = 'Pie chart';
-$string['pie_sql_warning'] = '<p>The SQL below should return only two columns.</p><p>The first column will be the column name, and the second column must be a numeric value.</p>';
-$string['pluginname'] = 'Business Intelligence';
+$string['pluginname'] = 'Kopere BI';
 $string['privacy:metadata:city_name'] = 'The name of the city from which the user accesses.';
 $string['privacy:metadata:client_name'] = 'The name of the client or browser used by the user.';
 $string['privacy:metadata:client_type'] = 'The type of client, such as browser or application.';
 $string['privacy:metadata:client_version'] = 'The version of the client or browser.';
 $string['privacy:metadata:country_code'] = 'The country code from which the user accesses.';
 $string['privacy:metadata:country_name'] = 'The name of the country from which the user accesses.';
-$string['privacy:metadata:day'] = 'The day of access.';
 $string['privacy:metadata:lastip'] = 'The last registered IP address of the user.';
 $string['privacy:metadata:latitude'] = 'The latitude of the user\'s location during access.';
 $string['privacy:metadata:local_kopere_bi_online'] = 'Table storing information about users currently online for analysis.';
-$string['privacy:metadata:local_kopere_bi_statistic'] = 'Table storing statistical data for analytics purposes.';
 $string['privacy:metadata:longitude'] = 'The longitude of the user\'s location during access.';
-$string['privacy:metadata:month'] = 'The month of access.';
 $string['privacy:metadata:os_name'] = 'The name of the operating system used by the user.';
 $string['privacy:metadata:os_version'] = 'The version of the operating system used by the user.';
 $string['privacy:metadata:seconds'] = 'The seconds of the access time.';
 $string['privacy:metadata:user_id'] = 'The unique identifier of the user on the platform.';
 $string['privacy:metadata:userid'] = 'The identifier of the user for specific records.';
-$string['privacy:metadata:weekday'] = 'The weekday of access.';
-$string['privacy:metadata:year'] = 'The year of access.';
 $string['reload_time'] = 'Reload data every';
 $string['reload_time_10m'] = '10 minutes';
 $string['reload_time_1h'] = '1 hour';
@@ -364,10 +289,10 @@ $string['setting_apex'] = 'Apex Charts settings';
 $string['setting_apex_desc'] = 'Only edit if you are familiar with Apex Charts. See more at <a target="_blank" href="https://apexcharts.com/docs/series/">apexcharts.com/docs</a>';
 $string['sql_no_rows'] = 'The SQL returned 0 rows. To configure the columns, the SQL query must return at least 1 row.';
 $string['sql_read_only'] = 'All SQL queries are protected by a read-only connection, and it is not possible to execute INSERT/UPDATE/DELETE commands.';
-$string['sql_replace_keys'] = '<h4>Replacement keys</h4>
+
+$string['sql_replace_keys2_others'] = '<h4>Replacement keys</h4>
 <ul>
-    <li><b>:userid</b> Student ID to generate the report.</li>
-    <li><b>:courseid</b> Course ID to generate the report.</li>
+    {$a}
 </ul>
 <h4>Multi-language</h4>
 <p>To return columns that will be translated based on Moodle language packs, a specific format is required that allows strings to be processed and properly localized. The correct format is:</p>
@@ -375,61 +300,40 @@ $string['sql_replace_keys'] = '<h4>Replacement keys</h4>
 <p>Where:</p>
 <ul>
     <li><b>{identifier}</b>: Represents the string identifier, which will be used to fetch the translation from the language pack.</li>
-    <li><b>{component}</b>: Refers to the component where the language string is defined and is typically the name of the plugin (e.g., <code>mod_forum</code>, <code>local_kopere_dashboard</code>, <code>theme_degrade</code>).</li>
+    <li><b>{component}</b>: Refers to the component where the language string is defined and is typically the name of the plugin (e.g., <code>mod_forum</code>, <code>local_kopere_dashboard</code>).</li>
 </ul>
 <p><em>Example: If you need to return a translated string for the <code>mod_forum</code> component with the identifier <code>postmessage</code>, the return should be structured as follows:</em></p>
 <pre>SELECT \'<b>lang::postmessage::mod_forum</b>\' FROM mdl_forum</pre>
 <p>Visit the <a href="?classname=bi-extra_langs&method=index" target="_blank">strings page</a> to see all available strings.</p>';
+
+$string['sql_replace_keys2_table'] = '<h4>Filters</h4>
+<p>The table filters will be presented in the next step.</p>
+<h4>Multi-language</h4>
+<p>To return columns that will be translated based on Moodle language packs, a specific format is required that allows strings to be processed and properly localized. The correct format is:</p>
+<pre>lang::{identifier}::{component}</pre>
+<p>Where:</p>
+<ul>
+    <li><b>{identifier}</b>: Represents the string identifier, which will be used to fetch the translation from the language pack.</li>
+    <li><b>{component}</b>: Refers to the component where the language string is defined and is typically the name of the plugin (e.g., <code>mod_forum</code>, <code>local_kopere_dashboard</code>).</li>
+</ul>
+<p><em>Example: If you need to return a translated string for the <code>mod_forum</code> component with the identifier <code>postmessage</code>, the return should be structured as follows:</em></p>
+<pre>SELECT \'<b>lang::postmessage::mod_forum</b>\' FROM mdl_forum</pre>
+<p>Visit the <a href="?classname=bi-extra_langs&method=index" target="_blank">strings page</a> to see all available strings.</p>';
+
 $string['sql_replace_keys_mdl'] = '<h4>Database prefix</h4>
 <p>You can always use the <code>mdl_</code> prefix even if your database uses the <code>{$a}</code> prefix.
-        Business intelligence will handle this replacement.</p>';
-$string['table_col_title'] = 'Column title';
-$string['table_column_not_configured'] = 'Columns not configured in this table';
-$string['table_desc'] = 'Displays a table with data pagination.';
-$string['table_edit_column'] = 'Column';
-$string['table_first_5'] = 'The first five records of the query';
-$string['table_info_topo'] = 'First, you will see a preview of the search results. Then, a series of columns will be presented for you to name the titles and define the format of each column’s data.';
-$string['table_info_types'] = 'You can now set a name for the column and then specify the desired format and whether you want any extra formatting with Mustache.
-<ul>
-    <li><strong>No formatting</strong>: Displays the content exactly as it is or applies Mustache if you add it.</li>
-    <li><strong>Do not show this column</strong>: Hides the selected column in the view, but the data remains available for Mustache processing.</li>
-    <ul><li>Mustache not available</li></ul>
-    <li><strong>Numbers</strong>: Formats the column to display only numeric values, applying standard number display rules, such as thousands and decimal separators.</li>
-    <ul><li>Mustache not available</li></ul>
-    <li><strong>Convert column to full name "fullname()"</strong>: Runs the <code>fullname()</code> function to generate the full name based on the language, which will be stored in this same column. For this to work, the <code>lastname</code> column is required and should be hidden if possible.</li>
-    <li><strong>Convert student ID to profile picture</strong>: Uses the ID from this column to create the profile picture.</li>
-    <li><strong>Binary field for Visible/Invisible</strong>: Uses the binary value to determine visibility, where "0"/"false" means invisible and "1"/"true" means visible.</li>
-    <li><strong>Binary field for Active/Inactive</strong>: Uses the binary value to determine the status, where "0"/"false" means Inactive and "1"/"true" means Active.</li>
-    <li><strong>"Time" field formatted as date</strong>: Converts the time value (timestamp) in the column to a readable date, displaying only the date (day/month/year).</li>
-    <ul><li>Mustache not available</li></ul>
-    <li><strong>"Time" field formatted as date and time</strong>: Displays the time value (timestamp) in the column as a full date, including the time (day/month/year and hours:minutes).</li>
-    <ul><li>Mustache not available</li></ul>
-    <li><strong>"Time" field formatted as time</strong>: Formats the time value (timestamp) in the column to display only the time (hours:minutes), omitting the date.</li>
-    <ul><li>Mustache not available</li></ul>
-</ul>';
-
-$string['table_name'] = 'Data table';
-$string['table_renderer_date'] = '"Time" field formatted as date';
-$string['table_renderer_datetime'] = '"Time" field formatted as date and time';
-$string['table_renderer_filesize'] = 'Converts to disk data size';
-$string['table_renderer_mustache'] = 'HTML of the
-<a href="https://moodledev.io/docs/guides/templates" target="_blank">Mustache</a> column';
-$string['table_renderer_none'] = 'Do not display this column';
-$string['table_renderer_number'] = 'Numbers';
-$string['table_renderer_seconds'] = '"Time" field formatted as time';
-$string['table_renderer_status'] = 'Binary field for Active/Inactive';
-$string['table_renderer_title'] = 'Column formatting';
-$string['table_renderer_translate'] = 'Use get_string("identifier", "component") to translate the column';
-$string['table_renderer_userfullname'] = 'Convert the column to the student’s full name with the "fullname()" function';
-$string['table_renderer_userphoto'] = 'Convert student ID to profile picture';
-$string['table_renderer_visible'] = 'Binary field for Visible/Invisible';
+        Kopere BI will handle this replacement.</p>';
+$string['subplugintype_biblocks_title'] = 'Kopere By Blocks plugins';
+$string['subplugintype_biblocks_plural'] = 'Blocks plugins';
+$string['subplugintype_bifilters_plural'] = 'Filters plugins';
+$string['subplugintype_bifilters_title'] = 'Kopere By Filters plugins';
 $string['theme_palette_default'] = 'Default Palette';
 $string['theme_palette_desc'] = 'Palette colors:';
 $string['theme_palette_desc2'] = 'See all themes here';
 $string['theme_palette_palette'] = 'Palette {$a}';
 $string['theme_palette_title'] = 'Color Palette';
 $string['timecompleted'] = 'Enrollment completed';
-$string['title'] = 'Business Intelligence';
+$string['title'] = 'Kopere BI';
 $string['u_fullname'] = 'Student’s full name';
 $string['u_id'] = 'Student ID';
 $string['u_idnumber'] = 'ID number';

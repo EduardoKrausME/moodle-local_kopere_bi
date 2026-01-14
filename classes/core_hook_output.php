@@ -81,7 +81,7 @@ class core_hook_output {
                 "userid" => $USER->id,
                 "courseid" => $COURSE->id,
                 "moduleid" => $moduleid,
-                "seconds" => 0,
+                "seconds" => 1,
                 "currenttime" => time(),
 
                 "client_type" => $dataagent->client_type,
