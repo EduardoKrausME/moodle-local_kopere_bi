@@ -133,33 +133,6 @@ class provider implements i_block_provider {
             echo "</table>";
             echo "</div>";
 
-            $plugins = [];
-            foreach (bifilters::get_enabled_plugins() as $pluginname => $file) {
-                require_once("{$file}/classes/provider.php");
-                /** @var i_filter_provider $plugin */
-                $plugin = "\\bifilters_{$pluginname}\\provider";
-                $key = $plugin::get_key();
-
-                $filtersfield = "a1b2";
-                $tablefields = [];
-                foreach ($lines[0] as $id => $line) {
-                    $tablefields[] = ["field" => $id, "selected" => $id == $filtersfield];
-                }
-
-                $plugintitle = get_string("pluginname", "bifilters_{$pluginname}");
-                $plugins[] = [
-                    "key" => $key,
-                    "title" => get_string("filter_plugin_status", "biblocks_table", $plugintitle),
-                    "message" => get_string("message", "bifilters_{$pluginname}"),
-                    "yes-selected" => false,
-                    "tablefields" => $tablefields,
-                ];
-            }
-            $templatecontext = [
-                "plugins" => $plugins,
-            ];
-            echo $OUTPUT->render_from_template("biblocks_table/filters", $templatecontext);
-
             message::print_info(get_string("table_info_types", "biblocks_table"));
             foreach ($lines[0] as $id => $line) {
                 echo
