@@ -139,7 +139,7 @@ class filter {
             $plugin = "\\bifilters_{$pluginname}\\provider";
             $key = $plugin::get_key();
             $message = get_string("message", "bifilters_{$pluginname}");
-            $return .= "<li><b>:{$key}</b> {$message}</li>";
+            $return .= "<li><code>:{$key}</code> {$message}</li>";
         }
 
         return $return;
