@@ -72,31 +72,6 @@ class provider implements
             ],
             'privacy:metadata:local_kopere_bi_online'
         );
-        $collection->add_database_table('local_kopere_bi_statistic',
-            [
-                'userid' => 'privacy:metadata:userid',
-                'seconds' => 'privacy:metadata:seconds',
-
-                'weekday' => 'privacy:metadata:weekday',
-                'year' => 'privacy:metadata:year',
-                'month' => 'privacy:metadata:month',
-                'day' => 'privacy:metadata:day',
-
-                'client_type' => 'privacy:metadata:client_type',
-                'client_name' => 'privacy:metadata:client_name',
-                'client_version' => 'privacy:metadata:client_version',
-                'os_name' => 'privacy:metadata:os_name',
-                'os_version' => 'privacy:metadata:os_version',
-
-                'lastip' => 'privacy:metadata:lastip',
-                'city_name' => 'privacy:metadata:city_name',
-                'country_name' => 'privacy:metadata:country_name',
-                'country_code' => 'privacy:metadata:country_code',
-                'latitude' => 'privacy:metadata:latitude',
-                'longitude' => 'privacy:metadata:longitude',
-            ],
-            'privacy:metadata:local_kopere_bi_statistic'
-        );
         return $collection;
     }
 
@@ -116,7 +91,6 @@ class provider implements
 
         $contextlist = new contextlist();
         $contextlist->add_from_sql(sprintf($sql, 'local_kopere_bi_online'), ['userid' => $userid]);
-        $contextlist->add_from_sql(sprintf($sql, 'local_kopere_bi_statistic'), ['userid' => $userid]);
 
         return $contextlist;
     }
@@ -141,7 +115,6 @@ class provider implements
                  WHERE ctx.instanceid = :contextid";
 
         $userlist->add_from_sql(sprintf($sql, 'local_kopere_bi_online'), ['contextid' => $context->id]);
-        $userlist->add_from_sql(sprintf($sql, 'local_kopere_bi_statistic'), ['contextid' => $context->id]);
     }
 
     /**
@@ -215,7 +188,6 @@ class provider implements
 
         $where = ['userid' => $context->instanceid];
         $DB->delete_records_select('local_kopere_bi_online', 'userid = :userid', $where);
-        $DB->delete_records_select('local_kopere_bi_statistic', 'userid = :userid', $where);
     }
 
     /**
@@ -236,7 +208,6 @@ class provider implements
         $where = ['userid' => $context->instanceid];
 
         $DB->delete_records_select('local_kopere_bi_online', 'userid = :userid', $where);
-        $DB->delete_records_select('local_kopere_bi_statistic', 'userid = :userid', $where);
     }
 
     /**
@@ -256,6 +227,5 @@ class provider implements
 
         $where = ['userid' => $context->instanceid];
         $DB->delete_records_select('local_kopere_bi_online', 'userid = :userid', $where);
-        $DB->delete_records_select('local_kopere_bi_statistic', 'userid = :userid', $where);
     }
 }
