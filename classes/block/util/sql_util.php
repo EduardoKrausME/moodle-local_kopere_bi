@@ -168,8 +168,13 @@ class sql_util {
         }
 
         if ($koperebielement->type == "table") {
+            $a = [
+                "wwwroot" => $CFG->wwwroot,
+                "replace_keys" => filter::get_replace_keys(),
+                "subplugintype_bifilters_title" => get_string("subplugintype_bifilters_title", "local_kopere_bi"),
+            ];
             return
-                message::info(get_string("sql_replace_keys2_table", "local_kopere_bi", filter::get_replace_keys()) . $extra) .
+                message::info(get_string("sql_replace_keys2_table", "local_kopere_bi", $a) . $extra) .
                 message::warning(get_string("sql_read_only", "local_kopere_bi"));
         } else {
             return
