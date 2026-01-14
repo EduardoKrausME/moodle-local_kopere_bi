@@ -64,20 +64,17 @@ define(["jquery", "jqueryui", "core/modal_factory", "local_kopere_dashboard/data
                         }
 
                         dataTables_init.init(`${popupid}-table`, {
-                            autoWidth: false,
+                            autoWidth: true,
+                            export_title: false,
                             columns: columns,
                             columnDefs: defaultColumnDefs,
-                            export_title: false,
                             order: [[1, "asc"]],
-                            processing: true,
-                            serverSide: true,
                             ajax: {
                                 url: urlajax,
                                 type: "POST",
                                 dataType: "json",
                             }
                         });
-
                         dataTables_init.click(`${popupid}-table`, ["id"], urlclick);
                     });
                 }
