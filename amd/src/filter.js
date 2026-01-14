@@ -51,9 +51,6 @@ define(["jquery", "jqueryui", "core/modal_factory", "local_kopere_dashboard/data
                         var urlajax = $(`#${popupid}-btn-open`).attr("data-urlajax");
                         var urlclick = $(`#${popupid}-btn-open`).attr("data-urlclick");
 
-                        console.log(urlajax);
-                        console.log(urlclick);
-
                         $(`#${popupid}-datatable-select`).remove();
 
                         var defaultColumnDefs = [
