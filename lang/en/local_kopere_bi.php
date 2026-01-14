@@ -323,9 +323,9 @@ $string['sql_replace_keys2_table'] = '<h4>Filters</h4>
 $string['sql_replace_keys_mdl'] = '<h4>Database prefix</h4>
 <p>You can always use the <code>mdl_</code> prefix even if your database uses the <code>{$a}</code> prefix.
         Kopere BI will handle this replacement.</p>';
-$string['subplugintype_biblocks_title'] = 'Kopere By Blocks plugins';
-$string['subplugintype_biblocks_plural'] = 'Blocks plugins';
 $string['subplugintype_bifilters_plural'] = 'Filters plugins';
+$string['subplugintype_biblocks_plural'] = 'Blocks plugins';
+$string['subplugintype_biblocks_title'] = 'Kopere By Blocks plugins';
 $string['subplugintype_bifilters_title'] = 'Kopere By Filters plugins';
 $string['theme_palette_default'] = 'Default Palette';
 $string['theme_palette_desc'] = 'Palette colors:';
