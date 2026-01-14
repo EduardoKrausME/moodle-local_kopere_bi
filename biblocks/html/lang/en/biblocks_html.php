@@ -17,14 +17,13 @@
 /**
  * Lang file
  *
- * @package   biblocks_html
+ * @package   local_kopere_bi
  * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 $string['pluginname'] = 'HTML Block';
 $string['pluginname_desc'] = 'Displays an HTML Block with data coming from the database';
-$string['html_block'] = 'HTML Block with Mustache support';
 $string['html_block_desc'] = '<p>The HTML added to this field should follow the <strong>Mustache</strong> format, allowing dynamic data substitution in your pages. Use double braces <code>{{ }}</code> to reference SQL column values directly in the HTML, ensuring that the data is correctly inserted.</p>
 <blockquote>
     <p>For example, using the following SQL query:</p>
@@ -52,3 +51,4 @@ $string['html_block_desc'] = '<p>The HTML added to this field should follow the 
 </blockquote>
 <p>Triple braces <code>{{{ }}}</code> allow the value to be inserted without escaping HTML, which is useful for displaying content that may contain HTML tags.</p>
 <p>For more information on using Mustache templates in Moodle, see the official documentation: <a href="https://moodledev.io/docs/guides/templates" target="_blank">Moodle Templates Guide</a>.</p>';
+$string['html_block'] = 'HTML Block with Mustache support';
