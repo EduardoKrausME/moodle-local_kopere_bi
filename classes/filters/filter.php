@@ -20,7 +20,6 @@ use Exception;
 use local_kopere_bi\block\util\sql_util;
 use local_kopere_bi\plugininfo\bifilters;
 use local_kopere_bi\vo\external_report;
-use local_kopere_dashboard\util\url_util;
 
 /**
  * Class filter
