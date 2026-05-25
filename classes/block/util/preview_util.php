@@ -29,7 +29,7 @@ use local_kopere_dashboard\util\message;
  * Class preview_util
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class preview_util {
@@ -139,7 +139,7 @@ class preview_util {
 
                 if ($PAGE->user_is_editing() && has_capability("local/kopere_bi:manage", context_system::instance())) {
                     $title .= button::edit(get_string("edit_report", "local_kopere_bi"),
-                        "?classname=bi-dashboard&method=type_block_edit&item_id={$koperebielement->id}", 'ml-2', false, true);
+                        "?classname=dashboard&method=type_block_edit&item_id={$koperebielement->id}", 'ml-2', false, true);
                 }
 
                 /** @var i_block_provider $block */
@@ -164,7 +164,7 @@ class preview_util {
                 }
 
             } else {
-                message::print_danger(get_string("block_not_found", "local_kopere_bi"));
+                $return .= message::danger(get_string("block_not_found", "local_kopere_bi"));
             }
 
             $return .= scss_util::build_css($koperebielement);

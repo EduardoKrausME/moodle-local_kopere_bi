@@ -21,15 +21,14 @@ use local_kopere_bi\block\i_block_provider;
 use local_kopere_bi\block\util\code_util;
 use local_kopere_bi\block\util\database_util;
 use local_kopere_bi\block\util\sql_util;
-use local_kopere_dashboard\html\form;
+use local_kopere_bi\form\dynamic_moodleform;
 use local_kopere_dashboard\util\message;
-use local_kopere_dashboard\util\url_util;
 
 /**
  * Class maps
  *
  * @package   biblocks_maps
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements i_block_provider {
@@ -67,15 +66,16 @@ class provider implements i_block_provider {
     /**
      * Function edit
      *
-     * @param form $form
+     * @param dynamic_moodleform $form
      * @param $koperebielement
      * @return void
      * @throws Exception
      * @throws Exception
      */
-    public function edit(form $form, $koperebielement) {
+    public function edit(dynamic_moodleform $form, $koperebielement) {
 
-        message::print_warning(get_string("maps_sql_warning", "biblocks_maps"));
+        $html = message::warning(get_string("maps_sql_warning", "biblocks_maps"));
+        $form->add_html($html);
 
         code_util::input_commandsql($form, $koperebielement, false);
     }
@@ -92,11 +92,11 @@ class provider implements i_block_provider {
     /**
      * Function edit_columns
      *
-     * @param form $form
+     * @param dynamic_moodleform $form
      * @param $koperebielement
      * @return void
      */
-    public function edit_columns(form $form, $koperebielement) {
+    public function edit_columns(dynamic_moodleform $form, $koperebielement) {
     }
 
     /**
@@ -111,7 +111,7 @@ class provider implements i_block_provider {
         $id = uniqid();
 
         $param = ["item_id" => $koperebielement->id, "theme" => $koperebielement->theme];
-        $url = urlencode(url_util::makeurl("bi-chart_data", "load_data", $param, "view-ajax"));
+        $url = urlencode("view-ajax.php?classname=chart_data&method=load_data&" . http_build_query($param, "", "&"));
 
         $urlresource = urlencode("{$CFG->wwwroot}/local/kopere_bi/biblocks/maps/assets/resource/");
 

@@ -18,7 +18,7 @@
  * lang en file
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -63,6 +63,8 @@ $string['cachedef_block_chart_data_none'] = 'Cache of chart data with no data';
 $string['cachedef_ip_user_location'] = 'Cache of user location by IP';
 $string['cachedef_mustache_nosql'] = 'Cache of Mustache data for NoSQL';
 $string['cachedef_mustache_sql'] = 'Cache of Mustache data for SQL';
+$string['cap_manage_desc'] = 'Allows the user to create, edit, import, export, and manage Kopere BI dashboards.';
+$string['cap_view_desc'] = 'Allows the user to view Kopere BI dashboards inside Moodle and Kopere Dashboard.';
 $string['case_complete'] = 'Complete';
 $string['case_incomplete'] = 'Incomplete';
 $string['case_never_accessed'] = 'Never accessed';
@@ -95,6 +97,9 @@ $string['completion_status'] = 'Tracking';
 $string['completionstate_status'] = 'Completion';
 $string['country_name'] = 'Country';
 $string['course_completed'] = 'Completion percentage';
+$string['courses_enrol'] = 'Nº of enrolled students';
+$string['courses_name'] = 'Course Name';
+$string['courses_shortname'] = 'Short Name';
 $string['create'] = 'Create';
 $string['create_report'] = 'Create report';
 $string['css_extra'] = 'Extra CSS';
@@ -134,6 +139,7 @@ $string['l_ip'] = 'IP';
 $string['l_origin'] = 'Origin';
 $string['l_timecreated'] = 'Created on';
 $string['loading'] = 'Loading...';
+$string['menu_desc'] = 'Dashboards and reports created with Kopere BI.';
 $string['module_count'] = 'Module count';
 $string['module_name'] = 'Module name';
 $string['modulename'] = 'Kopere BI';
@@ -275,6 +281,8 @@ $string['report_new'] = 'New report for "{$a}"';
 $string['report_preview'] = 'Preview report';
 $string['report_save'] = 'Save & go to column configuration';
 $string['report_title'] = 'Report title';
+$string['reports_report_user-4'] = 'Student logins report';
+$string['reports_report_user-5'] = 'Users who have never logged in';
 $string['reports_selectcourse'] = 'Select the course to generate the report';
 $string['reports_selectuser'] = 'Select the student to generate the report';
 $string['return_edit'] = '<< Return to edit';
@@ -289,7 +297,6 @@ $string['setting_apex'] = 'Apex Charts settings';
 $string['setting_apex_desc'] = 'Only edit if you are familiar with Apex Charts. See more at <a target="_blank" href="https://apexcharts.com/docs/series/">apexcharts.com/docs</a>';
 $string['sql_no_rows'] = 'The SQL returned 0 rows. To configure the columns, the SQL query must return at least 1 row.';
 $string['sql_read_only'] = 'All SQL queries are protected by a read-only connection, and it is not possible to execute INSERT/UPDATE/DELETE commands.';
-
 $string['sql_replace_keys2_others'] = '<h4>Replacement keys</h4>
 <ul>
     {$a}
@@ -300,12 +307,11 @@ $string['sql_replace_keys2_others'] = '<h4>Replacement keys</h4>
 <p>Where:</p>
 <ul>
     <li><b>{identifier}</b>: Represents the string identifier, which will be used to fetch the translation from the language pack.</li>
-    <li><b>{component}</b>: Refers to the component where the language string is defined and is typically the name of the plugin (e.g., <code>mod_forum</code>, <code>local_kopere_dashboard</code>).</li>
+    <li><b>{component}</b>: Refers to the component where the language string is defined and is typically the name of the plugin (e.g., <code>mod_forum</code>, <code>your_plugin</code>).</li>
 </ul>
 <p><em>Example: If you need to return a translated string for the <code>mod_forum</code> component with the identifier <code>postmessage</code>, the return should be structured as follows:</em></p>
 <pre>SELECT \'<b>lang::postmessage::mod_forum</b>\' FROM mdl_forum</pre>
-<p>Visit the <a href="?classname=bi-extra_langs&method=index" target="_blank">strings page</a> to see all available strings.</p>';
-
+<p>Visit the <a href="?classname=extra_langs&method=index" target="_blank">strings page</a> to see all available strings.</p>';
 $string['sql_replace_keys2_table'] = '<h4>Filters</h4>
 <p>The <code>:xxxx</code> parameter from the list below can be used to add customization to SQL queries in Moodle. When included in the SQL, Kopere BI automatically identifies this parameter and generates a corresponding filter in the plugin, allowing data personalization per student.</p>
 <ul>{$a->replace_keys}</ul>
@@ -323,12 +329,11 @@ $string['sql_replace_keys2_table'] = '<h4>Filters</h4>
 <p>Where:</p>
 <ul>
     <li><b>{identifier}</b>: Represents the string identifier, which will be used to fetch the translation from the language pack.</li>
-    <li><b>{component}</b>: Refers to the component where the language string is defined and is typically the name of the plugin (e.g., <code>mod_forum</code>, <code>local_kopere_dashboard</code>).</li>
+    <li><b>{component}</b>: Refers to the component where the language string is defined and is typically the name of the plugin (e.g., <code>mod_forum</code>, <code>your_plugin</code>).</li>
 </ul>
 <p><em>Example: If you need to return a translated string for the <code>mod_forum</code> component with the identifier <code>postmessage</code>, the return should be structured as follows:</em></p>
 <pre>SELECT \'<b>lang::postmessage::mod_forum</b>\' FROM mdl_forum</pre>
-<p>Visit the <a href="?classname=bi-extra_langs&method=index" target="_blank">strings page</a> to see all available strings.</p>';
-
+<p>Visit the <a href="?classname=extra_langs&method=index" target="_blank">strings page</a> to see all available strings.</p>';
 $string['sql_replace_keys_mdl'] = '<h4>Database prefix</h4>
 <p>You can always use the <code>mdl_</code> prefix even if your database uses the <code>{$a}</code> prefix.
         Kopere BI will handle this replacement.</p>';
@@ -355,6 +360,10 @@ $string['ue_timeend'] = 'Enrollment ends on';
 $string['ul_timeaccess'] = 'Last access';
 $string['unknown'] = 'Unknown';
 $string['use_this_type'] = 'Use this type';
+$string['user_table_email'] = 'E-mail';
+$string['user_table_fullname'] = 'Name';
+$string['user_table_username'] = 'Username';
+$string['visible'] = 'Visible';
 $string['word_extra_00'] = '';
 $string['word_extra_01'] = '';
 $string['word_extra_02'] = '';

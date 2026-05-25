@@ -18,7 +18,7 @@
  * Lang file
  *
  * @package   biblocks_line
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -28,7 +28,7 @@ $string['line_sql_warning'] = '<p>Remember that the SQL below must return with t
     <li>The other columns should be structured as follows:
         <ul>
             <li>The column name will be used as the series name. You can use translation strings as explained on the
-                <a href="?classname=bi-extra_langs&method=index" target="_blank">strings page</a>.</li>
+                <a href="?classname=extra_langs&method=index" target="_blank">strings page</a>.</li>
             <li>The column value will represent the series data in the chart.</li>
         </ul>
     </li>

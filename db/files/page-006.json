@@ -15,7 +15,7 @@
       "sequence": 1,
       "elements": [
         {
-          "title": "lang::reports_report_user-5::local_kopere_dashboard",
+          "title": "lang::reports_report_user-5::local_kopere_bi",
           "refkey": "reports_report_user-5",
           "block_num": 1,
           "type": "table",
@@ -36,7 +36,7 @@
       "sequence": 2,
       "elements": [
         {
-          "title": "lang::reports_report_user-4::local_kopere_dashboard",
+          "title": "lang::reports_report_user-4::local_kopere_bi",
           "refkey": "reports_report_user-4",
           "block_num": 1,
           "type": "table",

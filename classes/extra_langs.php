@@ -18,8 +18,7 @@ namespace local_kopere_bi;
 
 use Exception;
 use local_kopere_bi\form\extra_langs_changue_component;
-use local_kopere_dashboard\html\form;
-use local_kopere_dashboard\util\dashboard_util;
+use local_kopere_bi\form\dynamic_moodleform;
 use local_kopere_dashboard\util\header;
 use tool_customlang_utils;
 
@@ -27,7 +26,7 @@ use tool_customlang_utils;
  * Class extra langs
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class extra_langs extends bi_all {
@@ -46,10 +45,29 @@ class extra_langs extends bi_all {
             $userlang = $USER->lang;
         }
 
-        dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"), "?classname=bi-dashboard&method=start");
-        dashboard_util::start_page();
-
         $component = optional_param("component", "local_kopere_bi", PARAM_TEXT);
+
+        if ($component == "local_kopere_bi" && dynamic_moodleform::check_post()) {
+            tool_customlang_utils::checkout($userlang);
+            $toolcustomlangcomponent = $DB->get_record("tool_customlang_components", ["name" => "local_kopere_bi"]);
+
+            for ($i = 0; $i < 80; $i++) {
+                $identifier = "word_extra_" . substr("0{$i}", -2);
+                $toolcustomlang = $DB->get_record("tool_customlang", [
+                    "lang" => $userlang,
+                    "componentid" => $toolcustomlangcomponent->id,
+                    "stringid" => $identifier,
+                ]);
+                $toolcustomlang->local = optional_param($identifier, "", PARAM_TEXT);
+                $toolcustomlang->timecustomized = time();
+                $toolcustomlang->modified = 1;
+
+                $DB->update_record("tool_customlang", $toolcustomlang);
+            }
+            tool_customlang_utils::checkin($userlang);
+
+            header::location("?{$_SERVER["QUERY_STRING"]}");
+        }
 
         $url = new \moodle_url($PAGE->url, [
             "classname" => required_param("classname", PARAM_TEXT),
@@ -59,7 +77,11 @@ class extra_langs extends bi_all {
         $filter->set_data([
             "component" => $component,
         ]);
+
+        $return = "";
+        ob_start();
         $filter->display();
+        $return .= ob_get_clean();
 
         tool_customlang_utils::checkout($userlang);
 
@@ -73,6 +95,7 @@ class extra_langs extends bi_all {
             "lang" => $userlang,
         ]);
 
+        $existinginlang = [];
         foreach ($langs as $lang) {
             if (isset($lang->original[40])) {
                 continue;
@@ -83,35 +106,12 @@ class extra_langs extends bi_all {
             ];
         }
 
-        echo $OUTPUT->render_from_template("local_kopere_bi/extra_langs_existinginlang_index", [
+        $return .= $OUTPUT->render_from_template("local_kopere_bi/extra_langs_existinginlang_index", [
             "existinginlang" => $existinginlang,
             "component" => $component,
         ]);
 
         if ($component == "local_kopere_bi") {
-
-            if (form::check_post()) {
-                $toolcustomlangcomponent = $DB->get_record("tool_customlang_components", ["name" => "local_kopere_bi"]);
-
-                for ($i = 0; $i < 80; $i++) {
-                    $identifier = "word_extra_" . substr("0{$i}", -2);
-                    $toolcustomlang = $DB->get_record("tool_customlang", [
-                        "lang" => $userlang,
-                        "componentid" => $toolcustomlangcomponent->id,
-                        "stringid" => $identifier,
-                    ]);
-                    $toolcustomlang->local = optional_param($identifier, "", PARAM_TEXT);
-                    $toolcustomlang->timecustomized = time();
-                    $toolcustomlang->modified = 1;
-
-                    $DB->update_record("tool_customlang", $toolcustomlang);
-                }
-                tool_customlang_utils::checkin($userlang);
-
-                header::location("?{$_SERVER["QUERY_STRING"]}");
-            }
-            tool_customlang_utils::checkout($userlang);
-
             $customs = [];
             $countempty = 0;
             for ($i = 0; $i < 80; $i++) {
@@ -132,17 +132,16 @@ class extra_langs extends bi_all {
                 }
             }
 
-            $form = new form("?{$_SERVER["QUERY_STRING"]}");
-            echo $OUTPUT->render_from_template("local_kopere_bi/extra_langs_custom_index", [
+            $form = new dynamic_moodleform("?{$_SERVER["QUERY_STRING"]}");
+            $form->add_html($OUTPUT->render_from_template("local_kopere_bi/extra_langs_custom_index", [
                 "customs" => $customs,
                 "component" => $component,
-            ]);
-
+            ]));
             $form->create_submit_input(get_string("save", "local_kopere_bi"));
 
-            $form->close();
+            $return .= $form->render();
         }
 
-        dashboard_util::end_page();
+        return $return;
     }
 }

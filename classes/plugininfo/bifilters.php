@@ -18,7 +18,7 @@
  * Plugininfo for bifilters_* subplugins.
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

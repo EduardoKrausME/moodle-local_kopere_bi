@@ -18,9 +18,11 @@
  * upgrade file
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+use local_kopere_bi\install\reports;
 
 /**
  * Function xmldb_local_kopere_bi_upgrade
@@ -63,6 +65,16 @@ function xmldb_local_kopere_bi_upgrade($oldversion) {
         import_reports();
 
         upgrade_plugin_savepoint(true, 2025011001, "local", "kopere_bi");
+    }
+
+    if ($oldversion < 2026052400) {
+        // Load report pages.
+        $pagefiles = glob(__DIR__ . "/files/page-*.json");
+        foreach ($pagefiles as $pagefile) {
+            reports::from_file($pagefile);
+        }
+
+        upgrade_plugin_savepoint(true, 2026052400, "local", "kopere_bi");
     }
 
     return true;

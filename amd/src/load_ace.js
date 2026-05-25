@@ -17,7 +17,7 @@
  * load_ace file
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -25,21 +25,25 @@ define(["jquery"], function($) {
     return {
 
         getScript : function(id_key, type, minLines) {
+            return;
             $.getScript("https://ajaxorg.github.io/ace-builds/src-min-noconflict/ace.js", function() {
                 var html = `
                     <div id="editor_${id_key}_area">
-                        <div id='editor_${id_key}' style='width:100%;height:300px;'>${inputhtml}</div>
+                        <div id='editor_${id_key}' style='width:100%;height:300px;'></div>
                     </div>`;
                 var inputhtml = $(`#${id_key}`)
-                    .hide()
+                    // .hide()
                     .after(html)
                     .val();
-                var editorDiv = $(`#editor_${id_key}`);
+
+                $(`#editor_${id_key}`).html(inputhtml);
+                console.log([id_key, type, minLines]);
 
                 var editor = ace.edit(`editor_${id_key}`);
-                editor.setTheme(`ace/theme/textmate`);
-                editor.getSession().setMode(`ace/mode/${type}`);
-                editor.setValue(inputhtml);
+                return;
+                // editor.setTheme(`ace/theme/textmate`);
+                // editor.getSession().setMode(`ace/mode/${type}`);
+                // editor.setValue(inputhtml);
 
                 editor.session.on("change", function(delta) {
                     $(`#${id_key}`).val(editor.getValue());
@@ -49,7 +53,7 @@ define(["jquery"], function($) {
                     if (newHeight < 100) {
                         newHeight = 100;
                     }
-                    editorDiv.height(newHeight);
+                    $(`#editor_${id_key}`).height(newHeight);
                     editor.resize();
                 });
                 editor.session.on("changeAnnotation", function() {

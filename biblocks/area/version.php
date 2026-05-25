@@ -18,17 +18,17 @@
  * Version file
  *
  * @package   biblocks_area
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = "biblocks_area";
-$plugin->version   = 2025112001;
+$plugin->version = 2025112001;
 $plugin->requires = 2021041900;
-$plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = "1.0.0";
+$plugin->maturity = MATURITY_STABLE;
+$plugin->release = "1.0.0";
 
 $plugin->dependencies = [
     "biblocks_line" => 2025112001,

@@ -31,21 +31,19 @@ use local_kopere_bi\vo\local_kopere_bi_cat;
 use local_kopere_bi\vo\local_kopere_bi_element;
 use local_kopere_bi\vo\local_kopere_bi_page;
 use local_kopere_dashboard\html\button;
-use local_kopere_dashboard\html\form;
-use local_kopere_dashboard\html\inputs\input_select;
-use local_kopere_dashboard\html\inputs\input_text;
-use local_kopere_dashboard\html\inputs\input_textarea;
-use local_kopere_dashboard\util\dashboard_util;
+use local_kopere_bi\form\dynamic_moodleform;
+use local_kopere_bi\form\input_select;
+use local_kopere_bi\form\input_text;
+use local_kopere_bi\form\input_textarea;
 use local_kopere_dashboard\util\header;
 use local_kopere_dashboard\util\html;
 use local_kopere_dashboard\util\message;
-use local_kopere_dashboard\util\url_util;
 
 /**
  * Class dashboard
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class dashboard extends bi_all {
@@ -56,10 +54,7 @@ class dashboard extends bi_all {
      * @throws Exception
      */
     public function start() {
-        global $DB, $CFG, $OUTPUT, $USER;
-
-        dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"), "?classname=bi-dashboard&method=start");
-        dashboard_util::start_page();
+        global $DB, $CFG, $OUTPUT, $USER, $PAGE;
 
         $koperebicats = $DB->get_records("local_kopere_bi_cat", null, "sortorder ASC");
         $categorys = [];
@@ -79,7 +74,7 @@ class dashboard extends bi_all {
                     "page_id" => $koperebipage->id,
                     "page_title" => string_util::get_string($koperebipage->title),
 
-                    "is_user_fullname" => (bool)strlen($userfullname),
+                    "is_user_fullname" => (bool) strlen($userfullname),
                     "user_fullname" => $userfullname,
                     "description" => string_util::get_string($koperebipage->description),
                 ];
@@ -93,13 +88,11 @@ class dashboard extends bi_all {
             ];
         }
 
-        echo $OUTPUT->render_from_template("local_kopere_bi/dashboard-start", [
+        return $OUTPUT->render_from_template("local_kopere_bi/dashboard-start", [
             "categorys" => $categorys,
             "editing" => isset($USER->editing) ? $USER->editing : 0,
             "wwwroot" => $CFG->wwwroot,
         ]);
-
-        dashboard_util::end_page();
     }
 
     /**
@@ -108,7 +101,7 @@ class dashboard extends bi_all {
      * @throws Exception
      */
     public function edit() {
-        global $DB;
+        global $DB, $PAGE;
 
         $pageid = optional_param("page_id", false, PARAM_INT);
         $pagetitle = optional_param("page_title", false, PARAM_TEXT);
@@ -121,17 +114,17 @@ class dashboard extends bi_all {
             header::notfound_null($page, get_string("page_not_found", "local_kopere_bi"));
             $title = get_string("page_edit", "local_kopere_bi", string_util::get_string($page->title));
 
-            if (form::check_post() && isset($pagetitle[3])) {
+            if (dynamic_moodleform::check_post() && isset($pagetitle[3])) {
                 $page->cat_id = $catid;
                 $page->title = $pagetitle;
                 $page->description = $pagedescription;
 
                 $DB->update_record("local_kopere_bi_page", $page);
-                header::location("?classname=bi-dashboard&method=edit_page&page_id={$page->id}");
+                header::location("?classname=dashboard&method=edit_page&page_id={$page->id}");
             }
 
         } else {
-            $page = (object)[
+            $page = (object) [
                 "id" => 0,
                 "cat_id" => $catid,
                 "title" => $pagetitle,
@@ -140,21 +133,21 @@ class dashboard extends bi_all {
             ];
             $title = get_string("page_new_cat", "local_kopere_bi");
 
-            if (form::check_post() && isset($pagetitle[3])) {
+            if (dynamic_moodleform::check_post() && isset($pagetitle[3])) {
                 unset($page->id);
 
                 $page->refkey = html::link($page->title);
                 $page->id = $DB->insert_record("local_kopere_bi_page", $page);
-                header::location("?classname=bi-dashboard&method=edit_page&page_id={$page->id}");
+                header::location("?classname=dashboard&method=edit_page&page_id={$page->id}");
             }
         }
 
-        dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"), "?classname=bi-dashboard&method=start");
-        dashboard_util::add_breadcrumb($title);
-        dashboard_util::start_page();
+        $PAGE->navbar->add($title);
+        $PAGE->set_title($title);
 
-        echo '<div class="element-box">';
-        $form = new form("?classname=bi-dashboard&method=edit&page_id={$page->id}");
+        $return = "";
+        $return .= '<div class="element-box">';
+        $form = new dynamic_moodleform("?classname=dashboard&method=edit&page_id={$page->id}");
 
         $koperebicats = $DB->get_records("local_kopere_bi_cat", null, "title ASC");
         foreach ($koperebicats as $key => $koperebicat) {
@@ -184,13 +177,15 @@ class dashboard extends bi_all {
         );
 
         if ($pageid) {
-            $form->create_submit_input(get_string("save", "local_kopere_bi"), "button");
+            $form->create_submit_input(get_string("save", "local_kopere_bi"));
         } else {
-            $form->create_submit_input(get_string("create", "local_kopere_bi"), "button");
+            $form->create_submit_input(get_string("create", "local_kopere_bi"));
         }
 
-        echo "</div>";
-        dashboard_util::end_page();
+        $return .= $form->render();
+        $return .= "</div>";
+
+        return $return;
     }
 
     /**
@@ -199,7 +194,7 @@ class dashboard extends bi_all {
      * @throws Exception
      */
     public function edit_cat() {
-        global $DB;
+        global $DB, $PAGE;
 
         $catid = optional_param("cat_id", 0, PARAM_INT);
         $cattitle = optional_param("cat_title", false, PARAM_TEXT);
@@ -211,36 +206,35 @@ class dashboard extends bi_all {
             header::notfound_null($cat, get_string("cat_not_found", "local_kopere_bi"));
             $title = get_string("cat_edit", "local_kopere_bi", string_util::get_string($cat->title));
 
-            if (form::check_post() && isset($cattitle[3])) {
+            if (dynamic_moodleform::check_post() && isset($cattitle[3])) {
                 $cat->title = $cattitle;
                 $cat->description = $catdescription;
 
                 $DB->update_record("local_kopere_bi_cat", $cat);
-                header::location("?classname=bi-dashboard&method=start");
+                header::location("?classname=dashboard&method=start");
             }
         } else {
-            $cat = (object)[
+            $cat = (object) [
                 "id" => 0,
                 "title" => $cattitle,
                 "description" => $catdescription,
             ];
             $title = get_string("cat_new", "local_kopere_bi");
 
-            if (form::check_post() && isset($cattitle[3])) {
+            if (dynamic_moodleform::check_post() && isset($cattitle[3])) {
                 unset($cat->id);
 
                 $cat->refkey = html::link($cat->title);
                 $cat->id = $DB->insert_record("local_kopere_bi_cat", $cat);
-                header::location("?classname=bi-dashboard&method=start");
+                header::location("?classname=dashboard&method=start");
             }
         }
 
-        dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"), "?classname=bi-dashboard&method=start");
-        dashboard_util::add_breadcrumb($title);
-        dashboard_util::start_page();
+        $PAGE->navbar->add($title);
 
-        echo '<div class="element-box">';
-        $form = new form("?classname=bi-dashboard&method=edit_cat&cat_id={$cat->id}");
+        $return = "";
+        $return .= '<div class="element-box">';
+        $form = new dynamic_moodleform("?classname=dashboard&method=edit_cat&cat_id={$cat->id}");
 
         $form->add_input(
             input_text::new_instance()
@@ -258,13 +252,14 @@ class dashboard extends bi_all {
         );
 
         if ($catid) {
-            $form->create_submit_input(get_string("save", "local_kopere_bi"), "button");
+            $form->create_submit_input(get_string("save", "local_kopere_bi"));
         } else {
-            $form->create_submit_input(get_string("create", "local_kopere_bi"), "button");
+            $form->create_submit_input(get_string("create", "local_kopere_bi"));
         }
 
-        echo "</div>";
-        dashboard_util::end_page();
+        $return .= $form->render();
+        $return .= "</div>";
+        return $return;
     }
 
     /**
@@ -273,7 +268,7 @@ class dashboard extends bi_all {
      * @throws Exception
      */
     public function delete_cat() {
-        global $DB;
+        global $DB, $PAGE;
 
         $catid = optional_param("cat_id", 0, PARAM_INT);
         $status = optional_param("status", false, PARAM_TEXT);
@@ -294,27 +289,31 @@ class dashboard extends bi_all {
             }
             $DB->delete_records("local_kopere_bi_cat", ["id" => $cat->id]);
 
-            header::location(url_util::makeurl("bi-dashboard", "start"));
+            header::location("?classname=dashboard&method=start");
         } else {
-
-            dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"), "?classname=bi-dashboard&method=start");
-            dashboard_util::add_breadcrumb(string_util::get_string($cat->title));
-            dashboard_util::add_breadcrumb(get_string("delete"));
-            dashboard_util::start_page();
+            $PAGE->navbar->add(string_util::get_string($cat->title));
+            $PAGE->navbar->add(get_string("delete"));
+            $PAGE->set_title(get_string("delete"));
 
             $title = string_util::get_string($cat->title);
-            echo "<div class='element-box'>
+            $return = "";
+            $return .= "<div class='element-box'>
                           <h3>" . get_string("category_delete_confirm", "local_kopere_bi") . "</h3>
                           <p>" . get_string("category_delete_message", "local_kopere_bi", $title) . "</p>
                           <div>";
-            button::delete(get_string("yes"),
-                url_util::makeurl("bi-dashboard", "delete_cat", ["cat_id" => $cat->id, "status" => "sim"]), "", false);
-            button::add(get_string("no"),
-                url_util::makeurl("bi-dashboard", "start"), "margin-left-10", false);
-            echo "    </div>
+            button::delete(
+                get_string("yes"),
+                "view-ajax.php?classname=dashboard&method=delete_cat&" .
+                http_build_query(["cat_id" => $cat->id, "status" => "sim"], "", "&"), "", false
+            );
+            button::add(
+                get_string("no"),
+                "?classname=dashboard&method=start", "margin-left-10", false
+            );
+            $return .= "    </div>
                       </div>";
 
-            dashboard_util::end_page();
+            return $return;
         }
     }
 
@@ -331,34 +330,42 @@ class dashboard extends bi_all {
         $koperebipage = $DB->get_record("local_kopere_bi_page", ["id" => $pageid]);
         header::notfound_null($koperebipage, get_string("page_not_found", "local_kopere_bi"));
 
-        dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"), "?classname=bi-dashboard&method=start");
-        dashboard_util::add_breadcrumb(string_util::get_string($koperebipage->title),
-            "?classname=bi-dashboard&method=edit_page&page_id={$koperebipage->id}");
-        dashboard_util::start_page();
+        $title = string_util::get_string($koperebipage->title);
+        $PAGE->navbar->add(
+            $title,
+            "?classname=dashboard&method=edit_page&page_id={$koperebipage->id}"
+        );
+        $PAGE->set_title($title);
+
+        $return = "";
 
         if ($koperebipage->description) {
-            echo "<p>" . string_util::get_string($koperebipage->description) . "</p>";
+            $return .= "<p>" . string_util::get_string($koperebipage->description) . "</p>";
         }
 
-        echo $OUTPUT->render_from_template("local_kopere_bi/dashboard-topo-edit-page",
-            ["koperebipage_id" => $koperebipage->id]);
+        $return .= $OUTPUT->render_from_template(
+            "local_kopere_bi/dashboard-topo-edit-page",
+            ["koperebipage_id" => $koperebipage->id]
+        );
 
-        echo '<div class="element-box">';
+        $return .= '<div class="element-box">';
 
         $koperebiblocks = $DB->get_records("local_kopere_bi_block", ["page_id" => $koperebipage->id], "sequence ASC");
 
-        echo "<div>" . get_string("page_new_sequence", "local_kopere_bi") . "</div>";
-        echo "<div id='page-block-sort'>";
+        $return .= "<div>" . get_string("page_new_sequence", "local_kopere_bi") . "</div>";
+        $return .= "<div id='page-block-sort'>";
 
         /** @var local_kopere_bi_block $koperebiblock */
         foreach ($koperebiblocks as $koperebiblock) {
-            echo (new details_util())->html_details_block($koperebiblock);
+            $return .= (new details_util())->html_details_block($koperebiblock);
 
-            echo $OUTPUT->render_from_template("local_kopere_bi/dashboard-dialog-confirm-block",
-                ["koperebiblock_id" => $koperebiblock->id]);
+            $return .= $OUTPUT->render_from_template(
+                "local_kopere_bi/dashboard-dialog-confirm-block",
+                ["koperebiblock_id" => $koperebiblock->id]
+            );
         }
 
-        echo "</div>";
+        $return .= "</div>";
 
         $PAGE->requires->strings_for_js(["delete", "cancel"], "moodle");
         $PAGE->requires->strings_for_js(["block_add"], "local_kopere_bi");
@@ -366,11 +373,11 @@ class dashboard extends bi_all {
         $PAGE->requires->js_call_amd("local_kopere_bi/page-edit_page", "page_sortable", [$koperebipage->id]);
         $PAGE->requires->js_call_amd("local_kopere_bi/page-edit_page", "page_blocks", [$koperebipage->id]);
 
-        echo "</div>";
+        $return .= "</div>";
 
-        (new details_util())->html_details_add($koperebipage->id);
+        $return .= (new details_util())->html_details_add($koperebipage->id);
 
-        dashboard_util::end_page();
+        return $return;
     }
 
     /**
@@ -379,7 +386,7 @@ class dashboard extends bi_all {
      * @throws Exception
      */
     public function delete_page() {
-        global $DB;
+        global $DB, $PAGE;
 
         $pageid = optional_param("page_id", 0, PARAM_INT);
         $status = optional_param("status", false, PARAM_TEXT);
@@ -397,26 +404,31 @@ class dashboard extends bi_all {
 
             $DB->delete_records("local_kopere_bi_page", ["id" => $page->id]);
 
-            header::location(url_util::makeurl("bi-dashboard", "start"));
+            header::location("?classname=dashboard&method=start");
         } else {
+            $PAGE->navbar->add(string_util::get_string($page->title));
+            $PAGE->navbar->add(get_string("delete"));
+            $PAGE->set_title(get_string("delete"));
 
-            dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"), "?classname=bi-dashboard&method=start");
-            dashboard_util::add_breadcrumb(string_util::get_string($page->title));
-            dashboard_util::add_breadcrumb(get_string("delete"));
-            dashboard_util::start_page();
-
-            echo "<div class='element-box'>
+            $return = "";
+            $return .= "<div class='element-box'>
                           <h3>" . get_string("page_delete_confirm", "local_kopere_bi") . "</h3>
                           <p>" . get_string("page_delete_message", "local_kopere_bi", string_util::get_string($page->title)) . "</p>
                           <div>";
-            button::delete(get_string("yes"),
-                url_util::makeurl("bi-dashboard", "delete_page", ["page_id" => $page->id, "status" => "sim"]), "", false);
-            button::add(get_string("no"),
-                url_util::makeurl("bi-dashboard", "preview", ["page_id" => $page->id]), "margin-left-10", false);
-            echo "    </div>
+            button::delete(
+                get_string("yes"),
+                "view-ajax.php?classname=dashboard&method=delete_page&" .
+                http_build_query(["page_id" => $page->id, "status" => "sim"], "", "&"), "", false
+            );
+            button::add(
+                get_string("no"),
+                "view-ajax.php?classname=dashboard&method=preview&" . http_build_query(["page_id" => $page->id], "", "&"),
+                "margin-left-10", false
+            );
+            $return .= "    </div>
                       </div>";
 
-            dashboard_util::end_page();
+            return $return;
         }
     }
 
@@ -437,33 +449,41 @@ class dashboard extends bi_all {
         $context = context_system::instance();
         if ($PAGE->user_is_editing() && has_capability("local/kopere_bi:manage", $context)) {
             $editbooton =
-                button::add(get_string("page_edit", "local_kopere_bi"),
-                    "?classname=bi-dashboard&method=edit_page&page_id={$koperebipage->id}", "ml-2", false, true) .
-                button::delete(get_string("delete"),
-                    "?classname=bi-dashboard&method=delete_page&page_id={$koperebipage->id}", "ml-3", false, true);
+                button::add(
+                    get_string("page_edit", "local_kopere_bi"),
+                    "?classname=dashboard&method=edit_page&page_id={$koperebipage->id}", "ml-2", false, true
+                ) .
+                button::delete(
+                    get_string("delete"),
+                    "?classname=dashboard&method=delete_page&page_id={$koperebipage->id}", "ml-3", false, true
+                );
         }
 
-        dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"), "?classname=bi-dashboard&method=start");
-        dashboard_util::add_breadcrumb(string_util::get_string($koperebipage->title),
-            "?classname=bi-dashboard&method=edit_page&page_id={$koperebipage->id}",
-            $editbooton);
-        dashboard_util::start_page();
+        $title = string_util::get_string($koperebipage->title);
+        $PAGE->navbar->add(
+            $title,
+            "?classname=dashboard&method=edit_page&page_id={$koperebipage->id}",
+            $editbooton
+        );
+        $PAGE->set_title($title);
+
+        $return = "";
 
         if ($koperebipage->description) { // phpcs:disable
-            // echo "<p class='page-description'>" . string_util::get_string($koperebipage->description) . "</p>";
+            // $return.= "<p class='page-description'>" . string_util::get_string($koperebipage->description) . "</p>";
         }
 
         $koperebiblocks = $DB->get_records("local_kopere_bi_block", ["page_id" => $koperebipage->id], "sequence ASC");
 
-        echo filter::create_filter_page($koperebipage->id);
+        $return .= filter::create_filter_page($koperebipage->id);
 
         /** @var local_kopere_bi_block $koperebiblock */
         foreach ($koperebiblocks as $koperebiblock) {
             $preview = new preview_util();
-            echo $preview->details_block($koperebiblock);
+            $return .= $preview->details_block($koperebiblock);
         }
 
-        dashboard_util::end_page();
+        return $return;
     }
 
     /**
@@ -480,7 +500,7 @@ class dashboard extends bi_all {
         /** @var local_kopere_bi_element $koperebielement */
         $koperebielement = $DB->get_record("local_kopere_bi_element", ["block_id" => $blockid, "block_num" => $blocknum]);
         if ($koperebielement) {
-            header::location("?classname=bi-dashboard&method=type_block_edit&item_id={$koperebielement->id}");
+            header::location("?classname=dashboard&method=type_block_edit&item_id={$koperebielement->id}");
         }
 
         (new type_block())->select_type($blockid, $blocknum);
@@ -492,7 +512,7 @@ class dashboard extends bi_all {
      * @throws Exception
      */
     public function type_block_preview() {
-        global $DB;
+        global $DB, $PAGE;
 
         $elementid = optional_param("item_id", 0, PARAM_INT);
         /** @var local_kopere_bi_element $koperebielement */
@@ -509,37 +529,41 @@ class dashboard extends bi_all {
         $page = $DB->get_record("local_kopere_bi_page", ["id" => $block->page_id]);
         header::notfound_null($page, get_string("page_not_found", "local_kopere_bi"));
 
-        dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"), "?classname=bi-dashboard&method=start");
-        dashboard_util::add_breadcrumb(string_util::get_string($page->title),
-            "?classname=bi-dashboard&method=edit_page&page_id={$page->id}");
-        dashboard_util::add_breadcrumb(get_string("report_preview", "local_kopere_bi"));
-        dashboard_util::start_page();
+        $PAGE->navbar->add(
+            string_util::get_string($page->title),
+            "?classname=dashboard&method=edit_page&page_id={$page->id}"
+        );
+        $title = get_string("report_preview", "local_kopere_bi");
+        $PAGE->navbar->add($title);
+        $PAGE->set_title($title);
 
-        echo filter::create_filter($koperebielement->commandsql);
+        $return = "";
 
-        echo "<div class='chart-box' id='chart-box-{$koperebielement->id}'>";
-        echo "<div class='element-box theme-{$koperebielement->theme} type-{$koperebielement->type}'>";
+        $return .= filter::create_filter($koperebielement->commandsql);
 
-        echo "<h4 class='block-title type_block_preview'>" . string_util::get_string($koperebielement->title) . "</h4>";
+        $return .= "<div class='chart-box' id='chart-box-{$koperebielement->id}'>";
+        $return .= "<div class='element-box theme-{$koperebielement->theme} type-{$koperebielement->type}'>";
 
-        echo $koperebielement->html_before;
+        $return .= "<h4 class='block-title type_block_preview'>" . string_util::get_string($koperebielement->title) . "</h4>";
+
+        $return .= $koperebielement->html_before;
 
         $class = "\\biblocks_{$koperebielement->type}\\provider";
         if (class_exists($class)) {
             /** @var i_block_provider $block */
             $block = new $class();
-            echo $block->preview($koperebielement);
+            $return .= $block->preview($koperebielement);
         } else {
-            message::print_danger(get_string("block_not_found", "local_kopere_bi"));
+            $return .= message::danger(get_string("block_not_found", "local_kopere_bi"));
         }
 
-        echo renderer_bi_mustache::new_instance()->render_from_string($koperebielement->html_after);
+        $return .= renderer_bi_mustache::new_instance()->render_from_string($koperebielement->html_after);
 
-        echo scss_util::build_css($koperebielement);
+        $return .= scss_util::build_css($koperebielement);
 
-        echo "</div></div>";
+        $return .= "</div></div>";
 
-        dashboard_util::end_page();
+        return $return;
     }
 
     /**
@@ -548,7 +572,9 @@ class dashboard extends bi_all {
      * @throws Exception
      */
     public function type_block_edit() {
-        global $DB;
+        global $DB, $PAGE;
+
+        $return = "";
 
         require_capability("local/kopere_bi:manage", context_system::instance());
 
@@ -558,7 +584,7 @@ class dashboard extends bi_all {
             $koperebielement = $DB->get_record("local_kopere_bi_element", ["id" => $elementid]);
             header::notfound_null($koperebielement, get_string("item_not_found", "local_kopere_bi"));
         } else {
-            $koperebielement = (object)[
+            $koperebielement = (object) [
                 "title" => "",
                 "block_id" => optional_param("block_id", 0, PARAM_INT),
                 "block_num" => optional_param("block_num", 0, PARAM_INT),
@@ -580,44 +606,50 @@ class dashboard extends bi_all {
         /** @var i_block_provider $class */
         $class = "\\biblocks_{$koperebielement->type}\\provider";
         if (!class_exists($class)) {
-            message::print_danger(get_string("blocktype_not_found", "local_kopere_bi"));
+            $return .= message::danger(get_string("blocktype_not_found", "local_kopere_bi"));
         }
 
-        /** @var i_block_provider $block */
         $block = new $class();
 
         // Save the data.
         type_block::type_block_edit_salvar($koperebielement, $koperebipage, $block);
 
-        dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"), "?classname=bi-dashboard&method=start");
-        dashboard_util::add_breadcrumb(string_util::get_string($koperebipage->title),
-            "?classname=bi-dashboard&method=edit_page&page_id={$koperebipage->id}");
+        $PAGE->navbar->add(
+            string_util::get_string($koperebipage->title),
+            "?classname=dashboard&method=edit_page&page_id={$koperebipage->id}"
+        );
         if ($elementid) {
             /** @var i_block_provider $blockname */
             $blockname = "\\biblocks_{$koperebielement->type}\\provider";
             if (class_exists($blockname)) {
-                dashboard_util::add_breadcrumb(string_util::get_string($koperebielement->title) . ": {$blockname::get_name()}");
+                $title = string_util::get_string($koperebielement->title) . ": {$blockname::get_name()}";
+                $PAGE->navbar->add($title);
+                $PAGE->set_title($title);
             } else {
-                dashboard_util::add_breadcrumb(string_util::get_string($koperebielement->title));
+                $title = string_util::get_string($koperebielement->title);
+                $PAGE->navbar->add($title);
+                $PAGE->set_title($title);
             }
         } else {
-            dashboard_util::add_breadcrumb(get_string("report_new", "local_kopere_bi", $class::get_name()));
+            $title = get_string("report_new", "local_kopere_bi", $class::get_name());
+            $PAGE->navbar->add($title);
+            $PAGE->set_title($title);
         }
-        dashboard_util::start_page();
 
-        echo "<div class='element-box'>";
+        $return .= "<div class='element-box'>";
 
         if (isset($koperebielement->id)) {
-            echo "<a href='?classname=bi-dashboard&method=type_block_preview&item_id={$koperebielement->id}'
+            $return .= "<a href='?classname=dashboard&method=type_block_preview&item_id={$koperebielement->id}'
                      class='btn btn-primary' target='_blank'>" . get_string("report_preview", "local_kopere_bi") . "</a>";
         }
 
-        $form = new form("?{$_SERVER["QUERY_STRING"]}");
+        $form = new dynamic_moodleform("?{$_SERVER["QUERY_STRING"]}");
         $form->add_input(
             input_text::new_instance()
                 ->set_title(get_string("report_title", "local_kopere_bi"))
                 ->set_name("title")
-                ->set_value($koperebielement->title));
+                ->set_value($koperebielement->title)
+        );
 
         $form->add_input(
             input_select::new_instance()
@@ -631,9 +663,12 @@ class dashboard extends bi_all {
                     ["key" => "green", "value" => get_string("block_theme_green", "local_kopere_bi")],
                     ["key" => "orange", "value" => get_string("block_theme_orange", "local_kopere_bi")],
                     ["key" => "pink", "value" => get_string("block_theme_pink", "local_kopere_bi")],
-                ]));
+                ])
+        );
 
+        ob_start();
         $block->edit($form, $koperebielement);
+        $return .= ob_get_clean();
 
         code_util::estilo($form, $koperebielement);
 
@@ -643,11 +678,11 @@ class dashboard extends bi_all {
             $form->create_submit_input(get_string("save", "local_kopere_bi"));
         }
 
-        $form->close();
+        $return .= $form->render();
 
-        echo "</div>";
+        $return .= "</div>";
 
-        dashboard_util::end_page();
+        return $return;
     }
 
     /**
@@ -656,7 +691,9 @@ class dashboard extends bi_all {
      * @throws Exception
      */
     public function type_block_edit_columns() {
-        global $DB;
+        global $DB, $PAGE;
+
+        $return = "";
 
         $elementid = optional_param("item_id", 0, PARAM_INT);
         /** @var local_kopere_bi_element $koperebielement */
@@ -676,37 +713,42 @@ class dashboard extends bi_all {
         /** @var i_block_provider $blockclass */
         $blockclass = "\\biblocks_{$koperebielement->type}\\provider";
         if (!class_exists($blockclass)) {
-            message::print_danger(get_string("blocktype_not_found", "local_kopere_bi"));
+            $return .= message::danger(get_string("blocktype_not_found", "local_kopere_bi"));
         }
 
-        /** @var i_block_provider $block */
         $block = new $blockclass();
 
         // Save the data.
         type_block::type_block_edit_columns_salvar($koperebielement, $koperebipage, $block);
 
-        dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"), "?classname=bi-dashboard&method=start");
-        dashboard_util::add_breadcrumb(string_util::get_string($koperebipage->title),
-            "?classname=bi-dashboard&method=edit_page&page_id={$koperebipage->id}");
-        dashboard_util::add_breadcrumb(string_util::get_string($koperebielement->title) . " - type: {$koperebielement->type}");
-        dashboard_util::start_page();
+        $PAGE->navbar->add(
+            string_util::get_string($koperebipage->title),
+            "?classname=dashboard&method=edit_page&page_id={$koperebipage->id}"
+        );
+        $PAGE->navbar->add(string_util::get_string($koperebielement->title) . " - type: {$koperebielement->type}");
 
-        echo "<div class='element-box'>";
-        button::edit(get_string("return_edit", "local_kopere_bi"),
-            "?classname=bi-dashboard&method=type_block_edit&item_id={$koperebielement->id}");
+        $return .= "<div class='element-box'>";
+        $return .= button::edit(
+            get_string("return_edit", "local_kopere_bi"),
+            "?classname=bi-dashboard&method=type_block_edit&item_id={$koperebielement->id}",
+            "", true, true
+        );
 
-        echo filter::create_filter($koperebielement->commandsql);
+        $return .= filter::create_filter($koperebielement->commandsql);
 
-        $form = new form("?{$_SERVER["QUERY_STRING"]}");
+        $form = new dynamic_moodleform("?{$_SERVER["QUERY_STRING"]}");
 
-        if ($block->edit_columns($form, $koperebielement)) {
+        $caneditcolumns = $block->edit_columns($form, $koperebielement);
+        $return .= $caneditcolumns["html"];
+
+        if ($caneditcolumns["status"]) {
             $form->create_submit_input(get_string("save", "local_kopere_bi"));
         }
-        $form->close();
+        $return .= $form->render();
 
-        echo "</div>";
+        $return .= "</div>";
 
-        dashboard_util::end_page();
+        return $return;
     }
 
     /**

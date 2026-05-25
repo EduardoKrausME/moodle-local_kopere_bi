@@ -18,12 +18,13 @@
  * Class renderer_bi_mustache
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace local_kopere_bi\output;
 
+use cache;
 use Exception;
 use local_kopere_bi\block\util\string_util;
 use Mustache_Engine;
@@ -143,9 +144,9 @@ class renderer_bi_mustache extends Mustache_Engine {
         $this->template = $template;
 
         if (strpos($this->template, "{{#sql") === false) {
-            $cache = \cache::make("local_kopere_bi", "mustache_nosql");
+            $cache = cache::make("local_kopere_bi", "mustache_nosql");
         } else {
-            $cache = \cache::make("local_kopere_bi", "mustache_sql");
+            $cache = cache::make("local_kopere_bi", "mustache_sql");
         }
 
         if ($cache->has($cacheid)) {

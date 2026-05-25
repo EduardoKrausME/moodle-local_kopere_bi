@@ -18,16 +18,15 @@ namespace local_kopere_bi;
 
 use Exception;
 use local_kopere_bi\install\reports;
-use local_kopere_dashboard\html\form;
-use local_kopere_dashboard\html\inputs\input_text;
-use local_kopere_dashboard\util\dashboard_util;
+use local_kopere_bi\form\dynamic_moodleform;
+use local_kopere_bi\form\input_text;
 use local_kopere_dashboard\util\header;
 
 /**
  * Class data_import
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class data_import {
@@ -37,12 +36,14 @@ class data_import {
      * @throws Exception
      */
     public function cat_upload() {
-        dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"), "?classname=bi-dashboard&method=start");
-        dashboard_util::add_breadcrumb(get_string("cat_upload", "local_kopere_bi"));
-        dashboard_util::start_page();
+        global $PAGE;
 
-        echo '<div class="element-box">';
-        $form = new form("?classname=bi-data_import&method=import");
+        $title = get_string("cat_upload", "local_kopere_bi");
+        $PAGE->navbar->add($title);
+        $PAGE->set_title($title);
+
+        $return = '<div class="element-box">';
+        $form = new dynamic_moodleform("?classname=data_import&method=import");
 
         $form->add_input(
             input_text::new_instance()
@@ -51,10 +52,11 @@ class data_import {
                 ->set_name("cat_upload_file")
         );
 
-        $form->create_submit_input(get_string("import"), "button");
+        $form->create_submit_input(get_string("import"));
 
-        echo "</div>";
-        dashboard_util::end_page();
+        $return .= $form->render();
+        $return .= "</div>";
+        return $return;
     }
 
     /**
@@ -64,7 +66,7 @@ class data_import {
      * @throws Exception
      */
     public function import() {
-        if (form::check_post()) {
+        if (dynamic_moodleform::check_post()) {
             if (isset($_FILES["cat_upload_file"]["tmp_name"])) {
                 $json = file_get_contents($_FILES["cat_upload_file"]["tmp_name"]);
                 $data = json_decode($json);
@@ -72,11 +74,11 @@ class data_import {
                 if ($data) {
                     reports::from_json($data);
 
-                    header::location("?classname=bi-dashboard&method=start");
+                    header::location("?classname=dashboard&method=start");
                     die;
                 }
             }
         }
-        header::location("?classname=bi-data_import&method=cat_upload");
+        header::location("?classname=data_import&method=cat_upload");
     }
 }

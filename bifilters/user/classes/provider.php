@@ -18,13 +18,12 @@ namespace bifilters_user;
 
 use Exception;
 use local_kopere_bi\filters\i_filter_provider;
-use local_kopere_dashboard\util\url_util;
 
 /**
  * Class provider user
  *
  * @package   bifilters_user
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements i_filter_provider {
@@ -63,27 +62,27 @@ class provider implements i_filter_provider {
                     ],
                     [
                         "id" => "fullname",
-                        "name" => get_string("user_table_fullname", "local_kopere_dashboard"),
+                        "name" => get_string("user_table_fullname", "local_kopere_bi"),
                     ],
                     [
                         "id" => "username",
-                        "name" => get_string("user_table_username", "local_kopere_dashboard"),
+                        "name" => get_string("user_table_username", "local_kopere_bi"),
                     ],
                     [
                         "id" => "email",
-                        "name" => get_string("user_table_email", "local_kopere_dashboard"),
+                        "name" => get_string("user_table_email", "local_kopere_bi"),
                     ],
                 ],
                 "columns" => [
-                    (object)["data" => "id"],
-                    (object)["data" => "fullname"],
-                    (object)["data" => "username"],
-                    (object)["data" => "email"],
+                    (object) ["data" => "id"],
+                    (object) ["data" => "fullname"],
+                    (object) ["data" => "username"],
+                    (object) ["data" => "email"],
                 ],
 
                 "table-title" => get_string("reports_selectuser", "local_kopere_bi"),
-                "url-ajax" => url_util::makeurl("users", "load_all_users", [], "view-ajax"),
-                "url-click" => url_util::makeurl($classname, $method, $paramsurl),
+                "url-ajax" => "view-ajax.php?classname=users&method=load_all_users",
+                "url-click" => "?classname=$classname&method=$method&" . http_build_query($paramsurl, "", "&"),
             ];
 
             global $OUTPUT, $PAGE;

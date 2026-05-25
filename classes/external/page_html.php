@@ -35,7 +35,7 @@ require_once("{$CFG->libdir}/externallib.php");
  * Class page_html
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class page_html extends external_api {
@@ -81,13 +81,11 @@ class page_html extends external_api {
         global $DB, $CFG, $OUTPUT, $PAGE;
 
         require_capability("local/kopere_bi:view", \context_system::instance());
-
-        require_once("{$CFG->dirroot}/local/kopere_dashboard/autoload.php");
         require_once("{$CFG->dirroot}/local/kopere_bi/lib.php");
 
         $text = "";
 
-        $text .= "<div class='kopere_dashboard_div'>";
+        $text .= "<div class='kopere_bi_div'>";
         $text .= "<div class='content-w'>";
         $text .= "<div class='content-i'>";
         $text .= "<div class='content-box'>";
@@ -128,7 +126,7 @@ class page_html extends external_api {
 
         preg_match_all("/({$parte1}|{$parte2})/s", $return, $returnitens);
 
-        $return = preg_replace('/.*(<div class=\'kopere_dashboard_div\')/s', '$1', $return);
+        $return = preg_replace('/.*(<div class=\'kopere_bi_div\')/s', '$1', $return);
         $return = preg_replace('/FIMMMMMMMMMMMMMMMMMMMMMM.*/s', "", $return);
 
         $js = "\n";

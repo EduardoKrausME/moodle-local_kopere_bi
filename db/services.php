@@ -18,7 +18,7 @@
  * service file
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -32,7 +32,7 @@ $functions = [
         "description" => "Saves the sortorder of the categories",
         "type" => "write",
         "ajax" => true,
-        "capabilities" => "local/kopere_dashboard:view",
+        "capabilities" => "local/kopere_bi:view",
     ],
     "local_kopere_bi_block_sequence" => [
         "classpath" => "local/kopere_bi/classes/external/block.php",
@@ -41,7 +41,7 @@ $functions = [
         "description" => "Saves the sequence of blocks on the page",
         "type" => "write",
         "ajax" => true,
-        "capabilities" => "local/kopere_dashboard:view",
+        "capabilities" => "local/kopere_bi:view",
     ],
     "local_kopere_bi_block_delete" => [
         "classpath" => "local/kopere_bi/classes/external/block.php",
@@ -50,7 +50,7 @@ $functions = [
         "description" => "Deletes a block from the page",
         "type" => "write",
         "ajax" => true,
-        "capabilities" => "local/kopere_dashboard:view",
+        "capabilities" => "local/kopere_bi:view",
     ],
     "local_kopere_bi_block_add" => [
         "classpath" => "local/kopere_bi/classes/external/block.php",
@@ -59,7 +59,7 @@ $functions = [
         "description" => "Adds a new block to the page",
         "type" => "write",
         "ajax" => true,
-        "capabilities" => "local/kopere_dashboard:view",
+        "capabilities" => "local/kopere_bi:view",
     ],
     "local_kopere_bi_online_update" => [
         "classpath" => "local/kopere_bi/classes/external/online_update.php",

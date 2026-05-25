@@ -32,25 +32,25 @@
 {{#js}}
     require(["jquery", "core/notification"], function($, Notification) {
 
-        function loadDataChart() {
-            $.ajax({
-                dataType: "json",
-                url: "{{{ajax_url}}}",
-                success: function(json) {
-                    $("#chart_{{element_id}}").html(json.html);
-                },
-                error: function() {
-                    $("#chart_{{element_id}}").html("{{error_data_loader}}");
-                    Notification.exception({message: "{{error_data_loader}}"});
-                }
-            });
-        }
+    function loadDataChart() {
+    $.ajax({
+    dataType: "json",
+    url: "{{{ajax_url}}}",
+    success: function(json) {
+    $("#chart_{{element_id}}").html(json.html);
+    },
+    error: function() {
+    $("#chart_{{element_id}}").html("{{error_data_loader}}");
+    Notification.exception({message: "{{error_data_loader}}"});
+    }
+    });
+    }
 
-        loadDataChart();
+    loadDataChart();
 
-        var reloadTime = parseInt("{{{reload_time}}}");
-        if (reloadTime) {
-            setInterval(loadDataChart, reloadTime);
-        }
+    var reloadTime = parseInt("{{{reload_time}}}");
+    if (reloadTime) {
+    setInterval(loadDataChart, reloadTime);
+    }
     });
 {{/js}}

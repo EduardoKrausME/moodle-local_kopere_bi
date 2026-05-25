@@ -17,29 +17,20 @@
 namespace local_kopere_bi;
 
 use Exception;
-use local_kopere_bi\block\area;
-use local_kopere_bi\block\column;
-use local_kopere_bi\block\html;
 use local_kopere_bi\block\i_block_provider;
-use local_kopere_bi\block\info;
-use local_kopere_bi\block\line;
-use local_kopere_bi\block\maps;
-use local_kopere_bi\block\pie;
-use local_kopere_bi\block\table;
 use local_kopere_bi\block\util\cache_util;
 use local_kopere_bi\block\util\string_util;
 use local_kopere_bi\vo\local_kopere_bi_block;
 use local_kopere_bi\vo\local_kopere_bi_element;
 use local_kopere_bi\vo\local_kopere_bi_page;
-use local_kopere_dashboard\html\form;
-use local_kopere_dashboard\util\dashboard_util;
+use local_kopere_bi\form\dynamic_moodleform;
 use local_kopere_dashboard\util\header;
 
 /**
  * Class type_block
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class type_block extends bi_all {
@@ -62,12 +53,11 @@ class type_block extends bi_all {
         $page = $DB->get_record("local_kopere_bi_page", ["id" => $block->page_id]);
         header::notfound_null($page, get_string("page_not_found", "local_kopere_bi"));
 
-        dashboard_util::add_breadcrumb(get_string("title", "local_kopere_bi"),
-            "?classname=bi-dashboard&method=start");
-        dashboard_util::add_breadcrumb(string_util::get_string($page->title),
-            "?classname=bi-dashboard&method=edit_page&page_id={$page->id}");
-        dashboard_util::add_breadcrumb(get_string("select_report_select_type", "local_kopere_bi"));
-        dashboard_util::start_page();
+        $PAGE->navbar->add(string_util::get_string($page->title),
+            "?classname=dashboard&method=edit_page&page_id={$page->id}");
+        $title = get_string("select_report_select_type", "local_kopere_bi");
+        $PAGE->navbar->add($title);
+        $PAGE->set_title($title);
 
         echo '<div class="element-box">';
         echo "<h3>" . get_string("select_report_select_type_desc", "local_kopere_bi") . "</h3>";
@@ -77,43 +67,43 @@ class type_block extends bi_all {
                 "id" => "pie",
                 "title" => pie::get_name(),
                 "description" => pie::get_description(),
-                "link" => "?classname=bi-dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=pie",
+                "link" => "?classname=dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=pie",
             ], [
                 "id" => "line",
                 "title" => line::get_name(),
                 "description" => line::get_description(),
-                "link" => "?classname=bi-dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=line",
+                "link" => "?classname=dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=line",
             ], [
                 "id" => "area",
                 "title" => area::get_name(),
                 "description" => area::get_description(),
-                "link" => "?classname=bi-dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=area",
+                "link" => "?classname=dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=area",
             ], [
                 "id" => "column",
                 "title" => column::get_name(),
                 "description" => column::get_description(),
-                "link" => "?classname=bi-dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=column",
+                "link" => "?classname=dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=column",
             ], [
                 "id" => "table",
                 "title" => table::get_name(),
                 "description" => table::get_description(),
-                "link" => "?classname=bi-dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=table",
+                "link" => "?classname=dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=table",
             ], [
                 "id" => "maps",
                 "title" => maps::get_name(),
                 "description" => maps::get_description(),
-                "link" => "?classname=bi-dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=maps",
+                "link" => "?classname=dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=maps",
             ], [
                 "id" => "info",
                 "title" => info::get_name(),
                 "description" => info::get_description(),
                 "link" =>
-                    "?classname=bi-dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=info",
+                    "?classname=dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=info",
             ], [
                 "id" => "html",
                 "title" => html::get_name(),
                 "description" => html::get_description(),
-                "link" => "?classname=bi-dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=html",
+                "link" => "?classname=dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=html",
             ],
         ];
 
@@ -122,7 +112,6 @@ class type_block extends bi_all {
         }
 
         echo "</div>";
-        dashboard_util::end_page();
 
         $PAGE->requires->js_call_amd("local_kopere_bi/choose-block-type", "charts", []);
     }
@@ -138,7 +127,7 @@ class type_block extends bi_all {
     public static function type_block_edit_salvar($koperebielement, $koperebipage, i_block_provider $block) {
         global $DB;
 
-        if (form::check_post()) {
+        if (dynamic_moodleform::check_post()) {
             $koperebielement->title = required_param("title", PARAM_TEXT);
             $koperebielement->cache = optional_param("cache", "none", PARAM_TEXT);
             $koperebielement->reload = optional_param("reload", "none", PARAM_TEXT);
@@ -197,9 +186,9 @@ class type_block extends bi_all {
             }
 
             if ($block->is_edit_columns()) {
-                header::location("?classname=bi-dashboard&method=type_block_edit_columns&item_id={$koperebielement->id}");
+                header::location("?classname=dashboard&method=type_block_edit_columns&item_id={$koperebielement->id}");
             } else {
-                header::location("?classname=bi-dashboard&method=edit_page&page_id={$koperebipage->id}");
+                header::location("?classname=dashboard&method=edit_page&page_id={$koperebipage->id}");
             }
         }
     }
@@ -215,7 +204,7 @@ class type_block extends bi_all {
     public static function type_block_edit_columns_salvar($koperebielement, $koperebipage, i_block_provider $block) {
         global $DB;
 
-        if (form::check_post()) {
+        if (dynamic_moodleform::check_post()) {
             $columntitle = required_param_array("column-title", PARAM_TEXT);
             $columntype = required_param_array("column-type", PARAM_TEXT);
             $columnmustache = required_param_array("column-mustache", PARAM_RAW);
@@ -239,7 +228,7 @@ class type_block extends bi_all {
             $DB->update_record("local_kopere_bi_element", $koperebielement);
             cache_util::delete($koperebielement->id);
 
-            header::location("?classname=bi-dashboard&method=edit_page&page_id={$koperebipage->id}");
+            header::location("?classname=dashboard&method=edit_page&page_id={$koperebipage->id}");
         }
     }
 }

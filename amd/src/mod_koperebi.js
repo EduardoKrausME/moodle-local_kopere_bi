@@ -1,7 +1,7 @@
 define(["jquery", 'core/ajax', 'core/notification'], function($, ajax, notification) {
     var mod_koperebi = {
         init : function() {
-            $(".kopere_dashboard_div-ajax").each(function(id, element) {
+            $(".kopere_bi_div-ajax").each(function(id, element) {
                 mod_koperebi.load_html(element);
             });
         },

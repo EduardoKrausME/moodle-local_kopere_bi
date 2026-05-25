@@ -16,13 +16,13 @@
 
 namespace local_kopere_bi\block;
 
-use local_kopere_dashboard\html\form;
+use local_kopere_bi\form\dynamic_moodleform;
 
 /**
  * Interface i_block_provider
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 interface i_block_provider {
@@ -52,11 +52,11 @@ interface i_block_provider {
     /**
      * Function edit
      *
-     * @param form $form
+     * @param dynamic_moodleform $form
      * @param $koperebielement
      * @return mixed
      */
-    public function edit(form $form, $koperebielement);
+    public function edit(dynamic_moodleform $form, $koperebielement);
 
     /**
      * Function is_edit_columns
@@ -68,11 +68,11 @@ interface i_block_provider {
     /**
      * Function edit_columns
      *
-     * @param form $form
+     * @param dynamic_moodleform $form
      * @param $koperebielement
-     * @return mixed
+     * @return array
      */
-    public function edit_columns(form $form, $koperebielement);
+    public function edit_columns(dynamic_moodleform $form, $koperebielement);
 
     /**
      * Function preview

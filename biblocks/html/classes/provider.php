@@ -24,16 +24,15 @@ use local_kopere_bi\block\util\database_util;
 use local_kopere_bi\block\util\reload_util;
 use local_kopere_bi\block\util\sql_util;
 use local_kopere_bi\output\renderer_bi_mustache;
-use local_kopere_dashboard\html\form;
-use local_kopere_dashboard\html\inputs\input_textarea;
+use local_kopere_bi\form\dynamic_moodleform;
+use local_kopere_bi\form\input_textarea;
 use local_kopere_dashboard\util\message;
-use local_kopere_dashboard\util\url_util;
 
 /**
  * Class html
  *
  * @package   biblocks_html
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements i_block_provider {
@@ -71,21 +70,23 @@ class provider implements i_block_provider {
     /**
      * Function edit
      *
-     * @param form $form
+     * @param dynamic_moodleform $form
      * @param $koperebielement
      * @throws Exception
      */
-    public function edit(form $form, $koperebielement) {
+    public function edit(dynamic_moodleform $form, $koperebielement) {
         global $PAGE;
 
-        message::print_info(get_string("html_block_desc", "biblocks_html"));
+        $html = message::info(get_string("html_block_desc", "biblocks_html"));
+        $form->add_html($html);
 
         $form->add_input(
             input_textarea::new_instance()
                 ->set_title(get_string("html_block", "biblocks_html"))
                 ->set_style("width:100%;font-family:monospace;white-space:nowrap;")
                 ->set_name("infohtml")
-                ->set_value(@$koperebielement->info_obj["html"]));
+                ->set_value(@$koperebielement->info_obj["html"])
+        );
         $PAGE->requires->js_call_amd("local_kopere_bi/load_ace", "getScript", ["infohtml", "html"]);
 
         code_util::input_commandsql($form, $koperebielement);
@@ -103,10 +104,10 @@ class provider implements i_block_provider {
     /**
      * Function edit_columns
      *
-     * @param form $form
+     * @param dynamic_moodleform $form
      * @param $koperebielement
      */
-    public function edit_columns(form $form, $koperebielement) {
+    public function edit_columns(dynamic_moodleform $form, $koperebielement) {
     }
 
     /**
@@ -120,8 +121,8 @@ class provider implements i_block_provider {
         global $OUTPUT;
 
         return $OUTPUT->render_from_template("biblocks_html/preview", [
-            "ajax_url" => url_util::makeurl("bi-chart_data", "load_data",
-                ["item_id" => $koperebielement->id], "view-ajax"),
+            "ajax_url" => "view-ajax.php?classname=chart_data&method=load_data&" .
+                http_build_query(["item_id" => $koperebielement->id], "", "&"),
             "element_id" => $koperebielement->id,
             "error_data_loader" => get_string("error_data_loader", "local_kopere_bi"),
             "reload_time" => reload_util::convert($koperebielement->reload),

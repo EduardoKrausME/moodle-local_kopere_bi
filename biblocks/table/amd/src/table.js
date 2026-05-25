@@ -17,16 +17,16 @@
  * table file
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(["jquery"], function($) {
+define(["jquery"], function ($) {
     return {
-        select : function(collkey, changemustache) {
+        select: function (collkey, changemustache) {
 
             var $select = $(`#columntype${collkey}`);
-            $select.change(function() {
+            $select.change(function () {
                 var select_key = $select.val();
                 mustache(select_key, 300, true);
             });
@@ -67,27 +67,27 @@ define(["jquery"], function($) {
                         break;
                     case "userfullname":
                         show_mustache(time);
-                            mustachehtml =
-                                `<a href="{{{config.wwwroot}}}/user/view.php?id={{{u_id}}}"\n` +
-                                `   target="profile">{{{u_fullname}}}</a>`;
-                            set_mustache(mustachehtml);
+                        mustachehtml =
+                            `<a href="{{{config.wwwroot}}}/user/view.php?id={{{u_id}}}"\n` +
+                            `   target="profile">{{{u_fullname}}}</a>`;
+                        set_mustache(mustachehtml);
                         break;
                     case "userphotoRenderer":
                         hide_mustache(time);
                         break;
                     case "visibleRenderer":
                         show_mustache(time);
-                            if (true) {
+                        if (true) {
                             mustachehtml =
-                                `{{#${collkey}}}\n`+
+                                `{{#${collkey}}}\n` +
                                 `    <span class="w-100 badge bg-success">\n` +
                                 `        {{#str}} emaildisplayno,moodle {{/str}}\n` +
-                                `    </span>\n`+
-                                `{{/${collkey}}}\n`+
-                                `{{^${collkey}}}\n`+
+                                `    </span>\n` +
+                                `{{/${collkey}}}\n` +
+                                `{{^${collkey}}}\n` +
                                 `    <span class="w-100 badge bg-danger">\n` +
                                 `        {{#str}} visible,moodle {{/str}}\n` +
-                                `    </span>\n`+
+                                `    </span>\n` +
                                 `{{/${collkey}}}`;
                             set_mustache(mustachehtml);
                         }
@@ -96,15 +96,15 @@ define(["jquery"], function($) {
                         show_mustache(time);
                         if (true) {
                             mustachehtml =
-                                `{{#${collkey}}}\n`+
+                                `{{#${collkey}}}\n` +
                                 `    <span class="w-100 badge bg-danger">\n` +
                                 `        {{#str}} inactive,moodle {{/str}}\n` +
-                                `    </span>\n`+
-                                `{{/${collkey}}}\n`+
-                                `{{^${collkey}}}\n`+
+                                `    </span>\n` +
+                                `{{/${collkey}}}\n` +
+                                `{{^${collkey}}}\n` +
                                 `    <span class="w-100 badge bg-success">\n` +
                                 `        {{#str}} active,moodle {{/str}}\n` +
-                                `    </span>\n`+
+                                `    </span>\n` +
                                 `{{/${collkey}}}`;
                             set_mustache(mustachehtml);
                         }

@@ -22,7 +22,7 @@ use DeviceDetector\DeviceDetector;
  * Class access
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class access {
@@ -32,22 +32,27 @@ class access {
      * @return object
      */
     public static function agent() {
-        require_once(__DIR__ . '/vendor/autoload.php');
+        $data = (object) ["user_agent" => $_SERVER["HTTP_USER_AGENT"]];
+
+        if (!file_exists(__DIR__ . "/vendor/autoload.php")) {
+            return $data;
+        } else if (!file_exists(__DIR__ . "/vendor/matomo/device-detector/DeviceDetector.php")) {
+            return $data;
+        }
+        require_once(__DIR__ . "/vendor/autoload.php");
 
         $dd = new DeviceDetector($_SERVER["HTTP_USER_AGENT"]);
         $dd->parse();
 
-        $data = ["user_agent" => $_SERVER["HTTP_USER_AGENT"]];
-
         $client = $dd->getClient();
-        $data["client_type"] = isset($client["type"]) ? $client["type"] : "unknown";
-        $data["client_name"] = isset($client["name"]) ? $client["name"] : "unknown";
-        $data["client_version"] = isset($client["version"]) ? $client["version"] : "unknown";
+        $data->client_type = $client["type"] ?? "unknown";
+        $data->client_name = $client["name"] ?? "unknown";
+        $data->client_version = $client["version"] ?? "unknown";
 
         $os = $dd->getOs();
-        $data["os_name"] = isset($os["name"]) ? $os["name"] : "unknown";
-        $data["os_version"] = isset($os["version"]) ? $os["version"] : "unknown";
+        $data->os_name = $os["name"] ?? "unknown";
+        $data->os_version = $os["version"] ?? "unknown";
 
-        return (object)$data;
+        return $data;
     }
 }

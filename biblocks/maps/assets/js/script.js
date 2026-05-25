@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
     $.fn.qtip.defaults.style.classes = 'ui-tooltip-bootstrap';
     $.fn.qtip.defaults.style.def = false;
 
@@ -15,11 +15,11 @@ var listaCidades = [];
 
 function loadMapsData() {
     // aqui carrega os dados do Mapa
-    $.getJSON(urlMapsData, function(cities) {
+    $.getJSON(urlMapsData, function (cities) {
         $("#loading").hide(300);
 
         var groupCities = {};
-        var iterate1 = $.each(cities, function(id, citie) {
+        var iterate1 = $.each(cities, function (id, citie) {
             //var name = citie.city_name + "-" + citie.country_code;
             var name = citie.latitude + "-" + citie.longitude;
             if (groupCities[name]) {
@@ -29,13 +29,13 @@ function loadMapsData() {
             }
         });
 
-        $.when(iterate1).done(function() {
+        $.when(iterate1).done(function () {
             listaCidades = [];
-            var iterate2 = $.each(groupCities, function(id, citie) {
+            var iterate2 = $.each(groupCities, function (id, citie) {
                 listaCidades.push(citie);
             });
 
-            $.when(iterate2).done(function() {
+            $.when(iterate2).done(function () {
                 map.removeSymbols();
                 setData(listaCidades);
             });
@@ -43,7 +43,7 @@ function loadMapsData() {
 
         // Daqui 60 segundos carrega de novo
         setTimeout(loadMapsData, 60000);
-    }).fail(function() {
+    }).fail(function () {
         // Caso de erro, daqui 90 segundos carrega de novo
         setTimeout(loadMapsData, 90000);
     });
@@ -54,46 +54,46 @@ function showMaps(mapName) {
     atualMapa = mapName;
 
     var svgMapa = urlResource + mapName + '.svg';
-    map.loadMap(svgMapa, function() {
+    map.loadMap(svgMapa, function () {
         map.addLayer('terra-outros', {
-            click : function(d, p, evt) {
+            click: function (d, p, evt) {
                 if (d.pais) {
                     showMaps("country/" + d.pais, listaCidades);
                 }
             },
         });
         map.addLayer('terra', {
-            click : function(d, p, evt) {
+            click: function (d, p, evt) {
                 if (d.pais) {
                     showMaps("country/" + d.pais, listaCidades);
                 } else {
                     showMaps('world', listaCidades);
                 }
             },
-            title : function(data) {
+            title: function (data) {
                 return data.name;
             }
         });
 
         $('.qtip').remove();
         setData(listaCidades);
-    }, {padding : -20});
+    }, {padding: -20});
 }
 
 function setData(cities) {
-    scale = kartograph.scale.sqrt(cities.concat([{nb_visits : 0}]), 'nb_visits').range([2, 10]);
+    scale = kartograph.scale.sqrt(cities.concat([{nb_visits: 0}]), 'nb_visits').range([2, 10]);
     map.addSymbols({
-        type           : kartograph.Bubble,
-        data           : cities,
-        clustering     : 'k-means', // k-means || noverlap
-        sortBy         : 'radius desc',
-        clusteringOpts : {
-            tolerance : 0.5,
-            maxRatio  : 0.9
+        type: kartograph.Bubble,
+        data: cities,
+        clustering: 'k-means', // k-means || noverlap
+        sortBy: 'radius desc',
+        clusteringOpts: {
+            tolerance: 0.5,
+            maxRatio: 0.9
         },
-        aggregate      : function(cities) {
-            var nc = {nb_visits : 0, city_names : []};
-            $.each(cities, function(i, c) {
+        aggregate: function (cities) {
+            var nc = {nb_visits: 0, city_names: []};
+            $.each(cities, function (i, c) {
                 nc.nb_visits += c.nb_visits;
                 nc.country_name = c.country_name;
                 nc.country_code = c.country_code;
@@ -112,14 +112,14 @@ function setData(cities) {
             }
             return nc;
         },
-        location       : function(city) {
+        location: function (city) {
             return [city.longitude, city.latitude];
         },
-        radius         : function(city) {
+        radius: function (city) {
             return scale(city.nb_visits);
         },
-        tooltip        : function(city) {
-           var msg = '<div><strong>' + city.city_name + '</strong></div>';
+        tooltip: function (city) {
+            var msg = '<div><strong>' + city.city_name + '</strong></div>';
 
             if (city.nb_visits > 1) {
                 var texts = $("#maps_onlines").val()
@@ -132,7 +132,7 @@ function setData(cities) {
             }
             return msg;
         },
-        click          : function(d, p, evt) {
+        click: function (d, p, evt) {
             evt.stopPropagation();
 
             if (d.country_code == 'BR' && mapName == 'world') {

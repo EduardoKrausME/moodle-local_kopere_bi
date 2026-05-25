@@ -18,7 +18,7 @@
  * reports file
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -45,6 +45,9 @@ class reports {
         $jsonpage = file_get_contents($pagefile);
 
         $page = json_decode($jsonpage);
+        if(!isset($page->title)){
+            return false;
+        }
         self::from_json($page);
     }
 

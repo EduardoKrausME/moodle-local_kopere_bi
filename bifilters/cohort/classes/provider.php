@@ -18,13 +18,12 @@ namespace bifilters_cohort;
 
 use Exception;
 use local_kopere_bi\filters\i_filter_provider;
-use local_kopere_dashboard\util\url_util;
 
 /**
  * Class provider cohort
  *
  * @package   bifilters_cohort
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements i_filter_provider {
@@ -52,8 +51,8 @@ class provider implements i_filter_provider {
 
             $data = [
                 "cohort_fullname" => fullname($cohort),
-                "url-ajax"  => url_util::makeurl("cohorts", "load_all_cohorts", [], "view-ajax"),
-                "url-click"  => url_util::makeurl($classname, $method, $paramsurl),
+                "url-ajax" => "view-ajax.php?classname=cohorts&method=load_all_cohorts",
+                "url-click" => "?classname=$classname&method=$method&" . http_build_query($paramsurl, "", "&"),
             ];
 
             global $OUTPUT, $PAGE;

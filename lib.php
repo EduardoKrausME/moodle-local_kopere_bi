@@ -18,10 +18,11 @@
  * lib file
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use local_kopere_bi\block\util\preview_util;
 use local_kopere_bi\block\util\string_util;
 use local_kopere_bi\core_hook_output;
 use local_kopere_bi\filters\filter;
@@ -57,9 +58,10 @@ function local_kopere_bi_getremoteaddr() {
  *
  * @param $ip
  * @return object
+ * @throws \core\exception\coding_exception
  */
 function local_kopere_bi_iplookup_find_location($ip) {
-    $cache = \cache::make("local_kopere_bi", "ip_user_location");
+    $cache = cache::make("local_kopere_bi", "ip_user_location");
 
     if ($cache->has($ip)) {
         $dataip = $cache->get($ip);
@@ -76,7 +78,7 @@ function local_kopere_bi_iplookup_find_location($ip) {
         $cache->set($ip, $dataip);
     }
 
-    return (object)$dataip;
+    return (object) $dataip;
 }
 
 /**
@@ -90,7 +92,7 @@ function load_kopere_bi_assets() {
     if (!$koperebiloaded) {
         $koperebiloaded = true;
 
-        local_kopere_dashboard_lang();
+        local_kopere_dashboard\datatable\datatable_init::lang();
 
         return "";
     }
@@ -106,13 +108,11 @@ function load_kopere_bi_assets() {
  * @throws Exception
  */
 function load_kopere_bi($pageid) {
-    global $DB, $CFG;
-
-    require_once("{$CFG->dirroot}/local/kopere_dashboard/autoload.php");
+    global $DB;
 
     $text = load_kopere_bi_assets();
 
-    $text .= "<div class='kopere_dashboard_div'>";
+    $text .= "<div class='kopere_bi_div'>";
     $text .= "<div class='content-w'>";
     $text .= "<div class='content-i'>";
     $text .= "<div class='content-box'>";
@@ -130,7 +130,7 @@ function load_kopere_bi($pageid) {
 
         /** @var local_kopere_bi_block $koperebiblock */
         foreach ($koperebiblocks as $koperebiblock) {
-            $text .= (new \local_kopere_bi\block\util\preview_util())->details_block($koperebiblock);
+            $text .= (new preview_util())->details_block($koperebiblock);
         }
     }
 
@@ -149,13 +149,9 @@ function load_kopere_bi($pageid) {
  * @throws Exception
  */
 function load_kopere_bi_ajax($coursemoduleid, $pageid) {
-    global $CFG;
-
-    require_once("{$CFG->dirroot}/local/kopere_dashboard/autoload.php");
-
     $text = load_kopere_bi_assets();
-    $text .= "<div class='kopere_dashboard_div-ajax'
-                   id='kopere_dashboard_div-coursemodule_{$coursemoduleid}'
+    $text .= "<div class='kopere_bi_div-ajax'
+                   id='kopere_bi_div-coursemodule_{$coursemoduleid}'
                    data-koperebi='{$pageid}'>" . get_string("loading", "local_kopere_bi") . "</div>";
 
     return $text;
@@ -187,17 +183,121 @@ function local_kopere_bi_extend_navigation_course($navigation, $course, $context
     foreach ($koperebipages as $koperebipage) {
 
         $params = [
-            "classname" => "bi-dashboard",
+            "classname" => "dashboard",
             "method" => "preview",
             "page_id" => $koperebipage->id,
             "courseid" => $course->id,
         ];
 
-        $url = new moodle_url("/local/kopere_dashboard/view.php", $params);
+        $url = new moodle_url("/local/kopere_bi/index.php", $params);
         $name = $pluginname . " - " . string_util::get_string($koperebipage->title);
         $settingsnode = navigation_node::create($name, $url, navigation_node::TYPE_SETTING);
         if (isset($settingsnode)) {
             $reportnode->add_node($settingsnode);
         }
+    }
+}
+
+/**
+ * Resolves the class name received from the URL into a local_kopere_bi class.
+ *
+ * @param string $rawclassname
+ * @return array
+ * @throws moodle_exception
+ */
+function local_kopere_bi_resolve_classname($rawclassname) {
+    $classname = str_replace("-", "_", trim($rawclassname));
+
+    if (!preg_match('/^[a-zA-Z][a-zA-Z0-9_]*$/', $classname)) {
+        throw new moodle_exception("invalidrequest", "error", "", null, "Invalid class name");
+    }
+
+    $fqcn = "\\local_kopere_bi\\{$classname}";
+    if (!class_exists($fqcn)) {
+        throw new moodle_exception("class_not_found", "local_kopere_bi");
+    }
+
+    return [$classname, $fqcn];
+}
+
+/**
+ * Validates the method name received from the URL.
+ *
+ * @param string $method
+ * @return void
+ * @throws moodle_exception
+ */
+function local_kopere_bi_validate_method($method) {
+    if (!preg_match('/^[a-zA-Z][a-zA-Z0-9_]*$/', $method) || strpos($method, "__") === 0) {
+        throw new moodle_exception("invalidrequest", "error", "", null, "Invalid method name");
+    }
+}
+
+/**
+ * Requires the correct capability for the requested route.
+ *
+ * @param string $classname
+ * @param string $method
+ * @param context_system $context
+ * @return void
+ * @throws required_capability_exception
+ */
+function local_kopere_bi_require_route_capability($classname, $method, context_system $context) {
+    $viewroutes = [
+        "dashboard" => ["start", "preview", "type_block_preview"],
+        "chart_data" => ["load_data"],
+    ];
+
+    if (isset($viewroutes[$classname]) && in_array($method, $viewroutes[$classname], true)) {
+        require_capability("local/kopere_bi:view", $context);
+        return;
+    }
+
+    require_capability("local/kopere_bi:manage", $context);
+}
+
+/**
+ * Dispatches the current request.
+ *
+ * @param string $rawclassname
+ * @param string $method
+ * @param context_system $context
+ * @return string
+ * @throws moodle_exception
+ * @throws \required_capability_exception
+ */
+function local_kopere_bi_dispatch($rawclassname, $method, context_system $context) {
+    [$classname, $fqcn] = local_kopere_bi_resolve_classname($rawclassname);
+    local_kopere_bi_validate_method($method);
+    local_kopere_bi_require_route_capability($classname, $method, $context);
+
+    $instance = new $fqcn();
+    if (!is_callable([$instance, $method])) {
+        throw new moodle_exception("invalidrequest", "error", "", null, "Method not found");
+    }
+
+    return $instance->{$method}();
+}
+
+if (!function_exists('str_ends_with')) {
+    /**
+     * Function str_ends_with
+     *
+     * @param $haystack
+     * @param $needle
+     * @return bool
+     */
+    function str_ends_with($haystack, $needle) {
+        if ('' === $needle || $needle === $haystack) {
+            return true;
+        }
+
+        if ('' === $haystack) {
+            return false;
+        }
+
+        $needlelength = strlen($needle);
+
+        return $needlelength <= strlen($haystack) && 0 === substr_compare($haystack, $needle, -$needlelength);
     }
 }

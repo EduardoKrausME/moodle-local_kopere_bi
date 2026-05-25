@@ -24,13 +24,12 @@ use local_kopere_bi\block\util\reload_util;
 use local_kopere_bi\block\util\sql_util;
 use local_kopere_bi\block\util\string_util;
 use local_kopere_dashboard\util\message;
-use local_kopere_dashboard\util\url_util;
 
 /**
  * Class area
  *
  * @package   biblocks_area
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider extends \biblocks_line\provider {
@@ -75,19 +74,19 @@ class provider extends \biblocks_line\provider {
     public function preview($koperebielement) {
         global $OUTPUT;
 
-        code_util::add_js_apexcharts();
+        $return = code_util::add_js_apexcharts();
 
-        return $OUTPUT->render_from_template("biblocks_area/preview", [
-            "ajax_url" => url_util::makeurl("bi-chart_data", "load_data",
-                ["item_id" => $koperebielement->id], "view-ajax"),
-            "element_id" => $koperebielement->id,
-            "chart_default" => get_config("local_kopere_bi", "chart_area_default"),
-            "chart_options" => code_util::get_js_options($koperebielement->info_obj["chart_options"]),
-            "code_util_get_js_theme" => code_util::get_js_theme($koperebielement),
-            "error_chart_renderer" => get_string("error_chart_renderer", "local_kopere_bi"),
-            "error_data_loader" => get_string("error_data_loader", "local_kopere_bi"),
-            "reload_time" => reload_util::convert($koperebielement->reload),
-        ]);
+        return $return . $OUTPUT->render_from_template("biblocks_area/preview", [
+                "ajax_url" => "view-ajax.php?classname=chart_data&method=load_data&" .
+                    http_build_query(["item_id" => $koperebielement->id], "", "&"),
+                "element_id" => $koperebielement->id,
+                "chart_default" => get_config("local_kopere_bi", "chart_area_default"),
+                "chart_options" => code_util::get_js_options($koperebielement->info_obj["chart_options"]),
+                "code_util_get_js_theme" => code_util::get_js_theme($koperebielement),
+                "error_chart_renderer" => get_string("error_chart_renderer", "local_kopere_bi"),
+                "error_data_loader" => get_string("error_data_loader", "local_kopere_bi"),
+                "reload_time" => reload_util::convert($koperebielement->reload),
+            ]);
     }
 
     /**
@@ -120,7 +119,7 @@ class provider extends \biblocks_line\provider {
                 }
             }
 
-            $columns = array_keys((array)$rowscolumns[0]);
+            $columns = array_keys((array) $rowscolumns[0]);
 
             $optionsxaxiscategories = false;
             $optionsseries = [];
@@ -136,7 +135,7 @@ class provider extends \biblocks_line\provider {
                     // Column name is the name of the series.
 
                     $valores = array_column($rowscolumns, $column);
-                    $optionsseries[] = (object)[
+                    $optionsseries[] = (object) [
                         "name" => string_util::get_string($column),
                         "data" => $valores,
                     ];

@@ -35,49 +35,49 @@
 
 {{#js}}
     require(["jquery", "core/notification"], function($, Notification) {
-        function showChart(xaxisCategories, series) {
-            try {
-                var options = {{{chart_default}}};
+    function showChart(xaxisCategories, series) {
+    try {
+    var options = {{{chart_default}}};
 
-                {{{chart_options}}}
+    {{{chart_options}}}
 
-                var optionsData = {
-                    xaxis: {
-                        categories: xaxisCategories
-                    },
-                    series: series
-                };
-                options = {...options, ...optionsData};
+    var optionsData = {
+    xaxis: {
+    categories: xaxisCategories
+    },
+    series: series
+    };
+    options = {...options, ...optionsData};
 
-                {{{code_util_get_js_theme}}}
+    {{{code_util_get_js_theme}}}
 
-                var element = document.querySelector("#chart_{{element_id}}");
-                var chart = new ApexCharts(element, options);
-                chart.render();
-            }
-            catch (e) {
-                Notification.exception({message: "{{error_chart_renderer}}"});
-            }
-        }
+    var element = document.querySelector("#chart_{{element_id}}");
+    var chart = new ApexCharts(element, options);
+    chart.render();
+    }
+    catch (e) {
+    Notification.exception({message: "{{error_chart_renderer}}"});
+    }
+    }
 
-        function loadDataChart() {
-            $.ajax({
-                dataType: "json",
-                url: "{{{ajax_url}}}",
-                success: function(json) {
-                    showChart(json.xaxisCategories, json.series);
-                },
-                error: function() {
-                    Notification.exception({message: "{{error_chart_renderer}}"});
-                }
-            });
-        }
+    function loadDataChart() {
+    $.ajax({
+    dataType: "json",
+    url: "{{{ajax_url}}}",
+    success: function(json) {
+    showChart(json.xaxisCategories, json.series);
+    },
+    error: function() {
+    Notification.exception({message: "{{error_chart_renderer}}"});
+    }
+    });
+    }
 
-        loadDataChart();
+    loadDataChart();
 
-        var reloadTime = parseInt("{{{reload_time}}}");
-        if (reloadTime) {
-            setInterval(loadDataChart, reloadTime);
-        }
+    var reloadTime = parseInt("{{{reload_time}}}");
+    if (reloadTime) {
+    setInterval(loadDataChart, reloadTime);
+    }
     });
 {{/js}}

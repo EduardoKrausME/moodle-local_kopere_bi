@@ -23,15 +23,14 @@ use local_kopere_bi\block\util\code_util;
 use local_kopere_bi\block\util\database_util;
 use local_kopere_bi\block\util\reload_util;
 use local_kopere_bi\block\util\sql_util;
-use local_kopere_dashboard\html\form;
+use local_kopere_bi\form\dynamic_moodleform;
 use local_kopere_dashboard\util\message;
-use local_kopere_dashboard\util\url_util;
 
 /**
  * Class pie
  *
  * @package   biblocks_pie
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements i_block_provider {
@@ -69,24 +68,29 @@ class provider implements i_block_provider {
     /**
      * Function edit
      *
-     * @param form $form
+     * @param dynamic_moodleform $form
      * @param $koperebielement
      * @return void
      * @throws Exception
      */
-    public function edit(form $form, $koperebielement) {
+    public function edit(dynamic_moodleform $form, $koperebielement) {
 
-        message::print_warning(get_string("pie_sql_warning", "biblocks_pie"));
+        $html = message::warning(get_string("pie_sql_warning", "biblocks_pie"));
+        $form->add_html($html);
 
         code_util::input_commandsql($form, $koperebielement);
 
         if (isset($koperebielement->info_obj["chart_options"])) {
             code_util::options($form, $koperebielement->info_obj["chart_options"]);
         } else {
-            code_util::options($form, trim("
+            code_util::options(
+                $form, trim(
+                    "
 {
     colors : [\"#2E93fA\", \"#66DA26\", \"#546E7A\", \"#E91E63\", \"#FF9800\"],
-}"));
+}"
+                )
+            );
         }
     }
 
@@ -102,11 +106,11 @@ class provider implements i_block_provider {
     /**
      * Function edit_columns
      *
-     * @param form $form
+     * @param dynamic_moodleform $form
      * @param $koperebielement
      * @return void
      */
-    public function edit_columns(form $form, $koperebielement) {
+    public function edit_columns(dynamic_moodleform $form, $koperebielement) {
     }
 
     /**
@@ -119,19 +123,19 @@ class provider implements i_block_provider {
     public function preview($koperebielement) {
         global $OUTPUT;
 
-        code_util::add_js_apexcharts();
+        $return = code_util::add_js_apexcharts();
 
-        return $OUTPUT->render_from_template("biblocks_pie/preview", [
-            "ajax_url" => url_util::makeurl("bi-chart_data", "load_data",
-                ["item_id" => $koperebielement->id], "view-ajax"),
-            "element_id" => $koperebielement->id,
-            "chart_pie_default" => get_config("local_kopere_bi", "chart_pie_default"),
-            "chart_options" => code_util::get_js_options($koperebielement->info_obj["chart_options"]),
-            "code_util_get_js_theme" => code_util::get_js_theme($koperebielement),
-            "error_chart_renderer" => get_string("error_chart_renderer", "local_kopere_bi"),
-            "error_data_loader" => get_string("error_data_loader", "local_kopere_bi"),
-            "reload_time" => reload_util::convert($koperebielement->reload),
-        ]);
+        return $return . $OUTPUT->render_from_template("biblocks_pie/preview", [
+                "ajax_url" => "view-ajax.php?classname=chart_data&method=load_data&" .
+                    http_build_query(["item_id" => $koperebielement->id], "", "&"),
+                "element_id" => $koperebielement->id,
+                "chart_pie_default" => get_config("local_kopere_bi", "chart_pie_default"),
+                "chart_options" => code_util::get_js_options($koperebielement->info_obj["chart_options"]),
+                "code_util_get_js_theme" => code_util::get_js_theme($koperebielement),
+                "error_chart_renderer" => get_string("error_chart_renderer", "local_kopere_bi"),
+                "error_data_loader" => get_string("error_data_loader", "local_kopere_bi"),
+                "reload_time" => reload_util::convert($koperebielement->reload),
+            ]);
     }
 
     /**

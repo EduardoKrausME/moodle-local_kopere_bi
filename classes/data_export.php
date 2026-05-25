@@ -27,7 +27,7 @@ use local_kopere_dashboard\util\header;
  * Class data_export
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class data_export {
@@ -113,7 +113,7 @@ class data_export {
             $data->blocks[] = $koperebiblock;
         }
         if ($this->missingstrings) {
-            echo "<a href='?classname=bi-data_export&method=json&page_id={$pageid}&ignoremissingstrings=1'>Export anyway</a>";
+            echo "<a href='?classname=data_export&method=json&page_id={$pageid}&ignoremissingstrings=1'>Export anyway</a>";
             die;
         }
 

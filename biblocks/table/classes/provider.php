@@ -16,6 +16,7 @@
 
 namespace biblocks_table;
 
+use dml_read_exception;
 use Exception;
 use local_kopere_bi\block\i_block_provider;
 use local_kopere_bi\block\util\cache_util;
@@ -23,14 +24,12 @@ use local_kopere_bi\block\util\code_util;
 use local_kopere_bi\block\util\database_util;
 use local_kopere_bi\block\util\sql_util;
 use local_kopere_bi\block\util\string_util;
-use local_kopere_bi\filters\i_filter_provider;
 use local_kopere_bi\output\renderer_bi_mustache;
-use local_kopere_bi\plugininfo\bifilters;
 use local_kopere_dashboard\html\data_table;
-use local_kopere_dashboard\html\form;
-use local_kopere_dashboard\html\inputs\input_select;
-use local_kopere_dashboard\html\inputs\input_text;
-use local_kopere_dashboard\html\inputs\input_textarea;
+use local_kopere_bi\form\dynamic_moodleform;
+use local_kopere_bi\form\input_select;
+use local_kopere_bi\form\input_text;
+use local_kopere_bi\form\input_textarea;
 use local_kopere_dashboard\html\table_header_item;
 use local_kopere_dashboard\util\json;
 use local_kopere_dashboard\util\message;
@@ -39,7 +38,7 @@ use local_kopere_dashboard\util\message;
  * Class table
  *
  * @package   biblocks_table
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements i_block_provider {
@@ -77,17 +76,18 @@ class provider implements i_block_provider {
     /**
      * Function edit
      *
-     * @param form $form
+     * @param dynamic_moodleform $form
      * @param $koperebielement
      * @return void
      * @throws Exception
      */
-    public function edit(form $form, $koperebielement) {
+    public function edit(dynamic_moodleform $form, $koperebielement) {
         code_util::input_commandsql($form, $koperebielement);
     }
 
     /**
      * Function is_edit_columns
+     *
      * @return bool
      */
     public function is_edit_columns() {
@@ -97,56 +97,67 @@ class provider implements i_block_provider {
     /**
      * Function edit_columns
      *
-     * @param form $form
+     * @param dynamic_moodleform $form
      * @param $koperebielement
-     * @return bool
+     * @return array
      * @throws Exception
      */
-    public function edit_columns(form $form, $koperebielement) {
-        global $OUTPUT;
-
+    public function edit_columns(dynamic_moodleform $form, $koperebielement) {
         $comand = sql_util::prepare_sql($koperebielement->commandsql);
+
+        $return = "";
 
         try {
             $lines = (new database_util())->get_records_sql_block($comand->sql, $comand->params, false, 5);
-        } catch (\dml_read_exception $e) {
-            message::print_danger("<div style='white-space:break-spaces'>{$e->debuginfo}</div>");
-            return false;
-        }
-        message::print_info(get_string("table_info_topo", "biblocks_table"));
-        if (isset($lines[0])) {
-            echo "<h3>" . get_string("table_first_records", "biblocks_table") . "</h3>";
-            echo "<div style='white-space: nowrap;overflow: auto;margin-bottom: 20px;'>";
-            echo "<table class='table table-bordered' style='margin-bottom: 0;'>";
-            echo "<tr>";
-            foreach ($lines[0] as $id => $line) {
-                echo "<th>{$id}</th>";
-            }
-            echo "</tr>";
-            foreach ($lines as $line) {
-                echo "<tr>";
-                foreach ($lines[0] as $id => $a) {
-                    echo "<td style='max-width:100px;max-height:100px;overflow:auto;'>{$line->$id}</td>";
-                }
-                echo "</tr>";
-            }
-            echo "</table>";
-            echo "</div>";
+        } catch (dml_read_exception $e) {
+            $return .= message::danger("<div style='white-space:break-spaces'>{$e->debuginfo}</div>");
 
-            message::print_info(get_string("table_info_types", "biblocks_table"));
+            return [
+                "html" => $return,
+                "status" => false,
+            ];
+        }
+        $return .= message::info(get_string("table_info_topo", "biblocks_table"));
+        if (isset($lines[0])) {
+            $return .= "<h3>" . get_string("table_first_records", "biblocks_table") . "</h3>";
+            $return .= "<div style='white-space: nowrap;overflow: auto;margin-bottom: 20px;'>";
+            $return .= "<table class='table table-bordered' style='margin-bottom: 0;'>";
+            $return .= "<tr>";
             foreach ($lines[0] as $id => $line) {
-                echo
+                $return .= "<th>{$id}</th>";
+            }
+            $return .= "</tr>";
+            foreach ($lines as $line) {
+                $return .= "<tr>";
+                foreach ($lines[0] as $id => $a) {
+                    $return .= "<td style='max-width:100px;max-height:100px;overflow:auto;'>{$line->$id}</td>";
+                }
+                $return .= "</tr>";
+            }
+            $return .= "</table>";
+            $return .= "</div>";
+
+            $return .= message::info(get_string("table_info_types", "biblocks_table"));
+            foreach ($lines[0] as $id => $line) {
+                $form->add_html(
                     "<fieldset><legend>" . get_string("table_edit_column", "biblocks_table") .
-                    ": <strong><em>{$id}</em></strong></legend>";
-                $this->select_data($koperebielement, $id);
-                echo "</fieldset>";
+                    ": <strong><em>{$id}</em></strong></legend>"
+                );
+                $this->select_data($form, $koperebielement, $id);
+                $form->add_html("</fieldset>");
             }
         } else {
-            message::print_warning(get_string("sql_no_rows", "local_kopere_bi"));
-            return false;
+            $return .= message::warning(get_string("sql_no_rows", "local_kopere_bi"));
+            return [
+                "html" => $return,
+                "status" => false,
+            ];
         }
 
-        return true;
+        return [
+            "html" => $return,
+            "status" => true,
+        ];
     }
 
     /**
@@ -156,7 +167,7 @@ class provider implements i_block_provider {
      * @param $collkey
      * @throws Exception
      */
-    private function select_data($koperebielement, $collkey) {
+    private function select_data(dynamic_moodleform $form, $koperebielement, $collkey) {
         global $PAGE;
 
         $types = [
@@ -204,7 +215,6 @@ class provider implements i_block_provider {
         if (isset($koperebielement->info_obj["column"][$collkey]["title"])) {
             $valuedefault = $koperebielement->info_obj["column"][$collkey]["title"];
         }
-        $form = new form();
         $form->add_input(
             input_text::new_instance()
                 ->set_title(get_string("table_col_title", "biblocks_table"))
@@ -257,8 +267,6 @@ class provider implements i_block_provider {
                 ->set_name("column-mustache[{$collkey}]")
                 ->set_value($valuemustache)
                 ->set_style("height:45px;max-height:350px;")
-                ->add_extras('oninput="this.style.height=\'\';this.style.height=(this.scrollHeight+5)+\'px\'"')
-                ->add_extras('onfocus="this.style.height=\'\';this.style.height=(this.scrollHeight+5)+\'px\'"')
         );
         $PAGE->requires->js_call_amd("local_kopere_bi/load_ace", "getScript", ["columnmustache{$collkey}", "html", 3]);
     }
@@ -313,7 +321,7 @@ class provider implements i_block_provider {
                     break;
                 case table_header_item::RENDERER_DELETED:
                     if (!isset($column["mustache"][3])) {
-                        $column["mustache"] = "<span class='kopere-bi-renderer-deleted-{{{{$key}}}}'></span>";
+                        $column["mustache"] = "<span class='kopere-renderer-deleted-{{{{$key}}}}'></span>";
                         $table->add_header($name, $key);
                     } else {
                         $table->add_header($name, $key, table_header_item::RENDERER_DELETED);
@@ -336,7 +344,7 @@ class provider implements i_block_provider {
             }
         }
 
-        $table->set_ajax_url("view-ajax.php?classname=bi-chart_data&method=load_data&item_id={$koperebielement->id}");
+        $table->set_ajax_url("view-ajax.php?classname=chart_data&method=load_data&item_id={$koperebielement->id}");
         $returnhtml = $table->print_header("", true, true);
         $returnhtml .= $table->close(false, null, true, string_util::get_string($koperebielement->title));
 
@@ -395,18 +403,17 @@ class provider implements i_block_provider {
                         if ($type == "translate") {
                             $line->$key = string_util::get_string($line->$key);
                         }
+
+                        $value = $line->$key;
                     }
                 }
 
-                $mustacheline = $line;
-
-                $value = $line->$key;
                 foreach ($koperebielement->info_obj["column"] as $key => $column) {
                     if (isset($column["mustache"][3]) &&
                         $column["mustache"] != "{{{{$key}}}}" &&
                         isset($value[0])
                     ) {
-                        $line->{"{$key}_mustache"} = $mustache->render_from_string($column["mustache"], $mustacheline);
+                        $line->{"{$key}_mustache"} = $mustache->render_from_string($column["mustache"], $line);
                     }
                 }
 
@@ -422,25 +429,3 @@ class provider implements i_block_provider {
     }
 }
 
-if (!function_exists('str_ends_with')) {
-    /**
-     * Function str_ends_with
-     *
-     * @param $haystack
-     * @param $needle
-     * @return bool
-     */
-    function str_ends_with($haystack, $needle) {
-        if ('' === $needle || $needle === $haystack) {
-            return true;
-        }
-
-        if ('' === $haystack) {
-            return false;
-        }
-
-        $needlelength = \strlen($needle);
-
-        return $needlelength <= \strlen($haystack) && 0 === substr_compare($haystack, $needle, -$needlelength);
-    }
-}

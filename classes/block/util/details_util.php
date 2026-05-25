@@ -26,7 +26,7 @@ use local_kopere_dashboard\html\button;
  * Class details_util
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class details_util {
@@ -142,10 +142,10 @@ class details_util {
                 return "<h4 class='block-title details_block_item'>{$title}</h4>" .
                     button::edit(
                         get_string("edit_report", "local_kopere_bi"),
-                        "?classname=bi-dashboard&method=type_block_edit&item_id={$koperebielement->id}", 'mr-4', false, true
+                        "?classname=dashboard&method=type_block_edit&item_id={$koperebielement->id}", 'mr-4', false, true
                     ) .
                     button::icon_confirm(
-                        "delete", "?classname=bi-dashboard&method=type_block_delete&item_id={$koperebielement->id}",
+                        "delete", "?classname=dashboard&method=type_block_delete&item_id={$koperebielement->id}",
                         get_string("delete_report_text", "local_kopere_bi"), get_string("delete_report_title", "local_kopere_bi")
                     );
             } else {
@@ -154,7 +154,7 @@ class details_util {
 
         } else {
             return button::add(get_string("create_report", "local_kopere_bi"),
-                "?classname=bi-dashboard&method=type_block_select_type&block_id={$blockid}&block_num={$blocknum}",
+                "?classname=dashboard&method=type_block_select_type&block_id={$blockid}&block_num={$blocknum}",
                 "", false, true);
         }
     }
@@ -168,6 +168,6 @@ class details_util {
     public static function html_details_add($pageid) {
         global $OUTPUT;
 
-        echo $OUTPUT->render_from_template("local_kopere_bi/blocks-details_add", []);
+        return $OUTPUT->render_from_template("local_kopere_bi/blocks-details_add", []);
     }
 }

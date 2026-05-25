@@ -14,14 +14,35 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-// phpcs:disable
-
 /**
- * index file
+ * Main Kopere BI dispatcher.
  *
  * @package   local_kopere_bi
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
- * @license   http://www.gnu.org/boost_darkleft/gpl.html GNU GPL v3 or later
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-header("Location: ../kopere_dashboard/view.php?classname=bi-dashboard&method=start");
+use local_kopere_dashboard\output\layout;
+
+require_once(__DIR__ . "/../../config.php");
+require_once(__DIR__ . "/lib.php");
+
+global $PAGE, $OUTPUT;
+
+$context = context_system::instance();
+require_login();
+require_capability("local/kopere_bi:view", $context);
+
+$classname = optional_param("classname", "dashboard", PARAM_ALPHANUMEXT);
+$method = optional_param("method", "start", PARAM_ALPHANUMEXT);
+
+parse_str($_SERVER["QUERY_STRING"], $params);
+$params["classname"] = $classname;
+$params["method"] = $method;
+$PAGE->set_url(new moodle_url("/local/kopere_bi/", $params));
+$PAGE->add_body_class("local-kopere_dashboard");
+$PAGE->add_body_class("kopere-bi");
+$PAGE->set_context($context);
+
+$content = local_kopere_bi_dispatch($classname, $method, $context);
+layout::page_render($context, $content, true, "kopere-bi-page");

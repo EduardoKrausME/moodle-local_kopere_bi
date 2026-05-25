@@ -82,29 +82,29 @@
 .qtip-default {
   border-width: 1px;
   border-style: solid;
-  border-color: #F1D031;
-  background-color: #FFFFA3;
-  color: #555;
+  border-color: #f1d031;
+  background-color: #ffffa3;
+  color: #555555;
 }
 
 .qtip-default .qtip-titlebar {
-  background-color: #FFEF93;
+  background-color: #ffef93;
 }
 
 .qtip-default .qtip-icon {
-  border-color: #CCC;
-  background: #F1F1F1;
-  color: #777;
+  border-color: #cccccc;
+  background: #f1f1f1;
+  color: #777777;
 }
 
 .qtip-default .qtip-titlebar .qtip-close {
-  border-color: #AAA;
-  color: #111;
+  border-color: #aaaaaa;
+  color: #111111;
 }
 
 .qtip-light {
-  background-color: #fff;
-  border-color: #E2E2E2;
+  background-color: #ffffff;
+  border-color: #e2e2e2;
   color: #454545;
 }
 
@@ -123,7 +123,7 @@
 }
 
 .qtip-dark .qtip-icon {
-  border-color: #444;
+  border-color: #444444;
 }
 
 .qtip-dark .qtip-titlebar .ui-state-hover {
@@ -131,13 +131,13 @@
 }
 
 .qtip-cream {
-  background-color: #FBF7AA;
-  border-color: #F9E98E;
-  color: #A27D35;
+  background-color: #fbf7aa;
+  border-color: #f9e98e;
+  color: #a27d35;
 }
 
 .qtip-cream .qtip-titlebar {
-  background-color: #F0DE7D;
+  background-color: #f0de7d;
 }
 
 .qtip-cream .qtip-close .qtip-icon {
@@ -145,13 +145,13 @@
 }
 
 .qtip-red {
-  background-color: #F78B83;
-  border-color: #D95252;
+  background-color: #f78b83;
+  border-color: #d95252;
   color: #912323;
 }
 
 .qtip-red .qtip-titlebar {
-  background-color: #F06D65;
+  background-color: #f06d65;
 }
 
 .qtip-red .qtip-close .qtip-icon {
@@ -159,21 +159,21 @@
 }
 
 .qtip-red .qtip-icon {
-  border-color: #D95252;
+  border-color: #d95252;
 }
 
 .qtip-red .qtip-titlebar .ui-state-hover {
-  border-color: #D95252;
+  border-color: #d95252;
 }
 
 .qtip-green {
-  background-color: #CAED9E;
-  border-color: #90D93F;
-  color: #3F6219;
+  background-color: #caed9e;
+  border-color: #90d93f;
+  color: #3f6219;
 }
 
 .qtip-green .qtip-titlebar {
-  background-color: #B0DE78;
+  background-color: #b0de78;
 }
 
 .qtip-green .qtip-close .qtip-icon {
@@ -181,13 +181,13 @@
 }
 
 .qtip-blue {
-  background-color: #E5F6FE;
-  border-color: #ADD9ED;
-  color: #5E99BD;
+  background-color: #e5f6fe;
+  border-color: #add9ed;
+  color: #5e99bd;
 }
 
 .qtip-blue .qtip-titlebar {
-  background-color: #D0E9F5;
+  background-color: #d0e9f5;
 }
 
 .qtip-blue .qtip-close .qtip-icon {
@@ -216,21 +216,21 @@
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
-  -webkit-box-shadow: 0 0 3px #333;
-  -moz-box-shadow: 0 0 3px #333;
-  box-shadow: 0 0 3px #333;
-  color: #fff;
+  -webkit-box-shadow: 0 0 3px #333333;
+  -moz-box-shadow: 0 0 3px #333333;
+  box-shadow: 0 0 3px #333333;
+  color: #ffffff;
   border-width: 0;
-  background: #4A4A4A;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #4A4A4A), color-stop(100%, #000));
-  background-image: -webkit-linear-gradient(top, #4A4A4A 0, #000 100%);
-  background-image: -moz-linear-gradient(top, #4A4A4A 0, #000 100%);
-  background-image: -ms-linear-gradient(top, #4A4A4A 0, #000 100%);
-  background-image: -o-linear-gradient(top, #4A4A4A 0, #000 100%);
+  background: #4a4a4a;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #4a4a4a), color-stop(100%, #000000));
+  background-image: -webkit-linear-gradient(top, #4a4a4a 0, #000000 100%);
+  background-image: -moz-linear-gradient(top, #4a4a4a 0, #000000 100%);
+  background-image: -ms-linear-gradient(top, #4a4a4a 0, #000000 100%);
+  background-image: -o-linear-gradient(top, #4a4a4a 0, #000000 100%);
 }
 
 .qtip-youtube .qtip-titlebar {
-  background-color: #4A4A4A;
+  background-color: #4a4a4a;
   background-color: rgba(0, 0, 0, 0);
 }
 
@@ -242,7 +242,7 @@
 }
 
 .qtip-youtube .qtip-icon {
-  border-color: #222;
+  border-color: #222222;
 }
 
 .qtip-youtube .qtip-titlebar .ui-state-hover {
@@ -257,53 +257,53 @@
   background-image: -webkit-linear-gradient(top, #717171, #232323);
   background-image: -ms-linear-gradient(top, #717171, #232323);
   background-image: -o-linear-gradient(top, #717171, #232323);
-  border: 2px solid #ddd;
+  border: 2px solid #dddddd;
   border: 2px solid rgb(241, 241, 241);
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
-  -webkit-box-shadow: 0 0 12px #333;
-  -moz-box-shadow: 0 0 12px #333;
-  box-shadow: 0 0 12px #333;
+  -webkit-box-shadow: 0 0 12px #333333;
+  -moz-box-shadow: 0 0 12px #333333;
+  box-shadow: 0 0 12px #333333;
 }
 
 .qtip-jtools .qtip-titlebar {
   background-color: transparent;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#717171, endColorstr=#4A4A4A);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#717171, endColorstr=#4a4a4a);
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#717171, endColorstr=#4A4A4A)";
 }
 
 .qtip-jtools .qtip-content {
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4A4A4A, endColorstr=#232323);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4a4a4a, endColorstr=#232323);
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#4A4A4A, endColorstr=#232323)";
 }
 
 .qtip-jtools .qtip-titlebar, .qtip-jtools .qtip-content {
   background: transparent;
-  color: #fff;
+  color: #ffffff;
   border: 0 dashed transparent;
 }
 
 .qtip-jtools .qtip-icon {
-  border-color: #555;
+  border-color: #555555;
 }
 
 .qtip-jtools .qtip-titlebar .ui-state-hover {
-  border-color: #333;
+  border-color: #333333;
 }
 
 .qtip-cluetip {
   -webkit-box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);
   box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);
-  background-color: #D9D9C2;
-  color: #111;
+  background-color: #d9d9c2;
+  color: #111111;
   border: 0 dashed transparent;
 }
 
 .qtip-cluetip .qtip-titlebar {
-  background-color: #87876A;
-  color: #fff;
+  background-color: #87876a;
+  color: #ffffff;
   border: 0 dashed transparent;
 }
 
@@ -317,15 +317,15 @@
 }
 
 .qtip-tipsy {
-  background: #000;
+  background: #000000;
   background: rgba(0, 0, 0, 0.87);
-  color: #fff;
+  color: #ffffff;
   border: 0 solid transparent;
   font-size: 11px;
   font-family: "Lucida Grande", sans-serif;
   font-weight: 700;
   line-height: 16px;
-  text-shadow: 0 1px #000;
+  text-shadow: 0 1px #000000;
 }
 
 .qtip-tipsy .qtip-titlebar {
@@ -338,7 +338,7 @@
 }
 
 .qtip-tipsy .qtip-icon {
-  border-color: #222;
+  border-color: #222222;
   text-shadow: none;
 }
 
@@ -347,11 +347,11 @@
 }
 
 .qtip-tipped {
-  border: 3px solid #959FA9;
+  border: 3px solid #959fa9;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  background-color: #F9F9F9;
+  background-color: #f9f9f9;
   color: #454545;
   font-weight: 400;
   font-family: serif;
@@ -359,14 +359,14 @@
 
 .qtip-tipped .qtip-titlebar {
   border-bottom-width: 0;
-  color: #fff;
-  background: #3A79B8;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#3A79B8), to(#2E629D));
-  background-image: -webkit-linear-gradient(top, #3A79B8, #2E629D);
-  background-image: -moz-linear-gradient(top, #3A79B8, #2E629D);
-  background-image: -ms-linear-gradient(top, #3A79B8, #2E629D);
-  background-image: -o-linear-gradient(top, #3A79B8, #2E629D);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#3A79B8, endColorstr=#2E629D);
+  color: #ffffff;
+  background: #3a79b8;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#3a79b8), to(#2e629d));
+  background-image: -webkit-linear-gradient(top, #3a79b8, #2e629d);
+  background-image: -moz-linear-gradient(top, #3a79b8, #2e629d);
+  background-image: -ms-linear-gradient(top, #3a79b8, #2e629d);
+  background-image: -o-linear-gradient(top, #3a79b8, #2e629d);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#3a79b8, endColorstr=#2e629d);
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#3A79B8, endColorstr=#2E629D)";
 }
 
@@ -376,17 +376,17 @@
 }
 
 .qtip-tipped .qtip-icon .ui-icon {
-  background-color: #FBFBFB;
-  color: #555;
+  background-color: #fbfbfb;
+  color: #555555;
 }
 
 .qtip-bootstrap {
   font-size: 14px;
   line-height: 20px;
-  color: #333;
+  color: #333333;
   padding: 1px;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -433,14 +433,14 @@
   font-size: 20px;
   font-weight: 700;
   line-height: 18px;
-  color: #000;
-  text-shadow: 0 1px 0 #fff;
+  color: #000000;
+  text-shadow: 0 1px 0 #ffffff;
   opacity: 0.2;
   filter: alpha(opacity=20);
 }
 
 .qtip-bootstrap .qtip-icon .ui-icon:hover {
-  color: #000;
+  color: #000000;
   text-decoration: none;
   cursor: pointer;
   opacity: 0.4;
@@ -496,7 +496,7 @@ x:-o-prefocus, .qtip .qtip-tip {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: #000;
+  background-color: #000000;
   opacity: 0.7;
   filter: alpha(opacity=70);
   -ms-filter: "alpha(Opacity=70)";
@@ -517,7 +517,7 @@ x:-o-prefocus, .qtip .qtip-tip {
   line-height: 22px;
   color: #333333;
   background-color: #ffffff;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   *border-right-width: 2px;
   *border-bottom-width: 2px;
@@ -544,6 +544,7 @@ body, html {
 #mapa-online {
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 #mapa-online .terra {
   fill: #363636;

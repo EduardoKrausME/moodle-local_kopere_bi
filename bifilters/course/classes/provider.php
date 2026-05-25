@@ -18,13 +18,12 @@ namespace bifilters_course;
 
 use Exception;
 use local_kopere_bi\filters\i_filter_provider;
-use local_kopere_dashboard\util\url_util;
 
 /**
  * Class provider course
  *
  * @package   bifilters_course
- * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements i_filter_provider {
@@ -61,51 +60,53 @@ class provider implements i_filter_provider {
                     ],
                     [
                         "id" => "fullname",
-                        "name" => get_string("courses_name", "local_kopere_dashboard"),
+                        "name" => get_string("courses_name", "local_kopere_bi"),
                     ],
                     [
                         "id" => "shortname",
-                        "name" => get_string("courses_shortname", "local_kopere_dashboard"),
+                        "name" => get_string("courses_shortname", "local_kopere_bi"),
                     ],
                     [
                         "id" => "visible",
-                        "name" => get_string("visible", "local_kopere_dashboard"),
+                        "name" => get_string("visible", "local_kopere_bi"),
                     ],
                     [
                         "id" => "visible",
-                        "name" => get_string("courses_enrol", "local_kopere_dashboard"),
+                        "name" => get_string("courses_enrol", "local_kopere_bi"),
                         "style" => "width:50px;white-space:nowrap;",
                     ],
                 ],
                 "columns" => [
-                    (object)["data" => "id"],
-                    (object)["data" => "fullname"],
-                    (object)["data" => "shortname"],
-                    (object)["data" => "visible"],
-                    (object)["data" => "enrolments"],
+                    (object) ["data" => "id"],
+                    (object) ["data" => "fullname"],
+                    (object) ["data" => "shortname"],
+                    (object) ["data" => "visible"],
+                    (object) ["data" => "enrolments"],
                 ],
                 "columnDefs" => [
-                    (object)[
+                    (object) [
                         "render" => "numberRenderer",
                         "targets" => 0,
                     ],
-                    (object)[
+                    (object) [
                         "render" => "visibleRenderer",
                         "targets" => 3,
                     ],
-                    (object)[
+                    (object) [
                         "render" => "numberRenderer",
                         "targets" => 4,
                     ],
                 ],
                 "table-title" => get_string("reports_selectcourse", "local_kopere_bi"),
-                "url-ajax"  => url_util::makeurl("courses", "load_all_courses", [], "view-ajax"),
-                "url-click"  => url_util::makeurl($classname, $method, $paramsurl),
+                "url-ajax" => "view-ajax.php?classname=courses&method=load_all_courses",
+                "url-click" => "?classname=$classname&method=$method&" . http_build_query($paramsurl, "", "&"),
             ];
 
             global $OUTPUT, $PAGE;
-            $PAGE->requires->js_call_amd("local_kopere_bi/filter", "init",
-                [$data["popupid"], $data["columns"], $data["columnDefs"]]);
+            $PAGE->requires->js_call_amd(
+                "local_kopere_bi/filter", "init",
+                [$data["popupid"], $data["columns"], $data["columnDefs"]]
+            );
             return $OUTPUT->render_from_template("local_kopere_bi/filter", $data);
         }
 
