@@ -22,12 +22,10 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
 use local_kopere_dashboard\util\json;
 
 define("AJAX_SCRIPT", true);
 define("NO_DEBUG_DISPLAY", true);
-
 
 require_once(__DIR__ . "/../../config.php");
 require_once(__DIR__ . "/lib.php");
