@@ -428,4 +428,3 @@ class provider implements i_block_provider {
         die();
     }
 }
-
