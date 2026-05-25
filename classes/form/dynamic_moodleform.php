@@ -98,7 +98,6 @@ class dynamic_moodleform extends moodleform {
         }
     }
 
-
     /**
      * Add raw HTML inside the Moodle form.
      *
