@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Lang file
+ * Lang en file
  *
  * @package   bifilters_course
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
