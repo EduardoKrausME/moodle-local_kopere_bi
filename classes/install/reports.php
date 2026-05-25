@@ -45,7 +45,7 @@ class reports {
         $jsonpage = file_get_contents($pagefile);
 
         $page = json_decode($jsonpage);
-        if(!isset($page->title)){
+        if (!isset($page->title)) {
             return false;
         }
         self::from_json($page);
