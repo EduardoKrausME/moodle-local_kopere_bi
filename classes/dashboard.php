@@ -58,6 +58,7 @@ class dashboard extends bi_all {
 
         $koperebicats = $DB->get_records("local_kopere_bi_cat", null, "sortorder ASC");
         $categorys = [];
+        $totalpages = 0;
 
         /** @var local_kopere_bi_cat $koperebicat */
         foreach ($koperebicats as $koperebicat) {
@@ -80,16 +81,26 @@ class dashboard extends bi_all {
                 ];
             }
 
+            $categorydescription = string_util::get_string($koperebicat->description);
+            $categorypagecount = count($newpages);
+            $totalpages += $categorypagecount;
+
             $categorys[] = [
                 "pages" => $newpages,
+                "has_pages" => $categorypagecount > 0,
                 "category_id" => $koperebicat->id,
                 "category_title" => string_util::get_string($koperebicat->title),
-                "category_description" => string_util::get_string($koperebicat->description),
+                "category_description" => $categorydescription,
+                "has_category_description" => (bool) strlen(trim($categorydescription)),
+                "category_page_count" => $categorypagecount,
             ];
         }
 
         return $OUTPUT->render_from_template("local_kopere_bi/dashboard-start", [
             "categorys" => $categorys,
+            "has_categories" => count($categorys) > 0,
+            "total_categories" => count($categorys),
+            "total_pages" => $totalpages,
             "editing" => isset($USER->editing) ? $USER->editing : 0,
             "wwwroot" => $CFG->wwwroot,
         ]);
@@ -383,6 +394,7 @@ class dashboard extends bi_all {
     /**
      * Function delete_page
      *
+     * @return string|void
      * @throws Exception
      */
     public function delete_page() {
