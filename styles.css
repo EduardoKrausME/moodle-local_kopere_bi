@@ -266,7 +266,6 @@
   display: block;
 }
 .kopere-bi-page .chart-box {
-  height: 100%;
   position: relative;
 }
 .kopere-bi-page .chart-box.select-theme {
@@ -1219,6 +1218,16 @@
     justify-content: space-between;
   }
 }
+.preview-block .col-lg-3 .chart-box-table .buttons-print,
+.preview-block .col-lg-3 .chart-box-table .buttons-html5,
+.preview-block .col-lg-4 .chart-box-table .buttons-print,
+.preview-block .col-lg-4 .chart-box-table .buttons-html5 {
+  display: none !important;
+}
+.preview-block .table-responsive {
+  margin: 0 -16px;
+}
+
 .kopere-bi .chart-box .element-box.type-info,
 .kopere_bi_div .chart-box .element-box.type-info,
 .kopere_bi_div-ajax .chart-box .element-box.type-info {

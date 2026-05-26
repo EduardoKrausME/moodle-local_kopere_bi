@@ -388,3 +388,17 @@
         justify-content: space-between;
     }
 }
+.preview-block {
+    .col-lg-3,
+    .col-lg-4 {
+        .chart-box-table {
+            .buttons-print,
+            .buttons-html5 {
+                display: none !important;
+            }
+        }
+    }
+    .table-responsive {
+        margin: 0 -16px;
+    }
+}

@@ -288,7 +288,7 @@
         display: block;
     }
     .chart-box {
-        height: 100%;
+        //height: 100%;
         position: relative;
         //overflow: hidden;
         &.select-theme {
@@ -697,7 +697,7 @@
     @include local_kopere_bi_darkmodecode;
 }
 @import "styles/dashboard-start";
-@import "styles/reports-home";
+@import "styles/reports";
 @import "styles/chart-box";
 @import "amd/src/ace";
 
