@@ -107,6 +107,7 @@ class provider implements i_block_provider {
      * @throws Exception
      */
     public function preview($koperebielement) {
+        global $OUTPUT;
 
         $cache = cache_util::get_cache_make($koperebielement->cache);
 
@@ -132,18 +133,41 @@ class provider implements i_block_provider {
                 }
             }
 
-            foreach ($line as $column) {
-                if (is_float($column)) {
-                    $column = "{$column}";
-                } else if (is_number($column)) {
-                    $column = number_format($column, 0, "", ".");
-                }
-                $retorno = "<span class='big-text'>{$column}</span>";
-                $cache->set($koperebielement->id, $retorno);
-            }
+            $columns = $line ? array_values((array) $line) : [];
+            $value = count($columns) ? $this->format_value(reset($columns)) : "-";
+
+            $retorno = $OUTPUT->render_from_template("biblocks_info/preview", [
+                "value" => $value,
+            ]);
+            $cache->set($koperebielement->id, $retorno);
         }
 
         return $retorno;
+    }
+
+    /**
+     * Formats the first SQL column as a clean KPI value.
+     *
+     * @param mixed $value
+     * @return string
+     */
+    private function format_value($value) {
+        if ($value === null || $value === "") {
+            return "-";
+        }
+
+        if (is_float($value)) {
+            return "{$value}";
+        }
+
+        if (is_numeric($value)) {
+            $number = (float) $value;
+            if (floor($number) == $number) {
+                return number_format($number, 0, "", ".");
+            }
+        }
+
+        return "{$value}";
     }
 
     /**
