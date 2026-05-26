@@ -51,17 +51,14 @@ class online_delete extends \core\task\scheduled_task {
     public function execute() {
         global $DB;
 
-        if ($DB->get_dbfamily() == "mysql") {
-            $where = 'currenttime < DATE_SUB(NOW(), INTERVAL :month MONTH)';
-            $DB->delete_records_select("local_kopere_bi_online", $where, ["month" => $this->month]);
-        } else if ($DB->get_dbfamily() == "postgres") {
-            $where = "currenttime < :month";
-            $time = strtotime("-{$this->month} months", time());
-            $DB->delete_records_select("local_kopere_bi_online", $where, ["month" => $time]);
-        } else {
-            mtrace("only mysqli and pgsql");
+        if (!in_array($DB->get_dbfamily(), ["mysql", "postgres"])) {
+            mtrace("Only MySQL and PostgreSQL are supported by the online data cleaner.");
             return;
         }
+
+        $where = "currenttime < :month";
+        $time = strtotime("-{$this->month} months", time());
+        $DB->delete_records_select("local_kopere_bi_online", $where, ["month" => $time]);
 
         mtrace("Completed cleaning of results from the last {$this->month} months.");
     }
