@@ -46,7 +46,7 @@ class reports {
 
         $page = json_decode($jsonpage);
         if (!isset($page->title)) {
-            return false;
+            return;
         }
         self::from_json($page);
     }
@@ -64,73 +64,82 @@ class reports {
         $koperebipage = clone $page;
         unset($koperebipage->blocks);
 
-        if (isset($koperebipage->pre_requisit)) {
-            if ($koperebipage->pre_requisit == "mysql") {
-                $ok = false;
-                if ($DB->get_dbfamily() == "mysql") {
-                    $ok = true;
-                }
-                if (!$ok) {
-                    return;
-                }
+        if (isset($koperebipage->pre_requisit) && $koperebipage->pre_requisit == "mysql") {
+            if ($DB->get_dbfamily() != "mysql") {
+                return;
             }
         }
 
         /** @var local_kopere_bi_cat $category */
-        $category = $DB->get_record("local_kopere_bi_cat", ["refkey" => $page->category->refkey]);
-        if (!$category) {
-            $category = $DB->get_record("local_kopere_bi_cat", ["title" => $page->category->title]);
-            if (!$category) {
-                $category = $page->category;
-                $category->id = $DB->insert_record("local_kopere_bi_cat", $category);
-            }
-        }
+        $category = $page->category;
+        $category->id = self::save_record_by_refkey("local_kopere_bi_cat", $category);
 
         $koperebipage->time = time();
         $koperebipage->cat_id = $category->id;
-        $page->id = $DB->insert_record("local_kopere_bi_page", $koperebipage);
+        $page->id = self::save_record_by_refkey("local_kopere_bi_page", $koperebipage);
 
         foreach ($page->blocks as $block) {
             /** @var local_kopere_bi_block $koperebiblock */
             $koperebiblock = clone $block;
             unset($koperebiblock->elements);
 
-            if (isset($koperebiblock->pre_requisit)) {
-                if ($koperebiblock->pre_requisit == "mysql") {
-                    $ok = false;
-                    if ($DB->get_dbfamily() == "mysql") {
-                        $ok = true;
-                    }
-                    if (!$ok) {
-                        continue;
-                    }
+            if (isset($koperebiblock->pre_requisit) && $koperebiblock->pre_requisit == "mysql") {
+                if ($DB->get_dbfamily() != "mysql") {
+                    continue;
                 }
             }
 
             $koperebiblock->page_id = $page->id;
             $koperebiblock->time = time();
-            $block->id = $DB->insert_record("local_kopere_bi_block", $koperebiblock);
+            $block->id = self::save_record_by_refkey("local_kopere_bi_block", $koperebiblock);
 
             foreach ($block->elements as $element) {
                 /** @var local_kopere_bi_element $koperebielement */
                 $koperebielement = clone $element;
 
-                if (isset($koperebielement->pre_requisit)) {
-                    if ($koperebielement->pre_requisit == "mysql") {
-                        $ok = false;
-                        if ($DB->get_dbfamily() == "mysql") {
-                            $ok = true;
-                        }
-                        if (!$ok) {
-                            continue;
-                        }
+                if (isset($koperebielement->pre_requisit) && $koperebielement->pre_requisit == "mysql") {
+                    if ($DB->get_dbfamily() != "mysql") {
+                        continue;
                     }
                 }
 
+                if (!is_string($koperebielement->info)) {
+                    $koperebielement->info = json_encode($koperebielement->info);
+                }
                 $koperebielement->block_id = $block->id;
                 $koperebielement->time = time();
-                $element->id = $DB->insert_record("local_kopere_bi_element", $koperebielement);
+                $element->id = self::save_record_by_refkey("local_kopere_bi_element", $koperebielement);
             }
         }
     }
+
+    /**
+     * Inserts a record or updates it when the same refkey already exists.
+     *
+     * @param string $table
+     * @param object $record
+     * @return int
+     */
+    private static function save_record_by_refkey($table, $record) {
+        global $DB;
+
+        if (!empty($record->refkey)) {
+            $conditions = ["refkey" => $record->refkey];
+            $itens = $DB->get_records($table, $conditions);
+            if ($itens) {
+                if (count($itens) == 1) {
+                    $record->id = reset($itens)->id;
+                    if ($table != "local_kopere_bi_cat") {
+                        $DB->update_record($table, $record);
+                    }
+                    return $record->id;
+                } else if (count($itens) > 1) {
+                    $DB->delete_records($table, $conditions);
+                }
+            }
+        }
+
+        return $DB->insert_record($table, $record);
+    }
+
 }
