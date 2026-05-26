@@ -1,0 +1,82 @@
+{
+  "title": "lang::report_page_078_title::local_kopere_bi",
+  "description": "lang::report_page_078_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_scorm_activity_summary_by_course",
+  "sortorder": 78,
+  "category": {
+    "refkey": "scorm",
+    "title": "lang::report_category_scorm_title::local_kopere_bi",
+    "sortorder": 100,
+    "description": "lang::report_category_scorm_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_scorm_78",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_078_title::local_kopere_bi",
+          "refkey": "kbi_el_scorm_activity_summary_by_course",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_s.id,\n       kbi_c.fullname,\n       kbi_s.name,\n       kbi_s.timemodified,\n       SUM(CASE WHEN element = 'x.start.time' THEN 1 ELSE 0 END) AS attempts,\n       MAX(sl.visits)                                            AS visits,\n       SUM(CASE\n             WHEN element = 'cmi.core.total_time' THEN TIME_TO_SEC(value)\n             ELSE 0 END)                                         AS duration\nFROM mdl_scorm kbi_s\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_s.course\n       LEFT JOIN mdl_scorm_scoes_track kbi_sst\n         ON kbi_sst.scormid = kbi_s.id AND (element = 'cmi.core.total_time' OR element = 'x.start.time')\nWHERE kbi_s.id > 0\n  AND kbi_c.id = :courseid\n  AND kbi_c.visible = 1\nGROUP BY kbi_s.id, kbi_c.id\nORDER BY kbi_c.fullname, kbi_s.name",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "name": {
+                "key": "name",
+                "title": "lang::report_field_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "timemodified": {
+                "key": "timemodified",
+                "title": "lang::report_field_timemodified_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "attempts": {
+                "key": "attempts",
+                "title": "lang::report_field_attempts_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "visits": {
+                "key": "visits",
+                "title": "lang::report_field_visits_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "duration": {
+                "key": "duration",
+                "title": "lang::report_field_duration_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

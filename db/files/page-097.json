@@ -1,0 +1,52 @@
+{
+  "title": "lang::report_page_097_title::local_kopere_bi",
+  "description": "lang::report_page_097_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_moodle_message_utilization",
+  "sortorder": 97,
+  "category": {
+    "refkey": "communication",
+    "title": "lang::report_category_communication_title::local_kopere_bi",
+    "sortorder": 140,
+    "description": "lang::report_category_communication_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_communication_97",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_097_title::local_kopere_bi",
+          "refkey": "kbi_el_moodle_message_utilization",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_m.id,\n       kbi_uf.id                                         AS userid_from,\n       kbi_uf.firstname                                  AS firstname_from,\n       kbi_uf.lastname                                   AS lastname_from,\n       kbi_uf.email                                      AS email_from,\n       GROUP_CONCAT(DISTINCT kbi_rf.name SEPARATOR ', ') AS role_from,\n       kbi_m.timecreated,\n       kbi_ut.id                                         AS userid_to,\n       kbi_ut.firstname                                  AS firstname_to,\n       kbi_ut.lastname                                   AS lastname_to,\n       kbi_ut.email                                      AS email_to,\n       GROUP_CONCAT(DISTINCT kbi_rt.name SEPARATOR ', ') AS role_to\nFROM mdl_messages kbi_m\n       JOIN mdl_user kbi_uf ON kbi_uf.id = kbi_m.useridfrom\n       JOIN mdl_message_conversation_members kbi_mcm ON kbi_mcm.conversationid = kbi_m.conversationid AND kbi_mcm.userid <> kbi_m.useridfrom\n       JOIN mdl_user kbi_ut ON kbi_ut.id = kbi_mcm.userid\n       JOIN mdl_context kbi_ctx ON kbi_ctx.contextlevel = 10\n       LEFT JOIN mdl_role_assignments kbi_raf ON kbi_raf.contextid = kbi_ctx.id AND kbi_raf.userid = kbi_uf.id\n       LEFT JOIN mdl_role kbi_rf ON kbi_rf.id = kbi_raf.roleid\n       LEFT JOIN mdl_role_assignments kbi_rat ON kbi_rat.contextid = kbi_ctx.id AND kbi_rat.userid = kbi_ut.id\n       LEFT JOIN mdl_role kbi_rt ON kbi_rt.id = kbi_rat.roleid\nWHERE kbi_m.timecreated > 0\nGROUP BY kbi_m.id, kbi_uf.id, kbi_ut.id\nORDER BY kbi_m.timecreated DESC, kbi_uf.lastname, kbi_ut.lastname",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "userid_": {
+                "key": "userid_",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

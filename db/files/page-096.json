@@ -1,0 +1,153 @@
+{
+  "title": "lang::report_page_096_title::local_kopere_bi",
+  "description": "lang::report_page_096_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_lesson_answers",
+  "sortorder": 96,
+  "category": {
+    "refkey": "communication",
+    "title": "lang::report_category_communication_title::local_kopere_bi",
+    "sortorder": 140,
+    "description": "lang::report_category_communication_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_communication_96",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_096_title::local_kopere_bi",
+          "refkey": "kbi_el_lesson_answers",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_la.id       AS id,\n       kbi_la.timeseen,\n       kbi_c.id        AS courseid,\n       kbi_c.fullname,\n       kbi_c.shortname,\n       kbi_u.id        AS userid,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_u.username,\n       t.id        AS teacher_userid,\n       t.firstname AS teacher_firstname,\n       t.lastname  As teacher_lastname,\n       t.email     AS teacher_email,\n       t.username  AS teacher_username,\n       kbi_l.name      AS lesson_name,\n       kbi_lp.contents AS question_name,\n       kbi_lp.qtype,\n       kbi_la.useranswer\nFROM mdl_lesson kbi_l\n       JOIN mdl_lesson_attempts kbi_la ON kbi_la.lessonid = kbi_l.id\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_l.course\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_la.userid\n       JOIN mdl_lesson_pages kbi_lp ON kbi_lp.id = kbi_la.pageid\n       LEFT JOIN (SELECT a.courseid, kbi_u.firstname, kbi_u.lastname, kbi_u.email, kbi_u.username, kbi_u.id\n                  FROM (SELECT kbi_ctx.instanceid AS courseid, MIN(kbi_ra.userid) AS userid\n                        FROM mdl_role_assignments kbi_ra\n                               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid\n                        WHERE kbi_ctx.contextlevel = 50\n                          AND kbi_ra.roleid = 3\n                        GROUP BY kbi_ctx.instanceid) a\n                         JOIN mdl_user kbi_u ON kbi_u.id = a.userid) t ON t.courseid = kbi_c.id\nWHERE kbi_l.id > 0\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "timeseen": {
+                "key": "timeseen",
+                "title": "lang::report_field_timeseen_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{courseid}}}\" target=\"course\">{{{fullname}}}</a>"
+              },
+              "shortname": {
+                "key": "shortname",
+                "title": "lang::report_field_shortname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "username": {
+                "key": "username",
+                "title": "lang::report_field_username_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "teacher_userid": {
+                "key": "teacher_userid",
+                "title": "lang::report_field_teacher_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "teacher_firstname": {
+                "key": "teacher_firstname",
+                "title": "lang::report_field_teacher_firstname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "teacher_lastname": {
+                "key": "teacher_lastname",
+                "title": "lang::report_field_teacher_lastname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "teacher_email": {
+                "key": "teacher_email",
+                "title": "lang::report_field_teacher_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "teacher_username": {
+                "key": "teacher_username",
+                "title": "lang::report_field_teacher_username_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "lesson_name": {
+                "key": "lesson_name",
+                "title": "lang::report_field_lesson_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "question_name": {
+                "key": "question_name",
+                "title": "lang::report_field_question_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "qtype": {
+                "key": "qtype",
+                "title": "lang::report_field_qtype_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "useranswer": {
+                "key": "useranswer",
+                "title": "lang::report_field_useranswer_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

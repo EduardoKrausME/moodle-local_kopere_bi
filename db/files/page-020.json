@@ -1,0 +1,118 @@
+{
+  "title": "lang::report_page_020_title::local_kopere_bi",
+  "description": "lang::report_page_020_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_user_role_modification_learner_roles",
+  "sortorder": 20,
+  "category": {
+    "refkey": "users",
+    "title": "lang::report_category_users_title::local_kopere_bi",
+    "sortorder": 20,
+    "description": "lang::report_category_users_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_users_20",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_020_title::local_kopere_bi",
+          "refkey": "kbi_el_user_role_modification_learner_roles",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT MIN(kbi_ra.id),\n       kbi_c.id                                                                    AS courseid,\n       kbi_c.fullname                                                              AS course_name,\n       GROUP_CONCAT(DISTINCT kbi_r0.shortname)                                     AS role,\n       MIN(kbi_lsl.all_count)                                                      AS all_count,\n       CASE WHEN MIN(kbi_lsl.all_count) > 1 THEN MAX(kbi_r.shortname) ELSE '-' END     AS action_role,\n       CASE WHEN MIN(kbi_lsl.all_count) > 1 THEN MAX(kbi_log.action) ELSE '-' END      AS action,\n       CASE WHEN MIN(kbi_lsl.all_count) > 1 THEN MAX(kbi_log.timecreated) ELSE '-' END AS timecreated,\n       CASE\n         WHEN MIN(kbi_lsl.all_count) > 1 THEN MAX(CONCAT(kbi_u_action.firstname, ' ', kbi_u_action.lastname))\n         ELSE '-' END                                                          AS user_action,\n       MAX(kbi_u_action.id)                                                        AS user_action_id,\n       MAX(kbi_u_related.firstname)                                                AS firstname,\n       MAX(kbi_u_related.lastname)                                                 AS lastname,\n       MAX(kbi_u_related.email)                                                    AS email,\n       MAX(kbi_u_related.id)                                                       AS user_related_id\nFROM mdl_role_assignments kbi_ra\n       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50\n       LEFT JOIN mdl_role kbi_r0 ON kbi_r0.id = kbi_ra.roleid\n       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_ctx.instanceid\n       LEFT JOIN (SELECT kbi_lsl.courseid, kbi_lsl.relateduserid, MAX(kbi_lsl.id) AS last_change, COUNT(kbi_lsl.id) AS all_count\n                  FROM mdl_local_kopere_bi_log_tmp kbi_lsl\n                         JOIN mdl_role_assignments kbi_ra1 ON kbi_ra1.userid = kbi_lsl.relateduserid\n                         JOIN mdl_context kbi_ctx1 ON kbi_ctx1.id = kbi_ra1.contextid AND kbi_ctx1.instanceid = kbi_lsl.courseid\n                  WHERE (kbi_lsl.action = 'assigned' OR kbi_lsl.action = 'unassigned')\n                    AND kbi_lsl.target = 'role'\n                    AND kbi_lsl.contextlevel = 50\n                    AND kbi_ctx1.contextlevel = 50\n                  GROUP BY kbi_lsl.courseid, kbi_lsl.relateduserid) lsl ON kbi_lsl.courseid = kbi_c.id AND kbi_lsl.relateduserid = kbi_ra.userid\n       LEFT JOIN mdl_local_kopere_bi_log_tmp kbi_log ON kbi_log.id = kbi_lsl.last_change\n       LEFT JOIN mdl_role kbi_r ON kbi_r.id = kbi_log.objectid\n       LEFT JOIN mdl_user kbi_u_action ON kbi_u_action.id = kbi_log.userid\n       LEFT JOIN mdl_user kbi_u_related ON kbi_u_related.id = kbi_log.relateduserid\nWHERE kbi_ra.id > 0\n  AND kbi_c.id = :courseid\nGROUP BY kbi_ra.userid, kbi_c.id",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course_name": {
+                "key": "course_name",
+                "title": "lang::report_field_course_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "role": {
+                "key": "role",
+                "title": "lang::report_field_role_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "all_count": {
+                "key": "all_count",
+                "title": "lang::report_field_all_count_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "action_role": {
+                "key": "action_role",
+                "title": "lang::report_field_action_role_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "action": {
+                "key": "action",
+                "title": "lang::report_field_action_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "timecreated": {
+                "key": "timecreated",
+                "title": "lang::report_field_timecreated_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "user_action": {
+                "key": "user_action",
+                "title": "lang::report_field_user_action_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "user_action_id": {
+                "key": "user_action_id",
+                "title": "lang::report_field_user_action_id_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": ""
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "user_related_id": {
+                "key": "user_related_id",
+                "title": "lang::report_field_user_related_id_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

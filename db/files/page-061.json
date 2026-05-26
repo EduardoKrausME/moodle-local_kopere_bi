@@ -1,0 +1,63 @@
+{
+  "title": "lang::report_page_061_title::local_kopere_bi",
+  "description": "lang::report_page_061_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_uploads",
+  "sortorder": 61,
+  "category": {
+    "refkey": "activities",
+    "title": "lang::report_category_activities_title::local_kopere_bi",
+    "sortorder": 70,
+    "description": "lang::report_category_activities_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_activities_61",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_061_title::local_kopere_bi",
+          "refkey": "kbi_el_uploads",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT MAX(kbi_f.id)             AS id,\n       kbi_f.component,\n       COUNT(kbi_f.id)           AS files,\n       COALESCE(SUM(kbi_f.filesize), 0) AS filesize\nFROM mdl_files kbi_f\nWHERE kbi_f.filesize > 0\nGROUP BY kbi_f.component\nORDER BY filesize DESC, component",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "component": {
+                "key": "component",
+                "title": "lang::report_field_component_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "files": {
+                "key": "files",
+                "title": "lang::report_field_files_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "filesize": {
+                "key": "filesize",
+                "title": "lang::report_field_filesize_title::local_kopere_bi",
+                "type": "filesize",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

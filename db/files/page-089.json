@@ -1,0 +1,202 @@
+{
+  "title": "lang::report_page_089_title::local_kopere_bi",
+  "description": "lang::report_page_089_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_quiz_score_details",
+  "sortorder": 89,
+  "category": {
+    "refkey": "quizzes",
+    "title": "lang::report_category_quizzes_title::local_kopere_bi",
+    "sortorder": 80,
+    "description": "lang::report_category_quizzes_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_quizzes_089",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_089_title::local_kopere_bi",
+          "refkey": "kbi_el_quiz_score_details",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_qa.id                                                           AS id,\n       kbi_c.id                                                            AS courseid,\n       kbi_c.fullname                                                      AS course,\n       kbi_cm.id                                                           AS cmid,\n       kbi_qz.id                                                           AS quizid,\n       kbi_qz.name                                                         AS quiz_name,\n       kbi_u.id                                                            AS userid,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_qa.attempt,\n       kbi_qa.timestart,\n       kbi_qa.timefinish,\n       kbi_qa.state                                                        AS attempt_state,\n       COUNT(DISTINCT kbi_qatt.id)                                         AS questions,\n       SUM(kbi_qatt.maxmark)                                               AS question_maxmark,\n       ROUND(SUM(kbi_qatt.maxmark * COALESCE(kbi_qas.fraction, 0)), 2)     AS total_question_score,\n       ROUND(kbi_qa.sumgrades, 2)                                          AS rawgrade,\n       kbi_qz.sumgrades                                                    AS quiz_raw_max,\n       ROUND(CASE WHEN kbi_qz.sumgrades > 0 THEN kbi_qa.sumgrades * 100 / kbi_qz.sumgrades ELSE NULL END, 2) AS score_percent,\n       ROUND(CASE WHEN kbi_qz.sumgrades > 0 THEN kbi_qa.sumgrades * kbi_qz.grade / kbi_qz.sumgrades ELSE NULL END, 2) AS finalgrade,\n       kbi_qz.grade                                                        AS grademax,\n       kbi_gi.gradepass,\n       kbi_gg.finalgrade                                                   AS gradebook_finalgrade,\n       SUM(CASE WHEN kbi_qas.state = 'gradedright' THEN 1 ELSE 0 END)      AS correct_answers,\n       SUM(CASE WHEN kbi_qas.state = 'gradedpartial' THEN 1 ELSE 0 END)    AS partial_answers,\n       SUM(CASE WHEN kbi_qas.state = 'gradedwrong' THEN 1 ELSE 0 END)      AS wrong_answers\nFROM mdl_quiz_attempts kbi_qa\n       JOIN mdl_quiz kbi_qz ON kbi_qz.id = kbi_qa.quiz\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_qz.course\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_qa.userid\n       JOIN mdl_question_attempts kbi_qatt ON kbi_qatt.questionusageid = kbi_qa.uniqueid\n       LEFT JOIN mdl_question_attempt_steps kbi_qas ON kbi_qas.questionattemptid = kbi_qatt.id\n             AND kbi_qas.sequencenumber = (\n                 SELECT MAX(kbi_qas2.sequencenumber)\n                 FROM mdl_question_attempt_steps kbi_qas2\n                 WHERE kbi_qas2.questionattemptid = kbi_qatt.id\n             )\n       JOIN mdl_modules kbi_m ON kbi_m.name = 'quiz'\n       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id AND kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_qz.id\n       LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.itemmodule = 'quiz' AND kbi_gi.iteminstance = kbi_qz.id AND kbi_gi.courseid = kbi_c.id\n       LEFT JOIN mdl_grade_grades kbi_gg ON kbi_gg.itemid = kbi_gi.id AND kbi_gg.userid = kbi_u.id\nWHERE kbi_qa.preview = 0\n  AND kbi_c.visible = 1\n  AND kbi_cm.visible = 1\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username <> 'guest'\nGROUP BY kbi_qa.id, kbi_c.id, kbi_cm.id, kbi_qz.id, kbi_u.id, kbi_gi.gradepass, kbi_gg.finalgrade\nORDER BY kbi_c.fullname, kbi_qz.name, kbi_u.lastname, kbi_u.firstname, kbi_qa.attempt",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{courseid}}}\" target=\"course\">{{{course}}}</a>"
+              },
+              "cmid": {
+                "key": "cmid",
+                "title": "lang::report_field_cmid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "quizid": {
+                "key": "quizid",
+                "title": "lang::report_field_quizid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "quiz_name": {
+                "key": "quiz_name",
+                "title": "lang::report_field_quiz_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/mod/quiz/view.php?id={{{cmid}}}\" target=\"quiz\">{{{quiz_name}}}</a>"
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "attempt": {
+                "key": "attempt",
+                "title": "lang::report_field_attempt_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "timestart": {
+                "key": "timestart",
+                "title": "lang::report_field_timestart_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "timefinish": {
+                "key": "timefinish",
+                "title": "lang::report_field_timefinish_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "attempt_state": {
+                "key": "attempt_state",
+                "title": "lang::report_field_attempt_state_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "questions": {
+                "key": "questions",
+                "title": "lang::report_field_questions_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "question_maxmark": {
+                "key": "question_maxmark",
+                "title": "lang::report_field_question_maxmark_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "total_question_score": {
+                "key": "total_question_score",
+                "title": "lang::report_field_total_question_score_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "rawgrade": {
+                "key": "rawgrade",
+                "title": "lang::report_field_rawgrade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "quiz_raw_max": {
+                "key": "quiz_raw_max",
+                "title": "lang::report_field_quiz_raw_max_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "score_percent": {
+                "key": "score_percent",
+                "title": "lang::report_field_score_percent_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "finalgrade": {
+                "key": "finalgrade",
+                "title": "lang::report_field_finalgrade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "grademax": {
+                "key": "grademax",
+                "title": "lang::report_field_grademax_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "gradepass": {
+                "key": "gradepass",
+                "title": "lang::report_field_gradepass_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "gradebook_finalgrade": {
+                "key": "gradebook_finalgrade",
+                "title": "lang::report_field_gradebook_finalgrade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "correct_answers": {
+                "key": "correct_answers",
+                "title": "lang::report_field_correct_answers_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "partial_answers": {
+                "key": "partial_answers",
+                "title": "lang::report_field_partial_answers_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "wrong_answers": {
+                "key": "wrong_answers",
+                "title": "lang::report_field_wrong_answers_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

@@ -1,0 +1,148 @@
+{
+  "title": "lang::report_page_052_title::local_kopere_bi",
+  "description": "lang::report_page_052_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_pending_grading_items",
+  "sortorder": 52,
+  "category": {
+    "refkey": "grades",
+    "title": "lang::report_category_grades_title::local_kopere_bi",
+    "sortorder": 60,
+    "description": "lang::report_category_grades_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_grades_052",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_052_title::local_kopere_bi",
+          "refkey": "kbi_el_pending_grading_items",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_waiting.*\nFROM (\n       SELECT CONCAT('assign-', kbi_s.id) AS id,\n              kbi_c.id                   AS courseid,\n              kbi_c.fullname             AS course,\n              kbi_cm.id                  AS cmid,\n              kbi_a.id                   AS activityid,\n              kbi_a.name                 AS activity_name,\n              'assign'                   AS activity_type,\n              kbi_u.id                   AS userid,\n              kbi_u.firstname,\n              kbi_u.lastname,\n              kbi_u.email,\n              kbi_a.duedate,\n              kbi_s.timemodified         AS submitted_at,\n              kbi_g.timemodified         AS graded_at,\n              NULL                       AS slot,\n              NULL                       AS attemptid,\n              NULL                       AS question_name,\n              kbi_teachers.teacher_names AS teachers\n       FROM mdl_assign_submission kbi_s\n              JOIN mdl_assign kbi_a ON kbi_a.id = kbi_s.assignment\n              JOIN mdl_course kbi_c ON kbi_c.id = kbi_a.course\n              JOIN mdl_modules kbi_m ON kbi_m.name = 'assign'\n              JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id\n                    AND kbi_cm.module = kbi_m.id\n                    AND kbi_cm.instance = kbi_a.id\n              JOIN mdl_user kbi_u ON kbi_u.id = kbi_s.userid\n              JOIN mdl_enrol kbi_e ON kbi_e.courseid = kbi_c.id\n              JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id AND kbi_ue.userid = kbi_u.id\n              LEFT JOIN mdl_assign_grades kbi_g ON kbi_g.assignment = kbi_s.assignment\n                    AND kbi_g.userid = kbi_s.userid\n                    AND kbi_g.attemptnumber = kbi_s.attemptnumber\n              LEFT JOIN (\n                    SELECT kbi_ctx.instanceid AS courseid,\n                           GROUP_CONCAT(DISTINCT CONCAT(kbi_t.firstname, ' ', kbi_t.lastname) ORDER BY kbi_t.lastname, kbi_t.firstname SEPARATOR ', ') AS teacher_names\n                    FROM mdl_role_assignments kbi_ra\n                           JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid AND kbi_r.shortname IN ('editingteacher', 'teacher')\n                           JOIN mdl_user kbi_t ON kbi_t.id = kbi_ra.userid\n                           JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50\n                    WHERE kbi_t.deleted = 0\n                      AND kbi_t.suspended = 0\n                    GROUP BY kbi_ctx.instanceid\n              ) kbi_teachers ON kbi_teachers.courseid = kbi_c.id\n       WHERE kbi_s.latest = 1\n         AND kbi_s.status = 'submitted'\n         AND (kbi_g.id IS NULL OR kbi_g.grade IS NULL OR kbi_g.grade < 0 OR kbi_s.timemodified > COALESCE(kbi_g.timemodified, 0))\n         AND kbi_c.visible = 1\n         AND kbi_cm.visible = 1\n         AND kbi_e.status = 0\n         AND kbi_ue.status = 0\n         AND kbi_u.deleted = 0\n         AND kbi_u.suspended = 0\n         AND kbi_u.username <> 'guest'\n\n       UNION ALL\n\n       SELECT CONCAT('quiz-', kbi_qa.id, '-', kbi_qatt.id) AS id,\n              kbi_c.id                                    AS courseid,\n              kbi_c.fullname                              AS course,\n              kbi_cm.id                                   AS cmid,\n              kbi_qz.id                                   AS activityid,\n              kbi_qz.name                                 AS activity_name,\n              'quiz'                                      AS activity_type,\n              kbi_u.id                                    AS userid,\n              kbi_u.firstname,\n              kbi_u.lastname,\n              kbi_u.email,\n              kbi_qz.timeclose                            AS duedate,\n              kbi_qa.timefinish                           AS submitted_at,\n              NULL                                        AS graded_at,\n              kbi_qatt.slot                               AS slot,\n              kbi_qa.id                                   AS attemptid,\n              kbi_q.name                                  AS question_name,\n              kbi_teachers.teacher_names                  AS teachers\n       FROM mdl_quiz_attempts kbi_qa\n              JOIN mdl_quiz kbi_qz ON kbi_qz.id = kbi_qa.quiz\n              JOIN mdl_course kbi_c ON kbi_c.id = kbi_qz.course\n              JOIN mdl_user kbi_u ON kbi_u.id = kbi_qa.userid\n              JOIN mdl_question_attempts kbi_qatt ON kbi_qatt.questionusageid = kbi_qa.uniqueid\n              JOIN mdl_question kbi_q ON kbi_q.id = kbi_qatt.questionid\n              JOIN mdl_question_attempt_steps kbi_qas ON kbi_qas.questionattemptid = kbi_qatt.id\n                    AND kbi_qas.sequencenumber = (\n                        SELECT MAX(kbi_qas2.sequencenumber)\n                        FROM mdl_question_attempt_steps kbi_qas2\n                        WHERE kbi_qas2.questionattemptid = kbi_qatt.id\n                    )\n              JOIN mdl_modules kbi_m ON kbi_m.name = 'quiz'\n              JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id\n                    AND kbi_cm.module = kbi_m.id\n                    AND kbi_cm.instance = kbi_qz.id\n              JOIN mdl_enrol kbi_e ON kbi_e.courseid = kbi_c.id\n              JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id AND kbi_ue.userid = kbi_u.id\n              LEFT JOIN (\n                    SELECT kbi_ctx.instanceid AS courseid,\n                           GROUP_CONCAT(DISTINCT CONCAT(kbi_t.firstname, ' ', kbi_t.lastname) ORDER BY kbi_t.lastname, kbi_t.firstname SEPARATOR ', ') AS teacher_names\n                    FROM mdl_role_assignments kbi_ra\n                           JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid AND kbi_r.shortname IN ('editingteacher', 'teacher')\n                           JOIN mdl_user kbi_t ON kbi_t.id = kbi_ra.userid\n                           JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50\n                    WHERE kbi_t.deleted = 0\n                      AND kbi_t.suspended = 0\n                    GROUP BY kbi_ctx.instanceid\n              ) kbi_teachers ON kbi_teachers.courseid = kbi_c.id\n       WHERE kbi_qa.preview = 0\n         AND kbi_qa.state = 'finished'\n         AND kbi_qas.state = 'needsgrading'\n         AND kbi_c.visible = 1\n         AND kbi_cm.visible = 1\n         AND kbi_e.status = 0\n         AND kbi_ue.status = 0\n         AND kbi_u.deleted = 0\n         AND kbi_u.suspended = 0\n         AND kbi_u.username <> 'guest'\n) kbi_waiting\nORDER BY kbi_waiting.course, kbi_waiting.activity_name, kbi_waiting.submitted_at DESC",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "string",
+                "mustache": ""
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{courseid}}}\" target=\"course\">{{{course}}}</a>"
+              },
+              "cmid": {
+                "key": "cmid",
+                "title": "lang::report_field_cmid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "activityid": {
+                "key": "activityid",
+                "title": "lang::report_field_activityid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "activity_name": {
+                "key": "activity_name",
+                "title": "lang::report_field_activity_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "activity_type": {
+                "key": "activity_type",
+                "title": "lang::report_field_activity_type_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "duedate": {
+                "key": "duedate",
+                "title": "lang::report_field_duedate_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "submitted_at": {
+                "key": "submitted_at",
+                "title": "lang::report_field_submitted_at_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "graded_at": {
+                "key": "graded_at",
+                "title": "lang::report_field_graded_at_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "slot": {
+                "key": "slot",
+                "title": "lang::report_field_slot_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "attemptid": {
+                "key": "attemptid",
+                "title": "lang::report_field_attemptid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "question_name": {
+                "key": "question_name",
+                "title": "lang::report_field_question_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "teachers": {
+                "key": "teachers",
+                "title": "lang::report_field_teachers_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

@@ -1,0 +1,154 @@
+{
+  "title": "lang::report_page_044_title::local_kopere_bi",
+  "description": "lang::report_page_044_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_course_stats_advanced",
+  "sortorder": 44,
+  "category": {
+    "refkey": "courses",
+    "title": "lang::report_category_courses_title::local_kopere_bi",
+    "sortorder": 40,
+    "description": "lang::report_category_courses_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_courses_44",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_044_title::local_kopere_bi",
+          "refkey": "kbi_el_course_stats_advanced",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_c.id,\n       kbi_c.fullname                                                          AS course,\n       kbi_c.shortname,\n       kbi_c.timecreated                                                       AS created,\n       kbi_c.idnumber,\n       kbi_c.enablecompletion,\n       kbi_c.visible,\n       MAX(kbi_e.grade)                                                        AS grade,\n       MAX(l.timespend)                                                    AS timespend,\n       MAX(l.visits)                                                       AS visits,\n       MAX(kbi_e.completed)                                                    AS completed,\n       MAX(kbi_e.learners)                                                     AS learners,\n       (SELECT COUNT(id) FROM mdl_course_modules WHERE course = kbi_c.id\n                                                   AND deletioninprogress = 0\n                                                   AND visible = 1)        AS modules,\n       MAX(kbi_cat.name)                                                       AS category,\n       (SELECT name FROM mdl_course_categories WHERE id = MAX(kbi_cat.parent)) AS parent_category,\n       MAX(t.teachers)                                                     AS teachers,\n       MAX(t.teachers_count)                                               AS teachers_count,\n       MAX(t.teachers_timespend)                                           AS teachers_timespend,\n       MAX(s.avg_learners_timespend)                                       AS avg_learners_timespend\nFROM mdl_course kbi_c\n       JOIN (SELECT kbi_e.courseid,\n                    ROUND(AVG(CASE\n                                WHEN kbi_g.rawgrademax > 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100\n                                ELSE kbi_g.finalgrade END), 0) AS grade,\n                    COUNT(DISTINCT kbi_cc.userid)              AS completed,\n                    COUNT(DISTINCT kbi_ue.userid)              AS learners\n             FROM mdl_enrol kbi_e\n                    JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id\n                    JOIN mdl_context kbi_ctx ON kbi_ctx.instanceid = kbi_e.courseid AND kbi_ctx.contextlevel = 50\n                    JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_ctx.id AND kbi_ra.userid = kbi_ue.userid\n                    LEFT JOIN mdl_course_completions kbi_cc\n                      ON kbi_cc.timecompleted > 0 AND kbi_cc.course = kbi_e.courseid AND kbi_cc.userid = kbi_ue.userid\n                    JOIN mdl_grade_items kbi_gi ON kbi_gi.itemtype = 'course' AND kbi_gi.courseid = kbi_e.courseid\n                    LEFT JOIN mdl_grade_grades kbi_g\n                      ON kbi_g.userid = kbi_ue.userid AND kbi_g.itemid = kbi_gi.id AND kbi_g.finalgrade IS NOT NULL\n             WHERE kbi_e.courseid > 0\n               AND kbi_e.courseid = :courseid\n               AND kbi_ue.status = 0\n               AND kbi_e.status = 0\n               AND kbi_ra.roleid = 5\n             GROUP BY kbi_e.courseid) e ON kbi_e.courseid = kbi_c.id\n       LEFT JOIN (SELECT courseid, SUM(timespend) AS timespend, SUM(visits) AS visits\n                  FROM (SELECT kbi_ctx.instanceid, kbi_ra.userid\n                        FROM mdl_role_assignments kbi_ra\n                               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid\n                        WHERE kbi_ctx.contextlevel = 50\n                          AND kbi_ctx.instanceid = :courseid\n                        GROUP BY kbi_ctx.instanceid, kbi_ra.userid) cu\n                         LEFT JOIN mdl_local_kopere_bi_tracking kbi_ltu\n                           ON kbi_ltu.courseid = cu.instanceid AND kbi_ltu.userid = cu.userid\n                  WHERE cu.instanceid > 0\n                  GROUP BY kbi_ltu.courseid) l ON l.courseid = kbi_c.id\n       LEFT JOIN mdl_course_categories kbi_cat ON kbi_cat.id = kbi_c.category\n       LEFT JOIN (SELECT ct.instanceid,\n                         GROUP_CONCAT(DISTINCT CONCAT(kbi_u.firstname, ' ', kbi_u.lastname) SEPARATOR ', ') AS teachers,\n                         COUNT(DISTINCT kbi_u.id)                                                       AS teachers_count,\n                         SUM(timespend)                                                             AS teachers_timespend\n                  FROM (SELECT kbi_ctx.instanceid, kbi_ra.userid\n                        FROM mdl_role_assignments kbi_ra\n                               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid\n                        WHERE kbi_ctx.contextlevel = 50\n                          AND kbi_ctx.instanceid = :courseid\n                          AND kbi_ra.roleid = 3\n                        GROUP BY kbi_ctx.instanceid, kbi_ra.userid) ct\n                         JOIN mdl_user kbi_u ON ct.userid = kbi_u.id\n                         LEFT JOIN mdl_local_kopere_bi_tracking kbi_lit\n                           ON kbi_lit.courseid = ct.instanceid AND kbi_lit.userid = kbi_u.id\n                  GROUP BY ct.instanceid) t ON t.instanceid = kbi_c.id\n       LEFT JOIN (SELECT cl.instanceid, SUM(kbi_lit.timespend) / COUNT(DISTINCT(cl.userid)) AS avg_learners_timespend\n                  FROM (SELECT kbi_ctx.instanceid, kbi_ra.userid\n                        FROM mdl_role_assignments kbi_ra\n                               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid\n                        WHERE kbi_ctx.contextlevel = 50\n                          AND kbi_ctx.instanceid = :courseid\n                          AND kbi_ra.roleid = 5\n                        GROUP BY kbi_ctx.instanceid, kbi_ra.userid) cl\n                         LEFT JOIN mdl_local_kopere_bi_tracking kbi_lit\n                           ON kbi_lit.courseid = cl.instanceid AND kbi_lit.userid = cl.userid\n                  GROUP BY cl.instanceid) s ON s.instanceid = kbi_c.id\nWHERE kbi_c.id > 0\n  AND kbi_c.id = :courseid\n  AND kbi_c.visible = 1\nGROUP BY kbi_c.id",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "shortname": {
+                "key": "shortname",
+                "title": "lang::report_field_shortname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "created": {
+                "key": "created",
+                "title": "lang::report_field_created_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "idnumber": {
+                "key": "idnumber",
+                "title": "lang::report_field_idnumber_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "enablecompletion": {
+                "key": "enablecompletion",
+                "title": "lang::report_field_enablecompletion_title::local_kopere_bi",
+                "type": "status",
+                "mustache": ""
+              },
+              "visible": {
+                "key": "visible",
+                "title": "lang::report_field_visible_title::local_kopere_bi",
+                "type": "visible",
+                "mustache": ""
+              },
+              "grade": {
+                "key": "grade",
+                "title": "lang::report_field_grade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "timespend": {
+                "key": "timespend",
+                "title": "lang::report_field_timespend_title::local_kopere_bi",
+                "type": "time",
+                "mustache": ""
+              },
+              "visits": {
+                "key": "visits",
+                "title": "lang::report_field_visits_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "completed": {
+                "key": "completed",
+                "title": "lang::report_field_completed_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "learners": {
+                "key": "learners",
+                "title": "lang::report_field_learners_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "modules": {
+                "key": "modules",
+                "title": "lang::report_field_modules_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "category": {
+                "key": "category",
+                "title": "lang::report_field_category_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "parent_category": {
+                "key": "parent_category",
+                "title": "lang::report_field_parent_category_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "teachers": {
+                "key": "teachers",
+                "title": "lang::report_field_teachers_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "teachers_count": {
+                "key": "teachers_count",
+                "title": "lang::report_field_teachers_count_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "teachers_timespend": {
+                "key": "teachers_timespend",
+                "title": "lang::report_field_teachers_timespend_title::local_kopere_bi",
+                "type": "time",
+                "mustache": ""
+              },
+              "avg_learners_timespend": {
+                "key": "avg_learners_timespend",
+                "title": "lang::report_field_avg_learners_timespend_title::local_kopere_bi",
+                "type": "time",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

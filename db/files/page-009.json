@@ -1,12 +1,12 @@
 {
-    "title": "lang::report_9_category_title::local_kopere_bi",
-    "description": "lang::report_9_category_desc::local_kopere_bi",
-    "refkey": null,
+    "title": "lang::report_page_009_title::local_kopere_bi",
+    "description": "lang::report_page_009_description::local_kopere_bi",
+    "refkey": "report_page_009",
     "category": {
-        "title": "lang::report_2_cat_title::local_kopere_bi",
+        "title": "lang::report_category_courses_title::local_kopere_bi",
         "refkey": "courses",
         "sortorder": null,
-        "description": "lang::report_2_cat_description::local_kopere_bi"
+        "description": "lang::report_category_courses_description::local_kopere_bi"
     },
     "blocks": [
         {
@@ -16,7 +16,7 @@
             "elements": [
                 {
                     "refkey": "report_9_report_1",
-                    "title": "lang::report_9_report_1_name::local_kopere_bi",
+                    "title": "lang::report_page_009_block_1_element_1_title::local_kopere_bi",
                     "block_num": 1,
                     "type": "table",
                     "theme": "light",
@@ -26,7 +26,34 @@
                     "commandsql": "  SELECT CONCAT('lang::modulename::', m.name) AS lang_module_name, \r\n         m.name AS module_name,\r\n         COUNT(cm.id) AS module_count,\r\n         cm.course\r\n    FROM mdl_course_modules cm\r\n    JOIN mdl_modules         m ON cm.module = m.id\r\n   WHERE cm.deletioninprogress = 0\r\nGROUP BY m.name\r\nORDER BY module_count DESC",
                     "cache": "1h",
                     "reload": "1h",
-                    "info": "{\n    \"column\": {\n        \"lang_module_name\": {\n            \"key\": \"lang_module_name\",\n            \"title\": \"lang::module_name::local_kopere_bi\",\n            \"type\": \"translate\",\n            \"mustache\": \"<a href=\\\"{{{config.wwwroot}}}\\\/mod\\\/{{{module_name}}}\\\/view.php?id={{{cm_cmid}}}\\\">\\r\\n    {{{lang_module_name}}}\\r\\n<\\\/a>\"\n        },\n        \"module_name\": {\n            \"key\": \"module_name\",\n            \"title\": \"lang::module_name::local_kopere_bi\",\n            \"type\": \"none\",\n            \"mustache\": \"\"\n        },\n        \"module_count\": {\n            \"key\": \"module_count\",\n            \"title\": \"lang::module_count::local_kopere_bi\",\n            \"type\": \"number\",\n            \"mustache\": \"\"\n        },\n        \"course\": {\n            \"key\": \"course\",\n            \"title\": \"course\",\n            \"type\": \"none\",\n            \"mustache\": \"\"\n        }\n    }\n}"
+                    "info": {
+                        "column": {
+                            "lang_module_name": {
+                                "key": "lang_module_name",
+                                "title": "lang::module_name::local_kopere_bi",
+                                "type": "translate",
+                                "mustache": "<a href=\"{{{config.wwwroot}}}\/mod\/{{{module_name}}}\/view.php?id={{{cm_cmid}}}\">\r\n    {{{lang_module_name}}}\r\n<\/a>"
+                            },
+                            "module_name": {
+                                "key": "module_name",
+                                "title": "lang::module_name::local_kopere_bi",
+                                "type": "none",
+                                "mustache": ""
+                            },
+                            "module_count": {
+                                "key": "module_count",
+                                "title": "lang::module_count::local_kopere_bi",
+                                "type": "number",
+                                "mustache": ""
+                            },
+                            "course": {
+                                "key": "course",
+                                "title": "lang::report_field_course_title::local_kopere_bi",
+                                "type": "none",
+                                "mustache": ""
+                            }
+                        }
+                    }
                 }
             ]
         }

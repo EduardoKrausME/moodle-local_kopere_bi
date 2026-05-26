@@ -1,0 +1,88 @@
+{
+  "title": "lang::report_page_026_title::local_kopere_bi",
+  "description": "lang::report_page_026_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_forum_stats_summary_by_instructor",
+  "sortorder": 26,
+  "category": {
+    "refkey": "instructors",
+    "title": "lang::report_category_instructors_title::local_kopere_bi",
+    "sortorder": 30,
+    "description": "lang::report_category_instructors_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_instructors_26",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_026_title::local_kopere_bi",
+          "refkey": "kbi_el_forum_stats_summary_by_instructor",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_c.id,\n       kbi_c.fullname,\n       MAX(v.visits)      AS visits,\n       MAX(v.timespend)   AS timespend,\n       MAX(d.discussions) AS discussions,\n       MAX(p.posts)       AS posts,\n       COUNT(*)           AS total,\n       tchr.teacher\nFROM mdl_course kbi_c\n       LEFT JOIN mdl_forum kbi_f ON kbi_f.course = kbi_c.id\n       LEFT JOIN (SELECT kbi_lit.courseid, SUM(kbi_lit.timespend) as timespend, SUM(kbi_lit.visits) as visits\n                  FROM mdl_local_kopere_bi_tracking kbi_lit, mdl_course_modules kbi_cm, mdl_modules kbi_m\n                  WHERE kbi_lit.page = 'module'\n                    and kbi_cm.id = kbi_lit.param\n                    and kbi_m.id = kbi_cm.module\n                    and kbi_m.name = 'forum'\n                  GROUP BY kbi_lit.courseid) v ON v.courseid = kbi_c.id\n       LEFT JOIN (SELECT course, count(*) discussions FROM mdl_forum_discussions group by course) d ON d.course = kbi_c.id\n       LEFT JOIN (SELECT kbi_fd.course, count(*) posts\n                  FROM mdl_forum_discussions kbi_fd, mdl_forum_posts kbi_fp\n                  WHERE kbi_fp.discussion = kbi_fd.id\n                  group by kbi_fd.course) p ON p.course = kbi_c.id\n       LEFT JOIN (SELECT GROUP_CONCAT(DISTINCT CONCAT(kbi_u.firstname, ' ', kbi_u.lastname) SEPARATOR ', ') AS teacher,\n                         kbi_ctx.instanceid\n                  FROM mdl_role_assignments kbi_ra\n                         JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id\n                         JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid\n                  WHERE kbi_ctx.contextlevel = 50\n                    AND kbi_ra.roleid = 3\n                  GROUP BY kbi_ctx.instanceid) tchr ON tchr.instanceid = kbi_c.id\nWHERE kbi_c.id > 0\n  AND kbi_c.visible = 1\n  AND kbi_c.id = :courseid\nGROUP BY kbi_c.id, tchr.teacher",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "visits": {
+                "key": "visits",
+                "title": "lang::report_field_visits_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "timespend": {
+                "key": "timespend",
+                "title": "lang::report_field_timespend_title::local_kopere_bi",
+                "type": "time",
+                "mustache": ""
+              },
+              "discussions": {
+                "key": "discussions",
+                "title": "lang::report_field_discussions_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "posts": {
+                "key": "posts",
+                "title": "lang::report_field_posts_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "total": {
+                "key": "total",
+                "title": "lang::report_field_total_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "teacher": {
+                "key": "teacher",
+                "title": "lang::report_field_teacher_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

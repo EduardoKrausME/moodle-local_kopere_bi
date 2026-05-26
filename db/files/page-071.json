@@ -1,0 +1,111 @@
+{
+  "title": "lang::report_page_071_title::local_kopere_bi",
+  "description": "lang::report_page_071_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_forum_activity_details",
+  "sortorder": 71,
+  "category": {
+    "refkey": "forums",
+    "title": "lang::report_category_forums_title::local_kopere_bi",
+    "sortorder": 90,
+    "description": "lang::report_category_forums_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_forums_71",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_071_title::local_kopere_bi",
+          "refkey": "kbi_el_forum_activity_details",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_fd.id,\n       kbi_c.id                                                             AS courseid,\n       kbi_c.fullname                                                       AS course_name,\n       kbi_f.name                                                           AS forum,\n       kbi_fd.name                                                          AS discusion,\n       kbi_u.id                                                             AS userid,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       MIN(kbi_fp.created)                                                  AS time_started,\n       MIN(stat.students_accesed)                                       AS students_accesed,\n       MIN(stat.timespend)                                              AS timespend,\n       COUNT(DISTINCT CASE WHEN kbi_fp.parent > 0 THEN kbi_fp.id ELSE NULL END) AS posts\nFROM mdl_forum kbi_f\n       JOIN mdl_forum_discussions kbi_fd ON kbi_fd.forum = kbi_f.id\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_fd.userid\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_f.course\n       LEFT JOIN mdl_forum_posts kbi_fp ON kbi_fp.discussion = kbi_fd.id\n       JOIN mdl_modules kbi_m ON kbi_m.name = 'forum'\n       JOIN mdl_course_modules kbi_cm ON kbi_cm.instance = kbi_f.id AND kbi_cm.module = kbi_m.id\n       LEFT JOIN (SELECT kbi_lit.param                  AS module,\n                         COUNT(DISTINCT kbi_lit.userid) AS students_accesed,\n                         SUM(kbi_lit.timespend)         AS timespend\n                  FROM mdl_context kbi_ctx\n                         JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_ctx.id\n                         LEFT JOIN mdl_local_kopere_bi_tracking kbi_lit\n                           ON kbi_lit.page = 'module' AND kbi_lit.courseid = kbi_ctx.instanceid AND kbi_lit.userid = kbi_ra.userid\n                  WHERE kbi_ctx.contextlevel = 50\n                    AND kbi_ra.roleid = 5\n                  GROUP BY kbi_lit.param) stat ON stat.module = kbi_cm.id\nWHERE kbi_f.id > 0\n  AND kbi_f.course = :courseid\nGROUP BY kbi_fd.id, kbi_c.id, kbi_f.name, kbi_u.id",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course_name": {
+                "key": "course_name",
+                "title": "lang::report_field_course_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "forum": {
+                "key": "forum",
+                "title": "lang::report_field_forum_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "discusion": {
+                "key": "discusion",
+                "title": "lang::report_field_discusion_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "time_started": {
+                "key": "time_started",
+                "title": "lang::report_field_time_started_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "students_accesed": {
+                "key": "students_accesed",
+                "title": "lang::report_field_students_accesed_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "timespend": {
+                "key": "timespend",
+                "title": "lang::report_field_timespend_title::local_kopere_bi",
+                "type": "time",
+                "mustache": ""
+              },
+              "posts": {
+                "key": "posts",
+                "title": "lang::report_field_posts_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

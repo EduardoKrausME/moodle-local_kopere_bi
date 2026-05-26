@@ -1,0 +1,81 @@
+{
+  "title": "lang::report_page_076_title::local_kopere_bi",
+  "description": "lang::report_page_076_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_learner_forum_participation_summary",
+  "sortorder": 76,
+  "category": {
+    "refkey": "forums",
+    "title": "lang::report_category_forums_title::local_kopere_bi",
+    "sortorder": 90,
+    "description": "lang::report_category_forums_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_forums_76",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_076_title::local_kopere_bi",
+          "refkey": "kbi_el_learner_forum_participation_summary",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT MAX(kbi_fd.id)            AS id,\n       kbi_c.fullname            as course,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_f.name,\n       COUNT(DISTINCT kbi_fp.id) AS posts,\n       COUNT(DISTINCT kbi_fd.id) AS discussions\nFROM mdl_forum_discussions kbi_fd\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_fd.userid\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_fd.course\n       LEFT JOIN mdl_forum kbi_f ON kbi_f.id = kbi_fd.forum\n       LEFT JOIN mdl_forum_posts kbi_fp ON kbi_fp.discussion = kbi_fd.id AND kbi_fp.userid = kbi_u.id\nWHERE kbi_fd.id > 0\n  AND kbi_c.id = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\nGROUP BY kbi_u.id, kbi_c.id, kbi_f.id\nORDER BY kbi_c.fullname, kbi_u.lastname, kbi_u.firstname, kbi_f.name",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{id}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "name": {
+                "key": "name",
+                "title": "lang::report_field_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "posts": {
+                "key": "posts",
+                "title": "lang::report_field_posts_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "discussions": {
+                "key": "discussions",
+                "title": "lang::report_field_discussions_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

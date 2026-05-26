@@ -1,0 +1,136 @@
+{
+  "title": "lang::report_page_092_title::local_kopere_bi",
+  "description": "lang::report_page_092_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_learner_access_by_day_and_period",
+  "sortorder": 92,
+  "category": {
+    "refkey": "users",
+    "title": "lang::report_category_users_title::local_kopere_bi",
+    "sortorder": 20,
+    "description": "lang::report_category_users_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_users_092",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_092_title::local_kopere_bi",
+          "refkey": "kbi_el_learner_access_by_day_and_period",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT CONCAT(kbi_t.courseid, '-', kbi_t.userid, '-', WEEKDAY(FROM_UNIXTIME(kbi_l.timepoint)), '-',\n              CASE\n                WHEN HOUR(FROM_UNIXTIME(kbi_l.timepoint)) < 6 THEN 1\n                WHEN HOUR(FROM_UNIXTIME(kbi_l.timepoint)) < 9 THEN 2\n                WHEN HOUR(FROM_UNIXTIME(kbi_l.timepoint)) < 12 THEN 3\n                WHEN HOUR(FROM_UNIXTIME(kbi_l.timepoint)) < 15 THEN 4\n                WHEN HOUR(FROM_UNIXTIME(kbi_l.timepoint)) < 18 THEN 5\n                WHEN HOUR(FROM_UNIXTIME(kbi_l.timepoint)) < 21 THEN 6\n                ELSE 7\n              END)                                                        AS id,\n       kbi_u.id                                                           AS userid,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_u.idnumber,\n       kbi_c.id                                                           AS courseid,\n       kbi_c.fullname                                                     AS course,\n       kbi_cc.name                                                        AS category_name,\n       WEEKDAY(FROM_UNIXTIME(kbi_l.timepoint))                            AS weekday_number,\n       CASE WEEKDAY(FROM_UNIXTIME(kbi_l.timepoint))\n         WHEN 0 THEN 'Monday'\n         WHEN 1 THEN 'Tuesday'\n         WHEN 2 THEN 'Wednesday'\n         WHEN 3 THEN 'Thursday'\n         WHEN 4 THEN 'Friday'\n         WHEN 5 THEN 'Saturday'\n         ELSE 'Sunday'\n       END                                                                AS weekday_name,\n       CASE\n         WHEN HOUR(FROM_UNIXTIME(kbi_l.timepoint)) < 6 THEN '00:00 - 05:59'\n         WHEN HOUR(FROM_UNIXTIME(kbi_l.timepoint)) < 9 THEN '06:00 - 08:59'\n         WHEN HOUR(FROM_UNIXTIME(kbi_l.timepoint)) < 12 THEN '09:00 - 11:59'\n         WHEN HOUR(FROM_UNIXTIME(kbi_l.timepoint)) < 15 THEN '12:00 - 14:59'\n         WHEN HOUR(FROM_UNIXTIME(kbi_l.timepoint)) < 18 THEN '15:00 - 17:59'\n         WHEN HOUR(FROM_UNIXTIME(kbi_l.timepoint)) < 21 THEN '18:00 - 20:59'\n         ELSE '21:00 - 23:59'\n       END                                                                AS active_period,\n       SUM(kbi_l.visits)                                                  AS visits,\n       SUM(kbi_l.timespend)                                               AS timespend,\n       ROUND(SUM(kbi_l.timespend) / 3600, 2)                              AS hours_spent,\n       ROUND(SUM(kbi_l.timespend) * 100 / NULLIF(kbi_total.total_timespend, 0), 2) AS percent_of_user_course_time\nFROM mdl_local_kopere_bi_track_log kbi_l\n       JOIN mdl_local_kopere_bi_tracking kbi_t ON kbi_t.id = kbi_l.trackid\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_t.courseid\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_t.userid\n       LEFT JOIN mdl_course_categories kbi_cc ON kbi_cc.id = kbi_c.category\n       JOIN (\n             SELECT kbi_t2.courseid,\n                    kbi_t2.userid,\n                    SUM(kbi_l2.timespend) AS total_timespend\n             FROM mdl_local_kopere_bi_track_log kbi_l2\n                    JOIN mdl_local_kopere_bi_tracking kbi_t2 ON kbi_t2.id = kbi_l2.trackid\n             WHERE kbi_t2.courseid > 1\n             GROUP BY kbi_t2.courseid, kbi_t2.userid\n       ) kbi_total ON kbi_total.courseid = kbi_t.courseid AND kbi_total.userid = kbi_t.userid\nWHERE kbi_t.courseid > 1\n  AND kbi_c.visible = 1\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username <> 'guest'\nGROUP BY kbi_c.id, kbi_u.id, kbi_cc.id, weekday_number, active_period, kbi_total.total_timespend\nORDER BY kbi_c.fullname, kbi_u.lastname, kbi_u.firstname, weekday_number, active_period",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "string",
+                "mustache": ""
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "idnumber": {
+                "key": "idnumber",
+                "title": "lang::report_field_idnumber_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{courseid}}}\" target=\"course\">{{{course}}}</a>"
+              },
+              "category_name": {
+                "key": "category_name",
+                "title": "lang::report_field_category_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "weekday_number": {
+                "key": "weekday_number",
+                "title": "lang::report_field_weekday_number_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "weekday_name": {
+                "key": "weekday_name",
+                "title": "lang::report_field_weekday_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "active_period": {
+                "key": "active_period",
+                "title": "lang::report_field_active_period_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "visits": {
+                "key": "visits",
+                "title": "lang::report_field_visits_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "timespend": {
+                "key": "timespend",
+                "title": "lang::report_field_timespend_title::local_kopere_bi",
+                "type": "time",
+                "mustache": ""
+              },
+              "hours_spent": {
+                "key": "hours_spent",
+                "title": "lang::report_field_hours_spent_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "percent_of_user_course_time": {
+                "key": "percent_of_user_course_time",
+                "title": "lang::report_field_percent_of_user_course_time_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

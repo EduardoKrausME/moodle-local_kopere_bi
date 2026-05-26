@@ -1,0 +1,112 @@
+{
+  "title": "lang::report_page_037_title::local_kopere_bi",
+  "description": "lang::report_page_037_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_course_activity_overview",
+  "sortorder": 37,
+  "category": {
+    "refkey": "courses",
+    "title": "lang::report_category_courses_title::local_kopere_bi",
+    "sortorder": 40,
+    "description": "lang::report_category_courses_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_courses_37",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_037_title::local_kopere_bi",
+          "refkey": "kbi_el_course_activity_overview",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_ue.id,\n       kbi_u.email,\n       kbi_u.idnumber,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_c.id         AS course_id,\n       kbi_c.shortname,\n       kbi_ue.status    AS enroll_status,\n       kbi_ue.timestart AS enroll_started,\n       kbi_ue.timeend,\n       kbi_lit.lastaccess,\n       kbi_ra.roles     AS role_name\nFROM mdl_course kbi_c\n       JOIN mdl_enrol kbi_e ON kbi_e.courseid = kbi_c.id\n       JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id\n       JOIN (SELECT kbi_ra.userid,\n                    kbi_ctx.instanceid     AS course_id,\n                    GROUP_CONCAT(DISTINCT(CASE WHEN kbi_r.name = '' THEN kbi_r.shortname ELSE kbi_r.name END) SEPARATOR\n                                 ', ') AS roles\n             FROM mdl_role_assignments kbi_ra\n                    JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50\n                    JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid\n             WHERE kbi_ra.id > 0\n               AND kbi_ra.roleid = 5\n               AND kbi_ctx.instanceid = :courseid\n             GROUP BY kbi_ra.userid, kbi_ctx.instanceid) ra ON kbi_ra.userid = kbi_ue.userid AND kbi_ra.course_id = kbi_e.courseid\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid AND kbi_ue.userid = kbi_u.id\n       LEFT JOIN mdl_local_kopere_bi_tracking kbi_lit ON kbi_lit.userid = kbi_u.id AND kbi_lit.page = 'course' AND kbi_lit.param = kbi_c.id\nWHERE kbi_u.id IS NOT NULL\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "idnumber": {
+                "key": "idnumber",
+                "title": "lang::report_field_idnumber_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{id}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "course_id": {
+                "key": "course_id",
+                "title": "lang::report_field_course_id_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "shortname": {
+                "key": "shortname",
+                "title": "lang::report_field_shortname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "enroll_status": {
+                "key": "enroll_status",
+                "title": "lang::report_field_enroll_status_title::local_kopere_bi",
+                "type": "status",
+                "mustache": ""
+              },
+              "enroll_started": {
+                "key": "enroll_started",
+                "title": "lang::report_field_enroll_started_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "timeend": {
+                "key": "timeend",
+                "title": "lang::report_field_timeend_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "lastaccess": {
+                "key": "lastaccess",
+                "title": "lang::report_field_lastaccess_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "role_name": {
+                "key": "role_name",
+                "title": "lang::report_field_role_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

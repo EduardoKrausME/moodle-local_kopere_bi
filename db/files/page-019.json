@@ -1,0 +1,189 @@
+{
+  "title": "lang::report_page_019_title::local_kopere_bi",
+  "description": "lang::report_page_019_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_user_profile_information_learn",
+  "sortorder": 19,
+  "category": {
+    "refkey": "users",
+    "title": "lang::report_category_users_title::local_kopere_bi",
+    "sortorder": 20,
+    "description": "lang::report_category_users_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_users_19",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_019_title::local_kopere_bi",
+          "refkey": "kbi_el_user_profile_information_learne",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_u.id,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.middlename,\n       kbi_u.email,\n       kbi_u.idnumber,\n       kbi_u.username,\n       kbi_u.phone1,\n       kbi_u.phone2,\n       kbi_u.institution,\n       kbi_u.department,\n       kbi_u.address,\n       kbi_u.city,\n       kbi_u.country,\n       kbi_u.auth,\n       kbi_u.confirmed,\n       kbi_u.suspended,\n       kbi_u.deleted,\n       kbi_u.timecreated,\n       kbi_u.timemodified,\n       kbi_u.firstaccess,\n       kbi_u.lastaccess,\n       kbi_u.lastlogin,\n       kbi_u.currentlogin,\n       kbi_u.lastip\nFROM mdl_user kbi_u\nWHERE kbi_u.id > 0\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\nORDER BY kbi_u.lastname, kbi_u.firstname, kbi_u.id",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{id}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "middlename": {
+                "key": "middlename",
+                "title": "lang::report_field_middlename_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "idnumber": {
+                "key": "idnumber",
+                "title": "lang::report_field_idnumber_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "username": {
+                "key": "username",
+                "title": "lang::report_field_username_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "phone1": {
+                "key": "phone1",
+                "title": "lang::report_field_phone1_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"tel:{{{phone1}}}\" target=\"_blank\">{{{phone1}}}</a>"
+              },
+              "phone2": {
+                "key": "phone2",
+                "title": "lang::report_field_phone2_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"tel:{{{phone2}}}\" target=\"_blank\">{{{phone2}}}</a>"
+              },
+              "institution": {
+                "key": "institution",
+                "title": "lang::report_field_institution_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "department": {
+                "key": "department",
+                "title": "lang::report_field_department_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "address": {
+                "key": "address",
+                "title": "lang::report_field_address_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "city": {
+                "key": "city",
+                "title": "lang::report_field_city_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "country": {
+                "key": "country",
+                "title": "lang::report_field_country_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "auth": {
+                "key": "auth",
+                "title": "lang::report_field_auth_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "confirmed": {
+                "key": "confirmed",
+                "title": "lang::report_field_confirmed_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "suspended": {
+                "key": "suspended",
+                "title": "lang::report_field_suspended_title::local_kopere_bi",
+                "type": "status",
+                "mustache": ""
+              },
+              "deleted": {
+                "key": "deleted",
+                "title": "lang::report_field_deleted_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "timecreated": {
+                "key": "timecreated",
+                "title": "lang::report_field_timecreated_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "timemodified": {
+                "key": "timemodified",
+                "title": "lang::report_field_timemodified_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "firstaccess": {
+                "key": "firstaccess",
+                "title": "lang::report_field_firstaccess_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "lastaccess": {
+                "key": "lastaccess",
+                "title": "lang::report_field_lastaccess_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "lastlogin": {
+                "key": "lastlogin",
+                "title": "lang::report_field_lastlogin_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "currentlogin": {
+                "key": "currentlogin",
+                "title": "lang::report_field_currentlogin_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "lastip": {
+                "key": "lastip",
+                "title": "lang::report_field_lastip_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

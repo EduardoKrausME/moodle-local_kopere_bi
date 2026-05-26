@@ -1,0 +1,190 @@
+{
+  "title": "lang::report_page_029_title::local_kopere_bi",
+  "description": "lang::report_page_029_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_instructor_engagement_ratio",
+  "sortorder": 29,
+  "category": {
+    "refkey": "instructors",
+    "title": "lang::report_category_instructors_title::local_kopere_bi",
+    "sortorder": 30,
+    "description": "lang::report_category_instructors_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_instructors_29",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_029_title::local_kopere_bi",
+          "refkey": "kbi_el_instructor_engagement_ratio",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_ra.id,\n       kbi_c.id                                                               AS courseid,\n       kbi_c.fullname                                                         AS course_name,\n       kbi_c.timecreated                                                      AS course_created,\n       kbi_u.id                                                               AS teacher_id,\n       kbi_u.lastname,\n       kbi_u.firstname,\n       kbi_u.email,\n       kbi_u.picture                                                          AS teacher_picture,\n       kbi_u.firstnamephonetic                                                AS teacher_firstnamephonetic,\n       kbi_u.lastnamephonetic                                                 AS teacher_lastnamephonetic,\n       kbi_u.middlename                                                       AS teacher_middlename,\n       kbi_u.alternatename                                                    AS teacher_alternatename,\n       kbi_u.imagealt                                                         AS teacher_imagealt,\n       (SELECT COUNT(distinct kbi_ras.userid)\n        FROM mdl_role_assignments kbi_ras, mdl_context kbi_con\n        WHERE kbi_con.id = kbi_ras.contextid\n          AND kbi_con.contextlevel = 50\n          AND kbi_ras.roleid = 5\n          AND kbi_con.instanceid = kbi_c.id)                                      AS enrolled_students,\n       (SELECT COUNT(kbi_ass.id) FROM mdl_assign kbi_ass WHERE kbi_ass.course = kbi_c.id) AS assignments,\n       (SELECT COUNT(DISTINCT kbi_sub.id)\n        FROM mdl_assign_submission kbi_sub\n               LEFT JOIN mdl_assign_grades kbi_as_grade\n                 ON kbi_as_grade.userid = kbi_sub.userid AND kbi_as_grade.assignment = kbi_sub.assignment AND\n                    kbi_as_grade.attemptnumber = kbi_sub.attemptnumber\n               JOIN mdl_assign kbi_ass ON kbi_ass.id = kbi_sub.assignment\n        WHERE kbi_sub.status = 'submitted'\n          AND kbi_sub.latest = 1\n          AND kbi_sub.timecreated > (UNIX_TIMESTAMP() - 2592000)\n          AND (kbi_as_grade.grade IS NULL OR kbi_as_grade.grade < 0)\n          AND kbi_ass.course = kbi_c.id)                                          AS needs_grading,\n       (SELECT AVG(kbi_as_grade.timecreated - kbi_sub.timecreated)\n        FROM mdl_assign_submission kbi_sub\n               LEFT JOIN mdl_assign_grades kbi_as_grade\n                 ON kbi_as_grade.userid = kbi_sub.userid AND kbi_as_grade.assignment = kbi_sub.assignment AND\n                    kbi_as_grade.attemptnumber = kbi_sub.attemptnumber\n               JOIN mdl_assign kbi_ass ON kbi_ass.id = kbi_sub.assignment\n        WHERE kbi_sub.status = 'submitted'\n          AND kbi_sub.latest = 1\n          AND kbi_as_grade.grade IS NOT NULL\n          AND kbi_as_grade.grade >= 0\n          AND kbi_ass.course = kbi_c.id)                                          AS avg_time_to_grade,\n       (SELECT SUM(kbi_lil.visits) / COUNT(DISTINCT timepoint)\n        FROM mdl_local_kopere_bi_tracking kbi_lit, mdl_local_kopere_bi_track_log kbi_lil\n        WHERE kbi_lil.trackid = kbi_lit.id\n          AND kbi_lit.courseid = kbi_c.id)                                        AS logins_by_teacher,\n       (SELECT COUNT(DISTINCT kbi_fd.id)\n        FROM mdl_forum_discussions kbi_fd, mdl_forum_posts kbi_fp\n        WHERE kbi_fp.discussion = kbi_fd.id\n          AND kbi_fd.course = kbi_c.id)                                           AS teacher_discussions,\n       (SELECT COUNT(DISTINCT kbi_fp.id)\n        FROM mdl_forum_discussions kbi_fd, mdl_forum_posts kbi_fp\n        WHERE kbi_fp.discussion = kbi_fd.id\n          AND kbi_fd.course = kbi_c.id)                                           AS teacher_posts,\n       (SELECT COUNT(DISTINCT kbi_fp.id)\n        FROM mdl_role_assignments kbi_ras, mdl_context kbi_con, mdl_forum_discussions kbi_fd, mdl_forum_posts kbi_fp\n        WHERE kbi_con.id = kbi_ras.contextid\n          AND kbi_ras.roleid = 5\n          AND kbi_con.contextlevel = 50\n          AND kbi_fp.discussion = kbi_fd.id\n          AND kbi_fd.course = kbi_con.instanceid\n          AND kbi_con.instanceid = kbi_c.id)                                      AS students_posts,\n       (SELECT COUNT(distinct id) FROM mdl_event WHERE userid = kbi_u.id)     AS teacher_events,\n       (SELECT COUNT(distinct kbi_e.id)\n        FROM mdl_event kbi_e, mdl_role_assignments kbi_ras, mdl_context kbi_con\n        WHERE kbi_ras.userid = kbi_e.userid\n          AND kbi_ras.roleid = 5\n          AND kbi_con.id = kbi_ras.contextid\n          AND kbi_con.contextlevel = 50\n          AND kbi_e.courseid = kbi_con.instanceid\n          AND kbi_con.instanceid = kbi_c.id)                                      AS students_events,\n       (SELECT COUNT(id) FROM mdl_course_modules WHERE course = kbi_c.id)     AS added_course_module\nFROM mdl_role_assignments kbi_ra\n       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_ctx.instanceid\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid\nWHERE kbi_ra.id > 0\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_ra.roleid = 3",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course_name": {
+                "key": "course_name",
+                "title": "lang::report_field_course_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "course_created": {
+                "key": "course_created",
+                "title": "lang::report_field_course_created_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "teacher_id": {
+                "key": "teacher_id",
+                "title": "lang::report_field_teacher_id_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{id}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "teacher_picture": {
+                "key": "teacher_picture",
+                "title": "lang::report_field_teacher_picture_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "teacher_firstnamephonetic": {
+                "key": "teacher_firstnamephonetic",
+                "title": "lang::report_field_teacher_firstnamephonetic_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "teacher_lastnamephonetic": {
+                "key": "teacher_lastnamephonetic",
+                "title": "lang::report_field_teacher_lastnamephonetic_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "teacher_middlename": {
+                "key": "teacher_middlename",
+                "title": "lang::report_field_teacher_middlename_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "teacher_alternatename": {
+                "key": "teacher_alternatename",
+                "title": "lang::report_field_teacher_alternatename_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "teacher_imagealt": {
+                "key": "teacher_imagealt",
+                "title": "lang::report_field_teacher_imagealt_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "enrolled_students": {
+                "key": "enrolled_students",
+                "title": "lang::report_field_enrolled_students_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "assignments": {
+                "key": "assignments",
+                "title": "lang::report_field_assignments_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "needs_grading": {
+                "key": "needs_grading",
+                "title": "lang::report_field_needs_grading_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "avg_time_to_grade": {
+                "key": "avg_time_to_grade",
+                "title": "lang::report_field_avg_time_to_grade_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "logins_by_teacher": {
+                "key": "logins_by_teacher",
+                "title": "lang::report_field_logins_by_teacher_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "teacher_discussions": {
+                "key": "teacher_discussions",
+                "title": "lang::report_field_teacher_discussions_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "teacher_posts": {
+                "key": "teacher_posts",
+                "title": "lang::report_field_teacher_posts_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "students_posts": {
+                "key": "students_posts",
+                "title": "lang::report_field_students_posts_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "teacher_events": {
+                "key": "teacher_events",
+                "title": "lang::report_field_teacher_events_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "students_events": {
+                "key": "students_events",
+                "title": "lang::report_field_students_events_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "added_course_module": {
+                "key": "added_course_module",
+                "title": "lang::report_field_added_course_module_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

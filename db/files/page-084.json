@@ -1,0 +1,99 @@
+{
+  "title": "lang::report_page_084_title::local_kopere_bi",
+  "description": "lang::report_page_084_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_competency_evidence",
+  "sortorder": 84,
+  "category": {
+    "refkey": "competencies",
+    "title": "lang::report_category_competencies_title::local_kopere_bi",
+    "sortorder": 130,
+    "description": "lang::report_category_competencies_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_competencies_84",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_084_title::local_kopere_bi",
+          "refkey": "kbi_el_competency_evidence",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_ce.id,\n       kbi_u.id AS userid,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_c.shortname,\n       kbi_ce.url,\n       kbi_ce.descidentifier,\n       kbi_ce.desccomponent,\n       kbi_ce.desca,\n       kbi_ce.timecreated\nFROM mdl_competency_evidence kbi_ce\n       LEFT JOIN mdl_competency_usercomp kbi_cu ON kbi_ce.usercompetencyid = kbi_cu.id\n       LEFT JOIN mdl_competency kbi_c ON kbi_c.id = kbi_cu.competencyid\n       LEFT JOIN mdl_user kbi_u ON kbi_u.id = kbi_cu.userid\nWHERE kbi_u.id IS NOT NULL\nORDER BY kbi_u.lastname, kbi_u.firstname, kbi_ce.timecreated DESC",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "shortname": {
+                "key": "shortname",
+                "title": "lang::report_field_shortname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "url": {
+                "key": "url",
+                "title": "lang::report_field_url_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "descidentifier": {
+                "key": "descidentifier",
+                "title": "lang::report_field_descidentifier_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "desccomponent": {
+                "key": "desccomponent",
+                "title": "lang::report_field_desccomponent_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "desca": {
+                "key": "desca",
+                "title": "lang::report_field_desca_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "timecreated": {
+                "key": "timecreated",
+                "title": "lang::report_field_timecreated_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

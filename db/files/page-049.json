@@ -1,0 +1,93 @@
+{
+  "title": "lang::report_page_049_title::local_kopere_bi",
+  "description": "lang::report_page_049_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_course_revenue_generation",
+  "sortorder": 49,
+  "category": {
+    "refkey": "enrollments",
+    "title": "lang::report_category_enrollments_title::local_kopere_bi",
+    "sortorder": 50,
+    "description": "lang::report_category_enrollments_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_enrollments_49",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_049_title::local_kopere_bi",
+          "refkey": "kbi_el_course_revenue_generation",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_ue.id,\n       kbi_c.fullname,\n       kbi_ue.timecreated,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_e.enrol,\n       kbi_e.cost,\n       kbi_e.currency\nFROM mdl_user_enrolments kbi_ue\n       JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ue.userid\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_e.courseid\nWHERE kbi_e.cost IS NOT NULL\n  AND kbi_c.id = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_ue.status = 0\n  AND kbi_e.status = 0\nORDER BY kbi_ue.timecreated DESC, kbi_c.fullname, kbi_u.lastname, kbi_u.firstname",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "timecreated": {
+                "key": "timecreated",
+                "title": "lang::report_field_timecreated_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{id}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "enrol": {
+                "key": "enrol",
+                "title": "lang::report_field_enrol_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "cost": {
+                "key": "cost",
+                "title": "lang::report_field_cost_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "currency": {
+                "key": "currency",
+                "title": "lang::report_field_currency_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

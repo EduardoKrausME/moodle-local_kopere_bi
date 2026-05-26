@@ -1,0 +1,111 @@
+{
+  "title": "lang::report_page_028_title::local_kopere_bi",
+  "description": "lang::report_page_028_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_instructor_assignment_engagement",
+  "sortorder": 28,
+  "category": {
+    "refkey": "instructors",
+    "title": "lang::report_category_instructors_title::local_kopere_bi",
+    "sortorder": 30,
+    "description": "lang::report_category_instructors_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_instructors_28",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_028_title::local_kopere_bi",
+          "refkey": "kbi_el_instructor_assignment_engagement",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_ra.id AS id,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_c.fullname,\n       kbi_c.shortname,\n       stat.assignments,\n       stat.completed,\n       stat.submissions,\n       stat.grades,\n       kbi_l.timespend,\n       visits\nFROM mdl_role_assignments kbi_ra\n       JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id\n       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_ctx.instanceid\n       LEFT JOIN (SELECT kbi_a.course                           AS courseid,\n                         COUNT(distinct kbi_a.id)               AS assignments,\n                         COUNT(distinct kbi_cmc.coursemoduleid) AS completed,\n                         COUNT(distinct kbi_s.assignment)       AS submissions,\n                         COUNT(distinct kbi_g.assignment)       AS grades\n                  FROM mdl_assign kbi_a\n                         LEFT JOIN mdl_modules kbi_m ON kbi_m.name = 'assign'\n                         LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.instance = kbi_a.id AND kbi_cm.module = kbi_m.id\n                         LEFT JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.coursemoduleid = kbi_cm.id AND\n                                                                        kbi_cmc.completionstate IN\n                                                                        (1,\n                                                                         2)\n                         LEFT JOIN mdl_assign_submission kbi_s ON kbi_s.status = 'submitted' AND kbi_s.assignment = kbi_a.id\n                         LEFT JOIN mdl_assign_grades kbi_g ON kbi_g.assignment = kbi_a.id\n                  WHERE kbi_a.course > 0\n                    AND kbi_a.course = :courseid\n                  GROUP BY kbi_a.course) stat ON stat.courseid = kbi_c.id\n       LEFT JOIN (SELECT kbi_l.userid, kbi_l.courseid, SUM(kbi_l.timespend) as timespend, SUM(kbi_l.visits) as visits\n                  FROM mdl_local_kopere_bi_tracking kbi_l, mdl_modules kbi_m, mdl_course_modules kbi_cm\n                  WHERE kbi_l.page = 'module'\n                    and kbi_m.name = 'assign'\n                    AND kbi_cm.id = kbi_l.param\n                    AND kbi_cm.module = kbi_m.id\n                    AND kbi_l.courseid = :courseid\n                  GROUP BY kbi_l.userid, kbi_l.courseid) l ON kbi_l.userid = kbi_u.id AND kbi_l.courseid = kbi_c.id\nWHERE kbi_ctx.contextlevel = 50\n  AND kbi_c.id = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_ra.roleid = 3",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{id}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "shortname": {
+                "key": "shortname",
+                "title": "lang::report_field_shortname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "assignments": {
+                "key": "assignments",
+                "title": "lang::report_field_assignments_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "completed": {
+                "key": "completed",
+                "title": "lang::report_field_completed_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "submissions": {
+                "key": "submissions",
+                "title": "lang::report_field_submissions_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "grades": {
+                "key": "grades",
+                "title": "lang::report_field_grades_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "timespend": {
+                "key": "timespend",
+                "title": "lang::report_field_timespend_title::local_kopere_bi",
+                "type": "time",
+                "mustache": ""
+              },
+              "visits": {
+                "key": "visits",
+                "title": "lang::report_field_visits_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

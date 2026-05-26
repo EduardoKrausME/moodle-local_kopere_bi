@@ -1,0 +1,105 @@
+{
+  "title": "lang::report_page_066_title::local_kopere_bi",
+  "description": "lang::report_page_066_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_quiz_attempts_summary_by_quiz",
+  "sortorder": 66,
+  "category": {
+    "refkey": "quizzes",
+    "title": "lang::report_category_quizzes_title::local_kopere_bi",
+    "sortorder": 80,
+    "description": "lang::report_category_quizzes_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_quizzes_66",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_066_title::local_kopere_bi",
+          "refkey": "kbi_el_quiz_attempts_summary_by_quiz",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_q.id,\n       kbi_q.name,\n       kbi_q.course,\n       kbi_c.fullname,\n       MAX(ql.questions)                       AS questions,\n       kbi_q.timemodified,\n       kbi_q.timeopen,\n       kbi_q.timeclose,\n       avg((kbi_qa.sumgrades / kbi_q.sumgrades) * 100) AS grade,\n       count(distinct(kbi_qa.id))                  AS attempts,\n       sum(kbi_qa.timefinish - kbi_qa.timestart)       AS duration\nFROM mdl_quiz kbi_q\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_q.course\n       LEFT JOIN mdl_quiz_attempts kbi_qa ON kbi_qa.quiz = kbi_q.id\n       LEFT JOIN (SELECT quizid, count(*) questions FROM mdl_quiz_slots GROUP BY quizid) ql ON ql.quizid = kbi_q.id\n       LEFT JOIN mdl_modules kbi_m ON kbi_m.name = 'quiz'\n       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.module = kbi_m.id AND kbi_cm.course = kbi_c.id AND kbi_cm.instance = kbi_q.id\nWHERE kbi_q.id > 0\n  AND kbi_q.course = :courseid\n  AND kbi_c.visible = 1\nGROUP BY kbi_q.id, kbi_c.id\nORDER BY kbi_q.name",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "name": {
+                "key": "name",
+                "title": "lang::report_field_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "questions": {
+                "key": "questions",
+                "title": "lang::report_field_questions_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "timemodified": {
+                "key": "timemodified",
+                "title": "lang::report_field_timemodified_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "timeopen": {
+                "key": "timeopen",
+                "title": "lang::report_field_timeopen_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "timeclose": {
+                "key": "timeclose",
+                "title": "lang::report_field_timeclose_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "grade": {
+                "key": "grade",
+                "title": "lang::report_field_grade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "attempts": {
+                "key": "attempts",
+                "title": "lang::report_field_attempts_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "duration": {
+                "key": "duration",
+                "title": "lang::report_field_duration_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

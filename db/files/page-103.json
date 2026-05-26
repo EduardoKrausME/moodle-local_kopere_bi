@@ -1,0 +1,128 @@
+{
+  "title": "lang::report_page_103_title::local_kopere_bi",
+  "description": "lang::report_page_103_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "student_course_completion_status",
+  "category": {
+    "refkey": "students",
+    "title": "lang::report_category_students_title::local_kopere_bi",
+    "description": "lang::report_category_students_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "students-103",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_103_block_1_element_1_title::local_kopere_bi",
+          "refkey": "kbi_el_student_course_completion_status",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT CONCAT(kbi_students.userid, '-', kbi_students.courseid) AS id,\n       kbi_students.userid,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_c.id AS courseid,\n       kbi_c.fullname AS course,\n       kbi_c.enablecompletion,\n       kbi_enrol.enrolled_at,\n       COALESCE(kbi_la.timeaccess, 0) AS course_lastaccess,\n       kbi_cc.timecompleted,\n       CASE\n         WHEN kbi_c.enablecompletion = 0 THEN 'Completion disabled'\n         WHEN kbi_cc.timecompleted IS NOT NULL THEN 'Completed'\n         WHEN COALESCE(kbi_la.timeaccess, 0) > 0 OR COALESCE(kbi_done.completed_activities, 0) > 0 THEN 'In progress'\n         ELSE 'Not started'\n       END AS completion_status,\n       COALESCE(kbi_total.total_activities, 0) AS total_activities,\n       COALESCE(kbi_done.completed_activities, 0) AS completed_activities,\n       CASE\n         WHEN COALESCE(kbi_total.total_activities, 0) > 0 THEN ROUND((COALESCE(kbi_done.completed_activities, 0) / kbi_total.total_activities) * 100, 2)\n         ELSE 0\n       END AS progress_percent\nFROM (SELECT DISTINCT kbi_ra.userid,\n                kbi_ctx.instanceid AS courseid\nFROM mdl_role_assignments kbi_ra\n       JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid\n       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50\nWHERE kbi_r.shortname = 'student') kbi_students\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_students.userid\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_students.courseid\n       LEFT JOIN (SELECT kbi_ue.userid,\n       kbi_e.courseid,\n       MIN(kbi_ue.id) AS enrolmentid,\n       COALESCE(MIN(NULLIF(kbi_ue.timestart, 0)), MIN(kbi_ue.timecreated)) AS enrolled_at,\n       MAX(kbi_ue.timeend) AS enrol_timeend\nFROM mdl_enrol kbi_e\n       JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id\nWHERE kbi_e.status = 0\n  AND kbi_ue.status = 0\n  AND (kbi_ue.timeend = 0 OR kbi_ue.timeend > UNIX_TIMESTAMP())\nGROUP BY kbi_ue.userid, kbi_e.courseid) kbi_enrol ON kbi_enrol.userid = kbi_students.userid AND kbi_enrol.courseid = kbi_students.courseid\n       LEFT JOIN mdl_user_lastaccess kbi_la ON kbi_la.userid = kbi_students.userid AND kbi_la.courseid = kbi_students.courseid\n       LEFT JOIN mdl_course_completions kbi_cc ON kbi_cc.course = kbi_students.courseid AND kbi_cc.userid = kbi_students.userid\n       LEFT JOIN (SELECT kbi_cm.course,\n       COUNT(DISTINCT kbi_cm.id) AS total_activities\nFROM mdl_course_modules kbi_cm\nWHERE kbi_cm.deletioninprogress = 0\n  AND kbi_cm.visible = 1\n  AND kbi_cm.completion > 0\nGROUP BY kbi_cm.course) kbi_total ON kbi_total.course = kbi_students.courseid\n       LEFT JOIN (SELECT kbi_cm.course,\n       kbi_cmc.userid,\n       COUNT(DISTINCT kbi_cmc.coursemoduleid) AS completed_activities\nFROM mdl_course_modules kbi_cm\n       JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.coursemoduleid = kbi_cm.id\nWHERE kbi_cm.deletioninprogress = 0\n  AND kbi_cm.visible = 1\n  AND kbi_cm.completion > 0\n  AND kbi_cmc.completionstate IN (1, 2)\nGROUP BY kbi_cm.course, kbi_cmc.userid) kbi_done ON kbi_done.course = kbi_students.courseid AND kbi_done.userid = kbi_students.userid\nWHERE kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username <> 'guest'\n  AND kbi_c.visible = 1\nORDER BY completion_status, kbi_c.fullname, kbi_u.lastname, kbi_u.firstname",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "string",
+                "mustache": ""
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{courseid}}}\" target=\"course\">{{{course}}}</a>"
+              },
+              "enablecompletion": {
+                "key": "enablecompletion",
+                "title": "lang::report_field_enablecompletion_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "enrolled_at": {
+                "key": "enrolled_at",
+                "title": "lang::report_field_enrolled_at_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "course_lastaccess": {
+                "key": "course_lastaccess",
+                "title": "lang::report_field_course_lastaccess_title::local_kopere_bi",
+                "type": "datetimeRenderer",
+                "mustache": ""
+              },
+              "timecompleted": {
+                "key": "timecompleted",
+                "title": "lang::report_field_timecompleted_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "completion_status": {
+                "key": "completion_status",
+                "title": "lang::report_field_completion_status_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "total_activities": {
+                "key": "total_activities",
+                "title": "lang::report_field_total_activities_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "completed_activities": {
+                "key": "completed_activities",
+                "title": "lang::report_field_completed_activities_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "progress_percent": {
+                "key": "progress_percent",
+                "title": "lang::report_field_progress_percent_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

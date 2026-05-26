@@ -1,0 +1,88 @@
+{
+  "title": "lang::report_page_012_title::local_kopere_bi",
+  "description": "lang::report_page_012_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_inactive_users_in_system_inact",
+  "sortorder": 12,
+  "category": {
+    "refkey": "users",
+    "title": "lang::report_category_users_title::local_kopere_bi",
+    "sortorder": 20,
+    "description": "lang::report_category_users_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_users_12",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_012_title::local_kopere_bi",
+          "refkey": "kbi_el_inactive_users_in_system_inacti",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT DISTINCT kbi_u.id,\n                kbi_u.firstname,\n                kbi_u.lastname,\n                kbi_u.email,\n                kbi_u.timecreated,\n                kbi_u.firstaccess,\n                kbi_u.lastaccess,\n                kbi_u.lastlogin\nFROM mdl_user kbi_u\nWHERE kbi_u.id > 0\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_u.lastaccess < (UNIX_TIMESTAMP() - 2592000)",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{id}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "timecreated": {
+                "key": "timecreated",
+                "title": "lang::report_field_timecreated_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "firstaccess": {
+                "key": "firstaccess",
+                "title": "lang::report_field_firstaccess_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "lastaccess": {
+                "key": "lastaccess",
+                "title": "lang::report_field_lastaccess_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "lastlogin": {
+                "key": "lastlogin",
+                "title": "lang::report_field_lastlogin_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

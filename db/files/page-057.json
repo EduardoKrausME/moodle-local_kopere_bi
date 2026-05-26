@@ -1,0 +1,81 @@
+{
+  "title": "lang::report_page_057_title::local_kopere_bi",
+  "description": "lang::report_page_057_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_activity_stats_summary",
+  "sortorder": 57,
+  "category": {
+    "refkey": "activities",
+    "title": "lang::report_category_activities_title::local_kopere_bi",
+    "sortorder": 70,
+    "description": "lang::report_category_activities_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_activities_57",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_057_title::local_kopere_bi",
+          "refkey": "kbi_el_activity_stats_summary",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_cm.id, kbi_m.name AS moduletype, kbi_cm.added, kbi_cm.completion, kbi_c.fullname, cmc.num_compl AS completed, grd.grade\nFROM mdl_course_modules kbi_cm\n       JOIN mdl_modules kbi_m ON kbi_m.id = kbi_cm.module\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_cm.course\n       LEFT JOIN (SELECT coursemoduleid, COUNT(id) AS num_compl\n                  FROM mdl_course_modules_completion\n                  WHERE id > 0\n                    AND completionstate IN (1, 2)\n                  GROUP BY coursemoduleid) cmc ON cmc.coursemoduleid = kbi_cm.id\n       LEFT JOIN (SELECT kbi_gi.iteminstance,\n                         kbi_gi.itemmodule,\n                         ROUND(AVG(CASE\n                                     WHEN kbi_g.rawgrademax > 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100\n                                     ELSE kbi_g.finalgrade END), 0) AS grade\n                  FROM mdl_grade_items kbi_gi\n                         JOIN mdl_grade_grades kbi_g ON kbi_g.itemid = kbi_gi.id AND kbi_g.finalgrade IS NOT NULL\n                  WHERE kbi_gi.itemtype = 'mod'\n                  GROUP BY kbi_gi.iteminstance, kbi_gi.itemmodule) grd\n         ON grd.itemmodule = kbi_m.name AND grd.iteminstance = kbi_cm.instance\nWHERE kbi_cm.id > 0\n  AND kbi_cm.visible = 1\n  AND kbi_cm.course = :courseid",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "moduletype": {
+                "key": "moduletype",
+                "title": "lang::report_field_moduletype_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "added": {
+                "key": "added",
+                "title": "lang::report_field_added_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "completion": {
+                "key": "completion",
+                "title": "lang::report_field_completion_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "completed": {
+                "key": "completed",
+                "title": "lang::report_field_completed_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "grade": {
+                "key": "grade",
+                "title": "lang::report_field_grade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

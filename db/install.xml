@@ -118,5 +118,86 @@
             </INDEXES>
         </TABLE>
 
+        <TABLE NAME="local_kopere_bi_tracking" COMMENT="BI Tracking Cache">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="page" TYPE="char" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="param" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="timespend" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="visits" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="firstaccess" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="lastaccess" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="useragent" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="useros" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="userlang" TYPE="char" LENGTH="30" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="userip" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="userid" UNIQUE="false" FIELDS="userid"/>
+                <INDEX NAME="courseid" UNIQUE="false" FIELDS="courseid"/>
+                <INDEX NAME="user_course" UNIQUE="false" FIELDS="userid, courseid"/>
+                <INDEX NAME="page_param" UNIQUE="false" FIELDS="page, param"/>
+                <INDEX NAME="lastaccess" UNIQUE="false" FIELDS="lastaccess"/>
+            </INDEXES>
+        </TABLE>
+        <TABLE NAME="local_kopere_bi_track_log" COMMENT="BI Tracking Daily Cache">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="trackid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="timepoint" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="timespend" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="visits" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="trackid" UNIQUE="false" FIELDS="trackid"/>
+                <INDEX NAME="userid" UNIQUE="false" FIELDS="userid"/>
+                <INDEX NAME="courseid" UNIQUE="false" FIELDS="courseid"/>
+                <INDEX NAME="timepoint" UNIQUE="false" FIELDS="timepoint"/>
+                <INDEX NAME="track_time" UNIQUE="false" FIELDS="trackid, timepoint"/>
+            </INDEXES>
+        </TABLE>
+        <TABLE NAME="local_kopere_bi_log_tmp" COMMENT="BI Standard Log Temporary Cache">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="eventname" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="component" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="action" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="target" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="objecttable" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="objectid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="contextid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="contextlevel" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="contextinstanceid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="relateduserid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="timecreated" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="origin" TYPE="char" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="ip" TYPE="char" LENGTH="45" NOTNULL="false" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="courseid" UNIQUE="false" FIELDS="courseid"/>
+                <INDEX NAME="userid" UNIQUE="false" FIELDS="userid"/>
+                <INDEX NAME="relateduserid" UNIQUE="false" FIELDS="relateduserid"/>
+                <INDEX NAME="component" UNIQUE="false" FIELDS="component"/>
+                <INDEX NAME="action" UNIQUE="false" FIELDS="action"/>
+                <INDEX NAME="target_action" UNIQUE="false" FIELDS="target, action"/>
+                <INDEX NAME="contextinstance" UNIQUE="false" FIELDS="contextinstanceid"/>
+                <INDEX NAME="timecreated" UNIQUE="false" FIELDS="timecreated"/>
+            </INDEXES>
+        </TABLE>
     </TABLES>
 </XMLDB>

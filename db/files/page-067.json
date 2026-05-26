@@ -1,0 +1,130 @@
+{
+  "title": "lang::report_page_067_title::local_kopere_bi",
+  "description": "lang::report_page_067_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_quiz_grade_detail_by_learner",
+  "sortorder": 67,
+  "category": {
+    "refkey": "quizzes",
+    "title": "lang::report_category_quizzes_title::local_kopere_bi",
+    "sortorder": 80,
+    "description": "lang::report_category_quizzes_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_quizzes_67",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_067_title::local_kopere_bi",
+          "refkey": "kbi_el_quiz_grade_detail_by_learner",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_qa.id,\n       kbi_q.name,\n       kbi_u.email,\n       kbi_q.course,\n       kbi_q.timeclose,\n       kbi_c.fullname,\n       kbi_qa.timestart,\n       kbi_qa.timefinish,\n       kbi_qa.state,\n       (kbi_qa.timefinish - kbi_qa.timestart)                  as duration,\n       (kbi_qa.sumgrades / MAX(kbi_q.sumgrades) * 100)         as grade,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       GROUP_CONCAT(DISTINCT kbi_t.rawname SEPARATOR ', ') as tags,\n       ''                                              AS cohortname\nFROM (SELECT kbi_ctx.instanceid, kbi_ra1.userid\n      FROM mdl_context kbi_ctx\n             JOIN mdl_role_assignments kbi_ra1 ON kbi_ra1.contextid = kbi_ctx.id AND kbi_ra1.roleid = 5\n      WHERE kbi_ctx.contextlevel = 50\n      GROUP BY kbi_ctx.instanceid, kbi_ra1.userid) ra\n       JOIN mdl_modules kbi_m ON kbi_m.name = 'quiz'\n       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = ra.instanceid AND kbi_cm.module = kbi_m.id\n       JOIN mdl_quiz kbi_q ON kbi_q.id = kbi_cm.instance\n       JOIN mdl_user kbi_u ON kbi_u.id = ra.userid\n       JOIN mdl_course kbi_c ON kbi_c.id = ra.instanceid\n       LEFT JOIN mdl_quiz_attempts kbi_qa ON kbi_qa.quiz = kbi_q.id AND kbi_qa.userid = ra.userid\n       LEFT JOIN mdl_tag_instance kbi_ti ON kbi_ti.itemtype = 'course_modules' AND kbi_ti.itemid = kbi_cm.id\n       LEFT JOIN mdl_tag kbi_t ON kbi_t.id = kbi_ti.tagid\nWHERE ra.instanceid > 0\n  AND ra.instanceid = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\nGROUP BY kbi_u.id, kbi_q.id, kbi_c.id, kbi_qa.id",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "name": {
+                "key": "name",
+                "title": "lang::report_field_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "timeclose": {
+                "key": "timeclose",
+                "title": "lang::report_field_timeclose_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "timestart": {
+                "key": "timestart",
+                "title": "lang::report_field_timestart_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "timefinish": {
+                "key": "timefinish",
+                "title": "lang::report_field_timefinish_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "state": {
+                "key": "state",
+                "title": "lang::report_field_state_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "duration": {
+                "key": "duration",
+                "title": "lang::report_field_duration_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "grade": {
+                "key": "grade",
+                "title": "lang::report_field_grade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{id}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "tags": {
+                "key": "tags",
+                "title": "lang::report_field_tags_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "cohortname": {
+                "key": "cohortname",
+                "title": "lang::report_field_cohortname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

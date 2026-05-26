@@ -1,0 +1,117 @@
+{
+  "title": "lang::report_page_040_title::local_kopere_bi",
+  "description": "lang::report_page_040_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_course_inactivity",
+  "sortorder": 40,
+  "category": {
+    "refkey": "courses",
+    "title": "lang::report_category_courses_title::local_kopere_bi",
+    "sortorder": 40,
+    "description": "lang::report_category_courses_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_courses_40",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_040_title::local_kopere_bi",
+          "refkey": "kbi_el_course_inactivity",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_ue.id,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_ue.timecreated                      as enrolled,\n       kbi_ue.userid,\n       kbi_e.enrol                             AS enrols,\n       kbi_ul.timeaccess                       AS lastaccess,\n       ROUND((CASE\n                WHEN kbi_g.rawgrademax > 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100\n                ELSE kbi_g.finalgrade END), 0) AS grade,\n       kbi_c.id                                as cid,\n       kbi_c.shortname,\n       kbi_ca.name                             AS category,\n       kbi_c.fullname                          as course\nFROM mdl_user_enrolments kbi_ue\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ue.userid\n       JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_e.courseid\n       LEFT JOIN mdl_course_categories kbi_ca ON kbi_ca.id = kbi_c.category\n       LEFT JOIN mdl_user_lastaccess kbi_ul ON kbi_ul.courseid = kbi_c.id AND kbi_ul.userid = kbi_u.id\n       LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.itemtype = 'course' AND kbi_gi.courseid = kbi_e.courseid\n       LEFT JOIN mdl_grade_grades kbi_g ON kbi_g.userid = kbi_u.id AND kbi_g.itemid = kbi_gi.id AND kbi_g.finalgrade IS NOT NULL\n       LEFT JOIN (SELECT MAX(kbi_t.id) AS id, kbi_t.userid, kbi_t.courseid\n                  FROM mdl_local_kopere_bi_tracking kbi_t, mdl_local_kopere_bi_track_log kbi_l\n                  WHERE kbi_l.trackid = kbi_t.id\n                  GROUP BY kbi_t.courseid, kbi_t.userid) as l ON kbi_l.courseid = kbi_e.courseid AND kbi_l.userid = kbi_ue.userid\nWHERE kbi_l.id IS NULL\n  AND kbi_c.id = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_ue.status = 0\n  AND kbi_e.status = 0",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "enrolled": {
+                "key": "enrolled",
+                "title": "lang::report_field_enrolled_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "enrols": {
+                "key": "enrols",
+                "title": "lang::report_field_enrols_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "lastaccess": {
+                "key": "lastaccess",
+                "title": "lang::report_field_lastaccess_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "grade": {
+                "key": "grade",
+                "title": "lang::report_field_grade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "cid": {
+                "key": "cid",
+                "title": "lang::report_field_cid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "shortname": {
+                "key": "shortname",
+                "title": "lang::report_field_shortname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "category": {
+                "key": "category",
+                "title": "lang::report_field_category_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{cid}}}\" target=\"course\">{{{course}}}</a>"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "title": "lang::report_page_053_title::local_kopere_bi",
+  "description": "lang::report_page_053_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_course_gradebook_by_category",
+  "sortorder": 53,
+  "category": {
+    "refkey": "grades",
+    "title": "lang::report_category_grades_title::local_kopere_bi",
+    "sortorder": 60,
+    "description": "lang::report_category_grades_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_grades_53",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_053_title::local_kopere_bi",
+          "refkey": "kbi_el_course_gradebook_by_category",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_u.id,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.idnumber,\n       kbi_c.id AS courseid,\n       kbi_c.fullname\nFROM mdl_course kbi_c\n       JOIN mdl_context kbi_con ON kbi_con.contextlevel = 50 AND kbi_con.instanceid = kbi_c.id\n       JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_con.id\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid\n       LEFT JOIN (SELECT t.userid, t.courseid\n                  FROM (SELECT kbi_gg.itemid, kbi_gg.userid, kbi_gi.courseid\n                        FROM mdl_grade_grades kbi_gg\n                               JOIN mdl_grade_items kbi_gi ON kbi_gi.id = kbi_gg.itemid\n                        WHERE kbi_gg.itemid IN ()) t\n                  GROUP BY t.userid, t.courseid) gt ON gt.userid = kbi_u.id AND gt.courseid = kbi_c.id\nWHERE kbi_c.id > 0\n  AND kbi_c.visible = 1\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_ra.roleid = 5\nGROUP BY kbi_u.id, kbi_c.id",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{id}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "idnumber": {
+                "key": "idnumber",
+                "title": "lang::report_field_idnumber_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{courseid}}}\" target=\"course\">{{{fullname}}}</a>"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

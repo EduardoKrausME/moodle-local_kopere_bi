@@ -1,0 +1,160 @@
+{
+  "title": "lang::report_page_010_title::local_kopere_bi",
+  "description": "lang::report_page_010_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_cohort_success_and_progress_lea",
+  "sortorder": 10,
+  "category": {
+    "refkey": "users",
+    "title": "lang::report_category_users_title::local_kopere_bi",
+    "sortorder": 20,
+    "description": "lang::report_category_users_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_users_10",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_010_title::local_kopere_bi",
+          "refkey": "kbi_el_cohort_success_and_progress_lear",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_ue.id                             AS id,\n       kbi_cri.gradepass                     AS gradepass,\n       kbi_ue.timecreated                    as started,\n       ROUND((CASE\n                WHEN (kbi_g.rawgrademax - kbi_g.rawgrademin) > 0\n                        THEN ((kbi_g.finalgrade - kbi_g.rawgrademin) / (kbi_g.rawgrademax - kbi_g.rawgrademin)) * 100\n                ELSE kbi_g.finalgrade END),\n             0)                          AS grade,\n       ROUND((CASE\n                WHEN kbi_g.rawgrademax > 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100\n                ELSE kbi_g.finalgrade END),\n             0)                          AS grade_real,\n       kbi_cc.timecompleted                  as complete,\n       kbi_c.id                              as cid,\n       kbi_c.fullname,\n       kbi_e.enrol,\n       kbi_u.email,\n       kbi_u.id                              AS userid,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_c.enablecompletion,\n       (SELECT COUNT(DISTINCT kbi_cmc.id)\n        FROM mdl_course_modules_completion kbi_cmc, mdl_course_modules kbi_cm\n        WHERE kbi_cm.visible = 1\n          AND kbi_cmc.coursemoduleid = kbi_cm.id\n          AND kbi_cmc.completionstate IN (1, 2)\n          AND kbi_cm.completion > 0\n          AND kbi_cm.course = kbi_c.id\n          AND kbi_cmc.userid = kbi_u.id)         AS completed,\n       (SELECT ROUND((CASE\n                        WHEN (kbi_g.rawgrademax - kbi_g.rawgrademin) > 0\n                                THEN ((kbi_g.finalgrade - kbi_g.rawgrademin) / (kbi_g.rawgrademax - kbi_g.rawgrademin)) * 100\n                        ELSE kbi_g.finalgrade END), 0)\n        FROM mdl_grade_items kbi_gi, mdl_grade_grades kbi_g\n        WHERE kbi_gi.itemtype = 'course'\n          AND kbi_g.itemid = kbi_gi.id\n          AND kbi_g.finalgrade IS NOT NULL\n          AND kbi_gi.courseid = kbi_c.id\n        LIMIT 1)                         AS average,\n       (SELECT GROUP_CONCAT(DISTINCT CONCAT(kbi_u.firstname, ' ', kbi_u.lastname) SEPARATOR ', ')\n        FROM mdl_role_assignments kbi_ra\n               JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id\n               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid\n        WHERE kbi_ctx.instanceid = kbi_c.id\n          AND kbi_ctx.contextlevel = 50\n          AND kbi_ra.roleid = 3) AS teacher,\n       ''                                as cohortname,\n       lit.timespend                     AS timespend,\n       lit.visits                        AS visits\nFROM mdl_user_enrolments kbi_ue\n       LEFT JOIN mdl_user kbi_u ON kbi_u.id = kbi_ue.userid\n       LEFT JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid\n       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_e.courseid\n       LEFT JOIN mdl_course_completions kbi_cc ON kbi_cc.course = kbi_e.courseid AND kbi_cc.userid = kbi_ue.userid\n       LEFT JOIN mdl_course_completion_criteria kbi_cri ON kbi_cri.course = kbi_e.courseid AND kbi_cri.criteriatype = 6\n       LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.courseid = kbi_c.id AND kbi_gi.itemtype = 'course'\n       LEFT JOIN mdl_grade_grades kbi_g ON kbi_g.itemid = kbi_gi.id AND kbi_g.userid = kbi_u.id\n       LEFT JOIN (SELECT userid, courseid, SUM(timespend) as timespend, SUM(visits) as visits\n                  FROM mdl_local_kopere_bi_tracking\n                  WHERE id > 0\n                    AND courseid = :courseid\n                  GROUP BY userid, courseid) lit ON lit.courseid = kbi_c.id AND lit.userid = kbi_u.id\nWHERE kbi_ue.id > 0\n  AND kbi_e.courseid = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_ue.status = 0\n  AND kbi_e.status = 0",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "gradepass": {
+                "key": "gradepass",
+                "title": "lang::report_field_gradepass_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "started": {
+                "key": "started",
+                "title": "lang::report_field_started_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "grade": {
+                "key": "grade",
+                "title": "lang::report_field_grade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "grade_real": {
+                "key": "grade_real",
+                "title": "lang::report_field_grade_real_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "complete": {
+                "key": "complete",
+                "title": "lang::report_field_complete_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "cid": {
+                "key": "cid",
+                "title": "lang::report_field_cid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{cid}}}\" target=\"course\">{{{fullname}}}</a>"
+              },
+              "enrol": {
+                "key": "enrol",
+                "title": "lang::report_field_enrol_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "enablecompletion": {
+                "key": "enablecompletion",
+                "title": "lang::report_field_enablecompletion_title::local_kopere_bi",
+                "type": "status",
+                "mustache": ""
+              },
+              "completed": {
+                "key": "completed",
+                "title": "lang::report_field_completed_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "average": {
+                "key": "average",
+                "title": "lang::report_field_average_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "teacher": {
+                "key": "teacher",
+                "title": "lang::report_field_teacher_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "cohortname": {
+                "key": "cohortname",
+                "title": "lang::report_field_cohortname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "timespend": {
+                "key": "timespend",
+                "title": "lang::report_field_timespend_title::local_kopere_bi",
+                "type": "time",
+                "mustache": ""
+              },
+              "visits": {
+                "key": "visits",
+                "title": "lang::report_field_visits_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

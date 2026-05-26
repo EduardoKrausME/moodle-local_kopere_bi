@@ -1,0 +1,130 @@
+{
+  "title": "lang::report_page_075_title::local_kopere_bi",
+  "description": "lang::report_page_075_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_forum_response_overview",
+  "sortorder": 75,
+  "category": {
+    "refkey": "forums",
+    "title": "lang::report_category_forums_title::local_kopere_bi",
+    "sortorder": 90,
+    "description": "lang::report_category_forums_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_forums_75",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_075_title::local_kopere_bi",
+          "refkey": "kbi_el_forum_response_overview",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_c.fullname            AS course,\n       kbi_f.name                AS forum,\n       kbi_fp.subject            AS discussion_post,\n       kbi_u1.firstname          AS forum_started_by_first_name,\n       kbi_u1.lastname           AS forum_started_by_last_name,\n       kbi_fp.created            AS date_started,\n       kbi_fp2.message           AS response,\n       kbi_fp2.created           AS response_date,\n       kbi_u2.firstname          AS response_first_name,\n       kbi_u2.lastname           AS response_laste_name,\n       kbi_fp3.message           AS response_immediatey_prior,\n       kbi_fp3.created           AS response_immediatey_prior_date,\n       kbi_u3.firstname          AS response_immediatey_prior_first_name,\n       kbi_u3.lastname           AS response_immediatey_prior_last_name\nFROM mdl_forum kbi_f\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_f.course\n       JOIN mdl_modules kbi_m ON kbi_m.name = 'forum'\n       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id AND kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_f.id\n       JOIN mdl_forum_discussions kbi_fd ON kbi_fd.forum = kbi_f.id AND kbi_fd.course = kbi_c.id\n       JOIN mdl_forum_posts kbi_fp ON kbi_fp.discussion = kbi_fd.id AND kbi_fp.parent = 0\n       JOIN mdl_user kbi_u1 ON kbi_u1.id = kbi_fp.userid\n       LEFT JOIN mdl_forum_posts kbi_fp2 ON kbi_fp2.discussion = kbi_fd.id AND kbi_fp2.parent <> 0\n       LEFT JOIN mdl_user kbi_u2 ON kbi_u2.id = kbi_fp2.userid\n       LEFT JOIN mdl_forum_posts kbi_fp3 ON kbi_fp3.discussion = kbi_fd.id AND kbi_fp3.id = kbi_fp2.parent AND kbi_fp3.parent <> 0\n       LEFT JOIN mdl_user kbi_u3 ON kbi_u3.id = kbi_fp3.userid\nWHERE kbi_c.id > 0\n  AND kbi_c.id = :courseid",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "forum": {
+                "key": "forum",
+                "title": "lang::report_field_forum_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "discussion_post": {
+                "key": "discussion_post",
+                "title": "lang::report_field_discussion_post_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "forum_started_by_first_name": {
+                "key": "forum_started_by_first_name",
+                "title": "lang::report_field_forum_started_by_first_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "forum_started_by_last_name": {
+                "key": "forum_started_by_last_name",
+                "title": "lang::report_field_forum_started_by_last_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "date_started": {
+                "key": "date_started",
+                "title": "lang::report_field_date_started_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "response": {
+                "key": "response",
+                "title": "lang::report_field_response_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "response_date": {
+                "key": "response_date",
+                "title": "lang::report_field_response_date_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "response_first_name": {
+                "key": "response_first_name",
+                "title": "lang::report_field_response_first_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "response_laste_name": {
+                "key": "response_laste_name",
+                "title": "lang::report_field_response_laste_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "response_immediatey_prior": {
+                "key": "response_immediatey_prior",
+                "title": "lang::report_field_response_immediatey_prior_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "response_immediatey_prior_date": {
+                "key": "response_immediatey_prior_date",
+                "title": "lang::report_field_response_immediatey_prior_date_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "response_immediatey_prior_first_name": {
+                "key": "response_immediatey_prior_first_name",
+                "title": "lang::report_field_response_immediatey_prior_first_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "response_immediatey_prior_last_name": {
+                "key": "response_immediatey_prior_last_name",
+                "title": "lang::report_field_response_immediatey_prior_last_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

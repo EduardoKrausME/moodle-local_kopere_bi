@@ -1,0 +1,136 @@
+{
+  "title": "lang::report_page_063_title::local_kopere_bi",
+  "description": "lang::report_page_063_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_quiz_performance_statistics",
+  "sortorder": 63,
+  "category": {
+    "refkey": "quizzes",
+    "title": "lang::report_category_quizzes_title::local_kopere_bi",
+    "sortorder": 80,
+    "description": "lang::report_category_quizzes_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_quizzes_063",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_063_title::local_kopere_bi",
+          "refkey": "kbi_el_quiz_performance_statistics",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_qz.id                                                           AS id,\n       kbi_c.id                                                            AS courseid,\n       kbi_c.fullname                                                      AS course,\n       kbi_cm.id                                                           AS cmid,\n       kbi_qz.id                                                           AS quizid,\n       kbi_qz.name                                                         AS quiz_name,\n       COUNT(DISTINCT kbi_slot.id)                                         AS question_slots,\n       COUNT(DISTINCT kbi_qa.userid)                                       AS learners_attempted,\n       COUNT(kbi_qa.id)                                                    AS attempts,\n       SUM(CASE WHEN kbi_qa.state = 'finished' THEN 1 ELSE 0 END)          AS finished_attempts,\n       ROUND(AVG(CASE WHEN kbi_qz.sumgrades > 0 THEN (kbi_qa.sumgrades * 100 / kbi_qz.sumgrades) ELSE NULL END), 2) AS average_score_percent,\n       ROUND(MIN(CASE WHEN kbi_qz.sumgrades > 0 THEN (kbi_qa.sumgrades * 100 / kbi_qz.sumgrades) ELSE NULL END), 2) AS minimum_score_percent,\n       ROUND(MAX(CASE WHEN kbi_qz.sumgrades > 0 THEN (kbi_qa.sumgrades * 100 / kbi_qz.sumgrades) ELSE NULL END), 2) AS maximum_score_percent,\n       ROUND(STDDEV_POP(CASE WHEN kbi_qz.sumgrades > 0 THEN (kbi_qa.sumgrades * 100 / kbi_qz.sumgrades) ELSE NULL END), 2) AS standard_deviation_percent,\n       ROUND(AVG(CASE WHEN kbi_qa.timefinish > kbi_qa.timestart THEN kbi_qa.timefinish - kbi_qa.timestart ELSE NULL END), 0) AS average_duration,\n       ROUND(SUM(CASE WHEN kbi_gi.gradepass > 0 AND kbi_gg.finalgrade >= kbi_gi.gradepass THEN 1 ELSE 0 END) * 100 / NULLIF(COUNT(kbi_qa.id), 0), 2) AS pass_rate_percent\nFROM mdl_quiz kbi_qz\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_qz.course\n       JOIN mdl_modules kbi_m ON kbi_m.name = 'quiz'\n       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id AND kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_qz.id\n       LEFT JOIN mdl_quiz_slots kbi_slot ON kbi_slot.quizid = kbi_qz.id\n       LEFT JOIN mdl_quiz_attempts kbi_qa ON kbi_qa.quiz = kbi_qz.id AND kbi_qa.preview = 0\n       LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.itemmodule = 'quiz' AND kbi_gi.iteminstance = kbi_qz.id AND kbi_gi.courseid = kbi_c.id\n       LEFT JOIN mdl_grade_grades kbi_gg ON kbi_gg.itemid = kbi_gi.id AND kbi_gg.userid = kbi_qa.userid\nWHERE kbi_c.visible = 1\n  AND kbi_cm.visible = 1\nGROUP BY kbi_qz.id, kbi_c.id, kbi_cm.id, kbi_gi.gradepass\nORDER BY kbi_c.fullname, kbi_qz.name",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{courseid}}}\" target=\"course\">{{{course}}}</a>"
+              },
+              "cmid": {
+                "key": "cmid",
+                "title": "lang::report_field_cmid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "quizid": {
+                "key": "quizid",
+                "title": "lang::report_field_quizid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "quiz_name": {
+                "key": "quiz_name",
+                "title": "lang::report_field_quiz_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/mod/quiz/view.php?id={{{cmid}}}\" target=\"quiz\">{{{quiz_name}}}</a>"
+              },
+              "question_slots": {
+                "key": "question_slots",
+                "title": "lang::report_field_question_slots_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "learners_attempted": {
+                "key": "learners_attempted",
+                "title": "lang::report_field_learners_attempted_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "attempts": {
+                "key": "attempts",
+                "title": "lang::report_field_attempts_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "finished_attempts": {
+                "key": "finished_attempts",
+                "title": "lang::report_field_finished_attempts_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "average_score_percent": {
+                "key": "average_score_percent",
+                "title": "lang::report_field_average_score_percent_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "minimum_score_percent": {
+                "key": "minimum_score_percent",
+                "title": "lang::report_field_minimum_score_percent_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "maximum_score_percent": {
+                "key": "maximum_score_percent",
+                "title": "lang::report_field_maximum_score_percent_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "standard_deviation_percent": {
+                "key": "standard_deviation_percent",
+                "title": "lang::report_field_standard_deviation_percent_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "average_duration": {
+                "key": "average_duration",
+                "title": "lang::report_field_average_duration_title::local_kopere_bi",
+                "type": "time",
+                "mustache": ""
+              },
+              "pass_rate_percent": {
+                "key": "pass_rate_percent",
+                "title": "lang::report_field_pass_rate_percent_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

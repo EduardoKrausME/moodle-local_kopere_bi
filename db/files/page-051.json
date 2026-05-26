@@ -1,0 +1,69 @@
+{
+  "title": "lang::report_page_051_title::local_kopere_bi",
+  "description": "lang::report_page_051_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_enrollment_method_summary",
+  "sortorder": 51,
+  "category": {
+    "refkey": "enrollments",
+    "title": "lang::report_category_enrollments_title::local_kopere_bi",
+    "sortorder": 50,
+    "description": "lang::report_category_enrollments_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_enrollments_51",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_051_title::local_kopere_bi",
+          "refkey": "kbi_el_enrollment_method_summary",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT MAX(kbi_e.id)                  AS id,\n       kbi_e.enrol                    as enrol,\n       COUNT(DISTINCT kbi_e.courseid) as courses,\n       COUNT(kbi_ue.userid)           as users,\n       COUNT(DISTINCT kbi_ue.userid)  as uniusers\nFROM mdl_enrol kbi_e\n       LEFT JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id\nWHERE kbi_e.id > 0\n  AND kbi_e.status = 0\n  AND kbi_ue.status = 0\nGROUP BY kbi_e.enrol\nORDER BY users DESC, kbi_e.enrol",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "enrol": {
+                "key": "enrol",
+                "title": "lang::report_field_enrol_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "courses": {
+                "key": "courses",
+                "title": "lang::report_field_courses_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "users": {
+                "key": "users",
+                "title": "lang::report_field_users_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "uniusers": {
+                "key": "uniusers",
+                "title": "lang::report_field_uniusers_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

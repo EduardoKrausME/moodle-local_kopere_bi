@@ -1,0 +1,124 @@
+{
+  "title": "lang::report_page_035_title::local_kopere_bi",
+  "description": "lang::report_page_035_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_course_access",
+  "sortorder": 35,
+  "category": {
+    "refkey": "courses",
+    "title": "lang::report_category_courses_title::local_kopere_bi",
+    "sortorder": 40,
+    "description": "lang::report_category_courses_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_courses_35",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_035_title::local_kopere_bi",
+          "refkey": "kbi_el_course_access",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_c.id,\n       kbi_c.fullname,\n       kbi_c.shortname,\n       kbi_ca.name                             AS category,\n       kbi_c.startdate,\n       x.users,\n       (kbi_ue.enrolled - x.users)             AS inactiveusers,\n       kbi_ue.enrolled,\n       kbi_cc.completed,\n       x.timespend,\n       x.visits,\n       x.lastaccess,\n       completed_activities,\n       (SELECT GROUP_CONCAT(DISTINCT CONCAT(kbi_u.firstname, ' ', kbi_u.lastname) SEPARATOR ', ')\n        FROM mdl_role_assignments kbi_ra\n               JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id\n               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid\n        WHERE kbi_ctx.instanceid = kbi_c.id\n          AND kbi_ctx.contextlevel = 50\n          AND kbi_ra.roleid = 3) AS teacher\nFROM mdl_course kbi_c\n       LEFT JOIN mdl_course_categories kbi_ca ON kbi_ca.id = kbi_c.category\n       LEFT JOIN (SELECT course, COUNT(*) AS completed\n                  FROM mdl_course_completions\n                  WHERE timecompleted > 0\n                    AND course = :courseid\n                  GROUP BY course) cc ON kbi_cc.course = kbi_c.id\n       LEFT JOIN (SELECT kbi_cc.course, COUNT(*) as completed_activities\n                  FROM mdl_course_modules_completion kbi_cmc\n                         JOIN mdl_course_modules kbi_cc ON kbi_cc.id = kbi_cmc.coursemoduleid\n                  WHERE 1 = 1\n                    AND kbi_cmc.completionstate IN (1, 2)\n                    AND kbi_cc.course = :courseid\n                  GROUP BY kbi_cc.course) compl ON compl.course = kbi_c.id\n       LEFT JOIN (SELECT kbi_e.courseid, COUNT(DISTINCT kbi_ue.userid) AS enrolled\n                  FROM mdl_enrol kbi_e\n                         JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id\n                  WHERE 1 = 1\n                    AND kbi_ue.status = 0\n                    AND kbi_e.status = 0\n                    AND kbi_e.courseid = :courseid\n                  GROUP BY kbi_e.courseid) ue ON kbi_ue.courseid = kbi_c.id\n       LEFT JOIN (SELECT kbi_t.courseid,\n                         COUNT(DISTINCT kbi_t.userid) as users,\n                         MAX(lastaccess)          AS lastaccess,\n                         SUM(kbi_l.timespend)         AS timespend,\n                         SUM(kbi_l.visits)            AS visits\n                  FROM mdl_local_kopere_bi_tracking kbi_t\n                         JOIN mdl_local_kopere_bi_track_log kbi_l ON kbi_l.trackid = kbi_t.id\n                  WHERE 1 = 1\n                    AND kbi_t.courseid = :courseid\n                  GROUP BY kbi_t.courseid) x ON x.courseid = kbi_c.id\nWHERE kbi_c.id > 1\n  AND kbi_c.id = :courseid\n  AND kbi_c.visible = 1",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "shortname": {
+                "key": "shortname",
+                "title": "lang::report_field_shortname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "category": {
+                "key": "category",
+                "title": "lang::report_field_category_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "startdate": {
+                "key": "startdate",
+                "title": "lang::report_field_startdate_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "users": {
+                "key": "users",
+                "title": "lang::report_field_users_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "inactiveusers": {
+                "key": "inactiveusers",
+                "title": "lang::report_field_inactiveusers_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "enrolled": {
+                "key": "enrolled",
+                "title": "lang::report_field_enrolled_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "completed": {
+                "key": "completed",
+                "title": "lang::report_field_completed_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "timespend": {
+                "key": "timespend",
+                "title": "lang::report_field_timespend_title::local_kopere_bi",
+                "type": "time",
+                "mustache": ""
+              },
+              "visits": {
+                "key": "visits",
+                "title": "lang::report_field_visits_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "lastaccess": {
+                "key": "lastaccess",
+                "title": "lang::report_field_lastaccess_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "completed_activities": {
+                "key": "completed_activities",
+                "title": "lang::report_field_completed_activities_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "teacher": {
+                "key": "teacher",
+                "title": "lang::report_field_teacher_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

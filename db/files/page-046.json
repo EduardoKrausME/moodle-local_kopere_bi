@@ -1,0 +1,93 @@
+{
+  "title": "lang::report_page_046_title::local_kopere_bi",
+  "description": "lang::report_page_046_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_engaged_not_engaged_totals_by",
+  "sortorder": 46,
+  "category": {
+    "refkey": "courses",
+    "title": "lang::report_category_courses_title::local_kopere_bi",
+    "sortorder": 40,
+    "description": "lang::report_category_courses_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_courses_46",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_046_title::local_kopere_bi",
+          "refkey": "kbi_el_engaged_not_engaged_totals_by",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_c.id                                              courseid,\n       kbi_c.fullname                                     AS course_name,\n       kbi_u.id                                           AS userid,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       CASE\n         WHEN MIN(comp.userid) IS NOT NULL AND MIN(kbi_ul.id) IS NOT NULL THEN 1\n         ELSE 0 END                                   as completed,\n       CASE\n         WHEN MIN(comp.userid) IS NULL AND MIN(kbi_ul.id) IS NOT NULL THEN 1\n         ELSE 0 END                                   as not_completed,\n       CASE WHEN MIN(kbi_ul.id) IS NULL THEN 1 ELSE 0 END as not_accessed\nFROM mdl_role_assignments kbi_ra\n       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_ctx.instanceid\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid\n       LEFT JOIN (SELECT kbi_cm.course, kbi_cmc.userid\n                  FROM mdl_course_modules kbi_cm\n                         JOIN mdl_course_modules_completion kbi_cmc\n                           ON kbi_cmc.coursemoduleid = kbi_cm.id AND kbi_cmc.completionstate = 1\n                  WHERE kbi_cmc.id > 0\n                  GROUP BY kbi_cm.course, kbi_cmc.userid) comp ON comp.userid = kbi_u.id AND comp.course = kbi_c.id\n       LEFT JOIN mdl_user_lastaccess kbi_ul ON kbi_ul.courseid = kbi_c.id AND kbi_ul.userid = kbi_ra.userid\nWHERE kbi_c.id > 0\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_ra.roleid = 5\nGROUP BY kbi_c.id, kbi_u.id",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course_name": {
+                "key": "course_name",
+                "title": "lang::report_field_course_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "completed": {
+                "key": "completed",
+                "title": "lang::report_field_completed_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "not_completed": {
+                "key": "not_completed",
+                "title": "lang::report_field_not_completed_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "not_accessed": {
+                "key": "not_accessed",
+                "title": "lang::report_field_not_accessed_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

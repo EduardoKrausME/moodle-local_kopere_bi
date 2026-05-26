@@ -1,0 +1,147 @@
+{
+  "title": "lang::report_page_082_title::local_kopere_bi",
+  "description": "lang::report_page_082_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_feedback_details",
+  "sortorder": 82,
+  "category": {
+    "refkey": "feedback",
+    "title": "lang::report_category_feedback_title::local_kopere_bi",
+    "sortorder": 120,
+    "description": "lang::report_category_feedback_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_feedback_82",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_082_title::local_kopere_bi",
+          "refkey": "kbi_el_feedback_details",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_mfc.timemodified                    as feedback_time,\n       kbi_cc.timecompleted,\n       kbi_mfi.presentation,\n       kbi_mfi.typ,\n       kbi_mfi.id                              AS q_id,\n       kbi_mfi.label                           AS question_number,\n       kbi_mfi.name                            as question,\n       kbi_mfv.value                           as answer,\n       kbi_mf.name                             as feedback,\n       kbi_mf.id                               as feedback_id,\n       kbi_c.id                                as course_id,\n       kbi_c.idnumber                          as course_idnumber,\n       kbi_c.fullname                          as course_name,\n       kbi_c.shortname                         as course_shortname,\n       ROUND((CASE\n                WHEN kbi_g.rawgrademax > 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100\n                ELSE kbi_g.finalgrade END), 0) AS grade\nFROM mdl_feedback kbi_mf\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_mf.course\n       JOIN mdl_feedback_item kbi_mfi ON kbi_mfi.feedback = kbi_mf.id\n       LEFT JOIN mdl_feedback_value kbi_mfv ON kbi_mfv.item = kbi_mfi.id\n       LEFT JOIN mdl_feedback_completed kbi_mfc ON kbi_mfc.id = kbi_mfv.completed\n       LEFT JOIN mdl_user kbi_u ON kbi_mfc.userid = kbi_u.id\n       LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.itemtype = 'course' AND kbi_gi.courseid = kbi_c.id\n       LEFT JOIN mdl_grade_grades kbi_g ON kbi_g.userid = kbi_u.id AND kbi_g.itemid = kbi_gi.id AND kbi_g.finalgrade IS NOT NULL\n       LEFT JOIN mdl_course_completions kbi_cc ON kbi_cc.userid = kbi_u.id AND kbi_cc.course = kbi_c.id\nWHERE kbi_mf.id > 0\n  AND kbi_mf.course = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{id}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "feedback_time": {
+                "key": "feedback_time",
+                "title": "lang::report_field_feedback_time_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "timecompleted": {
+                "key": "timecompleted",
+                "title": "lang::report_field_timecompleted_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "presentation": {
+                "key": "presentation",
+                "title": "lang::report_field_presentation_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "typ": {
+                "key": "typ",
+                "title": "lang::report_field_typ_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "q_id": {
+                "key": "q_id",
+                "title": "lang::report_field_q_id_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "question_number": {
+                "key": "question_number",
+                "title": "lang::report_field_question_number_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "question": {
+                "key": "question",
+                "title": "lang::report_field_question_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "answer": {
+                "key": "answer",
+                "title": "lang::report_field_answer_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "feedback": {
+                "key": "feedback",
+                "title": "lang::report_field_feedback_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "feedback_id": {
+                "key": "feedback_id",
+                "title": "lang::report_field_feedback_id_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course_id": {
+                "key": "course_id",
+                "title": "lang::report_field_course_id_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course_idnumber": {
+                "key": "course_idnumber",
+                "title": "lang::report_field_course_idnumber_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course_name": {
+                "key": "course_name",
+                "title": "lang::report_field_course_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "course_shortname": {
+                "key": "course_shortname",
+                "title": "lang::report_field_course_shortname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "grade": {
+                "key": "grade",
+                "title": "lang::report_field_grade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "title": "lang::report_page_094_title::local_kopere_bi",
+  "description": "lang::report_page_094_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_file_utilization_summary_by_in",
+  "sortorder": 94,
+  "category": {
+    "refkey": "communication",
+    "title": "lang::report_category_communication_title::local_kopere_bi",
+    "sortorder": 140,
+    "description": "lang::report_category_communication_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_communication_94",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_094_title::local_kopere_bi",
+          "refkey": "kbi_el_file_utilization_summary_by_instructor",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_c.id,\n       kbi_c.fullname,\n       count(kbi_r.id)                                     as resources,\n       GROUP_CONCAT(CASE\n                      WHEN kbi_f.id IS NOT NULL THEN CONCAT('/', kbi_ctx.id, '/mod_resource/content/', kbi_r.revision, kbi_f.filepath,\n                                                        kbi_f.filename)\n                      ELSE NULL END SEPARATOR '[[,]]') AS files,\n       GROUP_CONCAT(kbi_f.filename)                        AS files_sorting,\n       (SELECT DISTINCT CONCAT(kbi_u.firstname, ' ', kbi_u.lastname)\n        FROM mdl_role_assignments kbi_ra\n               JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id\n               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid\n        WHERE kbi_ctx.instanceid = kbi_c.id\n          AND kbi_ctx.contextlevel = 50\n          AND kbi_ra.roleid = 3\n        LIMIT 1)                                       AS teacher\nFROM mdl_course kbi_c\n       LEFT JOIN mdl_resource kbi_r ON kbi_r.course = kbi_c.id\n       LEFT JOIN mdl_modules kbi_m ON kbi_m.name = 'resource'\n       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_r.id\n       LEFT JOIN mdl_context kbi_ctx ON kbi_ctx.contextlevel = 70 AND kbi_ctx.instanceid = kbi_cm.id\n       LEFT JOIN mdl_files kbi_f\n         ON kbi_f.component = 'mod_resource' AND kbi_f.filearea = 'content' AND kbi_f.itemid = 0 AND kbi_f.filesize > 0 AND\n            kbi_ctx.id = kbi_f.contextid\nWHERE kbi_c.id > 0\n  AND kbi_c.id = :courseid\n  AND kbi_c.visible = 1\nGROUP BY kbi_c.id",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "resources": {
+                "key": "resources",
+                "title": "lang::report_field_resources_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "files": {
+                "key": "files",
+                "title": "lang::report_field_files_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "files_sorting": {
+                "key": "files_sorting",
+                "title": "lang::report_field_files_sorting_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "teacher": {
+                "key": "teacher",
+                "title": "lang::report_field_teacher_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

@@ -1,0 +1,94 @@
+{
+  "title": "lang::report_page_093_title::local_kopere_bi",
+  "description": "lang::report_page_093_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_file_utilization_summary_by_course",
+  "sortorder": 93,
+  "category": {
+    "refkey": "communication",
+    "title": "lang::report_category_communication_title::local_kopere_bi",
+    "sortorder": 140,
+    "description": "lang::report_category_communication_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_communication_93",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_093_title::local_kopere_bi",
+          "refkey": "kbi_el_file_utilization_summary_by_course",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_r.id,\n       kbi_c.fullname,\n       kbi_r.name,\n       kbi_r.timemodified,\n       kbi_r.revision,\n       MAX(sl.visits)        AS visits,\n       MAX(sl.timespend)     AS timespend,\n       MAX(fs.files)         AS files,\n       MAX(fs.files_sorting) AS files_sorting\nFROM mdl_resource kbi_r\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_r.course\n       LEFT JOIN (SELECT kbi_cm.instance,\n                         GROUP_CONCAT(CASE\n                                        WHEN kbi_f.id IS NOT NULL THEN CONCAT('/', kbi_ctx.id,\n                                                                          '/mod_resource/content/[[revision]]',\n                                                                          kbi_f.filepath, kbi_f.filename)\n                                        ELSE NULL END SEPARATOR '[[,]]') AS files,\n                         GROUP_CONCAT(kbi_f.filename)                        AS files_sorting\n                  FROM mdl_files kbi_f\n                         JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_f.contextid\n                         JOIN mdl_course_modules kbi_cm ON kbi_cm.id = kbi_ctx.instanceid\n                  WHERE kbi_f.component = 'mod_resource'\n                    AND kbi_f.filearea = 'content'\n                    AND kbi_f.itemid = 0\n                    AND kbi_f.filesize > 0\n                    AND kbi_cm.course = :courseid\n                  GROUP BY kbi_cm.instance) fs ON fs.instance = kbi_r.id\n       LEFT JOIN (SELECT kbi_cm.instance, SUM(kbi_lit.timespend) as timespend, SUM(kbi_lit.visits) as visits\n                  FROM mdl_local_kopere_bi_tracking kbi_lit, mdl_course_modules kbi_cm, mdl_modules kbi_m\n                  WHERE kbi_lit.page = 'module'\n                    and kbi_cm.id = kbi_lit.param\n                    and kbi_m.id = kbi_cm.module\n                    and kbi_m.name = 'resource'\n                  GROUP BY kbi_cm.instance) sl ON sl.instance = kbi_r.id\nWHERE kbi_r.id > 0\n  AND kbi_c.id = :courseid\n  AND kbi_c.visible = 1\nGROUP BY kbi_r.id, kbi_c.id",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "name": {
+                "key": "name",
+                "title": "lang::report_field_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "timemodified": {
+                "key": "timemodified",
+                "title": "lang::report_field_timemodified_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "revision": {
+                "key": "revision",
+                "title": "lang::report_field_revision_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "visits": {
+                "key": "visits",
+                "title": "lang::report_field_visits_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "timespend": {
+                "key": "timespend",
+                "title": "lang::report_field_timespend_title::local_kopere_bi",
+                "type": "time",
+                "mustache": ""
+              },
+              "files": {
+                "key": "files",
+                "title": "lang::report_field_files_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "files_sorting": {
+                "key": "files_sorting",
+                "title": "lang::report_field_files_sorting_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

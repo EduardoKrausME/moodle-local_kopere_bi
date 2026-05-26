@@ -1,0 +1,100 @@
+{
+  "title": "lang::report_page_074_title::local_kopere_bi",
+  "description": "lang::report_page_074_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_forum_posts_performance",
+  "sortorder": 74,
+  "category": {
+    "refkey": "forums",
+    "title": "lang::report_category_forums_title::local_kopere_bi",
+    "sortorder": 90,
+    "description": "lang::report_category_forums_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_forums_74",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_074_title::local_kopere_bi",
+          "refkey": "kbi_el_forum_posts_performance",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_f.id                                                                                                as fid,\n       kbi_f.name,\n       kbi_c.fullname,\n       COUNT(DISTINCT kbi_fp.id)                                                                               AS all_posts,\n       COUNT(DISTINCT kbi_fp.id) /\n       GREATEST(PERIOD_DIFF(DATE_FORMAT(NOW(), '%Y%m'), DATE_FORMAT(FROM_UNIXTIME(kbi_cm.added), '%Y%m')), 1)  as avg_month,\n       COUNT(DISTINCT kbi_fp.id) /\n       GREATEST(CEILING(DATEDIFF(DATE_FORMAT(NOW(), '%Y%m%d'), DATE_FORMAT(FROM_UNIXTIME(kbi_cm.added), '%Y%m%d')) / 7),\n                1)                                                                                         as avg_week,\n       COUNT(DISTINCT kbi_fp.id) /\n       GREATEST(DATEDIFF(DATE_FORMAT(NOW(), '%Y%m%d'), DATE_FORMAT(FROM_UNIXTIME(kbi_cm.added), '%Y%m%d')), 1) as avg_day,\n       popular_day.day                                                                                     AS popular_day,\n       popular_hour.hour                                                                                   AS popular_hour,\n       popular_week.week                                                                                   AS popular_week\nFROM mdl_forum kbi_f\n       JOIN mdl_modules kbi_m ON kbi_m.name = 'forum'\n       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_f.course AND kbi_cm.instance = kbi_f.id AND kbi_cm.module = kbi_m.id\n       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_f.course\n       LEFT JOIN mdl_forum_discussions kbi_fd ON kbi_fd.forum = kbi_f.id\n       LEFT JOIN mdl_forum_posts kbi_fp ON kbi_fp.discussion = kbi_fd.id\n       LEFT JOIN (SELECT a.posts, a.day, a.id\n                  FROM (SELECT COUNT(DISTINCT kbi_fp2.id)                             as posts,\n                               WEEKDAY(FROM_UNIXTIME(kbi_fp2.created, '%Y-%m-%d %T')) AS day,\n                               kbi_f2.id\n                        FROM mdl_forum kbi_f2\n                               LEFT JOIN mdl_forum_discussions kbi_fd2 ON kbi_fd2.forum = kbi_f2.id\n                               LEFT JOIN mdl_forum_posts kbi_fp2 ON kbi_fp2.discussion = kbi_fd2.id\n                        WHERE kbi_f2.course = :courseid\n                        GROUP BY day, kbi_f2.id\n                        ORDER BY posts DESC) AS a\n                  GROUP BY a.id) as popular_day ON popular_day.id = kbi_f.id\n       LEFT JOIN (SELECT a.posts, a.hour, a.id\n                  FROM (SELECT COUNT(DISTINCT kbi_fp2.id) as posts, FROM_UNIXTIME(kbi_fp2.created, '%H') AS hour, kbi_f2.id\n                        FROM mdl_forum kbi_f2\n                               LEFT JOIN mdl_forum_discussions kbi_fd2 ON kbi_fd2.forum = kbi_f2.id\n                               LEFT JOIN mdl_forum_posts kbi_fp2 ON kbi_fp2.discussion = kbi_fd2.id\n                        WHERE kbi_f2.course = :courseid\n                        GROUP BY hour, kbi_f2.id\n                        ORDER BY posts DESC) AS a\n                  GROUP BY a.id) as popular_hour ON popular_hour.id = kbi_f.id\n       LEFT JOIN (SELECT a.posts, a.week, a.id\n                  FROM (SELECT COUNT(DISTINCT kbi_fp2.id)                                             as posts,\n                               CEILING(DAYOFMONTH(FROM_UNIXTIME(kbi_fp2.created, '%Y-%m-%d %T')) / 7) AS week,\n                               kbi_f2.id\n                        FROM mdl_forum kbi_f2\n                               LEFT JOIN mdl_forum_discussions kbi_fd2 ON kbi_fd2.forum = kbi_f2.id\n                               LEFT JOIN mdl_forum_posts kbi_fp2 ON kbi_fp2.discussion = kbi_fd2.id\n                        WHERE kbi_f2.course = :courseid\n                        GROUP BY week, kbi_f2.id\n                        ORDER BY posts DESC) AS a\n                  GROUP BY a.id) as popular_week ON popular_week.id = kbi_f.id\nWHERE kbi_f.course = :courseid\n  AND kbi_c.visible = 1\nGROUP BY kbi_f.id\nORDER BY all_posts DESC, kbi_f.name",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "fid": {
+                "key": "fid",
+                "title": "lang::report_field_fid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "name": {
+                "key": "name",
+                "title": "lang::report_field_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "all_posts": {
+                "key": "all_posts",
+                "title": "lang::report_field_all_posts_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "avg_month": {
+                "key": "avg_month",
+                "title": "lang::report_field_avg_month_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "avg_week": {
+                "key": "avg_week",
+                "title": "lang::report_field_avg_week_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "avg_day": {
+                "key": "avg_day",
+                "title": "lang::report_field_avg_day_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "popular_day": {
+                "key": "popular_day",
+                "title": "lang::report_field_popular_day_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "popular_hour": {
+                "key": "popular_hour",
+                "title": "lang::report_field_popular_hour_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "popular_week": {
+                "key": "popular_week",
+                "title": "lang::report_field_popular_week_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

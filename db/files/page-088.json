@@ -1,0 +1,202 @@
+{
+  "title": "lang::report_page_088_title::local_kopere_bi",
+  "description": "lang::report_page_088_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_quiz_answer_details",
+  "sortorder": 88,
+  "category": {
+    "refkey": "quizzes",
+    "title": "lang::report_category_quizzes_title::local_kopere_bi",
+    "sortorder": 80,
+    "description": "lang::report_category_quizzes_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_quizzes_088",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_088_title::local_kopere_bi",
+          "refkey": "kbi_el_quiz_answer_details",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT CONCAT(kbi_qa.id, '-', kbi_qatt.slot) AS id,\n       kbi_c.id                              AS courseid,\n       kbi_c.fullname                        AS course,\n       kbi_cm.id                             AS cmid,\n       kbi_qz.id                             AS quizid,\n       kbi_qz.name                           AS quiz_name,\n       kbi_u.id                              AS userid,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_qa.id                             AS quiz_attempt_id,\n       kbi_qa.attempt,\n       kbi_qa.timestart,\n       kbi_qa.timefinish,\n       kbi_qa.state                          AS attempt_state,\n       kbi_qatt.slot,\n       kbi_q.id                              AS questionid,\n       kbi_q.name                            AS question_name,\n       kbi_q.qtype,\n       kbi_qatt.questionsummary,\n       kbi_qatt.responsesummary,\n       kbi_qatt.rightanswer,\n       kbi_qas.state                         AS question_state,\n       kbi_qas.fraction,\n       ROUND(kbi_qatt.maxmark * COALESCE(kbi_qas.fraction, 0), 2) AS question_grade,\n       kbi_qatt.maxmark,\n       CASE\n         WHEN kbi_qas.state = 'gradedright' THEN 1\n         ELSE 0\n       END AS is_correct\nFROM mdl_quiz_attempts kbi_qa\n       JOIN mdl_quiz kbi_qz ON kbi_qz.id = kbi_qa.quiz\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_qz.course\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_qa.userid\n       JOIN mdl_question_attempts kbi_qatt ON kbi_qatt.questionusageid = kbi_qa.uniqueid\n       JOIN mdl_question kbi_q ON kbi_q.id = kbi_qatt.questionid\n       LEFT JOIN mdl_question_attempt_steps kbi_qas ON kbi_qas.questionattemptid = kbi_qatt.id\n             AND kbi_qas.sequencenumber = (\n                 SELECT MAX(kbi_qas2.sequencenumber)\n                 FROM mdl_question_attempt_steps kbi_qas2\n                 WHERE kbi_qas2.questionattemptid = kbi_qatt.id\n             )\n       JOIN mdl_modules kbi_m ON kbi_m.name = 'quiz'\n       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id AND kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_qz.id\nWHERE kbi_qa.preview = 0\n  AND kbi_c.visible = 1\n  AND kbi_cm.visible = 1\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username <> 'guest'\nORDER BY kbi_c.fullname, kbi_qz.name, kbi_u.lastname, kbi_u.firstname, kbi_qa.attempt, kbi_qatt.slot",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "string",
+                "mustache": ""
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{courseid}}}\" target=\"course\">{{{course}}}</a>"
+              },
+              "cmid": {
+                "key": "cmid",
+                "title": "lang::report_field_cmid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "quizid": {
+                "key": "quizid",
+                "title": "lang::report_field_quizid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "quiz_name": {
+                "key": "quiz_name",
+                "title": "lang::report_field_quiz_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/mod/quiz/view.php?id={{{cmid}}}\" target=\"quiz\">{{{quiz_name}}}</a>"
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "quiz_attempt_id": {
+                "key": "quiz_attempt_id",
+                "title": "lang::report_field_quiz_attempt_id_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "attempt": {
+                "key": "attempt",
+                "title": "lang::report_field_attempt_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "timestart": {
+                "key": "timestart",
+                "title": "lang::report_field_timestart_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "timefinish": {
+                "key": "timefinish",
+                "title": "lang::report_field_timefinish_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "attempt_state": {
+                "key": "attempt_state",
+                "title": "lang::report_field_attempt_state_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "slot": {
+                "key": "slot",
+                "title": "lang::report_field_slot_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "questionid": {
+                "key": "questionid",
+                "title": "lang::report_field_questionid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "question_name": {
+                "key": "question_name",
+                "title": "lang::report_field_question_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "qtype": {
+                "key": "qtype",
+                "title": "lang::report_field_qtype_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "questionsummary": {
+                "key": "questionsummary",
+                "title": "lang::report_field_questionsummary_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "responsesummary": {
+                "key": "responsesummary",
+                "title": "lang::report_field_responsesummary_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "rightanswer": {
+                "key": "rightanswer",
+                "title": "lang::report_field_rightanswer_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "question_state": {
+                "key": "question_state",
+                "title": "lang::report_field_question_state_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "fraction": {
+                "key": "fraction",
+                "title": "lang::report_field_fraction_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "question_grade": {
+                "key": "question_grade",
+                "title": "lang::report_field_question_grade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "maxmark": {
+                "key": "maxmark",
+                "title": "lang::report_field_maxmark_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "is_correct": {
+                "key": "is_correct",
+                "title": "lang::report_field_is_correct_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

@@ -1,0 +1,117 @@
+{
+  "title": "lang::report_page_073_title::local_kopere_bi",
+  "description": "lang::report_page_073_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_forum_post_replies",
+  "sortorder": 73,
+  "category": {
+    "refkey": "forums",
+    "title": "lang::report_category_forums_title::local_kopere_bi",
+    "sortorder": 90,
+    "description": "lang::report_category_forums_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_forums_73",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_073_title::local_kopere_bi",
+          "refkey": "kbi_el_forum_post_replies",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_c.fullname                                                   AS course,\n       kbi_f.name                                                       AS forum,\n       kbi_fd.name                                                      AS discussion,\n       kbi_fp.subject                                                   AS post,\n       kbi_u.id                                                         AS userid,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_fp.created,\n       (SELECT COUNT(id) FROM mdl_forum_posts WHERE parent = kbi_fp.id) as count_reply,\n       last_reply.time                                              AS last_reply_time,\n       last_reply.firstname                                         AS last_reply_firstname,\n       last_reply.lastname                                          AS last_reply_lastname,\n       last_reply.id                                                AS last_reply_userid\nFROM mdl_forum kbi_f\n       LEFT JOIN mdl_forum_discussions kbi_fd ON kbi_fd.forum = kbi_f.id\n       LEFT JOIN mdl_forum_posts kbi_fp ON kbi_fp.discussion = kbi_fd.id\n       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_f.course\n       LEFT JOIN mdl_user kbi_u ON kbi_u.id = kbi_fp.userid\n       LEFT JOIN mdl_modules kbi_m ON kbi_m.name = 'forum'\n       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.module = kbi_m.id AND kbi_cm.course = kbi_c.id AND kbi_cm.instance = kbi_f.id\n       LEFT JOIN (SELECT *\n                  FROM (SELECT kbi_post.parent, kbi_post.created AS time, kbi_ur.firstname, kbi_ur.lastname, kbi_ur.id\n                        FROM mdl_forum_posts kbi_post\n                               JOIN mdl_user kbi_ur ON kbi_ur.id = kbi_post.userid\n                               JOIN mdl_forum_discussions kbi_d ON kbi_d.id = kbi_post.discussion\n                               JOIN mdl_forum kbi_f ON kbi_d.forum = kbi_f.id\n                        WHERE kbi_ur.id > 0\n                          AND CONCAT(kbi_post.parent, '-', kbi_post.created) IN(SELECT CONCAT(parent, '-', MAX(created))\n                                                                        FROM mdl_forum_posts\n                                                                        GROUP BY parent)\n                        ORDER BY kbi_post.created DESC) p\n                  GROUP BY p.parent, p.time, p.firstname, p.lastname, p.id) last_reply ON last_reply.parent = kbi_fp.id\nWHERE kbi_u.id IS NOT NULL",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "course": {
+                "key": "course",
+                "title": "lang::report_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "forum": {
+                "key": "forum",
+                "title": "lang::report_field_forum_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "discussion": {
+                "key": "discussion",
+                "title": "lang::report_field_discussion_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "post": {
+                "key": "post",
+                "title": "lang::report_field_post_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "created": {
+                "key": "created",
+                "title": "lang::report_field_created_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "count_reply": {
+                "key": "count_reply",
+                "title": "lang::report_field_count_reply_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "last_reply_time": {
+                "key": "last_reply_time",
+                "title": "lang::report_field_last_reply_time_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "last_reply_firstname": {
+                "key": "last_reply_firstname",
+                "title": "lang::report_field_last_reply_firstname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "last_reply_lastname": {
+                "key": "last_reply_lastname",
+                "title": "lang::report_field_last_reply_lastname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "last_reply_userid": {
+                "key": "last_reply_userid",
+                "title": "lang::report_field_last_reply_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

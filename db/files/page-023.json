@@ -1,0 +1,213 @@
+{
+  "title": "lang::report_page_023_title::local_kopere_bi",
+  "description": "lang::report_page_023_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_user_status",
+  "sortorder": 23,
+  "category": {
+    "refkey": "users",
+    "title": "lang::report_category_users_title::local_kopere_bi",
+    "sortorder": 20,
+    "description": "lang::report_category_users_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_users_23",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_023_title::local_kopere_bi",
+          "refkey": "kbi_el_user_status",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_ue.id,\n       kbi_ue.timecreated                      AS enrolled,\n       kbi_ue.timeend,\n       kbi_ue.status                           AS enroll_status,\n       kbi_ul.timeaccess,\n       ROUND((CASE\n                WHEN kbi_g.rawgrademax > 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100\n                ELSE kbi_g.finalgrade END), 0) AS grade,\n       kbi_c.enablecompletion,\n       kbi_cc.timecompleted                    AS complete,\n       kbi_u.id                                AS uid,\n       kbi_u.email,\n       kbi_u.idnumber,\n       kbi_u.phone1,\n       kbi_u.phone2,\n       kbi_u.institution,\n       kbi_u.department,\n       kbi_u.address,\n       kbi_u.city,\n       kbi_u.country,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.username,\n       kbi_e.enrol                             AS enrols,\n       kbi_c.id                                AS cid,\n       kbi_c.fullname                          AS course,\n       kbi_c.shortname,\n       kbi_c.timemodified                      AS start_date,\n       ''                                  as cohortname,\n       l.timespend,\n       l.visits\nFROM mdl_user_enrolments kbi_ue\n       JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ue.userid\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_e.courseid\n       LEFT JOIN mdl_user_lastaccess kbi_ul ON kbi_ul.courseid = kbi_c.id AND kbi_ul.userid = kbi_u.id\n       LEFT JOIN mdl_course_completions kbi_cc ON kbi_cc.course = kbi_e.courseid AND kbi_cc.userid = kbi_ue.userid\n       LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.itemtype = 'course' AND kbi_gi.courseid = kbi_e.courseid\n       LEFT JOIN mdl_grade_grades kbi_g ON kbi_g.userid = kbi_u.id AND kbi_g.itemid = kbi_gi.id AND kbi_g.finalgrade IS NOT NULL\n       LEFT JOIN (SELECT courseid,\n                         userid,\n                         SUM(timespend) AS timespend,\n                         SUM(visits)    AS visits\n                  FROM mdl_local_kopere_bi_tracking\n                  GROUP BY courseid, userid) l ON l.courseid = kbi_c.id AND l.userid = kbi_u.id\nWHERE kbi_ue.id > 0\n  AND kbi_c.id = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_ue.status = 0\n  AND kbi_e.status = 0\nORDER BY kbi_c.fullname, kbi_u.lastname, kbi_u.firstname",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "enrolled": {
+                "key": "enrolled",
+                "title": "lang::report_field_enrolled_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "timeend": {
+                "key": "timeend",
+                "title": "lang::report_field_timeend_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "enroll_status": {
+                "key": "enroll_status",
+                "title": "lang::report_field_enroll_status_title::local_kopere_bi",
+                "type": "status",
+                "mustache": ""
+              },
+              "timeaccess": {
+                "key": "timeaccess",
+                "title": "lang::report_field_timeaccess_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "grade": {
+                "key": "grade",
+                "title": "lang::report_field_grade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "enablecompletion": {
+                "key": "enablecompletion",
+                "title": "lang::report_field_enablecompletion_title::local_kopere_bi",
+                "type": "status",
+                "mustache": ""
+              },
+              "complete": {
+                "key": "complete",
+                "title": "lang::report_field_complete_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "uid": {
+                "key": "uid",
+                "title": "lang::report_field_uid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "idnumber": {
+                "key": "idnumber",
+                "title": "lang::report_field_idnumber_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "phone1": {
+                "key": "phone1",
+                "title": "lang::report_field_phone1_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"tel:{{{phone1}}}\" target=\"_blank\">{{{phone1}}}</a>"
+              },
+              "phone2": {
+                "key": "phone2",
+                "title": "lang::report_field_phone2_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"tel:{{{phone2}}}\" target=\"_blank\">{{{phone2}}}</a>"
+              },
+              "institution": {
+                "key": "institution",
+                "title": "lang::report_field_institution_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "department": {
+                "key": "department",
+                "title": "lang::report_field_department_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "address": {
+                "key": "address",
+                "title": "lang::report_field_address_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "city": {
+                "key": "city",
+                "title": "lang::report_field_city_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "country": {
+                "key": "country",
+                "title": "lang::report_field_country_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{uid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "username": {
+                "key": "username",
+                "title": "lang::report_field_username_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "enrols": {
+                "key": "enrols",
+                "title": "lang::report_field_enrols_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "cid": {
+                "key": "cid",
+                "title": "lang::report_field_cid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{cid}}}\" target=\"course\">{{{course}}}</a>"
+              },
+              "shortname": {
+                "key": "shortname",
+                "title": "lang::report_field_shortname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "start_date": {
+                "key": "start_date",
+                "title": "lang::report_field_start_date_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "cohortname": {
+                "key": "cohortname",
+                "title": "lang::report_field_cohortname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "timespend": {
+                "key": "timespend",
+                "title": "lang::report_field_timespend_title::local_kopere_bi",
+                "type": "time",
+                "mustache": ""
+              },
+              "visits": {
+                "key": "visits",
+                "title": "lang::report_field_visits_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

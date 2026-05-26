@@ -1,0 +1,81 @@
+{
+  "title": "lang::report_page_032_title::local_kopere_bi",
+  "description": "lang::report_page_032_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_instructor_load_summary",
+  "sortorder": 32,
+  "category": {
+    "refkey": "instructors",
+    "title": "lang::report_category_instructors_title::local_kopere_bi",
+    "sortorder": 30,
+    "description": "lang::report_category_instructors_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_instructors_32",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_032_title::local_kopere_bi",
+          "refkey": "kbi_el_instructor_load_summary",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_u.id,\n       CONCAT(kbi_u.firstname, ' ', kbi_u.lastname) as teacher,\n       COUNT(DISTINCT kbi_ctx.instanceid)       as courses,\n       SUM(l.learners)                      as learners,\n       SUM(l1.activelearners)               as activelearners,\n       SUM(cc.completed)                    as completedlearners,\n       AVG(kbi_g.grade)                         as grade\nFROM mdl_user kbi_u\n       LEFT JOIN mdl_role_assignments kbi_ra ON kbi_ra.userid = kbi_u.id\n       LEFT JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid\n       JOIN mdl_course kbi_c ON kbi_ctx.instanceid = kbi_c.id AND\n                            kbi_c.visible = 1\n       LEFT JOIN (SELECT kbi_ctx.instanceid, count(distinct kbi_ra.userid) as learners\n                  FROM mdl_role_assignments kbi_ra, mdl_context kbi_ctx\n                  WHERE kbi_ctx.id = kbi_ra.contextid\n                    AND kbi_ctx.contextlevel = 50\n                    AND kbi_ra.roleid = 5\n                  GROUP BY kbi_ctx.instanceid) AS l ON l.instanceid = kbi_ctx.instanceid\n       LEFT JOIN (SELECT kbi_ctx.instanceid, count(distinct kbi_ra.userid) as activelearners\n                  FROM mdl_role_assignments kbi_ra, mdl_user kbi_u, mdl_context kbi_ctx\n                  WHERE kbi_ctx.id = kbi_ra.contextid\n                    AND kbi_ctx.contextlevel = 50\n                    AND kbi_u.id = kbi_ra.userid\n                    AND kbi_u.deleted = 0\n                    AND kbi_u.suspended = 0\n                    AND kbi_ra.roleid = 5\n                  GROUP BY kbi_ctx.instanceid) AS l1 ON l1.instanceid = kbi_ctx.instanceid\n       LEFT JOIN (SELECT course, count(id) as completed\n                  FROM mdl_course_completions\n                  WHERE timecompleted > 0\n                  GROUP BY course) cc ON cc.course = kbi_ctx.instanceid\n       LEFT JOIN (SELECT kbi_gi.courseid,\n                         ROUND(AVG(CASE\n                                     WHEN kbi_g.rawgrademax > 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100\n                                     ELSE kbi_g.finalgrade END), 0) AS grade\n                  FROM mdl_grade_items kbi_gi, mdl_grade_grades kbi_g\n                  WHERE kbi_gi.itemtype = 'course'\n                    AND kbi_g.itemid = kbi_gi.id\n                    AND kbi_g.finalgrade IS NOT NULL\n                  GROUP BY kbi_gi.courseid) g ON kbi_g.courseid = kbi_ctx.instanceid\nWHERE kbi_ctx.contextlevel = 50\n  AND kbi_ra.roleid = 3\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\nGROUP BY kbi_u.id, kbi_u.firstname, kbi_u.lastname",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "teacher": {
+                "key": "teacher",
+                "title": "lang::report_field_teacher_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "courses": {
+                "key": "courses",
+                "title": "lang::report_field_courses_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "learners": {
+                "key": "learners",
+                "title": "lang::report_field_learners_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "activelearners": {
+                "key": "activelearners",
+                "title": "lang::report_field_activelearners_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "completedlearners": {
+                "key": "completedlearners",
+                "title": "lang::report_field_completedlearners_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "grade": {
+                "key": "grade",
+                "title": "lang::report_field_grade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

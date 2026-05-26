@@ -1,0 +1,52 @@
+{
+  "title": "lang::report_page_083_title::local_kopere_bi",
+  "description": "lang::report_page_083_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_feedback_overview_report",
+  "sortorder": 83,
+  "category": {
+    "refkey": "feedback",
+    "title": "lang::report_category_feedback_title::local_kopere_bi",
+    "sortorder": 120,
+    "description": "lang::report_category_feedback_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_feedback_83",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_083_title::local_kopere_bi",
+          "refkey": "kbi_el_feedback_overview_report",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_fi.id,\n       kbi_fi.name,\n       CASE\n         WHEN kbi_fi.typ = 'multichoicerated'\n                 THEN AVG(\n                        SUBSTRING_INDEX(SUBSTRING_INDEX(REPLACE(kbi_fi.presentation, '>>>>>', '|'), '\n                                        -1))\n         ELSE AVG(kbi_fv.value)\n           END AS avg_value\nFROM mdl_feedback kbi_f\n       JOIN mdl_feedback_completed kbi_fc ON kbi_fc.feedback = kbi_f.id\n       JOIN mdl_feedback_item kbi_fi ON kbi_fi.feedback = kbi_f.id\n       JOIN mdl_feedback_value kbi_fv ON kbi_fv.completed = kbi_fc.id AND kbi_fv.item = kbi_fi.id\n       LEFT JOIN mdl_modules kbi_m ON kbi_m.name = 'feedback'\n       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_f.id\nWHERE kbi_f.id > 0\nGROUP BY kbi_fi.id",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "name": {
+                "key": "name",
+                "title": "lang::report_field_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

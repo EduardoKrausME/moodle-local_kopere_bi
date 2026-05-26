@@ -1,0 +1,51 @@
+{
+  "title": "lang::report_page_072_title::local_kopere_bi",
+  "description": "lang::report_page_072_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_forum_post_ratio",
+  "sortorder": 72,
+  "category": {
+    "refkey": "forums",
+    "title": "lang::report_category_forums_title::local_kopere_bi",
+    "sortorder": 90,
+    "description": "lang::report_category_forums_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_forums_72",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_072_title::local_kopere_bi",
+          "refkey": "kbi_el_forum_post_ratio",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT floor(kbi_d.timemodified / 86400) * 86400 as timepoint, count(distinct kbi_p.id) as posts\nFROM mdl_role_assignments kbi_ra\n       LEFT JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid\n       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_ctx.instanceid\n       LEFT JOIN mdl_forum_discussions kbi_d ON kbi_d.course = kbi_c.id\n       LEFT JOIN mdl_forum_posts kbi_p ON kbi_p.userid = kbi_ra.userid AND kbi_p.discussion = kbi_d.id\nWHERE kbi_ctx.contextlevel = 50\n  AND floor(kbi_d.timemodified / 86400) > 0\n  AND kbi_c.id = :courseid\n  AND kbi_ra.roleid = 3\nGROUP BY timepoint\nORDER BY timepoint ASC",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "timepoint": {
+                "key": "timepoint",
+                "title": "lang::report_field_timepoint_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "posts": {
+                "key": "posts",
+                "title": "lang::report_field_posts_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

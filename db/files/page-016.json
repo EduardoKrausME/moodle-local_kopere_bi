@@ -1,0 +1,177 @@
+{
+    "title": "lang::report_page_016_title::local_kopere_bi",
+    "description": "lang::report_page_016_description::local_kopere_bi",
+    "user_id": null,
+    "refkey": "rep_report111_os_and_browser_stats_by_user",
+    "sortorder": 16,
+    "category": {
+        "refkey": "users",
+        "title": "lang::report_category_users_title::local_kopere_bi",
+        "sortorder": 20,
+        "description": "lang::report_category_users_description::local_kopere_bi"
+    },
+    "blocks": [
+        {
+            "refkey": "blk_users_16",
+            "type": "block-1",
+            "sequence": 1,
+            "elements": [
+                {
+                    "title": "lang::report_page_016_title::local_kopere_bi",
+                    "refkey": "el_report111_os_and_browser_stats_by_user",
+                    "block_num": 1,
+                    "type": "table",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": "",
+                    "html_after": "",
+                    "commandsql": "SELECT MAX(lit.id) AS id,\n       u.id        AS userid,\n       u.firstname,\n       u.lastname,\n       u.email,\n       u.idnumber,\n       c.id        AS courseid,\n       c.fullname  AS course,\n       cc.name     AS category_name,\n       ROUND((SUM(CASE WHEN lit.useragent = 'Firefox' THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),\n             2)    AS firefox,\n       ROUND((SUM(CASE WHEN lit.useragent = 'Chrome' THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),\n             2)    AS chrome,\n       ROUND((SUM(CASE WHEN lit.useragent = 'Safari' THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),\n             2)    AS safari,\n       ROUND((SUM(CASE\n                    WHEN lit.useragent = 'Microsoft Edge' OR lit.useragent = 'Edge' THEN lit.timespend\n                    ELSE 0 END) * 100) / SUM(lit.timespend),\n             2)    AS microsoft_edge,\n       ROUND((SUM(CASE WHEN lit.useragent = 'Opera' THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),\n             2)    AS opera,\n       ROUND((SUM(CASE WHEN lit.useragent = 'Mobile browser' THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),\n             2)    AS mobile_browser,\n       ROUND((SUM(CASE\n                    WHEN lit.useragent = 'Unknown Browser' OR lit.useragent IS NULL THEN lit.timespend\n                    ELSE 0 END) * 100) / SUM(lit.timespend),\n             2)    AS other_browser,\n       ROUND((SUM(CASE WHEN lit.useros LIKE 'Windows%' THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),\n             2)    AS windows,\n       ROUND((SUM(CASE WHEN lit.useros LIKE 'Mac OS%' THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),\n             2)    AS mac_os,\n       ROUND((SUM(CASE WHEN lit.useros = 'Linux' OR lit.useros = 'Ubuntu' THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),\n             2)    AS linux,\n       ROUND((SUM(CASE\n                    WHEN lit.useros = 'iPhone' OR lit.useros = 'iPod' OR lit.useros = 'iPad' THEN lit.timespend\n                    ELSE 0 END) * 100) / SUM(lit.timespend),\n             2)    AS ios,\n       ROUND((SUM(CASE WHEN lit.useros = 'Android' THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),\n             2)    AS android,\n       ROUND((SUM(CASE WHEN lit.useros = 'Mobile' THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),\n             2)    AS mobile,\n       ROUND((SUM(CASE\n                    WHEN lit.useros = 'Unknown OS Platform' OR lit.useros IS NULL THEN lit.timespend\n                    ELSE 0 END) * 100) / SUM(lit.timespend),\n             2)    AS other_platform\nFROM mdl_local_kopere_bi_tracking lit\n       LEFT JOIN mdl_course c ON c.id = lit.courseid\n       LEFT JOIN mdl_course_categories cc ON cc.id = c.category\n       LEFT JOIN mdl_user u ON u.id = lit.userid\nWHERE lit.page = 'course'\n  AND lit.courseid > 1\n  AND c.id IS NOT NULL\n  AND u.deleted = 0\n  AND u.suspended = 0\n  AND u.username != 'guest'\n  AND c.visible = 1\nGROUP BY lit.courseid, lit.userid, u.id, c.id, cc.id",
+                    "cache": "1h",
+                    "reload": "none",
+                    "info": {
+                        "column": {
+                            "id": {
+                                "key": "id",
+                                "title": "#",
+                                "type": "number",
+                                "mustache": ""
+                            },
+                            "userid": {
+                                "key": "userid",
+                                "title": "lang::report_field_userid_title::local_kopere_bi",
+                                "type": "number",
+                                "mustache": ""
+                            },
+                            "firstname": {
+                                "key": "firstname",
+                                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                                "type": "userfullname",
+                                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+                            },
+                            "lastname": {
+                                "key": "lastname",
+                                "title": "",
+                                "type": "none",
+                                "mustache": ""
+                            },
+                            "email": {
+                                "key": "email",
+                                "title": "lang::report_field_email_title::local_kopere_bi",
+                                "type": "string",
+                                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+                            },
+                            "idnumber": {
+                                "key": "idnumber",
+                                "title": "lang::report_field_idnumber_title::local_kopere_bi",
+                                "type": "number",
+                                "mustache": ""
+                            },
+                            "courseid": {
+                                "key": "courseid",
+                                "title": "lang::report_field_courseid_title::local_kopere_bi",
+                                "type": "number",
+                                "mustache": ""
+                            },
+                            "course": {
+                                "key": "course",
+                                "title": "lang::report_field_course_title::local_kopere_bi",
+                                "type": "string",
+                                "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{courseid}}}\" target=\"course\">{{{course}}}</a>"
+                            },
+                            "category_name": {
+                                "key": "category_name",
+                                "title": "lang::report_field_category_name_title::local_kopere_bi",
+                                "type": "string",
+                                "mustache": ""
+                            },
+                            "firefox": {
+                                "key": "firefox",
+                                "title": "lang::report_field_firefox_title::local_kopere_bi",
+                                "type": "string",
+                                "mustache": ""
+                            },
+                            "chrome": {
+                                "key": "chrome",
+                                "title": "lang::report_field_chrome_title::local_kopere_bi",
+                                "type": "string",
+                                "mustache": ""
+                            },
+                            "safari": {
+                                "key": "safari",
+                                "title": "lang::report_field_safari_title::local_kopere_bi",
+                                "type": "string",
+                                "mustache": ""
+                            },
+                            "microsoft_edge": {
+                                "key": "microsoft_edge",
+                                "title": "lang::report_field_microsoft_edge_title::local_kopere_bi",
+                                "type": "string",
+                                "mustache": ""
+                            },
+                            "opera": {
+                                "key": "opera",
+                                "title": "lang::report_field_opera_title::local_kopere_bi",
+                                "type": "string",
+                                "mustache": ""
+                            },
+                            "mobile_browser": {
+                                "key": "mobile_browser",
+                                "title": "lang::report_field_mobile_browser_title::local_kopere_bi",
+                                "type": "string",
+                                "mustache": ""
+                            },
+                            "other_browser": {
+                                "key": "other_browser",
+                                "title": "lang::report_field_other_browser_title::local_kopere_bi",
+                                "type": "string",
+                                "mustache": ""
+                            },
+                            "windows": {
+                                "key": "windows",
+                                "title": "lang::report_field_windows_title::local_kopere_bi",
+                                "type": "string",
+                                "mustache": ""
+                            },
+                            "mac_os": {
+                                "key": "mac_os",
+                                "title": "lang::report_field_mac_os_title::local_kopere_bi",
+                                "type": "string",
+                                "mustache": ""
+                            },
+                            "linux": {
+                                "key": "linux",
+                                "title": "lang::report_field_linux_title::local_kopere_bi",
+                                "type": "string",
+                                "mustache": ""
+                            },
+                            "ios": {
+                                "key": "ios",
+                                "title": "lang::report_field_ios_title::local_kopere_bi",
+                                "type": "string",
+                                "mustache": ""
+                            },
+                            "android": {
+                                "key": "android",
+                                "title": "lang::report_field_android_title::local_kopere_bi",
+                                "type": "number",
+                                "mustache": ""
+                            },
+                            "mobile": {
+                                "key": "mobile",
+                                "title": "lang::report_field_mobile_title::local_kopere_bi",
+                                "type": "string",
+                                "mustache": ""
+                            },
+                            "other_platform": {
+                                "key": "other_platform",
+                                "title": "lang::report_field_other_platform_title::local_kopere_bi",
+                                "type": "string",
+                                "mustache": ""
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

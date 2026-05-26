@@ -1,0 +1,63 @@
+{
+  "title": "lang::report_page_079_title::local_kopere_bi",
+  "description": "lang::report_page_079_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_scorm_occurrence_s_by_course",
+  "sortorder": 79,
+  "category": {
+    "refkey": "scorm",
+    "title": "lang::report_category_scorm_title::local_kopere_bi",
+    "sortorder": 100,
+    "description": "lang::report_category_scorm_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_scorm_79",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_079_title::local_kopere_bi",
+          "refkey": "kbi_el_scorm_occurrence_s_by_course",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_c.id,\n       kbi_c.fullname,\n       count(kbi_s.id) as scorms,\n       (SELECT DISTINCT CONCAT(kbi_u.firstname, ' ', kbi_u.lastname)\n        FROM mdl_role_assignments kbi_ra\n               JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id\n               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid\n        WHERE kbi_ctx.instanceid = kbi_c.id\n          AND kbi_ctx.contextlevel = 50\n          AND kbi_ra.roleid = 3\n        LIMIT 1)   AS teacher\nFROM mdl_course kbi_c\n       LEFT JOIN mdl_scorm kbi_s ON kbi_s.course = kbi_c.id\nWHERE kbi_c.category > 0\n  AND kbi_c.id = :courseid\n  AND kbi_c.visible = 1\nGROUP BY kbi_c.id",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "scorms": {
+                "key": "scorms",
+                "title": "lang::report_field_scorms_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "teacher": {
+                "key": "teacher",
+                "title": "lang::report_field_teacher_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

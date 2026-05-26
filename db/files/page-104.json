@@ -1,0 +1,74 @@
+{
+  "title": "lang::report_page_104_title::local_kopere_bi",
+  "description": "lang::report_page_104_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "student_registrations_by_month",
+  "category": {
+    "refkey": "students",
+    "title": "lang::report_category_students_title::local_kopere_bi",
+    "description": "lang::report_category_students_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "students-104",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_104_block_1_element_1_title::local_kopere_bi",
+          "refkey": "kbi_el_student_registrations_by_month",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT DATE_FORMAT(FROM_UNIXTIME(kbi_u.timecreated), '%Y-%m') AS id,\n       DATE_FORMAT(FROM_UNIXTIME(kbi_u.timecreated), '%Y-%m') AS period_month,\n       COUNT(DISTINCT kbi_u.id) AS student_count,\n       SUM(CASE WHEN kbi_u.deleted = 0 AND kbi_u.suspended = 0 THEN 1 ELSE 0 END) AS active_students,\n       SUM(CASE WHEN kbi_u.deleted = 0 AND kbi_u.suspended = 1 THEN 1 ELSE 0 END) AS suspended_students,\n       SUM(CASE WHEN kbi_u.deleted = 1 THEN 1 ELSE 0 END) AS deleted_students\nFROM mdl_user kbi_u\n       JOIN (\n             SELECT DISTINCT kbi_ra.userid\n             FROM mdl_role_assignments kbi_ra\n                    JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid\n                    JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50\n             WHERE kbi_r.shortname = 'student'\n       ) kbi_students ON kbi_students.userid = kbi_u.id\nWHERE kbi_u.username <> 'guest'\nGROUP BY period_month\nORDER BY period_month DESC",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "string",
+                "mustache": ""
+              },
+              "period_month": {
+                "key": "period_month",
+                "title": "lang::report_field_period_month_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "student_count": {
+                "key": "student_count",
+                "title": "lang::report_field_student_count_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "active_students": {
+                "key": "active_students",
+                "title": "lang::report_field_active_students_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "suspended_students": {
+                "key": "suspended_students",
+                "title": "lang::report_field_suspended_students_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "deleted_students": {
+                "key": "deleted_students",
+                "title": "lang::report_field_deleted_students_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

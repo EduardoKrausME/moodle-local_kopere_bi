@@ -1,55 +1,193 @@
 {
-  "title": "lang::report_6_login::local_kopere_bi",
-  "description": "lang::report_6_login_report::local_kopere_bi",
-  "user_id": null,
-  "refkey": "login_report",
-  "category": {
-    "refkey": "login_reports",
-    "title": "lang::report_6_cat_title::local_kopere_bi",
-    "description": "lang::report_6_cat_description::local_kopere_bi"
-  },
-  "blocks": [
-    {
-      "refkey": "login_reports-1",
-      "type": "block-1",
-      "sequence": 1,
-      "elements": [
-        {
-          "title": "lang::reports_report_user-5::local_kopere_bi",
-          "refkey": "reports_report_user-5",
-          "block_num": 1,
-          "type": "table",
-          "theme": "light",
-          "css": "",
-          "html_before": null,
-          "html_after": null,
-          "commandsql": "SELECT u.id        AS u_id, \n       u.firstname, \n       u.lastname, \n       u.email,\n       u.phone1, \n       u.phone2, \n       u.city, \n       u.country, \n       u.timecreated\n  FROM mdl_user u\n WHERE u.deleted    = 0\n   AND u.id         > 1\n   AND u.lastlogin  = 0\n   AND u.lastaccess = 0",
-          "cache": "30m",
-          "reload": "30m",
-          "info": "{\"column\":{\"u_id\":{\"key\":\"u_id\",\"title\":\"#\",\"type\":\"userphotoRenderer\",\"mustache\":\"\"},\"firstname\":{\"key\":\"firstname\",\"title\":\"lang::u_fullname::local_kopere_bi\",\"type\":\"userfullname\",\"mustache\":\"<a href=\\\"{{{config.wwwroot}}}\\\/user\\\/view.php?id={{{u_id}}}\\\"\\r\\n   target=\\\"profile\\\">{{{u_fullname}}}<\\\/a>\"},\"lastname\":{\"key\":\"lastname\",\"title\":\"\",\"type\":\"none\",\"mustache\":\"\"},\"email\":{\"key\":\"email\",\"title\":\"lang::email::moodle\",\"type\":\"string\",\"mustache\":\"<a href=\\\"mailto:{{{email}}}\\\" target=\\\"_blank\\\">{{{email}}}<\\\/a>\"},\"phone1\":{\"key\":\"phone1\",\"title\":\"lang::phone1::moodle\",\"type\":\"string\",\"mustache\":\"<a href=\\\"tel:{{{phone1}}}\\\" target=\\\"_blank\\\">{{{phone1}}}<\\\/a>\"},\"phone2\":{\"key\":\"phone2\",\"title\":\"lang::phone2::moodle\",\"type\":\"string\",\"mustache\":\"<a href=\\\"tel:{{{phone2}}}\\\" target=\\\"_blank\\\">{{{phone2}}}<\\\/a>\"},\"city\":{\"key\":\"city\",\"title\":\"lang::city::moodle\",\"type\":\"string\",\"mustache\":\"{{{city}}}\"},\"country\":{\"key\":\"country\",\"title\":\"lang::country::moodle\",\"type\":\"string\",\"mustache\":\"{{{country}}}\"},\"timecreated\":{\"key\":\"timecreated\",\"title\":\"lang::timecreated::moodle\",\"type\":\"datetimeRenderer\",\"mustache\":\"\"}}}"
-        }
-      ]
+    "title": "lang::report_page_006_title::local_kopere_bi",
+    "description": "lang::report_page_006_description::local_kopere_bi",
+    "user_id": null,
+    "refkey": "login_report",
+    "category": {
+        "refkey": "login_reports",
+        "title": "lang::report_category_login_reports_title::local_kopere_bi",
+        "description": "lang::report_category_login_reports_description::local_kopere_bi"
     },
-    {
-      "refkey": "login_reports-1",
-      "type": "block-1",
-      "sequence": 2,
-      "elements": [
+    "blocks": [
         {
-          "title": "lang::reports_report_user-4::local_kopere_bi",
-          "refkey": "reports_report_user-4",
-          "block_num": 1,
-          "type": "table",
-          "theme": "light",
-          "css": "",
-          "html_before": "",
-          "html_after": "",
-          "commandsql": "SELECT u.id        AS u_id, \n       u.firstname,\n       u.lastname,\n       u.email,\n       u.phone1,\n       u.phone2,\n       u.city,\n       u.country,\n       u.firstaccess,\n       u.lastaccess,\n       u.lastlogin,\n       u.lastip, \n       u.timecreated\n  FROM mdl_user u\n WHERE u.deleted     = 0\n   AND u.id          > 1\n   AND u.firstaccess > 0",
-          "cache": "none",
-          "reload": "none",
-          "info": "{\"column\":{\"u_id\":{\"key\":\"u_id\",\"title\":\"#\",\"type\":\"userphotoRenderer\",\"mustache\":\"\"},\"firstname\":{\"key\":\"firstname\",\"title\":\"lang::u_fullname::local_kopere_bi\",\"type\":\"userfullname\",\"mustache\":\"<a href=\\\"{{{config.wwwroot}}}\\\/user\\\/view.php?id={{{u_id}}}\\\"\\r\\n   target=\\\"profile\\\">{{{u_fullname}}}<\\\/a>\"},\"lastname\":{\"key\":\"lastname\",\"title\":\"\",\"type\":\"none\",\"mustache\":\"\"},\"email\":{\"key\":\"email\",\"title\":\"lang::email::moodle\",\"type\":\"string\",\"mustache\":\"<a href=\\\"mailto:{{{email}}}\\\" target=\\\"_blank\\\">{{{email}}}<\\\/a>\"},\"phone1\":{\"key\":\"phone1\",\"title\":\"lang::phone1::moodle\",\"type\":\"string\",\"mustache\":\"<a href=\\\"tel:{{{phone1}}}\\\" target=\\\"_blank\\\">{{{phone1}}}<\\\/a>\"},\"phone2\":{\"key\":\"phone2\",\"title\":\"lang::phone2::moodle\",\"type\":\"string\",\"mustache\":\"<a href=\\\"tel:{{{phone2}}}\\\" target=\\\"_blank\\\">{{{phone2}}}<\\\/a>\"},\"city\":{\"key\":\"city\",\"title\":\"lang::city::moodle\",\"type\":\"string\",\"mustache\":\"{{{city}}} \\\/ {{{country}}}\"},\"country\":{\"key\":\"country\",\"title\":\"lang::country::moodle\",\"type\":\"none\",\"mustache\":\"{{{country}}}\"},\"firstaccess\":{\"key\":\"firstaccess\",\"title\":\"lang::firstaccess::moodle\",\"type\":\"dateRenderer\",\"mustache\":\"\"},\"lastaccess\":{\"key\":\"lastaccess\",\"title\":\"lang::lastaccess::moodle\",\"type\":\"dateRenderer\",\"mustache\":\"\"},\"lastlogin\":{\"key\":\"lastlogin\",\"title\":\"lang::lastlogin::moodle\",\"type\":\"dateRenderer\",\"mustache\":\"\"},\"lastip\":{\"key\":\"lastip\",\"title\":\"lang::lastip::moodle\",\"type\":\"string\",\"mustache\":\"<a href=\\\"https:\\\/\\\/www.geodatatool.com\\\/?ip={{{lastip}}}\\\" target=\\\"geoip\\\">{{{lastip}}}<\\\/a>\"},\"timecreated\":{\"key\":\"timecreated\",\"title\":\"lang::timecreated::moodle\",\"type\":\"dateRenderer\",\"mustache\":\"\"}}}"
+            "refkey": "login_reports-1",
+            "type": "block-1",
+            "sequence": 1,
+            "elements": [
+                {
+                    "title": "lang::report_page_006_block_1_element_1_title::local_kopere_bi",
+                    "refkey": "reports_report_user-5",
+                    "block_num": 1,
+                    "type": "table",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": null,
+                    "html_after": null,
+                    "commandsql": "SELECT u.id        AS u_id, \n       u.firstname, \n       u.lastname, \n       u.email,\n       u.phone1, \n       u.phone2, \n       u.city, \n       u.country, \n       u.timecreated\n  FROM mdl_user u\n WHERE u.deleted    = 0\n   AND u.id         > 1\n   AND u.lastlogin  = 0\n   AND u.lastaccess = 0",
+                    "cache": "30m",
+                    "reload": "30m",
+                    "info": {
+                        "column": {
+                            "u_id": {
+                                "key": "u_id",
+                                "title": "#",
+                                "type": "userphotoRenderer",
+                                "mustache": ""
+                            },
+                            "firstname": {
+                                "key": "firstname",
+                                "title": "lang::u_fullname::local_kopere_bi",
+                                "type": "userfullname",
+                                "mustache": "<a href=\"{{{config.wwwroot}}}\/user\/view.php?id={{{u_id}}}\"\r\n   target=\"profile\">{{{u_fullname}}}<\/a>"
+                            },
+                            "lastname": {
+                                "key": "lastname",
+                                "title": "",
+                                "type": "none",
+                                "mustache": ""
+                            },
+                            "email": {
+                                "key": "email",
+                                "title": "lang::email::moodle",
+                                "type": "string",
+                                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}<\/a>"
+                            },
+                            "phone1": {
+                                "key": "phone1",
+                                "title": "lang::phone1::moodle",
+                                "type": "string",
+                                "mustache": "<a href=\"tel:{{{phone1}}}\" target=\"_blank\">{{{phone1}}}<\/a>"
+                            },
+                            "phone2": {
+                                "key": "phone2",
+                                "title": "lang::phone2::moodle",
+                                "type": "string",
+                                "mustache": "<a href=\"tel:{{{phone2}}}\" target=\"_blank\">{{{phone2}}}<\/a>"
+                            },
+                            "city": {
+                                "key": "city",
+                                "title": "lang::city::moodle",
+                                "type": "string",
+                                "mustache": "{{{city}}}"
+                            },
+                            "country": {
+                                "key": "country",
+                                "title": "lang::country::moodle",
+                                "type": "string",
+                                "mustache": "{{{country}}}"
+                            },
+                            "timecreated": {
+                                "key": "timecreated",
+                                "title": "lang::timecreated::moodle",
+                                "type": "datetimeRenderer",
+                                "mustache": ""
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "refkey": "login_reports-2",
+            "type": "block-1",
+            "sequence": 2,
+            "elements": [
+                {
+                    "title": "lang::report_page_006_block_2_element_1_title::local_kopere_bi",
+                    "refkey": "reports_report_user-4",
+                    "block_num": 2,
+                    "type": "table",
+                    "theme": "light",
+                    "css": "",
+                    "html_before": "",
+                    "html_after": "",
+                    "commandsql": "SELECT u.id        AS u_id, \n       u.firstname,\n       u.lastname,\n       u.email,\n       u.phone1,\n       u.phone2,\n       u.city,\n       u.country,\n       u.firstaccess,\n       u.lastaccess,\n       u.lastlogin,\n       u.lastip, \n       u.timecreated\n  FROM mdl_user u\n WHERE u.deleted     = 0\n   AND u.id          > 1\n   AND u.firstaccess > 0",
+                    "cache": "none",
+                    "reload": "none",
+                    "info": {
+                        "column": {
+                            "u_id": {
+                                "key": "u_id",
+                                "title": "#",
+                                "type": "userphotoRenderer",
+                                "mustache": ""
+                            },
+                            "firstname": {
+                                "key": "firstname",
+                                "title": "lang::u_fullname::local_kopere_bi",
+                                "type": "userfullname",
+                                "mustache": "<a href=\"{{{config.wwwroot}}}\/user\/view.php?id={{{u_id}}}\"\r\n   target=\"profile\">{{{u_fullname}}}<\/a>"
+                            },
+                            "lastname": {
+                                "key": "lastname",
+                                "title": "",
+                                "type": "none",
+                                "mustache": ""
+                            },
+                            "email": {
+                                "key": "email",
+                                "title": "lang::email::moodle",
+                                "type": "string",
+                                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}<\/a>"
+                            },
+                            "phone1": {
+                                "key": "phone1",
+                                "title": "lang::phone1::moodle",
+                                "type": "string",
+                                "mustache": "<a href=\"tel:{{{phone1}}}\" target=\"_blank\">{{{phone1}}}<\/a>"
+                            },
+                            "phone2": {
+                                "key": "phone2",
+                                "title": "lang::phone2::moodle",
+                                "type": "string",
+                                "mustache": "<a href=\"tel:{{{phone2}}}\" target=\"_blank\">{{{phone2}}}<\/a>"
+                            },
+                            "city": {
+                                "key": "city",
+                                "title": "lang::city::moodle",
+                                "type": "string",
+                                "mustache": "{{{city}}} \/ {{{country}}}"
+                            },
+                            "country": {
+                                "key": "country",
+                                "title": "lang::country::moodle",
+                                "type": "none",
+                                "mustache": "{{{country}}}"
+                            },
+                            "firstaccess": {
+                                "key": "firstaccess",
+                                "title": "lang::firstaccess::moodle",
+                                "type": "dateRenderer",
+                                "mustache": ""
+                            },
+                            "lastaccess": {
+                                "key": "lastaccess",
+                                "title": "lang::lastaccess::moodle",
+                                "type": "dateRenderer",
+                                "mustache": ""
+                            },
+                            "lastlogin": {
+                                "key": "lastlogin",
+                                "title": "lang::lastlogin::moodle",
+                                "type": "dateRenderer",
+                                "mustache": ""
+                            },
+                            "lastip": {
+                                "key": "lastip",
+                                "title": "lang::lastip::moodle",
+                                "type": "string",
+                                "mustache": "<a href=\"https:\/\/www.geodatatool.com\/?ip={{{lastip}}}\" target=\"geoip\">{{{lastip}}}<\/a>"
+                            },
+                            "timecreated": {
+                                "key": "timecreated",
+                                "title": "lang::timecreated::moodle",
+                                "type": "dateRenderer",
+                                "mustache": ""
+                            }
+                        }
+                    }
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }

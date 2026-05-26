@@ -1,0 +1,142 @@
+{
+  "title": "lang::report_page_034_title::local_kopere_bi",
+  "description": "lang::report_page_034_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_instructor_and_learner_engage",
+  "sortorder": 34,
+  "category": {
+    "refkey": "instructors",
+    "title": "lang::report_category_instructors_title::local_kopere_bi",
+    "sortorder": 30,
+    "description": "lang::report_category_instructors_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_instructors_34",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_034_title::local_kopere_bi",
+          "refkey": "kbi_el_instructor_and_learner_engagem",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_ra.id,\n       kbi_c.id                                                                           AS courseid,\n       kbi_c.fullname                                                                     AS course_name,\n       kbi_c.timecreated                                                                  AS course_created,\n       kbi_c.startdate,\n       kbi_u.id                                                                           AS teacher_id,\n       kbi_u.lastname,\n       kbi_u.firstname,\n       (SELECT COUNT(distinct kbi_ras.userid)\n        FROM mdl_role_assignments kbi_ras, mdl_context kbi_con\n        WHERE kbi_con.id = kbi_ras.contextid\n          AND kbi_con.contextlevel = 50\n          AND kbi_ras.roleid = 5\n          AND kbi_con.instanceid = kbi_c.id)                                                  AS learners,\n       (SELECT COUNT(distinct kbi_e.id)\n        FROM mdl_event kbi_e, mdl_role_assignments kbi_ras, mdl_context kbi_con\n        WHERE kbi_ras.userid = kbi_e.userid\n          AND kbi_ras.roleid = 5\n          AND kbi_con.id = kbi_ras.contextid\n          AND kbi_con.contextlevel = 50\n          AND kbi_e.courseid = kbi_con.instanceid\n          AND kbi_con.instanceid = kbi_c.id)                                                  AS events,\n       (SELECT CASE\n                 WHEN (TO_DAYS(NOW()) - TO_DAYS(FROM_UNIXTIME(kbi_c.timecreated))) > 0 THEN (COUNT(DISTINCT kbi_fp.id) /\n                                                                                         (TO_DAYS(NOW()) - TO_DAYS(FROM_UNIXTIME(kbi_c.timecreated))))\n                 ELSE 0 END\n        FROM mdl_role_assignments kbi_ras, mdl_context kbi_con, mdl_forum_discussions kbi_fd, mdl_forum_posts kbi_fp\n        WHERE kbi_con.id = kbi_ras.contextid\n          AND kbi_ras.roleid = 5\n          AND kbi_con.contextlevel = 50\n          AND kbi_fd.course = kbi_con.instanceid\n          AND kbi_fp.userid = kbi_ras.userid\n          AND kbi_fp.discussion = kbi_fd.id\n          AND kbi_con.instanceid = kbi_c.id)                                                  AS post_per_day,\n       (SELECT CASE\n                 WHEN COUNT(DISTINCT timepoint) > 0 THEN (SUM(kbi_lil.visits) / COUNT(DISTINCT timepoint))\n                 ELSE 0 END\n        FROM mdl_role_assignments kbi_ras, mdl_context kbi_con, mdl_local_kopere_bi_tracking kbi_lit, mdl_local_kopere_bi_track_log kbi_lil\n        WHERE kbi_con.id = kbi_ras.contextid\n          AND kbi_ras.roleid = 5\n          AND kbi_con.contextlevel = 50\n          AND kbi_con.instanceid = kbi_lit.courseid\n          AND kbi_ras.userid = kbi_lit.userid\n          AND kbi_lil.trackid = kbi_lit.id\n          AND kbi_con.instanceid = kbi_c.id)                                                  AS visits,\n       (SELECT COUNT(DISTINCT kbi_cm.id) FROM mdl_course_modules kbi_cm WHERE kbi_cm.course = kbi_c.id\n                                                                  AND kbi_cm.visible = 1) AS modules,\n       (SELECT COUNT(DISTINCT kbi_cmc.id)\n        FROM mdl_course_modules kbi_cm\n               LEFT JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.coursemoduleid = kbi_cm.id AND\n                                                              kbi_cmc.completionstate IN\n                                                              (1, 2) AND\n                                                              kbi_cm.visible = 1\n        WHERE kbi_cm.course = kbi_c.id)                                                       AS completed_modules,\n       (SELECT COUNT(id) FROM mdl_assign WHERE course = kbi_c.id)                         AS assignment,\n       (SELECT COUNT(id) FROM mdl_quiz WHERE course = kbi_c.id)                           AS quiz,\n       (SELECT COUNT(id) FROM mdl_workshop WHERE course = kbi_c.id)                       AS workshop\nFROM mdl_role_assignments kbi_ra\n       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_ctx.instanceid\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid\nWHERE kbi_ra.id > 0\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_ra.roleid = 3\nORDER BY kbi_c.fullname asc",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course_name": {
+                "key": "course_name",
+                "title": "lang::report_field_course_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "course_created": {
+                "key": "course_created",
+                "title": "lang::report_field_course_created_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "startdate": {
+                "key": "startdate",
+                "title": "lang::report_field_startdate_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "teacher_id": {
+                "key": "teacher_id",
+                "title": "lang::report_field_teacher_id_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{id}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "learners": {
+                "key": "learners",
+                "title": "lang::report_field_learners_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "events": {
+                "key": "events",
+                "title": "lang::report_field_events_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "post_per_day": {
+                "key": "post_per_day",
+                "title": "lang::report_field_post_per_day_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "visits": {
+                "key": "visits",
+                "title": "lang::report_field_visits_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "modules": {
+                "key": "modules",
+                "title": "lang::report_field_modules_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "completed_modules": {
+                "key": "completed_modules",
+                "title": "lang::report_field_completed_modules_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "assignment": {
+                "key": "assignment",
+                "title": "lang::report_field_assignment_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "quiz": {
+                "key": "quiz",
+                "title": "lang::report_field_quiz_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "workshop": {
+                "key": "workshop",
+                "title": "lang::report_field_workshop_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

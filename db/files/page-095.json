@@ -1,0 +1,99 @@
+{
+  "title": "lang::report_page_095_title::local_kopere_bi",
+  "description": "lang::report_page_095_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_file_utilization_summary_by_i",
+  "sortorder": 95,
+  "category": {
+    "refkey": "communication",
+    "title": "lang::report_category_communication_title::local_kopere_bi",
+    "sortorder": 140,
+    "description": "lang::report_category_communication_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_communication_95",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_095_title::local_kopere_bi",
+          "refkey": "kbi_el_file_utilization_summary_by_in",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_f.id,\n       kbi_c.id                                                                              AS courseid,\n       kbi_c.fullname,\n       kbi_u.id                                                                              AS userid,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.username,\n       CONCAT('/', kbi_ctx.id, '/mod_resource/content/', kbi_r.revision, kbi_f.filepath, kbi_f.filename) AS file_path,\n       kbi_f.filename,\n       kbi_f.timecreated\nFROM mdl_course kbi_c\n       JOIN mdl_resource kbi_r ON kbi_r.course = kbi_c.id\n       JOIN mdl_modules kbi_m ON kbi_m.name = 'resource'\n       JOIN mdl_course_modules kbi_cm ON kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_r.id\n       JOIN mdl_context kbi_ctx ON kbi_ctx.contextlevel = 70 AND kbi_ctx.instanceid = kbi_cm.id\n       JOIN mdl_files kbi_f\n         ON kbi_f.component = 'mod_resource' AND kbi_f.filearea = 'content' AND kbi_f.itemid = 0 AND kbi_f.filesize > 0 AND\n            kbi_ctx.id = kbi_f.contextid\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_f.userid\nWHERE kbi_c.id > 0\n  AND kbi_c.id = :courseid\n  AND kbi_c.visible = 1\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\nORDER BY kbi_c.fullname, kbi_f.filename",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{courseid}}}\" target=\"course\">{{{fullname}}}</a>"
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "username": {
+                "key": "username",
+                "title": "lang::report_field_username_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "file_path": {
+                "key": "file_path",
+                "title": "lang::report_field_file_path_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "filename": {
+                "key": "filename",
+                "title": "lang::report_field_filename_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "timecreated": {
+                "key": "timecreated",
+                "title": "lang::report_field_timecreated_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

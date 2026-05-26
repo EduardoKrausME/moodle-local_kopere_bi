@@ -1,0 +1,117 @@
+{
+  "title": "lang::report_page_024_title::local_kopere_bi",
+  "description": "lang::report_page_024_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_user_status_summary",
+  "sortorder": 24,
+  "category": {
+    "refkey": "users",
+    "title": "lang::report_category_users_title::local_kopere_bi",
+    "sortorder": 20,
+    "description": "lang::report_category_users_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_users_24",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_024_title::local_kopere_bi",
+          "refkey": "kbi_el_user_status_summary",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_u.id,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_u.lastaccess,\n       kbi_u.timecreated                          as registered,\n       ROUND(AVG(CASE\n                   WHEN kbi_g.rawgrademax > 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100\n                   ELSE kbi_g.finalgrade END), 0) as grade,\n       COUNT(DISTINCT kbi_ctx.instanceid)         as courses,\n       COUNT(DISTINCT kbi_cc.id)                  as completed_courses,\n       MAX(ca.completed_activities)           AS completed_activities,\n       MAX(lit.timespend)                     AS timespend,\n       MAX(lit.visits)                        AS visits,\n       ''                                     as cohortname\nFROM mdl_user kbi_u\n       LEFT JOIN mdl_role_assignments kbi_ra ON kbi_ra.userid = kbi_u.id\n       LEFT JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50\n       LEFT JOIN (SELECT COUNT(id) AS completed_activities, userid\n                  FROM mdl_course_modules_completion\n                  WHERE id > 0\n                    AND completionstate IN (1, 2)\n                  GROUP BY userid) ca ON ca.userid = kbi_u.id\n       LEFT JOIN mdl_course_completions kbi_cc ON kbi_cc.course = kbi_ctx.instanceid AND\n                                              kbi_cc.userid = kbi_u.id AND kbi_cc.timecompleted > 0\n       LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.courseid = kbi_ctx.instanceid AND\n                                       kbi_gi.itemtype = 'course'\n       LEFT JOIN mdl_grade_grades kbi_g ON kbi_g.itemid = kbi_gi.id AND kbi_g.userid = kbi_u.id AND\n                                       kbi_g.finalgrade IS NOT NULL\n       LEFT JOIN (SELECT kbi_t.userid, SUM(kbi_t.timespend) as timespend, SUM(kbi_t.visits) as visits\n                  FROM mdl_local_kopere_bi_tracking kbi_t\n                         JOIN mdl_course kbi_c ON kbi_t.courseid = kbi_c.id AND kbi_c.visible = 1\n                  WHERE kbi_t.courseid > 0\n                  GROUP BY kbi_t.userid) as lit ON lit.userid = kbi_u.id\nWHERE kbi_u.id > 0\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\nGROUP BY kbi_u.id",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{id}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "lastaccess": {
+                "key": "lastaccess",
+                "title": "lang::report_field_lastaccess_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "registered": {
+                "key": "registered",
+                "title": "lang::report_field_registered_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "grade": {
+                "key": "grade",
+                "title": "lang::report_field_grade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "courses": {
+                "key": "courses",
+                "title": "lang::report_field_courses_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "completed_courses": {
+                "key": "completed_courses",
+                "title": "lang::report_field_completed_courses_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "completed_activities": {
+                "key": "completed_activities",
+                "title": "lang::report_field_completed_activities_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "timespend": {
+                "key": "timespend",
+                "title": "lang::report_field_timespend_title::local_kopere_bi",
+                "type": "time",
+                "mustache": ""
+              },
+              "visits": {
+                "key": "visits",
+                "title": "lang::report_field_visits_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "cohortname": {
+                "key": "cohortname",
+                "title": "lang::report_field_cohortname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

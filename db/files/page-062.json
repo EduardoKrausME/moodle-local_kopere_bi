@@ -1,0 +1,148 @@
+{
+  "title": "lang::report_page_062_title::local_kopere_bi",
+  "description": "lang::report_page_062_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_quiz_question_structure",
+  "sortorder": 62,
+  "category": {
+    "refkey": "quizzes",
+    "title": "lang::report_category_quizzes_title::local_kopere_bi",
+    "sortorder": 80,
+    "description": "lang::report_category_quizzes_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_quizzes_062",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_062_title::local_kopere_bi",
+          "refkey": "kbi_el_quiz_question_structure",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_slot.id                AS id,\n       kbi_c.id                   AS courseid,\n       kbi_c.fullname             AS course,\n       kbi_cm.id                  AS cmid,\n       kbi_qz.id                  AS quizid,\n       kbi_qz.name                AS quiz_name,\n       kbi_slot.slot,\n       kbi_slot.page              AS slot_page,\n       kbi_slot.maxmark,\n       kbi_qbe.id                 AS questionbankentryid,\n       kbi_qv.version,\n       kbi_q.id                   AS questionid,\n       kbi_q.name                 AS question_name,\n       kbi_q.qtype,\n       kbi_q.defaultmark,\n       kbi_q.length,\n       kbi_q.status               AS question_status,\n       kbi_tags.tags              AS question_tags\nFROM mdl_quiz kbi_qz\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_qz.course\n       JOIN mdl_modules kbi_m ON kbi_m.name = 'quiz'\n       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id AND kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_qz.id\n       JOIN mdl_quiz_slots kbi_slot ON kbi_slot.quizid = kbi_qz.id\n       LEFT JOIN mdl_question_references kbi_qr ON kbi_qr.component = 'mod_quiz'\n             AND kbi_qr.questionarea = 'slot'\n             AND kbi_qr.itemid = kbi_slot.id\n       LEFT JOIN mdl_question_bank_entries kbi_qbe ON kbi_qbe.id = kbi_qr.questionbankentryid\n       LEFT JOIN mdl_question_versions kbi_qv ON kbi_qv.questionbankentryid = kbi_qbe.id\n             AND (\n                 kbi_qv.version = kbi_qr.version\n                 OR (kbi_qr.version IS NULL AND kbi_qv.version = (\n                     SELECT MAX(kbi_qv2.version)\n                     FROM mdl_question_versions kbi_qv2\n                     WHERE kbi_qv2.questionbankentryid = kbi_qbe.id\n                 ))\n             )\n       LEFT JOIN mdl_question kbi_q ON kbi_q.id = kbi_qv.questionid\n       LEFT JOIN (\n             SELECT kbi_ti.itemid,\n                    GROUP_CONCAT(DISTINCT kbi_t.rawname ORDER BY kbi_t.rawname SEPARATOR ', ') AS tags\n             FROM mdl_tag_instance kbi_ti\n                    JOIN mdl_tag kbi_t ON kbi_t.id = kbi_ti.tagid\n             WHERE kbi_ti.itemtype = 'question'\n             GROUP BY kbi_ti.itemid\n       ) kbi_tags ON kbi_tags.itemid = kbi_q.id\nWHERE kbi_c.visible = 1\n  AND kbi_cm.visible = 1\nORDER BY kbi_c.fullname, kbi_qz.name, kbi_slot.slot",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{courseid}}}\" target=\"course\">{{{course}}}</a>"
+              },
+              "cmid": {
+                "key": "cmid",
+                "title": "lang::report_field_cmid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "quizid": {
+                "key": "quizid",
+                "title": "lang::report_field_quizid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "quiz_name": {
+                "key": "quiz_name",
+                "title": "lang::report_field_quiz_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/mod/quiz/view.php?id={{{cmid}}}\" target=\"quiz\">{{{quiz_name}}}</a>"
+              },
+              "slot": {
+                "key": "slot",
+                "title": "lang::report_field_slot_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "slot_page": {
+                "key": "slot_page",
+                "title": "lang::report_field_slot_page_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "maxmark": {
+                "key": "maxmark",
+                "title": "lang::report_field_maxmark_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "questionbankentryid": {
+                "key": "questionbankentryid",
+                "title": "lang::report_field_questionbankentryid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "version": {
+                "key": "version",
+                "title": "lang::report_field_version_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "questionid": {
+                "key": "questionid",
+                "title": "lang::report_field_questionid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "question_name": {
+                "key": "question_name",
+                "title": "lang::report_field_question_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "qtype": {
+                "key": "qtype",
+                "title": "lang::report_field_qtype_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "defaultmark": {
+                "key": "defaultmark",
+                "title": "lang::report_field_defaultmark_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "length": {
+                "key": "length",
+                "title": "lang::report_field_length_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "question_status": {
+                "key": "question_status",
+                "title": "lang::report_field_question_status_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "question_tags": {
+                "key": "question_tags",
+                "title": "lang::report_field_question_tags_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

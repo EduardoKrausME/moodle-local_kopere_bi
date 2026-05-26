@@ -1,0 +1,136 @@
+{
+  "title": "lang::report_page_060_title::local_kopere_bi",
+  "description": "lang::report_page_060_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_activity_submission_progress",
+  "sortorder": 60,
+  "category": {
+    "refkey": "activities",
+    "title": "lang::report_category_activities_title::local_kopere_bi",
+    "sortorder": 70,
+    "description": "lang::report_category_activities_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_activities_60",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_060_title::local_kopere_bi",
+          "refkey": "kbi_el_activity_submission_progress_c",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_u.username,\n       kbi_u.idnumber,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_c.shortname,\n       kbi_c.fullname,\n       kbi_m.name                               AS mod_name,\n       kbi_cm.id                                AS instance_id,\n       kbi_ul.timeaccess,\n       kbi_ue.status,\n       kbi_ue.timeend,\n       GREATEST(\n         COALESCE(kbi_ass.submitted, 0), COALESCE(f.posted, 0), COALESCE(q.started, 0), COALESCE(gl.submitted, 0),\n         COALESCE(ch.submitted, 0)\n           )                                AS overal_submission_date,\n       GREATEST(\n         COALESCE(kbi_ass.graded, 0), COALESCE(q.graded, 0)\n           )                                AS overal_submission_graded,\n       GREATEST(\n         COALESCE(kbi_ass.grade, 0), COALESCE(q.grade, 0)\n           )                                AS overal_submission_grade,\n       teachers.teacher\nFROM mdl_user_enrolments kbi_ue\n       JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ue.userid\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_e.courseid\n       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id\n       JOIN mdl_modules kbi_m ON kbi_m.id = kbi_cm.module\n       LEFT JOIN mdl_user_lastaccess kbi_ul ON kbi_ul.userid = kbi_u.id AND kbi_ul.courseid = kbi_c.id\n       LEFT JOIN (SELECT kbi_ctx.instanceid,\n                         GROUP_CONCAT(DISTINCT CONCAT(kbi_u.firstname, ' ', kbi_u.lastname) SEPARATOR 'sql') AS teacher\n                  FROM mdl_role_assignments kbi_ra\n                         JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id\n                         JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid\n                  WHERE kbi_ctx.contextlevel = 50\n                    AND kbi_ra.roleid = 3\n                  GROUP BY kbi_ctx.instanceid) AS teachers ON teachers.instanceid = kbi_c.id\n       LEFT JOIN (SELECT kbi_ass.userid,\n                         kbi_ass.assignment,\n                         MAX(kbi_ass.timemodified) AS submitted,\n                         MAX(kbi_ag.grade)         AS grade,\n                         MAX(kbi_ag.timemodified)  AS graded\n                  FROM mdl_assign_submission kbi_ass\n                         JOIN mdl_assign kbi_m ON kbi_m.id = kbi_ass.assignment AND kbi_m.course = :courseid\n                         LEFT JOIN mdl_assign_grades kbi_ag ON kbi_ag.assignment = kbi_ass.assignment AND kbi_ag.userid = kbi_ass.userid\n                  WHERE kbi_ass.status = 'submitted'\n                  GROUP BY kbi_ass.userid, kbi_ass.assignment) ass\n         ON kbi_ass.userid = kbi_u.id AND kbi_ass.assignment = kbi_cm.instance AND kbi_m.name = 'assign'\n       LEFT JOIN (SELECT kbi_fd.forum, kbi_fp.userid, MAX(kbi_fp.modified) AS posted, NULL AS grade, NULL AS graded\n                  FROM mdl_forum_discussions kbi_fd\n                         JOIN mdl_forum kbi_m ON kbi_m.id = kbi_fd.forum AND kbi_m.course = :courseid\n                         LEFT JOIN mdl_forum_posts kbi_fp ON kbi_fp.discussion = kbi_fd.id\n                  GROUP BY kbi_fd.forum, kbi_fp.userid) f ON f.userid = kbi_u.id AND f.forum = kbi_cm.instance AND kbi_m.name = 'forum'\n       LEFT JOIN (SELECT kbi_qa.quiz,\n                         kbi_qa.userid,\n                         MIN(kbi_qa.timestart)     AS started,\n                         MAX(kbi_qgr.grade)        AS grade,\n                         MAX(kbi_qgr.timemodified) AS graded\n                  FROM mdl_quiz_attempts kbi_qa\n                         JOIN mdl_quiz kbi_m ON kbi_m.id = kbi_qa.quiz AND kbi_m.course = :courseid\n                         LEFT JOIN mdl_quiz_grades kbi_qgr ON kbi_qgr.quiz = kbi_m.id AND kbi_qgr.userid = kbi_qa.userid\n                  GROUP BY kbi_qa.quiz, kbi_qa.userid) q ON q.userid = kbi_u.id AND q.quiz = kbi_cm.instance AND kbi_m.name = 'quiz'\n       LEFT JOIN (SELECT kbi_ge.glossaryid, kbi_ge.userid, MAX(kbi_ge.timecreated) AS submitted, NULL AS grade, NULL AS graded\n                  FROM mdl_glossary_entries kbi_ge\n                         JOIN mdl_glossary kbi_m ON kbi_m.id = kbi_ge.glossaryid AND kbi_m.course = :courseid\n                  GROUP BY kbi_ge.glossaryid, kbi_ge.userid) gl\n         ON gl.userid = kbi_u.id AND gl.glossaryid = kbi_cm.instance AND kbi_m.name = 'glossary'\n       LEFT JOIN (SELECT kbi_ca.choiceid, kbi_ca.userid, MAX(kbi_ca.timemodified) AS submitted, NULL AS grade, NULL AS graded\n                  FROM mdl_choice_answers kbi_ca\n                         JOIN mdl_choice kbi_m ON kbi_m.id = kbi_ca.choiceid AND kbi_m.course = :courseid\n                  GROUP BY kbi_ca.choiceid, kbi_ca.userid) ch\n         ON ch.userid = kbi_u.id AND ch.choiceid = kbi_cm.instance AND kbi_m.name = 'choice'\nWHERE kbi_ue.id > 0\n  AND kbi_c.visible = 1\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_cm.visible = 1\n  AND kbi_c.id = :courseid",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "username": {
+                "key": "username",
+                "title": "lang::report_field_username_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "idnumber": {
+                "key": "idnumber",
+                "title": "lang::report_field_idnumber_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{id}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "shortname": {
+                "key": "shortname",
+                "title": "lang::report_field_shortname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "mod_name": {
+                "key": "mod_name",
+                "title": "lang::report_field_mod_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "instance_id": {
+                "key": "instance_id",
+                "title": "lang::report_field_instance_id_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "timeaccess": {
+                "key": "timeaccess",
+                "title": "lang::report_field_timeaccess_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "status": {
+                "key": "status",
+                "title": "lang::report_field_status_title::local_kopere_bi",
+                "type": "status",
+                "mustache": ""
+              },
+              "timeend": {
+                "key": "timeend",
+                "title": "lang::report_field_timeend_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "overal_submission_date": {
+                "key": "overal_submission_date",
+                "title": "lang::report_field_overal_submission_date_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "overal_submission_graded": {
+                "key": "overal_submission_graded",
+                "title": "lang::report_field_overal_submission_graded_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "overal_submission_grade": {
+                "key": "overal_submission_grade",
+                "title": "lang::report_field_overal_submission_grade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "teacher": {
+                "key": "teacher",
+                "title": "lang::report_field_teacher_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

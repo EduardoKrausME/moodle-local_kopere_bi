@@ -1,0 +1,86 @@
+{
+  "title": "lang::report_page_105_title::local_kopere_bi",
+  "description": "lang::report_page_105_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "student_profile_distribution",
+  "category": {
+    "refkey": "students",
+    "title": "lang::report_category_students_title::local_kopere_bi",
+    "description": "lang::report_category_students_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "students-105",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_105_block_1_element_1_title::local_kopere_bi",
+          "refkey": "kbi_el_student_profile_distribution",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT CONCAT(COALESCE(NULLIF(TRIM(kbi_u.country), ''), 'not-informed'), '-',\n              COALESCE(NULLIF(TRIM(kbi_u.city), ''), 'not-informed'), '-',\n              COALESCE(NULLIF(TRIM(kbi_u.institution), ''), 'not-informed'), '-',\n              COALESCE(NULLIF(TRIM(kbi_u.department), ''), 'not-informed')) AS id,\n       COALESCE(NULLIF(TRIM(kbi_u.country), ''), 'Not informed') AS country,\n       COALESCE(NULLIF(TRIM(kbi_u.city), ''), 'Not informed') AS city,\n       COALESCE(NULLIF(TRIM(kbi_u.institution), ''), 'Not informed') AS institution,\n       COALESCE(NULLIF(TRIM(kbi_u.department), ''), 'Not informed') AS department,\n       COUNT(DISTINCT kbi_u.id) AS student_count,\n       SUM(CASE WHEN kbi_u.suspended = 0 AND kbi_u.deleted = 0 THEN 1 ELSE 0 END) AS active_students,\n       SUM(CASE WHEN kbi_u.suspended = 1 AND kbi_u.deleted = 0 THEN 1 ELSE 0 END) AS suspended_students\nFROM mdl_user kbi_u\n       JOIN (\n             SELECT DISTINCT kbi_ra.userid\n             FROM mdl_role_assignments kbi_ra\n                    JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid\n                    JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50\n             WHERE kbi_r.shortname = 'student'\n       ) kbi_students ON kbi_students.userid = kbi_u.id\nWHERE kbi_u.username <> 'guest'\nGROUP BY country, city, institution, department\nORDER BY student_count DESC, country, city, institution, department",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "string",
+                "mustache": ""
+              },
+              "country": {
+                "key": "country",
+                "title": "lang::report_field_country_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "city": {
+                "key": "city",
+                "title": "lang::report_field_city_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "institution": {
+                "key": "institution",
+                "title": "lang::report_field_institution_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "department": {
+                "key": "department",
+                "title": "lang::report_field_department_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "student_count": {
+                "key": "student_count",
+                "title": "lang::report_field_student_count_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "active_students": {
+                "key": "active_students",
+                "title": "lang::report_field_active_students_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "suspended_students": {
+                "key": "suspended_students",
+                "title": "lang::report_field_suspended_students_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

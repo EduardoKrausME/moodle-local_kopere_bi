@@ -1,0 +1,104 @@
+{
+  "title": "lang::report_page_099_title::local_kopere_bi",
+  "description": "lang::report_page_099_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "students_without_course_access",
+  "category": {
+    "refkey": "students",
+    "title": "lang::report_category_students_title::local_kopere_bi",
+    "description": "lang::report_category_students_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "students-99",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_099_block_1_element_1_title::local_kopere_bi",
+          "refkey": "kbi_el_students_without_course_access",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT CONCAT(kbi_students.userid, '-', kbi_students.courseid) AS id,\n       kbi_students.userid,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_c.id AS courseid,\n       kbi_c.fullname AS course,\n       kbi_enrol.enrolled_at,\n       kbi_u.lastaccess AS site_lastaccess,\n       COALESCE(kbi_la.timeaccess, 0) AS course_lastaccess,\n       CASE\n         WHEN kbi_enrol.enrolled_at IS NULL THEN NULL\n         ELSE DATEDIFF(NOW(), FROM_UNIXTIME(kbi_enrol.enrolled_at))\n       END AS days_since_enrolment\nFROM (SELECT DISTINCT kbi_ra.userid,\n                kbi_ctx.instanceid AS courseid\nFROM mdl_role_assignments kbi_ra\n       JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid\n       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50\nWHERE kbi_r.shortname = 'student') kbi_students\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_students.userid\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_students.courseid\n       LEFT JOIN (SELECT kbi_ue.userid,\n       kbi_e.courseid,\n       MIN(kbi_ue.id) AS enrolmentid,\n       COALESCE(MIN(NULLIF(kbi_ue.timestart, 0)), MIN(kbi_ue.timecreated)) AS enrolled_at,\n       MAX(kbi_ue.timeend) AS enrol_timeend\nFROM mdl_enrol kbi_e\n       JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id\nWHERE kbi_e.status = 0\n  AND kbi_ue.status = 0\n  AND (kbi_ue.timeend = 0 OR kbi_ue.timeend > UNIX_TIMESTAMP())\nGROUP BY kbi_ue.userid, kbi_e.courseid) kbi_enrol ON kbi_enrol.userid = kbi_students.userid AND kbi_enrol.courseid = kbi_students.courseid\n       LEFT JOIN mdl_user_lastaccess kbi_la ON kbi_la.userid = kbi_students.userid AND kbi_la.courseid = kbi_students.courseid\nWHERE kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username <> 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_enrol.enrolled_at IS NOT NULL\n  AND COALESCE(kbi_la.timeaccess, 0) = 0\nORDER BY days_since_enrolment DESC, kbi_c.fullname, kbi_u.lastname, kbi_u.firstname",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "string",
+                "mustache": ""
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{courseid}}}\" target=\"course\">{{{course}}}</a>"
+              },
+              "enrolled_at": {
+                "key": "enrolled_at",
+                "title": "lang::report_field_enrolled_at_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "site_lastaccess": {
+                "key": "site_lastaccess",
+                "title": "lang::report_field_site_lastaccess_title::local_kopere_bi",
+                "type": "datetimeRenderer",
+                "mustache": ""
+              },
+              "course_lastaccess": {
+                "key": "course_lastaccess",
+                "title": "lang::report_field_course_lastaccess_title::local_kopere_bi",
+                "type": "datetimeRenderer",
+                "mustache": ""
+              },
+              "days_since_enrolment": {
+                "key": "days_since_enrolment",
+                "title": "lang::report_field_days_since_enrolment_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

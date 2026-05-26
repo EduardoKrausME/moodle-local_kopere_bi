@@ -1,0 +1,57 @@
+{
+  "title": "lang::report_page_015_title::local_kopere_bi",
+  "description": "lang::report_page_015_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_logins_logouts",
+  "sortorder": 15,
+  "category": {
+    "refkey": "users",
+    "title": "lang::report_category_users_title::local_kopere_bi",
+    "sortorder": 20,
+    "description": "lang::report_category_users_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_users_15",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_015_title::local_kopere_bi",
+          "refkey": "kbi_el_logins_logouts",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_l1.id, kbi_l1.userid, kbi_l1.timecreated AS loggedout\nFROM mdl_local_kopere_bi_log_tmp kbi_l1\nWHERE kbi_l1.action = 'loggedout'\n  AND kbi_l1.contextid = 1\nORDER BY kbi_l1.id ASC",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "loggedout": {
+                "key": "loggedout",
+                "title": "lang::report_field_loggedout_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

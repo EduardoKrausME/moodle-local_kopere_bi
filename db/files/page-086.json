@@ -1,0 +1,99 @@
+{
+  "title": "lang::report_page_086_title::local_kopere_bi",
+  "description": "lang::report_page_086_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_learning_plan_progress",
+  "sortorder": 86,
+  "category": {
+    "refkey": "competencies",
+    "title": "lang::report_category_competencies_title::local_kopere_bi",
+    "sortorder": 130,
+    "description": "lang::report_category_competencies_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_competencies_86",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_086_title::local_kopere_bi",
+          "refkey": "kbi_el_learning_plan_progress",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_cp.id,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.id                                                  AS userid,\n       kbi_cp.name,\n       kbi_cp.timecreated,\n       kbi_cp.status,\n       CASE\n         WHEN ROUND((SUM(kbi_cu.proficiency) / COUNT(kbi_ctc.id)) * 100, 2) >= 100 THEN MAX(kbi_cu.timecreated)\n         ELSE 0 END                                          AS completion_date,\n       ROUND((SUM(kbi_cu.proficiency) / COUNT(kbi_ctc.id)) * 100, 2) AS progress,\n       kbi_cp.templateid\nFROM mdl_competency_template kbi_ct\n       LEFT JOIN mdl_competency_templatecomp kbi_ctc ON kbi_ctc.templateid = kbi_ct.id\n       LEFT JOIN mdl_competency_plan kbi_cp ON kbi_cp.templateid = kbi_ct.id\n       LEFT JOIN mdl_competency_usercomp kbi_cu ON kbi_cu.competencyid = kbi_ctc.competencyid AND kbi_cu.userid = kbi_cp.userid\n       LEFT JOIN mdl_user kbi_u ON kbi_u.id = kbi_cp.userid\nWHERE kbi_cp.id IS NOT NULL\nGROUP BY kbi_cp.id, kbi_u.id\nORDER BY kbi_u.lastname, kbi_u.firstname, kbi_cp.name",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "name": {
+                "key": "name",
+                "title": "lang::report_field_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "timecreated": {
+                "key": "timecreated",
+                "title": "lang::report_field_timecreated_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "status": {
+                "key": "status",
+                "title": "lang::report_field_status_title::local_kopere_bi",
+                "type": "status",
+                "mustache": ""
+              },
+              "completion_date": {
+                "key": "completion_date",
+                "title": "lang::report_field_completion_date_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "progress": {
+                "key": "progress",
+                "title": "lang::report_field_progress_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "templateid": {
+                "key": "templateid",
+                "title": "lang::report_field_templateid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

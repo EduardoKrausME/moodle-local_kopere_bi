@@ -1,0 +1,111 @@
+{
+  "title": "lang::report_page_027_title::local_kopere_bi",
+  "description": "lang::report_page_027_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_instructor_activity_engagement_detail",
+  "sortorder": 27,
+  "category": {
+    "refkey": "instructors",
+    "title": "lang::report_category_instructors_title::local_kopere_bi",
+    "sortorder": 30,
+    "description": "lang::report_category_instructors_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_instructors_27",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_027_title::local_kopere_bi",
+          "refkey": "kbi_el_instructor_activity_engagement_detail",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_lit.id                                                        AS lid,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_c.fullname,\n       kbi_c.shortname,\n       CASE WHEN kbi_lit.visits IS NULL THEN 0 ELSE kbi_lit.visits END       AS visits,\n       CASE WHEN kbi_lit.timespend IS NULL THEN 0 ELSE kbi_lit.timespend END AS timespend,\n       kbi_lit.firstaccess,\n       kbi_lit.lastaccess,\n       kbi_cm.instance,\n       kbi_m.name                                                        AS module\nFROM mdl_role_assignments kbi_ra\n       JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id\n       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_ctx.instanceid\n       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id\n       LEFT JOIN mdl_modules kbi_m ON kbi_m.id = kbi_cm.module\n       LEFT JOIN mdl_local_kopere_bi_tracking kbi_lit ON kbi_lit.userid = kbi_u.id AND kbi_lit.param = kbi_cm.id AND kbi_lit.page = 'module'\nWHERE kbi_ctx.contextlevel = 50\n  AND kbi_c.id = :courseid\n  AND kbi_ra.roleid = 3\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_cm.visible = 1",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "lid": {
+                "key": "lid",
+                "title": "lang::report_field_lid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{id}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "shortname": {
+                "key": "shortname",
+                "title": "lang::report_field_shortname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "visits": {
+                "key": "visits",
+                "title": "lang::report_field_visits_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "timespend": {
+                "key": "timespend",
+                "title": "lang::report_field_timespend_title::local_kopere_bi",
+                "type": "time",
+                "mustache": ""
+              },
+              "firstaccess": {
+                "key": "firstaccess",
+                "title": "lang::report_field_firstaccess_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "lastaccess": {
+                "key": "lastaccess",
+                "title": "lang::report_field_lastaccess_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "instance": {
+                "key": "instance",
+                "title": "lang::report_field_instance_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "module": {
+                "key": "module",
+                "title": "lang::report_field_module_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

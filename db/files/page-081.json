@@ -1,0 +1,160 @@
+{
+  "title": "lang::report_page_081_title::local_kopere_bi",
+  "description": "lang::report_page_081_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_assignment_submissions_review",
+  "sortorder": 81,
+  "category": {
+    "refkey": "assignments",
+    "title": "lang::report_category_assignments_title::local_kopere_bi",
+    "sortorder": 110,
+    "description": "lang::report_category_assignments_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_assignments_81",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_081_title::local_kopere_bi",
+          "refkey": "kbi_el_assignment_submissions_review",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_ass_s.id,\n       kbi_c.fullname                     AS course,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.idnumber,\n       kbi_u.id                           AS userid,\n       kbi_ass.name                       AS assignment,\n       kbi_u.lastaccess,\n       kbi_ass_s.timecreated              AS date_first_submission,\n       kbi_ass_g.grade                    AS grade_first_submission,\n       kbi_ass_g.timemodified             AS grade_time_first_submission,\n       first_submission_file.filename AS first_submission_file,\n       kbi_cmc.completionstate,\n       kbi_ass_sl.timemodified            AS date_last_submission,\n       kbi_ass_gl.grade                   AS grade_last_submission,\n       kbi_ass_gl.timemodified            AS grade_time_last_submission,\n       last_submission_file.filename  AS last_submission_file,\n       kbi_ass_s.attemptnumber,\n       kbi_ass_sl.attemptnumber           AS attemptnumber2,\n       kbi_sc.scale\nFROM mdl_course kbi_c\n       LEFT JOIN mdl_context kbi_con ON kbi_con.contextlevel = 50 AND kbi_con.instanceid = kbi_c.id\n       LEFT JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_con.id AND kbi_ra.roleid = 5\n       LEFT JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid\n       LEFT JOIN mdl_assign kbi_ass ON kbi_c.id = kbi_ass.course\n       LEFT JOIN mdl_assign_submission kbi_ass_s\n         ON kbi_ass_s.assignment = kbi_ass.id AND kbi_ass_s.attemptnumber = 0 AND kbi_ass_s.userid = kbi_u.id AND kbi_ass_s.status = 'submitted'\n       LEFT JOIN mdl_assign_grades kbi_ass_g ON kbi_ass_g.userid = kbi_ass_s.userid AND kbi_ass_g.assignment = kbi_ass_s.assignment AND\n                                            kbi_ass_g.attemptnumber = kbi_ass_s.attemptnumber\n       LEFT JOIN (SELECT kbi_f.itemid, GROUP_CONCAT(DISTINCT CONCAT(kbi_f.filename) SEPARATOR ', ') AS filename\n                  FROM mdl_files kbi_f\n                  WHERE kbi_f.component = 'assignsubmission_file'\n                    AND kbi_f.filearea = 'submission_files'\n                    AND kbi_f.filesize > 0\n                  GROUP BY kbi_f.itemid) first_submission_file ON first_submission_file.itemid = kbi_ass_s.id\n       LEFT JOIN mdl_assign_submission kbi_ass_sl\n         ON kbi_ass_sl.assignment = kbi_ass.id AND kbi_ass_sl.latest = 1 AND kbi_ass_sl.userid = kbi_ass_s.userid AND kbi_ass_sl.id <> kbi_ass_s.id\n       LEFT JOIN mdl_assign_grades kbi_ass_gl ON kbi_ass_gl.userid = kbi_ass_sl.userid AND kbi_ass_gl.assignment = kbi_ass_sl.assignment AND\n                                             kbi_ass_gl.attemptnumber = kbi_ass_sl.attemptnumber\n       LEFT JOIN (SELECT kbi_f.itemid, GROUP_CONCAT(DISTINCT CONCAT(kbi_f.filename) SEPARATOR ', ') AS filename\n                  FROM mdl_files kbi_f\n                  WHERE kbi_f.component = 'assignsubmission_file'\n                    AND kbi_f.filearea = 'submission_files'\n                    AND kbi_f.filesize > 0\n                  GROUP BY kbi_f.itemid) last_submission_file ON last_submission_file.itemid = kbi_ass_sl.id\n       JOIN mdl_modules kbi_m ON kbi_m.name = 'assign'\n       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_ass.course AND kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_ass.id\n       LEFT JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.userid = kbi_ass_s.userid AND kbi_cmc.coursemoduleid = kbi_cm.id\n       LEFT JOIN mdl_grade_items kbi_gi\n         ON kbi_gi.courseid = kbi_ass.course AND kbi_gi.itemtype = 'mod' AND kbi_gi.itemmodule = 'assign' AND kbi_gi.iteminstance = kbi_ass.id\n       LEFT JOIN mdl_scale kbi_sc ON kbi_sc.id = kbi_gi.scaleid\nWHERE kbi_u.id IS NOT NULL",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "idnumber": {
+                "key": "idnumber",
+                "title": "lang::report_field_idnumber_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "assignment": {
+                "key": "assignment",
+                "title": "lang::report_field_assignment_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "lastaccess": {
+                "key": "lastaccess",
+                "title": "lang::report_field_lastaccess_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "date_first_submission": {
+                "key": "date_first_submission",
+                "title": "lang::report_field_date_first_submission_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "grade_first_submission": {
+                "key": "grade_first_submission",
+                "title": "lang::report_field_grade_first_submission_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "grade_time_first_submission": {
+                "key": "grade_time_first_submission",
+                "title": "lang::report_field_grade_time_first_submission_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "first_submission_file": {
+                "key": "first_submission_file",
+                "title": "lang::report_field_first_submission_file_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "completionstate": {
+                "key": "completionstate",
+                "title": "lang::report_field_completionstate_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "date_last_submission": {
+                "key": "date_last_submission",
+                "title": "lang::report_field_date_last_submission_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "grade_last_submission": {
+                "key": "grade_last_submission",
+                "title": "lang::report_field_grade_last_submission_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "grade_time_last_submission": {
+                "key": "grade_time_last_submission",
+                "title": "lang::report_field_grade_time_last_submission_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "last_submission_file": {
+                "key": "last_submission_file",
+                "title": "lang::report_field_last_submission_file_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "attemptnumber": {
+                "key": "attemptnumber",
+                "title": "lang::report_field_attemptnumber_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "attemptnumber2": {
+                "key": "attemptnumber2",
+                "title": "lang::report_field_attemptnumber2_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "scale": {
+                "key": "scale",
+                "title": "lang::report_field_scale_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

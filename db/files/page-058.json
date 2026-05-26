@@ -1,0 +1,190 @@
+{
+  "title": "lang::report_page_058_title::local_kopere_bi",
+  "description": "lang::report_page_058_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_activity_status_detail",
+  "sortorder": 58,
+  "category": {
+    "refkey": "activities",
+    "title": "lang::report_category_activities_title::local_kopere_bi",
+    "sortorder": 70,
+    "description": "lang::report_category_activities_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_activities_58",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_058_title::local_kopere_bi",
+          "refkey": "kbi_el_activity_status_detail",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT ue.userid,\n       kbi_u.email,\n       kbi_u.phone1,\n       kbi_u.phone2,\n       kbi_u.institution,\n       kbi_u.department,\n       kbi_u.address,\n       kbi_u.city,\n       kbi_u.country,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_c.fullname,\n       kbi_g.timemodified                        as graduated,\n       kbi_cm.added                              as created,\n       ROUND((CASE\n                WHEN kbi_g.rawgrademax > 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100\n                ELSE kbi_g.finalgrade END), 0)   AS grade,\n       ROUND((CASE\n                WHEN kbi_g_c.rawgrademax > 0 THEN (kbi_g_c.finalgrade / kbi_g_c.rawgrademax) * 100\n                ELSE kbi_g_c.finalgrade END), 0) AS grade_course,\n       kbi_gi.gradepass,\n       kbi_g.rawgrademax,\n       kbi_g.finalgrade,\n       kbi_cm.completion,\n       kbi_cmc.completionstate,\n       kbi_m.name                                AS module_name,\n       ta.tags,\n       ue.enrol_status,\n       ue.timeend\nFROM (SELECT MIN(kbi_ue1.id) AS id, kbi_ue1.userid, kbi_e1.courseid, MIN(kbi_ue1.status) AS enrol_status, MIN(kbi_ue1.timeend) AS timeend\n      FROM mdl_user_enrolments kbi_ue1\n             JOIN mdl_enrol kbi_e1 ON kbi_e1.id = kbi_ue1.enrolid\n      GROUP BY kbi_ue1.userid, kbi_e1.courseid) ue\n       JOIN mdl_user kbi_u ON kbi_u.id = ue.userid\n       JOIN mdl_course kbi_c ON kbi_c.id = ue.courseid\n       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id AND kbi_cm.instance > 0\n       JOIN mdl_modules kbi_m ON kbi_m.id = kbi_cm.module\n       LEFT JOIN mdl_grade_items kbi_gi\n         ON kbi_gi.itemtype = 'mod' AND kbi_gi.iteminstance = kbi_cm.instance AND kbi_gi.itemmodule = kbi_m.name AND kbi_gi.gradetype = 1\n       LEFT JOIN mdl_grade_grades kbi_g ON kbi_g.itemid = kbi_gi.id AND kbi_g.userid = kbi_u.id\n       LEFT JOIN (SELECT kbi_qa.quiz,\n                         kbi_qa.userid,\n                         MAX(kbi_qa.attempt)      AS num_of_attempts,\n                         MIN(kbi_qa.timemodified) AS first_completed_date\n                  FROM mdl_quiz_attempts kbi_qa\n                         JOIN mdl_quiz kbi_q ON kbi_q.id = kbi_qa.quiz AND kbi_q.course = :courseid\n                  GROUP BY kbi_qa.quiz, kbi_qa.userid) qat ON qat.userid = kbi_u.id AND kbi_m.name = 'quiz' AND qat.quiz = kbi_cm.instance\n       LEFT JOIN (SELECT kbi_asbm1.assignment,\n                         kbi_asbm1.userid,\n                         COUNT(*)                AS num_of_attempts,\n                         MIN(kbi_asbm1.timemodified) AS first_completed_date\n                  FROM mdl_assign_submission kbi_asbm1\n                         JOIN mdl_assign kbi_a ON kbi_a.id = kbi_asbm1.assignment AND kbi_a.course = :courseid\n                  GROUP BY kbi_asbm1.assignment, kbi_asbm1.userid) asbm\n         ON asbm.userid = kbi_u.id AND kbi_m.name = 'assign' AND asbm.assignment = kbi_cm.instance\n       LEFT JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.coursemoduleid = kbi_cm.id AND kbi_cmc.userid = kbi_u.id\n       LEFT JOIN (SELECT kbi_i.itemid, GROUP_CONCAT(DISTINCT kbi_t.rawname) AS tags\n                  FROM mdl_tag_instance kbi_i, mdl_tag kbi_t\n                  WHERE kbi_t.id = kbi_i.tagid\n                    AND kbi_i.itemtype = 'course_modules'\n                  GROUP BY kbi_i.itemid) ta ON ta.itemid = kbi_cm.id\n       LEFT JOIN mdl_grade_items kbi_gi_c ON kbi_gi_c.itemtype = 'course' AND kbi_gi_c.courseid = kbi_c.id\n       LEFT JOIN mdl_grade_grades kbi_g_c ON kbi_g_c.itemid = kbi_gi_c.id AND kbi_g_c.userid = kbi_u.id\nWHERE ue.id > 0\n  AND kbi_cm.course = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_cm.visible = 1",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "phone1": {
+                "key": "phone1",
+                "title": "lang::report_field_phone1_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"tel:{{{phone1}}}\" target=\"_blank\">{{{phone1}}}</a>"
+              },
+              "phone2": {
+                "key": "phone2",
+                "title": "lang::report_field_phone2_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"tel:{{{phone2}}}\" target=\"_blank\">{{{phone2}}}</a>"
+              },
+              "institution": {
+                "key": "institution",
+                "title": "lang::report_field_institution_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "department": {
+                "key": "department",
+                "title": "lang::report_field_department_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "address": {
+                "key": "address",
+                "title": "lang::report_field_address_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "city": {
+                "key": "city",
+                "title": "lang::report_field_city_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "country": {
+                "key": "country",
+                "title": "lang::report_field_country_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "graduated": {
+                "key": "graduated",
+                "title": "lang::report_field_graduated_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "created": {
+                "key": "created",
+                "title": "lang::report_field_created_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "grade": {
+                "key": "grade",
+                "title": "lang::report_field_grade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "grade_course": {
+                "key": "grade_course",
+                "title": "lang::report_field_grade_course_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "gradepass": {
+                "key": "gradepass",
+                "title": "lang::report_field_gradepass_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "rawgrademax": {
+                "key": "rawgrademax",
+                "title": "lang::report_field_rawgrademax_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "finalgrade": {
+                "key": "finalgrade",
+                "title": "lang::report_field_finalgrade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "completion": {
+                "key": "completion",
+                "title": "lang::report_field_completion_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "completionstate": {
+                "key": "completionstate",
+                "title": "lang::report_field_completionstate_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "module_name": {
+                "key": "module_name",
+                "title": "lang::report_field_module_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "tags": {
+                "key": "tags",
+                "title": "lang::report_field_tags_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "enrol_status": {
+                "key": "enrol_status",
+                "title": "lang::report_field_enrol_status_title::local_kopere_bi",
+                "type": "status",
+                "mustache": ""
+              },
+              "timeend": {
+                "key": "timeend",
+                "title": "lang::report_field_timeend_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

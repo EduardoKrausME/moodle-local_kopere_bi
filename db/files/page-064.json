@@ -1,0 +1,183 @@
+{
+  "title": "lang::report_page_064_title::local_kopere_bi",
+  "description": "lang::report_page_064_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_quiz_activity_detail_by_learner",
+  "sortorder": 64,
+  "category": {
+    "refkey": "quizzes",
+    "title": "lang::report_category_quizzes_title::local_kopere_bi",
+    "sortorder": 80,
+    "description": "lang::report_category_quizzes_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_quizzes_64",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_064_title::local_kopere_bi",
+          "refkey": "kbi_el_quiz_activity_detail_by_learner",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_qa.id                        as quiz_attempt_id,\n       kbi_c.fullname                   AS course_name,\n       kbi_q.name                       AS quiz_name,\n       kbi_u.id,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_qa.attempt                   AS all_att,\n       attm.highest_grade,\n       attm.lowest_grade,\n       kbi_qa.timefinish - kbi_qa.timestart AS timespend,\n       kbi_ue.enrol_status              AS enrol_status,\n       kbi_ue.timeend,\n       kbi_qa.state                     AS completion_state,\n       attm.latest_submission,\n       kbi_q.sumgrades                  AS marksmax,\n       kbi_q.grade                      AS grademax,\n       kbi_qa.sumgrades                 AS finalgrade,\n       attm.first_completed_date,\n       kbi_gi.gradepass                 AS gradepass,\n       kbi_cmc.timemodified             AS timemodified,\n       kbi_u.deleted,\n       kbi_u.suspended,\n       kbi_u.username\nFROM mdl_quiz_attempts kbi_qa\n       JOIN (SELECT kbi_qa1.quiz,\n                    kbi_qa1.userid,\n                    COUNT(kbi_qa1.id)                                                        AS at_cont,\n                    (MAX(kbi_qa1.sumgrades) / kbi_q1.sumgrades) * 100                            AS highest_grade,\n                    (MIN(kbi_qa1.sumgrades) / kbi_q1.sumgrades) * 100                            AS lowest_grade,\n                    MAX(CASE WHEN kbi_qa1.state = 'finished' THEN kbi_qa1.timefinish ELSE 0 END) AS latest_submission,\n                    MIN(kbi_qa1.timefinish)                                                  AS first_completed_date\n             FROM mdl_quiz_attempts kbi_qa1\n                    JOIN mdl_quiz kbi_q1 ON kbi_q1.id = kbi_qa1.quiz\n             GROUP BY kbi_qa1.quiz, kbi_qa1.userid, kbi_q1.sumgrades) attm ON attm.quiz = kbi_qa.quiz AND attm.userid = kbi_qa.userid\n       JOIN mdl_quiz kbi_q ON kbi_q.id = kbi_qa.quiz\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_qa.userid\n       JOIN (SELECT kbi_e.courseid, kbi_ue.userid, MIN(kbi_ue.status) AS enrol_status, MIN(kbi_ue.timeend) AS timeend\n             FROM mdl_enrol kbi_e\n                    JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id\n             GROUP BY kbi_e.courseid, kbi_ue.userid) ue ON kbi_ue.courseid = kbi_q.course AND kbi_ue.userid = kbi_u.id\n       JOIN mdl_modules kbi_m ON kbi_m.name = 'quiz'\n       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_q.course AND kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_q.id\n       JOIN mdl_grade_items kbi_gi ON kbi_gi.itemmodule = 'quiz' AND kbi_gi.iteminstance = kbi_q.id\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_cm.course\n       LEFT JOIN mdl_course_modules_completion kbi_cmc\n         ON kbi_cmc.coursemoduleid = kbi_cm.id AND kbi_cmc.completionstate IN (1, 2) AND\n            kbi_cmc.userid = kbi_qa.userid\nWHERE kbi_q.id = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "quiz_attempt_id": {
+                "key": "quiz_attempt_id",
+                "title": "lang::report_field_quiz_attempt_id_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course_name": {
+                "key": "course_name",
+                "title": "lang::report_field_course_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "quiz_name": {
+                "key": "quiz_name",
+                "title": "lang::report_field_quiz_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{id}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "all_att": {
+                "key": "all_att",
+                "title": "lang::report_field_all_att_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "highest_grade": {
+                "key": "highest_grade",
+                "title": "lang::report_field_highest_grade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "lowest_grade": {
+                "key": "lowest_grade",
+                "title": "lang::report_field_lowest_grade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "timespend": {
+                "key": "timespend",
+                "title": "lang::report_field_timespend_title::local_kopere_bi",
+                "type": "time",
+                "mustache": ""
+              },
+              "enrol_status": {
+                "key": "enrol_status",
+                "title": "lang::report_field_enrol_status_title::local_kopere_bi",
+                "type": "status",
+                "mustache": ""
+              },
+              "timeend": {
+                "key": "timeend",
+                "title": "lang::report_field_timeend_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "completion_state": {
+                "key": "completion_state",
+                "title": "lang::report_field_completion_state_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "latest_submission": {
+                "key": "latest_submission",
+                "title": "lang::report_field_latest_submission_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "marksmax": {
+                "key": "marksmax",
+                "title": "lang::report_field_marksmax_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "grademax": {
+                "key": "grademax",
+                "title": "lang::report_field_grademax_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "finalgrade": {
+                "key": "finalgrade",
+                "title": "lang::report_field_finalgrade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "first_completed_date": {
+                "key": "first_completed_date",
+                "title": "lang::report_field_first_completed_date_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "gradepass": {
+                "key": "gradepass",
+                "title": "lang::report_field_gradepass_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "timemodified": {
+                "key": "timemodified",
+                "title": "lang::report_field_timemodified_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "deleted": {
+                "key": "deleted",
+                "title": "lang::report_field_deleted_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "suspended": {
+                "key": "suspended",
+                "title": "lang::report_field_suspended_title::local_kopere_bi",
+                "type": "status",
+                "mustache": ""
+              },
+              "username": {
+                "key": "username",
+                "title": "lang::report_field_username_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

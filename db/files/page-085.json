@@ -1,0 +1,111 @@
+{
+  "title": "lang::report_page_085_title::local_kopere_bi",
+  "description": "lang::report_page_085_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_course_outcomes",
+  "sortorder": 85,
+  "category": {
+    "refkey": "competencies",
+    "title": "lang::report_category_competencies_title::local_kopere_bi",
+    "sortorder": 130,
+    "description": "lang::report_category_competencies_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_competencies_85",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_085_title::local_kopere_bi",
+          "refkey": "kbi_el_course_outcomes",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_gi.id,\n       kbi_gi.itemname                            as activity,\n       kbi_c.shortname                            as course_shortname,\n       kbi_c.fullname                             as course_fullname,\n       kbi_o.fullname                             as outcome_fullname,\n       kbi_o.shortname                            as outcome_shortname,\n       kbi_o.description                          as outcome_description,\n       kbi_sci.scale,\n       kbi_ca.name                                as category,\n       kbi_c.startdate,\n       ROUND(AVG(CASE\n                   WHEN kbi_g.rawgrademax > 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100\n                   ELSE kbi_g.finalgrade END), 0) AS average_grade,\n       COUNT(DISTINCT kbi_g.id)                   AS grades\nFROM mdl_grade_outcomes kbi_o\n       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_o.courseid\n       LEFT JOIN mdl_course_categories kbi_ca ON kbi_ca.id = kbi_c.category\n       LEFT JOIN mdl_scale kbi_sci ON kbi_sci.id = kbi_o.scaleid\n       LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.outcomeid = kbi_o.id\n       LEFT JOIN mdl_grade_grades kbi_g ON kbi_g.itemid = kbi_gi.id\nWHERE kbi_gi.itemtype = 'mod'\n  AND kbi_c.id = :courseid\nGROUP BY kbi_gi.id,\n         kbi_g.itemid,\n         kbi_gi.itemname,\n         kbi_c.shortname,\n         kbi_c.fullname,\n         kbi_o.fullname,\n         kbi_o.shortname,\n         kbi_o.description,\n         kbi_sci.scale,\n         kbi_ca.name,\n         kbi_c.startdate\nORDER BY kbi_c.fullname, kbi_gi.itemname, kbi_o.fullname",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "activity": {
+                "key": "activity",
+                "title": "lang::report_field_activity_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "course_shortname": {
+                "key": "course_shortname",
+                "title": "lang::report_field_course_shortname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "course_fullname": {
+                "key": "course_fullname",
+                "title": "lang::report_field_course_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "outcome_fullname": {
+                "key": "outcome_fullname",
+                "title": "lang::report_field_outcome_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "outcome_shortname": {
+                "key": "outcome_shortname",
+                "title": "lang::report_field_outcome_shortname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "outcome_description": {
+                "key": "outcome_description",
+                "title": "lang::report_field_outcome_description_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "scale": {
+                "key": "scale",
+                "title": "lang::report_field_scale_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "category": {
+                "key": "category",
+                "title": "lang::report_field_category_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "startdate": {
+                "key": "startdate",
+                "title": "lang::report_field_startdate_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "average_grade": {
+                "key": "average_grade",
+                "title": "lang::report_field_average_grade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "grades": {
+                "key": "grades",
+                "title": "lang::report_field_grades_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

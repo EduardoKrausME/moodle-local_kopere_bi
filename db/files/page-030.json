@@ -1,0 +1,105 @@
+{
+  "title": "lang::report_page_030_title::local_kopere_bi",
+  "description": "lang::report_page_030_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_instructor_engagement_stats_by_course",
+  "sortorder": 30,
+  "category": {
+    "refkey": "instructors",
+    "title": "lang::report_category_instructors_title::local_kopere_bi",
+    "sortorder": 30,
+    "description": "lang::report_category_instructors_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_instructors_30",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_030_title::local_kopere_bi",
+          "refkey": "kbi_el_instructor_engagement_stats_by_course",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_ra.id,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_c.fullname,\n       kbi_c.shortname,\n       e.enrolled                                                AS enrolled,\n       cc.completed                                              AS completed,\n       CASE WHEN l.timespend IS NULL THEN 0 ELSE l.timespend END AS timespend,\n       CASE WHEN l.visits IS NULL THEN 0 ELSE l.visits END       AS visits,\n       CASE\n         WHEN l.last_access IS NULL THEN kbi_mla.timeaccess\n         ELSE l.last_access END                                  AS last_access\nFROM mdl_user kbi_u\n       JOIN mdl_role_assignments kbi_ra ON kbi_ra.userid = kbi_u.id AND kbi_ra.roleid = 3\n       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_ctx.instanceid AND kbi_c.id = :courseid\n       LEFT JOIN (SELECT userid,\n                         courseid,\n                         SUM(kbi_t1.timespend)  AS timespend,\n                         SUM(kbi_t1.visits)     AS visits,\n                         MAX(kbi_t1.lastaccess) AS last_access\n                  FROM mdl_local_kopere_bi_tracking kbi_t1\n                  WHERE kbi_t1.id > 0\n                    AND kbi_t1.courseid = :courseid\n                  GROUP BY kbi_t1.courseid, kbi_t1.userid) l ON l.userid = kbi_u.id AND l.courseid = kbi_c.id\n       JOIN mdl_user_lastaccess kbi_mla ON kbi_mla.userid = kbi_u.id AND kbi_mla.courseid = kbi_c.id\n       LEFT JOIN (SELECT kbi_ctx1.instanceid, COUNT(DISTINCT kbi_ra1.userid) AS enrolled\n                  FROM mdl_role_assignments kbi_ra1\n                         JOIN mdl_context kbi_ctx1 ON kbi_ctx1.id = kbi_ra1.contextid AND kbi_ctx1.contextlevel = 50\n                  WHERE kbi_ra1.roleid = 5\n                    AND kbi_ctx1.instanceid = :courseid\n                  GROUP BY kbi_ctx1.instanceid) e ON e.instanceid = kbi_c.id\n       LEFT JOIN (SELECT course, COUNT(id) AS completed\n                  FROM mdl_course_completions kbi_cc1\n                  WHERE timecompleted > 0\n                    AND kbi_cc1.course = :courseid\n                  GROUP BY course) cc ON cc.course = kbi_c.id\nWHERE kbi_ra.id > 0\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\nGROUP BY kbi_ra.id, kbi_u.id, kbi_c.id, e.enrolled, cc.completed, kbi_u.firstname, kbi_u.lastname, kbi_u.email, kbi_c.fullname, kbi_c.shortname,\n         l.timespend, l.visits, l.last_access, kbi_mla.timeaccess",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{id}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "shortname": {
+                "key": "shortname",
+                "title": "lang::report_field_shortname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "enrolled": {
+                "key": "enrolled",
+                "title": "lang::report_field_enrolled_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "completed": {
+                "key": "completed",
+                "title": "lang::report_field_completed_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "timespend": {
+                "key": "timespend",
+                "title": "lang::report_field_timespend_title::local_kopere_bi",
+                "type": "time",
+                "mustache": ""
+              },
+              "visits": {
+                "key": "visits",
+                "title": "lang::report_field_visits_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "last_access": {
+                "key": "last_access",
+                "title": "lang::report_field_last_access_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

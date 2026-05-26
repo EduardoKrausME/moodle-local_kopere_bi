@@ -34,4 +34,13 @@ $tasks = [
         "dayofweek" => '*',
         "month" => '*',
     ],
+    [
+        "classname" => '\local_kopere_bi\task\report_tables_sync',
+        "blocking" => 0,
+        "minute" => 10,
+        "hour" => '*',
+        "day" => '*',
+        "dayofweek" => '*',
+        "month" => '*',
+    ],
 ];

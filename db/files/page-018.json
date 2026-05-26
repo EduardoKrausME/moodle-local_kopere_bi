@@ -1,0 +1,93 @@
+{
+  "title": "lang::report_page_018_title::local_kopere_bi",
+  "description": "lang::report_page_018_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_user_engagement",
+  "sortorder": 18,
+  "category": {
+    "refkey": "users",
+    "title": "lang::report_category_users_title::local_kopere_bi",
+    "sortorder": 20,
+    "description": "lang::report_category_users_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_users_18",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_018_title::local_kopere_bi",
+          "refkey": "kbi_el_user_engagement",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_u.id,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_u.timecreated,\n       COUNT(DISTINCT kbi_ctx.instanceid) as courses,\n       MAX(lit.timesite)              AS timesite,\n       MAX(lit.timecourses)           AS timecourses,\n       MAX(lit.timeactivities)        AS timeactivities\nFROM mdl_role_assignments kbi_ra\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid\n       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50\n       LEFT JOIN (SELECT userid,\n                         SUM(timespend)                                              as timesite,\n                         SUM(CASE WHEN courseid > 0 THEN timespend ELSE null END)    as timecourses,\n                         SUM(CASE WHEN page = 'module' THEN timespend ELSE null END) as timeactivities\n                  FROM mdl_local_kopere_bi_tracking\n                  GROUP BY userid) as lit ON lit.userid = kbi_u.id\nWHERE kbi_u.id > 0\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_ra.roleid = 5\nGROUP BY kbi_u.id",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{id}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "timecreated": {
+                "key": "timecreated",
+                "title": "lang::report_field_timecreated_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "courses": {
+                "key": "courses",
+                "title": "lang::report_field_courses_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "timesite": {
+                "key": "timesite",
+                "title": "lang::report_field_timesite_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "timecourses": {
+                "key": "timecourses",
+                "title": "lang::report_field_timecourses_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "timeactivities": {
+                "key": "timeactivities",
+                "title": "lang::report_field_timeactivities_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

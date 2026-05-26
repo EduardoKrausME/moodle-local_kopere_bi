@@ -1,0 +1,154 @@
+{
+  "title": "lang::report_page_059_title::local_kopere_bi",
+  "description": "lang::report_page_059_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_activity_status_detail_simple",
+  "sortorder": 59,
+  "category": {
+    "refkey": "activities",
+    "title": "lang::report_category_activities_title::local_kopere_bi",
+    "sortorder": 70,
+    "description": "lang::report_category_activities_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_activities_59",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_059_title::local_kopere_bi",
+          "refkey": "kbi_el_activity_status_detail_simple",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_ue.userid,\n       kbi_u.email,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_c.fullname,\n       kbi_g.timemodified                                        as graduated,\n       kbi_cm.added                                              as created,\n       ROUND((CASE\n                WHEN kbi_g.rawgrademax > 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100\n                ELSE kbi_g.finalgrade END), 0)                   AS grade,\n       ROUND((CASE\n                WHEN kbi_g_c.rawgrademax > 0 THEN (kbi_g_c.finalgrade / kbi_g_c.rawgrademax) * 100\n                ELSE kbi_g_c.finalgrade END), 0)                 AS grade_course,\n       kbi_gi.gradepass,\n       kbi_g.rawgrademax,\n       kbi_g.finalgrade,\n       kbi_cm.completion,\n       kbi_cmc.completionstate,\n       kbi_m.name                                                AS module_name,\n       kbi_gi.itemname,\n       kbi_ue.status                                             AS enrol_status,\n       kbi_ue.timeend,\n       CASE\n         WHEN kbi_ue.id > 0 AND kbi_cmc.completionstate IN (1, 2)\n                 THEN kbi_cmc.timemodified\n         ELSE NULL END                                       AS completed_date\nFROM (SELECT MAX(kbi_ue.id) AS id, MIN(kbi_ue.status) AS status, MAX(kbi_ue.timeend) AS timeend, kbi_ue.userid, kbi_e.courseid\n      FROM mdl_user_enrolments kbi_ue\n             JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid\n      GROUP BY kbi_e.courseid, kbi_ue.userid) ue\n       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_ue.courseid\n       JOIN mdl_modules kbi_m ON kbi_m.id = kbi_cm.module\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ue.userid\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_ue.courseid\n       JOIN mdl_grade_items kbi_gi_c ON kbi_gi_c.itemtype = 'course' AND kbi_gi_c.courseid = kbi_ue.courseid\n       LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.itemtype = 'mod' AND kbi_gi.iteminstance = kbi_cm.instance AND kbi_gi.itemmodule = kbi_m.name\n       LEFT JOIN mdl_grade_grades kbi_g ON kbi_g.itemid = kbi_gi.id AND kbi_g.userid = kbi_ue.userid\n       LEFT JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.coursemoduleid = kbi_cm.id AND kbi_cmc.userid = kbi_ue.userid\n       LEFT JOIN mdl_grade_grades kbi_g_c ON kbi_g_c.itemid = kbi_gi_c.id AND kbi_g_c.userid = kbi_ue.userid\nWHERE kbi_ue.id > 0\n  AND kbi_cm.course = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_cm.visible = 1",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "graduated": {
+                "key": "graduated",
+                "title": "lang::report_field_graduated_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "created": {
+                "key": "created",
+                "title": "lang::report_field_created_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "grade": {
+                "key": "grade",
+                "title": "lang::report_field_grade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "grade_course": {
+                "key": "grade_course",
+                "title": "lang::report_field_grade_course_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "gradepass": {
+                "key": "gradepass",
+                "title": "lang::report_field_gradepass_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "rawgrademax": {
+                "key": "rawgrademax",
+                "title": "lang::report_field_rawgrademax_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "finalgrade": {
+                "key": "finalgrade",
+                "title": "lang::report_field_finalgrade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "completion": {
+                "key": "completion",
+                "title": "lang::report_field_completion_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "completionstate": {
+                "key": "completionstate",
+                "title": "lang::report_field_completionstate_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "module_name": {
+                "key": "module_name",
+                "title": "lang::report_field_module_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "itemname": {
+                "key": "itemname",
+                "title": "lang::report_field_itemname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "enrol_status": {
+                "key": "enrol_status",
+                "title": "lang::report_field_enrol_status_title::local_kopere_bi",
+                "type": "status",
+                "mustache": ""
+              },
+              "timeend": {
+                "key": "timeend",
+                "title": "lang::report_field_timeend_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "completed_date": {
+                "key": "completed_date",
+                "title": "lang::report_field_completed_date_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}

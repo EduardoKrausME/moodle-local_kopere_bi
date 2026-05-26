@@ -1,0 +1,148 @@
+{
+  "title": "lang::report_page_050_title::local_kopere_bi",
+  "description": "lang::report_page_050_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_enrollment_method_details",
+  "sortorder": 50,
+  "category": {
+    "refkey": "enrollments",
+    "title": "lang::report_category_enrollments_title::local_kopere_bi",
+    "sortorder": 50,
+    "description": "lang::report_category_enrollments_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_enrollments_50",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_050_title::local_kopere_bi",
+          "refkey": "kbi_el_enrollment_method_details",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_ue.id,\n       kbi_ue.timecreated                         AS enrolstart,\n       kbi_ue.timeend                             AS enrolend,\n       kbi_ccc.timeend,\n       kbi_c.enablecompletion,\n       kbi_cc.timecompleted                       AS complete,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_ue.userid,\n       kbi_e.courseid,\n       kbi_e.enrol                                AS enrols,\n       CONCAT(kbi_u1.firstname, ' ', kbi_u1.lastname) AS endrolled_by,\n       kbi_ue.status                              AS enrol_status,\n       kbi_ra.roles                               AS course_roles,\n       kbi_c.fullname                             AS course,\n       kbi_c.startdate                            AS startdate,\n       kbi_c.enddate                              AS enddate\nFROM mdl_user_enrolments kbi_ue\n       JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ue.userid\n       JOIN (SELECT kbi_ctx.instanceid,\n                    kbi_ra.userid,\n                    MIN(kbi_ra.modifierid)                                 AS modifierid,\n                    GROUP_CONCAT(DISTINCT(kbi_r.shortname) SEPARATOR ', ') AS roles\n             FROM mdl_context kbi_ctx\n                    JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_ctx.id\n                    JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid\n             WHERE kbi_ctx.contextlevel = 50\n             GROUP BY kbi_ctx.instanceid, kbi_ra.userid) ra ON kbi_ra.instanceid = kbi_e.courseid AND kbi_ra.userid = kbi_ue.userid\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_e.courseid\n       LEFT JOIN mdl_user kbi_u1 ON kbi_u1.id = kbi_ra.modifierid\n       LEFT JOIN mdl_course_completions kbi_cc ON kbi_cc.course = kbi_e.courseid AND kbi_cc.userid = kbi_ue.userid\n       LEFT JOIN mdl_course_completion_criteria kbi_ccc ON kbi_ccc.course = kbi_e.courseid AND kbi_ccc.criteriatype = 2\nWHERE kbi_ue.id > 0\n  AND kbi_c.id = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_ue.status = 0\n  AND kbi_e.status = 0\nORDER BY kbi_c.fullname, kbi_u.lastname, kbi_u.firstname",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "enrolstart": {
+                "key": "enrolstart",
+                "title": "lang::report_field_enrolstart_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "enrolend": {
+                "key": "enrolend",
+                "title": "lang::report_field_enrolend_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "timeend": {
+                "key": "timeend",
+                "title": "lang::report_field_timeend_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "enablecompletion": {
+                "key": "enablecompletion",
+                "title": "lang::report_field_enablecompletion_title::local_kopere_bi",
+                "type": "status",
+                "mustache": ""
+              },
+              "complete": {
+                "key": "complete",
+                "title": "lang::report_field_complete_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_field_firstname_title::local_kopere_bi",
+                "type": "userfullname",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "",
+                "type": "none",
+                "mustache": ""
+              },
+              "email": {
+                "key": "email",
+                "title": "lang::report_field_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "enrols": {
+                "key": "enrols",
+                "title": "lang::report_field_enrols_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "endrolled_by": {
+                "key": "endrolled_by",
+                "title": "lang::report_field_endrolled_by_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "enrol_status": {
+                "key": "enrol_status",
+                "title": "lang::report_field_enrol_status_title::local_kopere_bi",
+                "type": "status",
+                "mustache": ""
+              },
+              "course_roles": {
+                "key": "course_roles",
+                "title": "lang::report_field_course_roles_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{courseid}}}\" target=\"course\">{{{course}}}</a>"
+              },
+              "startdate": {
+                "key": "startdate",
+                "title": "lang::report_field_startdate_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "enddate": {
+                "key": "enddate",
+                "title": "lang::report_field_enddate_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "mysql"
+}
