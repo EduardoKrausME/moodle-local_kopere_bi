@@ -99,7 +99,7 @@ class provider implements i_filter_provider {
                 ],
                 "table-title" => get_string("reports_selectcourse", "local_kopere_bi"),
                 "url-ajax" => "view-ajax.php?classname=courses&method=load_all_courses",
-                "url-click" => "?classname=$classname&method=$method&" . http_build_query($paramsurl, "", "&"),
+                "url-click" => "?classname={$classname}&method={$method}&" . http_build_query($paramsurl, "", "&"),
             ];
 
             global $OUTPUT, $PAGE;
