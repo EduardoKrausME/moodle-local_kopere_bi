@@ -37,7 +37,7 @@ if ($hassiteconfig) {
         new admin_externalpage(
             "local_kopere_bi",
             get_string("modulename", "local_kopere_bi"),
-            "{$CFG->wwwroot}/local/kopere_bi/index.php?classname=dashboard&method=start"
+            "{$CFG->wwwroot}/local/kopere_bi/?classname=dashboard&method=start"
         )
     );
 
