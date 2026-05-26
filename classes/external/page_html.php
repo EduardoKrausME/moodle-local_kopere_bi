@@ -134,7 +134,6 @@ class page_html extends external_api {
             $js .= "{$returnitem}\n";
         }
 
-        $return .= load_kopere_bi_assets();
         $return .= "\n\n<script>{$js}</script>";
 
         return ["html" => $return];
