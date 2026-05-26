@@ -602,6 +602,46 @@
     }
     #chart-filter {
         padding-bottom: 11px;
+        .select {
+            display: inline-block;
+            min-width: 160px;
+            padding: 8px 36px 8px 12px;
+            font: inherit;
+            color: #222222;
+            line-height: 1.4;
+            border: 1px solid #aaaaaa;
+            border-radius: 4px;
+            background-color: #ffffff;
+            cursor: default;
+            user-select: none;
+            position: relative;
+            box-sizing: border-box;
+            &::after {
+                content: "";
+                position: absolute;
+                right: 12px;
+                top: 50%;
+                width: 0;
+                height: 0;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                border-top: 6px solid #555555;
+                transform: translateY(-50%);
+                pointer-events: none;
+            }
+            &:hover {
+                border-color: #777777;
+            }
+            &:focus {
+                outline: 2px solid #4d90fe;
+                outline-offset: 1px;
+            }
+            &.disabled {
+                color: #777777;
+                background-color: #eeeeee;
+                cursor: not-allowed;
+            }
+        }
     }
     .ace_editor,
     .ace_editor * {
@@ -653,11 +693,11 @@
         }
     }
 }
-//@media (prefers-color-scheme: dark) {
-//    @include local_kopere_bi_darkmodecode;
-//}
 [data-bs-theme=dark] {
     @include local_kopere_bi_darkmodecode;
 }
 @import "styles/dashboard-start";
+@import "styles/reports-home";
+@import "styles/chart-box";
 @import "amd/src/ace";
+
