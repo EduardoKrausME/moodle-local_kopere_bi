@@ -111,7 +111,7 @@ class provider implements i_block_provider {
         $id = uniqid();
 
         $param = ["item_id" => $koperebielement->id, "theme" => $koperebielement->theme];
-        $url = urlencode("view-ajax.php?classname=chart_data&method=load_data&" . http_build_query($param, "", "&"));
+        $url = urlencode("../../../view-ajax.php?classname=chart_data&method=load_data&" . http_build_query($param, "", "&"));
 
         $urlresource = urlencode("{$CFG->wwwroot}/local/kopere_bi/biblocks/maps/assets/resource/");
 

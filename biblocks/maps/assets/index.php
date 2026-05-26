@@ -22,7 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once("../../../config.php");
+error_reporting(E_ALL);
+require_once("../../../../../config.php");
 
 require_login();
 
@@ -54,7 +55,7 @@ echo "<!DOCTYPE html>
 <html>
 <head>
     <meta charset='UTF-8'>
-    <title>" . get_string('maps_name', 'biblocks_maps') . "</title>
+    <title>Maps</title>
     <style>{$css}</style>
 </head>
 <body>
