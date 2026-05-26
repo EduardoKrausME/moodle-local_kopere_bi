@@ -61,6 +61,9 @@ class menu {
             $children[] = [
                 "title" => string_util::get_string($koperebicat->title),
                 "url" => new moodle_url("/local/kopere_bi/index.php", $params),
+                "activeurls" => [
+                    new moodle_url("/local/kopere_bi/index.php", ["bicat" => $koperebicat->id]),
+                ],
                 "icon" => "bar_chart_4_bars",
             ];
         }
@@ -72,6 +75,9 @@ class menu {
                     "title" => get_string("pluginname", "local_kopere_bi"),
                     "description" => get_string("menu_desc", "local_kopere_bi"),
                     "url" => new moodle_url("/local/kopere_bi/index.php", ["classname" => "dashboard", "method" => "start"]),
+                    "activeurls" => [
+                        new moodle_url("/local/kopere_bi/index.php"),
+                    ],
                     "icon" => "area_chart",
                     "capability" => "local/kopere_bi:view",
                     "children" => $children,
