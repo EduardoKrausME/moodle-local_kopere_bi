@@ -19,11 +19,31 @@
 
     Example context (json):
     {
-      "btn-title": "users",
-      "btn-subtitle": "João da Silva",
-      "url-ajax": "https://example.com/user_ajax_endpoint",
-      "url-click": "https://example.com/user_click_endpoint",
-      "table-title": "Select user"
+        "popupid": "filter-user-1",
+        "btn-title": "Usuário",
+        "btn-subtitle": "João da Silva",
+        "url-ajax": "view-ajax.php?classname=users&method=load_all_users",
+        "url-click": "?classname=dashboard&method=preview&page_id=10&userid={id}",
+        "table-title": "Selecionar usuário",
+        "cols": [
+            {
+                "id": "id",
+                "name": "#",
+                "style": "width:20px"
+            },
+            {
+                "id": "fullname",
+                "name": "Nome completo"
+            },
+            {
+                "id": "username",
+                "name": "Usuário"
+            },
+            {
+                "id": "email",
+                "name": "E-mail"
+            }
+        ]
     }
 }}
 

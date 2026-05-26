@@ -19,11 +19,18 @@
 
     Example context (json):
     {
+      "total_categories": "2",
+      "total_pages": "5",
+      "has_categories": true,
       "categorys": [
         {
           "category_title": "Categoria 1",
+          "category_description": "Descrição da categoria.",
+          "has_category_description": true,
+          "category_page_count": "3",
           "editing": true,
           "category_id": "1",
+          "has_pages": true,
           "pages": [
             {
               "page_id": "101",
@@ -39,91 +46,160 @@
 }}
 
 {{#editing}}
-    <div class="mb-3 d-flex justify-content-end gap-3">
+    <div class="reports-home-toolbar">
         <a href="?classname=dashboard&method=edit_cat"
            class="btn btn-success">{{#str}}cat_new,local_kopere_bi{{/str}}</a>
         <a href="?classname=data_import&method=cat_upload"
-           class="btn btn-success">{{#str}}cat_upload,local_kopere_bi{{/str}}</a>
+           class="btn btn-outline-secondary">{{#str}}cat_upload,local_kopere_bi{{/str}}</a>
     </div>
 {{/editing}}
 
 <div class="reports-home">
-    <nav class="filters" aria-label="{{#str}}filters{{/str}}">
-        <button class="chip" aria-pressed="true" data-filter="all">{{#str}}all{{/str}}</button>
-        {{#categorys}}
-            <button class="chip" aria-pressed="false"
-                    data-filter="category-{{{category_id}}}">{{{category_title}}}</button>
-        {{/categorys}}
-    </nav>
+    <header class="reports-home__hero">
+        <div class="reports-home__hero-content">
+            <span class="reports-home__eyebrow">{{#str}}pluginname,local_kopere_bi{{/str}}</span>
+            <h2 class="reports-home__title">{{#str}}reports_home_title,local_kopere_bi{{/str}}</h2>
+            <p class="reports-home__subtitle">{{#str}}reports_home_subtitle,local_kopere_bi{{/str}}</p>
+        </div>
 
-    {{#categorys}}
-        <section class="group"
-                 data-group="category-{{{category_id}}}"
-                 data-category_id="{{{category_id}}}">
-            <h2 class="group__title">
-                {{{category_title}}}
-                {{#editing}}
-                    <div class="buttons-move">
-                        <span class="btn-move-up" style="display:none">
-                            {{#pix}} icons/btn-move-up, local_kopere_bi {{/pix}}
-                        </span>
-                        <span class="btn-move-down" style="display:none">
-                            {{#pix}} icons/btn-move-down, local_kopere_bi {{/pix}}
-                        </span>
-
-                        <a href="?classname=dashboard&method=edit&cat_id={{category_id}}"
-                        class="btn btn-primary">{{#str}}page_new_cat,local_kopere_bi{{/str}}</a>
-                        <a href="?classname=dashboard&method=edit_cat&cat_id={{category_id}}"
-                        class="btn btn-success">{{#str}}cat_edit,local_kopere_bi{{/str}}</a>
-                        <a href="?classname=dashboard&method=delete_cat&cat_id={{category_id}}"
-                        class="btn btn-danger ml-2">{{#str}}cat_delete,local_kopere_bi{{/str}}</a>
-                    </div>
-                {{/editing}}
-            </h2>
-            <div class="grid">
-                {{#pages}}
-                    <article class="card" data-category="vendas">
-                        <div class="card__icon" aria-hidden="true">
-                            {{#pix}} icons/report, local_kopere_bi {{/pix}}
-                        </div>
-                        <div class="card__body">
-                            <h3 class="card__title">{{{page_title}}}</h3>
-                            <p class="card__desc">{{{description}}}</p>
-                        </div>
-                        <div class="card__actions">
-                            <a class="btn btn-primary"
-                               href="?classname=dashboard&method=preview&page_id={{page_id}}">
-                            {{#str}}resourcedisplayopen{{/str}}
-                            </a>
-                        </div>
-                    </article>
-                {{/pages}}
+        <div class="reports-home__stats" aria-label="{{#str}}reports_home_summary,local_kopere_bi{{/str}}">
+            <div class="reports-home__stat">
+                <strong>{{total_categories}}</strong>
+                <span>{{#str}}reports_home_total_categories,local_kopere_bi{{/str}}</span>
             </div>
-        </section>
-    {{/categorys}}
+            <div class="reports-home__stat">
+                <strong>{{total_pages}}</strong>
+                <span>{{#str}}reports_home_total_reports,local_kopere_bi{{/str}}</span>
+            </div>
+        </div>
+    </header>
+
+        <nav class="reports-home__filters" aria-label="{{#str}}reports_home_filter_label,local_kopere_bi{{/str}}">
+            <button class="reports-home__chip is-active" aria-pressed="true" data-filter="all">
+                {{#str}}reports_home_all,local_kopere_bi{{/str}}
+            </button>
+            {{#categorys}}
+                <button class="reports-home__chip" aria-pressed="false"
+                        data-filter="category-{{{category_id}}}">
+                    <span>{{{category_title}}}</span>
+                    <small>{{category_page_count}}</small>
+                </button>
+            {{/categorys}}
+        </nav>
+
+        <div class="reports-home__groups">
+            {{#categorys}}
+                <section class="reports-home__group"
+                         data-group="category-{{{category_id}}}"
+                         data-category_id="{{{category_id}}}">
+                    <div class="reports-home__group-header">
+                        <div class="reports-home__group-heading">
+                            <h3 class="reports-home__group-title">{{{category_title}}}</h3>
+                            {{#has_category_description}}
+                                <p class="reports-home__group-description">{{{category_description}}}</p>
+                            {{/has_category_description}}
+                        </div>
+
+                        {{#editing}}
+                            <div class="reports-home__group-actions buttons-move">
+                                <button type="button" class="reports-home__move btn-move-up is-hidden"
+                                        title="{{#str}}moveup{{/str}}">
+                                    {{#pix}} icons/btn-move-up, local_kopere_bi {{/pix}}
+                                </button>
+                                <button type="button" class="reports-home__move btn-move-down is-hidden"
+                                        title="{{#str}}movedown{{/str}}">
+                                    {{#pix}} icons/btn-move-down, local_kopere_bi {{/pix}}
+                                </button>
+
+                                <a href="?classname=dashboard&method=edit&cat_id={{category_id}}"
+                                   class="btn btn-sm btn-primary">{{#str}}page_new_cat,local_kopere_bi{{/str}}</a>
+                                <a href="?classname=dashboard&method=edit_cat&cat_id={{category_id}}"
+                                   class="btn btn-sm btn-outline-secondary">{{#str}}cat_edit,local_kopere_bi{{/str}}</a>
+                                <a href="?classname=dashboard&method=delete_cat&cat_id={{category_id}}"
+                                   class="btn btn-sm btn-outline-danger">{{#str}}cat_delete,local_kopere_bi{{/str}}</a>
+                            </div>
+                        {{/editing}}
+                    </div>
+
+                    {{#has_pages}}
+                        <div class="reports-home__grid">
+                            {{#pages}}
+                                <article class="reports-home__card">
+                                    <a class="reports-home__card-link"
+                                       href="?classname=dashboard&method=preview&page_id={{page_id}}"
+                                       aria-label="{{#str}}reports_home_open_report,local_kopere_bi{{/str}}: {{page_title}}">
+                                        <span class="reports-home__card-content">
+                                            <strong class="reports-home__card-title">{{{page_title}}}</strong>
+                                            {{#description}}
+                                                <span class="reports-home__card-desc">{{{description}}}</span>
+                                            {{/description}}
+                                            {{#is_user_fullname}}
+                                                <span class="reports-home__card-owner">
+                                                    {{#pix}} icons/user, local_kopere_bi {{/pix}}
+                                                    {{{user_fullname}}}
+                                                </span>
+                                            {{/is_user_fullname}}
+                                        </span>
+
+                                        <span class="reports-home__card-action">
+                                            {{#str}}reports_home_open_report,local_kopere_bi{{/str}}
+                                        </span>
+                                    </a>
+                                </article>
+                            {{/pages}}
+                        </div>
+                    {{/has_pages}}
+
+                    {{^has_pages}}
+                        <div class="reports-home__empty reports-home__empty--small">
+                            {{#str}}reports_home_category_empty,local_kopere_bi{{/str}}
+                        </div>
+                    {{/has_pages}}
+                </section>
+            {{/categorys}}
+        </div>
+
+    {{^has_categories}}
+        <div class="reports-home__empty">
+            <strong>{{#str}}reports_home_empty_title,local_kopere_bi{{/str}}</strong>
+            <span>{{#str}}reports_home_empty_text,local_kopere_bi{{/str}}</span>
+        </div>
+    {{/has_categories}}
 </div>
 
 {{#js}}
-    //<script>
-    require(["jquery", "core/ajax",], function ($, ajax) {
-        $(".btn-move-up,.btn-move-down").show();
-        $(".reports-home").each(clickIcons);
+    require(["jquery", "core/ajax"], function ($, ajax) {
+        var $home = $(".reports-home");
+
+        $home.find(".btn-move-up,.btn-move-down").removeClass("is-hidden");
+        $home.find(".reports-home__group").each(clickIcons);
 
         function clickIcons(id, element) {
             var $element = $(element);
-            $element.find(".btn-move-down").click(function () {
-                $element.next().insertBefore($element);
-                saveOrderCategories();
+
+            $element.find(".btn-move-down").on("click", function () {
+                var $next = $element.next(".reports-home__group");
+
+                if ($next.length) {
+                    $next.insertBefore($element);
+                    saveOrderCategories();
+                }
             });
-            $element.find(".btn-move-up").click(function () {
-                $element.prev().insertAfter($element);
-                saveOrderCategories();
+
+            $element.find(".btn-move-up").on("click", function () {
+                var $prev = $element.prev(".reports-home__group");
+
+                if ($prev.length) {
+                    $prev.insertAfter($element);
+                    saveOrderCategories();
+                }
             });
         }
 
         function saveOrderCategories() {
             var itens = "";
-            $(".dashboard-home").each(function () {
+
+            $(".reports-home__group").each(function () {
                 itens += "," + $(this).attr("data-category_id");
             });
 
@@ -134,38 +210,42 @@
                 }
             }])[0];
         }
-    });
 
-    // Filtro por categoria.
-    const chips = document.querySelectorAll(".chip");
-    const groups = document.querySelectorAll(".group");
+        var chips = document.querySelectorAll(".reports-home__chip");
+        var groups = document.querySelectorAll(".reports-home__group");
 
-    function applyCategoryFilter(filter, selectedChip) {
-        chips.forEach(chip => {
-            chip.setAttribute("aria-pressed", chip === selectedChip ? "true" : "false");
-        });
+        function applyCategoryFilter(filter, selectedChip) {
+            chips.forEach(function (chip) {
+                var isSelected = chip === selectedChip;
 
-        groups.forEach(group => {
-            if (filter === "all") {
-                group.classList.remove("hidden-group");
-            } else {
-                group.classList.toggle("hidden-group", group.dataset.group !== filter);
-            }
-        });
-    }
+                chip.classList.toggle("is-active", isSelected);
+                chip.setAttribute("aria-pressed", isSelected ? "true" : "false");
+            });
 
-    chips.forEach(chip => chip.addEventListener("click", () => {
-        applyCategoryFilter(chip.dataset.filter, chip);
-    }));
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const bicat = urlParams.get("bicat");
-
-    if (/^\d+$/.test(bicat || "")) {
-        const selectedChip = document.querySelector(`.chip[data-filter="category-${bicat}"]`);
-
-        if (selectedChip) {
-            applyCategoryFilter(selectedChip.dataset.filter, selectedChip);
+            groups.forEach(function (group) {
+                if (filter === "all") {
+                    group.classList.remove("hidden-group");
+                } else {
+                    group.classList.toggle("hidden-group", group.dataset.group !== filter);
+                }
+            });
         }
-    }
+
+        chips.forEach(function (chip) {
+            chip.addEventListener("click", function () {
+                applyCategoryFilter(chip.dataset.filter, chip);
+            });
+        });
+
+        var urlParams = new URLSearchParams(window.location.search);
+        var bicat = urlParams.get("bicat");
+
+        if (/^\d+$/.test(bicat || "")) {
+            var selectedChip = document.querySelector('.reports-home__chip[data-filter="category-' + bicat + '"]');
+
+            if (selectedChip) {
+                applyCategoryFilter(selectedChip.dataset.filter, selectedChip);
+            }
+        }
+    });
 {{/js}}
