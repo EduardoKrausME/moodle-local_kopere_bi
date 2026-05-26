@@ -28,8 +28,7 @@ $string['table_col_title'] = 'Column title';
 $string['table_column_not_configured'] = 'Columns not configured in this table';
 $string['table_edit_column'] = 'Column';
 $string['table_first_records'] = 'The first ten records of the query';
-$string['table_info_topo'] =
-    'First, you will see a preview of the search results. Then, a series of columns will be presented for you to name the titles and define the format of each column’s data.';
+$string['table_info_topo'] = 'First, you will see a preview of the search results. Then, a series of columns will be presented for you to name the titles and define the format of each column’s data.';
 $string['table_info_types'] = 'You can now set a name for the column and then specify the desired format and whether you want any extra formatting with Mustache.
 <ul>
     <li><strong>No formatting</strong>: Displays the content exactly as it is or applies Mustache if you add it.</li>
