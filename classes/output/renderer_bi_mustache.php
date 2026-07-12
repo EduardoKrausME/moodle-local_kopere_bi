@@ -29,6 +29,14 @@ use Exception;
 use local_kopere_bi\block\util\string_util;
 use Mustache_Engine;
 
+defined('MOODLE_INTERNAL') || die();
+
+// Moodle 5.2 ships mustache/mustache 3.x, where Mustache_Engine became the
+// namespaced Mustache\Engine without a back-compat alias for the old name.
+if (!class_exists('Mustache_Engine')) {
+    class_alias('Mustache\Engine', 'Mustache_Engine');
+}
+
 /**
  * Class renderer_bi_mustache
  */

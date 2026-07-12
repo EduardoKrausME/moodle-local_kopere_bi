@@ -30,6 +30,15 @@ use local_kopere_bi\block\util\sql_util;
 use local_kopere_dashboard\util\message;
 use Mustache_LambdaHelper;
 
+defined('MOODLE_INTERNAL') || die();
+
+// Moodle 5.2 ships mustache/mustache 3.x, where Mustache_LambdaHelper became
+// the namespaced Mustache\LambdaHelper without a back-compat alias, and the
+// engine passes the new class into the transform() type hint below.
+if (!class_exists('Mustache_LambdaHelper')) {
+    class_alias('Mustache\LambdaHelper', 'Mustache_LambdaHelper');
+}
+
 /**
  * Class mustache_sql_oneitem_helper
  */
