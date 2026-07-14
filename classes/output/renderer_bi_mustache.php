@@ -27,20 +27,18 @@ namespace local_kopere_bi\output;
 use cache;
 use Exception;
 use local_kopere_bi\block\util\string_util;
-use Mustache_Engine;
 
-defined('MOODLE_INTERNAL') || die();
-
-// Moodle 5.2 ships mustache/mustache 3.x, where Mustache_Engine became the
-// namespaced Mustache\Engine without a back-compat alias for the old name.
 if (!class_exists('Mustache_Engine')) {
     class_alias('Mustache\Engine', 'Mustache_Engine');
+}
+if (!class_exists('Mustache_Source')) {
+    class_alias('Mustache\Source', 'Mustache_Source');
 }
 
 /**
  * Class renderer_bi_mustache
  */
-class renderer_bi_mustache extends Mustache_Engine {
+class renderer_bi_mustache extends \Mustache_Engine {
 
     /**
      * Function new_instance
@@ -110,7 +108,7 @@ class renderer_bi_mustache extends Mustache_Engine {
                 ],
 
             ],
-            "pragmas" => [Mustache_Engine::PRAGMA_BLOCKS],
+            "pragmas" => [\Mustache_Engine::PRAGMA_BLOCKS],
         ]);
     }
 

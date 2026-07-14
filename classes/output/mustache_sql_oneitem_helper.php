@@ -28,13 +28,7 @@ use Exception;
 use local_kopere_bi\block\util\database_util;
 use local_kopere_bi\block\util\sql_util;
 use local_kopere_dashboard\util\message;
-use Mustache_LambdaHelper;
 
-defined('MOODLE_INTERNAL') || die();
-
-// Moodle 5.2 ships mustache/mustache 3.x, where Mustache_LambdaHelper became
-// the namespaced Mustache\LambdaHelper without a back-compat alias, and the
-// engine passes the new class into the transform() type hint below.
 if (!class_exists('Mustache_LambdaHelper')) {
     class_alias('Mustache\LambdaHelper', 'Mustache_LambdaHelper');
 }
@@ -47,11 +41,11 @@ class mustache_sql_oneitem_helper {
      * Function transform
      *
      * @param $sql
-     * @param Mustache_LambdaHelper $helper
+     * @param \Mustache_LambdaHelper $helper
      * @return string
      * @throws Exception
      */
-    public function transform($sql, Mustache_LambdaHelper $helper) {
+    public function transform($sql, \Mustache_LambdaHelper $helper) {
         $comand = sql_util::prepare_sql($sql);
 
         try {
