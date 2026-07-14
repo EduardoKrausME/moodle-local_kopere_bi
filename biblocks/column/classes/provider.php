@@ -181,7 +181,7 @@ class provider extends \biblocks_line\provider {
     public function get_chart_data($koperebielement) {
         $cache = cache_util::get_cache_make($koperebielement->cache);
 
-        if (false && $cache->has($koperebielement->id)) {
+        if (cache->has($koperebielement->id)) {
             $lines = $cache->get($koperebielement->id);
         } else {
 

@@ -111,7 +111,7 @@ class provider implements i_block_provider {
 
         $cache = cache_util::get_cache_make($koperebielement->cache);
 
-        if (false && $cache->has($koperebielement->id)) {
+        if (cache->has($koperebielement->id)) {
             $retorno = $cache->get($koperebielement->id);
         } else {
 

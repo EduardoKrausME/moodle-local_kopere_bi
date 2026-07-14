@@ -142,7 +142,7 @@ class provider implements i_block_provider {
 
         $cache = cache_util::get_cache_make($koperebielement->cache);
 
-        if (false && $cache->has($koperebielement->id)) {
+        if (cache->has($koperebielement->id)) {
             $returnhtml = $cache->get($koperebielement->id);
         } else {
             $comand = sql_util::prepare_sql($koperebielement->commandsql);
