@@ -1,0 +1,23 @@
+# (RFC §4.1). Authors update their listing with an ordinary commit; camp
+# ingests and hash-pins it at each tagged release. Listing for local_kopere_bi.
+
+name: "Kopere BI"
+summary: "More than 100 dashboards and reports for intelligent data management."
+description: |
+  More than 100 dashboards and reports for intelligent data management.
+
+  Kopere BI is a reporting and dashboard plugin for Moodle with more than 100 ready-to-use reports .
+
+  Key capabilities:
+  - Students 9 reports
+  - Courses and content 16 reports
+  - Login reports 2 reports
+
+  Supported Moodle versions in the supplied plugin list: 3.11 - 5.0.
+
+labels:
+  - fully-free
+category: "reports"
+links:
+  docs: https://github.com/EduardoKrausME/moodle-local_kopere_bi#readme
+  issues: https://github.com/EduardoKrausME/moodle-local_kopere_bi/issues
