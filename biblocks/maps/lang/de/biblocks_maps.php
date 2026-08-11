@@ -26,7 +26,6 @@ $string['maps_1_city'] = '{a1} und eine weitere Stadt';
 $string['maps_many_city'] = '{a1} und {a2} weitere Städte';
 $string['maps_online'] = '{a1} Teilnehmer online';
 $string['maps_onlines'] = '{a1} Teilnehmer online';
-$string['maps_sql_warning'] =
-    '<p>Beachten Sie, dass die folgende SQL-Abfrage nur eine Spalte zurückgeben sollte und diese Spalte eine gültige IP enthalten muss.<br>Beispiel: Die SQL-Abfrage <code>SELECT lastip FROM {user} WHERE lastaccess > UNIX_TIMESTAMP() - (10 * 60)</code> gibt alle Teilnehmer zurück, die in den letzten 10 Minuten auf Moodle zugegriffen haben</p>';
+$string['maps_sql_warning'] = '<p>Beachten Sie, dass die folgende SQL-Abfrage nur eine Spalte zurückgeben sollte und diese Spalte eine gültige IP enthalten muss.<br>Beispiel: Die SQL-Abfrage <code>SELECT lastip FROM {user} WHERE lastaccess > UNIX_TIMESTAMP() - (10 * 60)</code> gibt alle Teilnehmer zurück, die in den letzten 10 Minuten auf Moodle zugegriffen haben</p>';
 $string['pluginname'] = 'Karte der Online-Teilnehmer';
 $string['pluginname_desc'] = 'Erstellt eine Karte der Online-Teilnehmer basierend auf ihren IPs';

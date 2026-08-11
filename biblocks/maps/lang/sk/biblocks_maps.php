@@ -26,7 +26,6 @@ $string['maps_1_city'] = '{a1} a ešte jedno mesto';
 $string['maps_many_city'] = '{a1} a ďalších {a2} miest';
 $string['maps_online'] = '{a1} študent online';
 $string['maps_onlines'] = '{a1} študentov online';
-$string['maps_sql_warning'] =
-    '<p>Pamätajte, že SQL uvedené nižšie má vrátiť iba jeden stĺpec a tento stĺpec musí obsahovať platnú IP adresu.<br>Príklad: SQL <code>SELECT lastip FROM {user} WHERE lastaccess > UNIX_TIMESTAMP() - (10 * 60)</code> vráti všetkých študentov, ktorí pristúpili do Moodle za posledných 10 minút</p>';
+$string['maps_sql_warning'] = '<p>Pamätajte, že SQL uvedené nižšie má vrátiť iba jeden stĺpec a tento stĺpec musí obsahovať platnú IP adresu.<br>Príklad: SQL <code>SELECT lastip FROM {user} WHERE lastaccess > UNIX_TIMESTAMP() - (10 * 60)</code> vráti všetkých študentov, ktorí pristúpili do Moodle za posledných 10 minút</p>';
 $string['pluginname'] = 'Mapa online študentov';
 $string['pluginname_desc'] = 'Vytvorí mapu online študentov na základe ich IP adries';

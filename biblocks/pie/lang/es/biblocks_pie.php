@@ -22,7 +22,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pie_sql_warning'] =
-    '<p>El SQL siguiente debe devolver solo dos columnas.</p><p>La primera columna será el nombre de la columna, y la segunda columna debe ser un valor numérico.</p>';
+$string['pie_sql_warning'] = '<p>El SQL siguiente debe devolver solo dos columnas.</p><p>La primera columna será el nombre de la columna, y la segunda columna debe ser un valor numérico.</p>';
 $string['pluginname'] = 'Gráfico circular';
 $string['pluginname_desc'] = 'Crea un gráfico circular';

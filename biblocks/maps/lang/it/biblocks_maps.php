@@ -26,7 +26,6 @@ $string['maps_1_city'] = '{a1} e un\'altra città';
 $string['maps_many_city'] = '{a1} e altre {a2} città';
 $string['maps_online'] = '{a1} studente online';
 $string['maps_onlines'] = '{a1} studenti online';
-$string['maps_sql_warning'] =
-    '<p>Ricorda che l’SQL seguente deve restituire una sola colonna, e che tale colonna deve contenere un IP valido.<br>Esempio: l’SQL <code>SELECT lastip FROM {user} WHERE lastaccess > UNIX_TIMESTAMP() - (10 * 60)</code> restituisce tutti gli studenti che hanno effettuato l’accesso a Moodle negli ultimi 10 minuti</p>';
+$string['maps_sql_warning'] = '<p>Ricorda che l’SQL seguente deve restituire una sola colonna, e che tale colonna deve contenere un IP valido.<br>Esempio: l’SQL <code>SELECT lastip FROM {user} WHERE lastaccess > UNIX_TIMESTAMP() - (10 * 60)</code> restituisce tutti gli studenti che hanno effettuato l’accesso a Moodle negli ultimi 10 minuti</p>';
 $string['pluginname'] = 'Mappa degli studenti online';
 $string['pluginname_desc'] = 'Crea una mappa degli studenti online in base ai loro IP';

@@ -26,7 +26,6 @@ $string['maps_1_city'] = '{a1} ومدينة أخرى';
 $string['maps_many_city'] = '{a1} و{a2} مدن أخرى';
 $string['maps_online'] = '{a1} طالب متصل';
 $string['maps_onlines'] = '{a1} طلاب متصلون';
-$string['maps_sql_warning'] =
-    '<p>تذكّر أن استعلام SQL أدناه يجب أن يُرجع عمودًا واحدًا فقط، ويجب أن يحتوي هذا العمود على عنوان IP صالح.<br>مثال: يعيد استعلام SQL <code>SELECT lastip FROM {user} WHERE lastaccess > UNIX_TIMESTAMP() - (10 * 60)</code> جميع الطلاب الذين دخلوا إلى Moodle خلال آخر 10 دقائق</p>';
+$string['maps_sql_warning'] = '<p>تذكّر أن استعلام SQL أدناه يجب أن يُرجع عمودًا واحدًا فقط، ويجب أن يحتوي هذا العمود على عنوان IP صالح.<br>مثال: يعيد استعلام SQL <code>SELECT lastip FROM {user} WHERE lastaccess > UNIX_TIMESTAMP() - (10 * 60)</code> جميع الطلاب الذين دخلوا إلى Moodle خلال آخر 10 دقائق</p>';
 $string['pluginname'] = 'خريطة الطلاب المتصلين';
 $string['pluginname_desc'] = 'ينشئ خريطة للطلاب المتصلين بناءً على عناوين IP الخاصة بهم';

@@ -22,7 +22,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pie_sql_warning'] =
-    '<p>يجب أن يُرجع استعلام SQL أدناه عمودين فقط.</p><p>سيكون العمود الأول اسم العمود، ويجب أن يكون العمود الثاني قيمة رقمية.</p>';
+$string['pie_sql_warning'] = '<p>يجب أن يُرجع استعلام SQL أدناه عمودين فقط.</p><p>سيكون العمود الأول اسم العمود، ويجب أن يكون العمود الثاني قيمة رقمية.</p>';
 $string['pluginname'] = 'مخطط دائري';
 $string['pluginname_desc'] = 'ينشئ مخططًا دائريًا';

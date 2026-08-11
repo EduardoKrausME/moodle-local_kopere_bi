@@ -26,7 +26,6 @@ $string['maps_1_city'] = '{a1} ともう1都市';
 $string['maps_many_city'] = '{a1} と他 {a2} 都市';
 $string['maps_online'] = '{a1} 人の学生がオンライン';
 $string['maps_onlines'] = '{a1} 人の学生がオンライン';
-$string['maps_sql_warning'] =
-    '<p>以下のSQLは1つのカラムのみを返し、そのカラムには有効なIPが含まれている必要があります。<br>例: SQL <code>SELECT lastip FROM {user} WHERE lastaccess > UNIX_TIMESTAMP() - (10 * 60)</code> は、直近10分以内にMoodleへアクセスしたすべての学生を返します</p>';
+$string['maps_sql_warning'] = '<p>以下のSQLは1つのカラムのみを返し、そのカラムには有効なIPが含まれている必要があります。<br>例: SQL <code>SELECT lastip FROM {user} WHERE lastaccess > UNIX_TIMESTAMP() - (10 * 60)</code> は、直近10分以内にMoodleへアクセスしたすべての学生を返します</p>';
 $string['pluginname'] = 'オンライン学生マップ';
 $string['pluginname_desc'] = 'IPに基づいてオンライン学生のマップを作成します';

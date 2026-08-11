@@ -22,7 +22,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pie_sql_warning'] =
-    '<p>以下のSQLは2つの列のみを返す必要があります。</p><p>1列目は列名になり、2列目は数値である必要があります。</p>';
+$string['pie_sql_warning'] = '<p>以下のSQLは2つの列のみを返す必要があります。</p><p>1列目は列名になり、2列目は数値である必要があります。</p>';
 $string['pluginname'] = '円グラフ';
 $string['pluginname_desc'] = '円グラフを作成します';

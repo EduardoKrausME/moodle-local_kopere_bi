@@ -22,7 +22,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pie_sql_warning'] =
-    '<p>SQL di bawah ini harus mengembalikan hanya dua kolom.</p><p>Kolom pertama akan menjadi nama kolom, dan kolom kedua harus berupa nilai numerik.</p>';
+$string['pie_sql_warning'] = '<p>SQL di bawah ini harus mengembalikan hanya dua kolom.</p><p>Kolom pertama akan menjadi nama kolom, dan kolom kedua harus berupa nilai numerik.</p>';
 $string['pluginname'] = 'Diagram pai';
 $string['pluginname_desc'] = 'Membuat diagram pai';

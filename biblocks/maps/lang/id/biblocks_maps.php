@@ -26,7 +26,6 @@ $string['maps_1_city'] = '{a1} dan satu kota lagi';
 $string['maps_many_city'] = '{a1} dan {a2} kota lainnya';
 $string['maps_online'] = '{a1} siswa online';
 $string['maps_onlines'] = '{a1} siswa online';
-$string['maps_sql_warning'] =
-    '<p>Ingat bahwa SQL di bawah ini harus mengembalikan hanya satu kolom, dan kolom tersebut harus berisi IP yang valid.<br>Contoh: SQL <code>SELECT lastip FROM {user} WHERE lastaccess > UNIX_TIMESTAMP() - (10 * 60)</code> mengembalikan semua siswa yang mengakses Moodle dalam 10 menit terakhir</p>';
+$string['maps_sql_warning'] = '<p>Ingat bahwa SQL di bawah ini harus mengembalikan hanya satu kolom, dan kolom tersebut harus berisi IP yang valid.<br>Contoh: SQL <code>SELECT lastip FROM {user} WHERE lastaccess > UNIX_TIMESTAMP() - (10 * 60)</code> mengembalikan semua siswa yang mengakses Moodle dalam 10 menit terakhir</p>';
 $string['pluginname'] = 'Peta siswa online';
 $string['pluginname_desc'] = 'Membuat peta siswa online berdasarkan IP mereka';
