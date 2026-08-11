@@ -76,5 +76,31 @@ $title = get_string("chart_line_default", "local_kopere_bi");
 $setting = new admin_setting_configtextarea($name, $title, get_string("chart_default_desc", "local_kopere_bi"), "");
 $settings->add($setting);
 
+// Learning analytics and risk thresholds.
+$settings->add(new admin_setting_heading(
+    "local_kopere_bi/analytics_heading",
+    get_string("analytics_settings_heading", "local_kopere_bi"),
+    get_string("analytics_settings_description", "local_kopere_bi")
+));
+
+$analyticssettings = [
+    "analytics_medium_days" => 14,
+    "analytics_high_days" => 30,
+    "analytics_min_actions" => 5,
+    "analytics_low_progress" => 25,
+    "analytics_grace_days" => 7,
+    "analytics_history_days" => 90,
+];
+
+foreach ($analyticssettings as $settingname => $defaultvalue) {
+    $settings->add(new admin_setting_configtext(
+        "local_kopere_bi/{$settingname}",
+        get_string("{$settingname}_title", "local_kopere_bi"),
+        get_string("{$settingname}_description", "local_kopere_bi"),
+        $defaultvalue,
+        PARAM_INT
+    ));
+}
+
 // JS of the fields chart_XXX_default.
 $PAGE->requires->js_call_amd("local_kopere_bi/setting", "chart_default");

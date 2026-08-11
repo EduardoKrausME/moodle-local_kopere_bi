@@ -39,7 +39,20 @@ Data can be displayed in different formats:
     - **PDF**: Generates a PDF document of the table for easy sharing.
     - **Excel**: Exports data to an Excel file for further analysis.
     - **CSV**: Exports data in CSV format for importing into other applications.
-    - **Copy to Clipboard**: Copies data directly to the clipboard for easy pasting into other applications.
+      - **Copy to Clipboard**: Copies data directly to the clipboard for easy pasting into other applications.
+
+## Learning analytics dashboards
+
+The Learning analytics category adds six operational dashboards:
+
+- Learning analytics overview with key indicators and daily activity trends.
+- Learner attention queue with configurable risk scores and reasons.
+- Course health board combining completion, progress, grades, engagement, and risk.
+- Student 360 analytics for every active course enrolment.
+- Progress versus grade analysis and top learner results.
+- Learning momentum with falling-participation detection.
+
+The dashboards read small snapshot tables instead of querying `logstore_standard_log` when a page opens. An hourly scheduled task rebuilds the learner, course, and daily aggregates after the standard log cache synchronisation. Risk thresholds and trend history are configurable in the plugin settings. MySQL and PostgreSQL are supported.
 
 Table columns can be customized using [Mustache](https://moodledev.io/docs/guides/templates), allowing you to format and display the data as needed, including applying custom data.
 

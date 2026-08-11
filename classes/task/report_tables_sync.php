@@ -187,6 +187,7 @@ class report_tables_sync extends \core\task\scheduled_task {
                    AND l.timecreated >= :since
                    AND (
                          l.component LIKE 'mod_%'
+                         OR (l.action = 'loggedin' AND l.target = 'user')
                          OR (l.action = 'loggedout' AND l.contextid = 1)
                          OR (l.target = 'role' AND l.contextlevel = 50 AND (l.action = 'assigned' OR l.action = 'unassigned'))
                        )";

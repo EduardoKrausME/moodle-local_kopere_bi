@@ -149,5 +149,104 @@ function xmldb_local_kopere_bi_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2026052521, "local", "kopere_bi");
     }
 
+    if ($oldversion < 2026080200) {
+        $table = new xmldb_table("local_kopere_bi_track_log");
+        $index = new xmldb_index("time_course_user", XMLDB_INDEX_NOTUNIQUE, ["timepoint", "courseid", "userid"]);
+        if (!$dbman->index_exists($table, $index)) {
+            $dbman->add_index($table, $index);
+        }
+
+        $table = new xmldb_table("local_kopere_bi_log_tmp");
+        $index = new xmldb_index("time_course_user", XMLDB_INDEX_NOTUNIQUE, ["timecreated", "courseid", "userid"]);
+        if (!$dbman->index_exists($table, $index)) {
+            $dbman->add_index($table, $index);
+        }
+
+        $table = new xmldb_table("local_kopere_bi_engage");
+        if (!$dbman->table_exists($table)) {
+            $table->add_field("id", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, XMLDB_SEQUENCE);
+            $table->add_field("batchid", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL);
+            $table->add_field("userid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("courseid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("timeenrolled", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL);
+            $table->add_field("dayssinceenrol", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("lastaccess", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL);
+            $table->add_field("lastaction", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL);
+            $table->add_field("daysinactive", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("actions7", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("actions14", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("actions30", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("previous7", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("timespent30", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL);
+            $table->add_field("totalactivities", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("completedactivities", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("progress", XMLDB_TYPE_NUMBER, "10, 2", null, XMLDB_NOTNULL);
+            $table->add_field("finalgrade", XMLDB_TYPE_NUMBER, "20, 5");
+            $table->add_field("gradepercent", XMLDB_TYPE_NUMBER, "10, 2");
+            $table->add_field("gradepass", XMLDB_TYPE_NUMBER, "20, 5", null, XMLDB_NOTNULL);
+            $table->add_field("timecompleted", XMLDB_TYPE_INTEGER, "20");
+            $table->add_field("engagement", XMLDB_TYPE_CHAR, "10", null, XMLDB_NOTNULL);
+            $table->add_field("riskscore", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("risklevel", XMLDB_TYPE_CHAR, "10", null, XMLDB_NOTNULL);
+            $table->add_field("riskreason", XMLDB_TYPE_CHAR, "50", null, XMLDB_NOTNULL);
+            $table->add_field("timemodified", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL);
+            $table->add_key("primary", XMLDB_KEY_PRIMARY, ["id"]);
+            $table->add_index("batch_user_course", XMLDB_INDEX_UNIQUE, ["batchid", "userid", "courseid"]);
+            $table->add_index("batch_course", XMLDB_INDEX_NOTUNIQUE, ["batchid", "courseid"]);
+            $table->add_index("batch_risk", XMLDB_INDEX_NOTUNIQUE, ["batchid", "risklevel", "riskscore"]);
+            $table->add_index("batch_engagement", XMLDB_INDEX_NOTUNIQUE, ["batchid", "engagement"]);
+            $table->add_index("batch_lastaccess", XMLDB_INDEX_NOTUNIQUE, ["batchid", "lastaccess"]);
+            $dbman->create_table($table);
+        }
+
+        $table = new xmldb_table("local_kopere_bi_courseag");
+        if (!$dbman->table_exists($table)) {
+            $table->add_field("id", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, XMLDB_SEQUENCE);
+            $table->add_field("batchid", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL);
+            $table->add_field("courseid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("enrolments", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("active7", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("active30", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("neveraccessed", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("completions", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("highrisk", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("mediumrisk", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("avgprogress", XMLDB_TYPE_NUMBER, "10, 2", null, XMLDB_NOTNULL);
+            $table->add_field("avggrade", XMLDB_TYPE_NUMBER, "10, 2");
+            $table->add_field("completionrate", XMLDB_TYPE_NUMBER, "10, 2", null, XMLDB_NOTNULL);
+            $table->add_field("engagementrate", XMLDB_TYPE_NUMBER, "10, 2", null, XMLDB_NOTNULL);
+            $table->add_field("trendpercent", XMLDB_TYPE_NUMBER, "10, 2", null, XMLDB_NOTNULL);
+            $table->add_field("healthscore", XMLDB_TYPE_NUMBER, "10, 2", null, XMLDB_NOTNULL);
+            $table->add_field("healthlevel", XMLDB_TYPE_CHAR, "10", null, XMLDB_NOTNULL);
+            $table->add_field("timemodified", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL);
+            $table->add_key("primary", XMLDB_KEY_PRIMARY, ["id"]);
+            $table->add_index("batch_course", XMLDB_INDEX_UNIQUE, ["batchid", "courseid"]);
+            $table->add_index("batch_health", XMLDB_INDEX_NOTUNIQUE, ["batchid", "healthlevel", "healthscore"]);
+            $dbman->create_table($table);
+        }
+
+        $table = new xmldb_table("local_kopere_bi_daily");
+        if (!$dbman->table_exists($table)) {
+            $table->add_field("id", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, XMLDB_SEQUENCE);
+            $table->add_field("batchid", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL);
+            $table->add_field("daystart", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL);
+            $table->add_field("daykey", XMLDB_TYPE_CHAR, "10", null, XMLDB_NOTNULL);
+            $table->add_field("courseid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("activeusers", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("actions", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL);
+            $table->add_field("logins", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL);
+            $table->add_key("primary", XMLDB_KEY_PRIMARY, ["id"]);
+            $table->add_index("batch_day_course", XMLDB_INDEX_UNIQUE, ["batchid", "daystart", "courseid"]);
+            $table->add_index("batch_course_day", XMLDB_INDEX_NOTUNIQUE, ["batchid", "courseid", "daystart"]);
+            $dbman->create_table($table);
+        }
+
+        foreach (range(106, 111) as $pagenumber) {
+            reports::from_file(__DIR__ . "/files/page-{$pagenumber}.json");
+        }
+
+        upgrade_plugin_savepoint(true, 2026080200, "local", "kopere_bi");
+    }
+
     return true;
 }

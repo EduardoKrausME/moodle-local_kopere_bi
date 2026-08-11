@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/kopere_bi/db" VERSION="20230414" COMMENT="Kopere Bi data"
+<XMLDB PATH="local/kopere_bi/db" VERSION="20260802" COMMENT="Kopere Bi data"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
     <TABLES>
@@ -164,6 +164,7 @@
                 <INDEX NAME="courseid" UNIQUE="false" FIELDS="courseid"/>
                 <INDEX NAME="timepoint" UNIQUE="false" FIELDS="timepoint"/>
                 <INDEX NAME="track_time" UNIQUE="false" FIELDS="trackid, timepoint"/>
+                <INDEX NAME="time_course_user" UNIQUE="false" FIELDS="timepoint, courseid, userid"/>
             </INDEXES>
         </TABLE>
         <TABLE NAME="local_kopere_bi_log_tmp" COMMENT="BI Standard Log Temporary Cache">
@@ -197,6 +198,95 @@
                 <INDEX NAME="target_action" UNIQUE="false" FIELDS="target, action"/>
                 <INDEX NAME="contextinstance" UNIQUE="false" FIELDS="contextinstanceid"/>
                 <INDEX NAME="timecreated" UNIQUE="false" FIELDS="timecreated"/>
+                <INDEX NAME="time_course_user" UNIQUE="false" FIELDS="timecreated, courseid, userid"/>
+            </INDEXES>
+        </TABLE>
+        <TABLE NAME="local_kopere_bi_engage" COMMENT="Aggregated learner engagement and risk snapshot">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="batchid" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="timeenrolled" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="dayssinceenrol" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="lastaccess" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="lastaction" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="daysinactive" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="actions7" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="actions14" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="actions30" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="previous7" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="timespent30" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="totalactivities" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="completedactivities" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="progress" TYPE="number" LENGTH="10" DECIMALS="2" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="finalgrade" TYPE="number" LENGTH="20" DECIMALS="5" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="gradepercent" TYPE="number" LENGTH="10" DECIMALS="2" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="gradepass" TYPE="number" LENGTH="20" DECIMALS="5" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="timecompleted" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="engagement" TYPE="char" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="riskscore" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="risklevel" TYPE="char" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="riskreason" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="timemodified" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="batch_user_course" UNIQUE="true" FIELDS="batchid, userid, courseid"/>
+                <INDEX NAME="batch_course" UNIQUE="false" FIELDS="batchid, courseid"/>
+                <INDEX NAME="batch_risk" UNIQUE="false" FIELDS="batchid, risklevel, riskscore"/>
+                <INDEX NAME="batch_engagement" UNIQUE="false" FIELDS="batchid, engagement"/>
+                <INDEX NAME="batch_lastaccess" UNIQUE="false" FIELDS="batchid, lastaccess"/>
+            </INDEXES>
+        </TABLE>
+        <TABLE NAME="local_kopere_bi_courseag" COMMENT="Aggregated course health snapshot">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="batchid" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="enrolments" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="active7" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="active30" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="neveraccessed" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="completions" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="highrisk" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="mediumrisk" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="avgprogress" TYPE="number" LENGTH="10" DECIMALS="2" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="avggrade" TYPE="number" LENGTH="10" DECIMALS="2" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="completionrate" TYPE="number" LENGTH="10" DECIMALS="2" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="engagementrate" TYPE="number" LENGTH="10" DECIMALS="2" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="trendpercent" TYPE="number" LENGTH="10" DECIMALS="2" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="healthscore" TYPE="number" LENGTH="10" DECIMALS="2" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="healthlevel" TYPE="char" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="timemodified" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="batch_course" UNIQUE="true" FIELDS="batchid, courseid"/>
+                <INDEX NAME="batch_health" UNIQUE="false" FIELDS="batchid, healthlevel, healthscore"/>
+            </INDEXES>
+        </TABLE>
+        <TABLE NAME="local_kopere_bi_daily" COMMENT="Daily learning activity snapshot">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="batchid" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="daystart" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="daykey" TYPE="char" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="activeusers" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="actions" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="logins" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="batch_day_course" UNIQUE="true" FIELDS="batchid, daystart, courseid"/>
+                <INDEX NAME="batch_course_day" UNIQUE="false" FIELDS="batchid, courseid, daystart"/>
             </INDEXES>
         </TABLE>
     </TABLES>

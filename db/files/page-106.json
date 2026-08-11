@@ -1,0 +1,150 @@
+{
+  "title": "lang::report_page_106_title::local_kopere_bi",
+  "description": "lang::report_page_106_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "learning_analytics_dashboard",
+  "sortorder": 0,
+  "category": {
+    "refkey": "learning_analytics",
+    "title": "lang::report_category_analytics_title::local_kopere_bi",
+    "description": "lang::report_category_analytics_description::local_kopere_bi",
+    "sortorder": 15
+  },
+  "blocks": [
+    {
+      "refkey": "analytics-106-kpis",
+      "type": "block-4",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_106_block_1_element_1_title::local_kopere_bi",
+          "refkey": "analytics_active_learners_7",
+          "block_num": 1,
+          "type": "info",
+          "theme": "blue",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT COUNT(DISTINCT userid)\nFROM mdl_local_kopere_bi_engage\nWHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)\n  AND actions7 > 0",
+          "cache": "none",
+          "reload": "none",
+          "info": []
+        },
+        {
+          "title": "lang::report_page_106_block_1_element_2_title::local_kopere_bi",
+          "refkey": "analytics_learners_attention",
+          "block_num": 2,
+          "type": "info",
+          "theme": "orange",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT COUNT(DISTINCT userid)\nFROM mdl_local_kopere_bi_engage\nWHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)\n  AND risklevel IN ('high', 'medium')\n  AND timecompleted IS NULL",
+          "cache": "none",
+          "reload": "none",
+          "info": []
+        },
+        {
+          "title": "lang::report_page_106_block_1_element_3_title::local_kopere_bi",
+          "refkey": "analytics_average_progress",
+          "block_num": 3,
+          "type": "info",
+          "theme": "green",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT ROUND(AVG(progress), 1)\nFROM mdl_local_kopere_bi_engage\nWHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)",
+          "cache": "none",
+          "reload": "none",
+          "info": []
+        },
+        {
+          "title": "lang::report_page_106_block_1_element_4_title::local_kopere_bi",
+          "refkey": "analytics_completed_enrolments",
+          "block_num": 4,
+          "type": "info",
+          "theme": "blue",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT COUNT(id)\nFROM mdl_local_kopere_bi_engage\nWHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)\n  AND timecompleted IS NOT NULL",
+          "cache": "none",
+          "reload": "none",
+          "info": []
+        }
+      ]
+    },
+    {
+      "refkey": "analytics-106-trends",
+      "type": "block-2",
+      "sequence": 2,
+      "elements": [
+        {
+          "title": "lang::report_page_106_block_2_element_1_title::local_kopere_bi",
+          "refkey": "analytics_daily_active_learners",
+          "block_num": 1,
+          "type": "line",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT daykey, activeusers AS active_learners\nFROM mdl_local_kopere_bi_daily\nWHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_daily)\n  AND courseid = 0\nORDER BY daystart",
+          "cache": "none",
+          "reload": "none",
+          "info": {"chart_options": "{}"}
+        },
+        {
+          "title": "lang::report_page_106_block_2_element_2_title::local_kopere_bi",
+          "refkey": "analytics_engagement_distribution",
+          "block_num": 2,
+          "type": "pie",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT CASE engagement\n         WHEN 'high' THEN 'High'\n         WHEN 'medium' THEN 'Medium'\n         WHEN 'low' THEN 'Low'\n         ELSE 'At risk'\n       END AS engagement_level,\n       COUNT(id) AS learners\nFROM mdl_local_kopere_bi_engage\nWHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)\nGROUP BY engagement\nORDER BY CASE engagement WHEN 'high' THEN 1 WHEN 'medium' THEN 2 WHEN 'low' THEN 3 ELSE 4 END",
+          "cache": "none",
+          "reload": "none",
+          "info": {"chart_options": "{}"}
+        }
+      ]
+    },
+    {
+      "refkey": "analytics-106-courses",
+      "type": "block-1",
+      "sequence": 3,
+      "elements": [
+        {
+          "title": "lang::report_page_106_block_3_element_1_title::local_kopere_bi",
+          "refkey": "analytics_course_performance_summary",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT ca.id, c.id AS courseid, c.fullname AS course, ca.enrolments, ca.active7, ca.avgprogress, ca.avggrade, ca.completionrate, ca.highrisk, ca.mediumrisk, ca.trendpercent, ca.healthscore,\n       CASE ca.healthlevel\n         WHEN 'healthy' THEN 'lang::analytics_health_healthy::local_kopere_bi'\n         WHEN 'attention' THEN 'lang::analytics_health_attention::local_kopere_bi'\n         ELSE 'lang::analytics_health_critical::local_kopere_bi'\n       END AS healthlevel\nFROM mdl_local_kopere_bi_courseag ca\nJOIN mdl_course c ON c.id = ca.courseid\nWHERE ca.batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_courseag)\nORDER BY ca.healthscore ASC, ca.highrisk DESC, c.fullname",
+          "cache": "none",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {"key": "id", "title": "#", "type": "number", "mustache": ""},
+              "courseid": {"key": "courseid", "title": "lang::report_field_courseid_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "course": {"key": "course", "title": "lang::report_field_course_title::local_kopere_bi", "type": "string", "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{courseid}}}\" target=\"course\">{{{course}}}</a>"},
+              "enrolments": {"key": "enrolments", "title": "lang::report_field_enrolments_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "active7": {"key": "active7", "title": "lang::report_field_active7_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "avgprogress": {"key": "avgprogress", "title": "lang::report_field_avgprogress_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "avggrade": {"key": "avggrade", "title": "lang::report_field_avggrade_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "completionrate": {"key": "completionrate", "title": "lang::report_field_completionrate_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "highrisk": {"key": "highrisk", "title": "lang::report_field_highrisk_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "mediumrisk": {"key": "mediumrisk", "title": "lang::report_field_mediumrisk_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "trendpercent": {"key": "trendpercent", "title": "lang::report_field_trendpercent_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "healthscore": {"key": "healthscore", "title": "lang::report_field_healthscore_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "healthlevel": {"key": "healthlevel", "title": "lang::report_field_healthlevel_title::local_kopere_bi", "type": "translate", "mustache": ""}
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

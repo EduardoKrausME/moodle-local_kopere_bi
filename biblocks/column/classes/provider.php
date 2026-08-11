@@ -202,6 +202,18 @@ class provider extends \biblocks_line\provider {
                 }
             }
 
+            if (!$rowscolumns) {
+                $lines = [
+                    "labels" => [],
+                    "series" => [],
+                ];
+                $cache->set($koperebielement->id, $lines);
+                ob_clean();
+                header('Content-Type: application/json; charset: utf-8');
+                echo json_encode($lines, JSON_NUMERIC_CHECK + JSON_PRETTY_PRINT);
+                die();
+            }
+
             $columns = array_keys((array) $rowscolumns[0]);
 
             $optionslabels = false;

@@ -43,4 +43,13 @@ $tasks = [
         "dayofweek" => '*',
         "month" => '*',
     ],
+    [
+        "classname" => '\local_kopere_bi\task\analytics_snapshot',
+        "blocking" => 0,
+        "minute" => 20,
+        "hour" => '*',
+        "day" => '*',
+        "dayofweek" => '*',
+        "month" => '*',
+    ],
 ];

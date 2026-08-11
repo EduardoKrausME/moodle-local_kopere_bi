@@ -1,0 +1,63 @@
+{
+  "title": "lang::report_page_109_title::local_kopere_bi",
+  "description": "lang::report_page_109_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "student_analytics_360",
+  "sortorder": 3,
+  "category": {
+    "refkey": "learning_analytics",
+    "title": "lang::report_category_analytics_title::local_kopere_bi",
+    "description": "lang::report_category_analytics_description::local_kopere_bi",
+    "sortorder": 15
+  },
+  "blocks": [
+    {
+      "refkey": "analytics-109-students",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_109_block_1_element_1_title::local_kopere_bi",
+          "refkey": "analytics_student_360_table",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT e.id, e.userid, u.firstname, u.lastname, u.email, e.courseid, c.fullname AS course, e.timeenrolled, e.dayssinceenrol, e.lastaccess, e.lastaction, e.daysinactive, e.actions7, e.actions14, e.actions30, e.timespent30, e.totalactivities, e.completedactivities, e.progress, e.gradepercent, e.timecompleted,\n       CASE e.engagement WHEN 'high' THEN 'lang::analytics_level_high::local_kopere_bi' WHEN 'medium' THEN 'lang::analytics_level_medium::local_kopere_bi' WHEN 'low' THEN 'lang::analytics_level_low::local_kopere_bi' ELSE 'lang::analytics_level_atrisk::local_kopere_bi' END AS engagement,\n       e.riskscore,\n       CASE e.risklevel WHEN 'high' THEN 'lang::analytics_level_high::local_kopere_bi' WHEN 'medium' THEN 'lang::analytics_level_medium::local_kopere_bi' WHEN 'low' THEN 'lang::analytics_level_low::local_kopere_bi' ELSE 'lang::analytics_level_none::local_kopere_bi' END AS risklevel\nFROM mdl_local_kopere_bi_engage e\nJOIN mdl_user u ON u.id = e.userid\nJOIN mdl_course c ON c.id = e.courseid\nWHERE e.batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)\nORDER BY e.riskscore DESC, c.fullname, u.lastname, u.firstname",
+          "cache": "none",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {"key": "id", "title": "#", "type": "number", "mustache": ""},
+              "userid": {"key": "userid", "title": "lang::report_field_userid_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "firstname": {"key": "firstname", "title": "lang::report_field_firstname_title::local_kopere_bi", "type": "userfullname", "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"},
+              "lastname": {"key": "lastname", "title": "", "type": "none", "mustache": ""},
+              "email": {"key": "email", "title": "lang::report_field_email_title::local_kopere_bi", "type": "string", "mustache": "{{{email}}}"},
+              "courseid": {"key": "courseid", "title": "lang::report_field_courseid_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "course": {"key": "course", "title": "lang::report_field_course_title::local_kopere_bi", "type": "string", "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{courseid}}}\" target=\"course\">{{{course}}}</a>"},
+              "timeenrolled": {"key": "timeenrolled", "title": "lang::report_field_enrolled_at_title::local_kopere_bi", "type": "datetimeRenderer", "mustache": ""},
+              "dayssinceenrol": {"key": "dayssinceenrol", "title": "lang::report_field_dayssinceenrol_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "lastaccess": {"key": "lastaccess", "title": "lang::report_field_course_lastaccess_title::local_kopere_bi", "type": "datetimeRenderer", "mustache": ""},
+              "lastaction": {"key": "lastaction", "title": "lang::lastaccess::moodle", "type": "datetimeRenderer", "mustache": ""},
+              "daysinactive": {"key": "daysinactive", "title": "lang::report_field_daysinactive_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "actions7": {"key": "actions7", "title": "lang::report_field_actions7_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "actions14": {"key": "actions14", "title": "lang::report_field_actions14_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "actions30": {"key": "actions30", "title": "lang::report_field_actions30_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "timespent30": {"key": "timespent30", "title": "lang::report_field_timespent30_title::local_kopere_bi", "type": "timeRenderer", "mustache": ""},
+              "totalactivities": {"key": "totalactivities", "title": "lang::report_field_total_activities_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "completedactivities": {"key": "completedactivities", "title": "lang::report_field_completed_activities_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "progress": {"key": "progress", "title": "lang::report_field_progress_percent_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "gradepercent": {"key": "gradepercent", "title": "lang::report_field_grade_percent_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "timecompleted": {"key": "timecompleted", "title": "lang::report_field_timecompleted_title::local_kopere_bi", "type": "datetimeRenderer", "mustache": ""},
+              "engagement": {"key": "engagement", "title": "lang::report_field_engagement_title::local_kopere_bi", "type": "translate", "mustache": ""},
+              "riskscore": {"key": "riskscore", "title": "lang::report_field_riskscore_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "risklevel": {"key": "risklevel", "title": "lang::report_field_risk_level_title::local_kopere_bi", "type": "translate", "mustache": ""}
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

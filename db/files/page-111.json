@@ -1,0 +1,74 @@
+{
+  "title": "lang::report_page_111_title::local_kopere_bi",
+  "description": "lang::report_page_111_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "learning_momentum",
+  "sortorder": 5,
+  "category": {
+    "refkey": "learning_analytics",
+    "title": "lang::report_category_analytics_title::local_kopere_bi",
+    "description": "lang::report_category_analytics_description::local_kopere_bi",
+    "sortorder": 15
+  },
+  "blocks": [
+    {
+      "refkey": "analytics-111-timeline",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_111_block_1_element_1_title::local_kopere_bi",
+          "refkey": "analytics_learning_momentum_chart",
+          "block_num": 1,
+          "type": "line",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT daykey, activeusers AS active_learners, actions AS learning_actions, logins\nFROM mdl_local_kopere_bi_daily\nWHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_daily)\n  AND courseid = 0\nORDER BY daystart",
+          "cache": "none",
+          "reload": "none",
+          "info": {"chart_options": "{}"}
+        }
+      ]
+    },
+    {
+      "refkey": "analytics-111-decline",
+      "type": "block-1",
+      "sequence": 2,
+      "elements": [
+        {
+          "title": "lang::report_page_111_block_2_element_1_title::local_kopere_bi",
+          "refkey": "analytics_falling_engagement",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT e.id, e.userid, u.firstname, u.lastname, e.courseid, c.fullname AS course, e.lastaccess, e.actions7, e.previous7, ROUND(100.0 * (e.previous7 - e.actions7) / e.previous7, 2) AS declinepercent, e.progress, e.gradepercent, e.riskscore,\n       CASE e.risklevel WHEN 'high' THEN 'lang::analytics_level_high::local_kopere_bi' WHEN 'medium' THEN 'lang::analytics_level_medium::local_kopere_bi' WHEN 'low' THEN 'lang::analytics_level_low::local_kopere_bi' ELSE 'lang::analytics_level_none::local_kopere_bi' END AS risklevel\nFROM mdl_local_kopere_bi_engage e\nJOIN mdl_user u ON u.id = e.userid\nJOIN mdl_course c ON c.id = e.courseid\nWHERE e.batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)\n  AND e.previous7 > 0\n  AND e.actions7 < e.previous7\n  AND e.timecompleted IS NULL\nORDER BY declinepercent DESC, e.riskscore DESC, c.fullname, u.lastname, u.firstname",
+          "cache": "none",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {"key": "id", "title": "#", "type": "number", "mustache": ""},
+              "userid": {"key": "userid", "title": "lang::report_field_userid_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "firstname": {"key": "firstname", "title": "lang::report_field_firstname_title::local_kopere_bi", "type": "userfullname", "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"},
+              "lastname": {"key": "lastname", "title": "", "type": "none", "mustache": ""},
+              "courseid": {"key": "courseid", "title": "lang::report_field_courseid_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "course": {"key": "course", "title": "lang::report_field_course_title::local_kopere_bi", "type": "string", "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{courseid}}}\" target=\"course\">{{{course}}}</a>"},
+              "lastaccess": {"key": "lastaccess", "title": "lang::report_field_course_lastaccess_title::local_kopere_bi", "type": "datetimeRenderer", "mustache": ""},
+              "actions7": {"key": "actions7", "title": "lang::report_field_actions7_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "previous7": {"key": "previous7", "title": "lang::report_field_previous7_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "declinepercent": {"key": "declinepercent", "title": "lang::report_field_declinepercent_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "progress": {"key": "progress", "title": "lang::report_field_progress_percent_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "gradepercent": {"key": "gradepercent", "title": "lang::report_field_grade_percent_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "riskscore": {"key": "riskscore", "title": "lang::report_field_riskscore_title::local_kopere_bi", "type": "number", "mustache": ""},
+              "risklevel": {"key": "risklevel", "title": "lang::report_field_risk_level_title::local_kopere_bi", "type": "translate", "mustache": ""}
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -168,6 +168,18 @@ class provider implements i_block_provider {
                 }
             }
 
+            if (!$rows) {
+                $lines = [
+                    "labels" => [],
+                    "series" => [],
+                ];
+                $cache->set($koperebielement->id, $lines);
+                ob_clean();
+                header('Content-Type: application/json; charset: utf-8');
+                echo json_encode($lines, JSON_NUMERIC_CHECK);
+                die();
+            }
+
             $keys = [];
             foreach ($rows[0] as $key => $value) {
                 if (!isset($keys[0])) {
