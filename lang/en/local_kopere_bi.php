@@ -22,6 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['pluginname'] = 'Kopere BI';
 $string['report_1_cat_description'] = 'Reports on student performance and progress in their courses.';
 $string['report_1_cat_title'] = 'Students';
 $string['report_1_categories'] = 'Categories';
