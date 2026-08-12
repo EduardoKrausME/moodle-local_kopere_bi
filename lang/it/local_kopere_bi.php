@@ -23,14 +23,26 @@
  */
 
 $string['active_enrolments'] = 'Iscrizioni attive';
+$string['analytics_grace_days_description'] = 'Periodo di tolleranza, in giorni, prima di applicare le soglie di rischio.';
+$string['analytics_grace_days_title'] = 'Periodo di tolleranza (giorni)';
 $string['analytics_health_attention'] = 'Richiede attenzione';
 $string['analytics_health_critical'] = 'Critico';
 $string['analytics_health_healthy'] = 'Buono';
+$string['analytics_high_days_description'] = 'Numero di giorni utilizzato come soglia di inattività elevata.';
+$string['analytics_high_days_title'] = 'Soglia di inattività elevata (giorni)';
+$string['analytics_history_days_description'] = 'Numero di giorni di cronologia considerati nei calcoli di analisi.';
+$string['analytics_history_days_title'] = 'Cronologia delle analisi (giorni)';
 $string['analytics_level_atrisk'] = 'A rischio';
 $string['analytics_level_high'] = 'Alto';
 $string['analytics_level_low'] = 'Basso';
 $string['analytics_level_medium'] = 'Medio';
 $string['analytics_level_none'] = 'Nessun rischio';
+$string['analytics_low_progress_description'] = 'Percentuale di progresso utilizzata come soglia di progresso basso.';
+$string['analytics_low_progress_title'] = 'Soglia di progresso basso (%)';
+$string['analytics_medium_days_description'] = 'Numero di giorni utilizzato come soglia di inattività media.';
+$string['analytics_medium_days_title'] = 'Soglia di inattività media (giorni)';
+$string['analytics_min_actions_description'] = 'Numero minimo di azioni utilizzato per identificare una bassa attività.';
+$string['analytics_min_actions_title'] = 'Numero minimo di azioni';
 $string['analytics_reason_inactive'] = 'Inattivo';
 $string['analytics_reason_longinactive'] = 'Inattività prolungata';
 $string['analytics_reason_lowactivity'] = 'Bassa attività';
@@ -38,6 +50,8 @@ $string['analytics_reason_lowgrade'] = 'Voto basso';
 $string['analytics_reason_lowprogress'] = 'Basso progresso';
 $string['analytics_reason_monitor'] = 'Monitorare';
 $string['analytics_reason_noaccess'] = 'Nessun accesso';
+$string['analytics_settings_description'] = 'Configura le soglie utilizzate dall’analisi dell’apprendimento e dagli indicatori di rischio degli studenti.';
+$string['analytics_settings_heading'] = 'Impostazioni di analisi dell’apprendimento';
 $string['block_add'] = 'Aggiungi nuovo blocco';
 $string['block_delete_message'] = 'Vuoi davvero eliminare questo blocco and <br> i suoi report in modo permanente?';
 $string['block_delete_title'] = 'Elimina blocco';

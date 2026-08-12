@@ -23,14 +23,26 @@
  */
 
 $string['active_enrolments'] = 'Aktive Einschreibungen';
+$string['analytics_grace_days_description'] = 'Karenzzeit in Tagen, bevor Risikoschwellenwerte angewendet werden.';
+$string['analytics_grace_days_title'] = 'Karenzzeit (Tage)';
 $string['analytics_health_attention'] = 'Benötigt Aufmerksamkeit';
 $string['analytics_health_critical'] = 'Kritisch';
 $string['analytics_health_healthy'] = 'Gesund';
+$string['analytics_high_days_description'] = 'Anzahl der Tage, die als Schwellenwert für hohe Inaktivität verwendet wird.';
+$string['analytics_high_days_title'] = 'Schwellenwert für hohe Inaktivität (Tage)';
+$string['analytics_history_days_description'] = 'Anzahl der Verlaufstage, die bei Analyseberechnungen berücksichtigt werden.';
+$string['analytics_history_days_title'] = 'Analyseverlauf (Tage)';
 $string['analytics_level_atrisk'] = 'Gefährdet';
 $string['analytics_level_high'] = 'Hoch';
 $string['analytics_level_low'] = 'Niedrig';
 $string['analytics_level_medium'] = 'Mittel';
 $string['analytics_level_none'] = 'Kein Risiko';
+$string['analytics_low_progress_description'] = 'Fortschrittsprozentsatz, der als Schwellenwert für geringen Fortschritt verwendet wird.';
+$string['analytics_low_progress_title'] = 'Schwellenwert für geringen Fortschritt (%)';
+$string['analytics_medium_days_description'] = 'Anzahl der Tage, die als Schwellenwert für mittlere Inaktivität verwendet wird.';
+$string['analytics_medium_days_title'] = 'Schwellenwert für mittlere Inaktivität (Tage)';
+$string['analytics_min_actions_description'] = 'Mindestanzahl an Aktionen zur Erkennung geringer Aktivität.';
+$string['analytics_min_actions_title'] = 'Mindestanzahl an Aktionen';
 $string['analytics_reason_inactive'] = 'Inaktiv';
 $string['analytics_reason_longinactive'] = 'Lange inaktiv';
 $string['analytics_reason_lowactivity'] = 'Geringe Aktivität';
@@ -38,6 +50,8 @@ $string['analytics_reason_lowgrade'] = 'Niedrige Note';
 $string['analytics_reason_lowprogress'] = 'Geringer Fortschritt';
 $string['analytics_reason_monitor'] = 'Beobachten';
 $string['analytics_reason_noaccess'] = 'Kein Zugriff';
+$string['analytics_settings_description'] = 'Konfigurieren Sie die Schwellenwerte für Lernanalysen und Risikoindikatoren der Lernenden.';
+$string['analytics_settings_heading'] = 'Einstellungen für Lernanalysen';
 $string['block_add'] = 'Neuen Block hinzufügen';
 $string['block_delete_message'] = 'Möchten Sie wirklich löschen diesen Block and <br> seine Berichte dauerhaft?';
 $string['block_delete_title'] = 'Block löschen';

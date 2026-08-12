@@ -23,14 +23,26 @@
  */
 
 $string['active_enrolments'] = 'Aktívne zápisy';
+$string['analytics_grace_days_description'] = 'Ochranná lehota v dňoch pred použitím prahov rizika.';
+$string['analytics_grace_days_title'] = 'Ochranná lehota (dni)';
 $string['analytics_health_attention'] = 'Vyžaduje pozornosť';
 $string['analytics_health_critical'] = 'Kritický';
 $string['analytics_health_healthy'] = 'Dobrý';
+$string['analytics_high_days_description'] = 'Počet dní použitý ako prah vysokej neaktivity.';
+$string['analytics_high_days_title'] = 'Prah vysokej neaktivity (dni)';
+$string['analytics_history_days_description'] = 'Počet dní histórie zohľadnených v analytických výpočtoch.';
+$string['analytics_history_days_title'] = 'História analytiky (dni)';
 $string['analytics_level_atrisk'] = 'V riziku';
 $string['analytics_level_high'] = 'Vysoký';
 $string['analytics_level_low'] = 'Nízky';
 $string['analytics_level_medium'] = 'Stredný';
 $string['analytics_level_none'] = 'Bez rizika';
+$string['analytics_low_progress_description'] = 'Percento pokroku použité ako prah nízkeho pokroku.';
+$string['analytics_low_progress_title'] = 'Prah nízkeho pokroku (%)';
+$string['analytics_medium_days_description'] = 'Počet dní použitý ako prah strednej neaktivity.';
+$string['analytics_medium_days_title'] = 'Prah strednej neaktivity (dni)';
+$string['analytics_min_actions_description'] = 'Minimálny počet akcií používaný na identifikáciu nízkej aktivity.';
+$string['analytics_min_actions_title'] = 'Minimálny počet akcií';
 $string['analytics_reason_inactive'] = 'Neaktívny';
 $string['analytics_reason_longinactive'] = 'Dlhodobá neaktivita';
 $string['analytics_reason_lowactivity'] = 'Nízka aktivita';
@@ -38,6 +50,8 @@ $string['analytics_reason_lowgrade'] = 'Nízka známka';
 $string['analytics_reason_lowprogress'] = 'Nízky pokrok';
 $string['analytics_reason_monitor'] = 'Sledovať';
 $string['analytics_reason_noaccess'] = 'Bez prístupu';
+$string['analytics_settings_description'] = 'Nakonfigurujte prahové hodnoty používané analytikou vzdelávania a ukazovateľmi rizika študentov.';
+$string['analytics_settings_heading'] = 'Nastavenia analytiky vzdelávania';
 $string['block_add'] = 'Pridať nový blok';
 $string['block_delete_message'] = 'Naozaj chcete odstrániť tento blok and <br> jeho prehľady natrvalo?';
 $string['block_delete_title'] = 'Odstrániť blok';

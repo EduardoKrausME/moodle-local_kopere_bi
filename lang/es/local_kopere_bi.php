@@ -23,14 +23,26 @@
  */
 
 $string['active_enrolments'] = 'Inscripciones activas';
+$string['analytics_grace_days_description'] = 'Período de gracia, en días, antes de aplicar los umbrales de riesgo.';
+$string['analytics_grace_days_title'] = 'Período de gracia (días)';
 $string['analytics_health_attention'] = 'Requiere atención';
 $string['analytics_health_critical'] = 'Crítico';
 $string['analytics_health_healthy'] = 'Saludable';
+$string['analytics_high_days_description'] = 'Número de días utilizado como umbral de inactividad alta.';
+$string['analytics_high_days_title'] = 'Umbral de inactividad alta (días)';
+$string['analytics_history_days_description'] = 'Número de días de historial considerados en los cálculos de analítica.';
+$string['analytics_history_days_title'] = 'Historial de analítica (días)';
 $string['analytics_level_atrisk'] = 'En riesgo';
 $string['analytics_level_high'] = 'Alto';
 $string['analytics_level_low'] = 'Bajo';
 $string['analytics_level_medium'] = 'Medio';
 $string['analytics_level_none'] = 'Sin riesgo';
+$string['analytics_low_progress_description'] = 'Porcentaje de progreso utilizado como umbral de progreso bajo.';
+$string['analytics_low_progress_title'] = 'Umbral de progreso bajo (%)';
+$string['analytics_medium_days_description'] = 'Número de días utilizado como umbral de inactividad media.';
+$string['analytics_medium_days_title'] = 'Umbral de inactividad media (días)';
+$string['analytics_min_actions_description'] = 'Número mínimo de acciones utilizado para identificar una actividad baja.';
+$string['analytics_min_actions_title'] = 'Mínimo de acciones';
 $string['analytics_reason_inactive'] = 'Inactivo';
 $string['analytics_reason_longinactive'] = 'Inactividad prolongada';
 $string['analytics_reason_lowactivity'] = 'Baja actividad';
@@ -38,6 +50,8 @@ $string['analytics_reason_lowgrade'] = 'Calificación baja';
 $string['analytics_reason_lowprogress'] = 'Bajo progreso';
 $string['analytics_reason_monitor'] = 'Supervisar';
 $string['analytics_reason_noaccess'] = 'Sin acceso';
+$string['analytics_settings_description'] = 'Configura los umbrales utilizados por la analítica de aprendizaje y los indicadores de riesgo del alumnado.';
+$string['analytics_settings_heading'] = 'Configuración de analítica de aprendizaje';
 $string['block_add'] = 'Agregar nuevo bloque';
 $string['block_delete_message'] = '¿Realmente desea eliminar este bloque y <br> sus informes permanentemente?';
 $string['block_delete_title'] = 'Eliminar bloque';

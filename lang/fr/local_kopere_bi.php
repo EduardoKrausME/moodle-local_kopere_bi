@@ -23,14 +23,26 @@
  */
 
 $string['active_enrolments'] = 'Inscriptions actives';
+$string['analytics_grace_days_description'] = 'Délai de grâce, en jours, avant l’application des seuils de risque.';
+$string['analytics_grace_days_title'] = 'Délai de grâce (jours)';
 $string['analytics_health_attention'] = 'Nécessite une attention';
 $string['analytics_health_critical'] = 'Critique';
 $string['analytics_health_healthy'] = 'Sain';
+$string['analytics_high_days_description'] = 'Nombre de jours utilisé comme seuil d’inactivité élevée.';
+$string['analytics_high_days_title'] = 'Seuil d’inactivité élevée (jours)';
+$string['analytics_history_days_description'] = 'Nombre de jours d’historique pris en compte dans les calculs d’analyse.';
+$string['analytics_history_days_title'] = 'Historique des analyses (jours)';
 $string['analytics_level_atrisk'] = 'À risque';
 $string['analytics_level_high'] = 'Élevé';
 $string['analytics_level_low'] = 'Faible';
 $string['analytics_level_medium'] = 'Moyen';
 $string['analytics_level_none'] = 'Sans risque';
+$string['analytics_low_progress_description'] = 'Pourcentage de progression utilisé comme seuil de faible progression.';
+$string['analytics_low_progress_title'] = 'Seuil de faible progression (%)';
+$string['analytics_medium_days_description'] = 'Nombre de jours utilisé comme seuil d’inactivité moyenne.';
+$string['analytics_medium_days_title'] = 'Seuil d’inactivité moyenne (jours)';
+$string['analytics_min_actions_description'] = 'Nombre minimal d’actions utilisé pour identifier une faible activité.';
+$string['analytics_min_actions_title'] = 'Nombre minimal d’actions';
 $string['analytics_reason_inactive'] = 'Inactif';
 $string['analytics_reason_longinactive'] = 'Inactivité prolongée';
 $string['analytics_reason_lowactivity'] = 'Faible activité';
@@ -38,6 +50,8 @@ $string['analytics_reason_lowgrade'] = 'Note faible';
 $string['analytics_reason_lowprogress'] = 'Faible progression';
 $string['analytics_reason_monitor'] = 'Surveiller';
 $string['analytics_reason_noaccess'] = 'Aucun accès';
+$string['analytics_settings_description'] = 'Configurez les seuils utilisés par l’analyse de l’apprentissage et les indicateurs de risque des apprenants.';
+$string['analytics_settings_heading'] = 'Paramètres d’analyse de l’apprentissage';
 $string['block_add'] = 'Ajouter un nouveau bloc';
 $string['block_delete_message'] = 'Voulez-vous vraiment supprimer ce bloc and <br> ses rapports définitivement?';
 $string['block_delete_title'] = 'Supprimer le bloc';

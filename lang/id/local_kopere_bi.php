@@ -23,14 +23,26 @@
  */
 
 $string['active_enrolments'] = 'Pendaftaran aktif';
+$string['analytics_grace_days_description'] = 'Masa tenggang dalam hari sebelum ambang risiko diterapkan.';
+$string['analytics_grace_days_title'] = 'Masa tenggang (hari)';
 $string['analytics_health_attention'] = 'Perlu perhatian';
 $string['analytics_health_critical'] = 'Kritis';
 $string['analytics_health_healthy'] = 'Sehat';
+$string['analytics_high_days_description'] = 'Jumlah hari yang digunakan sebagai ambang ketidakaktifan tinggi.';
+$string['analytics_high_days_title'] = 'Ambang ketidakaktifan tinggi (hari)';
+$string['analytics_history_days_description'] = 'Jumlah hari riwayat yang dipertimbangkan dalam perhitungan analitik.';
+$string['analytics_history_days_title'] = 'Riwayat analitik (hari)';
 $string['analytics_level_atrisk'] = 'Berisiko';
 $string['analytics_level_high'] = 'Tinggi';
 $string['analytics_level_low'] = 'Rendah';
 $string['analytics_level_medium'] = 'Sedang';
 $string['analytics_level_none'] = 'Tanpa risiko';
+$string['analytics_low_progress_description'] = 'Persentase kemajuan yang digunakan sebagai ambang kemajuan rendah.';
+$string['analytics_low_progress_title'] = 'Ambang kemajuan rendah (%)';
+$string['analytics_medium_days_description'] = 'Jumlah hari yang digunakan sebagai ambang ketidakaktifan sedang.';
+$string['analytics_medium_days_title'] = 'Ambang ketidakaktifan sedang (hari)';
+$string['analytics_min_actions_description'] = 'Jumlah tindakan minimum yang digunakan untuk mengidentifikasi aktivitas rendah.';
+$string['analytics_min_actions_title'] = 'Jumlah tindakan minimum';
 $string['analytics_reason_inactive'] = 'Tidak aktif';
 $string['analytics_reason_longinactive'] = 'Tidak aktif lama';
 $string['analytics_reason_lowactivity'] = 'Aktivitas rendah';
@@ -38,6 +50,8 @@ $string['analytics_reason_lowgrade'] = 'Nilai rendah';
 $string['analytics_reason_lowprogress'] = 'Kemajuan rendah';
 $string['analytics_reason_monitor'] = 'Pantau';
 $string['analytics_reason_noaccess'] = 'Belum mengakses';
+$string['analytics_settings_description'] = 'Konfigurasikan ambang batas yang digunakan oleh analitik pembelajaran dan indikator risiko peserta didik.';
+$string['analytics_settings_heading'] = 'Pengaturan analitik pembelajaran';
 $string['block_add'] = 'Tambah blok baru';
 $string['block_delete_message'] = 'Apakah Anda benar-benar ingin menghapus blok ini and <br> laporannya secara permanen?';
 $string['block_delete_title'] = 'Hapus blok';
