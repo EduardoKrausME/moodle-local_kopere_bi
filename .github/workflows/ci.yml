@@ -75,6 +75,11 @@ jobs:
       if: ${{ !cancelled() }}
       run: moodle-plugin-ci phpmd
 
+    - name: Validate Moodle plugin
+      uses: EduardoKrausME/moodle-plugin-validate@1.0.0
+      with:
+        plugin: ./plugin
+
     - name: Moodle Code Checker
       if: ${{ !cancelled() }}
       run: moodle-plugin-ci phpcs --max-warnings 0 --exclude="Universal.WhiteSpace.CommaSpacing,PSR12.Classes.ClassInstantiation,PSR12.Classes.OpeningBraceSpace,Universal.Lists.DisallowLongListSyntax,PSR2.Methods.FunctionCallSignature,PSR12.ControlStructures.ControlStructureSpacing,Squiz.WhiteSpace.ControlStructureSpacing,PSR2.ControlStructures.SwitchDeclaration,Squiz.Functions.MultiLineFunctionDeclaration,PSR2.Classes.ClassDeclaration,Universal.OOStructures.AlphabeticExtendsImplements"
