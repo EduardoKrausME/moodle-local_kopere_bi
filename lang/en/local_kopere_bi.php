@@ -1172,6 +1172,7 @@ $string['subplugintype_biblocks_title'] = 'Kopere By - Blocks plugins';
 $string['subplugintype_bifilters'] = 'Filter plugin';
 $string['subplugintype_bifilters_plural'] = 'Filters plugins';
 $string['subplugintype_bifilters_title'] = 'Kopere By - Filters plugins';
+$string['task_analytics_snapshot'] = 'Task analytics snapshot';
 $string['theme_palette_default'] = 'Default Palette';
 $string['theme_palette_desc'] = 'Palette colors:';
 $string['theme_palette_desc2'] = 'See all themes here';

@@ -100,7 +100,7 @@ class provider extends \biblocks_line\provider {
                 ->set_description(get_string("select_report_type_desc", "local_kopere_bi", $names))
         );
 
-        $html = message::warning(get_string("line_sql_warning", "local_kopere_bi"));
+        $html = message::warning(get_string("line_sql_warning", "biblocks_column"));
         $form->add_html($html);
 
         code_util::input_commandsql($form, $koperebielement);
