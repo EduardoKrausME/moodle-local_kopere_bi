@@ -17,6 +17,7 @@
 namespace local_kopere_bi\task;
 
 use Exception;
+use local_kopere_bi\feature;
 
 /**
  * Class delete_3months
@@ -50,6 +51,11 @@ class online_delete extends \core\task\scheduled_task {
      */
     public function execute() {
         global $DB;
+
+        if (!feature::online_tracking_enabled()) {
+            mtrace("Kopere BI online tracking is disabled. Skipping online data cleaner.");
+            return;
+        }
 
         if (!in_array($DB->get_dbfamily(), ["mysql", "postgres"])) {
             mtrace("Only MySQL and PostgreSQL are supported by the online data cleaner.");

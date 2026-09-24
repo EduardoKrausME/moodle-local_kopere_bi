@@ -62,12 +62,19 @@ class dashboard extends bi_all {
 
         /** @var local_kopere_bi_cat $koperebicat */
         foreach ($koperebicats as $koperebicat) {
+            if (!feature::category_is_available($koperebicat)) {
+                continue;
+            }
 
             $koperebipages = $DB->get_records("local_kopere_bi_page", ["cat_id" => $koperebicat->id], "sortorder ASC");
 
             $newpages = [];
             /** @var local_kopere_bi_page $koperebipage */
             foreach ($koperebipages as $koperebipage) {
+                if (!feature::page_is_available($koperebipage)) {
+                    continue;
+                }
+
                 $user = $DB->get_record("user", ["id" => $koperebipage->user_id]);
 
                 $userfullname = $user ? fullname($user) : "";
@@ -456,6 +463,10 @@ class dashboard extends bi_all {
         /** @var local_kopere_bi_page $koperebipage */
         $koperebipage = $DB->get_record("local_kopere_bi_page", ["id" => $pageid]);
         header::notfound_null($koperebipage, get_string("page_not_found", "local_kopere_bi"));
+
+        if (!feature::page_is_available($koperebipage)) {
+            header::location("?classname=dashboard&method=start");
+        }
 
         $editbooton = "";
         $context = context_system::instance();

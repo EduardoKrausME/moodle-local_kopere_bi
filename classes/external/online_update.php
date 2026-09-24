@@ -21,6 +21,7 @@ use external_api;
 use external_value;
 use external_single_structure;
 use external_function_parameters;
+use local_kopere_bi\feature;
 use local_kopere_bi\vo\local_kopere_bi_online;
 
 defined('MOODLE_INTERNAL') || die;
@@ -89,6 +90,10 @@ class online_update extends external_api {
         $context = \context_user::instance($USER->id);
         require_capability("local/kopere_bi:view", $context);
         self::validate_context($context);
+
+        if (!feature::online_tracking_enabled()) {
+            return ["success" => true];
+        }
 
         if (isset($USER->koperebionline_time[$params["cache_key"]])) {
             $USER->koperebionline_time[$params["cache_key"]] = time();

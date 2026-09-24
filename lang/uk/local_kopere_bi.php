@@ -22,6 +22,15 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['analytics_snapshot_enabled_description'] = 'Запускає заплановане завдання, яке перебудовує агреговані знімки аналітики навчання.';
+$string['analytics_snapshot_enabled_title'] = 'Увімкнути знімки аналітики навчання';
+$string['feature_settings_description'] = 'Вмикає або вимикає збір даних і заплановані процеси, що підтримують допоміжні дані Kopere BI.';
+$string['feature_settings_heading'] = 'Збір даних і заплановані завдання';
+$string['online_tracking_disabled'] = 'Online-відстеження вимкнено.';
+$string['online_tracking_enabled_description'] = 'Збирає час доступу до сторінок за допомогою online.js і відображає вбудований звіт Online. Після вимкнення нові online-записи не створюються, AJAX-оновлення ігнорується, звіт Online приховується, а завдання очищення пропускається.';
+$string['online_tracking_enabled_title'] = 'Увімкнути online-відстеження';
+$string['report_tables_sync_enabled_description'] = 'Запускає заплановане завдання, яке синхронізує допоміжні таблиці відстеження та стандартного журналу, що використовуються звітами Kopere BI.';
+$string['report_tables_sync_enabled_title'] = 'Увімкнути синхронізацію допоміжних таблиць звітів';
 $string['active_enrolments'] = 'Активні зарахування';
 $string['analytics_grace_days_description'] = 'Кількість днів після зарахування, перш ніж відсутність доступу, низька активність і низький прогрес почнуть впливати на оцінку ризику.';
 $string['analytics_grace_days_title'] = 'Пільговий період після зарахування';

@@ -22,6 +22,15 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['analytics_snapshot_enabled_description'] = '集約された学習分析スナップショットを再構築するスケジュールタスクを実行します。';
+$string['analytics_snapshot_enabled_title'] = '学習分析スナップショットを有効にする';
+$string['feature_settings_description'] = 'Kopere BI の補助データを維持するデータ収集とスケジュール処理を有効または無効にします。';
+$string['feature_settings_heading'] = 'データ収集とスケジュールタスク';
+$string['online_tracking_disabled'] = 'オンライン追跡は無効です。';
+$string['online_tracking_enabled_description'] = 'online.js を使用してページのアクセス時間を収集し、組み込みの Online レポートを表示します。無効にすると、新しい online レコードは作成されず、AJAX 更新処理は無視され、Online レポートは非表示になり、クリーンアップタスクもスキップされます。';
+$string['online_tracking_enabled_title'] = 'オンライン追跡を有効にする';
+$string['report_tables_sync_enabled_description'] = 'Kopere BI レポートで使用する追跡および標準ログの補助テーブルを同期するスケジュールタスクを実行します。';
+$string['report_tables_sync_enabled_title'] = 'レポート補助テーブルの同期を有効にする';
 $string['active_enrolments'] = '有効な登録';
 $string['analytics_grace_days_description'] = '登録後、未アクセス、低アクティビティ、低進捗がリスクスコアに反映され始めるまでの日数です。';
 $string['analytics_grace_days_title'] = '登録後の猶予期間';

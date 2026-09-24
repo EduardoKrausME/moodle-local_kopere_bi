@@ -76,6 +76,34 @@ $title = get_string("chart_line_default", "local_kopere_bi");
 $setting = new admin_setting_configtextarea($name, $title, get_string("chart_default_desc", "local_kopere_bi"), "");
 $settings->add($setting);
 
+// Runtime features and scheduled task execution.
+$settings->add(new admin_setting_heading(
+    "local_kopere_bi/feature_settings_heading",
+    get_string("feature_settings_heading", "local_kopere_bi"),
+    get_string("feature_settings_description", "local_kopere_bi")
+));
+
+$settings->add(new admin_setting_configcheckbox(
+    "local_kopere_bi/online_tracking_enabled",
+    get_string("online_tracking_enabled_title", "local_kopere_bi"),
+    get_string("online_tracking_enabled_description", "local_kopere_bi"),
+    1
+));
+
+$settings->add(new admin_setting_configcheckbox(
+    "local_kopere_bi/report_tables_sync_enabled",
+    get_string("report_tables_sync_enabled_title", "local_kopere_bi"),
+    get_string("report_tables_sync_enabled_description", "local_kopere_bi"),
+    1
+));
+
+$settings->add(new admin_setting_configcheckbox(
+    "local_kopere_bi/analytics_snapshot_enabled",
+    get_string("analytics_snapshot_enabled_title", "local_kopere_bi"),
+    get_string("analytics_snapshot_enabled_description", "local_kopere_bi"),
+    1
+));
+
 // Learning analytics and risk thresholds.
 $settings->add(new admin_setting_heading(
     "local_kopere_bi/analytics_heading",

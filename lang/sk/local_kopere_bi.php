@@ -22,6 +22,15 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['analytics_snapshot_enabled_description'] = 'Spustí naplánovanú úlohu, ktorá znovu vytvorí agregované snímky analýzy učenia.';
+$string['analytics_snapshot_enabled_title'] = 'Povoliť snímky analýzy učenia';
+$string['feature_settings_description'] = 'Povolí alebo zakáže zber údajov a naplánované procesy, ktoré udržiavajú pomocné údaje Kopere BI.';
+$string['feature_settings_heading'] = 'Zber údajov a naplánované úlohy';
+$string['online_tracking_disabled'] = 'Online sledovanie je vypnuté.';
+$string['online_tracking_enabled_description'] = 'Zhromažďuje čas prístupu k stránkam pomocou online.js a zobrazuje vstavaný prehľad Online. Po vypnutí sa nevytvárajú nové online záznamy, aktualizácia AJAX sa ignoruje, prehľad Online sa skryje a jeho čistiaca úloha sa preskočí.';
+$string['online_tracking_enabled_title'] = 'Povoliť online sledovanie';
+$string['report_tables_sync_enabled_description'] = 'Spustí naplánovanú úlohu, ktorá synchronizuje pomocné tabuľky sledovania a štandardného logu používané prehľadmi Kopere BI.';
+$string['report_tables_sync_enabled_title'] = 'Povoliť synchronizáciu pomocných tabuliek prehľadov';
 $string['active_enrolments'] = 'Aktívne zápisy';
 $string['analytics_grace_days_description'] = 'Počet dní po zápise, kým neprístup, nízka aktivita a nízky pokrok začnú ovplyvňovať skóre rizika.';
 $string['analytics_grace_days_title'] = 'Ochranná lehota po zápise';

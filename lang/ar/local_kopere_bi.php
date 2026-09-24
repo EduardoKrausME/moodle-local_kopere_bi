@@ -22,6 +22,15 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['analytics_snapshot_enabled_description'] = 'تشغيل المهمة المجدولة التي تعيد إنشاء لقطات تحليلات التعلم المجمعة.';
+$string['analytics_snapshot_enabled_title'] = 'تفعيل لقطات تحليلات التعلم';
+$string['feature_settings_description'] = 'تفعيل أو تعطيل جمع البيانات والعمليات المجدولة التي تحافظ على بيانات Kopere BI المساندة.';
+$string['feature_settings_heading'] = 'جمع البيانات والمهام المجدولة';
+$string['online_tracking_disabled'] = 'تتبع الاتصال معطّل.';
+$string['online_tracking_enabled_description'] = 'يجمع وقت الوصول إلى الصفحات باستخدام online.js ويعرض تقرير Online المدمج. عند التعطيل، لا يتم إنشاء سجلات اتصال جديدة، ويتم تجاهل محدّث AJAX، وإخفاء تقرير Online، وتخطي مهمة التنظيف الخاصة به.';
+$string['online_tracking_enabled_title'] = 'تفعيل تتبع الاتصال';
+$string['report_tables_sync_enabled_description'] = 'تشغيل المهمة المجدولة التي تزامن جداول التتبع والسجل القياسي المساندة التي تستخدمها تقارير Kopere BI.';
+$string['report_tables_sync_enabled_title'] = 'تفعيل مزامنة جداول دعم التقارير';
 $string['active_enrolments'] = 'التسجيلات النشطة';
 $string['analytics_grace_days_description'] = 'عدد الأيام بعد التسجيل قبل أن يبدأ عدم الوصول وانخفاض النشاط وانخفاض التقدم في التأثير على درجة المخاطر.';
 $string['analytics_grace_days_title'] = 'فترة السماح بعد التسجيل';

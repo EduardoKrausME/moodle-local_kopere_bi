@@ -22,6 +22,15 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['analytics_snapshot_enabled_description'] = 'Exécute la tâche planifiée qui reconstruit les instantanés agrégés des analyses de l’apprentissage.';
+$string['analytics_snapshot_enabled_title'] = 'Activer les instantanés des analyses de l’apprentissage';
+$string['feature_settings_description'] = 'Active ou désactive la collecte de données et les processus planifiés qui maintiennent les données auxiliaires de Kopere BI.';
+$string['feature_settings_heading'] = 'Collecte de données et tâches planifiées';
+$string['online_tracking_disabled'] = 'Le suivi online est désactivé.';
+$string['online_tracking_enabled_description'] = 'Collecte le temps d’accès aux pages avec online.js et affiche le rapport Online intégré. Lorsque cette option est désactivée, aucun nouvel enregistrement online n’est créé, la mise à jour AJAX est ignorée, le rapport Online est masqué et sa tâche de nettoyage est ignorée.';
+$string['online_tracking_enabled_title'] = 'Activer le suivi online';
+$string['report_tables_sync_enabled_description'] = 'Exécute la tâche planifiée qui synchronise les tables auxiliaires de suivi et du journal standard utilisées par les rapports Kopere BI.';
+$string['report_tables_sync_enabled_title'] = 'Activer la synchronisation des tables auxiliaires des rapports';
 $string['active_enrolments'] = 'Inscriptions actives';
 $string['analytics_grace_days_description'] = 'Nombre de jours après l’inscription avant que l’absence d’accès, la faible activité et la faible progression contribuent au score de risque.';
 $string['analytics_grace_days_title'] = 'Délai de grâce après l’inscription';

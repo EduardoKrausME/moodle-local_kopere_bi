@@ -25,6 +25,7 @@
 namespace local_kopere_bi\task;
 
 use local_kopere_bi\analytics\snapshot_builder;
+use local_kopere_bi\feature;
 
 /**
  * Refreshes the aggregated learning analytics tables.
@@ -48,6 +49,11 @@ class analytics_snapshot extends \core\task\scheduled_task {
      */
     public function execute(): void {
         global $DB;
+
+        if (!feature::analytics_snapshot_enabled()) {
+            mtrace("Kopere BI learning analytics snapshot is disabled. Skipping task.");
+            return;
+        }
 
         if (!in_array($DB->get_dbfamily(), ["mysql", "postgres"], true)) {
             mtrace("Kopere BI learning analytics supports MySQL and PostgreSQL.");

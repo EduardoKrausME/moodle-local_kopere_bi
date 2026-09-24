@@ -22,6 +22,15 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['analytics_snapshot_enabled_description'] = 'Menjalankan tugas terjadwal yang membangun ulang snapshot agregat analitik pembelajaran.';
+$string['analytics_snapshot_enabled_title'] = 'Aktifkan snapshot analitik pembelajaran';
+$string['feature_settings_description'] = 'Aktifkan atau nonaktifkan pengumpulan data dan proses terjadwal yang memelihara data pendukung Kopere BI.';
+$string['feature_settings_heading'] = 'Pengumpulan data dan tugas terjadwal';
+$string['online_tracking_disabled'] = 'Pelacakan online dinonaktifkan.';
+$string['online_tracking_enabled_description'] = 'Mengumpulkan waktu akses halaman menggunakan online.js dan menampilkan laporan Online bawaan. Jika dinonaktifkan, catatan online baru tidak dibuat, pembaru AJAX diabaikan, laporan Online disembunyikan, dan tugas pembersihannya dilewati.';
+$string['online_tracking_enabled_title'] = 'Aktifkan pelacakan online';
+$string['report_tables_sync_enabled_description'] = 'Menjalankan tugas terjadwal yang menyinkronkan tabel pendukung pelacakan dan log standar yang digunakan oleh laporan Kopere BI.';
+$string['report_tables_sync_enabled_title'] = 'Aktifkan sinkronisasi tabel pendukung laporan';
 $string['active_enrolments'] = 'Pendaftaran aktif';
 $string['analytics_grace_days_description'] = 'Jumlah hari setelah pendaftaran sebelum tidak ada akses, aktivitas rendah, dan progres rendah mulai memengaruhi skor risiko.';
 $string['analytics_grace_days_title'] = 'Masa tenggang setelah pendaftaran';

@@ -23,6 +23,7 @@ use external_function_parameters;
 use external_single_structure;
 use external_value;
 use local_kopere_bi\block\util\string_util;
+use local_kopere_bi\feature;
 use local_kopere_bi\filters\filter;
 use local_kopere_bi\vo\local_kopere_bi_block;
 use local_kopere_bi\vo\local_kopere_bi_page;
@@ -93,6 +94,10 @@ class page_html extends external_api {
         /** @var local_kopere_bi_page $koperebipage */
         $koperebipage = $DB->get_record("local_kopere_bi_page", ["id" => $pageid]);
         if ($koperebipage) {
+            if (!feature::page_is_available($koperebipage)) {
+                throw new \moodle_exception("online_tracking_disabled", "local_kopere_bi");
+            }
+
             if ($koperebipage->description) {
                 $text .= "<h2>" . string_util::get_string($koperebipage->description) . "</h2>";
             }

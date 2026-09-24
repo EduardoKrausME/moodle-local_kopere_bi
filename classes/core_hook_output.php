@@ -53,6 +53,11 @@ class core_hook_output {
             return;
         }
 
+        if (!feature::online_tracking_enabled()) {
+            $PAGE->requires->js_call_amd("local_kopere_bi/mod_koperebi", "init");
+            return;
+        }
+
         $moduleid = 0;
         if ($PAGE->cm && $PAGE->cm->id) {
             $moduleid = $PAGE->cm->id;

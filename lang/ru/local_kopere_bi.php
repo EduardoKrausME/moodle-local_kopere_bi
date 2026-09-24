@@ -22,6 +22,15 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['analytics_snapshot_enabled_description'] = 'Запускает плановую задачу, которая перестраивает агрегированные снимки аналитики обучения.';
+$string['analytics_snapshot_enabled_title'] = 'Включить снимки аналитики обучения';
+$string['feature_settings_description'] = 'Включает или отключает сбор данных и плановые процессы, поддерживающие вспомогательные данные Kopere BI.';
+$string['feature_settings_heading'] = 'Сбор данных и плановые задачи';
+$string['online_tracking_disabled'] = 'Online-отслеживание отключено.';
+$string['online_tracking_enabled_description'] = 'Собирает время доступа к страницам с помощью online.js и отображает встроенный отчёт Online. При отключении новые online-записи не создаются, AJAX-обновление игнорируется, отчёт Online скрывается, а задача очистки пропускается.';
+$string['online_tracking_enabled_title'] = 'Включить online-отслеживание';
+$string['report_tables_sync_enabled_description'] = 'Запускает плановую задачу, которая синхронизирует вспомогательные таблицы отслеживания и стандартного журнала, используемые отчётами Kopere BI.';
+$string['report_tables_sync_enabled_title'] = 'Включить синхронизацию вспомогательных таблиц отчётов';
 $string['active_enrolments'] = 'Активные зачисления';
 $string['analytics_grace_days_description'] = 'Количество дней после зачисления, прежде чем отсутствие доступа, низкая активность и низкий прогресс начнут влиять на оценку риска.';
 $string['analytics_grace_days_title'] = 'Льготный период после зачисления';

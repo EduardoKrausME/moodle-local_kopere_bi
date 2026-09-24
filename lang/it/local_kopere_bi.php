@@ -22,6 +22,15 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['analytics_snapshot_enabled_description'] = 'Esegue l’attività pianificata che ricostruisce gli snapshot aggregati delle analisi dell’apprendimento.';
+$string['analytics_snapshot_enabled_title'] = 'Attiva gli snapshot delle analisi dell’apprendimento';
+$string['feature_settings_description'] = 'Attiva o disattiva la raccolta dei dati e i processi pianificati che mantengono i dati di supporto di Kopere BI.';
+$string['feature_settings_heading'] = 'Raccolta dati e attività pianificate';
+$string['online_tracking_disabled'] = 'Il tracciamento online è disattivato.';
+$string['online_tracking_enabled_description'] = 'Raccoglie il tempo di accesso alle pagine tramite online.js e rende disponibile il report Online integrato. Se disattivato, non vengono creati nuovi record online, l’aggiornamento AJAX viene ignorato, il report Online viene nascosto e la relativa attività di pulizia viene saltata.';
+$string['online_tracking_enabled_title'] = 'Attiva il tracciamento online';
+$string['report_tables_sync_enabled_description'] = 'Esegue l’attività pianificata che sincronizza le tabelle di supporto del tracciamento e del log standard utilizzate dai report di Kopere BI.';
+$string['report_tables_sync_enabled_title'] = 'Attiva la sincronizzazione delle tabelle di supporto dei report';
 $string['active_enrolments'] = 'Iscrizioni attive';
 $string['analytics_grace_days_description'] = 'Numero di giorni dopo l’iscrizione prima che mancato accesso, bassa attività e basso progresso contribuiscano al punteggio di rischio.';
 $string['analytics_grace_days_title'] = 'Periodo di tolleranza dopo l’iscrizione';

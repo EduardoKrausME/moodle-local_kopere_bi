@@ -17,6 +17,7 @@
 namespace local_kopere_bi\task;
 
 use Exception;
+use local_kopere_bi\feature;
 
 /**
  * Synchronises support tables used by the native BI reports.
@@ -49,6 +50,11 @@ class report_tables_sync extends \core\task\scheduled_task {
      */
     public function execute() {
         global $DB;
+
+        if (!feature::report_tables_sync_enabled()) {
+            mtrace("Kopere BI report support table synchronisation is disabled. Skipping task.");
+            return;
+        }
 
         if (!in_array($DB->get_dbfamily(), ["mysql", "postgres"])) {
             mtrace("Only MySQL and PostgreSQL are supported by the Kopere BI support table synchronisation.");
