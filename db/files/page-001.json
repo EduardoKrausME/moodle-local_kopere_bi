@@ -23,7 +23,7 @@
                     "css": "",
                     "html_before": null,
                     "html_after": null,
-                    "commandsql": "  SELECT lastip\n    FROM mdl_local_kopere_bi_online\n   WHERE currenttime > UNIX_TIMESTAMP() - (5 * 60)\nGROUP BY userid, lastip",
+                    "commandsql": "SELECT DISTINCT\n       kbo.userid,\n       kbo.lastip,\n       loc.city_name,\n       loc.country_name,\n       loc.country_code,\n       loc.latitude,\n       loc.longitude\n  FROM mdl_local_kopere_bi_online kbo\n  JOIN mdl_local_kopere_bi_iplocation loc ON loc.id = kbo.iplocationid\n WHERE kbo.currenttime > UNIX_TIMESTAMP() - (5 * 60)\n   AND loc.status = 1",
                     "cache": "none",
                     "reload": "1m",
                     "info": [],
@@ -38,7 +38,7 @@
                     "css": "",
                     "html_before": null,
                     "html_after": null,
-                    "commandsql": "SELECT DISTINCT \n       u.id AS u_id,\n       u.firstname,\n       u.lastname,\n       kbo.city_name,\n       kbo.country_name\n  FROM mdl_local_kopere_bi_online kbo\n  JOIN mdl_user u ON u.id = kbo.userid\n WHERE kbo.currenttime > UNIX_TIMESTAMP() - (5 * 60)",
+                    "commandsql": "SELECT DISTINCT \n       u.id AS u_id,\n       u.firstname,\n       u.lastname,\n       loc.city_name,\n       loc.country_name\n  FROM mdl_local_kopere_bi_online kbo\n  JOIN mdl_user u ON u.id = kbo.userid\n  LEFT JOIN mdl_local_kopere_bi_iplocation loc ON loc.id = kbo.iplocationid\n WHERE kbo.currenttime > UNIX_TIMESTAMP() - (5 * 60)",
                     "cache": "none",
                     "reload": "none",
                     "info": {
@@ -149,7 +149,7 @@
                     "css": "",
                     "html_before": null,
                     "html_after": null,
-                    "commandsql": "  SELECT CONCAT(kbo.city_name, '\/', kbo.country_name) AS country_name, \n         SUM(kbo.seconds) as times\n    FROM mdl_local_kopere_bi_online kbo\n    JOIN mdl_user c ON c.id = kbo.userid\nGROUP BY kbo.city_name, kbo.country_name\nORDER BY times DESC\n   LIMIT 10",
+                    "commandsql": "  SELECT CONCAT(loc.city_name, '\/', loc.country_name) AS country_name, \n         SUM(kbo.seconds) as times\n    FROM mdl_local_kopere_bi_online kbo\n    JOIN mdl_user c ON c.id = kbo.userid\n    JOIN mdl_local_kopere_bi_iplocation loc ON loc.id = kbo.iplocationid\nGROUP BY loc.city_name, loc.country_name\nORDER BY times DESC\n   LIMIT 10",
                     "cache": "30m",
                     "reload": "30m",
                     "info": {

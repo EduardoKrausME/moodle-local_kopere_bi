@@ -54,31 +54,28 @@ function local_kopere_bi_getremoteaddr() {
 }
 
 /**
- * Function local_kopere_bi_iplookup_find_location
+ * Backwards-compatible IP lookup helper.
  *
- * @param $ip
+ * This compatibility helper is database-only. External resolution is performed asynchronously by the online AJAX
+ * flow or by the scheduled task, so calling this helper can never delay page rendering.
+ *
+ * @param string $ip
  * @return object
- * @throws \core\exception\coding_exception
  */
 function local_kopere_bi_iplookup_find_location($ip) {
-    $cache = cache::make("local_kopere_bi", "ip_user_location");
-
-    if ($cache->has($ip)) {
-        $dataip = $cache->get($ip);
-    } else {
-        $url = "http://ip-api.com/json/{$ip}";
-        $context = stream_context_create(['http' => ['timeout' => 2]]);
-        $dataip = json_decode(file_get_contents($url, false, $context));
-
-        if (isset($dataip->query)) {
-            $dataip->country_code = $dataip->countryCode;
-            $dataip->latitude = $dataip->lat;
-            $dataip->longitude = $dataip->lon;
-        }
-        $cache->set($ip, $dataip);
+    $location = \local_kopere_bi\ip_location::find((string)$ip);
+    if (!$location) {
+        return (object)[];
     }
 
-    return (object) $dataip;
+    return (object)[
+        "query" => $location->ip ?? $ip,
+        "city" => $location->city_name ?? null,
+        "country" => $location->country_name ?? null,
+        "country_code" => $location->country_code ?? null,
+        "latitude" => $location->latitude ?? null,
+        "longitude" => $location->longitude ?? null,
+    ];
 }
 
 /**

@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die;
 
 $tasks = [
     [
-        "classname" => '\local_kopere_bi\task\online_delete',
+        "classname" => '\\local_kopere_bi\\task\\online_delete',
         "blocking" => 0,
         "minute" => 0,
         "hour" => 6,
@@ -35,7 +35,7 @@ $tasks = [
         "month" => '*',
     ],
     [
-        "classname" => '\local_kopere_bi\task\report_tables_sync',
+        "classname" => '\\local_kopere_bi\\task\\report_tables_sync',
         "blocking" => 0,
         "minute" => 10,
         "hour" => '*',
@@ -44,10 +44,19 @@ $tasks = [
         "month" => '*',
     ],
     [
-        "classname" => '\local_kopere_bi\task\analytics_snapshot',
+        "classname" => '\\local_kopere_bi\\task\\analytics_snapshot',
         "blocking" => 0,
         "minute" => 20,
         "hour" => '*',
+        "day" => '*',
+        "dayofweek" => '*',
+        "month" => '*',
+    ],
+    [
+        "classname" => '\\local_kopere_bi\\task\\ip_location_update',
+        "blocking" => 0,
+        "minute" => 15,
+        "hour" => 3,
         "day" => '*',
         "dayofweek" => '*',
         "month" => '*',

@@ -4,14 +4,6 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * online file
@@ -26,37 +18,43 @@ define(['core/ajax'], function(ajax) {
 
             var tempoTotal = 0;
 
-            var online_update_send = function() {
+            var online_update_send = function(resolveIp) {
+                if (tempoTotal === 0 && !resolveIp) {
+                    return;
+                }
 
-                if (tempoTotal == 0) return;
-
-                // Sends notification to the webservice about time spent at home 1 minute
                 ajax.call([{
                     methodname : "local_kopere_bi_online_update",
                     args       : {
-                        online_id : online_id,
-                        cache_key : key,
-                        seconds   : Math.round(tempoTotal)
+                        online_id  : online_id,
+                        cache_key  : key,
+                        seconds    : Math.round(tempoTotal),
+                        resolve_ip : Boolean(resolveIp)
                     }
                 }]);
 
                 tempoTotal = 0;
             };
 
-            window.addEventListener("beforeunload", online_update_send);
+            // First asynchronous request resolves/links the IP after the page has rendered.
+            online_update_send(true);
+
+            window.addEventListener("beforeunload", function() {
+                online_update_send(false);
+            });
 
             var intervalId = setInterval(function() {
                 if (document.hasFocus()) {
                     tempoTotal += 2;
                 }
                 if (tempoTotal >= 30) {
-                    online_update_send();
+                    online_update_send(false);
                 }
             }, 2 * 1000); // 2 seconds
 
             // After 20 minutes, pause sending minutes.
             setTimeout(function() {
-                online_update_send();
+                online_update_send(false);
                 clearInterval(intervalId);
                 online_update_send = console.log;
             }, 2 * 60 * 1000); // 2 minutes.

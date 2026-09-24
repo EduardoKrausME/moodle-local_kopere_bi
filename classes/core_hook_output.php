@@ -5,14 +5,6 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Class injector
@@ -78,10 +70,9 @@ class core_hook_output {
 
         if (!isset($USER->koperebionline_id[$key])) {
             $lastip = local_kopere_bi_getremoteaddr();
-
             $dataagent = access::agent();
-            $dataip = local_kopere_bi_iplookup_find_location($lastip);
 
+            // Keep the rendering path local and deterministic. IP geolocation is resolved later by online.js.
             $koperebionline = (object)[
                 "userid" => $USER->id,
                 "courseid" => $COURSE->id,
@@ -96,11 +87,6 @@ class core_hook_output {
                 "os_version" => $dataagent->os_version,
 
                 "lastip" => $lastip,
-                "city_name" => @$dataip->city,
-                "country_name" => @$dataip->country,
-                "country_code" => isset($dataip->country_code) ? $dataip->country_code : @$dataip->country,
-                "latitude" => @$dataip->latitude,
-                "longitude" => @$dataip->longitude,
             ];
             try {
                 $koperebionlineid = $DB->insert_record("local_kopere_bi_online", $koperebionline);

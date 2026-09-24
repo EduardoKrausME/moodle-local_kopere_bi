@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/kopere_bi/db" VERSION="20260802" COMMENT="Kopere Bi data"
+<XMLDB PATH="local/kopere_bi/db" VERSION="20260924" COMMENT="Kopere Bi data"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
     <TABLES>
@@ -74,6 +74,29 @@
             </INDEXES>
         </TABLE>
 
+        <TABLE NAME="local_kopere_bi_iplocation" COMMENT="IP geolocation cache">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="ip" TYPE="char" LENGTH="45" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="city_name" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="country_name" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="country_code" TYPE="char" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="latitude" TYPE="number" LENGTH="12" DECIMALS="7" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="longitude" TYPE="number" LENGTH="12" DECIMALS="7" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="status" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+                <FIELD NAME="lastattempt" TYPE="int" LENGTH="20" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+                <FIELD NAME="timecreated" TYPE="int" LENGTH="20" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+                <FIELD NAME="timemodified" TYPE="int" LENGTH="20" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="ip_unique" UNIQUE="true" FIELDS="ip"/>
+                <INDEX NAME="status_attempt" UNIQUE="false" FIELDS="status, lastattempt"/>
+            </INDEXES>
+        </TABLE>
+
         <TABLE NAME="local_kopere_bi_online" COMMENT="Online Users Report">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
@@ -90,11 +113,7 @@
                 <FIELD NAME="os_version" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
 
                 <FIELD NAME="lastip" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
-                <FIELD NAME="city_name" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
-                <FIELD NAME="country_name" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
-                <FIELD NAME="country_code" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
-                <FIELD NAME="latitude" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
-                <FIELD NAME="longitude" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="iplocationid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
@@ -112,9 +131,8 @@
                 <INDEX NAME="os_name" UNIQUE="false" FIELDS="os_name"/>
                 <INDEX NAME="os_version" UNIQUE="false" FIELDS="os_version"/>
 
-                <INDEX NAME="city_name" UNIQUE="false" FIELDS="city_name"/>
-                <INDEX NAME="country_name" UNIQUE="false" FIELDS="country_name"/>
-                <INDEX NAME="country_code" UNIQUE="false" FIELDS="country_code"/>
+                <INDEX NAME="lastip" UNIQUE="false" FIELDS="lastip"/>
+                <INDEX NAME="iplocationid" UNIQUE="false" FIELDS="iplocationid"/>
             </INDEXES>
         </TABLE>
 

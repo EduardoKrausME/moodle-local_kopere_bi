@@ -62,8 +62,15 @@ class provider implements
                 'client_version' => 'privacy:metadata:client_version',
                 'os_name' => 'privacy:metadata:os_name',
                 'os_version' => 'privacy:metadata:os_version',
-
                 'lastip' => 'privacy:metadata:lastip',
+            ],
+            'privacy:metadata:local_kopere_bi_online'
+        );
+
+        // Geolocation is normalised by IP and may be shared by records belonging to several users.
+        $collection->add_database_table('local_kopere_bi_iplocation',
+            [
+                'ip' => 'privacy:metadata:lastip',
                 'city_name' => 'privacy:metadata:city_name',
                 'country_name' => 'privacy:metadata:country_name',
                 'country_code' => 'privacy:metadata:country_code',
@@ -72,6 +79,7 @@ class provider implements
             ],
             'privacy:metadata:local_kopere_bi_online'
         );
+
         return $collection;
     }
 

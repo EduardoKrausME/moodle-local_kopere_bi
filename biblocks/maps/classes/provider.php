@@ -22,6 +22,7 @@ use local_kopere_bi\block\util\code_util;
 use local_kopere_bi\block\util\database_util;
 use local_kopere_bi\block\util\sql_util;
 use local_kopere_bi\form\dynamic_moodleform;
+use local_kopere_bi\ip_location;
 use local_kopere_dashboard\util\message;
 
 /**
@@ -139,10 +140,6 @@ class provider implements i_block_provider {
      * @throws Exception
      */
     public function get_chart_data($koperebielement) {
-        global $CFG;
-
-        require_once($CFG->dirroot . "/local/kopere_bi/lib.php");
-
         $comand = sql_util::prepare_sql($koperebielement->commandsql);
         try {
             $rows = (new database_util())->get_records_sql_block_array($comand->sql, $comand->params);
@@ -162,17 +159,29 @@ class provider implements i_block_provider {
 
         $data = [];
         foreach ($rows as $row) {
-            $dataip = local_kopere_bi_iplookup_find_location($row["lastip"]);
-            $userinfo = [
-                "nb_visits" => 1,
-                "lastip" => $row[0],
-                "city_name" => $dataip->city,
-                "country_name" => $dataip->country,
-                "country_code" => $dataip->country_code ? $dataip->country_code : $dataip->country,
-                "latitude" => $dataip->latitude,
-                "longitude" => $dataip->longitude,
+            $location = null;
+
+            // New native reports already join the numeric location relation. For custom/old map SQL that still
+            // returns only lastip, keep compatibility with a local DB lookup without ever calling the external API.
+            if ((!isset($row["latitude"]) || !isset($row["longitude"])) && !empty($row["lastip"])) {
+                $location = ip_location::find($row["lastip"]);
+            }
+
+            $latitude = $row["latitude"] ?? ($location->latitude ?? null);
+            $longitude = $row["longitude"] ?? ($location->longitude ?? null);
+            if ($latitude === null || $longitude === null || $latitude === '' || $longitude === '') {
+                continue;
+            }
+
+            $data[] = [
+                "nb_visits" => isset($row["nb_visits"]) ? (int)$row["nb_visits"] : 1,
+                "lastip" => $row["lastip"] ?? ($location->ip ?? ''),
+                "city_name" => $row["city_name"] ?? ($location->city_name ?? ''),
+                "country_name" => $row["country_name"] ?? ($location->country_name ?? ''),
+                "country_code" => $row["country_code"] ?? ($location->country_code ?? ''),
+                "latitude" => $latitude,
+                "longitude" => $longitude,
             ];
-            $data[] = $userinfo;
         }
 
         header("Content-Type: application/json");

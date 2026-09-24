@@ -248,5 +248,136 @@ function xmldb_local_kopere_bi_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2026080200, "local", "kopere_bi");
     }
 
+    if ($oldversion < 2026092400) {
+        // Store geolocation once per IP instead of repeating it in every online record.
+        $locationtable = new xmldb_table("local_kopere_bi_iplocation");
+        if (!$dbman->table_exists($locationtable)) {
+            $locationtable->add_field("id", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, XMLDB_SEQUENCE);
+            $locationtable->add_field("ip", XMLDB_TYPE_CHAR, "45", null, XMLDB_NOTNULL);
+            $locationtable->add_field("city_name", XMLDB_TYPE_CHAR, "100");
+            $locationtable->add_field("country_name", XMLDB_TYPE_CHAR, "100");
+            $locationtable->add_field("country_code", XMLDB_TYPE_CHAR, "10");
+            $locationtable->add_field("latitude", XMLDB_TYPE_NUMBER, "12, 7");
+            $locationtable->add_field("longitude", XMLDB_TYPE_NUMBER, "12, 7");
+            $locationtable->add_field("status", XMLDB_TYPE_INTEGER, "2", null, XMLDB_NOTNULL, null, "0");
+            $locationtable->add_field("lastattempt", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL, null, "0");
+            $locationtable->add_field("timecreated", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL, null, "0");
+            $locationtable->add_field("timemodified", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL, null, "0");
+            $locationtable->add_key("primary", XMLDB_KEY_PRIMARY, ["id"]);
+            $locationtable->add_index("ip_unique", XMLDB_INDEX_UNIQUE, ["ip"]);
+            $locationtable->add_index("status_attempt", XMLDB_INDEX_NOTUNIQUE, ["status", "lastattempt"]);
+            $dbman->create_table($locationtable);
+        }
+
+        $onlinetable = new xmldb_table("local_kopere_bi_online");
+        $iplocationfield = new xmldb_field("iplocationid", XMLDB_TYPE_INTEGER, "10", null, null, null, null, "lastip");
+        if (!$dbman->field_exists($onlinetable, $iplocationfield)) {
+            $dbman->add_field($onlinetable, $iplocationfield);
+        }
+
+        $lastipindex = new xmldb_index("lastip", XMLDB_INDEX_NOTUNIQUE, ["lastip"]);
+        if (!$dbman->index_exists($onlinetable, $lastipindex)) {
+            $dbman->add_index($onlinetable, $lastipindex);
+        }
+
+        $locationindex = new xmldb_index("iplocationid", XMLDB_INDEX_NOTUNIQUE, ["iplocationid"]);
+        if (!$dbman->index_exists($onlinetable, $locationindex)) {
+            $dbman->add_index($onlinetable, $locationindex);
+        }
+
+        // Preserve all locations already collected by the old hook before removing the duplicated columns.
+        $legacyfields = ["city_name", "country_name", "country_code", "latitude", "longitude"];
+        $selectfields = [];
+        $haslegacyfields = false;
+        foreach ($legacyfields as $legacyfield) {
+            $field = new xmldb_field($legacyfield);
+            if ($dbman->field_exists($onlinetable, $field)) {
+                $selectfields[] = "MAX({$legacyfield}) AS {$legacyfield}";
+                $haslegacyfields = true;
+            } else {
+                $selectfields[] = "NULL AS {$legacyfield}";
+            }
+        }
+
+        if ($haslegacyfields) {
+            $sql = "SELECT lastip, " . implode(", ", $selectfields) . "
+                      FROM {local_kopere_bi_online}
+                     WHERE lastip IS NOT NULL
+                       AND lastip <> ''
+                  GROUP BY lastip";
+
+            $recordset = $DB->get_recordset_sql($sql);
+            foreach ($recordset as $legacy) {
+                $ip = trim((string)$legacy->lastip);
+                if (strlen($ip) > 45 || filter_var($ip, FILTER_VALIDATE_IP) === false) {
+                    continue;
+                }
+
+                $location = $DB->get_record("local_kopere_bi_iplocation", ["ip" => $ip]);
+                $haslocation = $legacy->city_name !== null && $legacy->city_name !== '' ||
+                    $legacy->country_name !== null && $legacy->country_name !== '' ||
+                    $legacy->country_code !== null && $legacy->country_code !== '' ||
+                    $legacy->latitude !== null && $legacy->latitude !== '' ||
+                    $legacy->longitude !== null && $legacy->longitude !== '';
+                $now = time();
+
+                if (!$location) {
+                    $location = (object)[
+                        "ip" => $ip,
+                        "city_name" => $legacy->city_name,
+                        "country_name" => $legacy->country_name,
+                        "country_code" => $legacy->country_code,
+                        "latitude" => $legacy->latitude,
+                        "longitude" => $legacy->longitude,
+                        "status" => $haslocation ? 1 : 0,
+                        "lastattempt" => $haslocation ? $now : 0,
+                        "timecreated" => $now,
+                        "timemodified" => $now,
+                    ];
+                    $location->id = $DB->insert_record("local_kopere_bi_iplocation", $location);
+                } else if ($haslocation && (int)$location->status !== 1) {
+                    $location->city_name = $legacy->city_name;
+                    $location->country_name = $legacy->country_name;
+                    $location->country_code = $legacy->country_code;
+                    $location->latitude = $legacy->latitude;
+                    $location->longitude = $legacy->longitude;
+                    $location->status = 1;
+                    $location->lastattempt = $now;
+                    $location->timemodified = $now;
+                    $DB->update_record("local_kopere_bi_iplocation", $location);
+                }
+
+                $DB->set_field_select(
+                    "local_kopere_bi_online",
+                    "iplocationid",
+                    $location->id,
+                    "lastip = :lastip",
+                    ["lastip" => $legacy->lastip]
+                );
+            }
+            $recordset->close();
+        }
+
+        // Drop the repeated location columns only after their values have been migrated.
+        foreach (["city_name", "country_name", "country_code"] as $indexname) {
+            $index = new xmldb_index($indexname, XMLDB_INDEX_NOTUNIQUE, [$indexname]);
+            if ($dbman->index_exists($onlinetable, $index)) {
+                $dbman->drop_index($onlinetable, $index);
+            }
+        }
+
+        foreach ($legacyfields as $legacyfield) {
+            $field = new xmldb_field($legacyfield);
+            if ($dbman->field_exists($onlinetable, $field)) {
+                $dbman->drop_field($onlinetable, $field);
+            }
+        }
+
+        // The native online dashboard now reads location through iplocationid.
+        reports::from_file(__DIR__ . "/files/page-001.json");
+
+        upgrade_plugin_savepoint(true, 2026092400, "local", "kopere_bi");
+    }
+
     return true;
 }
