@@ -24,8 +24,6 @@
 
 namespace local_kopere_bi;
 
-defined('MOODLE_INTERNAL') || die;
-
 use dml_exception;
 use stdClass;
 
