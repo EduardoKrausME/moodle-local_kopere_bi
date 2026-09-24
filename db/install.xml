@@ -121,10 +121,6 @@
                 <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
             </KEYS>
             <INDEXES>
-                <INDEX NAME="userid" UNIQUE="false" FIELDS="userid"/>
-                <INDEX NAME="courseid" UNIQUE="false" FIELDS="courseid"/>
-                <INDEX NAME="moduleid" UNIQUE="false" FIELDS="moduleid"/>
-
                 <INDEX NAME="client_type" UNIQUE="false" FIELDS="client_type"/>
                 <INDEX NAME="client_name" UNIQUE="false" FIELDS="client_name"/>
                 <INDEX NAME="client_version" UNIQUE="false" FIELDS="client_version"/>
@@ -187,7 +183,7 @@
         </TABLE>
         <TABLE NAME="local_kopere_bi_log_tmp" COMMENT="BI Standard Log Temporary Cache">
             <FIELDS>
-                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
                 <FIELD NAME="eventname" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false"/>
                 <FIELD NAME="component" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
                 <FIELD NAME="action" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
