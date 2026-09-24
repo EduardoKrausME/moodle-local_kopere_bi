@@ -22,11 +22,13 @@ use external_api;
 use external_function_parameters;
 use external_single_structure;
 use external_value;
+use local_kopere_bi\block\util\preview_util;
 use local_kopere_bi\block\util\string_util;
 use local_kopere_bi\feature;
 use local_kopere_bi\filters\filter;
 use local_kopere_bi\vo\local_kopere_bi_block;
 use local_kopere_bi\vo\local_kopere_bi_page;
+use moodle_exception;
 
 defined('MOODLE_INTERNAL') || die;
 global $CFG;
@@ -81,21 +83,26 @@ class page_html extends external_api {
     public static function api($pageid) {
         global $DB, $CFG, $OUTPUT, $PAGE;
 
-        require_capability("local/kopere_bi:view", \context_system::instance());
+        require_capability("local/kopere_bi:view", context_system::instance());
+            $params = self::validate_parameters(self::api_parameters(), [
+                    "page_id" => $pageid,
+                ]);
+
+            $context = context_system::instance();
+            self::validate_context($context);
+            require_capability("local/kopere_bi:view", $context);
         require_once("{$CFG->dirroot}/local/kopere_bi/lib.php");
 
-        $text = "";
-
-        $text .= "<div class='kopere_bi_div'>";
+        $text = "<div class='kopere_bi_div'>";
         $text .= "<div class='content-w'>";
         $text .= "<div class='content-i'>";
         $text .= "<div class='content-box'>";
 
         /** @var local_kopere_bi_page $koperebipage */
-        $koperebipage = $DB->get_record("local_kopere_bi_page", ["id" => $pageid]);
+        $koperebipage = $DB->get_record("local_kopere_bi_page", ["id" => $params["page_id"]]);
         if ($koperebipage) {
             if (!feature::page_is_available($koperebipage)) {
-                throw new \moodle_exception("online_tracking_disabled", "local_kopere_bi");
+                throw new moodle_exception("online_tracking_disabled", "local_kopere_bi");
             }
 
             if ($koperebipage->description) {
@@ -108,7 +115,7 @@ class page_html extends external_api {
 
             /** @var local_kopere_bi_block $koperebiblock */
             foreach ($koperebiblocks as $koperebiblock) {
-                $text .= (new \local_kopere_bi\block\util\preview_util())->details_block($koperebiblock);
+                $text .= (new preview_util())->details_block($koperebiblock);
             }
         }
 
@@ -119,7 +126,7 @@ class page_html extends external_api {
         $text .= "FIMMMMMMMMMMMMMMMMMMMMMM";
 
         $PAGE->set_pagelayout("print");
-        $PAGE->set_context(context_system::instance());
+        $PAGE->set_context($context);
 
         $return = "";
         $return .= $OUTPUT->header();
