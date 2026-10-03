@@ -24,13 +24,5 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-/**
- * Lang file
- *
- * @package   bifilters_cohort
- * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 $string['message'] = 'ID del gruppo globale usato per generare il report.';
 $string['pluginname'] = 'Filtro per gruppo globale';
