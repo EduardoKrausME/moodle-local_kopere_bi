@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * bifilters_cohort.php
+ * Lang file
  *
  * @package   bifilters_cohort
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}

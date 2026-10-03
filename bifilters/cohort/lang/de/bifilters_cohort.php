@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * bifilters_cohort.php
+ * Lang file
  *
  * @package   bifilters_cohort
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
@@ -23,14 +23,6 @@
  */
 
 defined('MOODLE_INTERNAL') || die;
-
-/**
- * Lang file
- *
- * @package   bifilters_cohort
- * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 
 $string['message'] = 'ID der globalen Gruppe, die zum Erstellen des Berichts verwendet wird.';
 $string['pluginname'] = 'Filter nach globaler Gruppe';

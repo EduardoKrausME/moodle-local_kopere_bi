@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * biblocks_info.php
+ * Lang file
  *
  * @package   biblocks_info
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
@@ -23,14 +23,6 @@
  */
 
 defined('MOODLE_INTERNAL') || die;
-
-/**
- * Lang file
- *
- * @package   biblocks_info
- * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 
 $string['pluginname'] = 'سطر المعلومات';
 $string['pluginname_desc'] = 'معلومات فقط. مثالي لعرض اسم الطالب، وحالة التسجيل، وما إلى ذلك.';
