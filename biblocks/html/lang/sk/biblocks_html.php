@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['html_block'] = 'HTML blok s podporou Mustache';
 $string['html_block_desc'] = '<p>HTML pridané do tohto poľa by malo dodržiavať formát <strong>Mustache</strong>, ktorý umožňuje dynamické nahrádzanie údajov na vašich stránkach. Použite dvojité zložené zátvorky <code>{{ }}</code> na priame odkazovanie na hodnoty stĺpcov SQL v HTML, aby sa údaje vložili správne.</p>
 <blockquote>

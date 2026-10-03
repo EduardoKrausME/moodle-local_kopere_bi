@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['pie_sql_warning'] = '<p>La query SQL seguente deve restituire solo due colonne.</p><p>La prima colonna sarà il nome della colonna, e la seconda colonna deve essere un valore numerico.</p>';
 $string['pluginname'] = 'Grafico a torta';
 $string['pluginname_desc'] = 'Crea un grafico a torta';

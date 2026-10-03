@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['pie_sql_warning'] = '<p>SQL nižšie musí vrátiť iba dva stĺpce.</p><p>Prvý stĺpec bude názov stĺpca a druhý stĺpec musí byť číselná hodnota.</p>';
 $string['pluginname'] = 'Koláčový graf';
 $string['pluginname_desc'] = 'Vytvorí koláčový graf';

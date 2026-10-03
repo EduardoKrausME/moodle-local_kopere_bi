@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['pluginname'] = 'データテーブル';
 $string['pluginname_desc'] = 'データのページネーション付きテーブルを表示します。';
 $string['table_col_title'] = 'カラムタイトル';

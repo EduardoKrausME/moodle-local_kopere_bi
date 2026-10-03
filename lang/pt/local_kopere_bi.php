@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['active_enrolments'] = 'Inscrições ativas';
 $string['analytics_grace_days_description'] = 'Número de dias após a inscrição antes de a falta de acesso, a baixa atividade e o baixo progresso contribuírem para a pontuação de risco.';
 $string['analytics_grace_days_title'] = 'Período de tolerância após a inscrição';

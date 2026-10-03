@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['active_enrolments'] = 'التسجيلات النشطة';
 $string['analytics_grace_days_description'] = 'عدد الأيام بعد التسجيل قبل أن يبدأ عدم الوصول وانخفاض النشاط وانخفاض التقدم في التأثير على درجة المخاطر.';
 $string['analytics_grace_days_title'] = 'فترة السماح بعد التسجيل';

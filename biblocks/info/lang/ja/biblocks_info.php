@@ -22,5 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['pluginname'] = '情報行';
 $string['pluginname_desc'] = '情報のみを表示します。学生名、登録状況などを表示するのに最適です。';

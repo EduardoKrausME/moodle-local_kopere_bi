@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['line_sql_warning'] = '<p>Pamätajte, že nižšie uvedené SQL musí vrátiť nasledujúcu štruktúru:</p>
 <ul>
     <li>Prvý stĺpec má obsahovať text, ktorý sa použije ako názvy osi X.</li>

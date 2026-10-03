@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['pie_sql_warning'] = '<p>Die folgende SQL-Abfrage darf nur zwei Spalten zurückgeben.</p><p>Die erste Spalte enthält den Spaltennamen, und die zweite Spalte muss ein numerischer Wert sein.</p>';
 $string['pluginname'] = 'Kreisdiagramm';
 $string['pluginname_desc'] = 'Erstellt ein Kreisdiagramm';

@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['active_enrolments'] = 'Pendaftaran aktif';
 $string['analytics_grace_days_description'] = 'Jumlah hari setelah pendaftaran sebelum tidak ada akses, aktivitas rendah, dan progres rendah mulai memengaruhi skor risiko.';
 $string['analytics_grace_days_title'] = 'Masa tenggang setelah pendaftaran';

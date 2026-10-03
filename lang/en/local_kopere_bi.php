@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['active_enrolments'] = 'Active Enrolments';
 $string['analytics_grace_days_description'] = 'Number of days after enrolment before no access, low activity and low progress start contributing to the risk score.';
 $string['analytics_grace_days_title'] = 'Grace period after enrolment';

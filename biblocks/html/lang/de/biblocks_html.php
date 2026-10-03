@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['html_block'] = 'HTML-Block mit Mustache-Unterstützung';
 $string['html_block_desc'] = '<p>Das in dieses Feld eingefügte HTML sollte dem Format <strong>Mustache</strong> folgen und damit eine dynamische Datensubstitution auf Ihren Seiten ermöglichen. Verwenden Sie doppelte geschweifte Klammern <code>{{ }}</code>, um SQL-Spaltenwerte direkt im HTML zu referenzieren und sicherzustellen, dass die Daten korrekt eingefügt werden.</p>
 <blockquote>

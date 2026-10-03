@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['pluginname'] = 'Tabella dati';
 $string['pluginname_desc'] = 'Visualizza una tabella con paginazione dei dati.';
 $string['table_col_title'] = 'Titolo della colonna';

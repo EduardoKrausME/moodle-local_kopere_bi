@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['pluginname'] = 'Dátová tabuľka';
 $string['pluginname_desc'] = 'Zobrazuje tabuľku s stránkovaním údajov.';
 $string['table_col_title'] = 'Názov stĺpca';

@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['html_block'] = 'Bloque HTML con soporte para Mustache';
 $string['html_block_desc'] = '<p>El HTML añadido a este campo debe seguir el formato <strong>Mustache</strong>, lo que permite la sustitución dinámica de datos en sus páginas. Use llaves dobles <code>{{ }}</code> para hacer referencia directamente a los valores de las columnas SQL dentro del HTML, asegurando que los datos se inserten correctamente.</p>
 <blockquote>

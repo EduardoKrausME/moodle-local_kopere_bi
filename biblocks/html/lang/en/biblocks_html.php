@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['html_block'] = 'HTML Block with Mustache support';
 $string['html_block_desc'] = '<p>The HTML added to this field should follow the <strong>Mustache</strong> format, allowing dynamic data substitution in your pages. Use double braces <code>{{ }}</code> to reference SQL column values directly in the HTML, ensuring that the data is correctly inserted.</p>
 <blockquote>

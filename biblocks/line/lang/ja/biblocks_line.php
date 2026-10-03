@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['line_sql_warning'] = '<p>以下の SQL は、次の構造で返す必要があります。</p>
 <ul>
     <li>最初の列には、X 軸名として使用されるテキストを含める必要があります。</li>

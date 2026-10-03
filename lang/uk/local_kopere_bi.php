@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['active_enrolments'] = 'Активні зарахування';
 $string['analytics_grace_days_description'] = 'Кількість днів після зарахування, перш ніж відсутність доступу, низька активність і низький прогрес почнуть впливати на оцінку ризику.';
 $string['analytics_grace_days_title'] = 'Пільговий період після зарахування';

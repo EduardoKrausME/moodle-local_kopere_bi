@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['line_sql_warning'] = '<p>Lembre-se de que o SQL abaixo deve retornar com a seguinte estrutura:</p>
 <ul>
     <li>A primeira coluna deve conter o texto que será usado como nome no eixo X.</li>

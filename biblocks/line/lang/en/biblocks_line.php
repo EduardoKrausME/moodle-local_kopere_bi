@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['line_sql_warning'] = '<p>Remember that the SQL below must return with the following structure:</p>
 <ul>
     <li>The first column should contain the text that will be used as the X-axis names.</li>

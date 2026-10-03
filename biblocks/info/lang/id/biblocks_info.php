@@ -22,5 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['pluginname'] = 'Baris Informasi';
 $string['pluginname_desc'] = 'Hanya informasi. Ideal untuk menampilkan nama siswa, status pendaftaran, dan sebagainya.';

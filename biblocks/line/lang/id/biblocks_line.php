@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['line_sql_warning'] = '<p>Ingat bahwa SQL di bawah ini harus mengembalikan struktur berikut:</p>
 <ul>
     <li>Kolom pertama harus berisi teks yang akan digunakan sebagai nama pada sumbu X.</li>

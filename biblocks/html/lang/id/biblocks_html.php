@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['html_block'] = 'Blok HTML dengan dukungan Mustache';
 $string['html_block_desc'] = '<p>HTML yang ditambahkan ke kolom ini harus mengikuti format <strong>Mustache</strong>, sehingga memungkinkan penggantian data secara dinamis di halaman Anda. Gunakan kurung kurawal ganda <code>{{ }}</code> untuk merujuk langsung ke nilai kolom SQL di dalam HTML, agar data dimasukkan dengan benar.</p>
 <blockquote>

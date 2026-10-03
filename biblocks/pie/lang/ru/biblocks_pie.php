@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['pie_sql_warning'] = '<p>SQL-запрос ниже должен возвращать только два столбца.</p><p>Первый столбец будет именем столбца, а второй столбец должен быть числовым значением.</p>';
 $string['pluginname'] = 'Круговая диаграмма';
 $string['pluginname_desc'] = 'Создает круговую диаграмму';

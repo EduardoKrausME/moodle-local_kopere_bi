@@ -22,5 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['pluginname'] = 'Информационная строка';
 $string['pluginname_desc'] = 'Только информация. Идеально подходит для отображения имени студента, статуса зачисления и т. д.';

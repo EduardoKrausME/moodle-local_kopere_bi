@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['pluginname'] = 'Datentabelle';
 $string['pluginname_desc'] = 'Zeigt eine Tabelle mit Datenpaginierung an.';
 $string['table_col_title'] = 'Spaltentitel';

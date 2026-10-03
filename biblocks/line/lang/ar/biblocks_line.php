@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['line_sql_warning'] = '<p>تذكّر أن استعلام SQL أدناه يجب أن يُرجع البيانات بالبنية التالية:</p>
 <ul>
     <li>يجب أن يحتوي العمود الأول على النص الذي سيُستخدم كأسماء لمحور X.</li>

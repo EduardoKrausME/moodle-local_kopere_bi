@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['active_enrolments'] = 'Aktívne zápisy';
 $string['analytics_grace_days_description'] = 'Počet dní po zápise, kým neprístup, nízka aktivita a nízky pokrok začnú ovplyvňovať skóre rizika.';
 $string['analytics_grace_days_title'] = 'Ochranná lehota po zápise';

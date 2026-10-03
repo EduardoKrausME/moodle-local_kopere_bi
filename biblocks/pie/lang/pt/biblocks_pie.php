@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['pie_sql_warning'] = '<p>O SQL abaixo deve devolver apenas duas colunas.</p><p>A primeira coluna será o nome da coluna, e a segunda coluna deve ser um valor numérico.</p>';
 $string['pluginname'] = 'Gráfico circular';
 $string['pluginname_desc'] = 'Cria um gráfico circular';

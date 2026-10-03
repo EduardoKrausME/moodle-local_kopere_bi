@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['maps_1_city'] = '{a1} e mais uma cidade';
 $string['maps_many_city'] = '{a1} e mais {a2} cidades';
 $string['maps_online'] = '{a1} estudante online';

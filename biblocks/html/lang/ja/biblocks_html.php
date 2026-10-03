@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['html_block'] = 'Mustache 対応 HTML ブロック';
 $string['html_block_desc'] = '<p>このフィールドに追加する HTML は <strong>Mustache</strong> 形式に従う必要があります。これにより、ページ内でデータを動的に差し替えることができます。HTML 内で SQL カラムの値を直接参照するには、二重波括弧 <code>{{ }}</code> を使用し、データが正しく挿入されるようにします。</p>
 <blockquote>

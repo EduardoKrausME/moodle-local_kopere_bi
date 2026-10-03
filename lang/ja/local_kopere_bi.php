@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['active_enrolments'] = '有効な登録';
 $string['analytics_grace_days_description'] = '登録後、未アクセス、低アクティビティ、低進捗がリスクスコアに反映され始めるまでの日数です。';
 $string['analytics_grace_days_title'] = '登録後の猶予期間';

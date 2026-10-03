@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['line_sql_warning'] = '<p>Rappelez-vous que la requête SQL ci-dessous doit retourner la structure suivante :</p>
 <ul>
     <li>La première colonne doit contenir le texte qui sera utilisé comme noms de l’axe X.</li>

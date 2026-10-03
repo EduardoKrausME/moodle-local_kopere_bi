@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['active_enrolments'] = 'Активные зачисления';
 $string['analytics_grace_days_description'] = 'Количество дней после зачисления, прежде чем отсутствие доступа, низкая активность и низкий прогресс начнут влиять на оценку риска.';
 $string['analytics_grace_days_title'] = 'Льготный период после зачисления';

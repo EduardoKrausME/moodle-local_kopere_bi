@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['line_sql_warning'] = '<p>Beachten Sie, dass das folgende SQL die folgende Struktur zurückgeben muss:</p>
 <ul>
     <li>Die erste Spalte sollte den Text enthalten, der als Beschriftung der X-Achse verwendet wird.</li>

@@ -22,5 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['pluginname'] = 'Information Line';
 $string['pluginname_desc'] = 'Just information. Ideal for showing student name, enrollment status, etc.';

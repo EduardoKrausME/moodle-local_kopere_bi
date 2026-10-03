@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['line_sql_warning'] = '<p>Пам’ятайте, що наведений нижче SQL має повернути дані з такою структурою:</p>
 <ul>
     <li>Перший стовпець має містити текст, який буде використано як назви осі X.</li>

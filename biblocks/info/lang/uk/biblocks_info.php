@@ -22,5 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['pluginname'] = 'Інформаційний рядок';
 $string['pluginname_desc'] = 'Лише інформація. Ідеально підходить для відображення імені студента, статусу зарахування тощо.';

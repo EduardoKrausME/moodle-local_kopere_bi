@@ -22,5 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['message'] = 'ID do curso utilizado para gerar o relatório.';
 $string['pluginname'] = 'Filtro por curso';
