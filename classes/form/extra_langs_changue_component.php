@@ -21,7 +21,7 @@ use Exception;
 use moodleform;
 use tool_customlang_utils;
 
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die;
 
 global $CFG;
 require_once($CFG->dirroot . "/lib/formslib.php");

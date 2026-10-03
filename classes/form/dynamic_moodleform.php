@@ -18,7 +18,7 @@ namespace local_kopere_bi\form;
 
 use moodleform;
 
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die;
 
 global $CFG;
 require_once($CFG->dirroot . '/lib/formslib.php');
