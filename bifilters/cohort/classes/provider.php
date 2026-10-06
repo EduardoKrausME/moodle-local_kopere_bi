@@ -56,7 +56,7 @@ class provider implements i_filter_provider {
             ];
 
             global $OUTPUT, $PAGE;
-            $PAGE->requires->js_call_amd("local_kopere_bi/filter_cohort", "init");
+            $PAGE->requires->js_call_amd("bifilters_cohort/filter_cohort", "init");
             return $OUTPUT->render_from_template('local_kopere_bi/filter-cohort', $data);
         }
 
