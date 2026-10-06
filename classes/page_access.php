@@ -53,6 +53,10 @@ class page_access {
     public static function can_view($page, ?context $context = null): bool {
         $context = $context ?? context_system::instance();
 
+        if (has_capability("local/kopere_bi:manage", $context)) {
+            return true;
+        }
+
         if (!has_capability("local/kopere_bi:view", $context)) {
             return false;
         }
@@ -70,6 +74,10 @@ class page_access {
      */
     public static function require_view($page, ?context $context = null): void {
         $context = $context ?? context_system::instance();
+
+        if (has_capability("local/kopere_bi:manage", $context)) {
+            return;
+        }
 
         require_capability("local/kopere_bi:view", $context);
 
