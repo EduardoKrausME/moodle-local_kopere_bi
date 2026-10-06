@@ -57,6 +57,7 @@ class data_export {
         $data = (object)[
             "title" => $this->get_key_by_value($koperebipage->refkey, $koperebipage->title, "page_title"),
             "description" => $this->get_key_by_value($koperebipage->refkey, $koperebipage->description, "page_description"),
+            "capability" => $koperebipage->capability ?? "",
             "refkey" => $koperebipage->refkey,
             "category" => (object)[
                 "title" => $this->get_key_by_value($koperebipage->refkey, $koperebicat->title, "category_title"),
