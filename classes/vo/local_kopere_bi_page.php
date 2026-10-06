@@ -55,6 +55,13 @@ class local_kopere_bi_page extends \stdClass {
     public $description;
 
     /**
+     * Optional Moodle capability required to view this page.
+     *
+     * @var string
+     */
+    public $capability;
+
+    /**
      * Var user_id
      *
      * @var int

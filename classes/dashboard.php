@@ -71,7 +71,7 @@ class dashboard extends bi_all {
             $newpages = [];
             /** @var local_kopere_bi_page $koperebipage */
             foreach ($koperebipages as $koperebipage) {
-                if (!feature::page_is_available($koperebipage)) {
+                if (!feature::page_is_available($koperebipage) || !page_access::can_view($koperebipage)) {
                     continue;
                 }
 
@@ -124,6 +124,7 @@ class dashboard extends bi_all {
         $pageid = optional_param("page_id", false, PARAM_INT);
         $pagetitle = optional_param("page_title", false, PARAM_TEXT);
         $pagedescription = optional_param("page_description", false, PARAM_TEXT);
+        $pagecapability = optional_param("page_capability", "", PARAM_RAW_TRIMMED);
         $catid = optional_param("cat_id", 0, PARAM_INT);
 
         if ($pageid) {
@@ -136,6 +137,7 @@ class dashboard extends bi_all {
                 $page->cat_id = $catid;
                 $page->title = $pagetitle;
                 $page->description = $pagedescription;
+                $page->capability = page_access::validate_capability($pagecapability);
 
                 $DB->update_record("local_kopere_bi_page", $page);
                 header::location("?classname=dashboard&method=edit_page&page_id={$page->id}");
@@ -147,6 +149,7 @@ class dashboard extends bi_all {
                 "cat_id" => $catid,
                 "title" => $pagetitle,
                 "description" => $pagedescription,
+                "capability" => "",
                 "time" => time(),
             ];
             $title = get_string("page_new_cat", "local_kopere_bi");
@@ -154,6 +157,7 @@ class dashboard extends bi_all {
             if (dynamic_moodleform::check_post() && isset($pagetitle[3])) {
                 unset($page->id);
 
+                $page->capability = page_access::validate_capability($pagecapability);
                 $page->refkey = html::link($page->title);
                 $page->id = $DB->insert_record("local_kopere_bi_page", $page);
                 header::location("?classname=dashboard&method=edit_page&page_id={$page->id}");
@@ -192,6 +196,14 @@ class dashboard extends bi_all {
                 ->set_title(get_string("page_description", "local_kopere_bi"))
                 ->set_name("page_description")
                 ->set_value($page->description)
+        );
+
+        $form->add_input(
+            input_text::new_instance()
+                ->set_title(get_string("page_capability", "local_kopere_bi"))
+                ->set_name("page_capability")
+                ->set_value($page->capability ?? "")
+                ->set_description(get_string("page_capability_help", "local_kopere_bi"))
         );
 
         if ($pageid) {
@@ -468,6 +480,8 @@ class dashboard extends bi_all {
             header::location("?classname=dashboard&method=start");
         }
 
+        page_access::require_view($koperebipage, context_system::instance());
+
         $editbooton = "";
         $context = context_system::instance();
         if ($PAGE->user_is_editing() && has_capability("local/kopere_bi:manage", $context)) {
@@ -551,6 +565,7 @@ class dashboard extends bi_all {
         /** @var local_kopere_bi_page $page */
         $page = $DB->get_record("local_kopere_bi_page", ["id" => $block->page_id]);
         header::notfound_null($page, get_string("page_not_found", "local_kopere_bi"));
+        page_access::require_view($page, context_system::instance());
 
         $PAGE->navbar->add(
             string_util::get_string($page->title),

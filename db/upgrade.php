@@ -379,5 +379,15 @@ function xmldb_local_kopere_bi_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2026092400, "local", "kopere_bi");
     }
 
+    if ($oldversion < 2026100600) {
+        $table = new xmldb_table("local_kopere_bi_page");
+        $field = new xmldb_field("capability", XMLDB_TYPE_CHAR, "255", null, null, null, null, "description");
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        upgrade_plugin_savepoint(true, 2026100600, "local", "kopere_bi");
+    }
+
     return true;
 }

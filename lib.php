@@ -102,6 +102,9 @@ function local_kopere_bi_extend_navigation_course($navigation, $course, $context
     $koperebipages = $DB->get_records("local_kopere_bi_page", [], "sortorder ASC");
     /** @var local_kopere_bi_page $koperebipage */
     foreach ($koperebipages as $koperebipage) {
+        if (!\local_kopere_bi\page_access::can_view($koperebipage, $context)) {
+            continue;
+        }
 
         $params = [
             "classname" => "dashboard",

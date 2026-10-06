@@ -53,6 +53,18 @@ class menu {
 
         /** @var local_kopere_bi_cat $koperebicat */
         foreach ($koperebicats as $koperebicat) {
+            $pages = $DB->get_records("local_kopere_bi_page", ["cat_id" => $koperebicat->id], "sortorder ASC");
+            $hasvisiblepage = false;
+            foreach ($pages as $page) {
+                if (feature::page_is_available($page) && page_access::can_view($page, $context)) {
+                    $hasvisiblepage = true;
+                    break;
+                }
+            }
+            if (!$hasvisiblepage) {
+                continue;
+            }
+
             $params = [
                 "classname" => "dashboard",
                 "method" => "start",
