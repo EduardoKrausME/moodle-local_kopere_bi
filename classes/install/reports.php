@@ -25,6 +25,7 @@
 namespace local_kopere_bi\install;
 
 use Exception;
+use local_kopere_bi\page_access;
 use local_kopere_bi\vo\local_kopere_bi_block;
 use local_kopere_bi\vo\local_kopere_bi_cat;
 use local_kopere_bi\vo\local_kopere_bi_element;
@@ -63,6 +64,9 @@ class reports {
 
         $koperebipage = clone $page;
         unset($koperebipage->blocks);
+        if (isset($koperebipage->capability)) {
+            $koperebipage->capability = page_access::validate_capability((string)$koperebipage->capability);
+        }
 
         if (isset($koperebipage->pre_requisit) && $koperebipage->pre_requisit == "mysql") {
             if ($DB->get_dbfamily() != "mysql") {
