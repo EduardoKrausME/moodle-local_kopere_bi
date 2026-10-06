@@ -26,6 +26,7 @@ use local_kopere_bi\block\util\preview_util;
 use local_kopere_bi\block\util\string_util;
 use local_kopere_bi\feature;
 use local_kopere_bi\filters\filter;
+use local_kopere_bi\page_access;
 use local_kopere_bi\vo\local_kopere_bi_block;
 use local_kopere_bi\vo\local_kopere_bi_page;
 use moodle_exception;
@@ -83,14 +84,13 @@ class page_html extends external_api {
     public static function api($pageid) {
         global $DB, $CFG, $OUTPUT, $PAGE;
 
-        require_capability("local/kopere_bi:view", context_system::instance());
-            $params = self::validate_parameters(self::api_parameters(), [
-                    "page_id" => $pageid,
-                ]);
+        $params = self::validate_parameters(self::api_parameters(), [
+            "page_id" => $pageid,
+        ]);
 
-            $context = context_system::instance();
-            self::validate_context($context);
-            require_capability("local/kopere_bi:view", $context);
+        $context = context_system::instance();
+        self::validate_context($context);
+        require_capability("local/kopere_bi:view", $context);
         require_once("{$CFG->dirroot}/local/kopere_bi/lib.php");
 
         $text = "<div class='kopere_bi_div'>";
@@ -101,6 +101,8 @@ class page_html extends external_api {
         /** @var local_kopere_bi_page $koperebipage */
         $koperebipage = $DB->get_record("local_kopere_bi_page", ["id" => $params["page_id"]]);
         if ($koperebipage) {
+            page_access::require_view($koperebipage, $context);
+
             if (!feature::page_is_available($koperebipage)) {
                 throw new moodle_exception("online_tracking_disabled", "local_kopere_bi");
             }
