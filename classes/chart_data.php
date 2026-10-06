@@ -47,6 +47,17 @@ class chart_data {
 
         $koperebielement->info_obj = @json_decode($koperebielement->info, true);
 
+        $block = $DB->get_record("local_kopere_bi_block", ["id" => $koperebielement->block_id]);
+        if (!$block) {
+            json::error(get_string("block_not_found", "local_kopere_bi"));
+        }
+
+        $page = $DB->get_record("local_kopere_bi_page", ["id" => $block->page_id]);
+        if (!$page) {
+            json::error(get_string("page_not_found", "local_kopere_bi"));
+        }
+        page_access::require_view($page);
+
         $class = "\\biblocks_{$koperebielement->type}\\provider";
         if (class_exists($class)) {
             /** @var i_block_provider $block */
