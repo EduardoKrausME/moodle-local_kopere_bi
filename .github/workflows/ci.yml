@@ -52,7 +52,7 @@ jobs:
     - name: Check out Kopere Dashboard
       uses: actions/checkout@v4
       with:
-        repository: EduardoKrausME/moodle-local_kopere_dashboard
+        repository: EduardoKrausME/moodle-local-kopere_dashboard
         ref: master
         path: extra-plugins/kopere_dashboard
 
