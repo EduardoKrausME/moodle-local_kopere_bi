@@ -49,6 +49,13 @@ jobs:
       with:
         path: plugin
 
+    - name: Check out Kopere Dashboard
+      uses: actions/checkout@v4
+      with:
+        repository: EduardoKrausME/moodle-local_kopere_dashboard
+        ref: master
+        path: extra-plugins/kopere_dashboard
+
     - name: Setup PHP ${{ matrix.config.php }}
       uses: shivammathur/setup-php@v2
       with:
@@ -66,12 +73,8 @@ jobs:
         sudo locale-gen en_AU.UTF-8
         echo "NVM_DIR=$HOME/.nvm" >> $GITHUB_ENV
 
-    - name: Add required plugins
-      run: |
-        moodle-plugin-ci add-plugin EduardoKrausME/moodle-local-kopere_dashboard
-
     - name: Install moodle-plugin-ci
-      run: moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
+      run: moodle-plugin-ci install --plugin ./plugin --extra-plugins ./extra-plugins --db-host=127.0.0.1
       env:
         DB: ${{ matrix.database }}
         MOODLE_BRANCH: ${{ matrix.config.moodle }}
