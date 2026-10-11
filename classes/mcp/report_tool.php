@@ -14,9 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 //
-// @package local_kopere_bi
-// @copyright 2026 Eduardo Kraus
-// @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+/**
+ * MCP read tool for a Kopere BI report.
+ *
+ * @package   local_kopere_bi
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 namespace local_kopere_bi\mcp;
 
@@ -27,24 +31,44 @@ use local_mcp\read\tool_interface;
 use local_mcp\security\authenticated_identity;
 
 /**
- * Per-report MCP tool; the identity of an API is its stable database page ID.
+ * Per-report MCP tool identified by its stable refkey.
  */
 final class report_tool implements tool_interface {
     /** @var object Report metadata read during discovery. */
     private object $page;
 
+    /**
+     * Bind a discoverable page to its MCP endpoint.
+     *
+     * @param object $page Report page metadata.
+     */
     public function __construct(object $page) {
         $this->page = $page;
     }
 
+    /**
+     * Return the refkey-based MCP tool name.
+     *
+     * @return string
+     */
     public function get_name(): string {
-        return 'kopere_bi_report_' . (int)$this->page->id;
+        return report_service::tool_name($this->page);
     }
 
+    /**
+     * Return the report title.
+     *
+     * @return string
+     */
     public function get_title(): string {
         return 'Kopere BI: ' . string_util::get_string((string)$this->page->title);
     }
 
+    /**
+     * Describe report content and supported filters.
+     *
+     * @return string
+     */
     public function get_description(): string {
         $description = trim(strip_tags(string_util::get_string((string)($this->page->description ?? ''))));
         return 'Read structured data from the Kopere BI report "' .
@@ -54,6 +78,11 @@ final class report_tool implements tool_interface {
             . 'limit and offset apply independently to each element.';
     }
 
+    /**
+     * Return the MCP input schema for report filters.
+     *
+     * @return array
+     */
     public function get_input_schema(): array {
         return [
             'type' => 'object',
@@ -74,14 +103,32 @@ final class report_tool implements tool_interface {
         ];
     }
 
+    /**
+     * Return the minimum capability required to view reports.
+     *
+     * @return string
+     */
     public function get_required_capability(): string {
         return 'local/kopere_bi:view';
     }
 
+    /**
+     * Resolve the Moodle context for this report.
+     *
+     * @param array $arguments MCP tool arguments.
+     * @return context
+     */
     public function resolve_context(array $arguments): context {
         return context_system::instance();
     }
 
+    /**
+     * Read the requested report using its internal page ID.
+     *
+     * @param array $arguments MCP tool arguments.
+     * @param authenticated_identity $identity Connected user.
+     * @return array
+     */
     public function execute(array $arguments, authenticated_identity $identity): array {
         return report_service::execute((int)$this->page->id, $arguments, $identity);
     }

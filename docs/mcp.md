@@ -5,7 +5,7 @@ through `classes/mcp/provider.php`. The integration requires no configuration or
 changes to `local_mcp` and is optional: Kopere BI still works without it.
 
 Every saved, accessible BI **page/report** is published as an independent READ
-tool named `kopere_bi_report_<pageid>`. `kopere_bi_list_reports` returns the
+tool named `kopere_bi_report_<refkey>`. `kopere_bi_list_reports` returns the
 current user's discoverable reports with IDs, titles, categories and tool names.
 New reports appear on the next MCP request, without maintaining a static registry.
 
@@ -15,7 +15,7 @@ Call `kopere_bi_list_reports`, select a report and call its tool:
 
 ```json
 {
-  "name": "kopere_bi_report_27",
+  "name": "kopere_bi_report_learning_analytics",
   "arguments": {
     "course_id": 2,
     "limit": 50,
@@ -24,7 +24,12 @@ Call `kopere_bi_list_reports`, select a report and call its tool:
 }
 ```
 
-The ID `27` above is an example; use the ID from your Moodle installation.
+The refkey `learning_analytics` above is an example; use the report's `refkey`
+returned by `kopere_bi_list_reports`. The database ID remains internal to report
+execution, and is not used to form tool names. Report tools are stable across
+Moodle installations that use the same refkeys. Reports with empty or invalid
+refkeys (outside letters, digits, underscores, dots, and hyphens) or duplicate
+refkeys are not exposed until their keys are corrected.
 
 The response includes report/category metadata, the active filters and all
 report blocks. Each element contains its name and visualization type, its

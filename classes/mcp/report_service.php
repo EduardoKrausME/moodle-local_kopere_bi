@@ -14,9 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 //
-// @package local_kopere_bi
-// @copyright 2026 Eduardo Kraus
-// @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+/**
+ * Service for MCP discovery and execution of Kopere BI reports.
+ *
+ * @package   local_kopere_bi
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 namespace local_kopere_bi\mcp;
 
@@ -38,7 +42,10 @@ use Throwable;
  * database connection to read-only globally. Only saved report SQL is executed.
  */
 final class report_service {
+    /** @var int Default rows returned per element. */
     private const DEFAULT_LIMIT = 50;
+
+    /** @var int Maximum rows returned per element. */
     private const MAX_LIMIT = 200;
 
     /**
@@ -60,6 +67,50 @@ final class report_service {
     }
 
     /**
+     * Return pages with unique MCP-compatible refkeys.
+     *
+     * Pages with an empty, invalid, or duplicate refkey are not exposed. No
+     * numeric database ID is used as a fallback in the public API.
+     *
+     * @return object[]
+     */
+    public static function discovered_pages(): array {
+        $pages = self::visible_pages();
+        $counts = [];
+
+        foreach ($pages as $page) {
+            $refkey = trim((string)($page->refkey ?? ''));
+            if (!preg_match('/^[A-Za-z0-9_.-]{1,100}$/D', $refkey)) {
+                continue;
+            }
+            $name = self::tool_name($page);
+            $counts[$name] = ($counts[$name] ?? 0) + 1;
+        }
+
+        $discovered = [];
+        foreach ($pages as $page) {
+            $name = self::tool_name($page);
+            if (($counts[$name] ?? 0) === 1) {
+                $discovered[] = $page;
+            }
+        }
+
+        return $discovered;
+    }
+
+    /**
+     * Build the stable MCP tool name from the report refkey.
+     *
+     * @param object $page Stored BI report page.
+     * @return string
+     */
+    public static function tool_name(object $page): string {
+        return 'kopere_bi_report_' . trim((string)($page->refkey ?? ''));
+    }
+
+    /**
+     * Check whether a report is visible to the current user.
+     *
      * @param object $page
      * @return bool
      */
@@ -94,12 +145,14 @@ final class report_service {
             'title' => string_util::get_string((string)$page->title),
             'description' => string_util::get_string((string)($page->description ?? '')),
             'category' => $category ? string_util::get_string((string)$category->title) : '',
-            'tool' => 'kopere_bi_report_' . (int)$page->id,
+            'tool' => self::tool_name($page),
         ];
     }
 
     /**
-     * @param int $pageid Report identifier from the generated tool.
+     * Execute a report using its internal numeric database ID.
+     *
+     * @param int $pageid Report identifier resolved internally.
      * @param array $arguments Validated MCP input.
      * @param authenticated_identity $identity Connected user.
      * @return array
@@ -169,6 +222,8 @@ final class report_service {
     }
 
     /**
+     * Return a single report element as a structured, paginated dataset.
+     *
      * @param object $element Saved Kopere BI element.
      * @param int $userid
      * @param int $courseid
@@ -218,7 +273,7 @@ final class report_service {
             $output['status'] = 'ok';
         } catch (Throwable $e) {
             // Do not disclose SQL, stack traces, or configuration in the MCP response.
-            error_log('Kopere BI MCP element ' . (int)$element->id . ': ' . get_class($e));
+            debugging('Kopere BI MCP element ' . (int)$element->id . ': ' . get_class($e), DEBUG_DEVELOPER);
             $output['status'] = 'error';
             $output['error'] = 'Unable to execute this report data source.';
         }

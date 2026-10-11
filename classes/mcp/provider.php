@@ -14,9 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 //
-// @package local_kopere_bi
-// @copyright 2026 Eduardo Kraus
-// @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+/**
+ * Autodiscovery provider for Kopere BI MCP reports.
+ *
+ * @package   local_kopere_bi
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 namespace local_kopere_bi\mcp;
 
@@ -30,11 +34,13 @@ use local_mcp\extension\read_provider_interface;
  */
 final class provider implements read_provider_interface {
     /**
+     * Return the discoverable per-report read tools.
+     *
      * @return \local_mcp\read\tool_interface[]
      */
     public function get_read_tools(): array {
         $tools = [new list_reports()];
-        foreach (report_service::visible_pages() as $page) {
+        foreach (report_service::discovered_pages() as $page) {
             $tools[] = new report_tool($page);
         }
         return $tools;
