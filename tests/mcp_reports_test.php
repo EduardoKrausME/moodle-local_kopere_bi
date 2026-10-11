@@ -138,12 +138,12 @@ final class mcp_reports_test extends advanced_testcase {
             'refkey' => 'mcp_test_private_report',
         ]);
 
-        $names = array_map(static function(tool_interface $tool): string {
+        $names = array_map(static function (tool_interface $tool): string {
             return $tool->get_name();
         }, (new provider())->get_read_tools());
         $this->assertNotContains('kopere_bi_report_mcp_test_private_report', $names);
     }
-}
+
     /**
      * Exclude reports with empty, malformed, or ambiguous refkeys.
      *
@@ -173,7 +173,7 @@ final class mcp_reports_test extends advanced_testcase {
             ]);
         }
 
-        $names = array_map(static function(tool_interface $tool): string {
+        $names = array_map(static function (tool_interface $tool): string {
             return $tool->get_name();
         }, (new provider())->get_read_tools());
 
@@ -181,4 +181,4 @@ final class mcp_reports_test extends advanced_testcase {
         $this->assertNotContains('kopere_bi_report_invalid key', $names);
         $this->assertNotContains('kopere_bi_report_', $names);
     }
-
+}
