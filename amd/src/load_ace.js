@@ -80,6 +80,5 @@ define(["jquery"], function($) {
                 window[`editor_${id_key}`] = editor;
             });
         },
-
     };
 });
