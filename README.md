@@ -56,6 +56,15 @@ The dashboards read small snapshot tables instead of querying `logstore_standard
 
 Table columns can be customized using [Mustache](https://moodledev.io/docs/guides/templates), allowing you to format and display the data as needed, including applying custom data.
 
+## MCP: report APIs
+
+Install [local_mcp](https://github.com/EduardoKrausME/moodle-local_mcp) to
+automatically publish each BI report as a separate read-only MCP tool. Use
+`kopere_bi_list_reports` to discover report APIs and
+`kopere_bi_report_<pageid>` to read the underlying tabular data from
+all elements, with optional filters and pagination. See
+[the MCP integration guide](docs/mcp.md) for parameters and access control.
+
 ## Contribution
 Contributions are welcome!
 
