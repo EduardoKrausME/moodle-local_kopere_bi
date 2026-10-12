@@ -388,6 +388,153 @@
         justify-content: space-between;
     }
 }
+.reports-home__mcp-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    position: relative;
+    padding: 1.15rem 3.3rem 1.15rem 1.15rem;
+    border: 1px solid #c9ddf3;
+    border-left: 4px solid #0f6cbf;
+    border-radius: 1rem;
+    background: linear-gradient(110deg, #eff7ff 0%, #ffffff 75%);
+    box-shadow: 0 8px 25px rgba(23, 43, 77, .06);
+    color: #1e3650;
+}
+.reports-home__mcp-icon {
+    display: flex;
+    flex: 0 0 4.2rem;
+    align-items: center;
+    justify-content: center;
+    gap: .15rem;
+    width: 4.2rem;
+    height: 4.2rem;
+    border-radius: .9rem;
+    background: #dceeff;
+    color: #0a4f8f;
+    font-size: 1.04rem;
+    font-weight: 800;
+}
+.reports-home__mcp-icon span {
+    color: #547a9c;
+}
+.reports-home__mcp-content {
+    min-width: 0;
+    flex: 1;
+}
+.reports-home__mcp-badge {
+    display: inline-block;
+    margin-bottom: .2rem;
+    color: #0a4f8f;
+    font-size: .71rem;
+    font-weight: 800;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+.reports-home__mcp-content h3 {
+    margin: 0;
+    color: #173c60;
+    font-size: 1.16rem;
+    font-weight: 800;
+}
+.reports-home__mcp-content p {
+    max-width: 58rem;
+    margin: .4rem 0 .65rem;
+    color: #435972;
+    line-height: 1.5;
+}
+.reports-home__mcp-benefits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .45rem .95rem;
+    margin: 0 0 .85rem;
+    padding: 0;
+    list-style: none;
+    color: #2d526f;
+    font-size: .86rem;
+}
+.reports-home__mcp-benefits li::before {
+    content: "✓";
+    margin-right: .35rem;
+    color: #137651;
+    font-weight: bold;
+}
+.reports-home__mcp-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .5rem .75rem;
+    border-radius: .65rem;
+    background: #0f6cbf;
+    color: #ffffff;
+    font-size: .87rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+.reports-home__mcp-link:hover,
+.reports-home__mcp-link:focus {
+    background: #0a4f8f;
+    color: #ffffff;
+    text-decoration: none;
+}
+.reports-home__mcp-close {
+    position: absolute;
+    top: .65rem;
+    right: .65rem;
+    margin: 0;
+}
+.reports-home__mcp-dismiss {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: 0;
+    border-radius: .5rem;
+    background: transparent;
+    color: #4a6681;
+    cursor: pointer;
+    font-size: 1.45rem;
+    line-height: 1;
+}
+.reports-home__mcp-dismiss:hover,
+.reports-home__mcp-dismiss:focus-visible {
+    background: rgba(15, 108, 191, .1);
+    color: #0a4f8f;
+}
+[data-bs-theme="dark"] .reports-home__mcp-banner {
+    border-color: #3f5771;
+    border-left-color: #80bcf5;
+    background: linear-gradient(110deg, #1d3347 0%, #1d2734 85%);
+    color: #e2edf8;
+}
+[data-bs-theme="dark"] .reports-home__mcp-icon {
+    background: #2e526e;
+    color: #e4f2ff;
+}
+[data-bs-theme="dark"] .reports-home__mcp-icon span,
+[data-bs-theme="dark"] .reports-home__mcp-content h3,
+[data-bs-theme="dark"] .reports-home__mcp-badge,
+[data-bs-theme="dark"] .reports-home__mcp-benefits {
+    color: #e2edf8;
+}
+[data-bs-theme="dark"] .reports-home__mcp-content p {
+    color: #bfcedb;
+}
+[data-bs-theme="dark"] .reports-home__mcp-dismiss {
+    color: #c0d5e7;
+}
+@media (max-width: 576px) {
+    .reports-home__mcp-banner {
+        gap: .75rem;
+        padding: 1rem 2.8rem 1rem 1rem;
+    }
+    .reports-home__mcp-icon {
+        display: none;
+    }
+}
+
 .preview-block {
     .col-lg-3,
     .col-lg-4 {

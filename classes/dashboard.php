@@ -110,7 +110,34 @@ class dashboard extends bi_all {
             "total_pages" => $totalpages,
             "editing" => isset($USER->editing) ? $USER->editing : 0,
             "wwwroot" => $CFG->wwwroot,
+            "show_mcp_banner" => mcp_banner::should_show(),
+            "mcp_banner_dismiss_url" => (new \moodle_url("/local/kopere_bi/index.php", [
+                "classname" => "dashboard",
+                "method" => "dismiss_mcp_banner",
+            ]))->out(false),
+            "sesskey" => sesskey(),
         ]);
+    }
+
+    /**
+     * Remember an administrator's decision to dismiss the optional local_mcp banner.
+     *
+     * @return void
+     */
+    public function dismiss_mcp_banner(): void {
+        global $USER;
+
+        require_capability("moodle/site:config", context_system::instance());
+        if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+            throw new \moodle_exception("invalidrequest", "error");
+        }
+        require_sesskey();
+
+        set_user_preference(mcp_banner::PREFERENCE_HIDDEN, "1", $USER->id);
+        redirect(new \moodle_url("/local/kopere_bi/index.php", [
+            "classname" => "dashboard",
+            "method" => "start",
+        ]));
     }
 
     /**
