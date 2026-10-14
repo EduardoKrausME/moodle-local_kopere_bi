@@ -24,12 +24,10 @@
 
 namespace local_kopere_bi;
 
-defined('MOODLE_INTERNAL') || die;
-
 /**
  * Visibility and dismissal state for the optional local_mcp banner.
  */
-final class mcp_banner {
+class mcp_banner {
     /** @var string User preference to suppress the banner. */
     public const PREFERENCE_HIDDEN = 'local_kopere_bi_mcp_banner_hidden';
 
