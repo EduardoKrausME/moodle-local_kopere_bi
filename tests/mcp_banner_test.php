@@ -32,7 +32,11 @@ use advanced_testcase;
  * @covers \local_kopere_bi\mcp_banner
  */
 final class mcp_banner_test extends advanced_testcase {
-    /** @return void */
+    /**
+     * test_hidden_for_non_administrators
+     *
+     * @return void
+     */
     public function test_hidden_for_non_administrators(): void {
         $this->resetAfterTest();
         unset_config('version', 'local_mcp');
@@ -40,7 +44,12 @@ final class mcp_banner_test extends advanced_testcase {
         $this->assertFalse(mcp_banner::should_show());
     }
 
-    /** @return void */
+    /**
+     * test_visible_for_admin_when_not_installed
+     *
+     * @return void
+     * @throws \coding_exception
+     */
     public function test_visible_for_admin_when_not_installed(): void {
         $this->resetAfterTest();
         unset_config('version', 'local_mcp');
@@ -49,7 +58,12 @@ final class mcp_banner_test extends advanced_testcase {
         $this->assertTrue(mcp_banner::should_show());
     }
 
-    /** @return void */
+    /**
+     * test_hidden_once_dismissed
+     *
+     * @return void
+     * @throws \coding_exception
+     */
     public function test_hidden_once_dismissed(): void {
         $this->resetAfterTest();
         unset_config('version', 'local_mcp');
@@ -58,7 +72,12 @@ final class mcp_banner_test extends advanced_testcase {
         $this->assertFalse(mcp_banner::should_show());
     }
 
-    /** @return void */
+    /**
+     * test_hidden_if_mcp_is_installed
+     *
+     * @return void
+     * @throws \coding_exception
+     */
     public function test_hidden_if_mcp_is_installed(): void {
         $this->resetAfterTest();
         $this->setAdminUser();
