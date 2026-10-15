@@ -27,6 +27,7 @@ namespace local_kopere_bi;
 defined('MOODLE_INTERNAL') || die;
 require_once(__DIR__ . "/../lib.php");
 
+use core\hook\output\before_footer_html_generation;
 use dml_exception;
 use local_kopere_bi\analysis\access;
 
@@ -38,7 +39,7 @@ class core_hook_output {
     /**
      * Function before_footer_html_generation
      */
-    public static function before_footer_html_generation() {
+    public static function before_footer_html_generation(before_footer_html_generation $hook) {
         global $USER, $DB, $COURSE, $PAGE;
 
         if (!isloggedin()) {

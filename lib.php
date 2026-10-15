@@ -22,21 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use local_kopere_bi\block\util\preview_util;
 use local_kopere_bi\block\util\string_util;
-use local_kopere_bi\core_hook_output;
-use local_kopere_bi\filters\filter;
-use local_kopere_bi\vo\local_kopere_bi_block;
 use local_kopere_bi\vo\local_kopere_bi_page;
-
-/**
- * Function local_kopere_bi_before_footer
- *
- * @throws Exception
- */
-function local_kopere_bi_before_footer() {
-    core_hook_output::before_footer_html_generation();
-}
 
 /**
  * Function getremoteaddr
