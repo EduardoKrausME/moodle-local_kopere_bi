@@ -37,12 +37,12 @@ class mcp_banner {
      * @return bool
      */
     public static function should_show(): bool {
-        if (!is_siteadmin()) {
-            return false;
-        }
-        if (get_config('local_mcp', 'version') !== false) {
-            return false;
-        }
+//        if (!is_siteadmin()) {
+//            return false;
+//        }
+//        if (get_config('local_mcp', 'version') !== false) {
+//            return false;
+//        }
         return !get_user_preferences(self::PREFERENCE_HIDDEN, false);
     }
 }

@@ -58,7 +58,7 @@ Table columns can be customized using [Mustache](https://moodledev.io/docs/guide
 
 ## MCP: report APIs
 
-Install [local_mcp](https://github.com/EduardoKrausME/moodle-local_mcp) to
+Install [local_mcp](https://eduardokrausme.github.io/moodle-local_mcp/) to
 automatically publish each BI report as a separate read-only MCP tool. Use
 `kopere_bi_list_reports` to discover report APIs and
 `kopere_bi_report_<refkey>` to read the underlying tabular data from
