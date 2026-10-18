@@ -25,6 +25,7 @@
 namespace local_kopere_bi;
 
 use advanced_testcase;
+use coding_exception;
 
 /**
  * Banner appears only to administrators without local_mcp until it is dismissed.
@@ -48,7 +49,7 @@ final class mcp_banner_test extends advanced_testcase {
      * test_visible_for_admin_when_not_installed
      *
      * @return void
-     * @throws \coding_exception
+     * @throws coding_exception
      */
     public function test_visible_for_admin_when_not_installed(): void {
         $this->resetAfterTest();
@@ -62,7 +63,7 @@ final class mcp_banner_test extends advanced_testcase {
      * test_hidden_once_dismissed
      *
      * @return void
-     * @throws \coding_exception
+     * @throws coding_exception
      */
     public function test_hidden_once_dismissed(): void {
         $this->resetAfterTest();
@@ -76,7 +77,7 @@ final class mcp_banner_test extends advanced_testcase {
      * test_hidden_if_mcp_is_installed
      *
      * @return void
-     * @throws \coding_exception
+     * @throws coding_exception
      */
     public function test_hidden_if_mcp_is_installed(): void {
         $this->resetAfterTest();

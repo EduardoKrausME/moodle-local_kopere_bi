@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\external;
 
+use context_user;
 use Exception;
 use external_api;
 use external_value;
@@ -91,7 +92,7 @@ class online_update extends external_api {
             "resolve_ip" => $resolveip,
         ]);
 
-        $context = \context_user::instance($USER->id);
+        $context = context_user::instance($USER->id);
         require_capability("local/kopere_bi:view", $context);
         self::validate_context($context);
 

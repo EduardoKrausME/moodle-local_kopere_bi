@@ -38,6 +38,8 @@ use local_kopere_bi\form\input_textarea;
 use local_kopere_dashboard\util\header;
 use local_kopere_dashboard\util\html;
 use local_kopere_dashboard\util\message;
+use moodle_exception;
+use moodle_url;
 
 /**
  * Class dashboard
@@ -111,10 +113,10 @@ class dashboard extends bi_all {
             "editing" => isset($USER->editing) ? $USER->editing : 0,
             "wwwroot" => $CFG->wwwroot,
             "show_mcp_banner" => mcp_banner::should_show(),
-            "mcp_banner_dismiss_url" => (new \moodle_url("/local/kopere_bi/index.php", [
+            "mcp_banner_dismiss_url" => new moodle_url("/local/kopere_bi/index.php", [
                 "classname" => "dashboard",
                 "method" => "dismiss_mcp_banner",
-            ]))->out(false),
+            ]),
             "sesskey" => sesskey(),
         ]);
     }
@@ -129,12 +131,12 @@ class dashboard extends bi_all {
 
         require_capability("moodle/site:config", context_system::instance());
         if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-            throw new \moodle_exception("invalidrequest", "error");
+            throw new moodle_exception("invalidrequest", "error");
         }
         require_sesskey();
 
         set_user_preference(mcp_banner::PREFERENCE_HIDDEN, "1", $USER->id);
-        redirect(new \moodle_url("/local/kopere_bi/index.php", [
+        redirect(new moodle_url("/local/kopere_bi/index.php", [
             "classname" => "dashboard",
             "method" => "start",
         ]));

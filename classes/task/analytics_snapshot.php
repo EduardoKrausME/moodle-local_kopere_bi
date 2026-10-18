@@ -24,6 +24,8 @@
 
 namespace local_kopere_bi\task;
 
+use core\task\scheduled_task;
+use dml_exception;
 use local_kopere_bi\analytics\snapshot_builder;
 use local_kopere_bi\feature;
 
@@ -32,7 +34,7 @@ use local_kopere_bi\feature;
  *
  * @package local_kopere_bi
  */
-class analytics_snapshot extends \core\task\scheduled_task {
+class analytics_snapshot extends scheduled_task {
     /**
      * Return the translated task name.
      *
@@ -45,7 +47,7 @@ class analytics_snapshot extends \core\task\scheduled_task {
     /**
      * Build the next analytics snapshot.
      *
-     * @throws \dml_exception
+     * @throws dml_exception
      */
     public function execute(): void {
         global $DB;

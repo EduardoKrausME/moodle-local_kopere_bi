@@ -24,7 +24,10 @@
 
 namespace local_kopere_bi;
 
+use coding_exception;
 use context;
+use core\exception\moodle_exception;
+use Exception;
 use local_kopere_dashboard\api\subplugin_manager;
 use local_kopere_bi\block\util\string_util;
 use local_kopere_bi\vo\local_kopere_bi_cat;
@@ -39,10 +42,10 @@ class menu {
      *
      * @param context $context
      * @return array
-     * @throws \coding_exception
+     * @throws coding_exception
      * @throws \moodle_exception
-     * @throws \core\exception\moodle_exception
-     * @throws \Exception
+     * @throws moodle_exception
+     * @throws Exception
      */
     public static function get_definition(context $context): array {
         global $DB;

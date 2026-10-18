@@ -24,12 +24,13 @@
 
 namespace local_kopere_bi\task;
 
+use core\task\scheduled_task;
 use local_kopere_bi\ip_location;
 
 /**
  * Resolves IPs that did not get a location during the browser AJAX flow.
  */
-class ip_location_update extends \core\task\scheduled_task {
+class ip_location_update extends scheduled_task {
 
     /** Maximum missing online IPs created in one daily run. */
     private const MAX_NEW_IPS = 100;

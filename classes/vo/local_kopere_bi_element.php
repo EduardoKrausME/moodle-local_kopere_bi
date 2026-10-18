@@ -16,6 +16,8 @@
 
 namespace local_kopere_bi\vo;
 
+use stdClass;
+
 /**
  * phpcs:disable
  * Class local_kopere_bi_element
@@ -24,7 +26,7 @@ namespace local_kopere_bi\vo;
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class local_kopere_bi_element extends \stdClass {
+class local_kopere_bi_element extends stdClass {
 
     /**
      * Var id

@@ -24,6 +24,8 @@
 
 namespace local_kopere_bi\analytics;
 
+use dml_exception;
+
 /**
  * Builds the small support tables consumed by the learning analytics dashboards.
  *
@@ -34,7 +36,7 @@ class snapshot_builder {
      * Build a complete and consistent analytics snapshot.
      *
      * @return int Snapshot identifier.
-     * @throws \dml_exception
+     * @throws dml_exception
      */
     public function execute(): int {
         global $DB;
@@ -59,7 +61,7 @@ class snapshot_builder {
      * Build one row for every active student enrolment.
      *
      * @param int $batchid Snapshot identifier.
-     * @throws \dml_exception
+     * @throws dml_exception
      */
     private function build_learner_snapshot(int $batchid): void {
         global $DB;
@@ -288,7 +290,7 @@ class snapshot_builder {
      * Aggregate the learner snapshot into course health metrics.
      *
      * @param int $batchid Snapshot identifier.
-     * @throws \dml_exception
+     * @throws dml_exception
      */
     private function build_course_snapshot(int $batchid): void {
         global $DB;
@@ -364,7 +366,7 @@ class snapshot_builder {
      * Build the time series used by access and activity trend charts.
      *
      * @param int $batchid Snapshot identifier.
-     * @throws \dml_exception
+     * @throws dml_exception
      */
     private function build_daily_snapshot(int $batchid): void {
         global $DB;

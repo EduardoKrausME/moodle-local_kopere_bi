@@ -27,6 +27,8 @@ namespace local_kopere_bi\output;
 use cache;
 use Exception;
 use local_kopere_bi\block\util\string_util;
+use Mustache_Engine;
+use Mustache_Source;
 
 if (!class_exists('Mustache_Engine')) {
     class_alias('Mustache\Engine', 'Mustache_Engine');
@@ -38,7 +40,7 @@ if (!class_exists('Mustache_Source')) {
 /**
  * Class renderer_bi_mustache
  */
-class renderer_bi_mustache extends \Mustache_Engine {
+class renderer_bi_mustache extends Mustache_Engine {
 
     /**
      * Function new_instance
@@ -108,7 +110,7 @@ class renderer_bi_mustache extends \Mustache_Engine {
                 ],
 
             ],
-            "pragmas" => [\Mustache_Engine::PRAGMA_BLOCKS],
+            "pragmas" => [Mustache_Engine::PRAGMA_BLOCKS],
         ]);
     }
 
@@ -177,7 +179,7 @@ class renderer_bi_mustache extends \Mustache_Engine {
      * phpcs:disable
      * Function getTemplateClassName
      *
-     * @param \Mustache_Source|string $source
+     * @param Mustache_Source|string $source
      * @return string
      */
     public function getTemplateClassName($source) {

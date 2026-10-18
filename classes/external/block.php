@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\external;
 
+use context_system;
 use Exception;
 use external_api;
 use external_function_parameters;
@@ -81,7 +82,7 @@ class block extends external_api {
         $params = self::validate_parameters(self::sequence_parameters(), [
             "itens" => $elements,
         ]);
-        $context = \context_system::instance();
+        $context = context_system::instance();
         require_capability("local/kopere_bi:manage", $context);
         self::validate_context($context);
 
@@ -146,7 +147,7 @@ class block extends external_api {
         $params = self::validate_parameters(self::delete_parameters(), [
             "block_id" => $blockid,
         ]);
-        $context = \context_system::instance();
+        $context = context_system::instance();
         require_capability("local/kopere_bi:manage", $context);
         self::validate_context($context);
 
@@ -214,11 +215,11 @@ class block extends external_api {
             "page_id" => $pageid,
             "type" => $type,
         ]);
-        $context = \context_system::instance();
+        $context = context_system::instance();
         require_capability("local/kopere_bi:manage", $context);
         self::validate_context($context);
 
-        $PAGE->set_context(\context_system::instance());
+        $PAGE->set_context(context_system::instance());
 
         $koperebiblock = (object)[
             "refkey" => uniqid(),

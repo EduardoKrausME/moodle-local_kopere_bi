@@ -16,6 +16,8 @@
 
 namespace local_kopere_bi\block\util;
 
+use cache;
+
 /**
  * Class cache_util
  *
@@ -30,25 +32,25 @@ class cache_util {
      * @param $id
      */
     public static function delete($id) {
-        $cache = \cache::make("local_kopere_bi", "block_chart_data_15m");
+        $cache = cache::make("local_kopere_bi", "block_chart_data_15m");
         $cache->delete($id);
 
-        $cache = \cache::make("local_kopere_bi", "block_chart_data_30m");
+        $cache = cache::make("local_kopere_bi", "block_chart_data_30m");
         $cache->delete($id);
 
-        $cache = \cache::make("local_kopere_bi", "block_chart_data_1h");
+        $cache = cache::make("local_kopere_bi", "block_chart_data_1h");
         $cache->delete($id);
 
-        $cache = \cache::make("local_kopere_bi", "block_chart_data_6h");
+        $cache = cache::make("local_kopere_bi", "block_chart_data_6h");
         $cache->delete($id);
 
-        $cache = \cache::make("local_kopere_bi", "block_chart_data_1d");
+        $cache = cache::make("local_kopere_bi", "block_chart_data_1d");
         $cache->delete($id);
 
-        $cache = \cache::make("local_kopere_bi", "mustache_nosql");
+        $cache = cache::make("local_kopere_bi", "mustache_nosql");
         $cache->delete($id);
 
-        $cache = \cache::make("local_kopere_bi", "mustache_sql");
+        $cache = cache::make("local_kopere_bi", "mustache_sql");
         $cache->delete($id);
     }
 
@@ -59,6 +61,6 @@ class cache_util {
      * @return mixed
      */
     public static function get_cache_make($cache) {
-        return \cache::make("local_kopere_bi", "block_chart_data_{$cache}");
+        return cache::make("local_kopere_bi", "block_chart_data_{$cache}");
     }
 }

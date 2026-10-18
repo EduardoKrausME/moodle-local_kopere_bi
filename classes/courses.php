@@ -26,6 +26,7 @@ namespace local_kopere_bi;
 
 use cache;
 use context_course;
+use Exception;
 use local_kopere_dashboard\util\json;
 
 /**
@@ -36,7 +37,7 @@ use local_kopere_dashboard\util\json;
 class courses {
     /**
      * Function load_all_courses
-     * @throws \Exception
+     * @throws Exception
      */
     public function load_all_courses() {
         global $DB;

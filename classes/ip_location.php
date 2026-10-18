@@ -24,6 +24,7 @@
 
 namespace local_kopere_bi;
 
+use core\lock\lock_config;
 use dml_exception;
 use stdClass;
 
@@ -114,7 +115,7 @@ class ip_location {
             }
         }
 
-        $factory = \core\lock\lock_config::get_lock_factory('local_kopere_bi_iplocation');
+        $factory = lock_config::get_lock_factory('local_kopere_bi_iplocation');
         $lock = $factory->get_lock(hash('sha256', $ip), 0);
         if (!$lock) {
             return $location ?: false;

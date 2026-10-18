@@ -20,6 +20,7 @@ use Exception;
 use local_kopere_bi\form\extra_langs_changue_component;
 use local_kopere_bi\form\dynamic_moodleform;
 use local_kopere_dashboard\util\header;
+use moodle_url;
 use tool_customlang_utils;
 
 /**
@@ -69,7 +70,7 @@ class extra_langs extends bi_all {
             header::location("?{$_SERVER["QUERY_STRING"]}");
         }
 
-        $url = new \moodle_url($PAGE->url, [
+        $url = new moodle_url($PAGE->url, [
             "classname" => required_param("classname", PARAM_TEXT),
             "method" => required_param("method", PARAM_TEXT),
         ]);

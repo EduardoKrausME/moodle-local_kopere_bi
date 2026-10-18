@@ -23,6 +23,8 @@
  */
 
 use local_kopere_bi\block\util\string_util;
+use local_kopere_bi\ip_location;
+use local_kopere_bi\page_access;
 use local_kopere_bi\vo\local_kopere_bi_page;
 
 /**
@@ -50,7 +52,7 @@ function local_kopere_bi_getremoteaddr() {
  * @return object
  */
 function local_kopere_bi_iplookup_find_location($ip) {
-    $location = \local_kopere_bi\ip_location::find((string)$ip);
+    $location = ip_location::find((string)$ip);
     if (!$location) {
         return (object)[];
     }
@@ -89,7 +91,7 @@ function local_kopere_bi_extend_navigation_course($navigation, $course, $context
     $koperebipages = $DB->get_records("local_kopere_bi_page", [], "sortorder ASC");
     /** @var local_kopere_bi_page $koperebipage */
     foreach ($koperebipages as $koperebipage) {
-        if (!\local_kopere_bi\page_access::can_view($koperebipage, $context)) {
+        if (!page_access::can_view($koperebipage, $context)) {
             continue;
         }
 
@@ -175,7 +177,7 @@ function local_kopere_bi_require_route_capability($classname, $method, context_s
  * @param context_system $context
  * @return string
  * @throws moodle_exception
- * @throws \required_capability_exception
+ * @throws required_capability_exception
  */
 function local_kopere_bi_dispatch($rawclassname, $method, context_system $context) {
     [$classname, $fqcn] = local_kopere_bi_resolve_classname($rawclassname);

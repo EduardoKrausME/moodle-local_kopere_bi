@@ -25,6 +25,7 @@ use local_kopere_bi\vo\local_kopere_bi_element;
 use local_kopere_bi\vo\local_kopere_bi_page;
 use local_kopere_bi\form\dynamic_moodleform;
 use local_kopere_dashboard\util\header;
+use local_kopere_dashboard\util\html;
 
 /**
  * Class type_block
@@ -176,7 +177,7 @@ class type_block extends bi_all {
 
                     cache_util::delete($koperebielement->id);
                 } else {
-                    $koperebielement->refkey = \local_kopere_dashboard\util\html::link($koperebielement->title);
+                    $koperebielement->refkey = html::link($koperebielement->title);
                     $koperebielement->block_id = $blockid;
                     $koperebielement->block_num = $blocknum;
                     $koperebielement->type = required_param("type", PARAM_TEXT);

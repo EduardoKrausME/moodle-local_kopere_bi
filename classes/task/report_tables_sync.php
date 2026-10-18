@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\task;
 
+use core\task\scheduled_task;
 use Exception;
 use local_kopere_bi\feature;
 
@@ -26,7 +27,7 @@ use local_kopere_bi\feature;
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class report_tables_sync extends \core\task\scheduled_task {
+class report_tables_sync extends scheduled_task {
     /**
      * Number of months kept in the standard log cache.
      *

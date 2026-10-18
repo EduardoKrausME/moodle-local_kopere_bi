@@ -16,6 +16,7 @@
 
 namespace local_kopere_bi\external;
 
+use context_system;
 use Exception;
 use external_api;
 use external_function_parameters;
@@ -80,7 +81,7 @@ class categorie extends external_api {
             "itens" => $elements,
         ]);
 
-        $context = \context_system::instance();
+        $context = context_system::instance();
         require_capability("local/kopere_bi:manage", $context);
         self::validate_context($context);
 

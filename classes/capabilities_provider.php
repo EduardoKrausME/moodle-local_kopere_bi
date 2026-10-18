@@ -24,6 +24,8 @@
 
 namespace local_kopere_bi;
 
+use coding_exception;
+
 /**
  * Class capabilities_provider
  */
@@ -32,7 +34,7 @@ class capabilities_provider {
      * Return the capabilities managed by Kopere Dashboard.
      *
      * @return array[]
-     * @throws \coding_exception
+     * @throws coding_exception
      */
     public static function get_capabilities(): array {
         return [

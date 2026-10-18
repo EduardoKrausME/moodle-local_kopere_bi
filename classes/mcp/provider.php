@@ -25,6 +25,7 @@
 namespace local_kopere_bi\mcp;
 
 use local_mcp\extension\read_provider_interface;
+use local_mcp\read\tool_interface;
 
 /**
  * Auto-discovered by local_mcp from classes/mcp/provider.php.
@@ -36,7 +37,7 @@ final class provider implements read_provider_interface {
     /**
      * Return the discoverable per-report read tools.
      *
-     * @return \local_mcp\read\tool_interface[]
+     * @return tool_interface[]
      */
     public function get_read_tools(): array {
         $tools = [new list_reports()];
