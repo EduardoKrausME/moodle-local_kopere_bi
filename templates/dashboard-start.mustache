@@ -56,31 +56,8 @@
 
 <div class="reports-home">
     {{#show_mcp_banner}}
-    <aside class="reports-home__mcp-banner" aria-labelledby="kopere-bi-mcp-banner-title">
-        <div class="reports-home__mcp-icon" aria-hidden="true">BI<span>+</span>IA</div>
-        <div class="reports-home__mcp-content">
-            <span class="reports-home__mcp-badge">{{#str}}mcp_banner_badge,local_kopere_bi{{/str}}</span>
-            <h3 id="kopere-bi-mcp-banner-title">{{#str}}mcp_banner_title,local_kopere_bi{{/str}}</h3>
-            <p>{{#str}}mcp_banner_description,local_kopere_bi{{/str}}</p>
-            <ul class="reports-home__mcp-benefits">
-                <li>{{#str}}mcp_banner_benefit_discovery,local_kopere_bi{{/str}}</li>
-                <li>{{#str}}mcp_banner_benefit_data,local_kopere_bi{{/str}}</li>
-                <li>{{#str}}mcp_banner_benefit_security,local_kopere_bi{{/str}}</li>
-            </ul>
-            <a class="reports-home__mcp-link"
-               href="https://eduardokrausme.github.io/moodle-local_mcp/"
-               target="_blank" rel="noopener noreferrer">
-                {{#str}}mcp_banner_cta,local_kopere_bi{{/str}} <span aria-hidden="true">&#8599;</span>
-            </a>
-        </div>
-        <form class="reports-home__mcp-close" method="post" action="{{mcp_banner_dismiss_url}}">
-            <input type="hidden" name="sesskey" value="{{sesskey}}">
-            <button type="submit" class="reports-home__mcp-dismiss"
-                    aria-label="{{#str}}mcp_banner_dismiss,local_kopere_bi{{/str}}"
-                    title="{{#str}}mcp_banner_dismiss,local_kopere_bi{{/str}}">&times;</button>
-        </form>
-    </aside>
-{{/show_mcp_banner}}
+        {{> local_kopere_bi/mcp_banner}}
+    {{/show_mcp_banner}}
 
     <header class="reports-home__hero">
         <div class="reports-home__hero-content">
