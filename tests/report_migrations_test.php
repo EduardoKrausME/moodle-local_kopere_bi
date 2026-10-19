@@ -90,4 +90,67 @@ final class report_migrations_test extends advanced_testcase {
         report_migrations::fix_quiz_question_status();
         $this->assertSame($corrected, $DB->get_field("local_kopere_bi_element", "commandsql", ["id" => $elementid]));
     }
+
+    /**
+     * Check that a legacy report is upgraded but SQL customisations survive.
+     *
+     * @return void
+     */
+    public function test_fix_broken_builtin_reports_only_replaces_original_sql(): void {
+        global $DB;
+
+        $this->resetAfterTest();
+
+        $categoryid = $DB->insert_record("local_kopere_bi_cat", (object)[
+            "title" => "Migration fixture",
+            "refkey" => "migration_feedback_cat",
+        ]);
+        $pageid = $DB->insert_record("local_kopere_bi_page", (object)[
+            "title" => "Migration fixture",
+            "cat_id" => $categoryid,
+            "refkey" => "migration_feedback_page",
+        ]);
+        $blockid = $DB->insert_record("local_kopere_bi_block", (object)[
+            "page_id" => $pageid,
+            "refkey" => "migration_feedback_block",
+            "type" => "block-1",
+        ]);
+
+        $legacy = file_get_contents(__DIR__ . "/fixtures/legacy_sql_083.sql");
+        $this->assertSame("dac9c2ab", hash("crc32b", $legacy));
+        $elementid = $DB->insert_record("local_kopere_bi_element", (object)[
+            "block_id" => $blockid,
+            "refkey" => "kbi_el_feedback_overview_report",
+            "title" => "Locally adjusted title",
+            "type" => "table",
+            "commandsql" => $legacy,
+            "info" => "{}",
+        ]);
+        $customid = $DB->insert_record("local_kopere_bi_element", (object)[
+            "block_id" => $blockid,
+            "refkey" => "kbi_el_course_access",
+            "title" => "Customised SQL",
+            "type" => "table",
+            "commandsql" => "SELECT 42 AS id",
+            "info" => "{}",
+        ]);
+
+        report_migrations::fix_broken_builtin_reports();
+
+        $page = json_decode(file_get_contents(__DIR__ . "/../db/files/page-083.json"), true);
+        $expected = $page["blocks"][0]["elements"][0]["commandsql"];
+        $this->assertSame($expected,
+            $DB->get_field("local_kopere_bi_element", "commandsql", ["id" => $elementid]));
+        $this->assertSame("Locally adjusted title",
+            $DB->get_field("local_kopere_bi_element", "title", ["id" => $elementid]));
+        $this->assertSame("SELECT 42 AS id",
+            $DB->get_field("local_kopere_bi_element", "commandsql", ["id" => $customid]));
+
+        // Migration must be idempotent and preserve local custom SQL.
+        report_migrations::fix_broken_builtin_reports();
+        $this->assertSame($expected,
+            $DB->get_field("local_kopere_bi_element", "commandsql", ["id" => $elementid]));
+        $this->assertSame("SELECT 42 AS id",
+            $DB->get_field("local_kopere_bi_element", "commandsql", ["id" => $customid]));
+    }
 }

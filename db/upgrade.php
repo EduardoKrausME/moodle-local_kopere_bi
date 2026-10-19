@@ -397,5 +397,13 @@ function xmldb_local_kopere_bi_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2026101900, "local", "kopere_bi");
     }
 
+    if ($oldversion < 2026101901) {
+        // Reapply the quiz status correction and migrate the other shipped SQL fixes.
+        report_migrations::fix_quiz_question_status();
+        report_migrations::fix_broken_builtin_reports();
+
+        upgrade_plugin_savepoint(true, 2026101901, "local", "kopere_bi");
+    }
+
     return true;
 }
