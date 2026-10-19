@@ -32,5 +32,5 @@ $plugin->release = "1.0.0";
 
 $plugin->dependencies = [
     "biblocks_line" => 2025112001,
-    "local_kopere_bi" => 2026081200,
+    "local_kopere_bi" => 2026101900,
 ];
