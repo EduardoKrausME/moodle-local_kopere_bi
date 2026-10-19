@@ -185,7 +185,7 @@ final class mcp_reports_test extends advanced_testcase {
     /**
      * Check that diagnostics are available only to BI managers.
      *
-     * @covers \\local_kopere_bi\\mcp\\report_service
+     * @covers \local_kopere_bi\mcp\report_service
      * @return void
      */
     public function test_report_execution_error_details_require_manage_capability(): void {
@@ -228,7 +228,7 @@ final class mcp_reports_test extends advanced_testcase {
         ]);
 
         $adminidentity = new authenticated_identity((int)get_admin()->id, "test", ["mcp:read"]);
-        $managerresult = \\local_kopere_bi\\mcp\\report_service::execute($pageid, [], $adminidentity);
+        $managerresult = \local_kopere_bi\mcp\report_service::execute($pageid, [], $adminidentity);
         $this->assertDebuggingCalled();
         $managererror = $managerresult["blocks"][0]["elements"][0];
         $this->assertSame("error", $managererror["status"]);
@@ -236,7 +236,7 @@ final class mcp_reports_test extends advanced_testcase {
         $this->assertSame("InvalidArgumentException", $managererror["error_details"]["exception"]);
         $this->assertSame("Only read-only report SQL is supported.", $managererror["error_details"]["message"]);
 
-        $context = \\context_system::instance();
+        $context = \context_system::instance();
         $roleid = $this->getDataGenerator()->create_role();
         assign_capability("local/kopere_bi:view", CAP_ALLOW, $roleid, $context->id, true);
         $user = $this->getDataGenerator()->create_user();
@@ -244,7 +244,7 @@ final class mcp_reports_test extends advanced_testcase {
         $this->setUser($user);
 
         $readeridentity = new authenticated_identity((int)$user->id, "test", ["mcp:read"]);
-        $readerresult = \\local_kopere_bi\\mcp\\report_service::execute($pageid, [], $readeridentity);
+        $readerresult = \local_kopere_bi\mcp\report_service::execute($pageid, [], $readeridentity);
         $this->assertDebuggingCalled();
         $readererror = $readerresult["blocks"][0]["elements"][0];
         $this->assertSame("error", $readererror["status"]);
