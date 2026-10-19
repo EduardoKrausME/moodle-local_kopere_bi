@@ -214,7 +214,7 @@ final class report_service {
             ];
             foreach ($elements as $element) {
                 $output['elements'][] = self::element_data($element, $userid, $courseid,
-                    $cohortid, $limit, $offset);
+                    $cohortid, $limit, $offset, $manager);
             }
             $result['blocks'][] = $output;
         }
@@ -230,10 +230,11 @@ final class report_service {
      * @param int $cohortid
      * @param int $limit
      * @param int $offset
+     * @param bool $showdetails Whether the user can inspect technical errors.
      * @return array
      */
     private static function element_data(object $element, int $userid, int $courseid,
-            int $cohortid, int $limit, int $offset): array {
+            int $cohortid, int $limit, int $offset, bool $showdetails): array {
         $output = [
             'id' => (int)$element->id,
             'refkey' => (string)($element->refkey ?? ''),
@@ -272,10 +273,26 @@ final class report_service {
             }
             $output['status'] = 'ok';
         } catch (Throwable $e) {
-            // Do not disclose SQL, stack traces, or configuration in the MCP response.
-            debugging('Kopere BI MCP element ' . (int)$element->id . ': ' . get_class($e), DEBUG_DEVELOPER);
-            $output['status'] = 'error';
-            $output['error'] = 'Unable to execute this report data source.';
+            // Keep the generic error for readers. Only BI managers may inspect diagnostics.
+            debugging("Kopere BI MCP element " . (int)$element->id . ": " .
+                get_class($e) . ": " . $e->getMessage(), DEBUG_DEVELOPER);
+            $output["status"] = "error";
+            $output["error"] = "Unable to execute this report data source.";
+            if ($showdetails) {
+                $output["error_details"] = [
+                    "exception" => get_class($e),
+                    "message" => $e->getMessage(),
+                    "code" => (string)$e->getCode(),
+                ];
+                // Moodle database exceptions keep the driver error in debuginfo.
+                // Include only its first line; never expose SQL or bound parameters.
+                if ($e instanceof \moodle_exception && !empty($e->debuginfo)) {
+                    $firstline = strtok((string)$e->debuginfo, "\r\n");
+                    if ($firstline !== false && trim($firstline) !== "") {
+                        $output["error_details"]["database_error"] = mb_substr(trim($firstline), 0, 500);
+                    }
+                }
+            }
         }
         return $output;
     }
