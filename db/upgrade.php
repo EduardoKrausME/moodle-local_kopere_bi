@@ -23,6 +23,7 @@
  */
 
 use local_kopere_bi\install\reports;
+use local_kopere_bi\upgrade\report_migrations;
 
 /**
  * Function xmldb_local_kopere_bi_upgrade
@@ -387,6 +388,13 @@ function xmldb_local_kopere_bi_upgrade($oldversion) {
         }
 
         upgrade_plugin_savepoint(true, 2026100600, "local", "kopere_bi");
+    }
+
+    if ($oldversion < 2026101900) {
+        // Correct the saved SQL without replacing local report customisations.
+        report_migrations::fix_quiz_question_status();
+
+        upgrade_plugin_savepoint(true, 2026101900, "local", "kopere_bi");
     }
 
     return true;
