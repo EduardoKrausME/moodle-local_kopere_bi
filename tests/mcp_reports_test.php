@@ -181,4 +181,74 @@ final class mcp_reports_test extends advanced_testcase {
         $this->assertNotContains('kopere_bi_report_invalid key', $names);
         $this->assertNotContains('kopere_bi_report_', $names);
     }
+
+    /**
+     * Check that diagnostics are available only to BI managers.
+     *
+     * @covers \\local_kopere_bi\\mcp\\report_service
+     * @return void
+     */
+    public function test_report_execution_error_details_require_manage_capability(): void {
+        global $DB;
+
+        if (!interface_exists(tool_interface::class)) {
+            $this->markTestSkipped("local_mcp is not installed.");
+        }
+
+        $this->resetAfterTest();
+        $this->setAdminUser();
+
+        $categoryid = $DB->insert_record("local_kopere_bi_cat", (object)[
+            "refkey" => "mcp_errors_category",
+            "title" => "MCP errors category",
+            "sortorder" => 9999,
+        ]);
+        $pageid = $DB->insert_record("local_kopere_bi_page", (object)[
+            "refkey" => "mcp_errors_page",
+            "cat_id" => $categoryid,
+            "title" => "MCP errors page",
+            "time" => time(),
+        ]);
+        $blockid = $DB->insert_record("local_kopere_bi_block", (object)[
+            "refkey" => "mcp_errors_block",
+            "page_id" => $pageid,
+            "type" => "block-1",
+            "sequence" => 1,
+            "time" => time(),
+        ]);
+        $DB->insert_record("local_kopere_bi_element", (object)[
+            "refkey" => "mcp_errors_element",
+            "title" => "Restricted error details",
+            "block_id" => $blockid,
+            "block_num" => 1,
+            "type" => "table",
+            "commandsql" => "DELETE FROM {user}",
+            "info" => "{}",
+            "time" => time(),
+        ]);
+
+        $adminidentity = new authenticated_identity((int)get_admin()->id, "test", ["mcp:read"]);
+        $managerresult = \\local_kopere_bi\\mcp\\report_service::execute($pageid, [], $adminidentity);
+        $this->assertDebuggingCalled();
+        $managererror = $managerresult["blocks"][0]["elements"][0];
+        $this->assertSame("error", $managererror["status"]);
+        $this->assertSame("Unable to execute this report data source.", $managererror["error"]);
+        $this->assertSame("InvalidArgumentException", $managererror["error_details"]["exception"]);
+        $this->assertSame("Only read-only report SQL is supported.", $managererror["error_details"]["message"]);
+
+        $context = \\context_system::instance();
+        $roleid = $this->getDataGenerator()->create_role();
+        assign_capability("local/kopere_bi:view", CAP_ALLOW, $roleid, $context->id, true);
+        $user = $this->getDataGenerator()->create_user();
+        role_assign($roleid, $user->id, $context->id);
+        $this->setUser($user);
+
+        $readeridentity = new authenticated_identity((int)$user->id, "test", ["mcp:read"]);
+        $readerresult = \\local_kopere_bi\\mcp\\report_service::execute($pageid, [], $readeridentity);
+        $this->assertDebuggingCalled();
+        $readererror = $readerresult["blocks"][0]["elements"][0];
+        $this->assertSame("error", $readererror["status"]);
+        $this->assertSame("Unable to execute this report data source.", $readererror["error"]);
+        $this->assertArrayNotHasKey("error_details", $readererror);
+    }
 }
