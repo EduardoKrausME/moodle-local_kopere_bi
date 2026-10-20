@@ -100,7 +100,8 @@ final class report_migrations {
             "kbi_el_scorm_activity_detail" => [77, "e02a2c3d"],
             "kbi_el_scorm_activity_summary_by_course" => [78, "8ba4c063"],
             "kbi_el_assignment_submission_status" => [80, "a4fa66dc"],
-            "kbi_el_feedback_overview_report" => [83, "dac9c2ab"],
+            // Preserve compatibility with the original and the intermediate REGEXP-based definition.
+            "kbi_el_feedback_overview_report" => [83, ["dac9c2ab", "bd67f41b"]],
         ];
 
         foreach ($originals as $refkey => [$pageid, $checksum]) {
@@ -129,7 +130,7 @@ final class report_migrations {
                 }
 
                 // Never replace a locally customised report definition.
-                if (hash("crc32b", $previoussql) !== $checksum) {
+                if (!in_array(hash("crc32b", $previoussql), (array)$checksum, true)) {
                     debugging("Preserving modified Kopere BI SQL for " . $refkey, DEBUG_DEVELOPER);
                     continue;
                 }
