@@ -22,10 +22,10 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+defined("MOODLE_INTERNAL") || die;
 
-$plugin->version = 2026101901;
-$plugin->release = '3.2.7';
+$plugin->version = 2026101902;
+$plugin->release = "3.2.8";
 $plugin->requires = 2024042200;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->component = "local_kopere_bi";
