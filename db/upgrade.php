@@ -405,5 +405,12 @@ function xmldb_local_kopere_bi_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2026101901, "local", "kopere_bi");
     }
 
+    if ($oldversion < 2026101902) {
+        // Update the installed feedback overview report, keeping local SQL customisations.
+        report_migrations::fix_broken_builtin_reports();
+
+        upgrade_plugin_savepoint(true, 2026101902, "local", "kopere_bi");
+    }
+
     return true;
 }
