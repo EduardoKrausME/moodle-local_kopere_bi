@@ -126,6 +126,25 @@ final class report_migrations_test extends advanced_testcase {
             "commandsql" => $legacy,
             "info" => "{}",
         ]);
+        // This version was shipped after the initial migration and fails on question-mark placeholders.
+        $regexsql = file_get_contents(__DIR__ . "/fixtures/regex_sql_083.sql");
+        $this->assertSame("bd67f41b", hash("crc32b", $regexsql));
+        $regexid = $DB->insert_record("local_kopere_bi_element", (object)[
+            "block_id" => $blockid,
+            "refkey" => "kbi_el_feedback_overview_report",
+            "title" => "Intermediate feedback report",
+            "type" => "table",
+            "commandsql" => $regexsql,
+            "info" => "{}",
+        ]);
+        $localcustomid = $DB->insert_record("local_kopere_bi_element", (object)[
+            "block_id" => $blockid,
+            "refkey" => "kbi_el_feedback_overview_report",
+            "title" => "Locally customised feedback report",
+            "type" => "table",
+            "commandsql" => "SELECT 42 AS id",
+            "info" => "{}",
+        ]);
         $customid = $DB->insert_record("local_kopere_bi_element", (object)[
             "block_id" => $blockid,
             "refkey" => "kbi_el_course_access",
@@ -141,6 +160,16 @@ final class report_migrations_test extends advanced_testcase {
         $expected = $page["blocks"][0]["elements"][0]["commandsql"];
         $this->assertSame($expected,
             $DB->get_field("local_kopere_bi_element", "commandsql", ["id" => $elementid]));
+        $this->assertSame($expected,
+            $DB->get_field("local_kopere_bi_element", "commandsql", ["id" => $regexid]));
+        $this->assertSame("SELECT 42 AS id",
+            $DB->get_field("local_kopere_bi_element", "commandsql", ["id" => $localcustomid]));
+        $this->assertStringNotContainsString("REGEXP", $expected);
+        $this->assertStringNotContainsString("?", $expected);
+
+        // The bundled SQL must be executable with both PostgreSQL and MariaDB.
+        $sql = str_replace("mdl_", $GLOBALS["CFG"]->prefix, $expected);
+        $this->assertIsArray($DB->get_records_sql($sql));
         $this->assertSame("Locally adjusted title",
             $DB->get_field("local_kopere_bi_element", "title", ["id" => $elementid]));
         $this->assertSame("SELECT 42 AS id",
@@ -150,6 +179,10 @@ final class report_migrations_test extends advanced_testcase {
         report_migrations::fix_broken_builtin_reports();
         $this->assertSame($expected,
             $DB->get_field("local_kopere_bi_element", "commandsql", ["id" => $elementid]));
+        $this->assertSame($expected,
+            $DB->get_field("local_kopere_bi_element", "commandsql", ["id" => $regexid]));
+        $this->assertSame("SELECT 42 AS id",
+            $DB->get_field("local_kopere_bi_element", "commandsql", ["id" => $localcustomid]));
         $this->assertSame("SELECT 42 AS id",
             $DB->get_field("local_kopere_bi_element", "commandsql", ["id" => $customid]));
     }
