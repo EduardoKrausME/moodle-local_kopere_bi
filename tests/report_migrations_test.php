@@ -94,6 +94,7 @@ final class report_migrations_test extends advanced_testcase {
     /**
      * Check that a legacy report is upgraded but SQL customisations survive.
      *
+     * @covers \local_kopere_bi\upgrade\report_migrations
      * @return void
      */
     public function test_fix_broken_builtin_reports_only_replaces_original_sql(): void {
@@ -155,6 +156,10 @@ final class report_migrations_test extends advanced_testcase {
         ]);
 
         report_migrations::fix_broken_builtin_reports();
+        $this->assertdebuggingcalledcount(2, [
+            "Preserving modified Kopere BI SQL for kbi_el_course_access",
+            "Preserving modified Kopere BI SQL for kbi_el_feedback_overview_report",
+        ]);
 
         $page = json_decode(file_get_contents(__DIR__ . "/../db/files/page-083.json"), true);
         $expected = $page["blocks"][0]["elements"][0]["commandsql"];
@@ -177,6 +182,10 @@ final class report_migrations_test extends advanced_testcase {
 
         // Migration must be idempotent and preserve local custom SQL.
         report_migrations::fix_broken_builtin_reports();
+        $this->assertdebuggingcalledcount(2, [
+            "Preserving modified Kopere BI SQL for kbi_el_course_access",
+            "Preserving modified Kopere BI SQL for kbi_el_feedback_overview_report",
+        ]);
         $this->assertSame($expected,
             $DB->get_field("local_kopere_bi_element", "commandsql", ["id" => $elementid]));
         $this->assertSame($expected,
