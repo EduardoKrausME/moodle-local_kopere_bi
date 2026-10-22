@@ -108,11 +108,13 @@ class online_update extends external_api {
         /** @var local_kopere_bi_online $online */
         $online = $DB->get_record("local_kopere_bi_online", ["id" => $params["online_id"]]);
         if ($online && (int)$online->userid === (int)$USER->id) {
+            // Bound client-provided focused time before updating both tracking sources.
+            $trackedseconds = max(0, min(7200, (int)$params["seconds"]));
             $online->currenttime = time();
-            $online->seconds = $online->seconds + $params["seconds"];
+            $online->seconds += $trackedseconds;
             $DB->update_record("local_kopere_bi_online", $online);
             period_activity::record_seconds((int)$online->userid, (int)$online->courseid,
-                (int)$online->currenttime, (int)$params["seconds"]);
+                (int)$online->currenttime, $trackedseconds);
 
             // This may wait for the external API, but it runs in AJAX after the page has already rendered.
             if ($params["resolve_ip"]) {
