@@ -63,4 +63,20 @@ class cache_util {
     public static function get_cache_make($cache) {
         return cache::make("local_kopere_bi", "block_chart_data_{$cache}");
     }
+
+    /**
+     * Partition cache entries by their effective SQL filter values.
+     *
+     * @param object $element BI report element.
+     * @return int|string Cache key.
+     */
+    public static function get_cache_key($element) {
+        $command = sql_util::prepare_sql($element->commandsql);
+        if (empty($command->params)) {
+            return $element->id;
+        }
+        ksort($command->params);
+        return $element->id . "_" . hash("sha256",
+            $element->commandsql . "\n" . json_encode($command->params));
+    }
 }

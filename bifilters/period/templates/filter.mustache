@@ -1,0 +1,32 @@
+{{!
+    @template bifilters_period/filter
+    Period selection for reports using Unix timestamp parameters.
+}}
+<form id="{{id}}" class="bifilters-period d-flex flex-wrap align-items-end"
+      style="gap: 12px;" action="{{action}}" method="get">
+    {{#hiddenparams}}
+        <input type="hidden" name="{{name}}" value="{{value}}">
+    {{/hiddenparams}}
+    <div class="form-group mb-0">
+        <label for="{{id}}-preset">{{labelpreset}}</label>
+        <select class="form-control" id="{{id}}-preset" name="periodpreset">
+            {{#options}}
+                <option value="{{value}}" data-from="{{fromdate}}" data-to="{{todate}}"
+                    {{#selected}}selected{{/selected}}>{{label}}</option>
+            {{/options}}
+        </select>
+    </div>
+    <div class="form-group mb-0">
+        <label for="{{id}}-from">{{labelfrom}}</label>
+        <input class="form-control" id="{{id}}-from" name="periodfromdate"
+               type="date" value="{{fromdate}}" {{^custom}}disabled{{/custom}} required>
+    </div>
+    <div class="form-group mb-0">
+        <label for="{{id}}-to">{{labelto}}</label>
+        <input class="form-control" id="{{id}}-to" name="periodtodate"
+               type="date" value="{{todate}}" {{^custom}}disabled{{/custom}} required>
+    </div>
+    <div class="form-group mb-0">
+        <button class="btn btn-primary" type="submit">{{labelapply}}</button>
+    </div>
+</form>

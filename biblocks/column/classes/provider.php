@@ -180,9 +180,10 @@ class provider extends \biblocks_line\provider {
      */
     public function get_chart_data($koperebielement) {
         $cache = cache_util::get_cache_make($koperebielement->cache);
+        $cachekey = cache_util::get_cache_key($koperebielement);
 
-        if ($cache->has($koperebielement->id)) {
-            $lines = $cache->get($koperebielement->id);
+        if ($cache->has($cachekey)) {
+            $lines = $cache->get($cachekey);
         } else {
 
             $comand = sql_util::prepare_sql($koperebielement->commandsql);
@@ -207,7 +208,7 @@ class provider extends \biblocks_line\provider {
                     "labels" => [],
                     "series" => [],
                 ];
-                $cache->set($koperebielement->id, $lines);
+                $cache->set($cachekey, $lines);
                 ob_clean();
                 header('Content-Type: application/json; charset: utf-8');
                 echo json_encode($lines, JSON_NUMERIC_CHECK + JSON_PRETTY_PRINT);
@@ -245,7 +246,7 @@ class provider extends \biblocks_line\provider {
                 "labels" => $optionslabels,
                 "series" => $optionsseries,
             ];
-            $cache->set($koperebielement->id, $lines);
+            $cache->set($cachekey, $lines);
         }
         ob_clean();
         header('Content-Type: application/json; charset: utf-8');

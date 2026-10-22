@@ -371,8 +371,9 @@ class provider implements i_block_provider {
         }
 
         $cache = cache_util::get_cache_make($koperebielement->cache);
-        if ($cache->has($koperebielement->id)) {
-            $lines = $cache->get($koperebielement->id);
+        $cachekey = cache_util::get_cache_key($koperebielement);
+        if ($cache->has($cachekey)) {
+            $lines = $cache->get($cachekey);
         } else {
             $comand = sql_util::prepare_sql($koperebielement->commandsql);
             try {
@@ -421,7 +422,7 @@ class provider implements i_block_provider {
             }
 
             $lines = $newlines;
-            $cache->set($koperebielement->id, $lines);
+            $cache->set($cachekey, $lines);
         }
 
         json::encode($lines);
