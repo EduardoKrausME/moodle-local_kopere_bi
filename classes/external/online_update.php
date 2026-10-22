@@ -22,6 +22,7 @@ use external_api;
 use external_value;
 use external_single_structure;
 use external_function_parameters;
+use local_kopere_bi\analytics\period_activity;
 use local_kopere_bi\feature;
 use local_kopere_bi\ip_location;
 use local_kopere_bi\vo\local_kopere_bi_online;
@@ -110,6 +111,8 @@ class online_update extends external_api {
             $online->currenttime = time();
             $online->seconds = $online->seconds + $params["seconds"];
             $DB->update_record("local_kopere_bi_online", $online);
+            period_activity::record_seconds((int)$online->userid, (int)$online->courseid,
+                (int)$online->currenttime, (int)$params["seconds"]);
 
             // This may wait for the external API, but it runs in AJAX after the page has already rendered.
             if ($params["resolve_ip"]) {
