@@ -50,6 +50,11 @@ class bifilters extends base {
      */
     public static function get_enabled_plugins() {
         $plugins = core_component::get_plugin_list("bifilters");
+        foreach ($plugins as $name => $path) {
+            if (get_config("bifilters_{$name}", "enabled") === "0") {
+                unset($plugins[$name]);
+            }
+        }
         return $plugins;
     }
 
