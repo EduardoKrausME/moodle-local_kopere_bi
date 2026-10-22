@@ -140,7 +140,7 @@
           "css": "",
           "html_before": "",
           "html_after": "",
-          "commandsql": "SELECT CONCAT(\n    (\n         SELECT count(id)\n           FROM mdl_user\n          WHERE lastaccess > (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::bigint) - 300\n       GROUP BY id\n    ),\n    ' / ',\n    (\n        SELECT count(id)\n          FROM mdl_user\n         WHERE lastaccess > (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::bigint) - 3600\n      GROUP BY id\n    )\n)",
+          "commandsql": "SELECT CONCAT(\n    (\n         SELECT count(id)\n           FROM mdl_user\n          WHERE lastaccess > (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::bigint) - 300\n    ),\n    ' / ',\n    (\n        SELECT count(id)\n          FROM mdl_user\n         WHERE lastaccess > (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::bigint) - 3600\n    )\n)",
           "cache": "1h",
           "reload": "none",
           "info": [],
