@@ -45,6 +45,12 @@ class provider implements i_filter_provider {
                 $paramsurl["userid"] = $comand->params["userid"];
             }
 
+            // Preserve the cohort selection while changing the course.
+            $cohortid = $comand->params["cohortid"] ?? $comand->params["count_1_cohortid"] ?? null;
+            if ($cohortid !== null) {
+                $paramsurl["cohortid"] = (int)$cohortid;
+            }
+
             $classname = optional_param("classname", false, PARAM_TEXT);
             $method = optional_param("method", false, PARAM_TEXT);
 
