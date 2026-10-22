@@ -421,7 +421,7 @@ function xmldb_local_kopere_bi_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2026102200, "local", "kopere_bi");
     }
 
-    if ($oldversion < 2026102200) {
+    if ($oldversion < 2026102201) {
         // New hourly-compatible data cannot be reconstructed from the daily cache.
         $table = new xmldb_table("local_kopere_bi_period");
         if (!$dbman->table_exists($table)) {
@@ -443,7 +443,7 @@ function xmldb_local_kopere_bi_upgrade($oldversion) {
         }
 
         report_migrations::fix_access_period_reports();
-        upgrade_plugin_savepoint(true, 2026102200, "local", "kopere_bi");
+        upgrade_plugin_savepoint(true, 2026102201, "local", "kopere_bi");
     }
 
     return true;
