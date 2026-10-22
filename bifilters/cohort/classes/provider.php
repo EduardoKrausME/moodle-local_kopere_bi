@@ -16,11 +16,10 @@
 
 namespace bifilters_cohort;
 
-use Exception;
 use local_kopere_bi\filters\i_filter_provider;
 
 /**
- * Class provider cohort
+ * Filter reports by a Moodle cohort.
  *
  * @package   bifilters_cohort
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
@@ -28,46 +27,63 @@ use local_kopere_bi\filters\i_filter_provider;
  */
 class provider implements i_filter_provider {
     /**
-     * filter
+     * Render a cohort picker for reports containing :cohortid.
      *
-     * @param $paramsurl
-     * @param $comand
-     * @return bool|string
-     * @throws Exception
+     * @param array $paramsurl URL parameters for the report page.
+     * @param object $comand Prepared SQL and its parameters.
+     * @return string
      */
     public static function filter(&$paramsurl, $comand) {
-        global $DB, $CFG;
-        if (isset($comand->params["cohortid"]) || isset($comand->params["count_1_cohortid"])) {
-            $cohort = $DB->get_record("cohort", ["id" => $comand->params["cohortid"]]);
+        global $DB, $OUTPUT, $PAGE;
 
-            $paramsurl["cohortid"] = "{id}";
-            if (isset($comand->params["courseid"])) {
-                $paramsurl["courseid"] = $comand->params["courseid"];
-            }
-            $CFG->debugdeveloper = false;
-
-            $classname = optional_param("classname", false, PARAM_TEXT);
-            $method = optional_param("method", false, PARAM_TEXT);
-
-            $data = [
-                "cohort_fullname" => fullname($cohort),
-                "url-ajax" => "view-ajax.php?classname=cohorts&method=load_all_cohorts",
-                "url-click" => "?classname=$classname&method=$method&" . http_build_query($paramsurl, "", "&"),
-            ];
-
-            global $OUTPUT, $PAGE;
-            $PAGE->requires->js_call_amd("bifilters_cohort/filter_cohort", "init");
-            return $OUTPUT->render_from_template('local_kopere_bi/filter-cohort', $data);
+        $cohortid = $comand->params["cohortid"] ?? $comand->params["count_1_cohortid"] ?? null;
+        if ($cohortid === null) {
+            return "";
         }
 
-        return "";
+        $cohort = (int)$cohortid > 0 ? $DB->get_record("cohort", ["id" => (int)$cohortid]) : false;
+        $name = $cohort ? format_string($cohort->name) : get_string("selectcohort", "bifilters_cohort");
+
+        $urlparams = $paramsurl;
+        $urlparams["cohortid"] = "{id}";
+        foreach (["courseid", "userid"] as $key) {
+            $value = $comand->params[$key] ?? $comand->params["count_1_" . $key] ?? null;
+            if ($value !== null) {
+                $urlparams[$key] = (int)$value;
+            }
+        }
+
+        $classname = optional_param("classname", "", PARAM_ALPHANUMEXT);
+        $method = optional_param("method", "", PARAM_ALPHANUMEXT);
+
+        $data = [
+            "popupid" => uniqid("kopere-bi-cohort-"),
+            "btn-title" => get_string("pluginname", "bifilters_cohort"),
+            "btn-subtitle" => $name,
+            "cols" => [
+                ["id" => "id", "name" => "#", "style" => "width:60px"],
+                ["id" => "name", "name" => get_string("cohortname", "bifilters_cohort")],
+            ],
+            "columns" => [
+                (object)["data" => "id"],
+                (object)["data" => "name"],
+            ],
+            "table-title" => get_string("selectcohort", "bifilters_cohort"),
+            "url-ajax" => "view-ajax.php?classname=cohorts&method=load_all_cohorts",
+            "url-click" => "?classname=" . rawurlencode($classname) . "&method=" . rawurlencode($method)
+                . "&" . http_build_query($urlparams, "", "&"),
+        ];
+
+        $PAGE->requires->js_call_amd("local_kopere_bi/filter", "init", [
+            $data["popupid"], $data["columns"],
+        ]);
+        return $OUTPUT->render_from_template("local_kopere_bi/filter", $data);
     }
 
     /**
-     * Get key for show filters message
+     * Parameter key advertised in the report SQL editor.
      *
      * @return string
-     * @throws Exception
      */
     public static function get_key() {
         return "cohortid";
