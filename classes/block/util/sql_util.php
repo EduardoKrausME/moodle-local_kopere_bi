@@ -159,13 +159,13 @@ class sql_util {
             $USER->filter_cohortid = $cohortid;
 
             // Moodle SQL parameters cannot use the same named placeholder more than once.
-            $count = preg_match_all('/:cohortid\b/', $sql);
+            $count = preg_match_all("/:cohortid\\b/", $sql);
             if ($count === 1) {
                 $params["cohortid"] = $cohortid;
             } else if ($count > 1) {
                 $index = 0;
                 $sql = preg_replace_callback(
-                    '/:cohortid\b/',
+                    "/:cohortid\\b/",
                     function () use (&$index) {
                         $index++;
                         return ":count_{$index}_cohortid";
