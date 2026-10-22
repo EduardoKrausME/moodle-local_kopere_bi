@@ -114,7 +114,7 @@ class filter {
             require_once("{$file}/classes/provider.php");
             /** @var i_filter_provider $plugin */
             $plugin = "\\bifilters_{$pluginname}\\provider";
-            // Do not leak another selector\'s {id} placeholder into this selector\'s URL.
+            // Do not leak another selector's {id} placeholder into this selector's URL.
             $filterparamsurl = $paramsurl;
             $filters .= $plugin::filter($filterparamsurl, $comand);
         }
