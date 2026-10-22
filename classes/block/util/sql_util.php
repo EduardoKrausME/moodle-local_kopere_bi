@@ -50,10 +50,11 @@ class sql_util {
 
             return (object)["sql" => $sql, "params" => $params];
         } else {
-            $isfilteruser = strpos($sql, ":userid");
-            $isfiltercourse = strpos($sql, ":courseid");
+            $isfilteruser = strpos($sql, ":userid") !== false;
+            $isfiltercourse = strpos($sql, ":courseid") !== false;
+            $isfiltercohort = strpos($sql, ":cohortid") !== false;
 
-            [$sql, $params] = self::params($sql, $isfilteruser, $isfiltercourse);
+            [$sql, $params] = self::params($sql, $isfilteruser, $isfiltercourse, $isfiltercohort);
 
             $sql = preg_replace('/\{([a-z][a-z0-9_]*)\}/', "{$CFG->prefix}$1", $sql);
 
@@ -74,10 +75,11 @@ class sql_util {
      * @param $sql
      * @param bool $isfilteruser
      * @param bool $isfiltercourse
+     * @param bool $isfiltercohort
      * @return array
      * @throws Exception
      */
-    public static function params($sql, $isfilteruser = false, $isfiltercourse = false) {
+    public static function params($sql, $isfilteruser = false, $isfiltercourse = false, $isfiltercohort = false) {
         global $USER, $COURSE;
 
         $params = [];
@@ -145,6 +147,33 @@ class sql_util {
 
                 for ($i = 1; $i <= $count; $i++) {
                     $params["count_{$i}_courseid"] = $courseid;
+                }
+            }
+        }
+
+        if ($isfiltercohort) {
+            // Keep the most recently selected cohort, unless explicitly overridden in the URL.
+            $selectedcohort = optional_param("cohortid", null, PARAM_INT);
+            $cohortid = $selectedcohort === null ? (int)($USER->filter_cohortid ?? 0) : (int)$selectedcohort;
+            $cohortid = max(0, $cohortid);
+            $USER->filter_cohortid = $cohortid;
+
+            // Moodle SQL parameters cannot use the same named placeholder more than once.
+            $count = preg_match_all('/:cohortid\b/', $sql);
+            if ($count === 1) {
+                $params["cohortid"] = $cohortid;
+            } else if ($count > 1) {
+                $index = 0;
+                $sql = preg_replace_callback(
+                    '/:cohortid\b/',
+                    function () use (&$index) {
+                        $index++;
+                        return ":count_{$index}_cohortid";
+                    },
+                    $sql
+                );
+                for ($index = 1; $index <= $count; $index++) {
+                    $params["count_{$index}_cohortid"] = $cohortid;
                 }
             }
         }
