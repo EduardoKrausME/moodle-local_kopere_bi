@@ -412,5 +412,14 @@ function xmldb_local_kopere_bi_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2026101902, "local", "kopere_bi");
     }
 
+    if ($oldversion < 2026102200) {
+        // Import only new expansion pages. Never reset or overwrite other report pages.
+        foreach (range(112, 127) as $pagenumber) {
+            reports::from_file(__DIR__ . "/files/page-{$pagenumber}.json");
+        }
+
+        upgrade_plugin_savepoint(true, 2026102200, "local", "kopere_bi");
+    }
+
     return true;
 }

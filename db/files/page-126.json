@@ -1,0 +1,80 @@
+{
+  "title": "lang::report_page_126_title::local_kopere_bi",
+  "description": "lang::report_page_126_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_forum_posting_times",
+  "sortorder": 126,
+  "category": {
+    "refkey": "forums",
+    "title": "lang::report_category_forums_title::local_kopere_bi",
+    "description": "lang::report_category_forums_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_expanded_126",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_126_title::local_kopere_bi",
+          "refkey": "kbi_el_forum_posting_times",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT CONCAT(x.courseid, '-', x.weekday_number, '-', x.period) AS id,\n       x.courseid, x.course, x.weekday_number, x.period,\n       COUNT(*) AS posts, COUNT(DISTINCT x.userid) AS contributors\n  FROM (SELECT c.id AS courseid, c.fullname AS course, p.userid,\n               MOD(FLOOR(p.created / 86400.0) + 3, 7) AS weekday_number,\n               CASE WHEN MOD(FLOOR(p.created / 3600.0), 24) < 6 THEN '00:00-05:59'\n                    WHEN MOD(FLOOR(p.created / 3600.0), 24) < 12 THEN '06:00-11:59'\n                    WHEN MOD(FLOOR(p.created / 3600.0), 24) < 17 THEN '12:00-16:59'\n                    ELSE '17:00-23:59' END AS period\n          FROM mdl_forum_posts p\n          JOIN mdl_forum_discussions disc ON disc.id = p.discussion\n          JOIN mdl_forum forum ON forum.id = disc.forum\n          JOIN mdl_course c ON c.id = forum.course\n          JOIN mdl_user u ON u.id = p.userid AND u.deleted = 0\n         WHERE p.created >= UNIX_TIMESTAMP() - 15552000) x\n GROUP BY x.courseid, x.course, x.weekday_number, x.period\n ORDER BY x.course, x.weekday_number, x.period\n LIMIT 500",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "string",
+                "mustache": ""
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_new_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_new_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "weekday_number": {
+                "key": "weekday_number",
+                "title": "lang::report_new_field_weekday_number_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "period": {
+                "key": "period",
+                "title": "lang::report_new_field_period_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "posts": {
+                "key": "posts",
+                "title": "lang::report_new_field_posts_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "contributors": {
+                "key": "contributors",
+                "title": "lang::report_new_field_contributors_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

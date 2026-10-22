@@ -56,6 +56,8 @@ The dashboards read small snapshot tables instead of querying `logstore_standard
 
 Table columns can be customized using [Mustache](https://moodledev.io/docs/guides/templates), allowing you to format and display the data as needed, including applying custom data.
 
+See [the additional report collection](docs/expanded_reports.md) for 16 reports on activity reach, tracking, participation, grading, questions, feedback and forum activity.
+
 ## MCP: report APIs
 
 Install [local_mcp](https://eduardokrausme.github.io/moodle-local_mcp/) to

@@ -1,0 +1,104 @@
+{
+  "title": "lang::report_page_119_title::local_kopere_bi",
+  "description": "lang::report_page_119_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_learner_vs_class_activity",
+  "sortorder": 119,
+  "category": {
+    "refkey": "analytics",
+    "title": "lang::report_category_analytics_title::local_kopere_bi",
+    "description": "lang::report_category_analytics_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_expanded_119",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_119_title::local_kopere_bi",
+          "refkey": "kbi_el_learner_vs_class_activity",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT e.id, e.courseid, c.fullname AS course, e.userid, u.firstname, u.lastname,\n       e.actions30, ROUND(peer.class_actions_avg, 2) AS class_actions_avg,\n       CASE WHEN peer.class_actions_avg > 0 THEN ROUND(100.0 * e.actions30 / peer.class_actions_avg, 2)\n            ELSE NULL END AS activity_ratio,\n       e.progress, ROUND(peer.class_progress_avg, 2) AS class_progress_avg\n  FROM mdl_local_kopere_bi_engage e\n  JOIN mdl_user u ON u.id = e.userid\n  JOIN mdl_course c ON c.id = e.courseid\n  JOIN (SELECT courseid, AVG(actions30) AS class_actions_avg, AVG(progress) AS class_progress_avg\n          FROM mdl_local_kopere_bi_engage\n         WHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)\n         GROUP BY courseid) peer ON peer.courseid = e.courseid\n WHERE e.batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)\n ORDER BY e.actions30 DESC, c.fullname, u.lastname\n LIMIT 500",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "string",
+                "mustache": ""
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_new_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_new_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_new_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_new_field_firstname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "lang::report_new_field_lastname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "actions30": {
+                "key": "actions30",
+                "title": "lang::report_new_field_actions30_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "class_actions_avg": {
+                "key": "class_actions_avg",
+                "title": "lang::report_new_field_class_actions_avg_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "activity_ratio": {
+                "key": "activity_ratio",
+                "title": "lang::report_new_field_activity_ratio_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "progress": {
+                "key": "progress",
+                "title": "lang::report_new_field_progress_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "class_progress_avg": {
+                "key": "class_progress_avg",
+                "title": "lang::report_new_field_class_progress_avg_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

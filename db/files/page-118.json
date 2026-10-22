@@ -1,0 +1,68 @@
+{
+  "title": "lang::report_page_118_title::local_kopere_bi",
+  "description": "lang::report_page_118_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_category_completions_weekly",
+  "sortorder": 118,
+  "category": {
+    "refkey": "courses",
+    "title": "lang::report_category_courses_title::local_kopere_bi",
+    "description": "lang::report_category_courses_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_expanded_118",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_118_title::local_kopere_bi",
+          "refkey": "kbi_el_category_completions_weekly",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT CONCAT(cat.id, '-', (FLOOR((cc.timecompleted + 259200) / 604800.0) * 604800 - 259200)) AS id,\n       cat.name AS category, (FLOOR((cc.timecompleted + 259200) / 604800.0) * 604800 - 259200) AS weekstart,\n       COUNT(cc.id) AS completed, COUNT(DISTINCT cc.course) AS completed_courses\n  FROM mdl_course_completions cc\n  JOIN mdl_course c ON c.id = cc.course\n  JOIN mdl_course_categories cat ON cat.id = c.category\n WHERE cc.timecompleted IS NOT NULL AND cc.timecompleted > 0\n   AND cc.timecompleted >= UNIX_TIMESTAMP() - 31536000\n GROUP BY cat.id, cat.name, (FLOOR((cc.timecompleted + 259200) / 604800.0) * 604800 - 259200)\n ORDER BY weekstart DESC, cat.name\n LIMIT 500",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "string",
+                "mustache": ""
+              },
+              "category": {
+                "key": "category",
+                "title": "lang::report_new_field_category_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "weekstart": {
+                "key": "weekstart",
+                "title": "lang::report_new_field_weekstart_title::local_kopere_bi",
+                "type": "datetimeRenderer",
+                "mustache": ""
+              },
+              "completed": {
+                "key": "completed",
+                "title": "lang::report_new_field_completed_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "completed_courses": {
+                "key": "completed_courses",
+                "title": "lang::report_new_field_completed_courses_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
