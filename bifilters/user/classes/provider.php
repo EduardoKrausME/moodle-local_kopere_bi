@@ -46,6 +46,12 @@ class provider implements i_filter_provider {
             }
             $CFG->debugdeveloper = false;
 
+            // Preserve the cohort selection while changing the user.
+            $cohortid = $comand->params["cohortid"] ?? $comand->params["count_1_cohortid"] ?? null;
+            if ($cohortid !== null) {
+                $paramsurl["cohortid"] = (int)$cohortid;
+            }
+
             $classname = optional_param("classname", false, PARAM_TEXT);
             $method = optional_param("method", false, PARAM_TEXT);
 
