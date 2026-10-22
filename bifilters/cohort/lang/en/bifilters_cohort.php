@@ -24,5 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die;
 
+$string['cohortname'] = 'Cohort name';
 $string['message'] = 'ID of the cohort used to generate the report.';
 $string['pluginname'] = 'Filter by Cohort';
+$string['selectcohort'] = 'Select cohort';
