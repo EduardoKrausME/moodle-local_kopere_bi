@@ -68,10 +68,8 @@ class reports {
             $koperebipage->capability = page_access::validate_capability((string)$koperebipage->capability);
         }
 
-        if (isset($koperebipage->pre_requisit) && $koperebipage->pre_requisit == "mysql") {
-            if ($DB->get_dbfamily() != "mysql") {
-                return;
-            }
+        if (!self::supports_database($koperebipage->pre_requisit ?? null)) {
+            return;
         }
 
         /** @var local_kopere_bi_cat $category */
@@ -87,10 +85,8 @@ class reports {
             $koperebiblock = clone $block;
             unset($koperebiblock->elements);
 
-            if (isset($koperebiblock->pre_requisit) && $koperebiblock->pre_requisit == "mysql") {
-                if ($DB->get_dbfamily() != "mysql") {
-                    continue;
-                }
+            if (!self::supports_database($koperebiblock->pre_requisit ?? null)) {
+                continue;
             }
 
             $koperebiblock->page_id = $page->id;
@@ -101,10 +97,8 @@ class reports {
                 /** @var local_kopere_bi_element $koperebielement */
                 $koperebielement = clone $element;
 
-                if (isset($koperebielement->pre_requisit) && $koperebielement->pre_requisit == "mysql") {
-                    if ($DB->get_dbfamily() != "mysql") {
-                        continue;
-                    }
+                if (!self::supports_database($koperebielement->pre_requisit ?? null)) {
+                    continue;
                 }
 
                 if (!is_string($koperebielement->info)) {
@@ -115,6 +109,32 @@ class reports {
                 $element->id = self::save_record_by_refkey("local_kopere_bi_element", $koperebielement);
             }
         }
+    }
+
+    /**
+     * Whether a bundled report definition is suitable for the current database.
+     *
+     * @param string|null $requirement Database prerequisite on a page, block or element.
+     * @return bool
+     */
+    private static function supports_database(?string $requirement): bool {
+        global $DB;
+
+        if ($requirement === null || $requirement === "") {
+            return true;
+        }
+
+        $family = strtolower($requirement);
+        if ($family === "pgsql" || $family === "postgresql") {
+            $family = "postgres";
+        }
+
+        if ($family === "mysql" || $family === "postgres") {
+            return $DB->get_dbfamily() === $family;
+        }
+
+        // Other prerequisites are handled elsewhere; preserve their existing behaviour.
+        return true;
     }
 
     /**
