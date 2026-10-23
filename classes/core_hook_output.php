@@ -30,6 +30,7 @@ require_once(__DIR__ . "/../lib.php");
 use core\hook\output\before_footer_html_generation;
 use dml_exception;
 use local_kopere_bi\analysis\access;
+use local_kopere_bi\analytics\period_activity;
 
 /**
  * Class core_hook_output
@@ -101,6 +102,7 @@ class core_hook_output {
                 $koperebionlineid = $DB->insert_record("local_kopere_bi_online", $koperebionline);
                 $USER->koperebionline_id[$key] = $koperebionlineid;
                 $USER->koperebionline_time[$key] = time();
+                period_activity::record_visit((int)$USER->id, (int)$COURSE->id, (int)$koperebionline->currenttime);
             } catch (dml_exception $e) {
                 $e->getMessage();
             }
