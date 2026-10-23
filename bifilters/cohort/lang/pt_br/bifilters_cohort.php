@@ -24,7 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die;
 
+$string['clearcohort'] = 'Limpar seleção de coorte';
 $string['cohortname'] = 'Nome da coorte';
-$string['message'] = 'ID do coorte usado para gerar o relatório.';
+$string['message'] = 'ID da coorte usado para gerar o relatório.';
 $string['pluginname'] = 'Filtro por Coorte';
 $string['selectcohort'] = 'Selecionar coorte';
