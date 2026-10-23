@@ -66,6 +66,7 @@ class online_delete extends scheduled_task {
         $where = "currenttime < :month";
         $time = strtotime("-{$this->month} months", time());
         $DB->delete_records_select("local_kopere_bi_online", $where, ["month" => $time]);
+        $DB->delete_records_select("local_kopere_bi_period", "daystart < :month", ["month" => $time]);
 
         mtrace("Completed cleaning of results from the last {$this->month} months.");
     }
