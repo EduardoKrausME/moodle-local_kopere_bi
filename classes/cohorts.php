@@ -74,17 +74,21 @@ class cohorts {
     }
 
     /**
-     * Return the permitted cohorts in DataTables' expected JSON format.
+     * Build the visible cohort options without exposing hidden cohort names.
      *
-     * @return void
+     * The zero-ID option clears the selection. Reports decide how to handle
+     * zero in their SQL (for example, optional versus required cohort filters).
+     *
+     * @return array
      */
-    public function load_all_cohorts(): void {
+    public static function get_selectable_cohorts(): array {
         global $DB;
 
-        require_capability("local/kopere_bi:view", context_system::instance());
+        $data = [
+            ["id" => 0, "name" => get_string("clearcohort", "bifilters_cohort")],
+        ];
 
         $cohorts = $DB->get_records("cohort", [], "name ASC, id ASC", "id, name, contextid, visible");
-        $data = [];
         foreach ($cohorts as $cohort) {
             if (!self::can_view($cohort)) {
                 continue;
@@ -97,6 +101,16 @@ class cohorts {
             ];
         }
 
-        json::encode($data);
+        return $data;
+    }
+
+    /**
+     * Return the permitted cohorts in DataTables' expected JSON format.
+     *
+     * @return void
+     */
+    public function load_all_cohorts(): void {
+        require_capability("local/kopere_bi:view", context_system::instance());
+        json::encode(self::get_selectable_cohorts());
     }
 }
