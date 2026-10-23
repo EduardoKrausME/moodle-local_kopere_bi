@@ -86,9 +86,10 @@ class cohorts {
      * BI managers may use all cohorts in the reports they manage.
      *
      * @param stdClass $cohort Moodle cohort record.
+     * @param \context|null $filtercontext Optional pre-resolved report context.
      * @return bool
      */
-    private static function can_view(stdClass $cohort): bool {
+    private static function can_view(stdClass $cohort, ?\context $filtercontext = null): bool {
         global $CFG;
 
         if (has_capability("local/kopere_bi:manage", context_system::instance())) {
@@ -96,7 +97,7 @@ class cohorts {
         }
 
         require_once($CFG->dirroot . "/cohort/lib.php");
-        return cohort_can_view_cohort($cohort, self::filter_context());
+        return cohort_can_view_cohort($cohort, $filtercontext ?? self::filter_context());
     }
 
     /**
@@ -114,9 +115,10 @@ class cohorts {
             ["id" => 0, "name" => get_string("clearcohort", "bifilters_cohort")],
         ];
 
+        $context = self::filter_context();
         $cohorts = $DB->get_records("cohort", [], "name ASC, id ASC", "id, name, contextid, visible");
         foreach ($cohorts as $cohort) {
-            if (!self::can_view($cohort)) {
+            if (!self::can_view($cohort, $context)) {
                 continue;
             }
 
