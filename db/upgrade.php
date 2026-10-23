@@ -421,5 +421,30 @@ function xmldb_local_kopere_bi_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2026102200, "local", "kopere_bi");
     }
 
+    if ($oldversion < 2026102200) {
+        // New hourly-compatible data cannot be reconstructed from the daily cache.
+        $table = new xmldb_table("local_kopere_bi_period");
+        if (!$dbman->table_exists($table)) {
+            $table->add_field("id", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, XMLDB_SEQUENCE);
+            $table->add_field("userid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("courseid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("daystart", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL);
+            $table->add_field("weekdaynum", XMLDB_TYPE_INTEGER, "2", null, XMLDB_NOTNULL);
+            $table->add_field("slot", XMLDB_TYPE_INTEGER, "2", null, XMLDB_NOTNULL);
+            $table->add_field("visits", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+            $table->add_field("timespend", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL);
+            $table->add_key("primary", XMLDB_KEY_PRIMARY, ["id"]);
+            $table->add_index("user_course_day_slot", XMLDB_INDEX_UNIQUE,
+                ["userid", "courseid", "daystart", "slot"]);
+            $table->add_index("course_weekday_slot", XMLDB_INDEX_NOTUNIQUE,
+                ["courseid", "weekdaynum", "slot"]);
+            $table->add_index("daystart", XMLDB_INDEX_NOTUNIQUE, ["daystart"]);
+            $dbman->create_table($table);
+        }
+
+        report_migrations::fix_access_period_reports();
+        upgrade_plugin_savepoint(true, 2026102200, "local", "kopere_bi");
+    }
+
     return true;
 }
