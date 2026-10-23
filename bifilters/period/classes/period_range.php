@@ -47,6 +47,8 @@ final class period_range {
     ];
 
     /**
+     * List the supported relative and manual period presets.
+     *
      * @return array<string,string>
      */
     public static function presets(): array {
@@ -54,6 +56,8 @@ final class period_range {
     }
 
     /**
+     * Return the selected period using the current user's timezone.
+     *
      * @return array<string,int|string>
      */
     public static function current(): array {

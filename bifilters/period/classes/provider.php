@@ -31,6 +31,8 @@ use local_kopere_bi\filters\i_filter_provider;
  */
 class provider implements i_filter_provider {
     /**
+     * Render the period selector when the SQL has period parameters.
+     *
      * @param array $paramsurl Navigation parameters.
      * @param object $comand Prepared SQL and bound values.
      * @return string HTML rendered by Moodle Mustache.
@@ -99,6 +101,8 @@ class provider implements i_filter_provider {
     }
 
     /**
+     * Return all supported SQL placeholder names.
+     *
      * @return string[]
      */
     public static function get_keys(): array {

@@ -28,6 +28,8 @@ use DateTimeImmutable;
 use DateTimeZone;
 
 /**
+ * Test custom dates, relative periods, and timezone boundaries.
+ *
  * @covers \bifilters_period\period_range
  */
 final class period_range_test extends \advanced_testcase {
