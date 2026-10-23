@@ -18,6 +18,7 @@ namespace local_kopere_bi\block\util;
 
 use Exception;
 use local_kopere_bi\filters\filter;
+use local_kopere_bi\cohorts;
 use local_kopere_bi\vo\external_report;
 use local_kopere_bi\vo\local_kopere_bi_element;
 use local_kopere_dashboard\util\message;
@@ -55,6 +56,14 @@ class sql_util {
             $isfiltercohort = strpos($sql, ":cohortid") !== false;
 
             [$sql, $params] = self::params($sql, $isfilteruser, $isfiltercourse, $isfiltercohort);
+
+            if ($isfiltercohort) {
+                $cohortid = (int)($params["cohortid"] ?? $params["count_1_cohortid"] ?? 0);
+                if ($cohortid > 0 && !cohorts::can_view_cohort($cohortid)) {
+                    throw new \moodle_exception("nopermissions", "error", "",
+                        get_string("pluginname", "bifilters_cohort"));
+                }
+            }
 
             $sql = preg_replace('/\{([a-z][a-z0-9_]*)\}/', "{$CFG->prefix}$1", $sql);
 
