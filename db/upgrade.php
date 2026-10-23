@@ -446,5 +446,21 @@ function xmldb_local_kopere_bi_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2026102201, "local", "kopere_bi");
     }
 
+
+    if ($oldversion < 2026102202) {
+        // Add PostgreSQL counterparts without changing locally customised built-in reports.
+        foreach (glob(__DIR__ . "/files/page-*-postgres.json") as $pagefile) {
+            reports::from_file($pagefile, true);
+        }
+
+        // Shared dashboards store database-specific blocks under the existing pages.
+        foreach ([1, 4, 8] as $pagenumber) {
+            $pagefile = __DIR__ . "/files/page-" . sprintf("%03d", $pagenumber) . ".json";
+            reports::from_file($pagefile, true);
+        }
+
+        upgrade_plugin_savepoint(true, 2026102202, "local", "kopere_bi");
+    }
+
     return true;
 }
