@@ -24,5 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die;
 
+$string['cohortname'] = 'Nome da coorte';
 $string['message'] = 'ID do coorte usado para gerar o relatório.';
 $string['pluginname'] = 'Filtro por Coorte';
+$string['selectcohort'] = 'Selecionar coorte';
