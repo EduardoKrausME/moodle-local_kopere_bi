@@ -61,6 +61,14 @@ class provider implements i_filter_provider {
             }
         }
 
+        // Carry the course scope into the AJAX request for category-level cohorts.
+        $courseid = $comand->params["courseid"] ?? $comand->params["count_1_courseid"]
+            ?? optional_param("courseid", 0, PARAM_INT);
+        $courseid = (int)$courseid;
+        if ($courseid > SITEID) {
+            $urlparams["courseid"] = $courseid;
+        }
+
         $classname = optional_param("classname", "", PARAM_ALPHANUMEXT);
         $method = optional_param("method", "", PARAM_ALPHANUMEXT);
 
@@ -77,7 +85,8 @@ class provider implements i_filter_provider {
                 (object)["data" => "name"],
             ],
             "table-title" => get_string("selectcohort", "bifilters_cohort"),
-            "url-ajax" => "view-ajax.php?classname=cohorts&method=load_all_cohorts",
+            "url-ajax" => "view-ajax.php?classname=cohorts&method=load_all_cohorts"
+                . ($courseid > SITEID ? "&courseid={$courseid}" : ""),
             "url-click" => "?classname=" . rawurlencode($classname) . "&method=" . rawurlencode($method)
                 . "&" . http_build_query($urlparams, "", "&"),
         ];
