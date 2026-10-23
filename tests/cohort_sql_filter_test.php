@@ -138,4 +138,25 @@ final class cohort_sql_filter_test extends advanced_testcase {
         $this->assertFalse(cohorts::can_view_cohort((int)$cohort->id));
         $this->assertFalse(cohorts::can_view_cohort(0));
     }
+
+    /**
+     * Keep the reset option while hiding cohorts the user cannot view.
+     *
+     * @covers \local_kopere_bi\cohorts::get_selectable_cohorts
+     */
+    public function test_cohort_options_respect_visibility(): void {
+        $this->resetAfterTest();
+        $this->setAdminUser();
+        $visible = $this->getDataGenerator()->create_cohort(["name" => "Visible cohort"]);
+        $hidden = $this->getDataGenerator()->create_cohort(["name" => "Hidden cohort", "visible" => 0]);
+
+        $adminids = array_column(cohorts::get_selectable_cohorts(), "id");
+        $this->assertContains((int)$visible->id, $adminids);
+        $this->assertContains((int)$hidden->id, $adminids);
+
+        $this->setUser($this->getDataGenerator()->create_user());
+        $viewerids = array_column(cohorts::get_selectable_cohorts(), "id");
+        $this->assertContains(0, $viewerids);
+        $this->assertNotContains((int)$hidden->id, $viewerids);
+    }
 }
