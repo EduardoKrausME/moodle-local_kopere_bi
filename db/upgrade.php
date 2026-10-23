@@ -446,7 +446,6 @@ function xmldb_local_kopere_bi_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2026102201, "local", "kopere_bi");
     }
 
-
     if ($oldversion < 2026102202) {
         // Import missing database-specific reports without overwriting local customisations.
         $reportfiles = glob(__DIR__ . "/files/page-*-postgres.json");
