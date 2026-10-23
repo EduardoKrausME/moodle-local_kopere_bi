@@ -24,6 +24,7 @@
 
 namespace local_kopere_bi;
 
+use context_course;
 use context_system;
 use local_kopere_dashboard\util\json;
 use stdClass;
@@ -54,6 +55,32 @@ class cohorts {
     }
 
     /**
+     * Resolve a course scope only when the user can actually access that course.
+     *
+     * @return \context
+     */
+    private static function filter_context(): \context {
+        global $DB, $USER;
+
+        $courseid = optional_param("courseid", (int)($USER->filter_courseid ?? SITEID), PARAM_INT);
+        if ($courseid <= SITEID || !$DB->record_exists("course", ["id" => $courseid])) {
+            return context_system::instance();
+        }
+
+        $coursecontext = context_course::instance($courseid, IGNORE_MISSING);
+        if (!$coursecontext) {
+            return context_system::instance();
+        }
+
+        if (has_capability("moodle/course:view", $coursecontext) ||
+                is_enrolled($coursecontext, $USER->id)) {
+            return $coursecontext;
+        }
+
+        return context_system::instance();
+    }
+
+    /**
      * Respect Moodle's cohort visibility and context rules.
      *
      * BI managers may use all cohorts in the reports they manage.
@@ -64,13 +91,12 @@ class cohorts {
     private static function can_view(stdClass $cohort): bool {
         global $CFG;
 
-        $context = context_system::instance();
-        if (has_capability("local/kopere_bi:manage", $context)) {
+        if (has_capability("local/kopere_bi:manage", context_system::instance())) {
             return true;
         }
 
         require_once($CFG->dirroot . "/cohort/lib.php");
-        return cohort_can_view_cohort($cohort, $context);
+        return cohort_can_view_cohort($cohort, self::filter_context());
     }
 
     /**
