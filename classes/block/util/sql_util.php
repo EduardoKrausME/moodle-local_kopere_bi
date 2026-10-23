@@ -53,7 +53,7 @@ class sql_util {
         } else {
             $isfilteruser = strpos($sql, ":userid") !== false;
             $isfiltercourse = strpos($sql, ":courseid") !== false;
-            $isfiltercohort = strpos($sql, ":cohortid") !== false;
+            $isfiltercohort = (bool)preg_match("/:cohortid\\b/", $sql);
 
             [$sql, $params] = self::params($sql, $isfilteruser, $isfiltercourse, $isfiltercohort);
 
