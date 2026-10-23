@@ -24,7 +24,7 @@
           "css": "",
           "html_before": null,
           "html_after": null,
-          "commandsql": "SELECT CONCAT(x.courseid, '-', x.weekday_number, '-', x.period) AS id,\n       x.courseid, x.course, x.weekday_number, x.period,\n       COUNT(*) AS posts, COUNT(DISTINCT x.userid) AS contributors\n  FROM (SELECT c.id AS courseid, c.fullname AS course, p.userid,\n               MOD(FLOOR(p.created / 86400.0) + 3, 7) AS weekday_number,\n               CASE WHEN MOD(FLOOR(p.created / 3600.0), 24) < 6 THEN '00:00-05:59'\n                    WHEN MOD(FLOOR(p.created / 3600.0), 24) < 12 THEN '06:00-11:59'\n                    WHEN MOD(FLOOR(p.created / 3600.0), 24) < 17 THEN '12:00-16:59'\n                    ELSE '17:00-23:59' END AS period\n          FROM mdl_forum_posts p\n          JOIN mdl_forum_discussions disc ON disc.id = p.discussion\n          JOIN mdl_forum forum ON forum.id = disc.forum\n          JOIN mdl_course c ON c.id = forum.course\n          JOIN mdl_user u ON u.id = p.userid AND u.deleted = 0\n         WHERE p.created >= UNIX_TIMESTAMP() - 15552000) x\n GROUP BY x.courseid, x.course, x.weekday_number, x.period\n ORDER BY x.course, x.weekday_number, x.period\n LIMIT 500",
+          "commandsql": "SELECT CONCAT(x.courseid, '-', x.forumid, '-', x.weekday_number, '-', x.period) AS id,\n       x.courseid, x.course, x.forumid, x.forum_name, x.weekday_number, x.period,\n       COUNT(*) AS posts, COUNT(DISTINCT x.userid) AS contributors,\n       SUM(x.new_discussion) AS discussions,\n       ROUND(1.0 * COUNT(*) / NULLIF(COUNT(DISTINCT x.userid), 0), 2)\n           AS posts_per_contributor\n  FROM (SELECT c.id AS courseid, c.fullname AS course, forum.id AS forumid,\n               forum.name AS forum_name, p.userid,\n               MOD(FLOOR(p.created / 86400.0) + 3, 7) AS weekday_number,\n               CASE WHEN MOD(FLOOR(p.created / 3600.0), 24) < 6 THEN '00:00-05:59'\n                    WHEN MOD(FLOOR(p.created / 3600.0), 24) < 12 THEN '06:00-11:59'\n                    WHEN MOD(FLOOR(p.created / 3600.0), 24) < 17 THEN '12:00-16:59'\n                    ELSE '17:00-23:59' END AS period,\n               CASE WHEN p.parent = 0 THEN 1 ELSE 0 END AS new_discussion\n          FROM mdl_forum_posts p\n          JOIN mdl_forum_discussions disc ON disc.id = p.discussion\n          JOIN mdl_forum forum ON forum.id = disc.forum\n          JOIN mdl_course c ON c.id = forum.course\n          JOIN mdl_user u ON u.id = p.userid AND u.deleted = 0\n         WHERE p.created >= UNIX_TIMESTAMP() - 15552000) x\n GROUP BY x.courseid, x.course, x.forumid, x.forum_name, x.weekday_number, x.period\n ORDER BY x.course, x.forum_name, x.weekday_number, x.period\n LIMIT 500",
           "cache": "1h",
           "reload": "none",
           "info": {
@@ -68,6 +68,30 @@
               "contributors": {
                 "key": "contributors",
                 "title": "lang::report_new_field_contributors_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "forumid": {
+                "key": "forumid",
+                "title": "lang::report_new_field_forumid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "forum_name": {
+                "key": "forum_name",
+                "title": "lang::report_new_field_forum_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "discussions": {
+                "key": "discussions",
+                "title": "lang::report_new_field_discussions_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "posts_per_contributor": {
+                "key": "posts_per_contributor",
+                "title": "lang::report_new_field_posts_per_contributor_title::local_kopere_bi",
                 "type": "number",
                 "mustache": ""
               }

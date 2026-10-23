@@ -23,3 +23,41 @@ The 16 bundled reports extend the existing catalog without creating Chat or Wiki
 
 Tracking-derived seconds are estimates derived from Kopere BI's online collector and should not be presented as measured active screen time. Daily aggregates use the latest completed analytics snapshot. UTC epoch day/week boundaries are used where noted. Question statistics count finished attempts; each latest question step is used rather than every intermediate step. The historical grade report only shows rows retained in Moodle's native grade history. The advanced-grading criteria report requires the core guide/rubric tables. Queries returning individual data require access controls on report pages consistent with site privacy policies. Heavy row-level reports are capped at 500 results; consider course-level filtering for large installations.
 
+
+
+## Refinements to items 2–7 (existing pages)
+
+Pages 121, 122, 124, 125 and 126 were already bundled; page 52 already handled grading
+backlogs. This change improves their existing SQL rather than adding duplicate pages.
+
+- **121:** Link successive history rows of the same original grade (oldid) to show previous
+  grade, signed difference and acting user. If history was purged, previous values remain blank.
+- **122:** Ignore quiz previews and deleted users, expose the question ID and the percentage
+  of *not fully correct* responses represented by each answer, calculated per course/question.
+- **124:** Include assignment and criterion IDs, group by the assignment, count distinct
+  active assessment instances and preserve guide/rubric results.
+- **125:** Count only completed Feedback submissions; include IDs, response type, distinct
+  respondents and denominator. Moodle stores codes for selection questions. These remain
+  codes, and multi-select combinations are not split into independent choices.
+- **52 (MySQL and PostgreSQL):** Replace enrolment joins with EXISTS to avoid duplicate
+  pendencies for learners with multiple concurrent enrolments, exclude expired enrolments,
+  add overdue and days-waiting indicators, and cap results at 500. The listed teachers are
+  course-level teachers, not a guarantee of an individual grading assignment.
+- **126:** Break out forum activity by forum, count discussion starts and unique contributors,
+  and show posts per contributor. Time bands are UTC, not the viewer's local timezone.
+
+### Applying changes to an existing Moodle site
+
+The bundled JSON applies to fresh installations automatically. Because the root
+`version.php` was deliberately not changed, existing installations will **not** receive
+this SQL through Moodle's ordinary upgrade process yet. The administrator may explicitly run:
+
+```bash
+php local/kopere_bi/cli/refresh_analytics_reports.php --dry-run
+php local/kopere_bi/cli/refresh_analytics_reports.php
+```
+
+The refresh installs missing report pages and replaces SQL only when the stored content still
+matches an exact checksum from the previously shipped version; customised SQL is retained.
+Existing table-column metadata is merged so that local formatting changes are preserved.
+A later authorised root version bump can invoke this refresh from `db/upgrade.php`.

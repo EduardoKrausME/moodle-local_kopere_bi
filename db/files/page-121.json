@@ -24,7 +24,7 @@
           "css": "",
           "html_before": null,
           "html_after": null,
-          "commandsql": "SELECT h.id, c.id AS courseid, c.fullname AS course, h.userid, u.firstname, u.lastname,\n       gi.itemname, h.action, h.finalgrade,\n       CASE WHEN gi.grademax > gi.grademin AND h.finalgrade IS NOT NULL\n            THEN ROUND(100.0 * (h.finalgrade - gi.grademin) / (gi.grademax - gi.grademin), 2)\n            ELSE NULL END AS grade_percent,\n       h.timemodified AS changed_at\n  FROM mdl_grade_grades_history h\n  JOIN mdl_grade_items gi ON gi.id = h.itemid\n  JOIN mdl_course c ON c.id = gi.courseid\n  JOIN mdl_user u ON u.id = h.userid\n WHERE c.id > 1\n ORDER BY h.timemodified DESC, h.id DESC\n LIMIT 500",
+          "commandsql": "SELECT h.id, c.id AS courseid, c.fullname AS course, h.userid, u.firstname, u.lastname,\n       gi.itemname, h.action, h.finalgrade, previous.finalgrade AS previous_grade,\n       CASE WHEN h.finalgrade IS NOT NULL AND previous.finalgrade IS NOT NULL\n            THEN ROUND(h.finalgrade - previous.finalgrade, 2) ELSE NULL END AS grade_delta,\n       h.loggeduser AS changed_by_userid, editor.firstname AS editor_firstname, editor.lastname AS editor_lastname,\n       CASE WHEN gi.grademax > gi.grademin AND h.finalgrade IS NOT NULL\n            THEN ROUND(100.0 * (h.finalgrade - gi.grademin) / (gi.grademax - gi.grademin), 2)\n            ELSE NULL END AS grade_percent,\n       h.timemodified AS changed_at\n  FROM mdl_grade_grades_history h\n  JOIN mdl_grade_items gi ON gi.id = h.itemid\n  JOIN mdl_course c ON c.id = gi.courseid\n  JOIN mdl_user u ON u.id = h.userid\n  LEFT JOIN mdl_grade_grades_history previous ON previous.id = (\n       SELECT MAX(ph.id) FROM mdl_grade_grades_history ph\n        WHERE ph.oldid = h.oldid AND ph.id < h.id\n          AND ph.itemid = h.itemid AND ph.userid = h.userid)\n  LEFT JOIN mdl_user editor ON editor.id = h.loggeduser\n WHERE c.id > 1\n ORDER BY h.timemodified DESC, h.id DESC\n LIMIT 500",
           "cache": "1h",
           "reload": "none",
           "info": {
@@ -93,6 +93,36 @@
                 "key": "changed_at",
                 "title": "lang::report_new_field_changed_at_title::local_kopere_bi",
                 "type": "datetimeRenderer",
+                "mustache": ""
+              },
+              "previous_grade": {
+                "key": "previous_grade",
+                "title": "lang::report_new_field_previous_grade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "grade_delta": {
+                "key": "grade_delta",
+                "title": "lang::report_new_field_grade_delta_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "changed_by_userid": {
+                "key": "changed_by_userid",
+                "title": "lang::report_new_field_changed_by_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "editor_firstname": {
+                "key": "editor_firstname",
+                "title": "lang::report_new_field_editor_firstname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "editor_lastname": {
+                "key": "editor_lastname",
+                "title": "lang::report_new_field_editor_lastname_title::local_kopere_bi",
+                "type": "string",
                 "mustache": ""
               }
             }

@@ -24,7 +24,7 @@
           "css": "",
           "html_before": null,
           "html_after": null,
-          "commandsql": "SELECT CONCAT(fi.id, '-', COALESCE(fv.value, '')) AS id,\n       c.id AS courseid, c.fullname AS course, f.name AS feedback, fi.name AS question,\n       CASE WHEN fv.value IS NULL OR fv.value = '' THEN 'Not selected' ELSE fv.value END AS answer,\n       COUNT(fv.id) AS answers,\n       ROUND(100.0 * COUNT(fv.id) / NULLIF(total.totalanswers, 0), 2) AS answer_percent\n  FROM mdl_feedback_value fv\n  JOIN mdl_feedback_item fi ON fi.id = fv.item\n  JOIN mdl_feedback f ON f.id = fi.feedback\n  JOIN mdl_course c ON c.id = f.course\n  JOIN (SELECT item, COUNT(id) AS totalanswers FROM mdl_feedback_value GROUP BY item) total\n    ON total.item = fi.id\n WHERE fi.typ IN ('multichoice', 'multichoicerated')\n GROUP BY c.id, c.fullname, f.id, f.name, fi.id, fi.name, fv.value, total.totalanswers\n ORDER BY c.fullname, f.name, fi.name, answers DESC\n LIMIT 500",
+          "commandsql": "SELECT CONCAT(fi.id, '-', COALESCE(fv.value, '')) AS id,\n       c.id AS courseid, c.fullname AS course, f.id AS feedbackid, f.name AS feedback,\n       fi.id AS questionid, fi.name AS question, fi.typ AS question_type,\n       CASE WHEN fv.value IS NULL OR fv.value = '' THEN 'Not selected' ELSE fv.value END AS answer,\n       COUNT(fv.id) AS answers, COUNT(DISTINCT fv.completed) AS respondents,\n       total.totalanswers AS total_responses,\n       ROUND(100.0 * COUNT(fv.id) / NULLIF(total.totalanswers, 0), 2) AS answer_percent\n  FROM mdl_feedback_value fv\n  JOIN mdl_feedback_item fi ON fi.id = fv.item\n  JOIN mdl_feedback f ON f.id = fi.feedback\n  JOIN mdl_feedback_completed completed ON completed.id = fv.completed AND completed.feedback = f.id\n  JOIN mdl_course c ON c.id = f.course\n  JOIN (SELECT v2.item, COUNT(v2.id) AS totalanswers FROM mdl_feedback_value v2\n          JOIN mdl_feedback_completed fc2 ON fc2.id = v2.completed\n         GROUP BY v2.item) total\n    ON total.item = fi.id\n WHERE fi.typ IN ('multichoice', 'multichoicerated')\n GROUP BY c.id, c.fullname, f.id, f.name, fi.id, fi.name, fi.typ, fv.value, total.totalanswers\n ORDER BY c.fullname, f.name, fi.name, answers DESC\n LIMIT 500",
           "cache": "1h",
           "reload": "none",
           "info": {
@@ -74,6 +74,36 @@
               "answer_percent": {
                 "key": "answer_percent",
                 "title": "lang::report_new_field_answer_percent_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "feedbackid": {
+                "key": "feedbackid",
+                "title": "lang::report_new_field_feedbackid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "questionid": {
+                "key": "questionid",
+                "title": "lang::report_new_field_questionid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "question_type": {
+                "key": "question_type",
+                "title": "lang::report_new_field_question_type_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "respondents": {
+                "key": "respondents",
+                "title": "lang::report_new_field_respondents_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "total_responses": {
+                "key": "total_responses",
+                "title": "lang::report_new_field_total_responses_title::local_kopere_bi",
                 "type": "number",
                 "mustache": ""
               }
