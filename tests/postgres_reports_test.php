@@ -145,4 +145,43 @@ final class postgres_reports_test extends advanced_testcase {
             "local_kopere_bi_block", ["refkey" => "dashboard-1_pg"]
         ));
     }
+    /**
+     * Re-importing a bundled page must retain local SQL while filling missing elements.
+     *
+     * @return void
+     */
+    public function test_incremental_import_preserves_custom_sql_and_repairs_missing_elements(): void {
+        global $DB;
+
+        $this->resetAfterTest();
+        foreach (["local_kopere_bi_element", "local_kopere_bi_block",
+            "local_kopere_bi_page", "local_kopere_bi_cat"] as $table) {
+            $DB->delete_records($table);
+        }
+
+        $path = __DIR__ . "/../db/files/page-008.json";
+        reports::from_file($path);
+        $suffix = $DB->get_dbfamily() === "postgres" ? "_pg" : "";
+        $customkey = "report_dashboard_page_1_online" . $suffix;
+        $missingkey = "report_dashboard_page_1_users" . $suffix;
+        $custom = $DB->get_record("local_kopere_bi_element", ["refkey" => $customkey], "*", MUST_EXIST);
+        $missing = $DB->get_record("local_kopere_bi_element", ["refkey" => $missingkey], "*", MUST_EXIST);
+
+        $DB->set_field("local_kopere_bi_element", "commandsql", "SELECT 777 AS locally_customised",
+            ["id" => $custom->id]);
+        $DB->delete_records("local_kopere_bi_element", ["id" => $missing->id]);
+
+        reports::from_file($path, true);
+        $this->assertSame("SELECT 777 AS locally_customised",
+            $DB->get_field("local_kopere_bi_element", "commandsql", ["id" => $custom->id]));
+        $this->assertSame(1, $DB->count_records("local_kopere_bi_element", ["refkey" => $customkey]));
+        $this->assertSame(1, $DB->count_records("local_kopere_bi_element", ["refkey" => $missingkey]));
+
+        // An additional incremental import is idempotent and must not rewrite custom SQL.
+        reports::from_file($path, true);
+        $this->assertSame("SELECT 777 AS locally_customised",
+            $DB->get_field("local_kopere_bi_element", "commandsql", ["id" => $custom->id]));
+        $this->assertSame(1, $DB->count_records("local_kopere_bi_element", ["refkey" => $missingkey]));
+    }
+
 }
