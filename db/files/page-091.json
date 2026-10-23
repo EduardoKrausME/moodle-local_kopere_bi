@@ -101,5 +101,6 @@
         }
       ]
     }
-  ]
+  ],
+  "pre_requisit": "mysql"
 }
