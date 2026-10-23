@@ -33,7 +33,7 @@ use local_kopere_bi\block\util\sql_util;
  * @package   local_kopere_bi
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @covers \local_kopere_bi\block\util\sql_util::params
+ * @covers \local_kopere_bi\block\util\sql_util
  */
 final class cohort_sql_filter_test extends advanced_testcase {
     /**
@@ -81,5 +81,61 @@ final class cohort_sql_filter_test extends advanced_testcase {
 
         $this->assertSame("SELECT :cohortid AS cohortid", $sql);
         $this->assertSame(["cohortid" => 0], $params);
+    }
+
+    /**
+     * Validate a real cohort before binding it to report SQL.
+     *
+     * @covers \local_kopere_bi\block\util\sql_util::prepare_sql
+     * @covers \local_kopere_bi\cohorts::can_view_cohort
+     */
+    public function test_prepare_sql_with_accessible_cohort(): void {
+        global $USER;
+
+        $this->resetAfterTest();
+        $this->setAdminUser();
+        $cohort = $this->getDataGenerator()->create_cohort(["name" => "BI cohort"]);
+        $USER->filter_cohortid = (int)$cohort->id;
+
+        $command = sql_util::prepare_sql("SELECT :cohortid AS cohortid");
+        $this->assertSame(["cohortid" => (int)$cohort->id], $command->params);
+        $this->assertSame("SELECT :cohortid AS cohortid", $command->sql);
+    }
+
+    /**
+     * An invalid cohort ID must not reach a report query.
+     *
+     * @covers \local_kopere_bi\block\util\sql_util::prepare_sql
+     * @covers \local_kopere_bi\cohorts::can_view_cohort
+     */
+    public function test_prepare_sql_rejects_missing_cohort(): void {
+        global $DB, $USER;
+
+        $this->resetAfterTest();
+        $this->setAdminUser();
+        $maxid = (int)$DB->get_field_sql("SELECT MAX(id) FROM {cohort}");
+        $USER->filter_cohortid = $maxid + 1;
+
+        $this->expectException(\moodle_exception::class);
+        sql_util::prepare_sql("SELECT :cohortid AS cohortid");
+    }
+
+    /**
+     * Cohorts hidden from an ordinary user cannot be selected.
+     *
+     * @covers \local_kopere_bi\cohorts::can_view_cohort
+     */
+    public function test_hidden_cohort_cannot_be_selected(): void {
+        $this->resetAfterTest();
+        $this->setAdminUser();
+        $cohort = $this->getDataGenerator()->create_cohort([
+            "name" => "Private BI cohort",
+            "visible" => 0,
+        ]);
+        $user = $this->getDataGenerator()->create_user();
+        $this->setUser($user);
+
+        $this->assertFalse(cohorts::can_view_cohort((int)$cohort->id));
+        $this->assertFalse(cohorts::can_view_cohort(0));
     }
 }
