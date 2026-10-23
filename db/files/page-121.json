@@ -1,0 +1,104 @@
+{
+  "title": "lang::report_page_121_title::local_kopere_bi",
+  "description": "lang::report_page_121_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_grade_change_history",
+  "sortorder": 121,
+  "category": {
+    "refkey": "grades",
+    "title": "lang::report_category_grades_title::local_kopere_bi",
+    "description": "lang::report_category_grades_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_expanded_121",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_121_title::local_kopere_bi",
+          "refkey": "kbi_el_grade_change_history",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT h.id, c.id AS courseid, c.fullname AS course, h.userid, u.firstname, u.lastname,\n       gi.itemname, h.action, h.finalgrade,\n       CASE WHEN gi.grademax > gi.grademin AND h.finalgrade IS NOT NULL\n            THEN ROUND(100.0 * (h.finalgrade - gi.grademin) / (gi.grademax - gi.grademin), 2)\n            ELSE NULL END AS grade_percent,\n       h.timemodified AS changed_at\n  FROM mdl_grade_grades_history h\n  JOIN mdl_grade_items gi ON gi.id = h.itemid\n  JOIN mdl_course c ON c.id = gi.courseid\n  JOIN mdl_user u ON u.id = h.userid\n WHERE c.id > 1\n ORDER BY h.timemodified DESC, h.id DESC\n LIMIT 500",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "string",
+                "mustache": ""
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_new_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_new_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_new_field_userid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "firstname": {
+                "key": "firstname",
+                "title": "lang::report_new_field_firstname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "lastname": {
+                "key": "lastname",
+                "title": "lang::report_new_field_lastname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "itemname": {
+                "key": "itemname",
+                "title": "lang::report_new_field_itemname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "action": {
+                "key": "action",
+                "title": "lang::report_new_field_action_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "finalgrade": {
+                "key": "finalgrade",
+                "title": "lang::report_new_field_finalgrade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "grade_percent": {
+                "key": "grade_percent",
+                "title": "lang::report_new_field_grade_percent_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "changed_at": {
+                "key": "changed_at",
+                "title": "lang::report_new_field_changed_at_title::local_kopere_bi",
+                "type": "datetimeRenderer",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

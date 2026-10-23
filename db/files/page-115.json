@@ -1,0 +1,80 @@
+{
+  "title": "lang::report_page_115_title::local_kopere_bi",
+  "description": "lang::report_page_115_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_daily_role_activity",
+  "sortorder": 115,
+  "category": {
+    "refkey": "analytics",
+    "title": "lang::report_category_analytics_title::local_kopere_bi",
+    "description": "lang::report_category_analytics_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_expanded_115",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_115_title::local_kopere_bi",
+          "refkey": "kbi_el_daily_role_activity",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT CONCAT(l.courseid, '-', FLOOR(l.timecreated / 86400.0), '-', roles.role_type) AS id,\n       c.id AS courseid, c.fullname AS course,\n       FLOOR(l.timecreated / 86400.0) * 86400 AS daystart,\n       roles.role_type, COUNT(l.id) AS actions, COUNT(DISTINCT l.userid) AS users\n  FROM mdl_local_kopere_bi_log_tmp l\n  JOIN mdl_course c ON c.id = l.courseid\n  JOIN (SELECT cx.instanceid AS courseid, ra.userid,\n               CASE WHEN MAX(CASE WHEN r.archetype IN ('teacher', 'editingteacher') THEN 1 ELSE 0 END) = 1\n                       THEN 'teacher'\n                    WHEN MAX(CASE WHEN r.archetype = 'student' THEN 1 ELSE 0 END) = 1\n                       THEN 'student'\n                    ELSE 'other' END AS role_type\n          FROM mdl_context cx\n          JOIN mdl_role_assignments ra ON ra.contextid = cx.id\n          JOIN mdl_role r ON r.id = ra.roleid\n         WHERE cx.contextlevel = 50\n         GROUP BY cx.instanceid, ra.userid) roles ON roles.courseid = l.courseid AND roles.userid = l.userid\n WHERE l.component LIKE 'mod_%' AND l.timecreated >= UNIX_TIMESTAMP() - 7776000\n GROUP BY c.id, c.fullname, FLOOR(l.timecreated / 86400.0), roles.role_type\n ORDER BY daystart DESC, c.fullname, roles.role_type\n LIMIT 500",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "string",
+                "mustache": ""
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_new_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_new_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "daystart": {
+                "key": "daystart",
+                "title": "lang::report_new_field_daystart_title::local_kopere_bi",
+                "type": "datetimeRenderer",
+                "mustache": ""
+              },
+              "role_type": {
+                "key": "role_type",
+                "title": "lang::report_new_field_role_type_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "actions": {
+                "key": "actions",
+                "title": "lang::report_new_field_actions_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "users": {
+                "key": "users",
+                "title": "lang::report_new_field_users_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

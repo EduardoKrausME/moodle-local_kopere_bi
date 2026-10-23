@@ -1,0 +1,98 @@
+{
+  "title": "lang::report_page_124_title::local_kopere_bi",
+  "description": "lang::report_page_124_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_grading_criteria_performance",
+  "sortorder": 124,
+  "category": {
+    "refkey": "grades",
+    "title": "lang::report_category_grades_title::local_kopere_bi",
+    "description": "lang::report_category_grades_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_expanded_124",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_124_title::local_kopere_bi",
+          "refkey": "kbi_el_grading_criteria_performance",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": null,
+          "html_after": null,
+          "commandsql": "SELECT CONCAT(src.moduleid, '-', src.method, '-', src.criterionid) AS id,\n       c.id AS courseid, c.fullname AS course, src.moduleid, src.method, src.criterion,\n       COUNT(src.score) AS assessments, ROUND(AVG(src.score), 2) AS average_score,\n       MAX(src.maxscore) AS maximum_score,\n       CASE WHEN MAX(src.maxscore) > 0 THEN ROUND(100.0 * AVG(src.score) / MAX(src.maxscore), 2)\n            ELSE NULL END AS average_percent\n  FROM (\n        SELECT cx.instanceid AS moduleid, 'guide' AS method, crit.id AS criterionid,\n               crit.shortname AS criterion, fill.score AS score, crit.maxscore AS maxscore\n          FROM mdl_gradingform_guide_fillings fill\n          JOIN mdl_gradingform_guide_criteria crit ON crit.id = fill.criterionid\n          JOIN mdl_grading_instances inst ON inst.id = fill.instanceid AND inst.status = 1\n          JOIN mdl_grading_definitions def ON def.id = inst.definitionid AND def.method = 'guide'\n          JOIN mdl_grading_areas area ON area.id = def.areaid AND area.component = 'mod_assign'\n          JOIN mdl_context cx ON cx.id = area.contextid AND cx.contextlevel = 70\n        UNION ALL\n        SELECT cx.instanceid AS moduleid, 'rubric' AS method, crit.id AS criterionid,\n               crit.description AS criterion, level.score AS score,\n               (SELECT MAX(lev2.score) FROM mdl_gradingform_rubric_levels lev2\n                 WHERE lev2.criterionid = crit.id) AS maxscore\n          FROM mdl_gradingform_rubric_fillings fill\n          JOIN mdl_gradingform_rubric_criteria crit ON crit.id = fill.criterionid\n          JOIN mdl_gradingform_rubric_levels level ON level.id = fill.levelid\n          JOIN mdl_grading_instances inst ON inst.id = fill.instanceid AND inst.status = 1\n          JOIN mdl_grading_definitions def ON def.id = inst.definitionid AND def.method = 'rubric'\n          JOIN mdl_grading_areas area ON area.id = def.areaid AND area.component = 'mod_assign'\n          JOIN mdl_context cx ON cx.id = area.contextid AND cx.contextlevel = 70\n       ) src\n  JOIN mdl_course_modules cm ON cm.id = src.moduleid\n  JOIN mdl_modules m ON m.id = cm.module AND m.name = 'assign'\n  JOIN mdl_course c ON c.id = cm.course\n GROUP BY c.id, c.fullname, src.moduleid, src.method, src.criterionid, src.criterion\n ORDER BY c.fullname, src.moduleid, src.method, src.criterion\n LIMIT 500",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "string",
+                "mustache": ""
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_new_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "course": {
+                "key": "course",
+                "title": "lang::report_new_field_course_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "moduleid": {
+                "key": "moduleid",
+                "title": "lang::report_new_field_moduleid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "method": {
+                "key": "method",
+                "title": "lang::report_new_field_method_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "criterion": {
+                "key": "criterion",
+                "title": "lang::report_new_field_criterion_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "assessments": {
+                "key": "assessments",
+                "title": "lang::report_new_field_assessments_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "average_score": {
+                "key": "average_score",
+                "title": "lang::report_new_field_average_score_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "maximum_score": {
+                "key": "maximum_score",
+                "title": "lang::report_new_field_maximum_score_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "average_percent": {
+                "key": "average_percent",
+                "title": "lang::report_new_field_average_percent_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
