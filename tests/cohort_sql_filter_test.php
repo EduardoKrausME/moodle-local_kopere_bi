@@ -159,4 +159,27 @@ final class cohort_sql_filter_test extends advanced_testcase {
         $this->assertContains(0, $viewerids);
         $this->assertNotContains((int)$hidden->id, $viewerids);
     }
+
+    /**
+     * Visible category cohorts should be selectable from accessible courses.
+     *
+     * @covers \local_kopere_bi\cohorts::can_view_cohort
+     */
+    public function test_category_cohort_visible_with_course_access(): void {
+        global $USER;
+
+        $this->resetAfterTest();
+        $category = $this->getDataGenerator()->create_category();
+        $course = $this->getDataGenerator()->create_course(["category" => $category->id]);
+        $cohort = $this->getDataGenerator()->create_cohort([
+            "name" => "Category BI cohort",
+            "contextid" => \context_coursecat::instance($category->id)->id,
+        ]);
+        $user = $this->getDataGenerator()->create_user();
+        $this->getDataGenerator()->enrol_user($user->id, $course->id);
+        $this->setUser($user);
+        $USER->filter_courseid = (int)$course->id;
+
+        $this->assertTrue(cohorts::can_view_cohort((int)$cohort->id));
+    }
 }
