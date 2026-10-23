@@ -159,6 +159,7 @@ function local_kopere_bi_require_route_capability($classname, $method, context_s
     $viewroutes = [
         "dashboard" => ["start", "preview", "type_block_preview"],
         "chart_data" => ["load_data"],
+        "cohorts" => ["load_all_cohorts"],
     ];
 
     if (isset($viewroutes[$classname]) && in_array($method, $viewroutes[$classname], true)) {
