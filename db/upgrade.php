@@ -446,7 +446,5 @@ function xmldb_local_kopere_bi_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2026102201, "local", "kopere_bi");
     }
 
-
-
     return true;
 }

@@ -75,8 +75,8 @@ php local/kopere_bi/cli/import_database_reports.php
 ```
 
 The operation is idempotent: existing report definitions are preserved and only missing
-pages, blocks and elements are added. A future plugin version update also contains an
-incremental migration for these editions.
+pages, blocks and elements are added. Automatic installation on an existing site
+requires a future versioned upgrade; until that upgrade, use the CLI command above.
 
 ## MCP: report APIs
 
