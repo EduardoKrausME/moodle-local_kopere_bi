@@ -40,26 +40,28 @@ class reports {
      * Function from_file
      *
      * @param string $pagefile
+     * @param bool $preserveexisting Keep previously installed reports and customisations unchanged.
      * @throws Exception
      */
-    public static function from_file($pagefile) {
+    public static function from_file($pagefile, bool $preserveexisting = false) {
         $jsonpage = file_get_contents($pagefile);
 
         $page = json_decode($jsonpage);
         if (!isset($page->title)) {
             return;
         }
-        self::from_json($page);
+        self::from_json($page, $preserveexisting);
     }
 
     /**
      * from_json
      *
-     * @param $page
+     * @param object $page
+     * @param bool $preserveexisting Keep existing definitions intact while adding missing reports.
      * @return void
      * @throws Exception
      */
-    public static function from_json($page) {
+    public static function from_json($page, bool $preserveexisting = false) {
         global $DB;
 
         $koperebipage = clone $page;
@@ -91,11 +93,11 @@ class reports {
 
         /** @var local_kopere_bi_cat $category */
         $category = $page->category;
-        $category->id = self::save_record_by_refkey("local_kopere_bi_cat", $category);
+        $category->id = self::save_record_by_refkey("local_kopere_bi_cat", $category, $preserveexisting);
 
         $koperebipage->time = time();
         $koperebipage->cat_id = $category->id;
-        $page->id = self::save_record_by_refkey("local_kopere_bi_page", $koperebipage);
+        $page->id = self::save_record_by_refkey("local_kopere_bi_page", $koperebipage, $preserveexisting);
 
         foreach ($page->blocks as $block) {
             /** @var local_kopere_bi_block $koperebiblock */
@@ -116,7 +118,7 @@ class reports {
 
             $koperebiblock->page_id = $page->id;
             $koperebiblock->time = time();
-            $block->id = self::save_record_by_refkey("local_kopere_bi_block", $koperebiblock);
+            $block->id = self::save_record_by_refkey("local_kopere_bi_block", $koperebiblock, $preserveexisting);
 
             foreach ($elements as $element) {
                 /** @var local_kopere_bi_element $koperebielement */
@@ -131,7 +133,7 @@ class reports {
                 }
                 $koperebielement->block_id = $block->id;
                 $koperebielement->time = time();
-                $element->id = self::save_record_by_refkey("local_kopere_bi_element", $koperebielement);
+                $element->id = self::save_record_by_refkey("local_kopere_bi_element", $koperebielement, $preserveexisting);
             }
         }
     }
@@ -170,18 +172,19 @@ class reports {
      *
      * @param string $table
      * @param object $record
+     * @param bool $preserveexisting When true, never overwrite or remove an existing definition.
      * @return int
      */
-    private static function save_record_by_refkey($table, $record) {
+    private static function save_record_by_refkey($table, $record, bool $preserveexisting = false) {
         global $DB;
 
         if (!empty($record->refkey)) {
             $conditions = ["refkey" => $record->refkey];
             $itens = $DB->get_records($table, $conditions);
             if ($itens) {
-                if (count($itens) == 1) {
+                if (count($itens) == 1 || $preserveexisting) {
                     $record->id = reset($itens)->id;
-                    if ($table != "local_kopere_bi_cat") {
+                    if (!$preserveexisting && $table != "local_kopere_bi_cat") {
                         $DB->update_record($table, $record);
                     }
                     return $record->id;
