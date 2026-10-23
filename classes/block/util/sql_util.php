@@ -178,6 +178,17 @@ class sql_util {
             }
         }
 
+        // Allow installed filters to bind their own SQL placeholders.
+        if (strpos($sql, ":") !== false) {
+            foreach (\local_kopere_bi\plugininfo\bifilters::get_enabled_plugins() as $name => $path) {
+                require_once("{$path}/classes/provider.php");
+                $provider = "\\bifilters_{$name}\\provider";
+                if (method_exists($provider, "bind_sql")) {
+                    $provider::bind_sql($sql, $params);
+                }
+            }
+        }
+
         return [$sql, $params];
     }
 

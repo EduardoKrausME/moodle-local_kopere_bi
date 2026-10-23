@@ -69,6 +69,19 @@ class filter {
         $elementid = optional_param("item_id", false, PARAM_INT);
         $pageid = optional_param("page_id", false, PARAM_INT);
         $paramsurl = ["item_id" => $elementid, "page_id" => $pageid];
+        // Keep the other active filters when any selector changes.
+        foreach (["userid", "courseid", "cohortid"] as $name) {
+            $value = optional_param($name, null, PARAM_INT);
+            if ($value !== null) {
+                $paramsurl[$name] = $value;
+            }
+        }
+        foreach (["periodpreset", "periodfromdate", "periodtodate"] as $name) {
+            $value = optional_param($name, null, PARAM_RAW_TRIMMED);
+            if ($value !== null && $value !== "") {
+                $paramsurl[$name] = $value;
+            }
+        }
 
         // Checks if the string $commandsql starts with "\Namespace\Classe" and that a class will be called in PHP.
         if (preg_match('/^\\\\\w+\\\\\w+/', $commandsql)) {
@@ -138,9 +151,16 @@ class filter {
             require_once("{$file}/classes/provider.php");
             /** @var i_filter_provider $plugin */
             $plugin = "\\bifilters_{$pluginname}\\provider";
-            $key = $plugin::get_key();
-            $message = get_string("message", "bifilters_{$pluginname}");
-            $return .= "<li><code>:{$key}</code> {$message}</li>";
+            $keys = method_exists($plugin, "get_keys") ? $plugin::get_keys() : [$plugin::get_key()];
+            foreach ($keys as $key) {
+                $component = "bifilters_{$pluginname}";
+                $messagekey = "message_{$key}";
+                if (!get_string_manager()->string_exists($messagekey, $component)) {
+                    $messagekey = "message";
+                }
+                $message = get_string($messagekey, $component);
+                $return .= "<li><code>:{$key}</code> {$message}</li>";
+            }
         }
 
         return $return;

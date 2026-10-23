@@ -110,9 +110,10 @@ class provider implements i_block_provider {
         global $OUTPUT;
 
         $cache = cache_util::get_cache_make($koperebielement->cache);
+        $cachekey = cache_util::get_cache_key($koperebielement);
 
-        if ($cache->has($koperebielement->id)) {
-            $retorno = $cache->get($koperebielement->id);
+        if ($cache->has($cachekey)) {
+            $retorno = $cache->get($cachekey);
         } else {
 
             $comand = sql_util::prepare_sql($koperebielement->commandsql);
@@ -139,7 +140,7 @@ class provider implements i_block_provider {
             $retorno = $OUTPUT->render_from_template("biblocks_info/preview", [
                 "value" => $value,
             ]);
-            $cache->set($koperebielement->id, $retorno);
+            $cache->set($cachekey, $retorno);
         }
 
         return $retorno;

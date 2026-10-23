@@ -141,9 +141,10 @@ class provider implements i_block_provider {
         header('Content-Type: application/json; charset: utf-8');
 
         $cache = cache_util::get_cache_make($koperebielement->cache);
+        $cachekey = cache_util::get_cache_key($koperebielement);
 
-        if ($cache->has($koperebielement->id)) {
-            $returnhtml = $cache->get($koperebielement->id);
+        if ($cache->has($cachekey)) {
+            $returnhtml = $cache->get($cachekey);
         } else {
             $comand = sql_util::prepare_sql($koperebielement->commandsql);
 
@@ -175,7 +176,7 @@ class provider implements i_block_provider {
                 $returnhtml = $mustache->render_from_string($html, ["lines" => json_decode(json_encode($lines))]);
             }
 
-            $cache->set($koperebielement->id, $returnhtml);
+            $cache->set($cachekey, $returnhtml);
         }
 
         echo json_encode(["html" => $returnhtml]);

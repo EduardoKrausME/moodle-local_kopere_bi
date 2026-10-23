@@ -147,9 +147,10 @@ class provider implements i_block_provider {
      */
     public function get_chart_data($koperebielement) {
         $cache = cache_util::get_cache_make($koperebielement->cache);
+        $cachekey = cache_util::get_cache_key($koperebielement);
 
-        if ($cache->has($koperebielement->id)) {
-            $lines = $cache->get($koperebielement->id);
+        if ($cache->has($cachekey)) {
+            $lines = $cache->get($cachekey);
         } else {
             $comand = sql_util::prepare_sql($koperebielement->commandsql);
             try {
@@ -173,7 +174,7 @@ class provider implements i_block_provider {
                     "labels" => [],
                     "series" => [],
                 ];
-                $cache->set($koperebielement->id, $lines);
+                $cache->set($cachekey, $lines);
                 ob_clean();
                 header('Content-Type: application/json; charset: utf-8');
                 echo json_encode($lines, JSON_NUMERIC_CHECK);
@@ -202,7 +203,7 @@ class provider implements i_block_provider {
                 "labels" => $optionslabels,
                 "series" => $optionsserie,
             ];
-            $cache->set($koperebielement->id, $lines);
+            $cache->set($cachekey, $lines);
         }
 
         ob_clean();
