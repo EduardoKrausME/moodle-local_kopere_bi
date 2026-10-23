@@ -48,6 +48,7 @@ class provider implements
         'local_kopere_bi_online',
         'local_kopere_bi_tracking',
         'local_kopere_bi_track_log',
+        'local_kopere_bi_period',
         'local_kopere_bi_engage',
     ];
 
@@ -110,6 +111,16 @@ class provider implements
             'timespend' => 'privacy:metadata:seconds',
             'visits' => 'privacy:metadata:visits',
         ], 'privacy:metadata:local_kopere_bi_track_log');
+
+        $collection->add_database_table('local_kopere_bi_period', [
+            'userid' => 'privacy:metadata:user_id',
+            'courseid' => 'privacy:metadata:courseid',
+            'daystart' => 'privacy:metadata:access_time',
+            'weekdaynum' => 'privacy:metadata:access_time',
+            'slot' => 'privacy:metadata:access_time',
+            'visits' => 'privacy:metadata:visits',
+            'timespend' => 'privacy:metadata:seconds',
+        ], 'privacy:metadata:local_kopere_bi_period');
 
         $collection->add_database_table('local_kopere_bi_log_tmp', [
             'eventname' => 'privacy:metadata:event',
@@ -179,6 +190,7 @@ class provider implements
                        EXISTS (SELECT 1 FROM {local_kopere_bi_online} WHERE userid = :onlineuserid)
                        OR EXISTS (SELECT 1 FROM {local_kopere_bi_tracking} WHERE userid = :trackinguserid)
                        OR EXISTS (SELECT 1 FROM {local_kopere_bi_track_log} WHERE userid = :trackloguserid)
+                       OR EXISTS (SELECT 1 FROM {local_kopere_bi_period} WHERE userid = :perioduserid)
                        OR EXISTS (SELECT 1 FROM {local_kopere_bi_engage} WHERE userid = :engageuserid)
                        OR EXISTS (SELECT 1 FROM {local_kopere_bi_log_tmp}
                                    WHERE userid = :loguserid OR relateduserid = :relateduserid)
@@ -190,6 +202,7 @@ class provider implements
             'onlineuserid' => $userid,
             'trackinguserid' => $userid,
             'trackloguserid' => $userid,
+            'perioduserid' => $userid,
             'engageuserid' => $userid,
             'loguserid' => $userid,
             'relateduserid' => $userid,
