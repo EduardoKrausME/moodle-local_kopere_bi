@@ -184,4 +184,55 @@ final class postgres_reports_test extends advanced_testcase {
         $this->assertSame(1, $DB->count_records("local_kopere_bi_element", ["refkey" => $missingkey]));
     }
 
+    /**
+     * PostgreSQL must be able to prepare all its bundled report SQL statements.
+     *
+     * Wrapping the report in a zero-row select validates names, joins, functions and
+     * grouping without reading users' activity or other report data.
+     *
+     * @return void
+     */
+    public function test_postgres_variants_sql_is_executable(): void {
+        global $DB;
+
+        if ($DB->get_dbfamily() !== "postgres") {
+            $this->markTestSkipped("PostgreSQL-only query compatibility test.");
+        }
+        $this->resetAfterTest();
+
+        $paths = glob(__DIR__ . "/../db/files/page-*-postgres.json");
+        foreach ([1, 4, 8] as $number) {
+            $paths[] = __DIR__ . "/../db/files/page-" . sprintf("%03d", $number) . ".json";
+        }
+
+        $checked = 0;
+        foreach ($paths as $path) {
+            $page = json_decode(file_get_contents($path), true, 512, JSON_THROW_ON_ERROR);
+            foreach ($page["blocks"] as $block) {
+                if (($block["pre_requisit"] ?? $page["pre_requisit"] ?? "") !== "postgres") {
+                    continue;
+                }
+                foreach ($block["elements"] as $element) {
+                    if (($element["pre_requisit"] ?? "postgres") !== "postgres") {
+                        continue;
+                    }
+                    $prepared = \local_kopere_bi\block\util\sql_util::prepare_sql($element["commandsql"]);
+                    try {
+                        $recordset = $DB->get_recordset_sql(
+                            "SELECT * FROM (" . rtrim($prepared->sql, "; \n\r\t") .
+                            ") postgres_report_probe WHERE 1 = 0",
+                            $prepared->params
+                        );
+                        $recordset->close();
+                    } catch (\Throwable $exception) {
+                        $this->fail("PostgreSQL report " . $element["refkey"] . " from " .
+                            basename($path) . " failed: " . $exception->getMessage());
+                    }
+                    $checked++;
+                }
+            }
+        }
+        $this->assertGreaterThanOrEqual(40, $checked);
+    }
+
 }
