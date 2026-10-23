@@ -1,0 +1,82 @@
+{
+  "title": "lang::report_page_078_title::local_kopere_bi",
+  "description": "lang::report_page_078_description::local_kopere_bi",
+  "user_id": null,
+  "refkey": "kbi_page_scorm_activity_summary_by_course_pg",
+  "sortorder": 78,
+  "category": {
+    "refkey": "scorm",
+    "title": "lang::report_category_scorm_title::local_kopere_bi",
+    "sortorder": 100,
+    "description": "lang::report_category_scorm_description::local_kopere_bi"
+  },
+  "blocks": [
+    {
+      "refkey": "blk_scorm_78_pg",
+      "type": "block-1",
+      "sequence": 1,
+      "elements": [
+        {
+          "title": "lang::report_page_078_title::local_kopere_bi",
+          "refkey": "kbi_el_scorm_activity_summary_by_course_pg",
+          "block_num": 1,
+          "type": "table",
+          "theme": "light",
+          "css": "",
+          "html_before": "",
+          "html_after": "",
+          "commandsql": "SELECT kbi_s.id,\n       kbi_c.fullname,\n       kbi_s.name,\n       kbi_s.timemodified,\n       COALESCE(kbi_attempts.attempts, 0) AS attempts,\n       COALESCE(kbi_tracking.visits, 0) AS visits,\n       COALESCE(kbi_duration.duration, 0) AS duration\nFROM mdl_scorm kbi_s\nJOIN mdl_course kbi_c ON kbi_c.id = kbi_s.course\nLEFT JOIN(\n    SELECT scormid, COUNT(DISTINCT id) AS attempts\n      FROM mdl_scorm_attempt\n     GROUP BY scormid\n) kbi_attempts ON kbi_attempts.scormid = kbi_s.id\nLEFT JOIN(\n    SELECT kbi_cm.instance, SUM(kbi_t.visits) AS visits\n      FROM mdl_course_modules kbi_cm\n      JOIN mdl_modules kbi_m ON kbi_m.id = kbi_cm.module AND kbi_m.name = 'scorm'\n      JOIN mdl_local_kopere_bi_tracking kbi_t ON kbi_t.page = 'module'\n            AND kbi_t.param = kbi_cm.id\n     GROUP BY kbi_cm.instance\n) kbi_tracking ON kbi_tracking.instance = kbi_s.id\nLEFT JOIN(\n    SELECT a.scormid, SUM(CASE WHEN e.element = 'cmi.core.total_time'\n                              THEN EXTRACT(EPOCH FROM NULLIF((v.value)::text, '')::interval) ELSE NULL END) AS duration\n      FROM mdl_scorm_attempt a\n      JOIN mdl_scorm_scoes_value v ON v.attemptid = a.id\n      JOIN mdl_scorm_element e ON e.id = v.elementid\n     GROUP BY a.scormid\n) kbi_duration ON kbi_duration.scormid = kbi_s.id\nWHERE kbi_s.id > 0\n  AND kbi_c.id = :courseid\n  AND kbi_c.visible = 1\nORDER BY kbi_c.fullname, kbi_s.name",
+          "cache": "1h",
+          "reload": "none",
+          "info": {
+            "column": {
+              "id": {
+                "key": "id",
+                "title": "#",
+                "type": "number",
+                "mustache": ""
+              },
+              "fullname": {
+                "key": "fullname",
+                "title": "lang::report_field_fullname_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "name": {
+                "key": "name",
+                "title": "lang::report_field_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "timemodified": {
+                "key": "timemodified",
+                "title": "lang::report_field_timemodified_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "attempts": {
+                "key": "attempts",
+                "title": "lang::report_field_attempts_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "visits": {
+                "key": "visits",
+                "title": "lang::report_field_visits_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "duration": {
+                "key": "duration",
+                "title": "lang::report_field_duration_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "pre_requisit": "postgres"
+}
