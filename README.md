@@ -66,17 +66,16 @@ database-specific SQL. PostgreSQL variants use their own report, block and eleme
 keys, while shared dashboards keep their database-specific blocks on the same page. The installer
 selects the variant for the configured Moodle database engine.
 
-For an existing site that has already installed this plugin version, an administrator may run
-the following command from the Moodle root to add missing built-in report variants immediately
-without replacing customised SQL or settings:
+From plugin database version `2026102202`, the Moodle upgrade automatically installs missing
+MySQL/PostgreSQL report variants without overwriting customised SQL or settings.
+Administrators may also run this optional import command from the Moodle root:
 
 ```bash
 php local/kopere_bi/cli/import_database_reports.php
 ```
 
 The operation is idempotent: existing report definitions are preserved and only missing
-pages, blocks and elements are added. Automatic installation on an existing site
-requires a future versioned upgrade; until that upgrade, use the CLI command above.
+pages, blocks and elements are added. Automatic imports use the same preservation rules when upgrading an existing Moodle site.
 
 ## MCP: report APIs
 

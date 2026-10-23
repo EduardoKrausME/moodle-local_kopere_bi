@@ -195,4 +195,92 @@ final class report_migrations_test extends advanced_testcase {
         $this->assertSame("SELECT 42 AS id",
             $DB->get_field("local_kopere_bi_element", "commandsql", ["id" => $customid]));
     }
+
+    /**
+     * Previously imported PostgreSQL SQL is repaired without changing local customisations.
+     *
+     * @covers \local_kopere_bi\upgrade\report_migrations::fix_postgres_report_sql
+     * @return void
+     */
+    public function test_postgres_sql_repairs_preserve_customisations(): void {
+        global $DB;
+
+        if ($DB->get_dbfamily() !== "postgres") {
+            $this->markTestSkipped("PostgreSQL-specific migration.");
+        }
+        $this->resetAfterTest();
+
+        $categoryid = $DB->insert_record("local_kopere_bi_cat", (object)[
+            "title" => "PostgreSQL migration",
+            "refkey" => "test_pg_migration_cat",
+        ]);
+        $pageid = $DB->insert_record("local_kopere_bi_page", (object)[
+            "title" => "PostgreSQL migration",
+            "cat_id" => $categoryid,
+            "refkey" => "test_pg_migration_page",
+        ]);
+        $blockid = $DB->insert_record("local_kopere_bi_block", (object)[
+            "page_id" => $pageid,
+            "refkey" => "test_pg_migration_block",
+            "type" => "block-1",
+        ]);
+
+        $definitions = [
+            [34, "kbi_el_instructor_and_learner_engagem_pg", "aef8f6f0"],
+            [101, "kbi_el_students_at_risk_pg", "f1b921ad"],
+        ];
+        $records = [];
+        foreach ($definitions as [$number, $refkey, $checksum]) {
+            $path = __DIR__ . "/../db/files/page-" . sprintf("%03d", $number) . "-postgres.json";
+            $page = json_decode(file_get_contents($path), true, 512, JSON_THROW_ON_ERROR);
+            $fixedsql = $page["blocks"][0]["elements"][0]["commandsql"];
+            if ($number === 34) {
+                $oldsql = str_replace(
+                    "(CURRENT_DATE - TO_TIMESTAMP(kbi_c.timecreated)::date)",
+                    "(TO_DAYS(CURRENT_TIMESTAMP) - TO_DAYS(TO_TIMESTAMP(kbi_c.timecreated)))",
+                    $fixedsql
+                );
+                $oldsql = str_replace("COUNT(DISTINCT kbi_fp.id)::numeric /",
+                    "COUNT(DISTINCT kbi_fp.id) /", $oldsql);
+            } else {
+                $oldsql = preg_replace(
+                    "/ORDER BY CASE\n.*?\n         END,/s",
+                    "ORDER BY FIELD(risk_level, 'High', 'Medium', 'Low'),",
+                    $fixedsql
+                );
+                $oldsql = str_replace(
+                    "(COALESCE(kbi_done.completed_activities, 0)::numeric / kbi_total.total_activities)",
+                    "(COALESCE(kbi_done.completed_activities, 0) / kbi_total.total_activities)",
+                    $oldsql
+                );
+            }
+            $this->assertSame($checksum, hash("crc32b", $oldsql));
+            $recordid = $DB->insert_record("local_kopere_bi_element", (object)[
+                "block_id" => $blockid,
+                "refkey" => $refkey,
+                "title" => "Original report",
+                "type" => "table",
+                "commandsql" => $oldsql,
+                "info" => "{}",
+            ]);
+            $customid = $DB->insert_record("local_kopere_bi_element", (object)[
+                "block_id" => $blockid,
+                "refkey" => $refkey,
+                "title" => "Custom report",
+                "type" => "table",
+                "commandsql" => "SELECT 42 AS id",
+                "info" => "{}",
+            ]);
+            $records[] = [$recordid, $customid, $fixedsql];
+        }
+
+        report_migrations::fix_postgres_report_sql();
+        report_migrations::fix_postgres_report_sql();
+        foreach ($records as [$recordid, $customid, $fixedsql]) {
+            $this->assertSame($fixedsql,
+                $DB->get_field("local_kopere_bi_element", "commandsql", ["id" => $recordid]));
+            $this->assertSame("SELECT 42 AS id",
+                $DB->get_field("local_kopere_bi_element", "commandsql", ["id" => $customid]));
+        }
+    }
 }

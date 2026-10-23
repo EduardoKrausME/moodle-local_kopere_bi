@@ -188,4 +188,49 @@ final class report_migrations {
             }
         }
     }
+
+    /**
+     * Repair two shipped PostgreSQL reports only when they still contain the exact legacy SQL.
+     *
+     * Reports that administrators have customised are not changed.
+     *
+     * @return void
+     */
+    public static function fix_postgres_report_sql(): void {
+        global $DB;
+
+        if ($DB->get_dbfamily() !== "postgres") {
+            return;
+        }
+
+        $originals = [
+            "kbi_el_instructor_and_learner_engagem_pg" => [34, "aef8f6f0"],
+            "kbi_el_students_at_risk_pg" => [101, "f1b921ad"],
+        ];
+
+        foreach ($originals as $refkey => [$pagenumber, $checksum]) {
+            $path = dirname(__DIR__, 2) . "/db/files/page-" . sprintf("%03d", $pagenumber) . "-postgres.json";
+            $page = json_decode(file_get_contents($path), true, 512, JSON_THROW_ON_ERROR);
+            $fixedsql = null;
+            foreach ($page["blocks"] as $block) {
+                foreach ($block["elements"] as $element) {
+                    if (($element["refkey"] ?? "") === $refkey) {
+                        $fixedsql = (string)$element["commandsql"];
+                        break 2;
+                    }
+                }
+            }
+            if ($fixedsql === null) {
+                throw new \coding_exception("Missing bundled PostgreSQL report SQL: " . $refkey);
+            }
+
+            $records = $DB->get_records("local_kopere_bi_element", ["refkey" => $refkey], "", "id, commandsql");
+            foreach ($records as $record) {
+                if (hash("crc32b", (string)$record->commandsql) !== $checksum) {
+                    continue;
+                }
+                $DB->set_field("local_kopere_bi_element", "commandsql", $fixedsql, ["id" => $record->id]);
+            }
+        }
+    }
 }

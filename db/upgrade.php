@@ -446,5 +446,28 @@ function xmldb_local_kopere_bi_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2026102201, "local", "kopere_bi");
     }
 
+
+    if ($oldversion < 2026102202) {
+        // Import missing database-specific reports without overwriting local customisations.
+        $reportfiles = glob(__DIR__ . "/files/page-*-postgres.json");
+        if ($reportfiles === false) {
+            throw new \coding_exception("Unable to enumerate bundled PostgreSQL report definitions.");
+        }
+        foreach ($reportfiles as $reportfile) {
+            reports::from_file($reportfile, true);
+        }
+
+        // These dashboards store the MySQL and PostgreSQL elements in the same page.
+        foreach ([1, 4, 8] as $pagenumber) {
+            $pagefile = __DIR__ . "/files/page-" . sprintf("%03d", $pagenumber) . ".json";
+            reports::from_file($pagefile, true);
+        }
+
+        // Repair previously imported PostgreSQL SQL only when it is still unmodified stock SQL.
+        report_migrations::fix_postgres_report_sql();
+
+        upgrade_plugin_savepoint(true, 2026102202, "local", "kopere_bi");
+    }
+
     return true;
 }
