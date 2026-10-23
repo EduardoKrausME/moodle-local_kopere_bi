@@ -58,6 +58,26 @@ Table columns can be customized using [Mustache](https://moodledev.io/docs/guide
 
 See [the additional report collection](docs/expanded_reports.md) for 16 reports on activity reach, tracking, participation, grading, questions, feedback and forum activity.
 
+
+## MySQL and PostgreSQL report editions
+
+The built-in catalog includes separate MySQL and PostgreSQL definitions for reports that use
+database-specific SQL. PostgreSQL variants use their own report, block and element reference
+keys, while shared dashboards keep their database-specific blocks on the same page. The installer
+selects the variant for the configured Moodle database engine.
+
+For an existing site that has already installed this plugin version, an administrator may run
+the following command from the Moodle root to add missing built-in report variants immediately
+without replacing customised SQL or settings:
+
+```bash
+php local/kopere_bi/cli/import_database_reports.php
+```
+
+The operation is idempotent: existing report definitions are preserved and only missing
+pages, blocks and elements are added. A future plugin version update also contains an
+incremental migration for these editions.
+
 ## MCP: report APIs
 
 Install [local_mcp](https://eduardokrausme.github.io/moodle-local_mcp/) to
