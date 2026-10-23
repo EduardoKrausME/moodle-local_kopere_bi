@@ -64,6 +64,50 @@ final class report_migrations {
     }
 
     /**
+     * Correct the two time-of-day reports only when their SQL is still stock.
+     *
+     * Legacy timepoint rows have already lost their hour; the new period
+     * table starts collecting on upgrade. Keep custom SQL untouched.
+     *
+     * @return void
+     */
+    public static function fix_access_period_reports(): void {
+        global $DB;
+
+        $originals = [
+            "kbi_el_course_access_by_day_and_period" => [91, "eb7401d8"],
+            "kbi_el_learner_access_by_day_and_period" => [92, "d62d25ce"],
+        ];
+        foreach ($originals as $refkey => [$number, $checksum]) {
+            $path = dirname(__DIR__, 2) . "/db/files/page-" . sprintf("%03d", $number) . ".json";
+            $page = json_decode(file_get_contents($path), true, 512, JSON_THROW_ON_ERROR);
+            $sql = null;
+            foreach ($page["blocks"] as $block) {
+                foreach ($block["elements"] as $element) {
+                    if (($element["refkey"] ?? "") === $refkey) {
+                        $sql = $element["commandsql"];
+                        break 2;
+                    }
+                }
+            }
+            if ($sql === null) {
+                throw new \coding_exception("Missing bundled period report SQL: " . $refkey);
+            }
+
+            $records = $DB->get_records("local_kopere_bi_element", ["refkey" => $refkey], "", "id, commandsql");
+            if (!$records) {
+                \local_kopere_bi\install\reports::from_file($path);
+                continue;
+            }
+            foreach ($records as $record) {
+                if (hash("crc32b", (string)$record->commandsql) === $checksum) {
+                    $DB->set_field("local_kopere_bi_element", "commandsql", $sql, ["id" => $record->id]);
+                }
+            }
+        }
+    }
+
+    /**
      * Apply fixes to untouched built-in SQL definitions, preserving local changes.
      *
      * Changing bundled JSON alone does not update reports already saved in the
