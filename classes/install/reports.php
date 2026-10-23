@@ -72,6 +72,23 @@ class reports {
             return;
         }
 
+        // A page containing only SQL for another database must not be installed empty.
+        $compatible = false;
+        foreach ($page->blocks ?? [] as $block) {
+            if (!self::supports_database($block->pre_requisit ?? null)) {
+                continue;
+            }
+            foreach ($block->elements ?? [] as $element) {
+                if (self::supports_database($element->pre_requisit ?? null)) {
+                    $compatible = true;
+                    break 2;
+                }
+            }
+        }
+        if (!$compatible) {
+            return;
+        }
+
         /** @var local_kopere_bi_cat $category */
         $category = $page->category;
         $category->id = self::save_record_by_refkey("local_kopere_bi_cat", $category);
@@ -89,11 +106,19 @@ class reports {
                 continue;
             }
 
+            // Do not create empty blocks when all their elements target another engine.
+            $elements = array_filter($block->elements ?? [], static function($element) {
+                return self::supports_database($element->pre_requisit ?? null);
+            });
+            if (!$elements) {
+                continue;
+            }
+
             $koperebiblock->page_id = $page->id;
             $koperebiblock->time = time();
             $block->id = self::save_record_by_refkey("local_kopere_bi_block", $koperebiblock);
 
-            foreach ($block->elements as $element) {
+            foreach ($elements as $element) {
                 /** @var local_kopere_bi_element $koperebielement */
                 $koperebielement = clone $element;
 
@@ -124,11 +149,14 @@ class reports {
             return true;
         }
 
-        $family = strtolower($requirement);
+        $family = strtolower(trim($requirement));
         if ($family === "pgsql" || $family === "postgresql") {
             $family = "postgres";
         }
 
+        if ($family === "mariadb") {
+            $family = "mysql";
+        }
         if ($family === "mysql" || $family === "postgres") {
             return $DB->get_dbfamily() === $family;
         }
