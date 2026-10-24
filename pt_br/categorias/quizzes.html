@@ -1,0 +1,107 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Estrutura, tentativas, notas, respostas, erros frequentes, progresso e desempenho em questionários."><meta name="theme-color" content="#072c3a"><title>Questionários · Relatórios Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><style>
+.catalog-summary{background:#e8f7f4;border:1px solid #bee5df;border-radius:13px;padding:15px 20px;margin:23px 0;color:#12515b}.catalog-summary strong{font-size:22px;display:block}.catalog-summary p{margin:4px 0;color:#405c65}.categories-list{margin-top:18px}.category-menu{margin-top:15px;padding:10px 6px;border-top:1px solid #e4ebf0}.category-menu summary{cursor:pointer;color:#006d75;font-weight:800;font-size:13px;padding:6px 8px}.category-menu nav{max-height:300px;overflow:auto;margin-top:5px}.category-menu a{display:block;padding:6px 9px;text-decoration:none;color:#486273;font-size:12px;border-radius:6px}.category-menu a:hover,.category-menu a[aria-current]{background:#e5f6f3;color:#005c65}.report-list{display:grid;gap:15px;margin-top:24px}.report-row{border:1px solid #dce7eb;border-radius:13px;padding:20px;background:#fff;scroll-margin-top:90px}.report-row h2{font-size:20px;margin:7px 0 10px}.report-row .num{display:inline-block;background:#e1f5f1;color:#056b73;font-weight:800;font-size:12px;border-radius:7px;padding:3px 9px}.report-row p{font-size:14px;margin:8px 0}.report-row .metadata{font-size:12px;color:#536c79;overflow-wrap:anywhere}.report-row .metadata code{font-size:12px}.report-row .sources{display:flex;flex-wrap:wrap;gap:11px;font-size:13px;font-weight:700;margin-top:13px}.report-row .sources a{border-bottom:1px solid #8ccbc5;text-decoration:none}.report-row .sources a:hover{text-decoration:underline}.report-mini-search{display:flex;gap:12px;align-items:center;margin:19px 0}.report-mini-search input{width:min(100%,500px);font:inherit;border:1px solid #b8cdd3;border-radius:9px;padding:10px 12px}.report-mini-search label{font-size:14px;font-weight:700}.tiny{font-size:12px;color:#678}.category-caption{font-size:13px;color:#6a7c88}.category-shortcuts{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}.category-shortcuts a{font-size:12px;font-weight:700;text-decoration:none;border:1px solid #bce2df;padding:6px 9px;border-radius:7px;background:#f2faf9}.category-shortcuts a:hover{background:#d9f5ef}.report-row[hidden]{display:none!important}@media(max-width:750px){.report-mini-search{display:block}.report-mini-search label{display:block;margin-bottom:6px}.report-row{padding:15px}.catalog-summary{padding:13px}}</style></head>
+<body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../../en/relatorios.html" lang="en">English</a></div></div></header>
+<div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../instalacao.html">Instalação</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../permissoes.html">Segurança</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav><details class="category-menu"><summary>19 categorias de relatórios</summary><nav aria-label="Categorias"><a href="enrollments.html">Inscrições e receitas (7)</a><a href="learning_analytics.html">Learning Analytics — painéis (6)</a><a href="users.html">Usuários e perfis (16)</a><a href="instructors.html">Professores e tutores (10)</a><a href="courses.html">Cursos e conteúdo (18)</a><a href="grades.html">Notas e avaliações (5)</a><a href="activities.html">Atividades (9)</a><a href="quizzes.html" aria-current="page">Questionários (14)</a><a href="forums.html">Fóruns (7)</a><a href="scorm.html">SCORM (3)</a><a href="assignments.html">Tarefas e entregas (3)</a><a href="feedback.html">Feedback e pesquisas (3)</a><a href="competencies.html">Competências, planos e selos (5)</a><a href="communication.html">Comunicação e arquivos (5)</a><a href="login_reports.html">Acessos e login (2)</a><a href="students.html">Estudantes (9)</a><a href="online.html">Estudantes online (1)</a><a href="analytics.html">Indicadores operacionais de participação (3)</a><a href="dashboard.html">Painel geral (1)</a></nav></details></aside>
+<main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / Questionários</div><div class="kicker">CATÁLOGO DE RELATÓRIOS · PT-BR</div><h1>Questionários</h1><p class="lead">Estrutura, tentativas, notas, respostas, erros frequentes, progresso e desempenho em questionários.</p><div class="catalog-summary"><strong>14 relatórios</strong><p>Categoria interna: <code>quizzes</code> · Definições verificadas na branch <code>master</code>.</p></div><p class="category-caption">Os nomes foram revisados para PT-BR nesta documentação; os <code>refkeys</code> e os arquivos JSON continuam iguais aos do plugin. Uma variante PostgreSQL, quando disponível, aparece junto do relatório correspondente.</p>
+<div class="report-mini-search"><label for="filtrar-quizzes">Filtrar relatórios</label><input type="search" id="filtrar-quizzes" placeholder="Nome, número ou identificador" aria-controls="lista-relatorios"></div><div class="tiny" id="search-count" role="status" aria-live="polite"></div><div id="lista-relatorios" class="report-list"><article class="report-row" id="relatorio-062" data-search="62 estrutura das questões dos questionários kbi_page_quiz_question_structure mostra a estrutura de cada questionário, incluindo posições, páginas, notas, versões das questões e tags das questões.">
+   <span class="num">Relatório 062</span>
+   <h2>Estrutura das questões dos questionários</h2>
+   <p>Mostra a estrutura de cada questionário, incluindo posições, páginas, notas, versões das questões e tags das questões.</p>
+   <p class="metadata">Visualizações: Tabela</p>
+   <p class="metadata">Identificador interno: <code>kbi_page_quiz_question_structure</code></p>
+   <div class="sources"><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-062.json" target="_blank" rel="noopener">MySQL (definição principal) ↗</a><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-062-postgres.json" target="_blank" rel="noopener">Variante PostgreSQL ↗</a></div>
+   </article><article class="report-row" id="relatorio-063" data-search="63 estatísticas de desempenho dos questionários kbi_page_quiz_performance_statistics resume tentativas, pontuação média, variação da pontuação, taxa de aprovação e duração média de cada questionário.">
+   <span class="num">Relatório 063</span>
+   <h2>Estatísticas de desempenho dos questionários</h2>
+   <p>Resume tentativas, pontuação média, variação da pontuação, taxa de aprovação e duração média de cada questionário.</p>
+   <p class="metadata">Visualizações: Tabela</p>
+   <p class="metadata">Identificador interno: <code>kbi_page_quiz_performance_statistics</code></p>
+   <div class="sources"><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-063.json" target="_blank" rel="noopener">MySQL (definição principal) ↗</a><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-063-postgres.json" target="_blank" rel="noopener">Variante PostgreSQL ↗</a></div>
+   </article><article class="report-row" id="relatorio-064" data-search="64 atividade nos questionários por estudante kbi_page_quiz_activity_detail_by_learner ">
+   <span class="num">Relatório 064</span>
+   <h2>Atividade nos questionários por estudante</h2>
+   
+   <p class="metadata">Visualizações: Tabela</p>
+   <p class="metadata">Identificador interno: <code>kbi_page_quiz_activity_detail_by_learner</code></p>
+   <div class="sources"><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-064.json" target="_blank" rel="noopener">Definição principal ↗</a></div>
+   </article><article class="report-row" id="relatorio-065" data-search="65 resumo das tentativas dos questionários por curso kbi_page_quiz_attempts_summary_by_course ">
+   <span class="num">Relatório 065</span>
+   <h2>Resumo das tentativas dos questionários por curso</h2>
+   
+   <p class="metadata">Visualizações: Tabela</p>
+   <p class="metadata">Identificador interno: <code>kbi_page_quiz_attempts_summary_by_course</code></p>
+   <div class="sources"><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-065.json" target="_blank" rel="noopener">Definição principal ↗</a></div>
+   </article><article class="report-row" id="relatorio-066" data-search="66 resumo das tentativas por questionário kbi_page_quiz_attempts_summary_by_quiz ">
+   <span class="num">Relatório 066</span>
+   <h2>Resumo das tentativas por questionário</h2>
+   
+   <p class="metadata">Visualizações: Tabela</p>
+   <p class="metadata">Identificador interno: <code>kbi_page_quiz_attempts_summary_by_quiz</code></p>
+   <div class="sources"><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-066.json" target="_blank" rel="noopener">Definição principal ↗</a></div>
+   </article><article class="report-row" id="relatorio-067" data-search="67 detalhes das notas dos questionários por estudante kbi_page_quiz_grade_detail_by_learner ">
+   <span class="num">Relatório 067</span>
+   <h2>Detalhes das notas dos questionários por estudante</h2>
+   
+   <p class="metadata">Visualizações: Tabela</p>
+   <p class="metadata">Identificador interno: <code>kbi_page_quiz_grade_detail_by_learner</code></p>
+   <div class="sources"><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-067.json" target="_blank" rel="noopener">MySQL (definição principal) ↗</a><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-067-postgres.json" target="_blank" rel="noopener">Variante PostgreSQL ↗</a></div>
+   </article><article class="report-row" id="relatorio-068" data-search="68 progresso nos questionários por coorte kbi_page_quiz_progress_by_cohort ">
+   <span class="num">Relatório 068</span>
+   <h2>Progresso nos questionários por coorte</h2>
+   
+   <p class="metadata">Visualizações: Tabela</p>
+   <p class="metadata">Identificador interno: <code>kbi_page_quiz_progress_by_cohort</code></p>
+   <div class="sources"><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-068.json" target="_blank" rel="noopener">Definição principal ↗</a></div>
+   </article><article class="report-row" id="relatorio-069" data-search="69 progresso nos questionários por curso kbi_page_quiz_progress_by_course ">
+   <span class="num">Relatório 069</span>
+   <h2>Progresso nos questionários por curso</h2>
+   
+   <p class="metadata">Visualizações: Tabela</p>
+   <p class="metadata">Identificador interno: <code>kbi_page_quiz_progress_by_course</code></p>
+   <div class="sources"><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-069.json" target="_blank" rel="noopener">Definição principal ↗</a></div>
+   </article><article class="report-row" id="relatorio-070" data-search="70 progresso nos questionários por usuário kbi_page_quiz_progress_by_user ">
+   <span class="num">Relatório 070</span>
+   <h2>Progresso nos questionários por usuário</h2>
+   
+   <p class="metadata">Visualizações: Tabela</p>
+   <p class="metadata">Identificador interno: <code>kbi_page_quiz_progress_by_user</code></p>
+   <div class="sources"><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-070.json" target="_blank" rel="noopener">Definição principal ↗</a></div>
+   </article><article class="report-row" id="relatorio-088" data-search="88 respostas por questão do questionário kbi_page_quiz_answer_details exibe cada resposta do aluno por tentativa e questão do questionário, incluindo resumo da resposta, resposta correta e estado da correção.">
+   <span class="num">Relatório 088</span>
+   <h2>Respostas por questão do questionário</h2>
+   <p>Exibe cada resposta do aluno por tentativa e questão do questionário, incluindo resumo da resposta, resposta correta e estado da correção.</p>
+   <p class="metadata">Visualizações: Tabela</p>
+   <p class="metadata">Identificador interno: <code>kbi_page_quiz_answer_details</code></p>
+   <div class="sources"><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-088.json" target="_blank" rel="noopener">MySQL (definição principal) ↗</a><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-088-postgres.json" target="_blank" rel="noopener">Variante PostgreSQL ↗</a></div>
+   </article><article class="report-row" id="relatorio-089" data-search="89 pontuações por tentativa do questionário kbi_page_quiz_score_details mostra a pontuação das tentativas do questionário, nota bruta, percentual, nota no livro de notas e quantidade de respostas corretas, parciais e erradas.">
+   <span class="num">Relatório 089</span>
+   <h2>Pontuações por tentativa do questionário</h2>
+   <p>Mostra a pontuação das tentativas do questionário, nota bruta, percentual, nota no livro de notas e quantidade de respostas corretas, parciais e erradas.</p>
+   <p class="metadata">Visualizações: Tabela</p>
+   <p class="metadata">Identificador interno: <code>kbi_page_quiz_score_details</code></p>
+   <div class="sources"><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-089.json" target="_blank" rel="noopener">MySQL (definição principal) ↗</a><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-089-postgres.json" target="_blank" rel="noopener">Variante PostgreSQL ↗</a></div>
+   </article><article class="report-row" id="relatorio-120" data-search="120 comparação de resultados de dois questionários kbi_page_quiz_pre_post_comparison compara as últimas tentativas finalizadas de pares de questionários do curso, em percentuais; a ordem segue o id do questionário.">
+   <span class="num">Relatório 120</span>
+   <h2>Comparação de resultados de dois questionários</h2>
+   <p>Compara as últimas tentativas finalizadas de pares de questionários do curso, em percentuais; a ordem segue o ID do questionário.</p>
+   <p class="metadata">Visualizações: Tabela</p>
+   <p class="metadata">Identificador interno: <code>kbi_page_quiz_pre_post_comparison</code></p>
+   <div class="sources"><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-120.json" target="_blank" rel="noopener">Definição principal ↗</a></div>
+   </article><article class="report-row" id="relatorio-122" data-search="122 respostas incorretas mais frequentes kbi_page_common_incorrect_answers respostas recorrentes sem pontuação integral em tentativas finalizadas, excluindo prévias e mostrando proporções dos erros.">
+   <span class="num">Relatório 122</span>
+   <h2>Respostas incorretas mais frequentes</h2>
+   <p>Respostas recorrentes sem pontuação integral em tentativas finalizadas, excluindo prévias e mostrando proporções dos erros.</p>
+   <p class="metadata">Visualizações: Tabela</p>
+   <p class="metadata">Identificador interno: <code>kbi_page_common_incorrect_answers</code></p>
+   <div class="sources"><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-122.json" target="_blank" rel="noopener">Definição principal ↗</a></div>
+   </article><article class="report-row" id="relatorio-123" data-search="123 desempenho em questionários por tag da questão kbi_page_question_tag_performance resultados de questões totalmente corretas agrupados pelas tags das questões, considerando apenas tentativas finalizadas.">
+   <span class="num">Relatório 123</span>
+   <h2>Desempenho em questionários por tag da questão</h2>
+   <p>Resultados de questões totalmente corretas agrupados pelas tags das questões, considerando apenas tentativas finalizadas.</p>
+   <p class="metadata">Visualizações: Tabela</p>
+   <p class="metadata">Identificador interno: <code>kbi_page_question_tag_performance</code></p>
+   <div class="sources"><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-123.json" target="_blank" rel="noopener">Definição principal ↗</a></div>
+   </article></div><p class="note" id="notfound" hidden>Nenhum relatório desta categoria corresponde ao filtro informado.</p>
+<nav class="pager" aria-label="Navegar pelas categorias"><a href="activities.html">← Atividades</a><a href="forums.html">Fóruns →</a></nav><p><a href="../relatorios.html">Ver todas as categorias e orientações de uso →</a></p></article></main></div>
+<footer class="foot">Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a> · GPL v3 · Catálogo extraído das definições do próprio plugin.</footer>
+<script>(function(){const field=document.querySelector('input[type="search"]');const rows=[...document.querySelectorAll('.report-row')];const status=document.getElementById('search-count');const empty=document.getElementById('notfound');function update(){const q=field.value.toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'');let visible=0;for(const row of rows){const content=row.getAttribute('data-search').normalize('NFD').replace(/[\u0300-\u036f]/g,'');row.hidden=!content.includes(q);if(!row.hidden)visible++;}status.textContent=q?visible+' de '+rows.length+' relatórios encontrados':'';empty.hidden=visible!==0;}field.addEventListener('input',update);})();</script></body></html>
