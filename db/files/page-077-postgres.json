@@ -25,7 +25,7 @@
           "css": "",
           "html_before": "",
           "html_after": "",
-          "commandsql": "SELECT t.*,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_u.idnumber,\n       kbi_u.id               AS user_id,\n       kbi_s.name,\n       kbi_c.fullname,\n       kbi_cmc.completionstate,\n       kbi_cmc.timemodified   AS completiondate,\n       ROUND((sg.score)::numeric, 0) AS score,\n       l.timespend        AS timespend_on_course,\n       ue.status          AS enrol_status,\n       kbi_s.completionscorerequired,\n       kbi_s.completionstatusrequired,\n       kbi_s.completionstatusallscos,\n       kbi_s.id               AS scorm_id,\n       sg.finalgrade,\n       sg.rawgrademax,\n       kbi_cm.completionexpected,\n       kbi_cm.completiongradeitemnumber,\n       kbi_cm.completionview,\n       kbi_cm.completion,\n       kbi_s.grademethod      AS scorm_grade_method,\n       l.visits           AS visits_on_course,\n       ue.timeend,\n       ''                 as cohortname\nFROM mdl_scorm kbi_s\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_s.course\n       JOIN mdl_modules kbi_m ON kbi_m.name = 'scorm'\n       JOIN mdl_course_modules kbi_cm ON kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_s.id\n       JOIN(SELECT kbi_e.courseid, kbi_ue1.userid, MIN(kbi_ue1.status) AS status, MIN(kbi_ue1.timeend) AS timeend\n             FROM mdl_enrol kbi_e\n                    JOIN mdl_user_enrolments kbi_ue1 ON kbi_ue1.enrolid = kbi_e.id\n             WHERE kbi_e.id > 0\n               AND kbi_e.courseid = :courseid\n             GROUP BY kbi_e.courseid, kbi_ue1.userid) ue ON ue.courseid = kbi_c.id\n       JOIN mdl_user kbi_u ON kbi_u.id = ue.userid\n       LEFT JOIN(SELECT courseid,\n                         userid,\n                         SUM(timespend) AS timespend,\n                         SUM(visits)    AS visits\n                  FROM mdl_local_kopere_bi_tracking\n                  GROUP BY courseid, userid) l ON l.courseid = kbi_c.id AND l.userid = kbi_u.id\n       JOIN(\n             SELECT a.userid, a.scormid,\n                    MIN(a.id) AS id,\n                    COUNT(DISTINCT a.attempt) AS attempts,\n                    MAX(v.timemodified) AS timemodified,\n                    MIN(CASE WHEN e.element = 'x.start.time' THEN v.value END) AS starttime,\n                    SUM(CASE WHEN e.element = 'cmi.core.total_time'\n                             THEN EXTRACT(EPOCH FROM NULLIF((v.value)::text, '')::interval) END) AS duration,\n                    MAX(CASE WHEN a.attempt = 1\n                              AND e.element IN('cmi.completion_status', 'cmi.core.lesson_status')\n                              AND v.value IN('completed', 'passed')\n                             THEN 'lang::report_sql_status_completed::local_kopere_bi' ELSE '' END) AS first_completion_status,\n                    MAX(CASE WHEN a.attempt = la.last_attempt_number\n                              AND e.element IN('cmi.completion_status', 'cmi.core.lesson_status')\n                              AND v.value IN('completed', 'passed')\n                             THEN 'lang::report_sql_status_completed::local_kopere_bi' ELSE '' END) AS current_completion_status\n               FROM mdl_scorm_attempt a\n               LEFT JOIN mdl_scorm_scoes_value v ON v.attemptid = a.id\n               LEFT JOIN mdl_scorm_element e ON e.id = v.elementid\n               JOIN(SELECT userid, scormid, MAX(attempt) AS last_attempt_number\n                       FROM mdl_scorm_attempt\n                   GROUP BY userid, scormid) la ON la.userid = a.userid AND la.scormid = a.scormid\n              WHERE a.scormid IN(SELECT id FROM mdl_scorm WHERE course = :courseid)\n           GROUP BY a.userid, a.scormid\n       ) t ON t.scormid = kbi_s.id AND t.userid = kbi_u.id\n       LEFT JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.coursemoduleid = kbi_cm.id AND kbi_cmc.userid = kbi_u.id\n       LEFT JOIN(SELECT kbi_gi.iteminstance,\n                         ROUND(((CASE\n                                  WHEN kbi_g.rawgrademax > 0 THEN(kbi_g.finalgrade / kbi_g.rawgrademax) * 100\n                                  ELSE kbi_g.finalgrade END))::numeric, 0) AS score,\n                         kbi_g.userid,\n                         kbi_g.finalgrade,\n                         kbi_g.rawgrademax\n                  FROM mdl_grade_items kbi_gi, mdl_grade_grades kbi_g\n                  WHERE kbi_gi.itemmodule = 'scorm'\n                    and kbi_g.itemid = kbi_gi.id\n                    AND kbi_g.finalgrade IS NOT NULL\n                    AND kbi_gi.outcomeid IS NULL\n                  GROUP BY kbi_gi.iteminstance, kbi_g.userid, kbi_g.rawgrademax, kbi_g.finalgrade, kbi_gi.scaleid, kbi_g.feedback, kbi_gi.gradetype,\n                           kbi_g.rawgrademin, kbi_gi.courseid) sg ON sg.iteminstance = t.scormid and sg.userid = t.userid\nWHERE ue.userid > 0\n  AND kbi_c.id = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_cm.visible = 1\nORDER BY kbi_c.fullname, kbi_s.name, kbi_u.lastname, kbi_u.firstname",
+          "commandsql": "SELECT t.id, t.attempts,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_u.idnumber,\n       kbi_u.id               AS user_id,\n       kbi_s.name,\n       kbi_c.fullname,\n       kbi_cmc.completionstate,\n       kbi_cmc.timemodified   AS completiondate,\n       ROUND((sg.score)::numeric, 0) AS score,\n       l.timespend        AS timespend_on_course,\n       ue.status          AS enrol_status,\n       kbi_s.completionscorerequired,\n       kbi_s.completionstatusrequired,\n       kbi_s.completionstatusallscos,\n       kbi_s.id               AS scorm_id,\n       sg.finalgrade,\n       sg.rawgrademax,\n       kbi_cm.completionexpected,\n       kbi_cm.completiongradeitemnumber,\n       kbi_cm.completionview,\n       kbi_cm.completion,\n       kbi_s.grademethod      AS scorm_grade_method,\n       l.visits           AS visits_on_course,\n       ue.timeend,\nFROM mdl_scorm kbi_s\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_s.course\n       JOIN mdl_modules kbi_m ON kbi_m.name = 'scorm'\n       JOIN mdl_course_modules kbi_cm ON kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_s.id\n       JOIN(SELECT kbi_e.courseid, kbi_ue1.userid, MIN(kbi_ue1.status) AS status, MIN(kbi_ue1.timeend) AS timeend\n             FROM mdl_enrol kbi_e\n                    JOIN mdl_user_enrolments kbi_ue1 ON kbi_ue1.enrolid = kbi_e.id\n             WHERE kbi_e.id > 0\n               AND kbi_e.courseid = :courseid\n             GROUP BY kbi_e.courseid, kbi_ue1.userid) ue ON ue.courseid = kbi_c.id\n       JOIN mdl_user kbi_u ON kbi_u.id = ue.userid\n       LEFT JOIN(SELECT courseid,\n                         userid,\n                         SUM(timespend) AS timespend,\n                         SUM(visits)    AS visits\n                  FROM mdl_local_kopere_bi_tracking\n                  GROUP BY courseid, userid) l ON l.courseid = kbi_c.id AND l.userid = kbi_u.id\n       JOIN(\n             SELECT a.userid, a.scormid,\n                    MIN(a.id) AS id,\n                    COUNT(DISTINCT a.attempt) AS attempts,\n                    MAX(v.timemodified) AS timemodified,\n                    MIN(CASE WHEN e.element = 'x.start.time' THEN v.value END) AS starttime,\n                    SUM(CASE WHEN e.element = 'cmi.core.total_time'\n                             THEN EXTRACT(EPOCH FROM NULLIF((v.value)::text, '')::interval) END) AS duration,\n                    MAX(CASE WHEN a.attempt = 1\n                              AND e.element IN('cmi.completion_status', 'cmi.core.lesson_status')\n                              AND v.value IN('completed', 'passed')\n                             THEN 'lang::report_sql_status_completed::local_kopere_bi' ELSE '' END) AS first_completion_status,\n                    MAX(CASE WHEN a.attempt = la.last_attempt_number\n                              AND e.element IN('cmi.completion_status', 'cmi.core.lesson_status')\n                              AND v.value IN('completed', 'passed')\n                             THEN 'lang::report_sql_status_completed::local_kopere_bi' ELSE '' END) AS current_completion_status\n               FROM mdl_scorm_attempt a\n               LEFT JOIN mdl_scorm_scoes_value v ON v.attemptid = a.id\n               LEFT JOIN mdl_scorm_element e ON e.id = v.elementid\n               JOIN(SELECT userid, scormid, MAX(attempt) AS last_attempt_number\n                       FROM mdl_scorm_attempt\n                   GROUP BY userid, scormid) la ON la.userid = a.userid AND la.scormid = a.scormid\n              WHERE a.scormid IN(SELECT id FROM mdl_scorm WHERE course = :courseid)\n           GROUP BY a.userid, a.scormid\n       ) t ON t.scormid = kbi_s.id AND t.userid = kbi_u.id\n       LEFT JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.coursemoduleid = kbi_cm.id AND kbi_cmc.userid = kbi_u.id\n       LEFT JOIN(SELECT kbi_gi.iteminstance,\n                         ROUND(((CASE\n                                  WHEN kbi_g.rawgrademax > 0 THEN(kbi_g.finalgrade / kbi_g.rawgrademax) * 100\n                                  ELSE kbi_g.finalgrade END))::numeric, 0) AS score,\n                         kbi_g.userid,\n                         kbi_g.finalgrade,\n                         kbi_g.rawgrademax\n                  FROM mdl_grade_items kbi_gi, mdl_grade_grades kbi_g\n                  WHERE kbi_gi.itemmodule = 'scorm'\n                    and kbi_g.itemid = kbi_gi.id\n                    AND kbi_g.finalgrade IS NOT NULL\n                    AND kbi_gi.outcomeid IS NULL\n                  GROUP BY kbi_gi.iteminstance, kbi_g.userid, kbi_g.rawgrademax, kbi_g.finalgrade, kbi_gi.scaleid, kbi_g.feedback, kbi_gi.gradetype,\n                           kbi_g.rawgrademin, kbi_gi.courseid) sg ON sg.iteminstance = t.scormid and sg.userid = t.userid\nWHERE ue.userid > 0\n  AND kbi_c.id = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_cm.visible = 1\nORDER BY kbi_c.fullname, kbi_s.name, kbi_u.lastname, kbi_u.firstname",
           "cache": "1h",
           "reload": "none",
           "info": {
@@ -51,13 +51,13 @@
               "idnumber": {
                 "key": "idnumber",
                 "title": "lang::report_field_idnumber_title::local_kopere_bi",
-                "type": "number",
+                "type": "none",
                 "mustache": ""
               },
               "user_id": {
                 "key": "user_id",
                 "title": "lang::report_field_user_id_title::local_kopere_bi",
-                "type": "number",
+                "type": "none",
                 "mustache": ""
               },
               "name": {
@@ -99,31 +99,31 @@
               "enrol_status": {
                 "key": "enrol_status",
                 "title": "lang::report_field_enrol_status_title::local_kopere_bi",
-                "type": "status",
+                "type": "none",
                 "mustache": ""
               },
               "completionscorerequired": {
                 "key": "completionscorerequired",
                 "title": "lang::report_field_completionscorerequired_title::local_kopere_bi",
-                "type": "number",
+                "type": "none",
                 "mustache": ""
               },
               "completionstatusrequired": {
                 "key": "completionstatusrequired",
                 "title": "lang::report_field_completionstatusrequired_title::local_kopere_bi",
-                "type": "status",
+                "type": "none",
                 "mustache": ""
               },
               "completionstatusallscos": {
                 "key": "completionstatusallscos",
                 "title": "lang::report_field_completionstatusallscos_title::local_kopere_bi",
-                "type": "status",
+                "type": "none",
                 "mustache": ""
               },
               "scorm_id": {
                 "key": "scorm_id",
                 "title": "lang::report_field_scorm_id_title::local_kopere_bi",
-                "type": "number",
+                "type": "none",
                 "mustache": ""
               },
               "finalgrade": {
@@ -135,37 +135,37 @@
               "rawgrademax": {
                 "key": "rawgrademax",
                 "title": "lang::report_field_rawgrademax_title::local_kopere_bi",
-                "type": "number",
+                "type": "none",
                 "mustache": ""
               },
               "completionexpected": {
                 "key": "completionexpected",
                 "title": "lang::report_field_completionexpected_title::local_kopere_bi",
-                "type": "string",
+                "type": "none",
                 "mustache": ""
               },
               "completiongradeitemnumber": {
                 "key": "completiongradeitemnumber",
                 "title": "lang::report_field_completiongradeitemnumber_title::local_kopere_bi",
-                "type": "number",
+                "type": "none",
                 "mustache": ""
               },
               "completionview": {
                 "key": "completionview",
                 "title": "lang::report_field_completionview_title::local_kopere_bi",
-                "type": "string",
+                "type": "none",
                 "mustache": ""
               },
               "completion": {
                 "key": "completion",
                 "title": "lang::report_field_completion_title::local_kopere_bi",
-                "type": "string",
+                "type": "none",
                 "mustache": ""
               },
               "scorm_grade_method": {
                 "key": "scorm_grade_method",
                 "title": "lang::report_field_scorm_grade_method_title::local_kopere_bi",
-                "type": "number",
+                "type": "none",
                 "mustache": ""
               },
               "visits_on_course": {
@@ -177,13 +177,13 @@
               "timeend": {
                 "key": "timeend",
                 "title": "lang::report_field_timeend_title::local_kopere_bi",
-                "type": "datetime",
+                "type": "none",
                 "mustache": ""
               },
-              "cohortname": {
-                "key": "cohortname",
-                "title": "lang::report_field_cohortname_title::local_kopere_bi",
-                "type": "string",
+              "attempts": {
+                "key": "attempts",
+                "title": "lang::report_field_attempts_title::local_kopere_bi",
+                "type": "number",
                 "mustache": ""
               }
             }

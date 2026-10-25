@@ -33,13 +33,13 @@
               "id": {
                 "key": "id",
                 "title": "#",
-                "type": "string",
+                "type": "none",
                 "mustache": ""
               },
               "courseid": {
                 "key": "courseid",
                 "title": "lang::report_field_courseid_title::local_kopere_bi",
-                "type": "number",
+                "type": "none",
                 "mustache": ""
               },
               "course": {
@@ -51,13 +51,13 @@
               "cmid": {
                 "key": "cmid",
                 "title": "lang::report_field_cmid_title::local_kopere_bi",
-                "type": "number",
+                "type": "none",
                 "mustache": ""
               },
               "quizid": {
                 "key": "quizid",
                 "title": "lang::report_field_quizid_title::local_kopere_bi",
-                "type": "number",
+                "type": "none",
                 "mustache": ""
               },
               "quiz_name": {
@@ -69,7 +69,7 @@
               "userid": {
                 "key": "userid",
                 "title": "lang::report_field_userid_title::local_kopere_bi",
-                "type": "number",
+                "type": "none",
                 "mustache": ""
               },
               "firstname": {
@@ -87,13 +87,13 @@
               "email": {
                 "key": "email",
                 "title": "lang::report_field_email_title::local_kopere_bi",
-                "type": "string",
+                "type": "none",
                 "mustache": "<a href=\"mailto:{{{email}}}\" target=\"_blank\">{{{email}}}</a>"
               },
               "quiz_attempt_id": {
                 "key": "quiz_attempt_id",
                 "title": "lang::report_field_quiz_attempt_id_title::local_kopere_bi",
-                "type": "number",
+                "type": "none",
                 "mustache": ""
               },
               "attempt": {
@@ -105,7 +105,7 @@
               "timestart": {
                 "key": "timestart",
                 "title": "lang::report_field_timestart_title::local_kopere_bi",
-                "type": "datetime",
+                "type": "none",
                 "mustache": ""
               },
               "timefinish": {
@@ -117,19 +117,19 @@
               "attempt_state": {
                 "key": "attempt_state",
                 "title": "lang::report_field_attempt_state_title::local_kopere_bi",
-                "type": "string",
+                "type": "none",
                 "mustache": ""
               },
               "slot": {
                 "key": "slot",
                 "title": "lang::report_field_slot_title::local_kopere_bi",
-                "type": "number",
+                "type": "none",
                 "mustache": ""
               },
               "questionid": {
                 "key": "questionid",
                 "title": "lang::report_field_questionid_title::local_kopere_bi",
-                "type": "number",
+                "type": "none",
                 "mustache": ""
               },
               "question_name": {
@@ -147,7 +147,7 @@
               "questionsummary": {
                 "key": "questionsummary",
                 "title": "lang::report_field_questionsummary_title::local_kopere_bi",
-                "type": "string",
+                "type": "none",
                 "mustache": ""
               },
               "responsesummary": {
@@ -165,13 +165,13 @@
               "question_state": {
                 "key": "question_state",
                 "title": "lang::report_field_question_state_title::local_kopere_bi",
-                "type": "string",
+                "type": "none",
                 "mustache": ""
               },
               "fraction": {
                 "key": "fraction",
                 "title": "lang::report_field_fraction_title::local_kopere_bi",
-                "type": "number",
+                "type": "none",
                 "mustache": ""
               },
               "question_grade": {

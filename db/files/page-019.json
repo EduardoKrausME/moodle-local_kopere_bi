@@ -25,7 +25,7 @@
           "css": "",
           "html_before": "",
           "html_after": "",
-          "commandsql": "SELECT kbi_u.id,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.middlename,\n       kbi_u.email,\n       kbi_u.idnumber,\n       kbi_u.username,\n       kbi_u.phone1,\n       kbi_u.phone2,\n       kbi_u.institution,\n       kbi_u.department,\n       kbi_u.address,\n       kbi_u.city,\n       kbi_u.country,\n       kbi_u.auth,\n       kbi_u.confirmed,\n       kbi_u.suspended,\n       kbi_u.deleted,\n       kbi_u.timecreated,\n       kbi_u.timemodified,\n       kbi_u.firstaccess,\n       kbi_u.lastaccess,\n       kbi_u.lastlogin,\n       kbi_u.currentlogin,\n       kbi_u.lastip\nFROM mdl_user kbi_u\nWHERE kbi_u.id > 0\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\nORDER BY kbi_u.lastname, kbi_u.firstname, kbi_u.id",
+          "commandsql": "SELECT kbi_u.id,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.middlename,\n       kbi_u.email,\n       kbi_u.idnumber,\n       kbi_u.username,\n       kbi_u.phone1,\n       kbi_u.phone2,\n       kbi_u.institution,\n       kbi_u.department,\n       kbi_u.address,\n       kbi_u.city,\n       kbi_u.country,\n       kbi_u.auth,\n       kbi_u.confirmed,\n       kbi_u.timecreated,\n       kbi_u.timemodified,\n       kbi_u.firstaccess,\n       kbi_u.lastaccess,\n       kbi_u.lastlogin,\n       kbi_u.currentlogin,\n       kbi_u.lastip\nFROM mdl_user kbi_u\nWHERE kbi_u.id > 0\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\nORDER BY kbi_u.lastname, kbi_u.firstname, kbi_u.id",
           "cache": "1h",
           "reload": "none",
           "info": {
@@ -33,7 +33,7 @@
               "id": {
                 "key": "id",
                 "title": "#",
-                "type": "number",
+                "type": "none",
                 "mustache": ""
               },
               "firstname": {
@@ -51,7 +51,7 @@
               "middlename": {
                 "key": "middlename",
                 "title": "lang::report_field_middlename_title::local_kopere_bi",
-                "type": "string",
+                "type": "none",
                 "mustache": ""
               },
               "email": {
@@ -63,25 +63,25 @@
               "idnumber": {
                 "key": "idnumber",
                 "title": "lang::report_field_idnumber_title::local_kopere_bi",
-                "type": "number",
+                "type": "string",
                 "mustache": ""
               },
               "username": {
                 "key": "username",
                 "title": "lang::report_field_username_title::local_kopere_bi",
-                "type": "string",
+                "type": "none",
                 "mustache": ""
               },
               "phone1": {
                 "key": "phone1",
                 "title": "lang::report_field_phone1_title::local_kopere_bi",
-                "type": "string",
+                "type": "none",
                 "mustache": "<a href=\"tel:{{{phone1}}}\" target=\"_blank\">{{{phone1}}}</a>"
               },
               "phone2": {
                 "key": "phone2",
                 "title": "lang::report_field_phone2_title::local_kopere_bi",
-                "type": "string",
+                "type": "none",
                 "mustache": "<a href=\"tel:{{{phone2}}}\" target=\"_blank\">{{{phone2}}}</a>"
               },
               "institution": {
@@ -99,7 +99,7 @@
               "address": {
                 "key": "address",
                 "title": "lang::report_field_address_title::local_kopere_bi",
-                "type": "string",
+                "type": "none",
                 "mustache": ""
               },
               "city": {
@@ -123,19 +123,7 @@
               "confirmed": {
                 "key": "confirmed",
                 "title": "lang::report_field_confirmed_title::local_kopere_bi",
-                "type": "string",
-                "mustache": ""
-              },
-              "suspended": {
-                "key": "suspended",
-                "title": "lang::report_field_suspended_title::local_kopere_bi",
                 "type": "status",
-                "mustache": ""
-              },
-              "deleted": {
-                "key": "deleted",
-                "title": "lang::report_field_deleted_title::local_kopere_bi",
-                "type": "string",
                 "mustache": ""
               },
               "timecreated": {
@@ -147,37 +135,37 @@
               "timemodified": {
                 "key": "timemodified",
                 "title": "lang::report_field_timemodified_title::local_kopere_bi",
-                "type": "datetime",
+                "type": "none",
                 "mustache": ""
               },
               "firstaccess": {
                 "key": "firstaccess",
                 "title": "lang::report_field_firstaccess_title::local_kopere_bi",
-                "type": "string",
+                "type": "none",
                 "mustache": ""
               },
               "lastaccess": {
                 "key": "lastaccess",
                 "title": "lang::report_field_lastaccess_title::local_kopere_bi",
-                "type": "string",
+                "type": "datetime",
                 "mustache": ""
               },
               "lastlogin": {
                 "key": "lastlogin",
                 "title": "lang::report_field_lastlogin_title::local_kopere_bi",
-                "type": "string",
+                "type": "datetime",
                 "mustache": ""
               },
               "currentlogin": {
                 "key": "currentlogin",
                 "title": "lang::report_field_currentlogin_title::local_kopere_bi",
-                "type": "string",
+                "type": "none",
                 "mustache": ""
               },
               "lastip": {
                 "key": "lastip",
                 "title": "lang::report_field_lastip_title::local_kopere_bi",
-                "type": "string",
+                "type": "none",
                 "mustache": ""
               }
             }
