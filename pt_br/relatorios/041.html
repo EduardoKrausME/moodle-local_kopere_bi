@@ -1,0 +1,63 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Indicadores percentuais de tarefas, atividades concluídas e módulos visitados por usuário matriculado no curso selecionado, além da nota final e total de tarefas."><meta name="theme-color" content="#072c3a"><title>Relatório 041 · Progresso nos cursos · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/courses.html">Cursos</a> / 041</div><div class="kicker">RELATÓRIO 041</div><h1>Progresso nos cursos</h1><p class="lead">Indicadores percentuais de tarefas, atividades concluídas e módulos visitados por usuário matriculado no curso selecionado, além da nota final e total de tarefas.</p><section><h2>Finalidade do relatório</h2><p>Indicadores percentuais de tarefas, atividades concluídas e módulos visitados por usuário matriculado no curso selecionado, além da nota final e total de tarefas.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Ajuda a tutoria a comparar registros de conclusão e acesso entre participantes de um mesmo curso e identificar casos que merecem investigação antes de intervenções pedagógicas.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>O parâmetro SQL dinâmico é <strong>Curso</strong>, ligado a <code>:courseid</code>, utilizado uma vez na seleção principal.</p><p>As condições fixas exigem usuários não excluídos, não suspensos e diferentes de <code>guest</code>, curso visível e IDs positivos das matrículas. As contagens de módulos consideram <code>visible = 1</code>; conclusões de atividades usam <code>completionstate IN (1, 2)</code>, e os registros de visita consideram <code>page = 'module'</code>. Não existe filtro SQL dinâmico por usuário ou período.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>Uma visualização em tabela e uma consulta SQL integral, com informações de cache, atualização e destaque de sintaxe utilizando Prism.js. A definição original não possui variante PostgreSQL em arquivo separado.</p><details class="report-block" open><summary>1. Progresso nos cursos · Tabela</summary><div class="inner"><p>Tabela por usuário e curso com percentual calculado de tarefas concluídas, percentual de conclusões em atividades configuradas, proporção de módulos com tracking, quantidade de tarefas visíveis e nota do curso. Os percentuais derivam de agregados independentes.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT MIN(kbi_ue.id)                                    AS id,
+       kbi_u.id                                          AS userid,
+       kbi_u.email,
+       ((MAX(cmca.cmcnuma) / MAX(cma.cmnuma)) * 100) AS assignments,
+       ((MAX(cmc.cmcnums) / MAX(cmx.cmnumx)) * 100)  AS participations,
+       ((MAX(lit.vsts) / MAX(cm.cmnums)) * 100)      AS visits,
+       MAX(cma.cmnuma)                               AS assigns,
+       kbi_c.fullname                                    AS course,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       MIN(gc.grade)                                 AS grade
+FROM mdl_user_enrolments kbi_ue
+       LEFT JOIN mdl_user kbi_u ON kbi_u.id = kbi_ue.userid
+       LEFT JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_e.courseid
+       LEFT JOIN (SELECT COUNT(DISTINCT id) AS vsts, courseid, userid
+                  FROM mdl_local_kopere_bi_tracking
+                  WHERE page = &#39;module&#39;
+                  GROUP BY userid, courseid) lit ON lit.courseid = kbi_c.id AND lit.userid = kbi_u.id
+       LEFT JOIN (SELECT course, count(id) as cmnums FROM mdl_course_modules WHERE visible = 1 GROUP BY course) as cm
+         ON cm.course = kbi_c.id
+       LEFT JOIN (SELECT course, count(id) as cmnumx
+                  FROM mdl_course_modules
+                  WHERE visible = 1
+                    and completion &gt; 0
+                  GROUP BY course) cmx ON cmx.course = kbi_c.id
+       LEFT JOIN (SELECT kbi_cm.course, count(kbi_cm.id) as cmnuma
+                  FROM mdl_course_modules kbi_cm
+                         JOIN mdl_modules kbi_m ON kbi_m.id = kbi_cm.module
+                  WHERE kbi_cm.visible = 1
+                    and kbi_m.name = &#39;assign&#39;
+                  GROUP BY kbi_cm.course) cma ON cma.course = kbi_c.id
+       LEFT JOIN (SELECT kbi_cm.course, kbi_cmc.userid, count(kbi_cmc.id) as cmcnums
+                  FROM mdl_course_modules kbi_cm, mdl_course_modules_completion kbi_cmc
+                  WHERE kbi_cmc.coursemoduleid = kbi_cm.id
+                    AND kbi_cm.visible = 1
+                    AND kbi_cmc.completionstate IN (1, 2)
+                  GROUP BY kbi_cm.course, kbi_cmc.userid) cmc ON cmc.course = kbi_c.id AND cmc.userid = kbi_u.id
+       LEFT JOIN (SELECT kbi_cm.course, kbi_cmc.userid, count(kbi_cmc.id) as cmcnuma
+                  FROM mdl_course_modules kbi_cm, mdl_course_modules_completion kbi_cmc
+                  WHERE kbi_cmc.coursemoduleid = kbi_cm.id
+                    AND kbi_cm.module = 1
+                    AND kbi_cm.visible = 1
+                    AND kbi_cmc.completionstate IN (1, 2)
+                  GROUP BY kbi_cm.course, kbi_cmc.userid) as cmca ON cmca.course = kbi_c.id AND cmca.userid = kbi_u.id
+       LEFT JOIN (SELECT kbi_gi.courseid,
+                         kbi_g.userid,
+                         ROUND((CASE
+                                  WHEN kbi_g.rawgrademax &gt; 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                                  ELSE kbi_g.finalgrade END), 0) AS grade
+                  FROM mdl_grade_items kbi_gi, mdl_grade_grades kbi_g
+                  WHERE kbi_gi.itemtype = &#39;course&#39;
+                    AND kbi_g.itemid = kbi_gi.id
+                    AND kbi_g.finalgrade IS NOT NULL
+                  GROUP BY kbi_gi.courseid, kbi_g.userid, kbi_g.finalgrade, kbi_g.rawgrademax) as gc
+         ON gc.courseid = kbi_c.id AND gc.userid = kbi_u.id
+WHERE kbi_ue.id &gt; 0
+  AND kbi_e.courseid = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+GROUP BY kbi_u.id, kbi_c.id</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>Os campos <code>assignments</code>, <code>participations</code> e <code>visits</code> são razões calculadas a partir de contagens, não avaliações diretas de aprendizagem. Podem estar vazios caso os denominadores sejam nulos ou zero.</li><li>O cálculo de tarefas concluídas utiliza <code>kbi_cm.module = 1</code> como identificador numérico fixo. A correspondência desse ID com o módulo de tarefa não é garantida em todas as instalações; deveria ser confirmada a partir de <code>mdl_modules</code>.</li><li>O numerador de <code>participations</code> conta conclusões em módulos visíveis, enquanto o denominador conta somente módulos visíveis com <code>completion &gt; 0</code>. Revise eventuais distorções por diferenças de elegibilidade.</li><li>O percentual <code>visits</code> resulta de <code>COUNT(DISTINCT id)</code> de registros de tracking de módulo dividido pelo número de módulos visíveis. Não equivale a percentual de estudantes participantes nem necessariamente a módulos únicos acessados; pode ultrapassar 100%.</li><li>A consulta não restringe diretamente as matrículas a status ativo do usuário e método de inscrição. Assim, usuários com matrículas desativadas podem permanecer no resultado.</li><li>A coluna <code>grade</code> usa <code>MIN(gc.grade)</code> entre notas encontradas, e não uma média de avaliações. Faltas de nota devem ser diferenciadas de zero.</li><li>Não há intervalo temporal configurável e não existe variante PostgreSQL separada no catálogo. A interpretação dos percentuais exige validação pedagógica.</li></ul></section><section><h2>Fonte técnica</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-041.json" target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="040.html">← Relatório 040</a><a href="042.html">Relatório 042 →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/courses.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
