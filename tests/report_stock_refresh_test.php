@@ -30,7 +30,7 @@ use local_kopere_bi\upgrade\report_stock_refresh;
 /**
  * Regression coverage for migration of untouched default reports.
  * @package local_kopere_bi
-  * @covers \local_kopere_bi\upgrade\report_stock_refresh
+ * @covers \local_kopere_bi\upgrade\report_stock_refresh
  */
 final class report_stock_refresh_test extends advanced_testcase {
     /**
