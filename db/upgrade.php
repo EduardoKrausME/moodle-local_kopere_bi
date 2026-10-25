@@ -25,6 +25,7 @@
 use local_kopere_bi\install\reports;
 use local_kopere_bi\upgrade\analytics_report_refresh;
 use local_kopere_bi\upgrade\report_migrations;
+use local_kopere_bi\upgrade\report_stock_refresh;
 
 /**
  * Function xmldb_local_kopere_bi_upgrade
@@ -489,6 +490,13 @@ function xmldb_local_kopere_bi_upgrade($oldversion) {
         analytics_report_refresh::refresh();
 
         upgrade_plugin_savepoint(true, 2026102401, "local", "kopere_bi");
+    }
+
+    if ($oldversion < 2026102500) {
+        // Refresh only untouched report SQL and column definitions from previous builds.
+        // Locally edited SQL and presentation settings remain unchanged.
+        report_stock_refresh::refresh();
+        upgrade_plugin_savepoint(true, 2026102500, "local", "kopere_bi");
     }
 
     return true;
