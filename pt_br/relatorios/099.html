@@ -1,0 +1,82 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Identifica estudantes com papel atribuído, matrícula ativa identificada e curso visível cujo registro de último acesso ao curso está ausente ou zerado, mostrando há quantos dias a matrícula foi iniciada."><meta name="theme-color" content="#072c3a"><title>Relatório 099 · Alunos sem acesso ao curso · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/students.html">Estudantes</a> / 099</div><div class="kicker">RELATÓRIO 099</div><h1>Alunos sem acesso ao curso</h1><p class="lead">Identifica estudantes com papel atribuído, matrícula ativa identificada e curso visível cujo registro de último acesso ao curso está ausente ou zerado, mostrando há quantos dias a matrícula foi iniciada.</p><section><h2>Finalidade do relatório</h2><p>Identifica estudantes com papel atribuído, matrícula ativa identificada e curso visível cujo registro de último acesso ao curso está ausente ou zerado, mostrando há quantos dias a matrícula foi iniciada.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Ajuda as equipes de tutoria e permanência a localizar possíveis estudantes que ainda não acessaram o curso após a matrícula e planejar ações de acompanhamento ou contato.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não há parâmetros SQL dinâmicos</strong> para curso, estudante, data, quantidade mínima de dias sem acesso ou situação da matrícula.</p><p>Os critérios fixos exigem papel com <code>shortname = 'student'</code> no contexto do curso, curso visível, usuário não excluído, não suspenso e diferente de <code>guest</code>, além de <code>kbi_enrol.enrolled_at IS NOT NULL</code> e <code>COALESCE(kbi_la.timeaccess, 0) = 0</code>. A subconsulta de matrículas exige método e inscrição com status ativo e data final zero ou futura.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>Uma visualização em tabela, com as duas consultas SQL originais integrais, MySQL e PostgreSQL, apresentadas em caixas separadas dentro do mesmo bloco de visualização. O código recebe realce de sintaxe via Prism.js.</p><details class="report-block" open><summary>1. Alunos sem acesso ao curso · Tabela</summary><div class="inner"><p>Uma tabela por estudante e curso com ID, nome, e-mail, data considerada de matrícula, último acesso global ao site, último acesso ao curso e número de dias desde a data da matrícula até o dia corrente do banco de dados.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT CONCAT(kbi_students.userid, &#39;-&#39;, kbi_students.courseid) AS id,
+       kbi_students.userid,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_c.id AS courseid,
+       kbi_c.fullname AS course,
+       kbi_enrol.enrolled_at,
+       kbi_u.lastaccess AS site_lastaccess,
+       COALESCE(kbi_la.timeaccess, 0) AS course_lastaccess,
+       CASE
+         WHEN kbi_enrol.enrolled_at IS NULL THEN NULL
+         ELSE DATEDIFF(NOW(), FROM_UNIXTIME(kbi_enrol.enrolled_at))
+       END AS days_since_enrolment
+FROM (SELECT DISTINCT kbi_ra.userid,
+                kbi_ctx.instanceid AS courseid
+FROM mdl_role_assignments kbi_ra
+       JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid
+       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+WHERE kbi_r.shortname = &#39;student&#39;) kbi_students
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_students.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_students.courseid
+       LEFT JOIN (SELECT kbi_ue.userid,
+       kbi_e.courseid,
+       MIN(kbi_ue.id) AS enrolmentid,
+       COALESCE(MIN(NULLIF(kbi_ue.timestart, 0)), MIN(kbi_ue.timecreated)) AS enrolled_at,
+       MAX(kbi_ue.timeend) AS enrol_timeend
+FROM mdl_enrol kbi_e
+       JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id
+WHERE kbi_e.status = 0
+  AND kbi_ue.status = 0
+  AND (kbi_ue.timeend = 0 OR kbi_ue.timeend &gt; UNIX_TIMESTAMP())
+GROUP BY kbi_ue.userid, kbi_e.courseid) kbi_enrol ON kbi_enrol.userid = kbi_students.userid AND kbi_enrol.courseid = kbi_students.courseid
+       LEFT JOIN mdl_user_lastaccess kbi_la ON kbi_la.userid = kbi_students.userid AND kbi_la.courseid = kbi_students.courseid
+WHERE kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username &lt;&gt; &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_enrol.enrolled_at IS NOT NULL
+  AND COALESCE(kbi_la.timeaccess, 0) = 0
+ORDER BY days_since_enrolment DESC, kbi_c.fullname, kbi_u.lastname, kbi_u.firstname</code></pre></div>
+<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT CONCAT(kbi_students.userid, &#39;-&#39;, kbi_students.courseid) AS id,
+       kbi_students.userid,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_c.id AS courseid,
+       kbi_c.fullname AS course,
+       kbi_enrol.enrolled_at,
+       kbi_u.lastaccess AS site_lastaccess,
+       COALESCE(kbi_la.timeaccess, 0) AS course_lastaccess,
+       CASE
+         WHEN kbi_enrol.enrolled_at IS NULL THEN NULL
+         ELSE ((CURRENT_TIMESTAMP)::date - (TO_TIMESTAMP(kbi_enrol.enrolled_at))::date)
+       END AS days_since_enrolment
+FROM(SELECT DISTINCT kbi_ra.userid,
+                kbi_ctx.instanceid AS courseid
+FROM mdl_role_assignments kbi_ra
+       JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid
+       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+WHERE kbi_r.shortname = &#39;student&#39;) kbi_students
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_students.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_students.courseid
+       LEFT JOIN(SELECT kbi_ue.userid,
+       kbi_e.courseid,
+       MIN(kbi_ue.id) AS enrolmentid,
+       COALESCE(MIN(NULLIF(kbi_ue.timestart, 0)), MIN(kbi_ue.timecreated)) AS enrolled_at,
+       MAX(kbi_ue.timeend) AS enrol_timeend
+FROM mdl_enrol kbi_e
+       JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id
+WHERE kbi_e.status = 0
+  AND kbi_ue.status = 0
+  AND(kbi_ue.timeend = 0 OR kbi_ue.timeend &gt; (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::bigint))
+GROUP BY kbi_ue.userid, kbi_e.courseid) kbi_enrol ON kbi_enrol.userid = kbi_students.userid AND kbi_enrol.courseid = kbi_students.courseid
+       LEFT JOIN mdl_user_lastaccess kbi_la ON kbi_la.userid = kbi_students.userid AND kbi_la.courseid = kbi_students.courseid
+WHERE kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username &lt;&gt; &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_enrol.enrolled_at IS NOT NULL
+  AND COALESCE(kbi_la.timeaccess, 0) = 0
+ORDER BY days_since_enrolment DESC, kbi_c.fullname, kbi_u.lastname, kbi_u.firstname</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>O relatório identifica a ausência de registro em <code>mdl_user_lastaccess</code> para aquele curso, não a inexistência comprovada de todo tipo de acesso ou evento em logs históricos.</li><li>A atribuição do papel <code>student</code> é obrigatória. Pessoas matriculadas por papéis personalizados, mesmo que estudem no curso, podem não aparecer se não possuírem esse nome curto de papel.</li><li>A subconsulta considera matrículas com status ativo e prazo de encerramento não vencido, mas não verifica explicitamente se a data <code>timestart</code> é futura. Uma matrícula ainda não iniciada pode ser incluída.</li><li>O campo <code>enrolled_at</code> deriva de <code>MIN(NULLIF(timestart, 0))</code> ou da primeira criação da matrícula. Em casos com várias inscrições para a mesma pessoa e curso, esse valor pode não representar a matrícula atualmente responsável pelo acesso.</li><li>Os campos <code>site_lastaccess</code> e <code>course_lastaccess</code> têm escopos diferentes: o primeiro é o último acesso global da conta, e o segundo vem do último acesso específico ao curso.</li><li>O cálculo <code>days_since_enrolment</code> usa <code>DATEDIFF(NOW(), FROM_UNIXTIME(...))</code> no MySQL e diferença entre datas derivadas de <code>CURRENT_TIMESTAMP</code> e <code>TO_TIMESTAMP</code> no PostgreSQL. O resultado depende do calendário e do fuso configurado no banco.</li><li>O relatório não filtra por uma quantidade mínima de dias e pode incluir quem foi matriculado recentemente. O valor de dias deve ser interpretado com contexto pedagógico.</li><li>Por não haver filtro de curso, o relatório percorre todos os cursos visíveis que satisfaçam os critérios. Os dados de contato e situação de acesso são pessoais e devem ser protegidos.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-099.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-099-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="098.html">← Relatório 098</a><a href="../relatorios.html">Todas as categorias →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/students.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
