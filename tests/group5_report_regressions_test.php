@@ -30,8 +30,8 @@ use local_kopere_bi\block\util\sql_util;
 /**
  * Active-driver SQL probes and regression checks for fixed metrics.
  * @package local_kopere_bi
+  * @covers \local_kopere_bi\block\util\sql_util::prepare_sql
  */
-/** @covers \\local_kopere_bi\\block\\util\\sql_util::prepare_sql */
 final class group5_report_regressions_test extends advanced_testcase {
     /**
      * Provide one independent SQL check per report.
