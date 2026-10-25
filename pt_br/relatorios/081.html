@@ -1,0 +1,104 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Compara a primeira entrega submetida de tarefas por usuário com o registro de entrega mais recente, quando distinto, reunindo datas, notas, arquivos anexados, escala e situação de conclusão."><meta name="theme-color" content="#072c3a"><title>Relatório 081 · Revisão das entregas de tarefas · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/assignments.html">Tarefas</a> / 081</div><div class="kicker">RELATÓRIO 081</div><h1>Revisão das entregas de tarefas</h1><p class="lead">Compara a primeira entrega submetida de tarefas por usuário com o registro de entrega mais recente, quando distinto, reunindo datas, notas, arquivos anexados, escala e situação de conclusão.</p><section><h2>Finalidade do relatório</h2><p>Compara a primeira entrega submetida de tarefas por usuário com o registro de entrega mais recente, quando distinto, reunindo datas, notas, arquivos anexados, escala e situação de conclusão.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Permite inspecionar mudanças entre uma entrega inicial e uma entrega posterior, identificar arquivos enviados e conferir registros de notas e conclusão das atividades.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não há parâmetros SQL dinâmicos</strong> de curso, estudante, tarefa, período ou situação de entrega nas versões MySQL e PostgreSQL. A consulta percorre os cursos com usuários atribuídos ao papel ID <code>5</code> no contexto de curso (<code>contextlevel = 50</code>).</p><p>As condições fixas da primeira entrega exigem <code>attemptnumber = 0</code> e <code>status = 'submitted'</code>. A entrega mais recente é associada quando <code>latest = 1</code>, com o mesmo usuário da primeira entrega e ID diferente. Os anexos são obtidos em <code>mdl_files</code> com <code>component = 'assignsubmission_file'</code>, <code>filearea = 'submission_files'</code> e <code>filesize &gt; 0</code>.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>Uma visualização em tabela, com 2 consultas SQL integrais, cache, atualização e destaque de sintaxe com Prism.js. MySQL e PostgreSQL estão em caixas separadas dentro de uma única visualização.</p><details class="report-block" open><summary>1. Revisão das entregas de tarefas · Tabela</summary><div class="inner"><p>Uma tabela por combinação de curso, participante com papel de estudante e tarefa, contendo dados da primeira entrega submetida (tentativa 0), arquivos, nota e data de avaliação, estado de conclusão do módulo, dados da entrega marcada como mais recente quando diferente da primeira, nota, anexos, números das tentativas, último acesso global do usuário e escala de avaliação.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT kbi_ass_s.id,
+       kbi_c.fullname                     AS course,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.idnumber,
+       kbi_u.id                           AS userid,
+       kbi_ass.name                       AS assignment,
+       kbi_u.lastaccess,
+       kbi_ass_s.timecreated              AS date_first_submission,
+       kbi_ass_g.grade                    AS grade_first_submission,
+       kbi_ass_g.timemodified             AS grade_time_first_submission,
+       first_submission_file.filename AS first_submission_file,
+       kbi_cmc.completionstate,
+       kbi_ass_sl.timemodified            AS date_last_submission,
+       kbi_ass_gl.grade                   AS grade_last_submission,
+       kbi_ass_gl.timemodified            AS grade_time_last_submission,
+       last_submission_file.filename  AS last_submission_file,
+       kbi_ass_s.attemptnumber,
+       kbi_ass_sl.attemptnumber           AS attemptnumber2,
+       kbi_sc.scale
+FROM mdl_course kbi_c
+       LEFT JOIN mdl_context kbi_con ON kbi_con.contextlevel = 50 AND kbi_con.instanceid = kbi_c.id
+       LEFT JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_con.id AND kbi_ra.roleid = 5
+       LEFT JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid
+       LEFT JOIN mdl_assign kbi_ass ON kbi_c.id = kbi_ass.course
+       LEFT JOIN mdl_assign_submission kbi_ass_s
+         ON kbi_ass_s.assignment = kbi_ass.id AND kbi_ass_s.attemptnumber = 0 AND kbi_ass_s.userid = kbi_u.id AND kbi_ass_s.status = &#39;submitted&#39;
+       LEFT JOIN mdl_assign_grades kbi_ass_g ON kbi_ass_g.userid = kbi_ass_s.userid AND kbi_ass_g.assignment = kbi_ass_s.assignment AND
+                                            kbi_ass_g.attemptnumber = kbi_ass_s.attemptnumber
+       LEFT JOIN (SELECT kbi_f.itemid, GROUP_CONCAT(DISTINCT CONCAT(kbi_f.filename) SEPARATOR &#39;, &#39;) AS filename
+                  FROM mdl_files kbi_f
+                  WHERE kbi_f.component = &#39;assignsubmission_file&#39;
+                    AND kbi_f.filearea = &#39;submission_files&#39;
+                    AND kbi_f.filesize &gt; 0
+                  GROUP BY kbi_f.itemid) first_submission_file ON first_submission_file.itemid = kbi_ass_s.id
+       LEFT JOIN mdl_assign_submission kbi_ass_sl
+         ON kbi_ass_sl.assignment = kbi_ass.id AND kbi_ass_sl.latest = 1 AND kbi_ass_sl.userid = kbi_ass_s.userid AND kbi_ass_sl.id &lt;&gt; kbi_ass_s.id
+       LEFT JOIN mdl_assign_grades kbi_ass_gl ON kbi_ass_gl.userid = kbi_ass_sl.userid AND kbi_ass_gl.assignment = kbi_ass_sl.assignment AND
+                                             kbi_ass_gl.attemptnumber = kbi_ass_sl.attemptnumber
+       LEFT JOIN (SELECT kbi_f.itemid, GROUP_CONCAT(DISTINCT CONCAT(kbi_f.filename) SEPARATOR &#39;, &#39;) AS filename
+                  FROM mdl_files kbi_f
+                  WHERE kbi_f.component = &#39;assignsubmission_file&#39;
+                    AND kbi_f.filearea = &#39;submission_files&#39;
+                    AND kbi_f.filesize &gt; 0
+                  GROUP BY kbi_f.itemid) last_submission_file ON last_submission_file.itemid = kbi_ass_sl.id
+       JOIN mdl_modules kbi_m ON kbi_m.name = &#39;assign&#39;
+       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_ass.course AND kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_ass.id
+       LEFT JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.userid = kbi_ass_s.userid AND kbi_cmc.coursemoduleid = kbi_cm.id
+       LEFT JOIN mdl_grade_items kbi_gi
+         ON kbi_gi.courseid = kbi_ass.course AND kbi_gi.itemtype = &#39;mod&#39; AND kbi_gi.itemmodule = &#39;assign&#39; AND kbi_gi.iteminstance = kbi_ass.id
+       LEFT JOIN mdl_scale kbi_sc ON kbi_sc.id = kbi_gi.scaleid
+WHERE kbi_u.id IS NOT NULL</code></pre></div>
+<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT kbi_ass_s.id,
+       kbi_c.fullname                     AS course,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.idnumber,
+       kbi_u.id                           AS userid,
+       kbi_ass.name                       AS assignment,
+       kbi_u.lastaccess,
+       kbi_ass_s.timecreated              AS date_first_submission,
+       kbi_ass_g.grade                    AS grade_first_submission,
+       kbi_ass_g.timemodified             AS grade_time_first_submission,
+       first_submission_file.filename AS first_submission_file,
+       kbi_cmc.completionstate,
+       kbi_ass_sl.timemodified            AS date_last_submission,
+       kbi_ass_gl.grade                   AS grade_last_submission,
+       kbi_ass_gl.timemodified            AS grade_time_last_submission,
+       last_submission_file.filename  AS last_submission_file,
+       kbi_ass_s.attemptnumber,
+       kbi_ass_sl.attemptnumber           AS attemptnumber2,
+       kbi_sc.scale
+FROM mdl_course kbi_c
+       LEFT JOIN mdl_context kbi_con ON kbi_con.contextlevel = 50 AND kbi_con.instanceid = kbi_c.id
+       LEFT JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_con.id AND kbi_ra.roleid = 5
+       LEFT JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid
+       LEFT JOIN mdl_assign kbi_ass ON kbi_c.id = kbi_ass.course
+       LEFT JOIN mdl_assign_submission kbi_ass_s
+         ON kbi_ass_s.assignment = kbi_ass.id AND kbi_ass_s.attemptnumber = 0 AND kbi_ass_s.userid = kbi_u.id AND kbi_ass_s.status = &#39;submitted&#39;
+       LEFT JOIN mdl_assign_grades kbi_ass_g ON kbi_ass_g.userid = kbi_ass_s.userid AND kbi_ass_g.assignment = kbi_ass_s.assignment AND
+                                            kbi_ass_g.attemptnumber = kbi_ass_s.attemptnumber
+       LEFT JOIN(SELECT kbi_f.itemid, STRING_AGG(DISTINCT (CONCAT(kbi_f.filename))::text, &#39;, &#39;) AS filename
+                  FROM mdl_files kbi_f
+                  WHERE kbi_f.component = &#39;assignsubmission_file&#39;
+                    AND kbi_f.filearea = &#39;submission_files&#39;
+                    AND kbi_f.filesize &gt; 0
+                  GROUP BY kbi_f.itemid) first_submission_file ON first_submission_file.itemid = kbi_ass_s.id
+       LEFT JOIN mdl_assign_submission kbi_ass_sl
+         ON kbi_ass_sl.assignment = kbi_ass.id AND kbi_ass_sl.latest = 1 AND kbi_ass_sl.userid = kbi_ass_s.userid AND kbi_ass_sl.id &lt;&gt; kbi_ass_s.id
+       LEFT JOIN mdl_assign_grades kbi_ass_gl ON kbi_ass_gl.userid = kbi_ass_sl.userid AND kbi_ass_gl.assignment = kbi_ass_sl.assignment AND
+                                             kbi_ass_gl.attemptnumber = kbi_ass_sl.attemptnumber
+       LEFT JOIN(SELECT kbi_f.itemid, STRING_AGG(DISTINCT (CONCAT(kbi_f.filename))::text, &#39;, &#39;) AS filename
+                  FROM mdl_files kbi_f
+                  WHERE kbi_f.component = &#39;assignsubmission_file&#39;
+                    AND kbi_f.filearea = &#39;submission_files&#39;
+                    AND kbi_f.filesize &gt; 0
+                  GROUP BY kbi_f.itemid) last_submission_file ON last_submission_file.itemid = kbi_ass_sl.id
+       JOIN mdl_modules kbi_m ON kbi_m.name = &#39;assign&#39;
+       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_ass.course AND kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_ass.id
+       LEFT JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.userid = kbi_ass_s.userid AND kbi_cmc.coursemoduleid = kbi_cm.id
+       LEFT JOIN mdl_grade_items kbi_gi
+         ON kbi_gi.courseid = kbi_ass.course AND kbi_gi.itemtype = &#39;mod&#39; AND kbi_gi.itemmodule = &#39;assign&#39; AND kbi_gi.iteminstance = kbi_ass.id
+       LEFT JOIN mdl_scale kbi_sc ON kbi_sc.id = kbi_gi.scaleid
+WHERE kbi_u.id IS NOT NULL</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>O título sugere revisão de entregas, mas não há filtro por curso, inscrição vigente, visibilidade, prazo ou data. A consulta pode abranger muitos cursos e estudantes com papel atribuído.</li><li>O usuário com papel de estudante pode aparecer mesmo sem primeira entrega submetida, pois a associação a <code>mdl_assign_submission</code> é opcional. Nesses casos, os dados de entrega e nota ficam nulos.</li><li>A associação da entrega mais recente usa <code>kbi_ass_sl.userid = kbi_ass_s.userid</code>. Assim, quando não há primeira entrega submetida na tentativa zero, a consulta não consegue vincular a última entrega por esse caminho.</li><li><code>date_first_submission</code> é <code>kbi_ass_s.timecreated</code>, a criação do registro, e não necessariamente a data real do envio; <code>date_last_submission</code> usa <code>timemodified</code> da entrega marcada como mais recente.</li><li>A consulta da última entrega não exige explicitamente <code>status = 'submitted'</code>. Por isso, a entrega marcada <code>latest = 1</code> pode ser um registro de outro estado.</li><li>Os campos de primeira e última nota vêm de <code>mdl_assign_grades.grade</code> por número de tentativa, não necessariamente da nota final consolidada do livro de notas.</li><li>As listas de anexos utilizam nomes de arquivos com tamanho positivo; não são links para os arquivos nem comprovam que os conteúdos foram avaliados. MySQL usa <code>GROUP_CONCAT</code> e PostgreSQL <code>STRING_AGG</code>.</li><li>O campo <code>lastaccess</code> é o último acesso global armazenado em <code>mdl_user</code>, não especificamente à tarefa ou curso.</li><li>São exibidos dados acadêmicos e identificador institucional. Não há restrição de contas excluídas ou suspensas na consulta principal; implemente controle de acesso e verifique a situação do usuário na aplicação.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-081.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-081-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="080.html">← Relatório 080</a><a href="../relatorios.html">Todas as categorias →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/assignments.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
