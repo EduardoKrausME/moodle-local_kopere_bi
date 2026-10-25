@@ -13,3 +13,16 @@ pre.sql-source{max-width:100%;overflow:auto;overscroll-behavior-x:contain}
 pre.sql-source:focus-visible{outline:3px solid #006875;outline-offset:2px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.card-link{transition:none!important}}
 @media (max-width:750px){.report-navigation{flex-wrap:wrap}.pager a{max-width:100%;overflow-wrap:anywhere}}
+
+/* Static related-report cards, placed below previous/next navigation. */
+.related-reports{margin:2rem 0 1rem;padding-top:1.25rem;border-top:1px solid #d6e5e9}
+.related-reports h2{font-size:1.25rem;margin:0 0 1rem;line-height:1.4}
+.related-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}
+.related-card{display:flex;flex-direction:column;gap:.4rem;min-width:0;min-height:7.5rem;padding:1rem;border:1px solid #d6e5e9;border-radius:.8rem;background:#f6fafb;color:#173b47;text-decoration:none;overflow-wrap:anywhere;transition:border-color .12s,background-color .12s}
+.related-card:hover{background:#eaf6f6;border-color:#548c93;color:#063c49}
+.related-card:focus-visible{outline:3px solid #006875;outline-offset:3px}
+.related-number{font-size:.75rem;font-weight:700;color:#075d66}
+.related-title{font-size:.95rem;font-weight:700;line-height:1.45}
+.related-category{margin-top:auto;font-size:.8rem;color:#415d68}
+@media(max-width:800px){.related-grid{grid-template-columns:1fr}.related-card{min-height:auto}}
+@media(prefers-reduced-motion:reduce){.related-card{transition:none}}

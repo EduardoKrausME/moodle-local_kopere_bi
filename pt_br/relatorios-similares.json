@@ -1,371 +1,1403 @@
 {
-  "source": "PT-BR category listing, docs branch",
+  "source": "Titles and categories from PT-BR category pages on docs",
+  "count": 127,
   "reports": [
     {
-      "id": 55,
-      "category": "activities",
-      "categoryLabel": "Atividades",
-      "title": "Estatísticas de conclusão de atividades"
+      "id": 1,
+      "category": "online",
+      "categoryLabel": "Estudantes online",
+      "title": "Estudantes online",
+      "similar": [
+        2,
+        92,
+        14
+      ]
     },
     {
-      "id": 56,
-      "category": "activities",
-      "categoryLabel": "Atividades",
-      "title": "Notas das atividades e respectivas datas"
-    },
-    {
-      "id": 57,
-      "category": "activities",
-      "categoryLabel": "Atividades",
-      "title": "Resumo estatístico das atividades"
-    },
-    {
-      "id": 58,
-      "category": "activities",
-      "categoryLabel": "Atividades",
-      "title": "Detalhes da situação das atividades"
-    },
-    {
-      "id": 59,
-      "category": "activities",
-      "categoryLabel": "Atividades",
-      "title": "Visão simplificada da situação das atividades"
-    },
-    {
-      "id": 60,
-      "category": "activities",
-      "categoryLabel": "Atividades",
-      "title": "Progresso dos envios de atividades"
-    },
-    {
-      "id": 61,
-      "category": "activities",
-      "categoryLabel": "Atividades",
-      "title": "Envios de arquivos"
-    },
-    {
-      "id": 113,
-      "category": "activities",
-      "categoryLabel": "Atividades",
-      "title": "Alcance das atividades por curso"
-    },
-    {
-      "id": 114,
-      "category": "activities",
-      "categoryLabel": "Atividades",
-      "title": "Tempo registrado por tipo de atividade"
-    },
-    {
-      "id": 115,
-      "category": "analytics",
-      "categoryLabel": "Indicadores operacionais de participação",
-      "title": "Atividade diária por papel no curso"
-    },
-    {
-      "id": 116,
-      "category": "analytics",
-      "categoryLabel": "Indicadores operacionais de participação",
-      "title": "Cursos ativos por dia"
-    },
-    {
-      "id": 119,
-      "category": "analytics",
-      "categoryLabel": "Indicadores operacionais de participação",
-      "title": "Participação do aluno versus turma"
-    },
-    {
-      "id": 80,
-      "category": "assignments",
-      "categoryLabel": "Tarefas e entregas",
-      "title": "Situação dos envios de tarefas"
-    },
-    {
-      "id": 81,
-      "category": "assignments",
-      "categoryLabel": "Tarefas e entregas",
-      "title": "Revisão das entregas de tarefas"
-    },
-    {
-      "id": 127,
-      "category": "assignments",
-      "categoryLabel": "Tarefas e entregas",
-      "title": "Cronologia de entregas e participações avaliativas"
-    },
-    {
-      "id": 93,
-      "category": "communication",
-      "categoryLabel": "Comunicação e arquivos",
-      "title": "Uso de arquivos por curso"
-    },
-    {
-      "id": 94,
-      "category": "communication",
-      "categoryLabel": "Comunicação e arquivos",
-      "title": "Uso de arquivos por professor"
-    },
-    {
-      "id": 95,
-      "category": "communication",
-      "categoryLabel": "Comunicação e arquivos",
-      "title": "Detalhes do uso de arquivos por professor"
-    },
-    {
-      "id": 96,
-      "category": "communication",
-      "categoryLabel": "Comunicação e arquivos",
-      "title": "Detalhes das respostas nas lições"
-    },
-    {
-      "id": 97,
-      "category": "communication",
-      "categoryLabel": "Comunicação e arquivos",
-      "title": "Uso de mensagens no Moodle"
-    },
-    {
-      "id": 84,
-      "category": "competencies",
-      "categoryLabel": "Competências, planos e selos",
-      "title": "Evidências de competências"
-    },
-    {
-      "id": 85,
-      "category": "competencies",
-      "categoryLabel": "Competências, planos e selos",
-      "title": "Resultados dos cursos"
-    },
-    {
-      "id": 86,
-      "category": "competencies",
-      "categoryLabel": "Competências, planos e selos",
-      "title": "Progresso nos planos de aprendizagem"
-    },
-    {
-      "id": 87,
-      "category": "competencies",
-      "categoryLabel": "Competências, planos e selos",
-      "title": "Detalhes do progresso nos planos de aprendizagem"
-    },
-    {
-      "id": 90,
-      "category": "competencies",
-      "categoryLabel": "Competências, planos e selos",
-      "title": "Selos recebidos"
+      "id": 2,
+      "category": "students",
+      "categoryLabel": "Estudantes",
+      "title": "Estudantes ativos",
+      "similar": [
+        1,
+        100,
+        99
+      ]
     },
     {
       "id": 3,
       "category": "courses",
       "categoryLabel": "Cursos e conteúdo",
-      "title": "Cursos"
-    },
-    {
-      "id": 9,
-      "category": "courses",
-      "categoryLabel": "Cursos e conteúdo",
-      "title": "Módulos dos cursos"
-    },
-    {
-      "id": 35,
-      "category": "courses",
-      "categoryLabel": "Cursos e conteúdo",
-      "title": "Acessos aos cursos"
-    },
-    {
-      "id": 36,
-      "category": "courses",
-      "categoryLabel": "Cursos e conteúdo",
-      "title": "Detalhes dos acessos aos cursos"
-    },
-    {
-      "id": 37,
-      "category": "courses",
-      "categoryLabel": "Cursos e conteúdo",
-      "title": "Visão geral das atividades dos cursos"
-    },
-    {
-      "id": 38,
-      "category": "courses",
-      "categoryLabel": "Cursos e conteúdo",
-      "title": "Logs dos conteúdos dos cursos"
-    },
-    {
-      "id": 39,
-      "category": "courses",
-      "categoryLabel": "Cursos e conteúdo",
-      "title": "Utilização dos conteúdos dos cursos"
-    },
-    {
-      "id": 40,
-      "category": "courses",
-      "categoryLabel": "Cursos e conteúdo",
-      "title": "Inatividade nos cursos"
-    },
-    {
-      "id": 41,
-      "category": "courses",
-      "categoryLabel": "Cursos e conteúdo",
-      "title": "Progresso nos cursos"
-    },
-    {
-      "id": 42,
-      "category": "courses",
-      "categoryLabel": "Cursos e conteúdo",
-      "title": "Visão geral dos cursos da plataforma"
-    },
-    {
-      "id": 43,
-      "category": "courses",
-      "categoryLabel": "Cursos e conteúdo",
-      "title": "Estatísticas dos cursos"
-    },
-    {
-      "id": 44,
-      "category": "courses",
-      "categoryLabel": "Cursos e conteúdo",
-      "title": "Estatísticas avançadas dos cursos"
-    },
-    {
-      "id": 45,
-      "category": "courses",
-      "categoryLabel": "Cursos e conteúdo",
-      "title": "Totais de participantes engajados e não engajados por curso"
-    },
-    {
-      "id": 46,
-      "category": "courses",
-      "categoryLabel": "Cursos e conteúdo",
-      "title": "Detalhes de participantes engajados e não engajados por curso"
-    },
-    {
-      "id": 47,
-      "category": "courses",
-      "categoryLabel": "Cursos e conteúdo",
-      "title": "Sistemas operacionais e navegadores por curso"
-    },
-    {
-      "id": 91,
-      "category": "courses",
-      "categoryLabel": "Cursos e conteúdo",
-      "title": "Acessos aos cursos por dia e período"
-    },
-    {
-      "id": 112,
-      "category": "courses",
-      "categoryLabel": "Cursos e conteúdo",
-      "title": "Engajamento por seção do curso"
-    },
-    {
-      "id": 118,
-      "category": "courses",
-      "categoryLabel": "Cursos e conteúdo",
-      "title": "Conclusões semanais por categoria"
-    },
-    {
-      "id": 8,
-      "category": "dashboard",
-      "categoryLabel": "Painel geral",
-      "title": "Painel geral"
+      "title": "Cursos",
+      "similar": [
+        9,
+        35,
+        36
+      ]
     },
     {
       "id": 4,
       "category": "enrollments",
       "categoryLabel": "Inscrições e receitas",
-      "title": "Estatísticas de inscrições"
+      "title": "Estatísticas de inscrições",
+      "similar": [
+        5,
+        48,
+        50
+      ]
     },
     {
       "id": 5,
       "category": "enrollments",
       "categoryLabel": "Inscrições e receitas",
-      "title": "Inscrições inativas"
+      "title": "Inscrições inativas",
+      "similar": [
+        4,
+        48,
+        50
+      ]
+    },
+    {
+      "id": 6,
+      "category": "login_reports",
+      "categoryLabel": "Acessos e login",
+      "title": "Registros de login",
+      "similar": [
+        14,
+        15,
+        12
+      ]
+    },
+    {
+      "id": 7,
+      "category": "login_reports",
+      "categoryLabel": "Acessos e login",
+      "title": "Indicadores de engajamento",
+      "similar": [
+        18,
+        22,
+        119
+      ]
+    },
+    {
+      "id": 8,
+      "category": "dashboard",
+      "categoryLabel": "Painel geral",
+      "title": "Painel geral",
+      "similar": [
+        106,
+        108,
+        43
+      ]
+    },
+    {
+      "id": 9,
+      "category": "courses",
+      "categoryLabel": "Cursos e conteúdo",
+      "title": "Módulos dos cursos",
+      "similar": [
+        37,
+        113,
+        3
+      ]
+    },
+    {
+      "id": 10,
+      "category": "users",
+      "categoryLabel": "Usuários e perfis",
+      "title": "Sucesso e progresso por coorte",
+      "similar": [
+        13,
+        68,
+        41
+      ]
+    },
+    {
+      "id": 11,
+      "category": "users",
+      "categoryLabel": "Usuários e perfis",
+      "title": "Usuários inativos por curso",
+      "similar": [
+        12,
+        100,
+        16
+      ]
+    },
+    {
+      "id": 12,
+      "category": "users",
+      "categoryLabel": "Usuários e perfis",
+      "title": "Usuários inativos na plataforma",
+      "similar": [
+        11,
+        21,
+        22
+      ]
+    },
+    {
+      "id": 13,
+      "category": "users",
+      "categoryLabel": "Usuários e perfis",
+      "title": "Sucesso e progresso dos estudantes",
+      "similar": [
+        10,
+        98,
+        92
+      ]
+    },
+    {
+      "id": 14,
+      "category": "users",
+      "categoryLabel": "Usuários e perfis",
+      "title": "Estatísticas de login",
+      "similar": [
+        6,
+        15,
+        92
+      ]
+    },
+    {
+      "id": 15,
+      "category": "users",
+      "categoryLabel": "Usuários e perfis",
+      "title": "Entradas e saídas da plataforma",
+      "similar": [
+        14,
+        6,
+        21
+      ]
+    },
+    {
+      "id": 16,
+      "category": "users",
+      "categoryLabel": "Usuários e perfis",
+      "title": "Sistemas operacionais e navegadores por usuário",
+      "similar": [
+        47,
+        11,
+        12
+      ]
+    },
+    {
+      "id": 17,
+      "category": "users",
+      "categoryLabel": "Usuários e perfis",
+      "title": "Usuários em atraso",
+      "similar": [
+        11,
+        12,
+        16
+      ]
+    },
+    {
+      "id": 18,
+      "category": "users",
+      "categoryLabel": "Usuários e perfis",
+      "title": "Engajamento dos usuários",
+      "similar": [
+        11,
+        12,
+        16
+      ]
+    },
+    {
+      "id": 19,
+      "category": "users",
+      "categoryLabel": "Usuários e perfis",
+      "title": "Perfis e dados demográficos dos usuários",
+      "similar": [
+        11,
+        12,
+        16
+      ]
+    },
+    {
+      "id": 20,
+      "category": "users",
+      "categoryLabel": "Usuários e perfis",
+      "title": "Papéis dos usuários e alterações de papel",
+      "similar": [
+        11,
+        12,
+        16
+      ]
+    },
+    {
+      "id": 21,
+      "category": "users",
+      "categoryLabel": "Usuários e perfis",
+      "title": "Resumo detalhado da utilização da plataforma pelos usuários",
+      "similar": [
+        12,
+        22,
+        15
+      ]
+    },
+    {
+      "id": 22,
+      "category": "users",
+      "categoryLabel": "Usuários e perfis",
+      "title": "Resumo do uso da plataforma pelos usuários",
+      "similar": [
+        12,
+        21,
+        33
+      ]
+    },
+    {
+      "id": 23,
+      "category": "users",
+      "categoryLabel": "Usuários e perfis",
+      "title": "Situação dos usuários",
+      "similar": [
+        24,
+        11,
+        12
+      ]
+    },
+    {
+      "id": 24,
+      "category": "users",
+      "categoryLabel": "Usuários e perfis",
+      "title": "Resumo da situação dos usuários",
+      "similar": [
+        23,
+        11,
+        12
+      ]
+    },
+    {
+      "id": 25,
+      "category": "instructors",
+      "categoryLabel": "Professores e tutores",
+      "title": "Tarefas avaliadas por professor",
+      "similar": [
+        28,
+        26,
+        27
+      ]
+    },
+    {
+      "id": 26,
+      "category": "instructors",
+      "categoryLabel": "Professores e tutores",
+      "title": "Estatísticas dos fóruns por professor",
+      "similar": [
+        31,
+        25,
+        27
+      ]
+    },
+    {
+      "id": 27,
+      "category": "instructors",
+      "categoryLabel": "Professores e tutores",
+      "title": "Detalhes do engajamento dos professores em atividades",
+      "similar": [
+        29,
+        30,
+        34
+      ]
+    },
+    {
+      "id": 28,
+      "category": "instructors",
+      "categoryLabel": "Professores e tutores",
+      "title": "Participação dos professores em tarefas",
+      "similar": [
+        25,
+        31,
+        26
+      ]
+    },
+    {
+      "id": 29,
+      "category": "instructors",
+      "categoryLabel": "Professores e tutores",
+      "title": "Proporção de engajamento dos professores",
+      "similar": [
+        27,
+        30,
+        34
+      ]
+    },
+    {
+      "id": 30,
+      "category": "instructors",
+      "categoryLabel": "Professores e tutores",
+      "title": "Engajamento dos professores por curso",
+      "similar": [
+        34,
+        27,
+        29
+      ]
+    },
+    {
+      "id": 31,
+      "category": "instructors",
+      "categoryLabel": "Professores e tutores",
+      "title": "Participação dos professores nos fóruns",
+      "similar": [
+        28,
+        26,
+        76
+      ]
+    },
+    {
+      "id": 32,
+      "category": "instructors",
+      "categoryLabel": "Professores e tutores",
+      "title": "Resumo da carga de trabalho dos professores",
+      "similar": [
+        25,
+        26,
+        27
+      ]
+    },
+    {
+      "id": 33,
+      "category": "instructors",
+      "categoryLabel": "Professores e tutores",
+      "title": "Uso da plataforma pelos professores",
+      "similar": [
+        30,
+        27,
+        32
+      ]
+    },
+    {
+      "id": 34,
+      "category": "instructors",
+      "categoryLabel": "Professores e tutores",
+      "title": "Engajamento de professores e estudantes por curso",
+      "similar": [
+        30,
+        27,
+        29
+      ]
+    },
+    {
+      "id": 35,
+      "category": "courses",
+      "categoryLabel": "Cursos e conteúdo",
+      "title": "Acessos aos cursos",
+      "similar": [
+        36,
+        91,
+        99
+      ]
+    },
+    {
+      "id": 36,
+      "category": "courses",
+      "categoryLabel": "Cursos e conteúdo",
+      "title": "Detalhes dos acessos aos cursos",
+      "similar": [
+        35,
+        91,
+        99
+      ]
+    },
+    {
+      "id": 37,
+      "category": "courses",
+      "categoryLabel": "Cursos e conteúdo",
+      "title": "Visão geral das atividades dos cursos",
+      "similar": [
+        9,
+        40,
+        113
+      ]
+    },
+    {
+      "id": 38,
+      "category": "courses",
+      "categoryLabel": "Cursos e conteúdo",
+      "title": "Logs dos conteúdos dos cursos",
+      "similar": [
+        39,
+        3,
+        9
+      ]
+    },
+    {
+      "id": 39,
+      "category": "courses",
+      "categoryLabel": "Cursos e conteúdo",
+      "title": "Utilização dos conteúdos dos cursos",
+      "similar": [
+        38,
+        21,
+        3
+      ]
+    },
+    {
+      "id": 40,
+      "category": "courses",
+      "categoryLabel": "Cursos e conteúdo",
+      "title": "Inatividade nos cursos",
+      "similar": [
+        9,
+        37,
+        3
+      ]
+    },
+    {
+      "id": 41,
+      "category": "courses",
+      "categoryLabel": "Cursos e conteúdo",
+      "title": "Progresso nos cursos",
+      "similar": [
+        69,
+        3,
+        9
+      ]
+    },
+    {
+      "id": 42,
+      "category": "courses",
+      "categoryLabel": "Cursos e conteúdo",
+      "title": "Visão geral dos cursos da plataforma",
+      "similar": [
+        3,
+        9,
+        35
+      ]
+    },
+    {
+      "id": 43,
+      "category": "courses",
+      "categoryLabel": "Cursos e conteúdo",
+      "title": "Estatísticas dos cursos",
+      "similar": [
+        44,
+        3,
+        9
+      ]
+    },
+    {
+      "id": 44,
+      "category": "courses",
+      "categoryLabel": "Cursos e conteúdo",
+      "title": "Estatísticas avançadas dos cursos",
+      "similar": [
+        43,
+        3,
+        9
+      ]
+    },
+    {
+      "id": 45,
+      "category": "courses",
+      "categoryLabel": "Cursos e conteúdo",
+      "title": "Totais de participantes engajados e não engajados por curso",
+      "similar": [
+        46,
+        119,
+        107
+      ]
+    },
+    {
+      "id": 46,
+      "category": "courses",
+      "categoryLabel": "Cursos e conteúdo",
+      "title": "Detalhes de participantes engajados e não engajados por curso",
+      "similar": [
+        45,
+        107,
+        119
+      ]
+    },
+    {
+      "id": 47,
+      "category": "courses",
+      "categoryLabel": "Cursos e conteúdo",
+      "title": "Sistemas operacionais e navegadores por curso",
+      "similar": [
+        16,
+        3,
+        9
+      ]
     },
     {
       "id": 48,
       "category": "enrollments",
       "categoryLabel": "Inscrições e receitas",
-      "title": "Inscrições e conclusão por curso"
+      "title": "Inscrições e conclusão por curso",
+      "similar": [
+        117,
+        4,
+        5
+      ]
     },
     {
       "id": 49,
       "category": "enrollments",
       "categoryLabel": "Inscrições e receitas",
-      "title": "Receita dos cursos"
+      "title": "Receita dos cursos",
+      "similar": [
+        48,
+        4,
+        5
+      ]
     },
     {
       "id": 50,
       "category": "enrollments",
       "categoryLabel": "Inscrições e receitas",
-      "title": "Detalhes dos métodos de inscrição"
+      "title": "Detalhes dos métodos de inscrição",
+      "similar": [
+        51,
+        4,
+        5
+      ]
     },
     {
       "id": 51,
       "category": "enrollments",
       "categoryLabel": "Inscrições e receitas",
-      "title": "Resumo dos métodos de inscrição"
+      "title": "Resumo dos métodos de inscrição",
+      "similar": [
+        50,
+        4,
+        5
+      ]
     },
     {
-      "id": 117,
-      "category": "enrollments",
-      "categoryLabel": "Inscrições e receitas",
-      "title": "Matrículas versus conclusões por semana"
+      "id": 52,
+      "category": "grades",
+      "categoryLabel": "Notas e avaliações",
+      "title": "Itens aguardando correção",
+      "similar": [
+        53,
+        54,
+        121
+      ]
     },
     {
-      "id": 82,
-      "category": "feedback",
-      "categoryLabel": "Feedback e pesquisas",
-      "title": "Detalhes das respostas do Feedback"
+      "id": 53,
+      "category": "grades",
+      "categoryLabel": "Notas e avaliações",
+      "title": "Livro de notas por categoria de curso",
+      "similar": [
+        54,
+        121,
+        118
+      ]
     },
     {
-      "id": 83,
-      "category": "feedback",
-      "categoryLabel": "Feedback e pesquisas",
-      "title": "Visão geral do Feedback"
+      "id": 54,
+      "category": "grades",
+      "categoryLabel": "Notas e avaliações",
+      "title": "Visão geral do livro de notas",
+      "similar": [
+        53,
+        121,
+        52
+      ]
     },
     {
-      "id": 125,
-      "category": "feedback",
-      "categoryLabel": "Feedback e pesquisas",
-      "title": "Distribuição das respostas do Feedback"
+      "id": 55,
+      "category": "activities",
+      "categoryLabel": "Atividades",
+      "title": "Estatísticas de conclusão de atividades",
+      "similar": [
+        56,
+        57,
+        58
+      ]
+    },
+    {
+      "id": 56,
+      "category": "activities",
+      "categoryLabel": "Atividades",
+      "title": "Notas das atividades e respectivas datas",
+      "similar": [
+        55,
+        57,
+        58
+      ]
+    },
+    {
+      "id": 57,
+      "category": "activities",
+      "categoryLabel": "Atividades",
+      "title": "Resumo estatístico das atividades",
+      "similar": [
+        55,
+        56,
+        58
+      ]
+    },
+    {
+      "id": 58,
+      "category": "activities",
+      "categoryLabel": "Atividades",
+      "title": "Detalhes da situação das atividades",
+      "similar": [
+        59,
+        55,
+        56
+      ]
+    },
+    {
+      "id": 59,
+      "category": "activities",
+      "categoryLabel": "Atividades",
+      "title": "Visão simplificada da situação das atividades",
+      "similar": [
+        58,
+        55,
+        56
+      ]
+    },
+    {
+      "id": 60,
+      "category": "activities",
+      "categoryLabel": "Atividades",
+      "title": "Progresso dos envios de atividades",
+      "similar": [
+        61,
+        55,
+        56
+      ]
+    },
+    {
+      "id": 61,
+      "category": "activities",
+      "categoryLabel": "Atividades",
+      "title": "Envios de arquivos",
+      "similar": [
+        60,
+        93,
+        94
+      ]
+    },
+    {
+      "id": 62,
+      "category": "quizzes",
+      "categoryLabel": "Questionários",
+      "title": "Estrutura das questões dos questionários",
+      "similar": [
+        88,
+        123,
+        63
+      ]
+    },
+    {
+      "id": 63,
+      "category": "quizzes",
+      "categoryLabel": "Questionários",
+      "title": "Estatísticas de desempenho dos questionários",
+      "similar": [
+        123,
+        62,
+        64
+      ]
+    },
+    {
+      "id": 64,
+      "category": "quizzes",
+      "categoryLabel": "Questionários",
+      "title": "Atividade nos questionários por estudante",
+      "similar": [
+        67,
+        62,
+        63
+      ]
+    },
+    {
+      "id": 65,
+      "category": "quizzes",
+      "categoryLabel": "Questionários",
+      "title": "Resumo das tentativas dos questionários por curso",
+      "similar": [
+        66,
+        89,
+        69
+      ]
+    },
+    {
+      "id": 66,
+      "category": "quizzes",
+      "categoryLabel": "Questionários",
+      "title": "Resumo das tentativas por questionário",
+      "similar": [
+        65,
+        89,
+        62
+      ]
+    },
+    {
+      "id": 67,
+      "category": "quizzes",
+      "categoryLabel": "Questionários",
+      "title": "Detalhes das notas dos questionários por estudante",
+      "similar": [
+        89,
+        64,
+        62
+      ]
+    },
+    {
+      "id": 68,
+      "category": "quizzes",
+      "categoryLabel": "Questionários",
+      "title": "Progresso nos questionários por coorte",
+      "similar": [
+        69,
+        70,
+        10
+      ]
+    },
+    {
+      "id": 69,
+      "category": "quizzes",
+      "categoryLabel": "Questionários",
+      "title": "Progresso nos questionários por curso",
+      "similar": [
+        68,
+        70,
+        65
+      ]
+    },
+    {
+      "id": 70,
+      "category": "quizzes",
+      "categoryLabel": "Questionários",
+      "title": "Progresso nos questionários por usuário",
+      "similar": [
+        68,
+        69,
+        62
+      ]
     },
     {
       "id": 71,
       "category": "forums",
       "categoryLabel": "Fóruns",
-      "title": "Detalhes das atividades dos fóruns"
+      "title": "Detalhes das atividades dos fóruns",
+      "similar": [
+        72,
+        73,
+        74
+      ]
     },
     {
       "id": 72,
       "category": "forums",
       "categoryLabel": "Fóruns",
-      "title": "Proporção de postagens nos fóruns"
+      "title": "Proporção de postagens nos fóruns",
+      "similar": [
+        73,
+        74,
+        126
+      ]
     },
     {
       "id": 73,
       "category": "forums",
       "categoryLabel": "Fóruns",
-      "title": "Respostas às postagens nos fóruns"
+      "title": "Respostas às postagens nos fóruns",
+      "similar": [
+        72,
+        74,
+        126
+      ]
     },
     {
       "id": 74,
       "category": "forums",
       "categoryLabel": "Fóruns",
-      "title": "Desempenho das postagens nos fóruns"
+      "title": "Desempenho das postagens nos fóruns",
+      "similar": [
+        72,
+        73,
+        126
+      ]
     },
     {
       "id": 75,
       "category": "forums",
       "categoryLabel": "Fóruns",
-      "title": "Visão geral das respostas nos fóruns"
+      "title": "Visão geral das respostas nos fóruns",
+      "similar": [
+        73,
+        74,
+        72
+      ]
     },
     {
       "id": 76,
       "category": "forums",
       "categoryLabel": "Fóruns",
-      "title": "Participação dos estudantes nos fóruns"
+      "title": "Participação dos estudantes nos fóruns",
+      "similar": [
+        71,
+        72,
+        126
+      ]
+    },
+    {
+      "id": 77,
+      "category": "scorm",
+      "categoryLabel": "SCORM",
+      "title": "Detalhes de atividades SCORM",
+      "similar": [
+        78,
+        79,
+        58
+      ]
+    },
+    {
+      "id": 78,
+      "category": "scorm",
+      "categoryLabel": "SCORM",
+      "title": "Resumo das atividades SCORM por curso",
+      "similar": [
+        77,
+        79,
+        9
+      ]
+    },
+    {
+      "id": 79,
+      "category": "scorm",
+      "categoryLabel": "SCORM",
+      "title": "Ocorrências SCORM por curso",
+      "similar": [
+        78,
+        77,
+        38
+      ]
+    },
+    {
+      "id": 80,
+      "category": "assignments",
+      "categoryLabel": "Tarefas e entregas",
+      "title": "Situação dos envios de tarefas",
+      "similar": [
+        81,
+        60,
+        127
+      ]
+    },
+    {
+      "id": 81,
+      "category": "assignments",
+      "categoryLabel": "Tarefas e entregas",
+      "title": "Revisão das entregas de tarefas",
+      "similar": [
+        80,
+        52,
+        127
+      ]
+    },
+    {
+      "id": 82,
+      "category": "feedback",
+      "categoryLabel": "Feedback e pesquisas",
+      "title": "Detalhes das respostas do Feedback",
+      "similar": [
+        125,
+        83,
+        88
+      ]
+    },
+    {
+      "id": 83,
+      "category": "feedback",
+      "categoryLabel": "Feedback e pesquisas",
+      "title": "Visão geral do Feedback",
+      "similar": [
+        125,
+        82,
+        55
+      ]
+    },
+    {
+      "id": 84,
+      "category": "competencies",
+      "categoryLabel": "Competências, planos e selos",
+      "title": "Evidências de competências",
+      "similar": [
+        85,
+        86,
+        87
+      ]
+    },
+    {
+      "id": 85,
+      "category": "competencies",
+      "categoryLabel": "Competências, planos e selos",
+      "title": "Resultados dos cursos",
+      "similar": [
+        84,
+        86,
+        87
+      ]
+    },
+    {
+      "id": 86,
+      "category": "competencies",
+      "categoryLabel": "Competências, planos e selos",
+      "title": "Progresso nos planos de aprendizagem",
+      "similar": [
+        87,
+        84,
+        85
+      ]
+    },
+    {
+      "id": 87,
+      "category": "competencies",
+      "categoryLabel": "Competências, planos e selos",
+      "title": "Detalhes do progresso nos planos de aprendizagem",
+      "similar": [
+        86,
+        84,
+        85
+      ]
+    },
+    {
+      "id": 88,
+      "category": "quizzes",
+      "categoryLabel": "Questionários",
+      "title": "Respostas por questão do questionário",
+      "similar": [
+        62,
+        123,
+        122
+      ]
+    },
+    {
+      "id": 89,
+      "category": "quizzes",
+      "categoryLabel": "Questionários",
+      "title": "Pontuações por tentativa do questionário",
+      "similar": [
+        66,
+        65,
+        67
+      ]
+    },
+    {
+      "id": 90,
+      "category": "competencies",
+      "categoryLabel": "Competências, planos e selos",
+      "title": "Selos recebidos",
+      "similar": [
+        84,
+        85,
+        86
+      ]
+    },
+    {
+      "id": 91,
+      "category": "courses",
+      "categoryLabel": "Cursos e conteúdo",
+      "title": "Acessos aos cursos por dia e período",
+      "similar": [
+        92,
+        35,
+        36
+      ]
+    },
+    {
+      "id": 92,
+      "category": "users",
+      "categoryLabel": "Usuários e perfis",
+      "title": "Acessos dos estudantes por dia e período",
+      "similar": [
+        91,
+        99,
+        13
+      ]
+    },
+    {
+      "id": 93,
+      "category": "communication",
+      "categoryLabel": "Comunicação e arquivos",
+      "title": "Uso de arquivos por curso",
+      "similar": [
+        94,
+        95,
+        97
+      ]
+    },
+    {
+      "id": 94,
+      "category": "communication",
+      "categoryLabel": "Comunicação e arquivos",
+      "title": "Uso de arquivos por professor",
+      "similar": [
+        95,
+        93,
+        97
+      ]
+    },
+    {
+      "id": 95,
+      "category": "communication",
+      "categoryLabel": "Comunicação e arquivos",
+      "title": "Detalhes do uso de arquivos por professor",
+      "similar": [
+        94,
+        93,
+        97
+      ]
+    },
+    {
+      "id": 96,
+      "category": "communication",
+      "categoryLabel": "Comunicação e arquivos",
+      "title": "Detalhes das respostas nas lições",
+      "similar": [
+        88,
+        122,
+        82
+      ]
+    },
+    {
+      "id": 97,
+      "category": "communication",
+      "categoryLabel": "Comunicação e arquivos",
+      "title": "Uso de mensagens no Moodle",
+      "similar": [
+        93,
+        94,
+        95
+      ]
+    },
+    {
+      "id": 98,
+      "category": "students",
+      "categoryLabel": "Estudantes",
+      "title": "Visão geral do progresso do aluno",
+      "similar": [
+        13,
+        2,
+        99
+      ]
+    },
+    {
+      "id": 99,
+      "category": "students",
+      "categoryLabel": "Estudantes",
+      "title": "Alunos sem acesso ao curso",
+      "similar": [
+        100,
+        103,
+        35
+      ]
+    },
+    {
+      "id": 100,
+      "category": "students",
+      "categoryLabel": "Estudantes",
+      "title": "Alunos inativos por curso",
+      "similar": [
+        99,
+        103,
+        11
+      ]
+    },
+    {
+      "id": 101,
+      "category": "students",
+      "categoryLabel": "Estudantes",
+      "title": "Alunos em risco",
+      "similar": [
+        2,
+        98,
+        99
+      ]
+    },
+    {
+      "id": 102,
+      "category": "students",
+      "categoryLabel": "Estudantes",
+      "title": "Matrículas de alunos terminando em breve",
+      "similar": [
+        2,
+        98,
+        99
+      ]
+    },
+    {
+      "id": 103,
+      "category": "students",
+      "categoryLabel": "Estudantes",
+      "title": "Status de conclusão do curso por aluno",
+      "similar": [
+        99,
+        100,
+        48
+      ]
+    },
+    {
+      "id": 104,
+      "category": "students",
+      "categoryLabel": "Estudantes",
+      "title": "Cadastros de alunos por mês",
+      "similar": [
+        2,
+        105,
+        19
+      ]
+    },
+    {
+      "id": 105,
+      "category": "students",
+      "categoryLabel": "Estudantes",
+      "title": "Distribuição do perfil dos alunos",
+      "similar": [
+        2,
+        98,
+        99
+      ]
+    },
+    {
+      "id": 106,
+      "category": "learning_analytics",
+      "categoryLabel": "Learning Analytics - painéis",
+      "title": "Dashboard de analytics de aprendizagem",
+      "similar": [
+        109,
+        111,
+        86
+      ]
+    },
+    {
+      "id": 107,
+      "category": "learning_analytics",
+      "categoryLabel": "Learning Analytics - painéis",
+      "title": "Fila de alunos que precisam de atenção",
+      "similar": [
+        109,
+        106,
+        108
+      ]
+    },
+    {
+      "id": 108,
+      "category": "learning_analytics",
+      "categoryLabel": "Learning Analytics - painéis",
+      "title": "Saúde dos cursos",
+      "similar": [
+        106,
+        107,
+        109
+      ]
+    },
+    {
+      "id": 109,
+      "category": "learning_analytics",
+      "categoryLabel": "Learning Analytics - painéis",
+      "title": "Analytics 360 do aluno",
+      "similar": [
+        106,
+        107,
+        108
+      ]
+    },
+    {
+      "id": 110,
+      "category": "learning_analytics",
+      "categoryLabel": "Learning Analytics - painéis",
+      "title": "Análise de progresso e notas",
+      "similar": [
+        109,
+        98,
+        41
+      ]
+    },
+    {
+      "id": 111,
+      "category": "learning_analytics",
+      "categoryLabel": "Learning Analytics - painéis",
+      "title": "Ritmo de aprendizagem",
+      "similar": [
+        106,
+        86,
+        87
+      ]
+    },
+    {
+      "id": 112,
+      "category": "courses",
+      "categoryLabel": "Cursos e conteúdo",
+      "title": "Engajamento por seção do curso",
+      "similar": [
+        39,
+        113,
+        114
+      ]
+    },
+    {
+      "id": 113,
+      "category": "activities",
+      "categoryLabel": "Atividades",
+      "title": "Alcance das atividades por curso",
+      "similar": [
+        9,
+        37,
+        55
+      ]
+    },
+    {
+      "id": 114,
+      "category": "activities",
+      "categoryLabel": "Atividades",
+      "title": "Tempo registrado por tipo de atividade",
+      "similar": [
+        113,
+        112,
+        55
+      ]
+    },
+    {
+      "id": 115,
+      "category": "analytics",
+      "categoryLabel": "Indicadores operacionais de participação",
+      "title": "Atividade diária por papel no curso",
+      "similar": [
+        119,
+        116,
+        34
+      ]
+    },
+    {
+      "id": 116,
+      "category": "analytics",
+      "categoryLabel": "Indicadores operacionais de participação",
+      "title": "Cursos ativos por dia",
+      "similar": [
+        115,
+        91,
+        43
+      ]
+    },
+    {
+      "id": 117,
+      "category": "enrollments",
+      "categoryLabel": "Inscrições e receitas",
+      "title": "Matrículas versus conclusões por semana",
+      "similar": [
+        48,
+        4,
+        5
+      ]
+    },
+    {
+      "id": 118,
+      "category": "courses",
+      "categoryLabel": "Cursos e conteúdo",
+      "title": "Conclusões semanais por categoria",
+      "similar": [
+        117,
+        48,
+        103
+      ]
+    },
+    {
+      "id": 119,
+      "category": "analytics",
+      "categoryLabel": "Indicadores operacionais de participação",
+      "title": "Participação do aluno versus turma",
+      "similar": [
+        115,
+        110,
+        34
+      ]
+    },
+    {
+      "id": 120,
+      "category": "quizzes",
+      "categoryLabel": "Questionários",
+      "title": "Comparação de resultados de dois questionários",
+      "similar": [
+        89,
+        63,
+        110
+      ]
+    },
+    {
+      "id": 121,
+      "category": "grades",
+      "categoryLabel": "Notas e avaliações",
+      "title": "Histórico de alterações das notas",
+      "similar": [
+        53,
+        54,
+        20
+      ]
+    },
+    {
+      "id": 122,
+      "category": "quizzes",
+      "categoryLabel": "Questionários",
+      "title": "Respostas incorretas mais frequentes",
+      "similar": [
+        88,
+        123,
+        82
+      ]
+    },
+    {
+      "id": 123,
+      "category": "quizzes",
+      "categoryLabel": "Questionários",
+      "title": "Desempenho em questionários por tag da questão",
+      "similar": [
+        62,
+        88,
+        63
+      ]
+    },
+    {
+      "id": 124,
+      "category": "grades",
+      "categoryLabel": "Notas e avaliações",
+      "title": "Desempenho por critérios de avaliação",
+      "similar": [
+        52,
+        54,
+        121
+      ]
+    },
+    {
+      "id": 125,
+      "category": "feedback",
+      "categoryLabel": "Feedback e pesquisas",
+      "title": "Distribuição das respostas do Feedback",
+      "similar": [
+        82,
+        83,
+        88
+      ]
     },
     {
       "id": 126,
       "category": "forums",
       "categoryLabel": "Fóruns",
-      "title": "Postagens em fóruns por dia e horário"
+      "title": "Postagens em fóruns por dia e horário",
+      "similar": [
+        72,
+        73,
+        74
+      ]
+    },
+    {
+      "id": 127,
+      "category": "assignments",
+      "categoryLabel": "Tarefas e entregas",
+      "title": "Cronologia de entregas e participações avaliativas",
+      "similar": [
+        80,
+        81,
+        60
+      ]
     }
   ]
 }
