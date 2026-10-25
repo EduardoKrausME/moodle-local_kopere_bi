@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Quatro tabelas de um curso selecionado: progresso da conclusão, notas, histórico de acessos a atividades e classificação de participação ou conclusão de atividades."><title>Cursos | Relatório 003 · Kopere BI</title><link rel="icon" href="../../favicon.svg"><link rel="stylesheet" href="../../site.css"><style>.report-intro{background:#e8f7f5;border:1px solid #c2e5df;border-radius:14px;padding:20px;margin:20px 0}.report-intro strong{color:#045b64}.report-intro p{margin:6px 0 0}.report-card{border:1px solid #dbe6eb;border-radius:13px;overflow:hidden;margin:16px 0}.report-card summary{padding:13px 17px;cursor:pointer;background:#ebf5f7;font-weight:750;color:#0b5460}.report-card summary:hover{background:#dcedef}.report-card .inside{padding:16px}.report-card pre{max-height:620px;overflow:auto;white-space:pre;font-size:13px}.report-metadata{font-size:13px;color:#55717d}.report-sql-label{font-size:12px;color:#056e76;font-weight:850;letter-spacing:.04em}.report-caution{background:#fff9e9;border-left:4px solid #d29c29;padding:12px 16px;margin:18px 0}.shortcuts{display:flex;gap:10px;flex-wrap:wrap;margin:25px 0}.shortcuts a{font-size:13px;border-radius:9px;padding:7px 11px;background:#e6f6f4;text-decoration:none;font-weight:700}@media(max-width:650px){.report-card .inside{padding:10px}.report-intro{padding:15px}}</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html"><span class="brand-mark">BI</span>Kopere BI</a><div class="tools"><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Relatórios</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/courses.html">Categoria</a> / 003</div><div class="kicker">RELATÓRIO 003</div><h1>Cursos</h1><p class="lead">Quatro tabelas de um curso selecionado: progresso da conclusão, notas, histórico de acessos a atividades e classificação de participação ou conclusão de atividades.</p><section><h2>O que o relatório apresenta</h2><p>Quatro tabelas de um curso selecionado: progresso da conclusão, notas, histórico de acessos a atividades e classificação de participação ou conclusão de atividades.</p></section><div class="report-intro"><strong>Por que e quando utilizar</strong><p>É útil para coordenações e tutores que precisam cruzar participação, matrícula e desempenho de estudantes em um curso específico e investigar diferenças entre acesso, nota e conclusão.</p></div><div class="shortcuts"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualizações e SQL</a><a href="#cuidados">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>Filtro <strong>Curso</strong>, vinculado ao parâmetro SQL <code>:courseid</code>. O curso é escolhido no seletor correspondente, quando esse subplugin de filtro está habilitado, e aplicado a todas as consultas. Não foram encontrados filtros SQL de usuário, coorte ou período.</p></section><section id="visualizacoes"><h2>Como são as visualizações e o SQL</h2><p>4 consultas SQL compõem este relatório. Em cada item estão o tipo de visualização, sua finalidade, a configuração de cache e o SQL integral. Abra cada item para consultar o código.</p><details class="report-card" open><summary>1. Progresso de conclusão por estudante · Tabela</summary><div class="inside"><p>Tabela com perfil, matrícula e percentual de módulos elegíveis com conclusão registrada.</p><p class="report-metadata">Cache: <code>6h</code>. Atualização: <code>30m</code>.</p><p class="report-sql-label">SQL original integral</p><pre class="sql-source"><code class="language-sql"><span class="sql-keyword">SELECT</span> u.id <span class="sql-keyword">AS</span> u_id,
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Quatro tabelas de um curso selecionado: progresso da conclusão, notas, histórico de acessos a atividades e classificação de participação ou conclusão de atividades."><title>Cursos | Relatório 003 · Kopere BI</title><link rel="icon" href="../../favicon.svg"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e8f7f5;border:1px solid #c2e5df;border-radius:14px;padding:20px;margin:20px 0}.report-intro strong{color:#045b64}.report-intro p{margin:6px 0 0}.report-card{border:1px solid #dbe6eb;border-radius:13px;overflow:hidden;margin:16px 0}.report-card summary{padding:13px 17px;cursor:pointer;background:#ebf5f7;font-weight:750;color:#0b5460}.report-card summary:hover{background:#dcedef}.report-card .inside{padding:16px}.report-card pre{max-height:620px;overflow:auto;white-space:pre;font-size:13px}.report-metadata{font-size:13px;color:#55717d}.report-sql-label{font-size:12px;color:#056e76;font-weight:850;letter-spacing:.04em}.report-caution{background:#fff9e9;border-left:4px solid #d29c29;padding:12px 16px;margin:18px 0}.shortcuts{display:flex;gap:10px;flex-wrap:wrap;margin:25px 0}.shortcuts a{font-size:13px;border-radius:9px;padding:7px 11px;background:#e6f6f4;text-decoration:none;font-weight:700}@media(max-width:650px){.report-card .inside{padding:10px}.report-intro{padding:15px}}</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html"><span class="brand-mark">BI</span>Kopere BI</a><div class="tools"><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Relatórios</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/courses.html">Categoria</a> / 003</div><div class="kicker">RELATÓRIO 003</div><h1>Cursos</h1><p class="lead">Quatro tabelas de um curso selecionado: progresso da conclusão, notas, histórico de acessos a atividades e classificação de participação ou conclusão de atividades.</p><section><h2>O que o relatório apresenta</h2><p>Quatro tabelas de um curso selecionado: progresso da conclusão, notas, histórico de acessos a atividades e classificação de participação ou conclusão de atividades.</p></section><div class="report-intro"><strong>Por que e quando utilizar</strong><p>É útil para coordenações e tutores que precisam cruzar participação, matrícula e desempenho de estudantes em um curso específico e investigar diferenças entre acesso, nota e conclusão.</p></div><div class="shortcuts"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualizações e SQL</a><a href="#cuidados">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>Filtro <strong>Curso</strong>, vinculado ao parâmetro SQL <code>:courseid</code>. O curso é escolhido no seletor correspondente, quando esse subplugin de filtro está habilitado, e aplicado a todas as consultas. Não foram encontrados filtros SQL de usuário, coorte ou período.</p></section><section id="visualizacoes"><h2>Como são as visualizações e o SQL</h2><p>4 consultas SQL compõem este relatório. Em cada item estão o tipo de visualização, sua finalidade, a configuração de cache e o SQL integral. Abra cada item para consultar o código.</p><details class="report-card" open><summary>1. Progresso de conclusão por estudante · Tabela</summary><div class="inside"><p>Tabela com perfil, matrícula e percentual de módulos elegíveis com conclusão registrada.</p><p class="report-metadata">Cache: <code>6h</code>. Atualização: <code>30m</code>.</p><p class="report-sql-label">SQL original integral</p><pre class="sql-source language-sql"><code class="language-sql">SELECT u.id AS u_id,
        u.firstname,
        u.lastname,
        u.email,
@@ -13,159 +13,159 @@
        u.firstaccess,
        u.lastaccess,
        ue.timecreated,
-       <span class="sql-function">MAX</span>(cc.timecompleted) <span class="sql-keyword">AS</span> timecompleted,
-       <span class="sql-function">ROUND</span>(((<span class="sql-function">MAX</span>(cmc.completed) <span class="sql-operator">/</span> <span class="sql-function">MAX</span>(m.modules)) <span class="sql-operator">*</span> <span class="sql-number">100</span>), <span class="sql-number">0</span>) <span class="sql-keyword">AS</span> course_completed
-  <span class="sql-keyword">FROM</span> {user_enrolments} ue
-  <span class="sql-keyword">JOIN</span> {user} u <span class="sql-keyword">ON</span> u.id <span class="sql-operator">=</span> ue.userid
-  <span class="sql-keyword">JOIN</span> {enrol} e <span class="sql-keyword">ON</span> e.id <span class="sql-operator">=</span> ue.enrolid
-  <span class="sql-keyword">JOIN</span> {course} c <span class="sql-keyword">ON</span> c.id <span class="sql-operator">=</span> e.courseid
-  <span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> {course_completions} cc <span class="sql-keyword">ON</span> cc.timecompleted <span class="sql-operator">&gt;</span> <span class="sql-number">0</span>
-                                   <span class="sql-keyword">AND</span> cc.course <span class="sql-operator">=</span> e.courseid
-                                   <span class="sql-keyword">AND</span> cc.userid <span class="sql-operator">=</span> ue.userid
-  <span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> (
-        <span class="sql-keyword">SELECT</span> course,
-               <span class="sql-function">COUNT</span>(id) <span class="sql-keyword">AS</span> modules
-          <span class="sql-keyword">FROM</span> {course_modules}
-         <span class="sql-keyword">WHERE</span> visible <span class="sql-operator">=</span> <span class="sql-number">1</span>
-           <span class="sql-keyword">AND</span> completion <span class="sql-operator">&gt;</span> <span class="sql-number">0</span>
-           <span class="sql-keyword">AND</span> deletioninprogress <span class="sql-operator">=</span> <span class="sql-number">0</span>
-      <span class="sql-keyword">GROUP</span> <span class="sql-keyword">BY</span> course
-      ) <span class="sql-keyword">AS</span> m <span class="sql-keyword">ON</span> m.course <span class="sql-operator">=</span> c.id
-  <span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> (
-        <span class="sql-keyword">SELECT</span> cm_i.course,
+       MAX(cc.timecompleted) AS timecompleted,
+       ROUND(((MAX(cmc.completed) / MAX(m.modules)) * 100), 0) AS course_completed
+  FROM {user_enrolments} ue
+  JOIN {user} u ON u.id = ue.userid
+  JOIN {enrol} e ON e.id = ue.enrolid
+  JOIN {course} c ON c.id = e.courseid
+  LEFT JOIN {course_completions} cc ON cc.timecompleted &gt; 0
+                                   AND cc.course = e.courseid
+                                   AND cc.userid = ue.userid
+  LEFT JOIN (
+        SELECT course,
+               COUNT(id) AS modules
+          FROM {course_modules}
+         WHERE visible = 1
+           AND completion &gt; 0
+           AND deletioninprogress = 0
+      GROUP BY course
+      ) AS m ON m.course = c.id
+  LEFT JOIN (
+        SELECT cm_i.course,
                cmc_i.userid,
-               <span class="sql-function">COUNT</span>(<span class="sql-keyword">DISTINCT</span> cmc_i.id) <span class="sql-keyword">AS</span> completed
-          <span class="sql-keyword">FROM</span> {course_modules} cm_i,
+               COUNT(DISTINCT cmc_i.id) AS completed
+          FROM {course_modules} cm_i,
                {course_modules_completion} cmc_i
-         <span class="sql-keyword">WHERE</span> cmc_i.coursemoduleid <span class="sql-operator">=</span> cm_i.id
-           <span class="sql-keyword">AND</span> cm_i.visible <span class="sql-operator">=</span> <span class="sql-number">1</span>
-           <span class="sql-keyword">AND</span> cmc_i.completionstate <span class="sql-keyword">IN</span> (<span class="sql-number">1</span>, <span class="sql-number">2</span>)
-           <span class="sql-keyword">AND</span> cm_i.deletioninprogress <span class="sql-operator">=</span> <span class="sql-number">0</span>
-      <span class="sql-keyword">GROUP</span> <span class="sql-keyword">BY</span> cm_i.course,
+         WHERE cmc_i.coursemoduleid = cm_i.id
+           AND cm_i.visible = 1
+           AND cmc_i.completionstate IN (1, 2)
+           AND cm_i.deletioninprogress = 0
+      GROUP BY cm_i.course,
                cmc_i.userid
-      ) <span class="sql-keyword">AS</span> cmc <span class="sql-keyword">ON</span> cmc.course <span class="sql-operator">=</span> c.id
-              <span class="sql-keyword">AND</span> cmc.userid <span class="sql-operator">=</span> ue.userid
- <span class="sql-keyword">WHERE</span> ue.id <span class="sql-operator">&gt;</span> <span class="sql-number">0</span>
-   <span class="sql-keyword">AND</span> u.id <span class="sql-operator">&gt;</span> <span class="sql-number">1</span>
-   <span class="sql-keyword">AND</span> u.deleted <span class="sql-operator">=</span> <span class="sql-number">0</span>
-   <span class="sql-keyword">AND</span> u.suspended <span class="sql-operator">=</span> <span class="sql-number">0</span>
-   <span class="sql-keyword">AND</span> ue.status <span class="sql-operator">=</span> <span class="sql-number">0</span>
-   <span class="sql-keyword">AND</span> e.status <span class="sql-operator">=</span> <span class="sql-number">0</span>
-   <span class="sql-keyword">AND</span> c.id <span class="sql-operator">=</span> <span class="sql-param">:courseid</span>
-<span class="sql-keyword">GROUP</span> <span class="sql-keyword">BY</span> u.id, ue.timecreated</code></pre></div></details><details class="report-card"><summary>2. Indicadores de nota do curso · Tabela</summary><div class="inside"><p>Tabela nominal com nota do item de curso e dados do estudante.</p><p class="report-metadata">Cache: <code>none</code>. Atualização: <code>none</code>.</p><p class="report-sql-label">SQL original integral</p><pre class="sql-source"><code class="language-sql"><span class="sql-keyword">SELECT</span> u.id <span class="sql-keyword">AS</span> u_id,
+      ) AS cmc ON cmc.course = c.id
+              AND cmc.userid = ue.userid
+ WHERE ue.id &gt; 0
+   AND u.id &gt; 1
+   AND u.deleted = 0
+   AND u.suspended = 0
+   AND ue.status = 0
+   AND e.status = 0
+   AND c.id = :courseid
+GROUP BY u.id, ue.timecreated</code></pre></div></details><details class="report-card"><summary>2. Indicadores de nota do curso · Tabela</summary><div class="inside"><p>Tabela nominal com nota do item de curso e dados do estudante.</p><p class="report-metadata">Cache: <code>none</code>. Atualização: <code>none</code>.</p><p class="report-sql-label">SQL original integral</p><pre class="sql-source language-sql"><code class="language-sql">SELECT u.id AS u_id,
        u.firstname,
        u.lastname,
        u.email,
-       <span class="sql-function">MIN</span>(gc.grade) <span class="sql-keyword">AS</span> grade
-  <span class="sql-keyword">FROM</span> mdl_user_enrolments ue
-  <span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> mdl_user u <span class="sql-keyword">ON</span> u.id <span class="sql-operator">=</span> ue.userid
-  <span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> mdl_enrol e <span class="sql-keyword">ON</span> e.id <span class="sql-operator">=</span> ue.enrolid
-  <span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> mdl_course c <span class="sql-keyword">ON</span> c.id <span class="sql-operator">=</span> e.courseid
-  <span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> (
-             <span class="sql-keyword">SELECT</span> course, <span class="sql-function">COUNT</span>(id) <span class="sql-keyword">AS</span> cmnums
-               <span class="sql-keyword">FROM</span> mdl_course_modules
-              <span class="sql-keyword">WHERE</span> visible <span class="sql-operator">=</span> <span class="sql-number">1</span>
-           <span class="sql-keyword">GROUP</span> <span class="sql-keyword">BY</span> course
-            ) <span class="sql-keyword">AS</span> cm <span class="sql-keyword">ON</span> cm.course <span class="sql-operator">=</span> c.id
-  <span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> (
-             <span class="sql-keyword">SELECT</span> course, <span class="sql-function">COUNT</span>(id) <span class="sql-keyword">AS</span> cmnumx
-               <span class="sql-keyword">FROM</span> mdl_course_modules
-              <span class="sql-keyword">WHERE</span> visible <span class="sql-operator">=</span> <span class="sql-number">1</span>
-                <span class="sql-keyword">AND</span> completion <span class="sql-operator">&gt;</span> <span class="sql-number">0</span>
-           <span class="sql-keyword">GROUP</span> <span class="sql-keyword">BY</span> course
-            ) cmx <span class="sql-keyword">ON</span> cmx.course <span class="sql-operator">=</span> c.id
-  <span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> (
-             <span class="sql-keyword">SELECT</span> cm.course, cmc.userid, <span class="sql-function">COUNT</span>(cmc.id) <span class="sql-keyword">AS</span> cmcnums
-               <span class="sql-keyword">FROM</span> mdl_course_modules cm,
+       MIN(gc.grade) AS grade
+  FROM mdl_user_enrolments ue
+  LEFT JOIN mdl_user u ON u.id = ue.userid
+  LEFT JOIN mdl_enrol e ON e.id = ue.enrolid
+  LEFT JOIN mdl_course c ON c.id = e.courseid
+  LEFT JOIN (
+             SELECT course, COUNT(id) AS cmnums
+               FROM mdl_course_modules
+              WHERE visible = 1
+           GROUP BY course
+            ) AS cm ON cm.course = c.id
+  LEFT JOIN (
+             SELECT course, COUNT(id) AS cmnumx
+               FROM mdl_course_modules
+              WHERE visible = 1
+                AND completion &gt; 0
+           GROUP BY course
+            ) cmx ON cmx.course = c.id
+  LEFT JOIN (
+             SELECT cm.course, cmc.userid, COUNT(cmc.id) AS cmcnums
+               FROM mdl_course_modules cm,
                     mdl_course_modules_completion cmc
-              <span class="sql-keyword">WHERE</span> cmc.coursemoduleid <span class="sql-operator">=</span> cm.id
-                <span class="sql-keyword">AND</span> cm.visible <span class="sql-operator">=</span> <span class="sql-number">1</span>
-                <span class="sql-keyword">AND</span> cmc.completionstate <span class="sql-keyword">IN</span> (<span class="sql-number">1</span>, <span class="sql-number">2</span>)
-           <span class="sql-keyword">GROUP</span> <span class="sql-keyword">BY</span> cm.course, cmc.userid
-            ) cmc <span class="sql-keyword">ON</span> cmc.course <span class="sql-operator">=</span> c.id
-                <span class="sql-keyword">AND</span> cmc.userid <span class="sql-operator">=</span> u.id
-  <span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> (
-             <span class="sql-keyword">SELECT</span> cm.course, cmc.userid, <span class="sql-function">COUNT</span>(cmc.id) <span class="sql-keyword">AS</span> cmcnuma
-               <span class="sql-keyword">FROM</span> mdl_course_modules cm,
+              WHERE cmc.coursemoduleid = cm.id
+                AND cm.visible = 1
+                AND cmc.completionstate IN (1, 2)
+           GROUP BY cm.course, cmc.userid
+            ) cmc ON cmc.course = c.id
+                AND cmc.userid = u.id
+  LEFT JOIN (
+             SELECT cm.course, cmc.userid, COUNT(cmc.id) AS cmcnuma
+               FROM mdl_course_modules cm,
                     mdl_course_modules_completion cmc
-              <span class="sql-keyword">WHERE</span> cmc.coursemoduleid <span class="sql-operator">=</span> cm.id
-                <span class="sql-keyword">AND</span> cm.module <span class="sql-operator">=</span> <span class="sql-number">1</span>
-                <span class="sql-keyword">AND</span> cm.visible <span class="sql-operator">=</span> <span class="sql-number">1</span>
-                <span class="sql-keyword">AND</span> cmc.completionstate <span class="sql-keyword">IN</span> (<span class="sql-number">1</span>, <span class="sql-number">2</span>)
-           <span class="sql-keyword">GROUP</span> <span class="sql-keyword">BY</span> cm.course, cmc.userid
-            ) <span class="sql-keyword">AS</span> cmca <span class="sql-keyword">ON</span> cmca.course <span class="sql-operator">=</span> c.id
-                   <span class="sql-keyword">AND</span> cmca.userid <span class="sql-operator">=</span> u.id
-  <span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> (
-             <span class="sql-keyword">SELECT</span> gi.courseid,
+              WHERE cmc.coursemoduleid = cm.id
+                AND cm.module = 1
+                AND cm.visible = 1
+                AND cmc.completionstate IN (1, 2)
+           GROUP BY cm.course, cmc.userid
+            ) AS cmca ON cmca.course = c.id
+                   AND cmca.userid = u.id
+  LEFT JOIN (
+             SELECT gi.courseid,
                     g.userid,
-                    <span class="sql-function">ROUND</span>((<span class="sql-keyword">CASE</span> <span class="sql-keyword">WHEN</span> g.rawgrademax <span class="sql-operator">&gt;</span> <span class="sql-number">0</span> <span class="sql-keyword">THEN</span> (g.finalgrade <span class="sql-operator">/</span> g.rawgrademax) <span class="sql-operator">*</span> <span class="sql-number">100</span> <span class="sql-keyword">ELSE</span> g.finalgrade <span class="sql-keyword">END</span>), <span class="sql-number">0</span>) <span class="sql-keyword">AS</span> grade
-               <span class="sql-keyword">FROM</span> mdl_grade_items gi,
+                    ROUND((CASE WHEN g.rawgrademax &gt; 0 THEN (g.finalgrade / g.rawgrademax) * 100 ELSE g.finalgrade END), 0) AS grade
+               FROM mdl_grade_items gi,
                     mdl_grade_grades g
-              <span class="sql-keyword">WHERE</span> gi.itemtype <span class="sql-operator">=</span> <span class="sql-string">&#39;course&#39;</span>
-                <span class="sql-keyword">AND</span> g.itemid <span class="sql-operator">=</span> gi.id
-                <span class="sql-keyword">AND</span> g.finalgrade <span class="sql-keyword">IS</span> <span class="sql-keyword">NOT</span> <span class="sql-keyword">NULL</span>
-           <span class="sql-keyword">GROUP</span> <span class="sql-keyword">BY</span> gi.courseid, g.userid, g.finalgrade, g.rawgrademax
-            ) <span class="sql-keyword">AS</span> gc <span class="sql-keyword">ON</span> gc.courseid <span class="sql-operator">=</span> c.id
-                <span class="sql-keyword">AND</span> gc.userid <span class="sql-operator">=</span> u.id
- <span class="sql-keyword">WHERE</span> ue.id <span class="sql-operator">&gt;</span> <span class="sql-number">0</span>
-   <span class="sql-keyword">AND</span> e.courseid <span class="sql-operator">=</span> <span class="sql-param">:courseid</span>
-   <span class="sql-keyword">AND</span> u.deleted <span class="sql-operator">=</span> <span class="sql-number">0</span>
-   <span class="sql-keyword">AND</span> u.suspended <span class="sql-operator">=</span> <span class="sql-number">0</span>
-   <span class="sql-keyword">AND</span> c.visible <span class="sql-operator">=</span> <span class="sql-number">1</span>
-<span class="sql-keyword">GROUP</span> <span class="sql-keyword">BY</span> u.id, c.id</code></pre></div></details><details class="report-card"><summary>3. Registros de acesso às atividades · Tabela</summary><div class="inside"><p>Tabela de eventos registrados, com módulo, origem, IP e data/hora de acesso.</p><p class="report-metadata">Cache: <code>6h</code>. Atualização: <code>30m</code>.</p><p class="report-sql-label">SQL original integral</p><pre class="sql-source"><code class="language-sql"><span class="sql-keyword">SELECT</span> u.id                    <span class="sql-keyword">AS</span> u_id,
+              WHERE gi.itemtype = &#39;course&#39;
+                AND g.itemid = gi.id
+                AND g.finalgrade IS NOT NULL
+           GROUP BY gi.courseid, g.userid, g.finalgrade, g.rawgrademax
+            ) AS gc ON gc.courseid = c.id
+                AND gc.userid = u.id
+ WHERE ue.id &gt; 0
+   AND e.courseid = :courseid
+   AND u.deleted = 0
+   AND u.suspended = 0
+   AND c.visible = 1
+GROUP BY u.id, c.id</code></pre></div></details><details class="report-card"><summary>3. Registros de acesso às atividades · Tabela</summary><div class="inside"><p>Tabela de eventos registrados, com módulo, origem, IP e data/hora de acesso.</p><p class="report-metadata">Cache: <code>6h</code>. Atualização: <code>30m</code>.</p><p class="report-sql-label">SQL original integral</p><pre class="sql-source language-sql"><code class="language-sql">SELECT u.id                    AS u_id,
        u.firstname,
        u.lastname,
        u.email,
-       l.contextinstanceid     <span class="sql-keyword">AS</span> cm_cmid,
-       <span class="sql-function">CONCAT</span>(<span class="sql-string">&#39;lang::modulename::&#39;</span>, l.objecttable) <span class="sql-keyword">AS</span> module_name,
-       l.origin                <span class="sql-keyword">AS</span> l_origin,
-       l.ip                    <span class="sql-keyword">AS</span> l_ip,
-       l.timecreated           <span class="sql-keyword">AS</span> l_timecreated,
+       l.contextinstanceid     AS cm_cmid,
+       CONCAT(&#39;lang::modulename::&#39;, l.objecttable) AS module_name,
+       l.origin                AS l_origin,
+       l.ip                    AS l_ip,
+       l.timecreated           AS l_timecreated,
        l.objecttable
        
-     <span class="sql-keyword">FROM</span> mdl_local_kopere_bi_log_tmp l
-<span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> mdl_course       c  <span class="sql-keyword">ON</span> c.id <span class="sql-operator">=</span> l.courseid
-<span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> mdl_user         u  <span class="sql-keyword">ON</span> u.id <span class="sql-operator">=</span> l.userid
-<span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> mdl_modules      m  <span class="sql-keyword">ON</span> m.name <span class="sql-operator">=</span> SUBSTRING(l.component, <span class="sql-number">5</span>)
-<span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> mdl_course_modules cm <span class="sql-keyword">ON</span> cm.id <span class="sql-operator">=</span> l.contextinstanceid
+     FROM mdl_local_kopere_bi_log_tmp l
+LEFT JOIN mdl_course       c  ON c.id = l.courseid
+LEFT JOIN mdl_user         u  ON u.id = l.userid
+LEFT JOIN mdl_modules      m  ON m.name = SUBSTRING(l.component, 5)
+LEFT JOIN mdl_course_modules cm ON cm.id = l.contextinstanceid
 
-<span class="sql-keyword">WHERE</span> u.id <span class="sql-operator">&gt;</span> <span class="sql-number">1</span>
-  <span class="sql-keyword">AND</span> l.component <span class="sql-keyword">LIKE</span> <span class="sql-string">&#39;%mod_%&#39;</span>
-  <span class="sql-keyword">AND</span> l.courseid <span class="sql-operator">=</span> <span class="sql-param">:courseid</span>
-  <span class="sql-keyword">AND</span> u.deleted <span class="sql-operator">=</span> <span class="sql-number">0</span>
-  <span class="sql-keyword">AND</span> u.suspended <span class="sql-operator">=</span> <span class="sql-number">0</span>
-  <span class="sql-keyword">AND</span> c.visible <span class="sql-operator">=</span> <span class="sql-number">1</span>
-  <span class="sql-keyword">AND</span> cm.visible <span class="sql-operator">=</span> <span class="sql-number">1</span></code></pre></div></details><details class="report-card"><summary>4. Análise de participação e conclusão · Tabela</summary><div class="inside"><p>Tabela com situação calculada a partir do último acesso e da existência de conclusão de atividades.</p><p class="report-metadata">Cache: <code>6h</code>. Atualização: <code>30m</code>.</p><p class="report-sql-label">SQL original integral</p><pre class="sql-source"><code class="language-sql"><span class="sql-keyword">SELECT</span> u.id        <span class="sql-keyword">AS</span> u_id,
+WHERE u.id &gt; 1
+  AND l.component LIKE &#39;%mod_%&#39;
+  AND l.courseid = :courseid
+  AND u.deleted = 0
+  AND u.suspended = 0
+  AND c.visible = 1
+  AND cm.visible = 1</code></pre></div></details><details class="report-card"><summary>4. Análise de participação e conclusão · Tabela</summary><div class="inside"><p>Tabela com situação calculada a partir do último acesso e da existência de conclusão de atividades.</p><p class="report-metadata">Cache: <code>6h</code>. Atualização: <code>30m</code>.</p><p class="report-sql-label">SQL original integral</p><pre class="sql-source language-sql"><code class="language-sql">SELECT u.id        AS u_id,
        u.firstname,
        u.lastname,
        u.email,
-       <span class="sql-keyword">CASE</span> 
-           <span class="sql-keyword">WHEN</span> ul.id <span class="sql-keyword">IS</span> <span class="sql-keyword">NULL</span> <span class="sql-keyword">THEN</span> <span class="sql-string">&#39;lang::case_never_accessed::local_kopere_bi&#39;</span>
-           <span class="sql-keyword">WHEN</span> comp.userid <span class="sql-keyword">IS</span> <span class="sql-keyword">NOT</span> <span class="sql-keyword">NULL</span> <span class="sql-keyword">THEN</span> <span class="sql-string">&#39;lang::case_complete::local_kopere_bi&#39;</span>
-           <span class="sql-keyword">ELSE</span> <span class="sql-string">&#39;lang::case_incomplete::local_kopere_bi&#39;</span>
-       <span class="sql-keyword">END</span> <span class="sql-keyword">AS</span> status
+       CASE 
+           WHEN ul.id IS NULL THEN &#39;lang::case_never_accessed::local_kopere_bi&#39;
+           WHEN comp.userid IS NOT NULL THEN &#39;lang::case_complete::local_kopere_bi&#39;
+           ELSE &#39;lang::case_incomplete::local_kopere_bi&#39;
+       END AS status
        
-<span class="sql-keyword">FROM</span> mdl_role_assignments ra
-       <span class="sql-keyword">JOIN</span> mdl_context ctx                                   <span class="sql-keyword">ON</span> ctx.id <span class="sql-operator">=</span> ra.contextid 
-                                                            <span class="sql-keyword">AND</span> ctx.contextlevel <span class="sql-operator">=</span> <span class="sql-number">50</span>
-       <span class="sql-keyword">JOIN</span> mdl_course c                                     <span class="sql-keyword">ON</span> c.id <span class="sql-operator">=</span> ctx.instanceid
-       <span class="sql-keyword">JOIN</span> mdl_user u                                      <span class="sql-keyword">ON</span> u.id <span class="sql-operator">=</span> ra.userid
+FROM mdl_role_assignments ra
+       JOIN mdl_context ctx                                   ON ctx.id = ra.contextid 
+                                                            AND ctx.contextlevel = 50
+       JOIN mdl_course c                                     ON c.id = ctx.instanceid
+       JOIN mdl_user u                                      ON u.id = ra.userid
        
-       <span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> (<span class="sql-keyword">SELECT</span> cm.course, cmc.userid
-                  <span class="sql-keyword">FROM</span>   mdl_course_modules cm
-                         <span class="sql-keyword">JOIN</span> mdl_course_modules_completion cmc <span class="sql-keyword">ON</span> cmc.coursemoduleid <span class="sql-operator">=</span> cm.id 
-                                                              <span class="sql-keyword">AND</span> cmc.completionstate <span class="sql-operator">=</span> <span class="sql-number">1</span>
-                  <span class="sql-keyword">WHERE</span>  cmc.id <span class="sql-operator">&gt;</span> <span class="sql-number">0</span>
-                  <span class="sql-keyword">GROUP</span> <span class="sql-keyword">BY</span> cm.course, cmc.userid
-                 ) comp <span class="sql-keyword">ON</span> comp.userid <span class="sql-operator">=</span> u.id 
-                         <span class="sql-keyword">AND</span> comp.course <span class="sql-operator">=</span> c.id
+       LEFT JOIN (SELECT cm.course, cmc.userid
+                  FROM   mdl_course_modules cm
+                         JOIN mdl_course_modules_completion cmc ON cmc.coursemoduleid = cm.id 
+                                                              AND cmc.completionstate = 1
+                  WHERE  cmc.id &gt; 0
+                  GROUP BY cm.course, cmc.userid
+                 ) comp ON comp.userid = u.id 
+                         AND comp.course = c.id
        
-       <span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> mdl_user_lastaccess ul                         <span class="sql-keyword">ON</span> ul.courseid <span class="sql-operator">=</span> c.id 
-                                                            <span class="sql-keyword">AND</span> ul.userid <span class="sql-operator">=</span> ra.userid
+       LEFT JOIN mdl_user_lastaccess ul                         ON ul.courseid = c.id 
+                                                            AND ul.userid = ra.userid
        
-<span class="sql-keyword">WHERE</span>  c.id <span class="sql-operator">=</span> <span class="sql-param">:courseid</span> 
-  <span class="sql-keyword">AND</span>  u.deleted <span class="sql-operator">=</span> <span class="sql-number">0</span> 
-  <span class="sql-keyword">AND</span>  u.suspended <span class="sql-operator">=</span> <span class="sql-number">0</span>  
-  <span class="sql-keyword">AND</span>  c.visible <span class="sql-operator">=</span> <span class="sql-number">1</span> 
-  <span class="sql-keyword">AND</span>  ra.roleid <span class="sql-operator">=</span> <span class="sql-number">5</span>
-<span class="sql-keyword">GROUP</span> <span class="sql-keyword">BY</span> u.id</code></pre></div></details></section><section id="cuidados"><h2>Limitações e interpretação</h2><ul><li>O filtro :courseid é usado nas quatro consultas e limita as tabelas ao curso selecionado.</li><li>A classificação de 'Completo' na tabela de participação depende de registros de conclusão de atividade e não comprova conclusão formal do curso.</li><li>Há uma consulta com papel ID 5 fixo e expressões de agrupamento que precisam de validação de compatibilidade com o banco instalado.</li><li>Contém informações pessoais, IPs e notas; controle rigorosamente as permissões e a visibilidade da página.</li></ul><p class="report-caution">O SQL é reproduzido sem alterações a partir da definição do plugin na <code>master</code>. As consultas não foram executadas em uma instalação Moodle nesta documentação; verifique compatibilidade, permissões e resultados no seu ambiente.</p></section><section><h2>Fonte original</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-003.json" target="_blank" rel="noopener">Consultar o JSON que define o relatório no GitHub</a>.</p></section><nav class="pager"><a href="002.html">← Relatório 002</a><a href="../relatorios.html">Voltar às categorias →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/courses.html">Voltar à categoria</a> · Documentação em PT-BR</footer></body></html>
+WHERE  c.id = :courseid 
+  AND  u.deleted = 0 
+  AND  u.suspended = 0  
+  AND  c.visible = 1 
+  AND  ra.roleid = 5
+GROUP BY u.id</code></pre></div></details></section><section id="cuidados"><h2>Limitações e interpretação</h2><ul><li>O filtro :courseid é usado nas quatro consultas e limita as tabelas ao curso selecionado.</li><li>A classificação de 'Completo' na tabela de participação depende de registros de conclusão de atividade e não comprova conclusão formal do curso.</li><li>Há uma consulta com papel ID 5 fixo e expressões de agrupamento que precisam de validação de compatibilidade com o banco instalado.</li><li>Contém informações pessoais, IPs e notas; controle rigorosamente as permissões e a visibilidade da página.</li></ul><p class="report-caution">O SQL é reproduzido sem alterações a partir da definição do plugin na <code>master</code>. As consultas não foram executadas em uma instalação Moodle nesta documentação; verifique compatibilidade, permissões e resultados no seu ambiente.</p></section><section><h2>Fonte original</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-003.json" target="_blank" rel="noopener">Consultar o JSON que define o relatório no GitHub</a>.</p></section><nav class="pager"><a href="002.html">← Relatório 002</a><a href="../relatorios.html">Voltar às categorias →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/courses.html">Voltar à categoria</a> · Documentação em PT-BR</footer></body></html>
