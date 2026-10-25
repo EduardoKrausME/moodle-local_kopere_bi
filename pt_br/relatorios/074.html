@@ -1,0 +1,108 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Resume o volume de postagens por fórum do curso e as médias calculadas por mês, semana e dia desde a inclusão do módulo, destacando períodos mais frequentes."><meta name="theme-color" content="#072c3a"><title>Relatório 074 · Desempenho das postagens nos fóruns · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/forums.html">Fóruns</a> / 074</div><div class="kicker">RELATÓRIO 074</div><h1>Desempenho das postagens nos fóruns</h1><p class="lead">Resume o volume de postagens por fórum do curso e as médias calculadas por mês, semana e dia desde a inclusão do módulo, destacando períodos mais frequentes.</p><section><h2>Finalidade do relatório</h2><p>Resume o volume de postagens por fórum do curso e as médias calculadas por mês, semana e dia desde a inclusão do módulo, destacando períodos mais frequentes.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Ajuda docentes e administradores a acompanhar o volume de postagens e a identificar padrões de dia da semana e horário, com base nos registros dos fóruns.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>O único filtro dinâmico é <strong>Curso</strong>, identificado por <code>:courseid</code>. <strong>MySQL utiliza o parâmetro quatro vezes</strong> (três subconsultas de frequência e filtro principal), enquanto <strong>PostgreSQL o utiliza uma vez</strong> (filtro principal), pois as frequências são calculadas com subconsultas <code>LATERAL</code> vinculadas ao fórum.</p><p>O SQL exige <code>visible = 1</code> para o curso e considera as postagens das discussões vinculadas a cada fórum. Não há filtro dinâmico de data, autor ou visibilidade do módulo.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>Uma visualização em tabela, com 2 consultas SQL integrais, cache, atualização e realce de sintaxe com Prism.js. MySQL e PostgreSQL aparecem em caixas separadas dentro da mesma visualização.</p><details class="report-block" open><summary>1. Desempenho das postagens nos fóruns · Tabela</summary><div class="inner"><p>Uma tabela por fórum, contendo nome, curso, total de postagens distintas, médias de postagens por mês, semana e dia desde a data de inclusão do módulo, dia da semana mais frequente, hora mais frequente e faixa de semana do mês mais frequente.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT kbi_f.id                                                                                                as fid,
+       kbi_f.name,
+       kbi_c.fullname,
+       COUNT(DISTINCT kbi_fp.id)                                                                               AS all_posts,
+       COUNT(DISTINCT kbi_fp.id) /
+       GREATEST(PERIOD_DIFF(DATE_FORMAT(NOW(), &#39;%Y%m&#39;), DATE_FORMAT(FROM_UNIXTIME(kbi_cm.added), &#39;%Y%m&#39;)), 1)  as avg_month,
+       COUNT(DISTINCT kbi_fp.id) /
+       GREATEST(CEILING(DATEDIFF(DATE_FORMAT(NOW(), &#39;%Y%m%d&#39;), DATE_FORMAT(FROM_UNIXTIME(kbi_cm.added), &#39;%Y%m%d&#39;)) / 7),
+                1)                                                                                         as avg_week,
+       COUNT(DISTINCT kbi_fp.id) /
+       GREATEST(DATEDIFF(DATE_FORMAT(NOW(), &#39;%Y%m%d&#39;), DATE_FORMAT(FROM_UNIXTIME(kbi_cm.added), &#39;%Y%m%d&#39;)), 1) as avg_day,
+       popular_day.day                                                                                     AS popular_day,
+       popular_hour.hour                                                                                   AS popular_hour,
+       popular_week.week                                                                                   AS popular_week
+FROM mdl_forum kbi_f
+       JOIN mdl_modules kbi_m ON kbi_m.name = &#39;forum&#39;
+       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_f.course AND kbi_cm.instance = kbi_f.id AND kbi_cm.module = kbi_m.id
+       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_f.course
+       LEFT JOIN mdl_forum_discussions kbi_fd ON kbi_fd.forum = kbi_f.id
+       LEFT JOIN mdl_forum_posts kbi_fp ON kbi_fp.discussion = kbi_fd.id
+       LEFT JOIN (SELECT a.posts, a.day, a.id
+                  FROM (SELECT COUNT(DISTINCT kbi_fp2.id)                             as posts,
+                               WEEKDAY(FROM_UNIXTIME(kbi_fp2.created, &#39;%Y-%m-%d %T&#39;)) AS day,
+                               kbi_f2.id
+                        FROM mdl_forum kbi_f2
+                               LEFT JOIN mdl_forum_discussions kbi_fd2 ON kbi_fd2.forum = kbi_f2.id
+                               LEFT JOIN mdl_forum_posts kbi_fp2 ON kbi_fp2.discussion = kbi_fd2.id
+                        WHERE kbi_f2.course = :courseid
+                        GROUP BY day, kbi_f2.id
+                        ORDER BY posts DESC) AS a
+                  GROUP BY a.id) as popular_day ON popular_day.id = kbi_f.id
+       LEFT JOIN (SELECT a.posts, a.hour, a.id
+                  FROM (SELECT COUNT(DISTINCT kbi_fp2.id) as posts, FROM_UNIXTIME(kbi_fp2.created, &#39;%H&#39;) AS hour, kbi_f2.id
+                        FROM mdl_forum kbi_f2
+                               LEFT JOIN mdl_forum_discussions kbi_fd2 ON kbi_fd2.forum = kbi_f2.id
+                               LEFT JOIN mdl_forum_posts kbi_fp2 ON kbi_fp2.discussion = kbi_fd2.id
+                        WHERE kbi_f2.course = :courseid
+                        GROUP BY hour, kbi_f2.id
+                        ORDER BY posts DESC) AS a
+                  GROUP BY a.id) as popular_hour ON popular_hour.id = kbi_f.id
+       LEFT JOIN (SELECT a.posts, a.week, a.id
+                  FROM (SELECT COUNT(DISTINCT kbi_fp2.id)                                             as posts,
+                               CEILING(DAYOFMONTH(FROM_UNIXTIME(kbi_fp2.created, &#39;%Y-%m-%d %T&#39;)) / 7) AS week,
+                               kbi_f2.id
+                        FROM mdl_forum kbi_f2
+                               LEFT JOIN mdl_forum_discussions kbi_fd2 ON kbi_fd2.forum = kbi_f2.id
+                               LEFT JOIN mdl_forum_posts kbi_fp2 ON kbi_fp2.discussion = kbi_fd2.id
+                        WHERE kbi_f2.course = :courseid
+                        GROUP BY week, kbi_f2.id
+                        ORDER BY posts DESC) AS a
+                  GROUP BY a.id) as popular_week ON popular_week.id = kbi_f.id
+WHERE kbi_f.course = :courseid
+  AND kbi_c.visible = 1
+GROUP BY kbi_f.id
+ORDER BY all_posts DESC, kbi_f.name</code></pre></div>
+<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT f.id AS fid,
+       f.name,
+       c.fullname,
+       COUNT(DISTINCT fp.id) AS all_posts,
+       COUNT(DISTINCT fp.id)::numeric / GREATEST(
+           (EXTRACT(YEAR FROM AGE(CURRENT_DATE, TO_TIMESTAMP(cm.added)::date)) * 12
+            + EXTRACT(MONTH FROM AGE(CURRENT_DATE, TO_TIMESTAMP(cm.added)::date))), 1
+       ) AS avg_month,
+       COUNT(DISTINCT fp.id)::numeric / GREATEST(
+           CEIL(GREATEST(CURRENT_DATE - TO_TIMESTAMP(cm.added)::date, 0)::numeric / 7), 1
+       ) AS avg_week,
+       COUNT(DISTINCT fp.id)::numeric / GREATEST(
+           CURRENT_DATE - TO_TIMESTAMP(cm.added)::date, 1
+       ) AS avg_day,
+       pd.day AS popular_day,
+       ph.hour AS popular_hour,
+       pw.week AS popular_week
+FROM mdl_forum f
+JOIN mdl_modules m ON m.name = &#39;forum&#39;
+LEFT JOIN mdl_course_modules cm ON cm.course = f.course AND cm.instance = f.id AND cm.module = m.id
+LEFT JOIN mdl_course c ON c.id = f.course
+LEFT JOIN mdl_forum_discussions d ON d.forum = f.id
+LEFT JOIN mdl_forum_posts fp ON fp.discussion = d.id
+LEFT JOIN LATERAL (
+    SELECT (EXTRACT(ISODOW FROM TO_TIMESTAMP(p.created))::integer - 1) AS day
+      FROM mdl_forum_discussions d2
+      JOIN mdl_forum_posts p ON p.discussion = d2.id
+     WHERE d2.forum = f.id
+     GROUP BY 1
+     ORDER BY COUNT(DISTINCT p.id) DESC, 1
+     LIMIT 1
+) pd ON TRUE
+LEFT JOIN LATERAL (
+    SELECT EXTRACT(HOUR FROM TO_TIMESTAMP(p.created))::integer AS hour
+      FROM mdl_forum_discussions d2
+      JOIN mdl_forum_posts p ON p.discussion = d2.id
+     WHERE d2.forum = f.id
+     GROUP BY 1
+     ORDER BY COUNT(DISTINCT p.id) DESC, 1
+     LIMIT 1
+) ph ON TRUE
+LEFT JOIN LATERAL (
+    SELECT CEIL(EXTRACT(DAY FROM TO_TIMESTAMP(p.created)) / 7.0)::integer AS week
+      FROM mdl_forum_discussions d2
+      JOIN mdl_forum_posts p ON p.discussion = d2.id
+     WHERE d2.forum = f.id
+     GROUP BY 1
+     ORDER BY COUNT(DISTINCT p.id) DESC, 1
+     LIMIT 1
+) pw ON TRUE
+WHERE f.course = :courseid AND c.visible = 1
+GROUP BY f.id, c.id, cm.added, pd.day, ph.hour, pw.week
+ORDER BY all_posts DESC, f.name</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>Os indicadores <code>avg_month</code>, <code>avg_week</code> e <code>avg_day</code> são médias de postagens desde a inclusão do módulo, não médias do último mês, semana ou dia.</li><li>A versão MySQL calcula meses por <code>PERIOD_DIFF</code> e intervalos de dia por <code>DATEDIFF</code>; a versão PostgreSQL utiliza <code>AGE</code>, <code>CURRENT_DATE</code> e intervalos de calendário. O resultado pode variar conforme datas de referência e regras de arredondamento.</li><li>Ambas as versões protegem denominadores mínimos usando <code>GREATEST</code>, mas dependem da disponibilidade e significado da data <code>course_modules.added</code>.</li><li>No MySQL, as subconsultas ordenam contagens antes de agruparem somente pelo ID do fórum. Essa ordem não garante que os valores escolhidos para dia, hora e semana sejam os mais frequentes.</li><li>No PostgreSQL, as subconsultas <code>LATERAL</code> ordenam explicitamente pelo número distinto de postagens e desempatem por período, resultando em uma seleção mais bem definida.</li><li>O cálculo de semana popular usa faixas do dia do mês, e não a semana ISO do ano. Horas e dias dependem do fuso do banco de dados.</li><li>As contagens não distinguem postagem inicial de resposta e não exigem a situação ativa dos participantes ou visibilidade do módulo.</li><li>Postagens são um indicador de volume, não de qualidade da participação ou aprendizagem; o SQL não fornece um filtro de período selecionável.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-074.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-074-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="073.html">← Relatório 073</a><a href="075.html">Relatório 075 →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/forums.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
