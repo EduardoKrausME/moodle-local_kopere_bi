@@ -1,0 +1,69 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Apresenta a distribuição percentual do tempo registrado pelo Kopere BI por navegador e sistema operacional, para cada usuário e curso."><meta name="theme-color" content="#072c3a"><title>Relatório 016 · Sistemas operacionais e navegadores por usuário · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>
+.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}
+.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}
+.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}
+.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}
+.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}
+.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}
+.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}
+.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}
+.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}
+.report-meta{color:#54707b;font-size:13px}
+@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}
+</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/users.html">Usuários e perfis</a> / 016</div><div class="kicker">RELATÓRIO 016</div><h1>Sistemas operacionais e navegadores por usuário</h1><p class="lead">Apresenta a distribuição percentual do tempo registrado pelo Kopere BI por navegador e sistema operacional, para cada usuário e curso.</p><section><h2>Finalidade do relatório</h2><p>Apresenta a distribuição percentual do tempo registrado pelo Kopere BI por navegador e sistema operacional, para cada usuário e curso.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Ajuda equipes de suporte e tecnologia a entenderem o perfil tecnológico dos acessos registrados e identificarem possíveis necessidades de testes de compatibilidade em navegadores e dispositivos.</p></div><div class="report-navigation"><a href="#filtros">Filtros reais</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não existem parâmetros SQL dinâmicos</strong> de usuário, curso, coorte ou período. O relatório agrupa os registros disponíveis por usuário e curso, e não permite restringi-los pelo filtro <code>:courseid</code> com esta definição.</p><p>As condições fixas são <code>lit.page = 'course'</code>, <code>lit.courseid &gt; 1</code>, curso existente e visível, conta não excluída, não suspensa e diferente de <code>guest</code>. Não há limite temporal explícito.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>O relatório apresenta uma tabela e uma consulta SQL, com cache, atualização e destaque de sintaxe pela biblioteca Prism.js. Não existe variante PostgreSQL separada no catálogo original.</p><details class="report-block" open><summary>1. Sistemas operacionais e navegadores por usuário · Tabela</summary><div class="inner"><p>Tabela que relaciona estudante, curso, categoria do curso e percentuais de tempo para Firefox, Chrome, Safari, Edge, Opera, navegadores móveis e outras categorias, além de Windows, macOS, Linux, iOS, Android e outras plataformas. Cada percentual utiliza o tempo registrado naquela categoria dividido pelo total de tempo do respectivo agrupamento.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT MAX(lit.id) AS id,
+       u.id        AS userid,
+       u.firstname,
+       u.lastname,
+       u.email,
+       u.idnumber,
+       c.id        AS courseid,
+       c.fullname  AS course,
+       cc.name     AS category_name,
+       ROUND((SUM(CASE WHEN lit.useragent = &#39;Firefox&#39; THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),
+             2)    AS firefox,
+       ROUND((SUM(CASE WHEN lit.useragent = &#39;Chrome&#39; THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),
+             2)    AS chrome,
+       ROUND((SUM(CASE WHEN lit.useragent = &#39;Safari&#39; THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),
+             2)    AS safari,
+       ROUND((SUM(CASE
+                    WHEN lit.useragent = &#39;Microsoft Edge&#39; OR lit.useragent = &#39;Edge&#39; THEN lit.timespend
+                    ELSE 0 END) * 100) / SUM(lit.timespend),
+             2)    AS microsoft_edge,
+       ROUND((SUM(CASE WHEN lit.useragent = &#39;Opera&#39; THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),
+             2)    AS opera,
+       ROUND((SUM(CASE WHEN lit.useragent = &#39;Mobile browser&#39; THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),
+             2)    AS mobile_browser,
+       ROUND((SUM(CASE
+                    WHEN lit.useragent = &#39;Unknown Browser&#39; OR lit.useragent IS NULL THEN lit.timespend
+                    ELSE 0 END) * 100) / SUM(lit.timespend),
+             2)    AS other_browser,
+       ROUND((SUM(CASE WHEN lit.useros LIKE &#39;Windows%&#39; THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),
+             2)    AS windows,
+       ROUND((SUM(CASE WHEN lit.useros LIKE &#39;Mac OS%&#39; THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),
+             2)    AS mac_os,
+       ROUND((SUM(CASE WHEN lit.useros = &#39;Linux&#39; OR lit.useros = &#39;Ubuntu&#39; THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),
+             2)    AS linux,
+       ROUND((SUM(CASE
+                    WHEN lit.useros = &#39;iPhone&#39; OR lit.useros = &#39;iPod&#39; OR lit.useros = &#39;iPad&#39; THEN lit.timespend
+                    ELSE 0 END) * 100) / SUM(lit.timespend),
+             2)    AS ios,
+       ROUND((SUM(CASE WHEN lit.useros = &#39;Android&#39; THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),
+             2)    AS android,
+       ROUND((SUM(CASE WHEN lit.useros = &#39;Mobile&#39; THEN lit.timespend ELSE 0 END) * 100) / SUM(lit.timespend),
+             2)    AS mobile,
+       ROUND((SUM(CASE
+                    WHEN lit.useros = &#39;Unknown OS Platform&#39; OR lit.useros IS NULL THEN lit.timespend
+                    ELSE 0 END) * 100) / SUM(lit.timespend),
+             2)    AS other_platform
+FROM mdl_local_kopere_bi_tracking lit
+       LEFT JOIN mdl_course c ON c.id = lit.courseid
+       LEFT JOIN mdl_course_categories cc ON cc.id = c.category
+       LEFT JOIN mdl_user u ON u.id = lit.userid
+WHERE lit.page = &#39;course&#39;
+  AND lit.courseid &gt; 1
+  AND c.id IS NOT NULL
+  AND u.deleted = 0
+  AND u.suspended = 0
+  AND u.username != &#39;guest&#39;
+  AND c.visible = 1
+GROUP BY lit.courseid, lit.userid, u.id, c.id, cc.id</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>Os percentuais se baseiam no campo <code>timespend</code> do acompanhamento do Kopere BI, não em quantidade de visitas, sessões, usuários distintos ou tempo de aprendizagem efetiva.</li><li>Se a soma do tempo registrado para o agrupamento for zero, a divisão usada no SQL poderá retornar NULL ou exigir tratamento específico pelo banco.</li><li>Categorias de navegador e sistema operacional dependem dos valores gravados nos campos <code>useragent</code> e <code>useros</code>. Denominações não reconhecidas podem não ser completamente representadas pelas categorias previstas.</li><li>Navegadores e sistemas operacionais são dimensões distintas, de modo que os percentuais de ambas as dimensões não devem ser somados entre si.</li><li>Sem filtro temporal, os resultados representam o histórico disponível na tabela de acompanhamento. O arquivo não fornece uma variante PostgreSQL independente.</li><li>A tabela apresenta dados identificáveis dos usuários, inclusive e-mail; limite as permissões de acesso e de exportação.</li></ul></section><section><h2>Fonte técnica</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-016.json" target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="015.html">← Relatório 015</a><a href="017.html">Relatório 017 →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/users.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
