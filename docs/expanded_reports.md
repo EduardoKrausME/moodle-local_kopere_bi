@@ -48,16 +48,12 @@ backlogs. This change improves their existing SQL rather than adding duplicate p
 
 ### Applying changes to an existing Moodle site
 
-The bundled JSON applies to fresh installations automatically. Because the root
-`version.php` was deliberately not changed, existing installations will **not** receive
-this SQL through Moodle's ordinary upgrade process yet. The administrator may explicitly run:
+The Moodle upgrade to plugin database version `2026102401` automatically imports missing
+MySQL/PostgreSQL report variants and refreshes the refined analytics SQL. No separate
+Kopere BI CLI scripts are required; administrators can use the standard Moodle upgrade
+interface or `php admin/cli/upgrade.php --non-interactive` from the Moodle root.
 
-```bash
-php local/kopere_bi/cli/refresh_analytics_reports.php --dry-run
-php local/kopere_bi/cli/refresh_analytics_reports.php
-```
-
-The refresh installs missing report pages and replaces SQL only when the stored content still
-matches an exact checksum from the previously shipped version; customised SQL is retained.
-Existing table-column metadata is merged so that local formatting changes are preserved.
-A later authorised root version bump can invoke this refresh from `db/upgrade.php`.
+The upgrade keeps existing pages, blocks and elements, and changes SQL only when it matches
+an exact checksum from a previously shipped definition. Locally customised SQL remains
+untouched, and existing column formatting is preserved while missing columns are added.
+Moodle records the upgrade savepoint only after these operations complete.

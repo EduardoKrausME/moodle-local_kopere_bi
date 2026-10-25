@@ -23,6 +23,7 @@
  */
 
 use local_kopere_bi\install\reports;
+use local_kopere_bi\upgrade\analytics_report_refresh;
 use local_kopere_bi\upgrade\report_migrations;
 
 /**
@@ -466,6 +467,28 @@ function xmldb_local_kopere_bi_upgrade($oldversion) {
         report_migrations::fix_postgres_report_sql();
 
         upgrade_plugin_savepoint(true, 2026102202, "local", "kopere_bi");
+    }
+
+    if ($oldversion < 2026102401) {
+        // Import missing MySQL/PostgreSQL report variants without overwriting installed definitions.
+        $reportfiles = glob(__DIR__ . "/files/page-*-postgres.json");
+        if ($reportfiles === false || !$reportfiles) {
+            throw new \coding_exception("Unable to enumerate bundled PostgreSQL report definitions.");
+        }
+        foreach ($reportfiles as $reportfile) {
+            reports::from_file($reportfile, true);
+        }
+
+        // Shared dashboards include separate database-specific blocks.
+        foreach ([1, 4, 8] as $pagenumber) {
+            $pagefile = __DIR__ . "/files/page-" . sprintf("%03d", $pagenumber) . ".json";
+            reports::from_file($pagefile, true);
+        }
+
+        // Refresh stock analytics SQL and missing columns while preserving local customisations.
+        analytics_report_refresh::refresh();
+
+        upgrade_plugin_savepoint(true, 2026102401, "local", "kopere_bi");
     }
 
     return true;

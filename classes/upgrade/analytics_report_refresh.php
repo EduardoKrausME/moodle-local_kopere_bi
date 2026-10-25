@@ -44,8 +44,8 @@ final class analytics_report_refresh {
     /**
      * Update only stock SQL, merge additional columns and import missing bundled pages.
      *
-     * This explicit command can be used between version bumps; later releases can
-     * invoke it from the standard plugin upgrade. Admin edits remain untouched.
+     * Called from the standard Moodle plugin upgrade; administrative SQL customisations
+     * remain untouched. The dry-run flag is available for non-destructive checks.
      *
      * @param bool $dryrun Whether to inspect only.
      * @return array<string, int> Number of changed, already-current and preserved elements.

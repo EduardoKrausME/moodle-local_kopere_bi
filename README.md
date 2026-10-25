@@ -67,15 +67,12 @@ keys, while shared dashboards keep their database-specific blocks on the same pa
 selects the variant for the configured Moodle database engine.
 
 From plugin database version `2026102202`, the Moodle upgrade automatically installs missing
-MySQL/PostgreSQL report variants without overwriting customised SQL or settings.
-Administrators may also run this optional import command from the Moodle root:
-
-```bash
-php local/kopere_bi/cli/import_database_reports.php
-```
+MySQL/PostgreSQL report variants. The `2026102401` upgrade repeats the safe import for
+installations that missed it and refreshes bundled analytics SQL without overwriting
+customised report definitions. No dedicated CLI import script is required.
 
 The operation is idempotent: existing report definitions are preserved and only missing
-pages, blocks and elements are added. Automatic imports use the same preservation rules when upgrading an existing Moodle site.
+pages, blocks and elements are added. Run the normal Moodle upgrade process to apply it.
 
 ## MCP: report APIs
 
