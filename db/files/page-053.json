@@ -25,7 +25,7 @@
           "css": "",
           "html_before": "",
           "html_after": "",
-          "commandsql": "SELECT kbi_u.id,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.idnumber,\n       kbi_c.id AS courseid,\n       kbi_c.fullname\nFROM mdl_course kbi_c\n       JOIN mdl_context kbi_con ON kbi_con.contextlevel = 50 AND kbi_con.instanceid = kbi_c.id\n       JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_con.id\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid\n       LEFT JOIN (SELECT t.userid, t.courseid\n                  FROM (SELECT kbi_gg.itemid, kbi_gg.userid, kbi_gi.courseid\n                        FROM mdl_grade_grades kbi_gg\n                               JOIN mdl_grade_items kbi_gi ON kbi_gi.id = kbi_gg.itemid\n                        WHERE kbi_gi.itemtype = 'category') t\n                  GROUP BY t.userid, t.courseid) gt ON gt.userid = kbi_u.id AND gt.courseid = kbi_c.id\nWHERE kbi_c.id > 0\n  AND kbi_c.visible = 1\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_ra.roleid = 5\nGROUP BY kbi_u.id, kbi_c.id",
+          "commandsql": "SELECT DISTINCT CONCAT(u.id,'-',co.id,'-',COALESCE(gi.id,0)) AS id,\n u.id AS userid,u.firstname,u.lastname,u.idnumber,co.id AS courseid,co.fullname,\n gc.fullname AS category_name,gg.finalgrade,gi.grademax AS grade_max,\n CASE WHEN gi.grademax>gi.grademin AND gg.finalgrade IS NOT NULL\n THEN ROUND(100.0*(gg.finalgrade-gi.grademin)/NULLIF(gi.grademax-gi.grademin,0),2) END AS grade_percent,\n gg.timemodified AS grade_updated\nFROM mdl_course co JOIN mdl_context cx ON cx.contextlevel=50 AND cx.instanceid=co.id\n JOIN mdl_role_assignments ra ON ra.contextid=cx.id\n JOIN mdl_role r ON r.id=ra.roleid AND r.archetype='student'\n JOIN mdl_user u ON u.id=ra.userid\n LEFT JOIN mdl_grade_items gi ON gi.courseid=co.id AND gi.itemtype='category'\n LEFT JOIN mdl_grade_categories gc ON gc.id=gi.iteminstance\n LEFT JOIN mdl_grade_grades gg ON gg.itemid=gi.id AND gg.userid=u.id\nWHERE co.id>1 AND co.visible=1 AND u.deleted=0 AND u.suspended=0 AND u.username<>'guest'\nORDER BY co.fullname,u.lastname,u.firstname,gc.fullname",
           "cache": "1h",
           "reload": "none",
           "info": {
@@ -33,6 +33,12 @@
               "id": {
                 "key": "id",
                 "title": "#",
+                "type": "none",
+                "mustache": ""
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
                 "type": "number",
                 "mustache": ""
               },
@@ -40,7 +46,7 @@
                 "key": "firstname",
                 "title": "lang::report_field_firstname_title::local_kopere_bi",
                 "type": "userfullname",
-                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{id}}}\" target=\"profile\">{{{u_fullname}}}</a>"
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
               },
               "lastname": {
                 "key": "lastname",
@@ -51,7 +57,7 @@
               "idnumber": {
                 "key": "idnumber",
                 "title": "lang::report_field_idnumber_title::local_kopere_bi",
-                "type": "number",
+                "type": "string",
                 "mustache": ""
               },
               "courseid": {
@@ -65,6 +71,36 @@
                 "title": "lang::report_field_fullname_title::local_kopere_bi",
                 "type": "string",
                 "mustache": "<a href=\"{{{config.wwwroot}}}/course/view.php?id={{{courseid}}}\" target=\"course\">{{{fullname}}}</a>"
+              },
+              "category_name": {
+                "key": "category_name",
+                "title": "lang::report_fix_grade_category_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "finalgrade": {
+                "key": "finalgrade",
+                "title": "lang::report_field_finalgrade_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "grade_max": {
+                "key": "grade_max",
+                "title": "lang::report_fix_grade_max_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "grade_percent": {
+                "key": "grade_percent",
+                "title": "lang::report_field_grade_percent_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "grade_updated": {
+                "key": "grade_updated",
+                "title": "lang::report_fix_grade_updated_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
               }
             }
           }

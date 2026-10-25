@@ -25,11 +25,17 @@
           "css": "",
           "html_before": "",
           "html_after": "",
-          "commandsql": "SELECT kbi_a.name                               as assignment,\n       kbi_a.duedate,\n       kbi_c.fullname                           as course,\n       kbi_s.status,\n       kbi_s.timemodified                       AS submitted,\n       kbi_u.email,\n       kbi_u.idnumber,\n       kbi_u.phone1,\n       kbi_u.phone2,\n       kbi_u.institution,\n       kbi_u.department,\n       kbi_u.address,\n       kbi_u.city,\n       kbi_u.country,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       ROUND((CASE\n                WHEN kbi_gg.rawgrademax > 0 THEN (kbi_gg.finalgrade / kbi_gg.rawgrademax) * 100\n                ELSE kbi_gg.finalgrade END), 0) AS grade\nFROM mdl_assign kbi_a\n       LEFT JOIN (SELECT kbi_e.courseid, kbi_ue.userid\n                  FROM mdl_user_enrolments kbi_ue, mdl_enrol kbi_e\n                  WHERE kbi_e.id = kbi_ue.enrolid\n                  GROUP BY kbi_e.courseid, kbi_ue.userid) ue ON ue.courseid = kbi_a.course\n       LEFT JOIN mdl_user kbi_u ON kbi_u.id = ue.userid\n       LEFT JOIN mdl_assign_submission kbi_s ON kbi_s.assignment = kbi_a.id AND kbi_s.userid = kbi_u.id\n       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_a.course\n       LEFT JOIN mdl_modules kbi_m ON kbi_m.name = 'assign'\n       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.instance = kbi_a.id AND kbi_cm.module = kbi_m.id\n       LEFT JOIN mdl_grade_items kbi_gi\n         ON kbi_gi.courseid = kbi_c.id AND kbi_gi.itemtype = 'mod' AND kbi_gi.itemmodule = kbi_m.name AND kbi_gi.iteminstance = kbi_cm.instance\n       LEFT JOIN mdl_grade_grades kbi_gg ON kbi_gg.itemid = kbi_gi.id AND kbi_gg.userid = kbi_u.id\nWHERE kbi_a.id > 0\n  AND kbi_c.id = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_cm.visible = 1\n  AND (kbi_s.timemodified > kbi_a.duedate or kbi_s.timemodified IS NULL)\nORDER BY kbi_c.fullname, kbi_a.name, kbi_u.lastname, kbi_u.firstname",
+          "commandsql": "SELECT CONCAT(a.id,'-',u.id) AS id, a.name AS assignment,a.duedate,co.fullname AS course,\n COALESCE(s.status,'new') AS status,s.timemodified AS submitted,\n CASE WHEN s.status='submitted' THEN 'late' ELSE 'pending' END AS overdue_status,\n CASE WHEN s.status='submitted' THEN FLOOR((s.timemodified-a.duedate)/86400)\n ELSE FLOOR((UNIX_TIMESTAMP()-a.duedate)/86400) END AS days_overdue,\n u.id AS userid,u.email,u.idnumber,u.phone1,u.phone2,u.institution,u.department,\n u.address,u.city,u.country,u.firstname,u.lastname,\n CASE WHEN gi.grademax>gi.grademin AND gg.finalgrade IS NOT NULL\n THEN ROUND(100.0*(gg.finalgrade-gi.grademin)/NULLIF(gi.grademax-gi.grademin,0),2) END AS grade\nFROM mdl_assign a\n JOIN mdl_course co ON co.id=a.course\n JOIN mdl_modules m ON m.name='assign'\n JOIN mdl_course_modules cm ON cm.course=co.id AND cm.instance=a.id AND cm.module=m.id\n JOIN (SELECT DISTINCT en.courseid,ue.userid FROM mdl_user_enrolments ue\n JOIN mdl_enrol en ON en.id=ue.enrolid WHERE en.status=0 AND ue.status=0\n AND (ue.timestart=0 OR ue.timestart<=UNIX_TIMESTAMP())\n AND (ue.timeend=0 OR ue.timeend>UNIX_TIMESTAMP())) enrolled ON enrolled.courseid=co.id\n JOIN mdl_user u ON u.id=enrolled.userid\n LEFT JOIN mdl_assign_submission s ON s.assignment=a.id AND s.userid=u.id\n AND s.attemptnumber=(SELECT MAX(s2.attemptnumber) FROM mdl_assign_submission s2\n WHERE s2.assignment=a.id AND s2.userid=u.id)\n LEFT JOIN mdl_grade_items gi ON gi.courseid=co.id AND gi.itemtype='mod'\n AND gi.itemmodule='assign' AND gi.iteminstance=a.id\n LEFT JOIN mdl_grade_grades gg ON gg.itemid=gi.id AND gg.userid=u.id\nWHERE co.id=:courseid AND co.visible=1 AND cm.visible=1 AND cm.deletioninprogress=0\n AND u.deleted=0 AND u.suspended=0 AND u.username<>'guest'\n AND a.duedate>0 AND a.duedate<UNIX_TIMESTAMP()\n AND (s.status IS NULL OR s.status<>'submitted' OR s.timemodified>a.duedate)\nORDER BY a.duedate,u.lastname,u.firstname",
           "cache": "1h",
           "reload": "none",
           "info": {
             "column": {
+              "id": {
+                "key": "id",
+                "title": "lang::report_field_id_title::local_kopere_bi",
+                "type": "none",
+                "mustache": ""
+              },
               "assignment": {
                 "key": "assignment",
                 "title": "lang::report_field_assignment_title::local_kopere_bi",
@@ -51,13 +57,31 @@
               "status": {
                 "key": "status",
                 "title": "lang::report_field_status_title::local_kopere_bi",
-                "type": "status",
+                "type": "string",
                 "mustache": ""
               },
               "submitted": {
                 "key": "submitted",
                 "title": "lang::report_field_submitted_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "overdue_status": {
+                "key": "overdue_status",
+                "title": "lang::report_fix_overdue_state_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "days_overdue": {
+                "key": "days_overdue",
+                "title": "lang::report_fix_days_overdue_title::local_kopere_bi",
                 "type": "number",
+                "mustache": ""
+              },
+              "userid": {
+                "key": "userid",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "none",
                 "mustache": ""
               },
               "email": {
@@ -69,7 +93,7 @@
               "idnumber": {
                 "key": "idnumber",
                 "title": "lang::report_field_idnumber_title::local_kopere_bi",
-                "type": "number",
+                "type": "string",
                 "mustache": ""
               },
               "phone1": {
@@ -111,14 +135,14 @@
               "country": {
                 "key": "country",
                 "title": "lang::report_field_country_title::local_kopere_bi",
-                "type": "number",
+                "type": "string",
                 "mustache": ""
               },
               "firstname": {
                 "key": "firstname",
                 "title": "lang::report_field_firstname_title::local_kopere_bi",
                 "type": "userfullname",
-                "mustache": ""
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid}}}\" target=\"profile\">{{{u_fullname}}}</a>"
               },
               "lastname": {
                 "key": "lastname",

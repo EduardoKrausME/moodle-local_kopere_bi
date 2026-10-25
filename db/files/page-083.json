@@ -25,7 +25,7 @@
           "css": "",
           "html_before": "",
           "html_after": "",
-          "commandsql": "SELECT kbi_fi.id,\n       kbi_fi.name,\n       AVG(CASE WHEN (kbi_fi.typ = 'numeric'\n                    OR (kbi_fi.typ = 'multichoicerated'\n                        AND kbi_fi.presentation NOT LIKE 'c>>>>>%'))\n                    AND kbi_fv.value IS NOT NULL\n                    AND kbi_fv.value <> ''\n                    AND kbi_fv.value NOT LIKE '%|%'\n                THEN CAST(kbi_fv.value AS DECIMAL(12, 4))\n                ELSE NULL END) AS avg_value\nFROM mdl_feedback kbi_f\nJOIN mdl_feedback_completed kbi_fc ON kbi_fc.feedback = kbi_f.id\nJOIN mdl_feedback_item kbi_fi ON kbi_fi.feedback = kbi_f.id\nJOIN mdl_feedback_value kbi_fv ON kbi_fv.completed = kbi_fc.id AND kbi_fv.item = kbi_fi.id\nWHERE kbi_f.id > 0\nGROUP BY kbi_fi.id, kbi_fi.name",
+          "commandsql": "SELECT fi.id,f.name AS feedback_name,f.course AS courseid,fi.name,\n COUNT(v.id) AS responses,COUNT(DISTINCT fc.id) AS respondents,\n SUM(CASE WHEN (fi.typ='numeric' OR (fi.typ='multichoicerated' AND fi.presentation NOT LIKE 'c>>>>>%'))\n AND v.value IS NOT NULL AND v.value<>'' AND v.value NOT LIKE '%|%' THEN 1 ELSE 0 END) AS numeric_responses,\n AVG(CASE WHEN (fi.typ='numeric' OR (fi.typ='multichoicerated' AND fi.presentation NOT LIKE 'c>>>>>%'))\n AND v.value IS NOT NULL AND v.value<>'' AND v.value NOT LIKE '%|%'\n THEN CAST(v.value AS DECIMAL(12,4)) END) AS avg_value\nFROM mdl_feedback f JOIN mdl_feedback_completed fc ON fc.feedback=f.id\n JOIN mdl_feedback_item fi ON fi.feedback=f.id\n JOIN mdl_feedback_value v ON v.completed=fc.id AND v.item=fi.id\nWHERE f.id>0 GROUP BY fi.id,fi.name,f.id,f.name,f.course",
           "cache": "1h",
           "reload": "none",
           "info": {
@@ -36,10 +36,46 @@
                 "type": "number",
                 "mustache": ""
               },
+              "feedback_name": {
+                "key": "feedback_name",
+                "title": "lang::report_fix_feedback_name_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "courseid": {
+                "key": "courseid",
+                "title": "lang::report_field_courseid_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
               "name": {
                 "key": "name",
                 "title": "lang::report_field_name_title::local_kopere_bi",
                 "type": "string",
+                "mustache": ""
+              },
+              "responses": {
+                "key": "responses",
+                "title": "lang::report_fix_responses_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "respondents": {
+                "key": "respondents",
+                "title": "lang::report_fix_respondents_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "numeric_responses": {
+                "key": "numeric_responses",
+                "title": "lang::report_fix_numeric_responses_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "avg_value": {
+                "key": "avg_value",
+                "title": "lang::report_fix_avg_value_title::local_kopere_bi",
+                "type": "number",
                 "mustache": ""
               }
             }

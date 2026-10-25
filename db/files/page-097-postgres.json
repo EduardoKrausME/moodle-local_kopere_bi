@@ -25,20 +25,86 @@
           "css": "",
           "html_before": "",
           "html_after": "",
-          "commandsql": "SELECT kbi_m.id,\n       kbi_uf.id                                         AS userid_from,\n       kbi_uf.firstname                                  AS firstname_from,\n       kbi_uf.lastname                                   AS lastname_from,\n       kbi_uf.email                                      AS email_from,\n       STRING_AGG(DISTINCT (kbi_rf.name)::text, ', ') AS role_from,\n       kbi_m.timecreated,\n       kbi_ut.id                                         AS userid_to,\n       kbi_ut.firstname                                  AS firstname_to,\n       kbi_ut.lastname                                   AS lastname_to,\n       kbi_ut.email                                      AS email_to,\n       STRING_AGG(DISTINCT (kbi_rt.name)::text, ', ') AS role_to\nFROM mdl_messages kbi_m\n       JOIN mdl_user kbi_uf ON kbi_uf.id = kbi_m.useridfrom\n       JOIN mdl_message_conversation_members kbi_mcm ON kbi_mcm.conversationid = kbi_m.conversationid AND kbi_mcm.userid <> kbi_m.useridfrom\n       JOIN mdl_user kbi_ut ON kbi_ut.id = kbi_mcm.userid\n       JOIN mdl_context kbi_ctx ON kbi_ctx.contextlevel = 10\n       LEFT JOIN mdl_role_assignments kbi_raf ON kbi_raf.contextid = kbi_ctx.id AND kbi_raf.userid = kbi_uf.id\n       LEFT JOIN mdl_role kbi_rf ON kbi_rf.id = kbi_raf.roleid\n       LEFT JOIN mdl_role_assignments kbi_rat ON kbi_rat.contextid = kbi_ctx.id AND kbi_rat.userid = kbi_ut.id\n       LEFT JOIN mdl_role kbi_rt ON kbi_rt.id = kbi_rat.roleid\nWHERE kbi_m.timecreated > 0\nGROUP BY kbi_m.id, kbi_uf.id, kbi_ut.id\nORDER BY kbi_m.timecreated DESC, kbi_uf.lastname, kbi_ut.lastname",
+          "commandsql": "SELECT CONCAT(m.id,'-',rec.id) AS id,m.id AS messageid,\n sender.id AS userid_from,sender.firstname AS firstname_from,sender.lastname AS lastname_from,\n sender.email AS email_from,rf.roles AS role_from,m.timecreated,\n rec.id AS userid_to,rec.firstname AS firstname_to,rec.lastname AS lastname_to,\n rec.email AS email_to,rt.roles AS role_to\nFROM mdl_messages m JOIN mdl_user sender ON sender.id=m.useridfrom\n JOIN mdl_message_conversation_members mc ON mc.conversationid=m.conversationid AND mc.userid<>m.useridfrom\n JOIN mdl_user rec ON rec.id=mc.userid\n LEFT JOIN (SELECT ra.userid,STRING_AGG(DISTINCT r.name::text, ', ') AS roles\n FROM mdl_role_assignments ra JOIN mdl_context cx ON cx.id=ra.contextid AND cx.contextlevel=10\n JOIN mdl_role r ON r.id=ra.roleid GROUP BY ra.userid) rf ON rf.userid=sender.id\n LEFT JOIN (SELECT ra.userid,STRING_AGG(DISTINCT r.name::text, ', ') AS roles\n FROM mdl_role_assignments ra JOIN mdl_context cx ON cx.id=ra.contextid AND cx.contextlevel=10\n JOIN mdl_role r ON r.id=ra.roleid GROUP BY ra.userid) rt ON rt.userid=rec.id\nWHERE m.timecreated>0 ORDER BY m.timecreated DESC,m.id DESC,rec.id",
           "cache": "1h",
           "reload": "none",
           "info": {
             "column": {
               "id": {
                 "key": "id",
-                "title": "#",
+                "title": "lang::report_field_id_title::local_kopere_bi",
+                "type": "none",
+                "mustache": ""
+              },
+              "messageid": {
+                "key": "messageid",
+                "title": "lang::report_fix_message_id_title::local_kopere_bi",
                 "type": "number",
                 "mustache": ""
               },
-              "userid_": {
-                "key": "userid_",
+              "userid_from": {
+                "key": "userid_from",
                 "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "none",
+                "mustache": ""
+              },
+              "firstname_from": {
+                "key": "firstname_from",
+                "title": "lang::report_fix_sender_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid_from}}}\" target=\"profile\">{{{firstname_from}}} {{{lastname_from}}}</a>"
+              },
+              "lastname_from": {
+                "key": "lastname_from",
+                "title": "lang::report_fix_sender_title::local_kopere_bi",
+                "type": "none",
+                "mustache": ""
+              },
+              "email_from": {
+                "key": "email_from",
+                "title": "lang::report_fix_sender_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "role_from": {
+                "key": "role_from",
+                "title": "lang::report_fix_sender_roles_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "timecreated": {
+                "key": "timecreated",
+                "title": "lang::report_field_timecreated_title::local_kopere_bi",
+                "type": "datetime",
+                "mustache": ""
+              },
+              "userid_to": {
+                "key": "userid_to",
+                "title": "lang::report_field_userid_title::local_kopere_bi",
+                "type": "none",
+                "mustache": ""
+              },
+              "firstname_to": {
+                "key": "firstname_to",
+                "title": "lang::report_fix_recipient_title::local_kopere_bi",
+                "type": "string",
+                "mustache": "<a href=\"{{{config.wwwroot}}}/user/view.php?id={{{userid_to}}}\" target=\"profile\">{{{firstname_to}}} {{{lastname_to}}}</a>"
+              },
+              "lastname_to": {
+                "key": "lastname_to",
+                "title": "lang::report_fix_recipient_title::local_kopere_bi",
+                "type": "none",
+                "mustache": ""
+              },
+              "email_to": {
+                "key": "email_to",
+                "title": "lang::report_fix_recipient_email_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "role_to": {
+                "key": "role_to",
+                "title": "lang::report_fix_recipient_roles_title::local_kopere_bi",
                 "type": "string",
                 "mustache": ""
               }
