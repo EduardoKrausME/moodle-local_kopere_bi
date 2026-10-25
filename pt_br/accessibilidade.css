@@ -1,0 +1,15 @@
+/* Accessibility and responsiveness improvements scoped to PT-BR documentation. */
+html{scroll-padding-top:6rem}
+.sidebar-label{color:#526779}
+.kicker{color:#006d75}
+.foot{color:#526779}
+.article .category-caption{color:#526779}
+.article .tiny{color:#526779}
+:is(a,button,input,summary,[tabindex]):focus-visible{outline:3px solid #006875;outline-offset:3px}
+.report-navigation a:focus-visible,.pager a:focus-visible{outline:3px solid #006875;outline-offset:3px}
+summary{scroll-margin-top:6rem}
+h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
+pre.sql-source{max-width:100%;overflow:auto;overscroll-behavior-x:contain}
+pre.sql-source:focus-visible{outline:3px solid #006875;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.card-link{transition:none!important}}
+@media (max-width:750px){.report-navigation{flex-wrap:wrap}.pager a{max-width:100%;overflow-wrap:anywhere}}
