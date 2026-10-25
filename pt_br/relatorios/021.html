@@ -1,0 +1,48 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Tabela consolidada por usuário com média calculada de notas de curso, quantidade de cursos matriculados, conclusões formais e dados de tempo e visitas registrados pelo Kopere BI."><meta name="theme-color" content="#072c3a"><title>Relatório 021 · Resumo detalhado da utilização da plataforma pelos usuários · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>
+.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}
+.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}
+.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}
+.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}
+.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}
+.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}
+.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}
+.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}
+.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}
+.report-meta{color:#54707b;font-size:13px}
+@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}
+</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/users.html">Usuários e perfis</a> / 021</div><div class="kicker">RELATÓRIO 021</div><h1>Resumo detalhado da utilização da plataforma pelos usuários</h1><p class="lead">Tabela consolidada por usuário com média calculada de notas de curso, quantidade de cursos matriculados, conclusões formais e dados de tempo e visitas registrados pelo Kopere BI.</p><section><h2>Finalidade do relatório</h2><p>Tabela consolidada por usuário com média calculada de notas de curso, quantidade de cursos matriculados, conclusões formais e dados de tempo e visitas registrados pelo Kopere BI.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Facilita obter uma visão agregada da utilização da plataforma, combinando indicadores acadêmicos de matrícula e conclusão com registros de acompanhamento por usuário para análises administrativas iniciais.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>Não há filtros SQL dinâmicos de curso, usuário, coorte ou período. O resultado considera usuários com <code>id &gt; 0</code>, não excluídos, não suspensos e diferentes de <code>guest</code>.</p><p>No agregado acadêmico são consideradas apenas matrículas e métodos de matrícula com status <code>0</code>. As estatísticas de acompanhamento usam os registros disponíveis em <code>mdl_local_kopere_bi_tracking</code> e <code>mdl_local_kopere_bi_track_log</code>, sem restringir intervalo temporal.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>O relatório apresenta uma tabela e 1 consulta SQL, com destaque de sintaxe pela biblioteca Prism.js. O catálogo possui apenas uma definição SQL deste relatório, sem variante PostgreSQL separada.</p><details class="report-block" open><summary>1. Resumo detalhado da utilização da plataforma pelos usuários · Tabela</summary><div class="inner"><p>Uma tabela por usuário com nome, e-mail, criação da conta, nota média calculada, número de cursos, cursos concluídos formalmente, tempo total registrado e visitas somadas de logs de acompanhamento.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT kbi_u.id,
+       CONCAT(kbi_u.firstname, &#39; &#39;, kbi_u.lastname) as user,
+       kbi_u.email,
+       kbi_u.timecreated,
+       sub.grade,
+       sub.courses,
+       sub.completed_courses,
+       lit.timespend                        AS timespend,
+       lit.visits                           AS visits
+FROM mdl_user kbi_u
+       LEFT JOIN (SELECT kbi_ue.userid,
+                         ROUND(AVG(CASE
+                                     WHEN kbi_g.rawgrademax &gt; 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                                     ELSE kbi_g.finalgrade END), 0) AS grade,
+                         COUNT(DISTINCT kbi_e.courseid)             as courses,
+                         COUNT(DISTINCT kbi_cc.course)              as completed_courses
+                  FROM mdl_user_enrolments kbi_ue
+                         LEFT JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+                         LEFT JOIN mdl_course_completions kbi_cc
+                           ON kbi_cc.timecompleted &gt; 0 AND kbi_cc.course = kbi_e.courseid AND kbi_cc.userid = kbi_ue.userid
+                         LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.itemtype = &#39;course&#39; AND kbi_gi.courseid = kbi_e.courseid
+                         LEFT JOIN mdl_grade_grades kbi_g
+                           ON kbi_g.userid = kbi_ue.userid AND kbi_g.itemid = kbi_gi.id AND kbi_g.finalgrade IS NOT NULL
+                  WHERE kbi_ue.userid &gt; 0
+                    AND kbi_ue.status = 0
+                    AND kbi_e.status = 0
+                  GROUP BY kbi_ue.userid) sub ON sub.userid = kbi_u.id
+       LEFT JOIN (SELECT kbi_lit.userid, SUM(kbi_lil.timespend) as timespend, SUM(kbi_lil.visits) as visits
+                  FROM mdl_local_kopere_bi_tracking kbi_lit
+                         JOIN mdl_local_kopere_bi_track_log kbi_lil ON kbi_lil.trackid = kbi_lit.id
+                  WHERE kbi_lil.id &gt; 0
+                  GROUP BY kbi_lit.userid) lit ON lit.userid = kbi_u.id
+WHERE kbi_u.id &gt; 0
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>A média de notas é calculada sobre registros de avaliação disponíveis. Não representa necessariamente uma média ponderada por curso, carga horária ou créditos; usuários sem notas podem aparecer com campo vazio.</li><li>A quantidade de cursos distintos considera métodos e matrículas com status zero, mas não verifica explicitamente prazos de expiração ou visibilidade de cursos.</li><li>Os cursos concluídos são identificados por registros em <code>mdl_course_completions</code> com <code>timecompleted &gt; 0</code>. Conclusão formal difere de concluir atividades isoladas.</li><li>O tempo e as visitas são agregados de logs associados à tabela de tracking. A qualidade e completude dependem da coleta e retenção do Kopere BI; tempo não equivale a engajamento pedagógico comprovado.</li><li>As junções entre matrículas e itens de notas podem produzir diferentes quantidades de registros, afetando a interpretação da média. Valide os indicadores antes de decisões institucionais.</li><li>Os indicadores podem estar ausentes para usuários sem matrículas, notas ou registros de acompanhamento. Não confunda ausência de dado com zero.</li><li>Não há variante PostgreSQL separada para este relatório; o SQL foi preservado exatamente como está na definição.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-021.json" target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="020.html">← Relatório 020</a><a href="../relatorios.html">Todas as categorias →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/users.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>

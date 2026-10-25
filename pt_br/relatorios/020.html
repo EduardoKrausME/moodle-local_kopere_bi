@@ -1,0 +1,84 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Tabela de atribuições de papéis em um curso e informações sobre alterações de papéis registradas no histórico temporário do Kopere BI."><meta name="theme-color" content="#072c3a"><title>Relatório 020 · Papéis dos usuários e alterações de papel · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>
+.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}
+.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}
+.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}
+.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}
+.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}
+.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}
+.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}
+.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}
+.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}
+.report-meta{color:#54707b;font-size:13px}
+@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}
+</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/users.html">Usuários e perfis</a> / 020</div><div class="kicker">RELATÓRIO 020</div><h1>Papéis dos usuários e alterações de papel</h1><p class="lead">Tabela de atribuições de papéis em um curso e informações sobre alterações de papéis registradas no histórico temporário do Kopere BI.</p><section><h2>Finalidade do relatório</h2><p>Tabela de atribuições de papéis em um curso e informações sobre alterações de papéis registradas no histórico temporário do Kopere BI.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>É útil para administradores verificarem os papéis associados aos participantes de um curso e investigarem indícios de alterações de atribuição de papel, incluindo ação, autor e usuário relacionado, quando esses registros estão disponíveis.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>O filtro dinâmico disponível é <strong>Curso</strong>, associado ao parâmetro SQL <code>:courseid</code>. A consulta utiliza esse valor para selecionar atribuições do curso informado.</p><p>Os critérios fixos abrangem contextos de curso (<code>contextlevel = 50</code>), registros de atribuição existentes e, na subconsulta de eventos, ações <code>assigned</code> ou <code>unassigned</code> com alvo <code>role</code>. Não há filtro SQL dinâmico de usuário, coorte ou período.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>O relatório apresenta uma tabela e 2 consultas SQL, com destaque de sintaxe pela biblioteca Prism.js. As duas variantes MySQL e PostgreSQL estão reunidas no mesmo bloco de visualização, cada uma em sua própria caixa.</p><details class="report-block" open><summary>1. Papéis dos usuários e alterações de papel · Tabela</summary><div class="inner"><p>Uma tabela agrupa as atribuições por usuário e curso, apresenta os nomes curtos dos papéis atribuídos e informações resumidas do último evento relacionado, como ação, papel, data e pessoa que realizou a alteração. As consultas MySQL e PostgreSQL diferem nas funções de agregação e na conversão de data para texto.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT MIN(kbi_ra.id),
+       kbi_c.id                                                                    AS courseid,
+       kbi_c.fullname                                                              AS course_name,
+       GROUP_CONCAT(DISTINCT kbi_r0.shortname)                                     AS role,
+       MIN(lsl.all_count)                                                      AS all_count,
+       CASE WHEN MIN(lsl.all_count) &gt; 1 THEN MAX(kbi_r.shortname) ELSE &#39;-&#39; END     AS action_role,
+       CASE WHEN MIN(lsl.all_count) &gt; 1 THEN MAX(kbi_log.action) ELSE &#39;-&#39; END      AS action,
+       CASE WHEN MIN(lsl.all_count) &gt; 1 THEN MAX(kbi_log.timecreated) ELSE &#39;-&#39; END AS timecreated,
+       CASE
+         WHEN MIN(lsl.all_count) &gt; 1 THEN MAX(CONCAT(kbi_u_action.firstname, &#39; &#39;, kbi_u_action.lastname))
+         ELSE &#39;-&#39; END                                                          AS user_action,
+       MAX(kbi_u_action.id)                                                        AS user_action_id,
+       MAX(kbi_u_related.firstname)                                                AS firstname,
+       MAX(kbi_u_related.lastname)                                                 AS lastname,
+       MAX(kbi_u_related.email)                                                    AS email,
+       MAX(kbi_u_related.id)                                                       AS user_related_id
+FROM mdl_role_assignments kbi_ra
+       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+       LEFT JOIN mdl_role kbi_r0 ON kbi_r0.id = kbi_ra.roleid
+       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_ctx.instanceid
+       LEFT JOIN (SELECT kbi_lsl.courseid, kbi_lsl.relateduserid, MAX(kbi_lsl.id) AS last_change, COUNT(kbi_lsl.id) AS all_count
+                  FROM mdl_local_kopere_bi_log_tmp kbi_lsl
+                         JOIN mdl_role_assignments kbi_ra1 ON kbi_ra1.userid = kbi_lsl.relateduserid
+                         JOIN mdl_context kbi_ctx1 ON kbi_ctx1.id = kbi_ra1.contextid AND kbi_ctx1.instanceid = kbi_lsl.courseid
+                  WHERE (kbi_lsl.action = &#39;assigned&#39; OR kbi_lsl.action = &#39;unassigned&#39;)
+                    AND kbi_lsl.target = &#39;role&#39;
+                    AND kbi_lsl.contextlevel = 50
+                    AND kbi_ctx1.contextlevel = 50
+                  GROUP BY kbi_lsl.courseid, kbi_lsl.relateduserid) lsl ON lsl.courseid = kbi_c.id AND lsl.relateduserid = kbi_ra.userid
+       LEFT JOIN mdl_local_kopere_bi_log_tmp kbi_log ON kbi_log.id = lsl.last_change
+       LEFT JOIN mdl_role kbi_r ON kbi_r.id = kbi_log.objectid
+       LEFT JOIN mdl_user kbi_u_action ON kbi_u_action.id = kbi_log.userid
+       LEFT JOIN mdl_user kbi_u_related ON kbi_u_related.id = kbi_log.relateduserid
+WHERE kbi_ra.id &gt; 0
+  AND kbi_c.id = :courseid
+GROUP BY kbi_ra.userid, kbi_c.id</code></pre></div>
+<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT MIN(kbi_ra.id),
+       kbi_c.id                                                                    AS courseid,
+       kbi_c.fullname                                                              AS course_name,
+       STRING_AGG(DISTINCT (kbi_r0.shortname)::text, &#39;,&#39;)                                     AS role,
+       MIN(lsl.all_count)                                                      AS all_count,
+       CASE WHEN MIN(lsl.all_count) &gt; 1 THEN MAX(kbi_r.shortname) ELSE &#39;-&#39; END     AS action_role,
+       CASE WHEN MIN(lsl.all_count) &gt; 1 THEN MAX(kbi_log.action) ELSE &#39;-&#39; END      AS action,
+       CASE WHEN MIN(lsl.all_count) &gt; 1 THEN MAX(kbi_log.timecreated)::text ELSE &#39;-&#39; END AS timecreated,
+       CASE
+         WHEN MIN(lsl.all_count) &gt; 1 THEN MAX(CONCAT(kbi_u_action.firstname, &#39; &#39;, kbi_u_action.lastname))
+         ELSE &#39;-&#39; END                                                          AS user_action,
+       MAX(kbi_u_action.id)                                                        AS user_action_id,
+       MAX(kbi_u_related.firstname)                                                AS firstname,
+       MAX(kbi_u_related.lastname)                                                 AS lastname,
+       MAX(kbi_u_related.email)                                                    AS email,
+       MAX(kbi_u_related.id)                                                       AS user_related_id
+FROM mdl_role_assignments kbi_ra
+       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+       LEFT JOIN mdl_role kbi_r0 ON kbi_r0.id = kbi_ra.roleid
+       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_ctx.instanceid
+       LEFT JOIN(SELECT kbi_lsl.courseid, kbi_lsl.relateduserid, MAX(kbi_lsl.id) AS last_change, COUNT(kbi_lsl.id) AS all_count
+                  FROM mdl_local_kopere_bi_log_tmp kbi_lsl
+                         JOIN mdl_role_assignments kbi_ra1 ON kbi_ra1.userid = kbi_lsl.relateduserid
+                         JOIN mdl_context kbi_ctx1 ON kbi_ctx1.id = kbi_ra1.contextid AND kbi_ctx1.instanceid = kbi_lsl.courseid
+                  WHERE(kbi_lsl.action = &#39;assigned&#39; OR kbi_lsl.action = &#39;unassigned&#39;)
+                    AND kbi_lsl.target = &#39;role&#39;
+                    AND kbi_lsl.contextlevel = 50
+                    AND kbi_ctx1.contextlevel = 50
+                  GROUP BY kbi_lsl.courseid, kbi_lsl.relateduserid) lsl ON lsl.courseid = kbi_c.id AND lsl.relateduserid = kbi_ra.userid
+       LEFT JOIN mdl_local_kopere_bi_log_tmp kbi_log ON kbi_log.id = lsl.last_change
+       LEFT JOIN mdl_role kbi_r ON kbi_r.id = kbi_log.objectid
+       LEFT JOIN mdl_user kbi_u_action ON kbi_u_action.id = kbi_log.userid
+       LEFT JOIN mdl_user kbi_u_related ON kbi_u_related.id = kbi_log.relateduserid
+WHERE kbi_ra.id &gt; 0
+  AND kbi_c.id = :courseid
+GROUP BY kbi_ra.userid, kbi_c.id</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>A fonte de alterações é <code>mdl_local_kopere_bi_log_tmp</code>, não um histórico ilimitado de auditoria. Eventos dependem da coleta e retenção dessa tabela.</li><li>O SQL exibe detalhes de alterações apenas quando <code>MIN(lsl.all_count) &gt; 1</code>; portanto, uma alteração isolada pode não ser apresentada, mesmo que exista no log.</li><li>A consulta agrupa por usuário e curso, mas usa agregações como <code>MAX</code> para vários campos, o que pode combinar dados de linhas diferentes e não descrever integralmente um único evento.</li><li>Os papéis listados são aqueles identificados nas atribuições presentes na consulta. A presença de registros não demonstra, por si só, se uma atribuição anterior foi posteriormente desfeita.</li><li>As versões MySQL e PostgreSQL empregam funções diferentes para agregar papéis e formatar a data. Ambas precisam ser testadas com permissões e dados reais no ambiente de destino.</li><li>O relatório pode mostrar nomes e e-mails de usuários relacionados a alterações de papel. Restrinja sua utilização a perfis administrativos autorizados.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-020.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-020-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="019.html">← Relatório 019</a><a href="021.html">Relatório 021 →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/users.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
