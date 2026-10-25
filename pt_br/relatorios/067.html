@@ -1,0 +1,70 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Exibe, para usuários com papel de estudante no curso selecionado, questionários e tentativas registradas com suas datas, duração, estado e pontuação percentual, além de tags dos módulos."><meta name="theme-color" content="#072c3a"><title>Relatório 067 · Detalhes das notas dos questionários por estudante · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/quizzes.html">Questionários</a> / 067</div><div class="kicker">RELATÓRIO 067</div><h1>Detalhes das notas dos questionários por estudante</h1><p class="lead">Exibe, para usuários com papel de estudante no curso selecionado, questionários e tentativas registradas com suas datas, duração, estado e pontuação percentual, além de tags dos módulos.</p><section><h2>Finalidade do relatório</h2><p>Exibe, para usuários com papel de estudante no curso selecionado, questionários e tentativas registradas com suas datas, duração, estado e pontuação percentual, além de tags dos módulos.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Permite examinar por estudante as tentativas de questionários, comparar pontuações registradas e conferir detalhes de início, término, estado da tentativa e associação com tags do módulo.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>O filtro SQL dinâmico é <strong>Curso</strong>, por <code>:courseid</code>, presente uma vez na consulta MySQL e uma vez na PostgreSQL, na condição <code>ra.instanceid = :courseid</code>.</p><p>Os critérios fixos consideram atribuição do papel de estudante ID <code>5</code> em contexto de curso (<code>contextlevel = 50</code>), curso visível, usuários não excluídos, não suspensos e diferentes de <code>guest</code>. Não há filtro por estado da tentativa, data, inscrição ativa ou visibilidade do módulo.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>O relatório apresenta uma visualização em tabela com 2 consultas SQL originais integrais, cache, atualização e destaque de sintaxe com Prism.js. As variantes equivalentes MySQL e PostgreSQL aparecem em caixas separadas dentro do mesmo bloco de visualização.</p><details class="report-block" open><summary>1. Detalhes das notas dos questionários por estudante · Tabela</summary><div class="inner"><p>Uma tabela por combinação de estudante, questionário e tentativa (ou registro sem tentativa), com nome do curso e questionário, nome e e-mail, data de encerramento configurada, início e fim da tentativa, estado, duração calculada, pontuação percentual, tags do módulo e um campo de coorte vazio.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT kbi_qa.id,
+       kbi_q.name,
+       kbi_u.email,
+       kbi_q.course,
+       kbi_q.timeclose,
+       kbi_c.fullname,
+       kbi_qa.timestart,
+       kbi_qa.timefinish,
+       kbi_qa.state,
+       (kbi_qa.timefinish - kbi_qa.timestart)                  as duration,
+       (kbi_qa.sumgrades / MAX(kbi_q.sumgrades) * 100)         as grade,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       GROUP_CONCAT(DISTINCT kbi_t.rawname SEPARATOR &#39;, &#39;) as tags,
+       &#39;&#39;                                              AS cohortname
+FROM (SELECT kbi_ctx.instanceid, kbi_ra1.userid
+      FROM mdl_context kbi_ctx
+             JOIN mdl_role_assignments kbi_ra1 ON kbi_ra1.contextid = kbi_ctx.id AND kbi_ra1.roleid = 5
+      WHERE kbi_ctx.contextlevel = 50
+      GROUP BY kbi_ctx.instanceid, kbi_ra1.userid) ra
+       JOIN mdl_modules kbi_m ON kbi_m.name = &#39;quiz&#39;
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = ra.instanceid AND kbi_cm.module = kbi_m.id
+       JOIN mdl_quiz kbi_q ON kbi_q.id = kbi_cm.instance
+       JOIN mdl_user kbi_u ON kbi_u.id = ra.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = ra.instanceid
+       LEFT JOIN mdl_quiz_attempts kbi_qa ON kbi_qa.quiz = kbi_q.id AND kbi_qa.userid = ra.userid
+       LEFT JOIN mdl_tag_instance kbi_ti ON kbi_ti.itemtype = &#39;course_modules&#39; AND kbi_ti.itemid = kbi_cm.id
+       LEFT JOIN mdl_tag kbi_t ON kbi_t.id = kbi_ti.tagid
+WHERE ra.instanceid &gt; 0
+  AND ra.instanceid = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+GROUP BY kbi_u.id, kbi_q.id, kbi_c.id, kbi_qa.id</code></pre></div>
+<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT kbi_qa.id,
+       kbi_q.name,
+       kbi_u.email,
+       kbi_q.course,
+       kbi_q.timeclose,
+       kbi_c.fullname,
+       kbi_qa.timestart,
+       kbi_qa.timefinish,
+       kbi_qa.state,
+       (kbi_qa.timefinish - kbi_qa.timestart)                  as duration,
+       (kbi_qa.sumgrades / MAX(kbi_q.sumgrades) * 100)         as grade,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       STRING_AGG(DISTINCT (kbi_t.rawname)::text, &#39;, &#39;) as tags,
+       &#39;&#39;                                              AS cohortname
+FROM(SELECT kbi_ctx.instanceid, kbi_ra1.userid
+      FROM mdl_context kbi_ctx
+             JOIN mdl_role_assignments kbi_ra1 ON kbi_ra1.contextid = kbi_ctx.id AND kbi_ra1.roleid = 5
+      WHERE kbi_ctx.contextlevel = 50
+      GROUP BY kbi_ctx.instanceid, kbi_ra1.userid) ra
+       JOIN mdl_modules kbi_m ON kbi_m.name = &#39;quiz&#39;
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = ra.instanceid AND kbi_cm.module = kbi_m.id
+       JOIN mdl_quiz kbi_q ON kbi_q.id = kbi_cm.instance
+       JOIN mdl_user kbi_u ON kbi_u.id = ra.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = ra.instanceid
+       LEFT JOIN mdl_quiz_attempts kbi_qa ON kbi_qa.quiz = kbi_q.id AND kbi_qa.userid = ra.userid
+       LEFT JOIN mdl_tag_instance kbi_ti ON kbi_ti.itemtype = &#39;course_modules&#39; AND kbi_ti.itemid = kbi_cm.id
+       LEFT JOIN mdl_tag kbi_t ON kbi_t.id = kbi_ti.tagid
+WHERE ra.instanceid &gt; 0
+  AND ra.instanceid = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+GROUP BY kbi_u.id, kbi_q.id, kbi_c.id, kbi_qa.id</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>A consulta parte de atribuições do papel ID <code>5</code> e não valida matrícula ativa nem vigência de inscrição. Participantes com papel atribuído e sem matrícula ativa ainda podem aparecer.</li><li>A associação com tentativas usa <code>LEFT JOIN</code>, de modo que estudantes sem tentativas também podem produzir uma linha do questionário com dados de tentativa nulos.</li><li>O SQL não restringe <code>kbi_qa.preview</code> nem <code>kbi_qa.state</code>; tentativas de prévia ou não finalizadas podem entrar nos resultados.</li><li>O campo <code>grade</code> divide a pontuação da tentativa pela pontuação máxima do questionário. Não existe <code>NULLIF</code> para proteger a divisão quando <code>sumgrades = 0</code>.</li><li>A duração é simplesmente <code>timefinish - timestart</code>, sem comprovar que a tentativa terminou; registros em andamento podem gerar durações negativas ou inconsistentes.</li><li>O campo <code>cohortname</code> é uma cadeia vazia constante no SQL, não indica pertença a coorte, apesar do nome.</li><li>O SQL exige curso visível, mas não aplica <code>kbi_cm.visible = 1</code>. Questionários ocultos podem aparecer se houver atribuição de papel no curso.</li><li>As tags são associadas ao módulo do questionário e agregadas em texto. As variantes MySQL e PostgreSQL utilizam agregadores distintos. Como o relatório inclui nomes, e-mails e notas, respeite as permissões de acesso.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-067.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-067-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="066.html">← Relatório 066</a><a href="068.html">Relatório 068 →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/quizzes.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
