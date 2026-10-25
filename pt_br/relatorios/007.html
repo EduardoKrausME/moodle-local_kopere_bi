@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Duas tabelas resumem indicadores de professores e cursos: estudantes vinculados, conclusão registrada, notas e situação de acesso ou participação dos estudantes."><meta name="theme-color" content="#072c3a"><title>Relatório 007 · Indicadores de engajamento · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><style>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Duas tabelas resumem indicadores de professores e cursos: estudantes vinculados, conclusão registrada, notas e situação de acesso ou participação dos estudantes."><meta name="theme-color" content="#072c3a"><title>Relatório 007 · Indicadores de engajamento · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>
 .report-purpose{padding:21px 23px;border:1px solid #bfe0df;border-radius:12px;background:#e8f7f5;margin:22px 0}
 .report-purpose strong{color:#086471;font-size:16px}
 .report-purpose p{margin:8px 0 0}
@@ -13,114 +13,114 @@
 .report-variant h3{font-size:14px;color:#146677;font-weight:800;margin:0 0 8px}
 .report-note{background:#fff8e7;border-left:4px solid #d2a43e;padding:13px 16px;margin:20px 0}
 @media(max-width:650px){.report-group-body{padding:10px}.report-variant{padding:8px}}
-</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/login_reports.html">Categoria</a> / 007</div><div class="kicker">RELATÓRIO 007</div><h1>Indicadores de engajamento</h1><p class="lead">Duas tabelas resumem indicadores de professores e cursos: estudantes vinculados, conclusão registrada, notas e situação de acesso ou participação dos estudantes.</p><section><h2>Finalidade do relatório</h2><p>Duas tabelas resumem indicadores de professores e cursos: estudantes vinculados, conclusão registrada, notas e situação de acesso ou participação dos estudantes.</p></section><div class="report-purpose"><strong>Por que utilizar?</strong><p>É útil para coordenações e tutores que precisam localizar cursos com baixa participação, comparar o acompanhamento de diferentes turmas e verificar indicadores pedagógicos associados aos professores.</p></div><div class="report-nav"><a href="#filtros">Filtros reais</a><a href="#visualizacoes">Visualizações e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não há filtros SQL dinâmicos</strong> de usuário, curso, coorte ou período. As duas tabelas têm critérios fixos: contexto de curso de nível <code>50</code>, papéis de IDs <code>3</code> e <code>5</code>, cursos visíveis e usuários não excluídos ou suspensos, conforme cada consulta.</p><p>O SQL contém um filtro por data de <code>lastaccess</code> apenas como comentário, ou seja, <strong>não</strong> está sendo aplicado.</p></section><section id="visualizacoes"><h2>Visualizações e SQL original integral</h2><p>O relatório contém 2 visualizações e 2 consultas SQL. O código possui destaque de sintaxe, mantendo os caracteres originais. As variantes MySQL e PostgreSQL estão em caixas separadas dentro de cada visualização correspondente.</p><details class="report-group" open><summary>1. Engajamento associado a professores — Tabela</summary><div class="report-group-body"><p>Tabela por professor com o papel de ID 3 em contexto de curso, quantidade de cursos, alunos associados ao papel de ID 5, contas não suspensas, registros de conclusão formal de curso e média calculada das notas.</p><p class="report-meta">Cache: <code>30m</code>. Atualização: <code>30m</code>.</p><div class="report-variant"><h3>SQL original integral</h3><pre class="sql-source"><code class="language-sql"><span class="sql-keyword">SELECT</span> 
-    kbi_u.id        <span class="sql-keyword">AS</span> u_id,
+</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/login_reports.html">Categoria</a> / 007</div><div class="kicker">RELATÓRIO 007</div><h1>Indicadores de engajamento</h1><p class="lead">Duas tabelas resumem indicadores de professores e cursos: estudantes vinculados, conclusão registrada, notas e situação de acesso ou participação dos estudantes.</p><section><h2>Finalidade do relatório</h2><p>Duas tabelas resumem indicadores de professores e cursos: estudantes vinculados, conclusão registrada, notas e situação de acesso ou participação dos estudantes.</p></section><div class="report-purpose"><strong>Por que utilizar?</strong><p>É útil para coordenações e tutores que precisam localizar cursos com baixa participação, comparar o acompanhamento de diferentes turmas e verificar indicadores pedagógicos associados aos professores.</p></div><div class="report-nav"><a href="#filtros">Filtros reais</a><a href="#visualizacoes">Visualizações e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não há filtros SQL dinâmicos</strong> de usuário, curso, coorte ou período. As duas tabelas têm critérios fixos: contexto de curso de nível <code>50</code>, papéis de IDs <code>3</code> e <code>5</code>, cursos visíveis e usuários não excluídos ou suspensos, conforme cada consulta.</p><p>O SQL contém um filtro por data de <code>lastaccess</code> apenas como comentário, ou seja, <strong>não</strong> está sendo aplicado.</p></section><section id="visualizacoes"><h2>Visualizações e SQL original integral</h2><p>O relatório contém 2 visualizações e 2 consultas SQL. O código possui destaque de sintaxe, mantendo os caracteres originais. As variantes MySQL e PostgreSQL estão em caixas separadas dentro de cada visualização correspondente.</p><details class="report-group" open><summary>1. Engajamento associado a professores — Tabela</summary><div class="report-group-body"><p>Tabela por professor com o papel de ID 3 em contexto de curso, quantidade de cursos, alunos associados ao papel de ID 5, contas não suspensas, registros de conclusão formal de curso e média calculada das notas.</p><p class="report-meta">Cache: <code>30m</code>. Atualização: <code>30m</code>.</p><div class="report-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT 
+    kbi_u.id        AS u_id,
     kbi_u.firstname,
     kbi_u.lastname,
-    <span class="sql-function">COUNT</span>(<span class="sql-keyword">DISTINCT</span> kbi_ctx.instanceid)  <span class="sql-keyword">AS</span> num_courses,
-    <span class="sql-function">SUM</span>(l.learners)                 <span class="sql-keyword">AS</span> num_learners,
-    <span class="sql-function">SUM</span>(l1.activelearners)          <span class="sql-keyword">AS</span> num_activelearners,
-    <span class="sql-function">SUM</span>(cc.completed)               <span class="sql-keyword">AS</span> num_completedlearners,
-    <span class="sql-function">AVG</span>(g.grade)                    <span class="sql-keyword">AS</span> grade
-<span class="sql-keyword">FROM</span> mdl_user kbi_u
-<span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> mdl_role_assignments kbi_ra <span class="sql-keyword">ON</span> kbi_ra.userid <span class="sql-operator">=</span> kbi_u.id
-<span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> mdl_context kbi_ctx <span class="sql-keyword">ON</span> kbi_ctx.id <span class="sql-operator">=</span> kbi_ra.contextid
-<span class="sql-keyword">JOIN</span> mdl_course kbi_c <span class="sql-keyword">ON</span> kbi_ctx.instanceid <span class="sql-operator">=</span> kbi_c.id <span class="sql-keyword">AND</span> kbi_c.visible <span class="sql-operator">=</span> <span class="sql-number">1</span>
-<span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> (
-    <span class="sql-keyword">SELECT</span> 
+    COUNT(DISTINCT kbi_ctx.instanceid)  AS num_courses,
+    SUM(l.learners)                 AS num_learners,
+    SUM(l1.activelearners)          AS num_activelearners,
+    SUM(cc.completed)               AS num_completedlearners,
+    AVG(g.grade)                    AS grade
+FROM mdl_user kbi_u
+LEFT JOIN mdl_role_assignments kbi_ra ON kbi_ra.userid = kbi_u.id
+LEFT JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+JOIN mdl_course kbi_c ON kbi_ctx.instanceid = kbi_c.id AND kbi_c.visible = 1
+LEFT JOIN (
+    SELECT 
         kbi_ctx.instanceid, 
-        <span class="sql-function">COUNT</span>(<span class="sql-keyword">DISTINCT</span> kbi_ra.userid) <span class="sql-keyword">AS</span> learners
-    <span class="sql-keyword">FROM</span> mdl_role_assignments kbi_ra, mdl_context kbi_ctx
-    <span class="sql-keyword">WHERE</span> 
-        kbi_ctx.id <span class="sql-operator">=</span> kbi_ra.contextid
-        <span class="sql-keyword">AND</span> kbi_ctx.contextlevel <span class="sql-operator">=</span> <span class="sql-number">50</span>
-        <span class="sql-keyword">AND</span> kbi_ra.roleid <span class="sql-operator">=</span> <span class="sql-number">5</span>
-    <span class="sql-keyword">GROUP</span> <span class="sql-keyword">BY</span> 
+        COUNT(DISTINCT kbi_ra.userid) AS learners
+    FROM mdl_role_assignments kbi_ra, mdl_context kbi_ctx
+    WHERE 
+        kbi_ctx.id = kbi_ra.contextid
+        AND kbi_ctx.contextlevel = 50
+        AND kbi_ra.roleid = 5
+    GROUP BY 
         kbi_ctx.instanceid
-) <span class="sql-keyword">AS</span> l <span class="sql-keyword">ON</span> l.instanceid <span class="sql-operator">=</span> kbi_ctx.instanceid
-<span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> (
-    <span class="sql-keyword">SELECT</span> 
+) AS l ON l.instanceid = kbi_ctx.instanceid
+LEFT JOIN (
+    SELECT 
         kbi_ctx.instanceid, 
-        <span class="sql-function">COUNT</span>(<span class="sql-keyword">DISTINCT</span> kbi_ra.userid) <span class="sql-keyword">AS</span> activelearners
-    <span class="sql-keyword">FROM</span> mdl_role_assignments kbi_ra, mdl_user kbi_u, mdl_context kbi_ctx
-    <span class="sql-keyword">WHERE</span> 
-        kbi_ctx.id <span class="sql-operator">=</span> kbi_ra.contextid
-        <span class="sql-keyword">AND</span> kbi_ctx.contextlevel <span class="sql-operator">=</span> <span class="sql-number">50</span>
-        <span class="sql-keyword">AND</span> kbi_u.id <span class="sql-operator">=</span> kbi_ra.userid
-        <span class="sql-comment">-- AND kbi_u.lastaccess BETWEEN 1707755694 AND 1710347694</span>
-        <span class="sql-keyword">AND</span> kbi_u.deleted <span class="sql-operator">=</span> <span class="sql-number">0</span>
-        <span class="sql-keyword">AND</span> kbi_u.suspended <span class="sql-operator">=</span> <span class="sql-number">0</span>
-        <span class="sql-keyword">AND</span> kbi_ra.roleid <span class="sql-operator">=</span> <span class="sql-number">5</span>
-    <span class="sql-keyword">GROUP</span> <span class="sql-keyword">BY</span> 
+        COUNT(DISTINCT kbi_ra.userid) AS activelearners
+    FROM mdl_role_assignments kbi_ra, mdl_user kbi_u, mdl_context kbi_ctx
+    WHERE 
+        kbi_ctx.id = kbi_ra.contextid
+        AND kbi_ctx.contextlevel = 50
+        AND kbi_u.id = kbi_ra.userid
+        -- AND kbi_u.lastaccess BETWEEN 1707755694 AND 1710347694
+        AND kbi_u.deleted = 0
+        AND kbi_u.suspended = 0
+        AND kbi_ra.roleid = 5
+    GROUP BY 
         kbi_ctx.instanceid
-) <span class="sql-keyword">AS</span> l1 <span class="sql-keyword">ON</span> l1.instanceid <span class="sql-operator">=</span> kbi_ctx.instanceid
-<span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> (
-    <span class="sql-keyword">SELECT</span> 
+) AS l1 ON l1.instanceid = kbi_ctx.instanceid
+LEFT JOIN (
+    SELECT 
         course, 
-        <span class="sql-function">COUNT</span>(id) <span class="sql-keyword">AS</span> completed
-    <span class="sql-keyword">FROM</span> 
+        COUNT(id) AS completed
+    FROM 
         mdl_course_completions
-    <span class="sql-keyword">WHERE</span> 
-        timecompleted <span class="sql-operator">&gt;</span> <span class="sql-number">0</span>
-    <span class="sql-keyword">GROUP</span> <span class="sql-keyword">BY</span> 
+    WHERE 
+        timecompleted &gt; 0
+    GROUP BY 
         course
-) cc <span class="sql-keyword">ON</span> cc.course <span class="sql-operator">=</span> kbi_ctx.instanceid
-<span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> (
-    <span class="sql-keyword">SELECT</span> 
+) cc ON cc.course = kbi_ctx.instanceid
+LEFT JOIN (
+    SELECT 
         kbi_gi.courseid,
-        <span class="sql-function">ROUND</span>(<span class="sql-function">AVG</span>(<span class="sql-keyword">CASE</span>
-            <span class="sql-keyword">WHEN</span> kbi_g.rawgrademax <span class="sql-operator">&gt;</span> <span class="sql-number">0</span> <span class="sql-keyword">THEN</span> (kbi_g.finalgrade <span class="sql-operator">/</span> kbi_g.rawgrademax) <span class="sql-operator">*</span> <span class="sql-number">100</span>
-            <span class="sql-keyword">ELSE</span> kbi_g.finalgrade 
-        <span class="sql-keyword">END</span>), <span class="sql-number">0</span>) <span class="sql-keyword">AS</span> grade
-    <span class="sql-keyword">FROM</span> mdl_grade_items kbi_gi, mdl_grade_grades kbi_g
-    <span class="sql-keyword">WHERE</span> 
-        kbi_gi.itemtype <span class="sql-operator">=</span> <span class="sql-string">&#39;course&#39;</span>
-        <span class="sql-keyword">AND</span> kbi_g.itemid <span class="sql-operator">=</span> kbi_gi.id
-        <span class="sql-keyword">AND</span> kbi_g.finalgrade <span class="sql-keyword">IS</span> <span class="sql-keyword">NOT</span> <span class="sql-keyword">NULL</span>
-    <span class="sql-keyword">GROUP</span> <span class="sql-keyword">BY</span> 
+        ROUND(AVG(CASE
+            WHEN kbi_g.rawgrademax &gt; 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+            ELSE kbi_g.finalgrade 
+        END), 0) AS grade
+    FROM mdl_grade_items kbi_gi, mdl_grade_grades kbi_g
+    WHERE 
+        kbi_gi.itemtype = &#39;course&#39;
+        AND kbi_g.itemid = kbi_gi.id
+        AND kbi_g.finalgrade IS NOT NULL
+    GROUP BY 
         kbi_gi.courseid
-) g <span class="sql-keyword">ON</span> g.courseid <span class="sql-operator">=</span> kbi_ctx.instanceid
-<span class="sql-keyword">WHERE</span> kbi_ctx.contextlevel <span class="sql-operator">=</span> <span class="sql-number">50</span>
-  <span class="sql-keyword">AND</span> kbi_ra.roleid        <span class="sql-operator">=</span> <span class="sql-number">3</span>
-  <span class="sql-keyword">AND</span> kbi_u.deleted        <span class="sql-operator">=</span> <span class="sql-number">0</span>
-  <span class="sql-keyword">AND</span> kbi_u.suspended      <span class="sql-operator">=</span> <span class="sql-number">0</span>
-<span class="sql-keyword">GROUP</span> <span class="sql-keyword">BY</span> kbi_u.id, kbi_u.firstname, kbi_u.lastname</code></pre></div></div></details>
-<details class="report-group"><summary>2. Participação e conclusão de atividades por curso — Tabela</summary><div class="report-group-body"><p>Tabela de cursos visíveis com total de estudantes de papel ID 5, estudantes que acessaram e possuem registro de conclusão de atividade, que acessaram e não possuem esse registro, e que não têm último acesso no curso.</p><p class="report-meta">Cache: <code>30m</code>. Atualização: <code>30m</code>.</p><div class="report-variant"><h3>SQL original integral</h3><pre class="sql-source"><code class="language-sql"><span class="sql-keyword">SELECT</span> kbi_c.id       <span class="sql-keyword">AS</span> c_id,
-       kbi_c.fullname <span class="sql-keyword">AS</span> c_fullname,
-       <span class="sql-function">COUNT</span>(<span class="sql-keyword">DISTINCT</span> kbi_ra.userid) <span class="sql-keyword">AS</span> num_learners,
-       <span class="sql-function">COUNT</span>(<span class="sql-keyword">DISTINCT</span> <span class="sql-keyword">CASE</span>
-           <span class="sql-keyword">WHEN</span> comp.userid <span class="sql-keyword">IS</span> <span class="sql-keyword">NOT</span> <span class="sql-keyword">NULL</span> <span class="sql-keyword">AND</span> kbi_ula.id <span class="sql-keyword">IS</span> <span class="sql-keyword">NOT</span> <span class="sql-keyword">NULL</span> <span class="sql-keyword">THEN</span> kbi_u.id
-           <span class="sql-keyword">ELSE</span> <span class="sql-keyword">NULL</span> 
-       <span class="sql-keyword">END</span>) <span class="sql-keyword">AS</span> completed_learners,
-       <span class="sql-function">COUNT</span>(<span class="sql-keyword">DISTINCT</span> <span class="sql-keyword">CASE</span>
-           <span class="sql-keyword">WHEN</span> comp.userid <span class="sql-keyword">IS</span> <span class="sql-keyword">NULL</span> <span class="sql-keyword">AND</span> kbi_ula.id <span class="sql-keyword">IS</span> <span class="sql-keyword">NOT</span> <span class="sql-keyword">NULL</span> <span class="sql-keyword">THEN</span> kbi_u.id
-           <span class="sql-keyword">ELSE</span> <span class="sql-keyword">NULL</span> 
-       <span class="sql-keyword">END</span>) <span class="sql-keyword">AS</span> not_completed_learners,
-       <span class="sql-function">COUNT</span>(<span class="sql-keyword">DISTINCT</span> <span class="sql-keyword">CASE</span> 
-           <span class="sql-keyword">WHEN</span> kbi_ula.id <span class="sql-keyword">IS</span> <span class="sql-keyword">NULL</span> <span class="sql-keyword">THEN</span> kbi_u.id 
-           <span class="sql-keyword">ELSE</span> <span class="sql-keyword">NULL</span> 
-       <span class="sql-keyword">END</span>) <span class="sql-keyword">AS</span> not_accessed_learners
-<span class="sql-keyword">FROM</span> mdl_role_assignments kbi_ra
-<span class="sql-keyword">JOIN</span> mdl_context kbi_ctx 
-    <span class="sql-keyword">ON</span> kbi_ctx.id <span class="sql-operator">=</span> kbi_ra.contextid <span class="sql-keyword">AND</span> kbi_ctx.contextlevel <span class="sql-operator">=</span> <span class="sql-number">50</span>
-<span class="sql-keyword">JOIN</span> mdl_course kbi_c 
-    <span class="sql-keyword">ON</span> kbi_c.id <span class="sql-operator">=</span> kbi_ctx.instanceid
-<span class="sql-keyword">JOIN</span> mdl_user kbi_u 
-    <span class="sql-keyword">ON</span> kbi_u.id <span class="sql-operator">=</span> kbi_ra.userid
-<span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> (
-    <span class="sql-keyword">SELECT</span> kbi_cm.course, kbi_cmc.userid
-    <span class="sql-keyword">FROM</span> mdl_course_modules kbi_cm
-    <span class="sql-keyword">JOIN</span> mdl_course_modules_completion kbi_cmc 
-        <span class="sql-keyword">ON</span> kbi_cmc.coursemoduleid <span class="sql-operator">=</span> kbi_cm.id <span class="sql-keyword">AND</span> kbi_cmc.completionstate <span class="sql-operator">=</span> <span class="sql-number">1</span>
-    <span class="sql-keyword">WHERE</span> kbi_cmc.id <span class="sql-operator">&gt;</span> <span class="sql-number">0</span>
-    <span class="sql-keyword">GROUP</span> <span class="sql-keyword">BY</span> kbi_cm.course, kbi_cmc.userid
+) g ON g.courseid = kbi_ctx.instanceid
+WHERE kbi_ctx.contextlevel = 50
+  AND kbi_ra.roleid        = 3
+  AND kbi_u.deleted        = 0
+  AND kbi_u.suspended      = 0
+GROUP BY kbi_u.id, kbi_u.firstname, kbi_u.lastname</code></pre></div></div></details>
+<details class="report-group"><summary>2. Participação e conclusão de atividades por curso — Tabela</summary><div class="report-group-body"><p>Tabela de cursos visíveis com total de estudantes de papel ID 5, estudantes que acessaram e possuem registro de conclusão de atividade, que acessaram e não possuem esse registro, e que não têm último acesso no curso.</p><p class="report-meta">Cache: <code>30m</code>. Atualização: <code>30m</code>.</p><div class="report-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT kbi_c.id       AS c_id,
+       kbi_c.fullname AS c_fullname,
+       COUNT(DISTINCT kbi_ra.userid) AS num_learners,
+       COUNT(DISTINCT CASE
+           WHEN comp.userid IS NOT NULL AND kbi_ula.id IS NOT NULL THEN kbi_u.id
+           ELSE NULL 
+       END) AS completed_learners,
+       COUNT(DISTINCT CASE
+           WHEN comp.userid IS NULL AND kbi_ula.id IS NOT NULL THEN kbi_u.id
+           ELSE NULL 
+       END) AS not_completed_learners,
+       COUNT(DISTINCT CASE 
+           WHEN kbi_ula.id IS NULL THEN kbi_u.id 
+           ELSE NULL 
+       END) AS not_accessed_learners
+FROM mdl_role_assignments kbi_ra
+JOIN mdl_context kbi_ctx 
+    ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+JOIN mdl_course kbi_c 
+    ON kbi_c.id = kbi_ctx.instanceid
+JOIN mdl_user kbi_u 
+    ON kbi_u.id = kbi_ra.userid
+LEFT JOIN (
+    SELECT kbi_cm.course, kbi_cmc.userid
+    FROM mdl_course_modules kbi_cm
+    JOIN mdl_course_modules_completion kbi_cmc 
+        ON kbi_cmc.coursemoduleid = kbi_cm.id AND kbi_cmc.completionstate = 1
+    WHERE kbi_cmc.id &gt; 0
+    GROUP BY kbi_cm.course, kbi_cmc.userid
 ) comp 
-    <span class="sql-keyword">ON</span> comp.userid <span class="sql-operator">=</span> kbi_u.id <span class="sql-keyword">AND</span> comp.course <span class="sql-operator">=</span> kbi_c.id
-<span class="sql-keyword">LEFT</span> <span class="sql-keyword">JOIN</span> mdl_user_lastaccess kbi_ula 
-    <span class="sql-keyword">ON</span> kbi_ula.courseid <span class="sql-operator">=</span> kbi_c.id <span class="sql-keyword">AND</span> kbi_ula.userid <span class="sql-operator">=</span> kbi_ra.userid
-<span class="sql-keyword">WHERE</span> kbi_c.id <span class="sql-operator">&gt;</span> <span class="sql-number">0</span>
-  <span class="sql-keyword">AND</span> kbi_u.deleted <span class="sql-operator">=</span> <span class="sql-number">0</span>
-  <span class="sql-keyword">AND</span> kbi_u.suspended <span class="sql-operator">=</span> <span class="sql-number">0</span>
-  <span class="sql-keyword">AND</span> kbi_c.visible <span class="sql-operator">=</span> <span class="sql-number">1</span>
-  <span class="sql-keyword">AND</span> kbi_ra.roleid <span class="sql-operator">=</span> <span class="sql-number">5</span>
-<span class="sql-keyword">GROUP</span> <span class="sql-keyword">BY</span> kbi_c.id</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>O relatório não consulta logs de autenticação, embora esteja na categoria de acessos/login.</li><li>O indicador de estudantes ativos, na primeira tabela, considera contas válidas e não suspensas, não atividade recente.</li><li>A primeira tabela calcula conclusões de curso em <code>mdl_course_completions</code>; a segunda utiliza a conclusão de pelo menos uma atividade. Essas métricas não são equivalentes.</li><li>Somas e médias sobre junções entre cursos e professores podem pesar registros repetidos; confira os números antes de comparações institucionais.</li><li>Os IDs de papel 3 e 5 são assumidos pelo SQL e podem não corresponder à organização de papéis de uma instalação personalizada.</li></ul><p class="report-note">As consultas foram extraídas integralmente das definições JSON do plugin na <code>master</code>, sem execução em um Moodle nesta etapa. Antes de usar em produção, valide compatibilidade, permissões e resultados.</p></section><section><h2>Fonte técnica</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-007.json" target="_blank" rel="noopener">Consultar o JSON original deste relatório no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="006.html">← Relatório 006</a><a href="008.html">Relatório 008 →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/login_reports.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+    ON comp.userid = kbi_u.id AND comp.course = kbi_c.id
+LEFT JOIN mdl_user_lastaccess kbi_ula 
+    ON kbi_ula.courseid = kbi_c.id AND kbi_ula.userid = kbi_ra.userid
+WHERE kbi_c.id &gt; 0
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_c.visible = 1
+  AND kbi_ra.roleid = 5
+GROUP BY kbi_c.id</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>O relatório não consulta logs de autenticação, embora esteja na categoria de acessos/login.</li><li>O indicador de estudantes ativos, na primeira tabela, considera contas válidas e não suspensas, não atividade recente.</li><li>A primeira tabela calcula conclusões de curso em <code>mdl_course_completions</code>; a segunda utiliza a conclusão de pelo menos uma atividade. Essas métricas não são equivalentes.</li><li>Somas e médias sobre junções entre cursos e professores podem pesar registros repetidos; confira os números antes de comparações institucionais.</li><li>Os IDs de papel 3 e 5 são assumidos pelo SQL e podem não corresponder à organização de papéis de uma instalação personalizada.</li></ul><p class="report-note">As consultas foram extraídas integralmente das definições JSON do plugin na <code>master</code>, sem execução em um Moodle nesta etapa. Antes de usar em produção, valide compatibilidade, permissões e resultados.</p></section><section><h2>Fonte técnica</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-007.json" target="_blank" rel="noopener">Consultar o JSON original deste relatório no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="006.html">← Relatório 006</a><a href="008.html">Relatório 008 →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/login_reports.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
