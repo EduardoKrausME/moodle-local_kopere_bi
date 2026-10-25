@@ -1,0 +1,256 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Tabela unificada de envios recentes de tarefas e questões de questionários que estão aguardando avaliação, com informações de prazo, tempo de espera e professores associados aos cursos."><meta name="theme-color" content="#072c3a"><title>Relatório 052 · Itens aguardando correção · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/grades.html">Notas e avaliações</a> / 052</div><div class="kicker">RELATÓRIO 052</div><h1>Itens aguardando correção</h1><p class="lead">Tabela unificada de envios recentes de tarefas e questões de questionários que estão aguardando avaliação, com informações de prazo, tempo de espera e professores associados aos cursos.</p><section><h2>Finalidade do relatório</h2><p>Tabela unificada de envios recentes de tarefas e questões de questionários que estão aguardando avaliação, com informações de prazo, tempo de espera e professores associados aos cursos.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Ajuda professores e equipes acadêmicas a localizar trabalhos enviados e questões com necessidade de avaliação, priorizando itens que ultrapassaram o prazo da atividade ou que estão aguardando correção há mais dias.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não há parâmetros SQL dinâmicos</strong> para selecionar curso, professor, estudante ou período. As duas variantes reúnem dados de todos os cursos e módulos visíveis, com usuários não excluídos e não suspensos, diferentes de <code>guest</code>, e exigem a existência de matrícula e método de inscrição ativos e dentro do período de vigência.</p><p>Para tarefas, são selecionados o último envio com <code>status = 'submitted'</code> e nota ausente, negativa ou anterior à última alteração do envio. Para questões de questionários, são consideradas tentativas finalizadas e não prévias, cujo último passo está em <code>needsgrading</code>. Há <strong>limite fixo de 500 resultados</strong> em cada consulta SQL.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>O relatório contém uma visualização em tabela com 2 consultas SQL, cache, configuração de atualização e realce de sintaxe com Prism.js. As versões MySQL e PostgreSQL da mesma visualização aparecem em caixas separadas dentro de um único bloco.</p><details class="report-block" open><summary>1. Itens aguardando correção · Tabela</summary><div class="inner"><p>Uma tabela de itens pendentes formada pela união de duas consultas: envios de tarefas ainda sem nota válida ou modificados após a última correção, e questões de tentativas finalizadas de questionários cujo último passo está em estado needsgrading. São exibidos curso, atividade, usuário, docentes do curso, prazo, data de envio, dados da tentativa quando aplicáveis, indicação de prazo vencido e dias de espera.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT kbi_waiting.*,
+       CASE WHEN kbi_waiting.duedate &gt; 0 AND kbi_waiting.duedate &lt; UNIX_TIMESTAMP()
+            THEN 1 ELSE 0 END AS is_overdue,
+       CASE WHEN kbi_waiting.submitted_at &gt; 0
+            THEN FLOOR((UNIX_TIMESTAMP() - kbi_waiting.submitted_at) / 86400.0)
+            ELSE NULL END AS waiting_days
+FROM (
+       SELECT CONCAT(&#39;assign-&#39;, kbi_s.id) AS id,
+              kbi_c.id                   AS courseid,
+              kbi_c.fullname             AS course,
+              kbi_cm.id                  AS cmid,
+              kbi_a.id                   AS activityid,
+              kbi_a.name                 AS activity_name,
+              &#39;assign&#39;                   AS activity_type,
+              kbi_u.id                   AS userid,
+              kbi_u.firstname,
+              kbi_u.lastname,
+              kbi_u.email,
+              kbi_a.duedate,
+              kbi_s.timemodified         AS submitted_at,
+              kbi_g.timemodified         AS graded_at,
+              NULL                       AS slot,
+              NULL                       AS attemptid,
+              NULL                       AS question_name,
+              kbi_teachers.teacher_names AS teachers
+       FROM mdl_assign_submission kbi_s
+              JOIN mdl_assign kbi_a ON kbi_a.id = kbi_s.assignment
+              JOIN mdl_course kbi_c ON kbi_c.id = kbi_a.course
+              JOIN mdl_modules kbi_m ON kbi_m.name = &#39;assign&#39;
+              JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id
+                    AND kbi_cm.module = kbi_m.id
+                    AND kbi_cm.instance = kbi_a.id
+              JOIN mdl_user kbi_u ON kbi_u.id = kbi_s.userid
+              LEFT JOIN mdl_assign_grades kbi_g ON kbi_g.assignment = kbi_s.assignment
+                    AND kbi_g.userid = kbi_s.userid
+                    AND kbi_g.attemptnumber = kbi_s.attemptnumber
+              LEFT JOIN (
+                    SELECT kbi_ctx.instanceid AS courseid,
+                           GROUP_CONCAT(DISTINCT CONCAT(kbi_t.firstname, &#39; &#39;, kbi_t.lastname) ORDER BY kbi_t.lastname, kbi_t.firstname SEPARATOR &#39;, &#39;) AS teacher_names
+                    FROM mdl_role_assignments kbi_ra
+                           JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid AND kbi_r.shortname IN (&#39;editingteacher&#39;, &#39;teacher&#39;)
+                           JOIN mdl_user kbi_t ON kbi_t.id = kbi_ra.userid
+                           JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+                    WHERE kbi_t.deleted = 0
+                      AND kbi_t.suspended = 0
+                    GROUP BY kbi_ctx.instanceid
+              ) kbi_teachers ON kbi_teachers.courseid = kbi_c.id
+       WHERE kbi_s.latest = 1
+         AND kbi_s.status = &#39;submitted&#39;
+         AND (kbi_g.id IS NULL OR kbi_g.grade IS NULL OR kbi_g.grade &lt; 0 OR kbi_s.timemodified &gt; COALESCE(kbi_g.timemodified, 0))
+         AND kbi_c.visible = 1
+         AND kbi_cm.visible = 1
+         AND EXISTS (
+               SELECT 1 FROM mdl_user_enrolments kbi_ue
+               JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+              WHERE kbi_e.courseid = kbi_c.id AND kbi_ue.userid = kbi_u.id
+                AND kbi_e.status = 0 AND kbi_ue.status = 0
+                AND (kbi_ue.timestart = 0 OR kbi_ue.timestart &lt;= UNIX_TIMESTAMP())
+                AND (kbi_ue.timeend = 0 OR kbi_ue.timeend &gt; UNIX_TIMESTAMP()))
+         AND kbi_u.deleted = 0
+         AND kbi_u.suspended = 0
+         AND kbi_u.username &lt;&gt; &#39;guest&#39;
+
+       UNION ALL
+
+       SELECT CONCAT(&#39;quiz-&#39;, kbi_qa.id, &#39;-&#39;, kbi_qatt.id) AS id,
+              kbi_c.id                                    AS courseid,
+              kbi_c.fullname                              AS course,
+              kbi_cm.id                                   AS cmid,
+              kbi_qz.id                                   AS activityid,
+              kbi_qz.name                                 AS activity_name,
+              &#39;quiz&#39;                                      AS activity_type,
+              kbi_u.id                                    AS userid,
+              kbi_u.firstname,
+              kbi_u.lastname,
+              kbi_u.email,
+              kbi_qz.timeclose                            AS duedate,
+              kbi_qa.timefinish                           AS submitted_at,
+              NULL                                        AS graded_at,
+              kbi_qatt.slot                               AS slot,
+              kbi_qa.id                                   AS attemptid,
+              kbi_q.name                                  AS question_name,
+              kbi_teachers.teacher_names                  AS teachers
+       FROM mdl_quiz_attempts kbi_qa
+              JOIN mdl_quiz kbi_qz ON kbi_qz.id = kbi_qa.quiz
+              JOIN mdl_course kbi_c ON kbi_c.id = kbi_qz.course
+              JOIN mdl_user kbi_u ON kbi_u.id = kbi_qa.userid
+              JOIN mdl_question_attempts kbi_qatt ON kbi_qatt.questionusageid = kbi_qa.uniqueid
+              JOIN mdl_question kbi_q ON kbi_q.id = kbi_qatt.questionid
+              JOIN mdl_question_attempt_steps kbi_qas ON kbi_qas.questionattemptid = kbi_qatt.id
+                    AND kbi_qas.sequencenumber = (
+                        SELECT MAX(kbi_qas2.sequencenumber)
+                        FROM mdl_question_attempt_steps kbi_qas2
+                        WHERE kbi_qas2.questionattemptid = kbi_qatt.id
+                    )
+              JOIN mdl_modules kbi_m ON kbi_m.name = &#39;quiz&#39;
+              JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id
+                    AND kbi_cm.module = kbi_m.id
+                    AND kbi_cm.instance = kbi_qz.id
+              LEFT JOIN (
+                    SELECT kbi_ctx.instanceid AS courseid,
+                           GROUP_CONCAT(DISTINCT CONCAT(kbi_t.firstname, &#39; &#39;, kbi_t.lastname) ORDER BY kbi_t.lastname, kbi_t.firstname SEPARATOR &#39;, &#39;) AS teacher_names
+                    FROM mdl_role_assignments kbi_ra
+                           JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid AND kbi_r.shortname IN (&#39;editingteacher&#39;, &#39;teacher&#39;)
+                           JOIN mdl_user kbi_t ON kbi_t.id = kbi_ra.userid
+                           JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+                    WHERE kbi_t.deleted = 0
+                      AND kbi_t.suspended = 0
+                    GROUP BY kbi_ctx.instanceid
+              ) kbi_teachers ON kbi_teachers.courseid = kbi_c.id
+       WHERE kbi_qa.preview = 0
+         AND kbi_qa.state = &#39;finished&#39;
+         AND kbi_qas.state = &#39;needsgrading&#39;
+         AND kbi_c.visible = 1
+         AND kbi_cm.visible = 1
+         AND EXISTS (
+               SELECT 1 FROM mdl_user_enrolments kbi_ue
+               JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+              WHERE kbi_e.courseid = kbi_c.id AND kbi_ue.userid = kbi_u.id
+                AND kbi_e.status = 0 AND kbi_ue.status = 0
+                AND (kbi_ue.timestart = 0 OR kbi_ue.timestart &lt;= UNIX_TIMESTAMP())
+                AND (kbi_ue.timeend = 0 OR kbi_ue.timeend &gt; UNIX_TIMESTAMP()))
+         AND kbi_u.deleted = 0
+         AND kbi_u.suspended = 0
+         AND kbi_u.username &lt;&gt; &#39;guest&#39;
+) kbi_waiting
+ORDER BY kbi_waiting.course, kbi_waiting.activity_name, kbi_waiting.submitted_at DESC
+LIMIT 500</code></pre></div>
+<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT kbi_waiting.*,
+       CASE WHEN kbi_waiting.duedate &gt; 0 AND kbi_waiting.duedate &lt; EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)
+            THEN 1 ELSE 0 END AS is_overdue,
+       CASE WHEN kbi_waiting.submitted_at &gt; 0
+            THEN FLOOR((EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) - kbi_waiting.submitted_at) / 86400.0)
+            ELSE NULL END AS waiting_days
+FROM (
+       SELECT CONCAT(&#39;assign-&#39;, kbi_s.id) AS id,
+              kbi_c.id                   AS courseid,
+              kbi_c.fullname             AS course,
+              kbi_cm.id                  AS cmid,
+              kbi_a.id                   AS activityid,
+              kbi_a.name                 AS activity_name,
+              &#39;assign&#39;                   AS activity_type,
+              kbi_u.id                   AS userid,
+              kbi_u.firstname,
+              kbi_u.lastname,
+              kbi_u.email,
+              kbi_a.duedate,
+              kbi_s.timemodified         AS submitted_at,
+              kbi_g.timemodified         AS graded_at,
+              NULL                       AS slot,
+              NULL                       AS attemptid,
+              NULL                       AS question_name,
+              kbi_teachers.teacher_names AS teachers
+       FROM mdl_assign_submission kbi_s
+              JOIN mdl_assign kbi_a ON kbi_a.id = kbi_s.assignment
+              JOIN mdl_course kbi_c ON kbi_c.id = kbi_a.course
+              JOIN mdl_modules kbi_m ON kbi_m.name = &#39;assign&#39;
+              JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id
+                    AND kbi_cm.module = kbi_m.id
+                    AND kbi_cm.instance = kbi_a.id
+              JOIN mdl_user kbi_u ON kbi_u.id = kbi_s.userid
+              LEFT JOIN mdl_assign_grades kbi_g ON kbi_g.assignment = kbi_s.assignment
+                    AND kbi_g.userid = kbi_s.userid
+                    AND kbi_g.attemptnumber = kbi_s.attemptnumber
+              LEFT JOIN(
+                    SELECT kbi_ctx.instanceid AS courseid,
+                           STRING_AGG(DISTINCT (CONCAT(kbi_t.firstname, &#39; &#39;, kbi_t.lastname))::text, &#39;, &#39; ORDER BY (CONCAT(kbi_t.firstname, &#39; &#39;, kbi_t.lastname))::text) AS teacher_names
+                    FROM mdl_role_assignments kbi_ra
+                           JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid AND kbi_r.shortname IN(&#39;editingteacher&#39;, &#39;teacher&#39;)
+                           JOIN mdl_user kbi_t ON kbi_t.id = kbi_ra.userid
+                           JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+                    WHERE kbi_t.deleted = 0
+                      AND kbi_t.suspended = 0
+                    GROUP BY kbi_ctx.instanceid
+              ) kbi_teachers ON kbi_teachers.courseid = kbi_c.id
+       WHERE kbi_s.latest = 1
+         AND kbi_s.status = &#39;submitted&#39;
+         AND(kbi_g.id IS NULL OR kbi_g.grade IS NULL OR kbi_g.grade &lt; 0 OR kbi_s.timemodified &gt; COALESCE(kbi_g.timemodified, 0))
+         AND kbi_c.visible = 1
+         AND kbi_cm.visible = 1
+         AND EXISTS (
+               SELECT 1 FROM mdl_user_enrolments kbi_ue
+               JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+              WHERE kbi_e.courseid = kbi_c.id AND kbi_ue.userid = kbi_u.id
+                AND kbi_e.status = 0 AND kbi_ue.status = 0
+                AND (kbi_ue.timestart = 0 OR kbi_ue.timestart &lt;= EXTRACT(EPOCH FROM CURRENT_TIMESTAMP))
+                AND (kbi_ue.timeend = 0 OR kbi_ue.timeend &gt; EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)))
+         AND kbi_u.deleted = 0
+         AND kbi_u.suspended = 0
+         AND kbi_u.username &lt;&gt; &#39;guest&#39;
+
+       UNION ALL
+
+       SELECT CONCAT(&#39;quiz-&#39;, kbi_qa.id, &#39;-&#39;, kbi_qatt.id) AS id,
+              kbi_c.id                                    AS courseid,
+              kbi_c.fullname                              AS course,
+              kbi_cm.id                                   AS cmid,
+              kbi_qz.id                                   AS activityid,
+              kbi_qz.name                                 AS activity_name,
+              &#39;quiz&#39;                                      AS activity_type,
+              kbi_u.id                                    AS userid,
+              kbi_u.firstname,
+              kbi_u.lastname,
+              kbi_u.email,
+              kbi_qz.timeclose                            AS duedate,
+              kbi_qa.timefinish                           AS submitted_at,
+              NULL                                        AS graded_at,
+              kbi_qatt.slot                               AS slot,
+              kbi_qa.id                                   AS attemptid,
+              kbi_q.name                                  AS question_name,
+              kbi_teachers.teacher_names                  AS teachers
+       FROM mdl_quiz_attempts kbi_qa
+              JOIN mdl_quiz kbi_qz ON kbi_qz.id = kbi_qa.quiz
+              JOIN mdl_course kbi_c ON kbi_c.id = kbi_qz.course
+              JOIN mdl_user kbi_u ON kbi_u.id = kbi_qa.userid
+              JOIN mdl_question_attempts kbi_qatt ON kbi_qatt.questionusageid = kbi_qa.uniqueid
+              JOIN mdl_question kbi_q ON kbi_q.id = kbi_qatt.questionid
+              JOIN mdl_question_attempt_steps kbi_qas ON kbi_qas.questionattemptid = kbi_qatt.id
+                    AND kbi_qas.sequencenumber = (
+                        SELECT MAX(kbi_qas2.sequencenumber)
+                        FROM mdl_question_attempt_steps kbi_qas2
+                        WHERE kbi_qas2.questionattemptid = kbi_qatt.id
+                    )
+              JOIN mdl_modules kbi_m ON kbi_m.name = &#39;quiz&#39;
+              JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id
+                    AND kbi_cm.module = kbi_m.id
+                    AND kbi_cm.instance = kbi_qz.id
+              LEFT JOIN(
+                    SELECT kbi_ctx.instanceid AS courseid,
+                           STRING_AGG(DISTINCT (CONCAT(kbi_t.firstname, &#39; &#39;, kbi_t.lastname))::text, &#39;, &#39; ORDER BY (CONCAT(kbi_t.firstname, &#39; &#39;, kbi_t.lastname))::text) AS teacher_names
+                    FROM mdl_role_assignments kbi_ra
+                           JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid AND kbi_r.shortname IN(&#39;editingteacher&#39;, &#39;teacher&#39;)
+                           JOIN mdl_user kbi_t ON kbi_t.id = kbi_ra.userid
+                           JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+                    WHERE kbi_t.deleted = 0
+                      AND kbi_t.suspended = 0
+                    GROUP BY kbi_ctx.instanceid
+              ) kbi_teachers ON kbi_teachers.courseid = kbi_c.id
+       WHERE kbi_qa.preview = 0
+         AND kbi_qa.state = &#39;finished&#39;
+         AND kbi_qas.state = &#39;needsgrading&#39;
+         AND kbi_c.visible = 1
+         AND kbi_cm.visible = 1
+         AND EXISTS (
+               SELECT 1 FROM mdl_user_enrolments kbi_ue
+               JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+              WHERE kbi_e.courseid = kbi_c.id AND kbi_ue.userid = kbi_u.id
+                AND kbi_e.status = 0 AND kbi_ue.status = 0
+                AND (kbi_ue.timestart = 0 OR kbi_ue.timestart &lt;= EXTRACT(EPOCH FROM CURRENT_TIMESTAMP))
+                AND (kbi_ue.timeend = 0 OR kbi_ue.timeend &gt; EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)))
+         AND kbi_u.deleted = 0
+         AND kbi_u.suspended = 0
+         AND kbi_u.username &lt;&gt; &#39;guest&#39;
+) kbi_waiting
+ORDER BY kbi_waiting.course, kbi_waiting.activity_name, kbi_waiting.submitted_at DESC
+LIMIT 500</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>A lista tem limite de <code>500</code> linhas, ordenadas por curso e atividade antes da data de envio. Se houver mais itens pendentes, o relatório não mostra necessariamente todos nem os mais antigos de toda a plataforma.</li><li>A consulta não oferece parâmetro de curso ou período. A filtragem por situação ocorre nas cláusulas fixas de tarefas e questões, enquanto o cálculo de dias de espera usa o horário atual do banco de dados.</li><li>O campo <code>is_overdue</code> compara o prazo configurado da atividade com o instante atual. Não indica necessariamente que o estudante entregou com atraso e, para questionários, utiliza <code>timeclose</code>.</li><li>O campo <code>waiting_days</code> é calculado a partir da data de envio ou encerramento da tentativa, e não do vencimento ou da primeira necessidade de avaliação. O cálculo não considera dias úteis.</li><li>A lista dos docentes associa papéis cujos nomes curtos são <code>editingteacher</code> ou <code>teacher</code> no contexto do curso. Não identifica necessariamente o professor responsável por corrigir aquele envio.</li><li>A união contém diferentes granularidades: uma linha por envio de tarefa selecionado e uma linha por questão com avaliação manual pendente em uma tentativa de questionário. Contar linhas não equivale a contar estudantes ou atividades distintas.</li><li>O relatório depende de regras de avaliação, etapas das tentativas, tabelas de matrícula e visibilidade. Como inclui identificação e e-mail dos estudantes, restrinja a usuários autorizados.</li><li>MySQL e PostgreSQL utilizam funções próprias de data e agregação de nomes; consulte a versão integral específica do banco utilizado.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-052.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-052-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="051.html">← Relatório 051</a><a href="053.html">Relatório 053 →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/grades.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
