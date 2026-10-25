@@ -1,0 +1,184 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Apresenta informações de usuários com tentativas registradas em pacotes SCORM do curso selecionado, incluindo acompanhamento, conclusão, notas, estados e duração."><meta name="theme-color" content="#072c3a"><title>Relatório 077 · Detalhes de atividades SCORM · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/scorm.html">SCORM</a> / 077</div><div class="kicker">RELATÓRIO 077</div><h1>Detalhes de atividades SCORM</h1><p class="lead">Apresenta informações de usuários com tentativas registradas em pacotes SCORM do curso selecionado, incluindo acompanhamento, conclusão, notas, estados e duração.</p><section><h2>Finalidade do relatório</h2><p>Apresenta informações de usuários com tentativas registradas em pacotes SCORM do curso selecionado, incluindo acompanhamento, conclusão, notas, estados e duração.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Ajuda administradores e professores a revisar tentativas de objetos SCORM, analisar estados de conclusão, comparar resultados de avaliação e investigar os registros técnicos de tempo e visitas.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>O filtro dinâmico é <strong>Curso</strong>, por meio de <code>:courseid</code>, utilizado <strong>três vezes em cada variante</strong>: na subconsulta de matrículas, na seleção dos pacotes com tentativas e na condição principal de curso.</p><p>O SQL exige curso e módulo visíveis, usuários não excluídos nem suspensos e diferentes de <code>guest</code>, com alguma inscrição e pelo menos uma tentativa SCORM. Não exige matrícula atualmente ativa, papel específico ou janela de datas.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>O relatório apresenta uma visualização em tabela com 2 consultas SQL integrais, configuração de cache e atualização e realce de sintaxe com Prism.js. MySQL e PostgreSQL aparecem em caixas separadas dentro do mesmo bloco de visualização.</p><details class="report-block" open><summary>1. Detalhes de atividades SCORM · Tabela</summary><div class="inner"><p>Uma tabela por participante e pacote SCORM com tentativas registradas, contendo identificação, e-mail, ID institucional, nome do pacote e curso, quantidade de tentativas, data de alteração dos registros SCORM, horário de início, duração acumulada dos registros cmi.core.total_time, estados da primeira e última tentativa, situação de matrícula, nota, configuração de conclusão do módulo e tempo e visitas de acompanhamento do curso.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT t.*,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_u.idnumber,
+       kbi_u.id               AS user_id,
+       kbi_s.name,
+       kbi_c.fullname,
+       kbi_cmc.completionstate,
+       kbi_cmc.timemodified   AS completiondate,
+       round(sg.score, 0) AS score,
+       l.timespend        AS timespend_on_course,
+       ue.status          AS enrol_status,
+       kbi_s.completionscorerequired,
+       kbi_s.completionstatusrequired,
+       kbi_s.completionstatusallscos,
+       kbi_s.id               AS scorm_id,
+       sg.finalgrade,
+       sg.rawgrademax,
+       kbi_cm.completionexpected,
+       kbi_cm.completiongradeitemnumber,
+       kbi_cm.completionview,
+       kbi_cm.completion,
+       kbi_s.grademethod      AS scorm_grade_method,
+       l.visits           AS visits_on_course,
+       ue.timeend,
+       &#39;&#39;                 as cohortname
+FROM mdl_scorm kbi_s
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_s.course
+       JOIN mdl_modules kbi_m ON kbi_m.name = &#39;scorm&#39;
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_s.id
+       JOIN (SELECT kbi_e.courseid, kbi_ue1.userid, MIN(kbi_ue1.status) AS status, MIN(kbi_ue1.timeend) AS timeend
+             FROM mdl_enrol kbi_e
+                    JOIN mdl_user_enrolments kbi_ue1 ON kbi_ue1.enrolid = kbi_e.id
+             WHERE kbi_e.id &gt; 0
+               AND kbi_e.courseid = :courseid
+             GROUP BY kbi_e.courseid, kbi_ue1.userid) ue ON ue.courseid = kbi_c.id
+       JOIN mdl_user kbi_u ON kbi_u.id = ue.userid
+       LEFT JOIN (SELECT courseid,
+                         userid,
+                         SUM(timespend) AS timespend,
+                         SUM(visits)    AS visits
+                  FROM mdl_local_kopere_bi_tracking
+                  GROUP BY courseid, userid) l ON l.courseid = kbi_c.id AND l.userid = kbi_u.id
+       JOIN (
+             SELECT a.userid, a.scormid,
+                    MIN(a.id) AS id,
+                    COUNT(DISTINCT a.attempt) AS attempts,
+                    MAX(v.timemodified) AS timemodified,
+                    MIN(CASE WHEN e.element = &#39;x.start.time&#39; THEN v.value END) AS starttime,
+                    SUM(CASE WHEN e.element = &#39;cmi.core.total_time&#39;
+                             THEN TIME_TO_SEC(v.value) END) AS duration,
+                    MAX(CASE WHEN a.attempt = 1
+                              AND e.element IN (&#39;cmi.completion_status&#39;, &#39;cmi.core.lesson_status&#39;)
+                              AND v.value IN (&#39;completed&#39;, &#39;passed&#39;)
+                             THEN &#39;lang::report_sql_status_completed::local_kopere_bi&#39; ELSE &#39;&#39; END) AS first_completion_status,
+                    MAX(CASE WHEN a.attempt = la.last_attempt_number
+                              AND e.element IN (&#39;cmi.completion_status&#39;, &#39;cmi.core.lesson_status&#39;)
+                              AND v.value IN (&#39;completed&#39;, &#39;passed&#39;)
+                             THEN &#39;lang::report_sql_status_completed::local_kopere_bi&#39; ELSE &#39;&#39; END) AS current_completion_status
+               FROM mdl_scorm_attempt a
+               LEFT JOIN mdl_scorm_scoes_value v ON v.attemptid = a.id
+               LEFT JOIN mdl_scorm_element e ON e.id = v.elementid
+               JOIN (SELECT userid, scormid, MAX(attempt) AS last_attempt_number
+                       FROM mdl_scorm_attempt
+                   GROUP BY userid, scormid) la ON la.userid = a.userid AND la.scormid = a.scormid
+              WHERE a.scormid IN (SELECT id FROM mdl_scorm WHERE course = :courseid)
+           GROUP BY a.userid, a.scormid
+       ) t ON t.scormid = kbi_s.id AND t.userid = kbi_u.id
+       LEFT JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.coursemoduleid = kbi_cm.id AND kbi_cmc.userid = kbi_u.id
+       LEFT JOIN (SELECT kbi_gi.iteminstance,
+                         ROUND((CASE
+                                  WHEN kbi_g.rawgrademax &gt; 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                                  ELSE kbi_g.finalgrade END), 0) AS score,
+                         kbi_g.userid,
+                         kbi_g.finalgrade,
+                         kbi_g.rawgrademax
+                  FROM mdl_grade_items kbi_gi, mdl_grade_grades kbi_g
+                  WHERE kbi_gi.itemmodule = &#39;scorm&#39;
+                    and kbi_g.itemid = kbi_gi.id
+                    AND kbi_g.finalgrade IS NOT NULL
+                    AND kbi_gi.outcomeid IS NULL
+                  GROUP BY kbi_gi.iteminstance, kbi_g.userid, kbi_g.rawgrademax, kbi_g.finalgrade, kbi_gi.scaleid, kbi_g.feedback, kbi_gi.gradetype,
+                           kbi_g.rawgrademin, kbi_gi.courseid) sg ON sg.iteminstance = t.scormid and sg.userid = t.userid
+WHERE ue.userid &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_cm.visible = 1
+ORDER BY kbi_c.fullname, kbi_s.name, kbi_u.lastname, kbi_u.firstname</code></pre></div>
+<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT t.*,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_u.idnumber,
+       kbi_u.id               AS user_id,
+       kbi_s.name,
+       kbi_c.fullname,
+       kbi_cmc.completionstate,
+       kbi_cmc.timemodified   AS completiondate,
+       ROUND((sg.score)::numeric, 0) AS score,
+       l.timespend        AS timespend_on_course,
+       ue.status          AS enrol_status,
+       kbi_s.completionscorerequired,
+       kbi_s.completionstatusrequired,
+       kbi_s.completionstatusallscos,
+       kbi_s.id               AS scorm_id,
+       sg.finalgrade,
+       sg.rawgrademax,
+       kbi_cm.completionexpected,
+       kbi_cm.completiongradeitemnumber,
+       kbi_cm.completionview,
+       kbi_cm.completion,
+       kbi_s.grademethod      AS scorm_grade_method,
+       l.visits           AS visits_on_course,
+       ue.timeend,
+       &#39;&#39;                 as cohortname
+FROM mdl_scorm kbi_s
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_s.course
+       JOIN mdl_modules kbi_m ON kbi_m.name = &#39;scorm&#39;
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_s.id
+       JOIN(SELECT kbi_e.courseid, kbi_ue1.userid, MIN(kbi_ue1.status) AS status, MIN(kbi_ue1.timeend) AS timeend
+             FROM mdl_enrol kbi_e
+                    JOIN mdl_user_enrolments kbi_ue1 ON kbi_ue1.enrolid = kbi_e.id
+             WHERE kbi_e.id &gt; 0
+               AND kbi_e.courseid = :courseid
+             GROUP BY kbi_e.courseid, kbi_ue1.userid) ue ON ue.courseid = kbi_c.id
+       JOIN mdl_user kbi_u ON kbi_u.id = ue.userid
+       LEFT JOIN(SELECT courseid,
+                         userid,
+                         SUM(timespend) AS timespend,
+                         SUM(visits)    AS visits
+                  FROM mdl_local_kopere_bi_tracking
+                  GROUP BY courseid, userid) l ON l.courseid = kbi_c.id AND l.userid = kbi_u.id
+       JOIN(
+             SELECT a.userid, a.scormid,
+                    MIN(a.id) AS id,
+                    COUNT(DISTINCT a.attempt) AS attempts,
+                    MAX(v.timemodified) AS timemodified,
+                    MIN(CASE WHEN e.element = &#39;x.start.time&#39; THEN v.value END) AS starttime,
+                    SUM(CASE WHEN e.element = &#39;cmi.core.total_time&#39;
+                             THEN EXTRACT(EPOCH FROM NULLIF((v.value)::text, &#39;&#39;)::interval) END) AS duration,
+                    MAX(CASE WHEN a.attempt = 1
+                              AND e.element IN(&#39;cmi.completion_status&#39;, &#39;cmi.core.lesson_status&#39;)
+                              AND v.value IN(&#39;completed&#39;, &#39;passed&#39;)
+                             THEN &#39;lang::report_sql_status_completed::local_kopere_bi&#39; ELSE &#39;&#39; END) AS first_completion_status,
+                    MAX(CASE WHEN a.attempt = la.last_attempt_number
+                              AND e.element IN(&#39;cmi.completion_status&#39;, &#39;cmi.core.lesson_status&#39;)
+                              AND v.value IN(&#39;completed&#39;, &#39;passed&#39;)
+                             THEN &#39;lang::report_sql_status_completed::local_kopere_bi&#39; ELSE &#39;&#39; END) AS current_completion_status
+               FROM mdl_scorm_attempt a
+               LEFT JOIN mdl_scorm_scoes_value v ON v.attemptid = a.id
+               LEFT JOIN mdl_scorm_element e ON e.id = v.elementid
+               JOIN(SELECT userid, scormid, MAX(attempt) AS last_attempt_number
+                       FROM mdl_scorm_attempt
+                   GROUP BY userid, scormid) la ON la.userid = a.userid AND la.scormid = a.scormid
+              WHERE a.scormid IN(SELECT id FROM mdl_scorm WHERE course = :courseid)
+           GROUP BY a.userid, a.scormid
+       ) t ON t.scormid = kbi_s.id AND t.userid = kbi_u.id
+       LEFT JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.coursemoduleid = kbi_cm.id AND kbi_cmc.userid = kbi_u.id
+       LEFT JOIN(SELECT kbi_gi.iteminstance,
+                         ROUND(((CASE
+                                  WHEN kbi_g.rawgrademax &gt; 0 THEN(kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                                  ELSE kbi_g.finalgrade END))::numeric, 0) AS score,
+                         kbi_g.userid,
+                         kbi_g.finalgrade,
+                         kbi_g.rawgrademax
+                  FROM mdl_grade_items kbi_gi, mdl_grade_grades kbi_g
+                  WHERE kbi_gi.itemmodule = &#39;scorm&#39;
+                    and kbi_g.itemid = kbi_gi.id
+                    AND kbi_g.finalgrade IS NOT NULL
+                    AND kbi_gi.outcomeid IS NULL
+                  GROUP BY kbi_gi.iteminstance, kbi_g.userid, kbi_g.rawgrademax, kbi_g.finalgrade, kbi_gi.scaleid, kbi_g.feedback, kbi_gi.gradetype,
+                           kbi_g.rawgrademin, kbi_gi.courseid) sg ON sg.iteminstance = t.scormid and sg.userid = t.userid
+WHERE ue.userid &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_cm.visible = 1
+ORDER BY kbi_c.fullname, kbi_s.name, kbi_u.lastname, kbi_u.firstname</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>O relatório usa <code>JOIN</code> com o agregado de tentativas SCORM. Portanto, participantes matriculados que ainda não iniciaram o pacote não aparecem no resultado.</li><li>Os campos <code>enrol_status</code> e <code>timeend</code> são produzidos por agregações <code>MIN</code> independentes entre matrículas da mesma pessoa no curso; não descrevem necessariamente uma inscrição específica.</li><li>A coluna de duração <code>duration</code> soma valores SCORM de <code>cmi.core.total_time</code> convertidos em segundos. A origem e o preenchimento desses valores dependem do pacote; ausências ou formatos incompatíveis podem gerar resultados incompletos.</li><li>As versões MySQL e PostgreSQL empregam conversões diferentes de tempo, respectivamente <code>TIME_TO_SEC</code> e conversão de intervalo com <code>EXTRACT(EPOCH ...)</code>. O comportamento pode diferir conforme a formatação dos valores SCORM.</li><li>Os campos <code>first_completion_status</code> e <code>current_completion_status</code> são derivados de estados <code>completed</code> ou <code>passed</code> na primeira e na última tentativa, respectivamente. Não equivalem automaticamente ao estado de conclusão do módulo no Moodle.</li><li>As expressões de status SCORM devolvem uma chave de idioma como valor do SQL; a apresentação legível pode depender do tratamento dessa chave pela aplicação.</li><li>O campo <code>completionstate</code> provém da conclusão do módulo do Moodle, e <code>completiondate</code> representa a última alteração desse registro, não necessariamente a data da primeira conclusão.</li><li><strong>O tempo e as visitas do Kopere BI são somados por usuário e curso</strong>, sem restringir ao módulo SCORM. Não interprete <code>timespend_on_course</code> e <code>visits_on_course</code> como tempo ou visitas exclusivamente ao pacote.</li><li>O valor <code>score</code> pode ser uma porcentagem quando <code>rawgrademax &gt; 0</code> ou uma nota bruta caso contrário; <code>cohortname</code> é uma cadeia vazia fixa e não informa pertença à coorte.</li><li>O relatório expõe dados pessoais e de avaliação, incluindo e-mail e identificador institucional. Acesso e exportação devem respeitar as permissões acadêmicas e administrativas.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-077.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-077-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="076.html">← Relatório 076</a><a href="078.html">Relatório 078 →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/scorm.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
