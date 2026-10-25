@@ -1,0 +1,107 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Tabela de notas de itens de atividade e do curso selecionado, datas de atualização, identificação de quem modificou a nota e último acesso registrado ao curso."><meta name="theme-color" content="#072c3a"><title>Relatório 056 · Notas das atividades e respectivas datas · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/activities.html">Atividades</a> / 056</div><div class="kicker">RELATÓRIO 056</div><h1>Notas das atividades e respectivas datas</h1><p class="lead">Tabela de notas de itens de atividade e do curso selecionado, datas de atualização, identificação de quem modificou a nota e último acesso registrado ao curso.</p><section><h2>Finalidade do relatório</h2><p>Tabela de notas de itens de atividade e do curso selecionado, datas de atualização, identificação de quem modificou a nota e último acesso registrado ao curso.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Permite revisar a situação das notas registradas, consultar sua data de alteração e confrontar informações de atividades, avaliadores e participantes em um mesmo painel.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>O filtro SQL dinâmico disponível é <strong>Curso</strong>, representado por <code>:courseid</code>, presente uma vez em cada versão MySQL e PostgreSQL.</p><p>Os filtros fixos exigem curso visível e com ID positivo, usuários não excluídos nem suspensos e diferentes de <code>guest</code>, além de atribuição de algum papel em contexto de curso (<code>contextlevel = 50</code>). Os itens de nota considerados são do tipo <code>mod</code> ou <code>course</code>. Não há filtro dinâmico por atividade, avaliador ou intervalo de datas.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>O relatório apresenta uma visualização em tabela com 2 consultas SQL, cache e configuração de atualização, com destaque de sintaxe pelo Prism.js. As variantes MySQL e PostgreSQL equivalentes ficam em caixas separadas dentro do mesmo bloco de visualização.</p><details class="report-block" open><summary>1. Notas das atividades e respectivas datas · Tabela</summary><div class="inner"><p>Tabela por usuário associado a papéis no contexto do curso e por item de nota de tipo mod ou course, com atividade, categoria do curso, docentes listados, notas e percentuais calculados, data de alteração, nome de quem modificou o registro, campo de data associado à avaliação de tarefa e último acesso ao curso. As duas variantes produzem a mesma tabela.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT DISTINCT kbi_gi.itemname                                                 AS activity_name,
+                kbi_g.userid,
+                kbi_u.username,
+                kbi_u.firstname,
+                kbi_u.lastname,
+                kbi_c.fullname,
+                kbi_cc1.name                                                    AS course_category,
+                kbi_c.shortname,
+                tcrs.teachers                                               as courseteachers,
+                kbi_g.timemodified                                              AS graduated,
+                ROUND((CASE
+                         WHEN kbi_g.rawgrademax &gt; 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                         ELSE kbi_g.finalgrade END), 0)                         AS grade,
+                ROUND((CASE
+                         WHEN (kbi_g.rawgrademax - kbi_g.rawgrademin) &gt; 0
+                                 THEN ((kbi_g.finalgrade - kbi_g.rawgrademin) / (kbi_g.rawgrademax - kbi_g.rawgrademin)) * 100
+                         ELSE kbi_g.finalgrade END), 0)                         AS grade_percent,
+                kbi_wg.firstname                                                AS who_graded_first_name,
+                kbi_wg.lastname                                                 AS who_graded_last_name,
+                kbi_gi.itemtype,
+                CASE WHEN kbi_m.name = &#39;assign&#39; THEN kbi_sg.timemodified ELSE 0 END AS need_grade_assignment,
+                kbi_ul.timeaccess                                               AS course_lastaccess
+FROM mdl_course kbi_c
+       LEFT JOIN mdl_course_categories kbi_cc1 ON kbi_cc1.id = kbi_c.category
+       LEFT JOIN (SELECT kbi_cx.instanceid, GROUP_CONCAT(CONCAT(kbi_u.firstname, &#39; &#39;, kbi_u.lastname) SEPARATOR &#39;, &#39;) as teachers
+                  FROM mdl_context kbi_cx
+                         JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_cx.id AND
+                                                         kbi_ra.roleid IN (1, 2, 3, 4)
+                         JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid
+                  WHERE kbi_cx.contextlevel = 50
+                  GROUP BY kbi_cx.instanceid) tcrs ON tcrs.instanceid = kbi_c.id
+       JOIN mdl_context kbi_ctx ON kbi_ctx.instanceid = kbi_c.id AND kbi_ctx.contextlevel = 50
+       JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_ctx.id
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid
+       LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.courseid = kbi_c.id AND (kbi_gi.itemtype = &#39;mod&#39; OR kbi_gi.itemtype = &#39;course&#39;)
+       LEFT JOIN mdl_grade_grades kbi_g ON kbi_gi.id = kbi_g.itemid AND kbi_g.userid = kbi_u.id
+       LEFT JOIN mdl_user kbi_wg ON kbi_wg.id = kbi_g.usermodified
+       LEFT JOIN mdl_modules kbi_m ON kbi_m.name = kbi_gi.itemmodule
+       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.instance = kbi_gi.iteminstance AND kbi_cm.module = kbi_m.id
+       LEFT JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.coursemoduleid = kbi_cm.id AND kbi_cmc.userid = kbi_u.id
+       LEFT JOIN mdl_assign_submission kbi_ass ON kbi_ass.userid = kbi_u.id AND kbi_ass.assignment = kbi_cm.instance AND
+                                              kbi_ass.status = &#39;submitted&#39; AND kbi_ass.latest = 1
+       LEFT JOIN mdl_assign_grades kbi_sg ON kbi_ass.assignment = kbi_sg.assignment AND kbi_ass.userid = kbi_sg.userid AND
+                                         kbi_sg.attemptnumber = kbi_ass.attemptnumber AND
+                                         (kbi_ass.timemodified &gt;= kbi_sg.timemodified OR kbi_sg.timemodified IS NULL OR
+                                          kbi_sg.grade IS NULL)
+       LEFT JOIN mdl_user_lastaccess kbi_ul ON kbi_ul.courseid = kbi_c.id AND kbi_ul.userid = kbi_u.id
+WHERE kbi_c.id &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+ORDER BY kbi_c.fullname, kbi_gi.itemname, kbi_u.lastname, kbi_u.firstname</code></pre></div>
+<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT DISTINCT kbi_gi.itemname                                                 AS activity_name,
+                kbi_g.userid,
+                kbi_u.username,
+                kbi_u.firstname,
+                kbi_u.lastname,
+                kbi_c.fullname,
+                kbi_cc1.name                                                    AS course_category,
+                kbi_c.shortname,
+                tcrs.teachers                                               as courseteachers,
+                kbi_g.timemodified                                              AS graduated,
+                ROUND(((CASE
+                         WHEN kbi_g.rawgrademax &gt; 0 THEN(kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                         ELSE kbi_g.finalgrade END))::numeric, 0)                         AS grade,
+                ROUND(((CASE
+                         WHEN(kbi_g.rawgrademax - kbi_g.rawgrademin) &gt; 0
+                                 THEN((kbi_g.finalgrade - kbi_g.rawgrademin) / (kbi_g.rawgrademax - kbi_g.rawgrademin)) * 100
+                         ELSE kbi_g.finalgrade END))::numeric, 0)                         AS grade_percent,
+                kbi_wg.firstname                                                AS who_graded_first_name,
+                kbi_wg.lastname                                                 AS who_graded_last_name,
+                kbi_gi.itemtype,
+                CASE WHEN kbi_m.name = &#39;assign&#39; THEN kbi_sg.timemodified ELSE 0 END AS need_grade_assignment,
+                kbi_ul.timeaccess                                               AS course_lastaccess
+FROM mdl_course kbi_c
+       LEFT JOIN mdl_course_categories kbi_cc1 ON kbi_cc1.id = kbi_c.category
+       LEFT JOIN(SELECT kbi_cx.instanceid, STRING_AGG((CONCAT(kbi_u.firstname, &#39; &#39;, kbi_u.lastname))::text, &#39;, &#39;) as teachers
+                  FROM mdl_context kbi_cx
+                         JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_cx.id AND
+                                                         kbi_ra.roleid IN(1, 2, 3, 4)
+                         JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid
+                  WHERE kbi_cx.contextlevel = 50
+                  GROUP BY kbi_cx.instanceid) tcrs ON tcrs.instanceid = kbi_c.id
+       JOIN mdl_context kbi_ctx ON kbi_ctx.instanceid = kbi_c.id AND kbi_ctx.contextlevel = 50
+       JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_ctx.id
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid
+       LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.courseid = kbi_c.id AND(kbi_gi.itemtype = &#39;mod&#39; OR kbi_gi.itemtype = &#39;course&#39;)
+       LEFT JOIN mdl_grade_grades kbi_g ON kbi_gi.id = kbi_g.itemid AND kbi_g.userid = kbi_u.id
+       LEFT JOIN mdl_user kbi_wg ON kbi_wg.id = kbi_g.usermodified
+       LEFT JOIN mdl_modules kbi_m ON kbi_m.name = kbi_gi.itemmodule
+       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.instance = kbi_gi.iteminstance AND kbi_cm.module = kbi_m.id
+       LEFT JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.coursemoduleid = kbi_cm.id AND kbi_cmc.userid = kbi_u.id
+       LEFT JOIN mdl_assign_submission kbi_ass ON kbi_ass.userid = kbi_u.id AND kbi_ass.assignment = kbi_cm.instance AND
+                                              kbi_ass.status = &#39;submitted&#39; AND kbi_ass.latest = 1
+       LEFT JOIN mdl_assign_grades kbi_sg ON kbi_ass.assignment = kbi_sg.assignment AND kbi_ass.userid = kbi_sg.userid AND
+                                         kbi_sg.attemptnumber = kbi_ass.attemptnumber AND(kbi_ass.timemodified &gt;= kbi_sg.timemodified OR kbi_sg.timemodified IS NULL OR
+                                          kbi_sg.grade IS NULL)
+       LEFT JOIN mdl_user_lastaccess kbi_ul ON kbi_ul.courseid = kbi_c.id AND kbi_ul.userid = kbi_u.id
+WHERE kbi_c.id &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+ORDER BY kbi_c.fullname, kbi_gi.itemname, kbi_u.lastname, kbi_u.firstname</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>A consulta principal não exige o papel ID 5 nem matrícula ativa; usuários com qualquer papel atribuído no curso podem aparecer, incluindo docentes.</li><li>Os itens de nota e registros de avaliações usam <code>LEFT JOIN</code>. Linhas sem nota final ou sem atividade vinculada podem ser incluídas, com campos nulos.</li><li>O campo <code>graduated</code> apresenta <code>mdl_grade_grades.timemodified</code>, isto é, quando o registro da nota foi modificado, e não obrigatoriamente o instante da avaliação original.</li><li>As colunas <code>grade</code> e <code>grade_percent</code> aplicam fórmulas diferentes. A segunda considera a escala entre <code>rawgrademin</code> e <code>rawgrademax</code>; a primeira usa a divisão direta por <code>rawgrademax</code> quando positivo.</li><li>A coluna <code>need_grade_assignment</code> não é um indicador booleano de pendência. Para tarefas ela retorna <code>kbi_sg.timemodified</code> na associação com o registro de nota; para outros módulos retorna <code>0</code>. Valores nulos são possíveis.</li><li>A lista <code>courseteachers</code> utiliza atribuições de papéis com IDs <code>1</code>, <code>2</code>, <code>3</code> e <code>4</code>. Isso não equivale necessariamente aos professores responsáveis pela avaliação e pode incluir papéis personalizados.</li><li>O campo <code>course_lastaccess</code> vem de <code>mdl_user_lastaccess</code>; não demonstra, por si só, participação em determinada atividade.</li><li>MySQL e PostgreSQL diferem em operações de concatenação de nomes e arredondamento. Como o relatório apresenta notas e dados pessoais, restrinja o acesso aos perfis autorizados.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-056.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-056-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="055.html">← Relatório 055</a><a href="057.html">Relatório 057 →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/activities.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
