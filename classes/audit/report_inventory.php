@@ -291,7 +291,9 @@ final class report_inventory {
                 $report = ['status' => 'MISSING', 'refkey' => $ref, 'file' => $official['file']];
             } else if (count($records) > 1) {
                 $report = ['status' => 'DUPLICATE', 'refkey' => $ref,
-                    'ids' => array_map(static function($record) { return (int)$record->id; }, $records)];
+                    'ids' => array_map(static function($record) {
+                        return (int)$record->id;
+                    }, $records)];
             } else {
                 $report = self::classify($official, $records[0], $signatures[$ref] ?? null);
                 $blockid = (int)$records[0]->block_id;
