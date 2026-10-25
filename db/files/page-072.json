@@ -25,7 +25,7 @@
           "css": "",
           "html_before": "",
           "html_after": "",
-          "commandsql": "SELECT FLOOR(p.created/86400)*86400 AS timepoint,COUNT(DISTINCT p.id) AS posts,\n COUNT(DISTINCT p.userid) AS contributors\nFROM mdl_forum_posts p JOIN mdl_forum_discussions d ON d.id=p.discussion\n JOIN mdl_forum f ON f.id=d.forum\nWHERE f.course=:courseid AND p.created>0\nGROUP BY FLOOR(p.created/86400)*86400 ORDER BY timepoint",
+          "commandsql": "SELECT FLOOR(p.created/86400)*86400 AS timepoint,COUNT(DISTINCT p.id) AS posts,\n COUNT(DISTINCT p.userid) AS contributors,\n ROUND(1.0 * COUNT(DISTINCT p.id) / NULLIF(COUNT(DISTINCT p.userid), 0), 2) AS posts_per_contributor\nFROM mdl_forum_posts p JOIN mdl_forum_discussions d ON d.id=p.discussion\n JOIN mdl_forum f ON f.id=d.forum\nWHERE f.course=:courseid AND p.created>0\nGROUP BY FLOOR(p.created/86400)*86400 ORDER BY timepoint",
           "cache": "1h",
           "reload": "none",
           "info": {
@@ -45,6 +45,12 @@
               "contributors": {
                 "key": "contributors",
                 "title": "lang::report_fix_contributors_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "posts_per_contributor": {
+                "key": "posts_per_contributor",
+                "title": "lang::report_enrich_posts_per_contributor_title::local_kopere_bi",
                 "type": "number",
                 "mustache": ""
               }

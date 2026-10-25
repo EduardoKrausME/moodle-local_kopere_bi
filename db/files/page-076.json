@@ -25,7 +25,7 @@
           "css": "",
           "html_before": "",
           "html_after": "",
-          "commandsql": "SELECT MAX(kbi_fd.id)            AS id,\n       kbi_c.fullname            as course,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_f.name,\n       COUNT(DISTINCT kbi_fp.id) AS posts,\n       COUNT(DISTINCT kbi_fd.id) AS discussions\nFROM mdl_forum_discussions kbi_fd\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_fd.userid\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_fd.course\n       LEFT JOIN mdl_forum kbi_f ON kbi_f.id = kbi_fd.forum\n       LEFT JOIN mdl_forum_posts kbi_fp ON kbi_fp.discussion = kbi_fd.id AND kbi_fp.userid = kbi_u.id\nWHERE kbi_fd.id > 0\n  AND kbi_c.id = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\nGROUP BY kbi_u.id, kbi_c.id, kbi_f.id\nORDER BY kbi_c.fullname, kbi_u.lastname, kbi_u.firstname, kbi_f.name",
+          "commandsql": "SELECT MAX(kbi_fd.id)            AS id,\n       kbi_c.fullname            as course,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_f.name,\n       COUNT(DISTINCT kbi_fp.id) AS posts,\n       COUNT(DISTINCT kbi_fd.id) AS discussions,\n       ROUND(1.0 * COUNT(DISTINCT kbi_fp.id) / NULLIF(COUNT(DISTINCT kbi_fd.id), 0), 2) AS posts_per_discussion\nFROM mdl_forum_discussions kbi_fd\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_fd.userid\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_fd.course\n       LEFT JOIN mdl_forum kbi_f ON kbi_f.id = kbi_fd.forum\n       LEFT JOIN mdl_forum_posts kbi_fp ON kbi_fp.discussion = kbi_fd.id AND kbi_fp.userid = kbi_u.id\nWHERE kbi_fd.id > 0\n  AND kbi_c.id = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\nGROUP BY kbi_u.id, kbi_c.id, kbi_f.id\nORDER BY kbi_c.fullname, kbi_u.lastname, kbi_u.firstname, kbi_f.name",
           "cache": "1h",
           "reload": "none",
           "info": {
@@ -70,6 +70,12 @@
                 "key": "discussions",
                 "title": "lang::report_field_discussions_title::local_kopere_bi",
                 "type": "string",
+                "mustache": ""
+              },
+              "posts_per_discussion": {
+                "key": "posts_per_discussion",
+                "title": "lang::report_enrich_posts_per_discussion_title::local_kopere_bi",
+                "type": "number",
                 "mustache": ""
               }
             }
