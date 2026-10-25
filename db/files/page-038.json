@@ -25,7 +25,7 @@
           "css": "",
           "html_before": "",
           "html_after": "",
-          "commandsql": "SELECT kbi_l.id,\n       kbi_l.courseid,\n       kbi_l.userid,\n       kbi_l.contextinstanceid          AS cmid,\n       kbi_l.objecttable,\n       kbi_l.origin,\n       kbi_l.ip,\n       kbi_c.fullname                   AS course,\n       kbi_c.shortname,\n       kbi_ca.name                      AS category,\n       kbi_u.email,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_l.timecreated,\n       (CASE\n          WHEN kbi_l.objecttable = 'forum_discussions' THEN (SELECT name FROM mdl_forum_discussions WHERE id = kbi_l.objectid)\n          ELSE (CASE\n                  WHEN kbi_l.objecttable = 'forum_posts' THEN (SELECT subject FROM mdl_forum_posts WHERE id = kbi_l.objectid)\n                  ELSE '' END) END) AS forumitem\nFROM mdl_local_kopere_bi_log_tmp kbi_l\n       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_l.courseid\n       LEFT JOIN mdl_course_categories kbi_ca ON kbi_ca.id = kbi_c.category\n       LEFT JOIN mdl_user kbi_u ON kbi_u.id = kbi_l.userid\n       LEFT JOIN mdl_modules kbi_m ON kbi_m.name = SUBSTRING(kbi_l.component, 5)\n       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.id = kbi_l.contextinstanceid\nWHERE kbi_l.component LIKE '%mod_%'\n  AND kbi_l.courseid = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_cm.visible = 1",
+          "commandsql": "SELECT kbi_l.id,\n       kbi_l.courseid,\n       kbi_l.userid,\n       kbi_l.contextinstanceid          AS cmid,\n       kbi_l.objecttable,\n       kbi_l.origin,\n       kbi_l.ip,\n       kbi_c.fullname                   AS course,\n       kbi_c.shortname,\n       kbi_ca.name                      AS category,\n       kbi_u.email,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_l.timecreated,\n       kbi_l.action AS event_action,\n       kbi_l.target AS event_target,\n       (CASE\n          WHEN kbi_l.objecttable = 'forum_discussions' THEN (SELECT name FROM mdl_forum_discussions WHERE id = kbi_l.objectid)\n          ELSE (CASE\n                  WHEN kbi_l.objecttable = 'forum_posts' THEN (SELECT subject FROM mdl_forum_posts WHERE id = kbi_l.objectid)\n                  ELSE '' END) END) AS forumitem\nFROM mdl_local_kopere_bi_log_tmp kbi_l\n       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_l.courseid\n       LEFT JOIN mdl_course_categories kbi_ca ON kbi_ca.id = kbi_c.category\n       LEFT JOIN mdl_user kbi_u ON kbi_u.id = kbi_l.userid\n       LEFT JOIN mdl_modules kbi_m ON kbi_m.name = SUBSTRING(kbi_l.component, 5)\n       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.id = kbi_l.contextinstanceid\nWHERE kbi_l.component LIKE '%mod_%'\n  AND kbi_l.courseid = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_cm.visible = 1",
           "cache": "1h",
           "reload": "none",
           "info": {
@@ -117,6 +117,18 @@
               "forumitem": {
                 "key": "forumitem",
                 "title": "lang::report_field_forumitem_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "event_action": {
+                "key": "event_action",
+                "title": "lang::report_enrich_log_action_title::local_kopere_bi",
+                "type": "string",
+                "mustache": ""
+              },
+              "event_target": {
+                "key": "event_target",
+                "title": "lang::report_enrich_log_target_title::local_kopere_bi",
                 "type": "string",
                 "mustache": ""
               }

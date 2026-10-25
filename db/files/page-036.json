@@ -25,7 +25,7 @@
           "css": "",
           "html_before": "",
           "html_after": "",
-          "commandsql": "SELECT max(kbi_t.id)             AS tid,\n       kbi_u.id                  AS id,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_c.fullname,\n       kbi_c.shortname,\n       kbi_ca.name               AS category,\n       MAX(kbi_cc.timecompleted) AS timecompleted,\n       SUM(kbi_l.timespend)      AS timespend,\n       SUM(kbi_l.visits)         AS visits\nFROM mdl_local_kopere_bi_track_log kbi_l\n       JOIN mdl_local_kopere_bi_tracking kbi_t ON kbi_t.id = kbi_l.trackid\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_t.userid\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_t.courseid\n       JOIN mdl_course_categories kbi_ca ON kbi_ca.id = kbi_c.category\n       LEFT JOIN mdl_course_completions kbi_cc ON kbi_cc.userid = kbi_u.id AND kbi_cc.course = kbi_c.id\nWHERE kbi_l.id > 0\n  AND kbi_c.id = :courseid\nGROUP BY kbi_u.id, kbi_c.id, kbi_ca.id",
+          "commandsql": "SELECT max(kbi_t.id)             AS tid,\n       kbi_u.id                  AS id,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_c.fullname,\n       kbi_c.shortname,\n       kbi_ca.name               AS category,\n       MAX(kbi_cc.timecompleted) AS timecompleted,\n       SUM(kbi_l.timespend)      AS timespend,\n       SUM(kbi_l.visits)         AS visits,\n       ROUND(1.0 * SUM(kbi_l.timespend) / NULLIF(SUM(kbi_l.visits), 0), 2) AS avg_seconds_per_visit\nFROM mdl_local_kopere_bi_track_log kbi_l\n       JOIN mdl_local_kopere_bi_tracking kbi_t ON kbi_t.id = kbi_l.trackid\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_t.userid\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_t.courseid\n       JOIN mdl_course_categories kbi_ca ON kbi_ca.id = kbi_c.category\n       LEFT JOIN mdl_course_completions kbi_cc ON kbi_cc.userid = kbi_u.id AND kbi_cc.course = kbi_c.id\nWHERE kbi_l.id > 0\n  AND kbi_c.id = :courseid\nGROUP BY kbi_u.id, kbi_c.id, kbi_ca.id",
           "cache": "1h",
           "reload": "none",
           "info": {
@@ -93,6 +93,12 @@
               "visits": {
                 "key": "visits",
                 "title": "lang::report_field_visits_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "avg_seconds_per_visit": {
+                "key": "avg_seconds_per_visit",
+                "title": "lang::report_enrich_avg_time_per_visit_title::local_kopere_bi",
                 "type": "number",
                 "mustache": ""
               }

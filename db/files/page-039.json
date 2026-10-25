@@ -25,7 +25,7 @@
           "css": "",
           "html_before": "",
           "html_after": "",
-          "commandsql": "SELECT kbi_l.id,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_c.fullname,\n       kbi_c.shortname,\n       kbi_ca.name  AS category,\n       kbi_l.param,\n       kbi_l.visits,\n       kbi_l.timespend,\n       kbi_l.firstaccess,\n       kbi_l.lastaccess,\n       kbi_l.useragent,\n       kbi_l.useros,\n       kbi_l.userlang,\n       kbi_l.userip,\n       kbi_l.userid,\n       kbi_l.courseid,\n       kbi_cm.added as created,\n       kbi_m.name   as module\nFROM mdl_local_kopere_bi_tracking kbi_l\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_l.userid\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_l.courseid\n       LEFT JOIN mdl_course_categories kbi_ca ON kbi_ca.id = kbi_c.category\n       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.id = kbi_l.param\n       LEFT JOIN mdl_modules kbi_m ON kbi_m.id = kbi_cm.module\nWHERE kbi_l.page = 'module'\n  AND kbi_l.courseid = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_cm.visible = 1",
+          "commandsql": "SELECT kbi_l.id,\n       kbi_u.firstname,\n       kbi_u.lastname,\n       kbi_u.email,\n       kbi_c.fullname,\n       kbi_c.shortname,\n       kbi_ca.name  AS category,\n       kbi_l.param,\n       kbi_l.visits,\n       kbi_l.timespend,\n       ROUND(1.0 * kbi_l.timespend / NULLIF(kbi_l.visits, 0), 2) AS avg_seconds_per_visit,\n       kbi_l.firstaccess,\n       kbi_l.lastaccess,\n       kbi_l.useragent,\n       kbi_l.useros,\n       kbi_l.userlang,\n       kbi_l.userip,\n       kbi_l.userid,\n       kbi_l.courseid,\n       kbi_cm.added as created,\n       kbi_m.name   as module\nFROM mdl_local_kopere_bi_tracking kbi_l\n       JOIN mdl_user kbi_u ON kbi_u.id = kbi_l.userid\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_l.courseid\n       LEFT JOIN mdl_course_categories kbi_ca ON kbi_ca.id = kbi_c.category\n       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.id = kbi_l.param\n       LEFT JOIN mdl_modules kbi_m ON kbi_m.id = kbi_cm.module\nWHERE kbi_l.page = 'module'\n  AND kbi_l.courseid = :courseid\n  AND kbi_u.deleted = 0\n  AND kbi_u.suspended = 0\n  AND kbi_u.username != 'guest'\n  AND kbi_c.visible = 1\n  AND kbi_cm.visible = 1",
           "cache": "1h",
           "reload": "none",
           "info": {
@@ -105,25 +105,25 @@
               "useragent": {
                 "key": "useragent",
                 "title": "lang::report_field_useragent_title::local_kopere_bi",
-                "type": "string",
+                "type": "none",
                 "mustache": ""
               },
               "useros": {
                 "key": "useros",
                 "title": "lang::report_field_useros_title::local_kopere_bi",
-                "type": "string",
+                "type": "none",
                 "mustache": ""
               },
               "userlang": {
                 "key": "userlang",
                 "title": "lang::report_field_userlang_title::local_kopere_bi",
-                "type": "string",
+                "type": "none",
                 "mustache": ""
               },
               "userip": {
                 "key": "userip",
                 "title": "lang::report_field_userip_title::local_kopere_bi",
-                "type": "string",
+                "type": "none",
                 "mustache": ""
               },
               "userid": {
@@ -148,6 +148,12 @@
                 "key": "module",
                 "title": "lang::report_field_module_title::local_kopere_bi",
                 "type": "string",
+                "mustache": ""
+              },
+              "avg_seconds_per_visit": {
+                "key": "avg_seconds_per_visit",
+                "title": "lang::report_enrich_avg_time_per_visit_title::local_kopere_bi",
+                "type": "number",
                 "mustache": ""
               }
             }
