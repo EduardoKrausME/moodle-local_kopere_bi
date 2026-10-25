@@ -24,7 +24,7 @@
           "css": "",
           "html_before": null,
           "html_after": null,
-          "commandsql": "SELECT CONCAT(c.id, '-', FLOOR(l.timecreated / 86400.0), '-', roles.role_type) AS id,\n       c.id AS courseid, c.fullname AS course,\n       FLOOR(l.timecreated / 86400.0) * 86400 AS daystart,\n       roles.role_type, COUNT(l.id) AS actions, COUNT(DISTINCT l.userid) AS users\n  FROM mdl_local_kopere_bi_log_tmp l\n  JOIN mdl_course c ON c.id = l.courseid\n  JOIN (SELECT cx.instanceid AS courseid, ra.userid,\n               CASE WHEN MAX(CASE WHEN r.archetype IN ('teacher', 'editingteacher') THEN 1 ELSE 0 END) = 1\n                       THEN 'teacher'\n                    WHEN MAX(CASE WHEN r.archetype = 'student' THEN 1 ELSE 0 END) = 1\n                       THEN 'student'\n                    ELSE 'other' END AS role_type\n          FROM mdl_context cx\n          JOIN mdl_role_assignments ra ON ra.contextid = cx.id\n          JOIN mdl_role r ON r.id = ra.roleid\n         WHERE cx.contextlevel = 50\n         GROUP BY cx.instanceid, ra.userid) roles ON roles.courseid = l.courseid AND roles.userid = l.userid\n WHERE l.component LIKE 'mod_%' AND l.timecreated >= UNIX_TIMESTAMP() - 7776000\n GROUP BY c.id, c.fullname, FLOOR(l.timecreated / 86400.0), roles.role_type\n ORDER BY daystart DESC, c.fullname, roles.role_type\n LIMIT 500",
+          "commandsql": "SELECT CONCAT(c.id, '-', FLOOR(l.timecreated / 86400.0), '-', roles.role_type) AS id,\n       c.id AS courseid, c.fullname AS course,\n       FLOOR(l.timecreated / 86400.0) * 86400 AS daystart,\n       roles.role_type, COUNT(l.id) AS actions, COUNT(DISTINCT l.userid) AS users,\n       ROUND(1.0 * COUNT(l.id) / NULLIF(COUNT(DISTINCT l.userid), 0), 2) AS actions_per_user\n  FROM mdl_local_kopere_bi_log_tmp l\n  JOIN mdl_course c ON c.id = l.courseid\n  JOIN (SELECT cx.instanceid AS courseid, ra.userid,\n               CASE WHEN MAX(CASE WHEN r.archetype IN ('teacher', 'editingteacher') THEN 1 ELSE 0 END) = 1\n                       THEN 'teacher'\n                    WHEN MAX(CASE WHEN r.archetype = 'student' THEN 1 ELSE 0 END) = 1\n                       THEN 'student'\n                    ELSE 'other' END AS role_type\n          FROM mdl_context cx\n          JOIN mdl_role_assignments ra ON ra.contextid = cx.id\n          JOIN mdl_role r ON r.id = ra.roleid\n         WHERE cx.contextlevel = 50\n         GROUP BY cx.instanceid, ra.userid) roles ON roles.courseid = l.courseid AND roles.userid = l.userid\n WHERE l.component LIKE 'mod_%' AND l.timecreated >= UNIX_TIMESTAMP() - 7776000\n GROUP BY c.id, c.fullname, FLOOR(l.timecreated / 86400.0), roles.role_type\n ORDER BY daystart DESC, c.fullname, roles.role_type\n LIMIT 500",
           "cache": "1h",
           "reload": "none",
           "info": {
@@ -68,6 +68,12 @@
               "users": {
                 "key": "users",
                 "title": "lang::report_new_field_users_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "actions_per_user": {
+                "key": "actions_per_user",
+                "title": "lang::report_enrich_actions_per_user_title::local_kopere_bi",
                 "type": "number",
                 "mustache": ""
               }

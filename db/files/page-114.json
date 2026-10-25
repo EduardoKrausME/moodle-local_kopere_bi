@@ -24,7 +24,7 @@
           "css": "",
           "html_before": null,
           "html_after": null,
-          "commandsql": "SELECT CONCAT(c.id, '-', m.id) AS id, c.id AS courseid, c.fullname AS course,\n       m.name AS module, COUNT(DISTINCT cm.id) AS modules,\n       COUNT(DISTINCT t.userid) AS learners, SUM(t.visits) AS visits,\n       SUM(t.timespend) AS seconds\n  FROM mdl_local_kopere_bi_tracking t\n  JOIN mdl_course_modules cm ON cm.id = t.param AND cm.course = t.courseid\n  JOIN mdl_modules m ON m.id = cm.module\n  JOIN mdl_course c ON c.id = cm.course\n  JOIN (\n    SELECT DISTINCT e.courseid, ue.userid\n      FROM mdl_user_enrolments ue\n      JOIN mdl_enrol e ON e.id = ue.enrolid\n      JOIN mdl_context cx ON cx.contextlevel = 50 AND cx.instanceid = e.courseid\n      JOIN mdl_role_assignments ra ON ra.contextid = cx.id AND ra.userid = ue.userid\n      JOIN mdl_role r ON r.id = ra.roleid AND r.archetype = 'student'\n      JOIN mdl_user u ON u.id = ue.userid AND u.deleted = 0 AND u.suspended = 0\n     WHERE e.status = 0 AND ue.status = 0\n       AND (ue.timestart = 0 OR ue.timestart <= UNIX_TIMESTAMP())\n       AND (ue.timeend = 0 OR ue.timeend > UNIX_TIMESTAMP())\n) students ON students.userid = t.userid AND students.courseid = t.courseid\n WHERE t.page = 'module' AND cm.deletioninprogress = 0 AND cm.visible = 1\n GROUP BY c.id, c.fullname, m.id, m.name\n ORDER BY seconds DESC, c.fullname\n LIMIT 500",
+          "commandsql": "SELECT CONCAT(c.id, '-', m.id) AS id, c.id AS courseid, c.fullname AS course,\n       m.name AS module, COUNT(DISTINCT cm.id) AS modules,\n       COUNT(DISTINCT t.userid) AS learners, SUM(t.visits) AS visits,\n       SUM(t.timespend) AS seconds,\n       ROUND(1.0 * SUM(t.timespend) / NULLIF(COUNT(DISTINCT t.userid), 0), 2) AS seconds_per_learner\n  FROM mdl_local_kopere_bi_tracking t\n  JOIN mdl_course_modules cm ON cm.id = t.param AND cm.course = t.courseid\n  JOIN mdl_modules m ON m.id = cm.module\n  JOIN mdl_course c ON c.id = cm.course\n  JOIN (\n    SELECT DISTINCT e.courseid, ue.userid\n      FROM mdl_user_enrolments ue\n      JOIN mdl_enrol e ON e.id = ue.enrolid\n      JOIN mdl_context cx ON cx.contextlevel = 50 AND cx.instanceid = e.courseid\n      JOIN mdl_role_assignments ra ON ra.contextid = cx.id AND ra.userid = ue.userid\n      JOIN mdl_role r ON r.id = ra.roleid AND r.archetype = 'student'\n      JOIN mdl_user u ON u.id = ue.userid AND u.deleted = 0 AND u.suspended = 0\n     WHERE e.status = 0 AND ue.status = 0\n       AND (ue.timestart = 0 OR ue.timestart <= UNIX_TIMESTAMP())\n       AND (ue.timeend = 0 OR ue.timeend > UNIX_TIMESTAMP())\n) students ON students.userid = t.userid AND students.courseid = t.courseid\n WHERE t.page = 'module' AND cm.deletioninprogress = 0 AND cm.visible = 1\n GROUP BY c.id, c.fullname, m.id, m.name\n ORDER BY seconds DESC, c.fullname\n LIMIT 500",
           "cache": "1h",
           "reload": "none",
           "info": {
@@ -74,6 +74,12 @@
               "seconds": {
                 "key": "seconds",
                 "title": "lang::report_new_field_seconds_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "seconds_per_learner": {
+                "key": "seconds_per_learner",
+                "title": "lang::report_enrich_seconds_per_learner_title::local_kopere_bi",
                 "type": "number",
                 "mustache": ""
               }

@@ -24,7 +24,7 @@
           "css": "",
           "html_before": null,
           "html_after": null,
-          "commandsql": "SELECT CONCAT(c.id, '-', tag.id) AS id, c.id AS courseid, c.fullname AS course,\n       tag.rawname AS tag, COUNT(DISTINCT q.id) AS questions, COUNT(*) AS attempts,\n       SUM(CASE WHEN st.fraction >= 1 THEN 1 ELSE 0 END) AS fully_correct,\n       ROUND(100.0 * SUM(CASE WHEN st.fraction >= 1 THEN 1 ELSE 0 END) / COUNT(*), 2) AS fully_correct_percent\n  FROM mdl_quiz_attempts a\n  JOIN mdl_quiz quiz ON quiz.id = a.quiz\n  JOIN mdl_course c ON c.id = quiz.course\n  JOIN mdl_question_attempts att ON att.questionusageid = a.uniqueid\n  JOIN mdl_question q ON q.id = att.questionid\n  JOIN mdl_tag_instance ti ON ti.itemtype = 'question' AND ti.itemid = q.id\n  JOIN mdl_tag tag ON tag.id = ti.tagid\n  JOIN mdl_question_attempt_steps st ON st.questionattemptid = att.id\n       AND st.sequencenumber = (SELECT MAX(st2.sequencenumber)\n                                 FROM mdl_question_attempt_steps st2\n                                WHERE st2.questionattemptid = att.id)\n WHERE a.state = 'finished' AND st.fraction IS NOT NULL\n GROUP BY c.id, c.fullname, tag.id, tag.rawname\n ORDER BY attempts DESC, c.fullname\n LIMIT 500",
+          "commandsql": "SELECT CONCAT(c.id, '-', tag.id) AS id, c.id AS courseid, c.fullname AS course,\n       tag.rawname AS tag, COUNT(DISTINCT q.id) AS questions, COUNT(*) AS attempts,\n       COUNT(DISTINCT a.userid) AS learners_attempted,\n       SUM(CASE WHEN st.fraction >= 1 THEN 1 ELSE 0 END) AS fully_correct,\n       ROUND(100.0 * SUM(CASE WHEN st.fraction >= 1 THEN 1 ELSE 0 END) / COUNT(*), 2) AS fully_correct_percent\n  FROM mdl_quiz_attempts a\n  JOIN mdl_quiz quiz ON quiz.id = a.quiz\n  JOIN mdl_course c ON c.id = quiz.course\n  JOIN mdl_question_attempts att ON att.questionusageid = a.uniqueid\n  JOIN mdl_question q ON q.id = att.questionid\n  JOIN mdl_tag_instance ti ON ti.itemtype = 'question' AND ti.itemid = q.id\n  JOIN mdl_tag tag ON tag.id = ti.tagid\n  JOIN mdl_question_attempt_steps st ON st.questionattemptid = att.id\n       AND st.sequencenumber = (SELECT MAX(st2.sequencenumber)\n                                 FROM mdl_question_attempt_steps st2\n                                WHERE st2.questionattemptid = att.id)\n WHERE a.state = 'finished' AND st.fraction IS NOT NULL\n GROUP BY c.id, c.fullname, tag.id, tag.rawname\n ORDER BY attempts DESC, c.fullname\n LIMIT 500",
           "cache": "1h",
           "reload": "none",
           "info": {
@@ -74,6 +74,12 @@
               "fully_correct_percent": {
                 "key": "fully_correct_percent",
                 "title": "lang::report_new_field_fully_correct_percent_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "learners_attempted": {
+                "key": "learners_attempted",
+                "title": "lang::report_enrich_distinct_learners_title::local_kopere_bi",
                 "type": "number",
                 "mustache": ""
               }

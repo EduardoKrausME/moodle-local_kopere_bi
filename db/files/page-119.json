@@ -24,7 +24,7 @@
           "css": "",
           "html_before": null,
           "html_after": null,
-          "commandsql": "SELECT e.id, e.courseid, c.fullname AS course, e.userid, u.firstname, u.lastname,\n       e.actions30, ROUND(peer.class_actions_avg, 2) AS class_actions_avg,\n       CASE WHEN peer.class_actions_avg > 0 THEN ROUND(100.0 * e.actions30 / peer.class_actions_avg, 2)\n            ELSE NULL END AS activity_ratio,\n       e.progress, ROUND(peer.class_progress_avg, 2) AS class_progress_avg\n  FROM mdl_local_kopere_bi_engage e\n  JOIN mdl_user u ON u.id = e.userid\n  JOIN mdl_course c ON c.id = e.courseid\n  JOIN (SELECT courseid, AVG(actions30) AS class_actions_avg, AVG(progress) AS class_progress_avg\n          FROM mdl_local_kopere_bi_engage\n         WHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)\n         GROUP BY courseid) peer ON peer.courseid = e.courseid\n WHERE e.batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)\n ORDER BY e.actions30 DESC, c.fullname, u.lastname\n LIMIT 500",
+          "commandsql": "SELECT e.id, e.courseid, c.fullname AS course, e.userid, u.firstname, u.lastname,\n       e.actions30, ROUND(peer.class_actions_avg, 2) AS class_actions_avg,\n       CASE WHEN peer.class_actions_avg > 0 THEN ROUND(100.0 * e.actions30 / peer.class_actions_avg, 2)\n            ELSE NULL END AS activity_ratio,\n       e.progress, ROUND(peer.class_progress_avg, 2) AS class_progress_avg,\n       ROUND(e.progress - peer.class_progress_avg, 2) AS progress_gap\n  FROM mdl_local_kopere_bi_engage e\n  JOIN mdl_user u ON u.id = e.userid\n  JOIN mdl_course c ON c.id = e.courseid\n  JOIN (SELECT courseid, AVG(actions30) AS class_actions_avg, AVG(progress) AS class_progress_avg\n          FROM mdl_local_kopere_bi_engage\n         WHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)\n         GROUP BY courseid) peer ON peer.courseid = e.courseid\n WHERE e.batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)\n ORDER BY e.actions30 DESC, c.fullname, u.lastname\n LIMIT 500",
           "cache": "1h",
           "reload": "none",
           "info": {
@@ -92,6 +92,12 @@
               "class_progress_avg": {
                 "key": "class_progress_avg",
                 "title": "lang::report_new_field_class_progress_avg_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "progress_gap": {
+                "key": "progress_gap",
+                "title": "lang::report_enrich_progress_gap_title::local_kopere_bi",
                 "type": "number",
                 "mustache": ""
               }

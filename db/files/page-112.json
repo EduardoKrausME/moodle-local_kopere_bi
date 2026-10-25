@@ -24,7 +24,7 @@
           "css": "",
           "html_before": null,
           "html_after": null,
-          "commandsql": "SELECT s.id, c.id AS courseid, c.fullname AS course, s.section AS section_number,\n       s.name AS section_name, COUNT(DISTINCT cm.id) AS module_count,\n       COUNT(DISTINCT CASE WHEN t.visits > 0 THEN t.userid ELSE NULL END) AS learners,\n       COALESCE(SUM(t.visits), 0) AS visits, COALESCE(SUM(t.timespend), 0) AS seconds\n  FROM mdl_course_sections s\n  JOIN mdl_course c ON c.id = s.course\n  LEFT JOIN mdl_course_modules cm ON cm.section = s.id\n       AND cm.deletioninprogress = 0 AND cm.visible = 1\n  LEFT JOIN mdl_local_kopere_bi_tracking t ON t.page = 'module' AND t.param = cm.id\n       AND t.courseid = c.id\n       AND EXISTS (SELECT 1 FROM (\n    SELECT DISTINCT e.courseid, ue.userid\n      FROM mdl_user_enrolments ue\n      JOIN mdl_enrol e ON e.id = ue.enrolid\n      JOIN mdl_context cx ON cx.contextlevel = 50 AND cx.instanceid = e.courseid\n      JOIN mdl_role_assignments ra ON ra.contextid = cx.id AND ra.userid = ue.userid\n      JOIN mdl_role r ON r.id = ra.roleid AND r.archetype = 'student'\n      JOIN mdl_user u ON u.id = ue.userid AND u.deleted = 0 AND u.suspended = 0\n     WHERE e.status = 0 AND ue.status = 0\n       AND (ue.timestart = 0 OR ue.timestart <= UNIX_TIMESTAMP())\n       AND (ue.timeend = 0 OR ue.timeend > UNIX_TIMESTAMP())\n) students\n                    WHERE students.courseid = t.courseid AND students.userid = t.userid)\n WHERE c.id > 1\n GROUP BY s.id, c.id, c.fullname, s.section, s.name\n ORDER BY c.fullname, s.section",
+          "commandsql": "SELECT s.id, c.id AS courseid, c.fullname AS course, s.section AS section_number,\n       s.name AS section_name, COUNT(DISTINCT cm.id) AS module_count,\n       COUNT(DISTINCT CASE WHEN t.visits > 0 THEN t.userid ELSE NULL END) AS learners,\n       COALESCE(SUM(t.visits), 0) AS visits, COALESCE(SUM(t.timespend), 0) AS seconds,\n       ROUND(1.0 * COALESCE(SUM(t.timespend), 0) /\n             NULLIF(COUNT(DISTINCT CASE WHEN t.visits > 0 THEN t.userid ELSE NULL END), 0), 2) AS seconds_per_learner\n  FROM mdl_course_sections s\n  JOIN mdl_course c ON c.id = s.course\n  LEFT JOIN mdl_course_modules cm ON cm.section = s.id\n       AND cm.deletioninprogress = 0 AND cm.visible = 1\n  LEFT JOIN mdl_local_kopere_bi_tracking t ON t.page = 'module' AND t.param = cm.id\n       AND t.courseid = c.id\n       AND EXISTS (SELECT 1 FROM (\n    SELECT DISTINCT e.courseid, ue.userid\n      FROM mdl_user_enrolments ue\n      JOIN mdl_enrol e ON e.id = ue.enrolid\n      JOIN mdl_context cx ON cx.contextlevel = 50 AND cx.instanceid = e.courseid\n      JOIN mdl_role_assignments ra ON ra.contextid = cx.id AND ra.userid = ue.userid\n      JOIN mdl_role r ON r.id = ra.roleid AND r.archetype = 'student'\n      JOIN mdl_user u ON u.id = ue.userid AND u.deleted = 0 AND u.suspended = 0\n     WHERE e.status = 0 AND ue.status = 0\n       AND (ue.timestart = 0 OR ue.timestart <= UNIX_TIMESTAMP())\n       AND (ue.timeend = 0 OR ue.timeend > UNIX_TIMESTAMP())\n) students\n                    WHERE students.courseid = t.courseid AND students.userid = t.userid)\n WHERE c.id > 1\n GROUP BY s.id, c.id, c.fullname, s.section, s.name\n ORDER BY c.fullname, s.section",
           "cache": "1h",
           "reload": "none",
           "info": {
@@ -80,6 +80,12 @@
               "seconds": {
                 "key": "seconds",
                 "title": "lang::report_new_field_seconds_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "seconds_per_learner": {
+                "key": "seconds_per_learner",
+                "title": "lang::report_enrich_seconds_per_learner_title::local_kopere_bi",
                 "type": "number",
                 "mustache": ""
               }
