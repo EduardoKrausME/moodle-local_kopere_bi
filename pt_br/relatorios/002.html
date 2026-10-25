@@ -1,0 +1,52 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Tabela de contas não suspensas e não excluídas com atribuição do papel de ID 5 em contexto de curso, incluindo informações cadastrais, notas agregadas e atividades concluídas."><title>Estudantes ativos | Relatório 002 · Kopere BI</title><link rel="icon" href="../../favicon.svg"><link rel="stylesheet" href="../../site.css"><style>.report-intro{background:#e8f7f5;border:1px solid #c2e5df;border-radius:14px;padding:20px;margin:20px 0}.report-intro strong{color:#045b64}.report-intro p{margin:6px 0 0}.report-card{border:1px solid #dbe6eb;border-radius:13px;overflow:hidden;margin:16px 0}.report-card summary{padding:13px 17px;cursor:pointer;background:#ebf5f7;font-weight:750;color:#0b5460}.report-card summary:hover{background:#dcedef}.report-card .inside{padding:16px}.report-card pre{max-height:620px;overflow:auto;white-space:pre;font-size:13px}.report-metadata{font-size:13px;color:#55717d}.report-sql-label{font-size:12px;color:#056e76;font-weight:850;letter-spacing:.04em}.report-caution{background:#fff9e9;border-left:4px solid #d29c29;padding:12px 16px;margin:18px 0}.shortcuts{display:flex;gap:10px;flex-wrap:wrap;margin:25px 0}.shortcuts a{font-size:13px;border-radius:9px;padding:7px 11px;background:#e6f6f4;text-decoration:none;font-weight:700}@media(max-width:650px){.report-card .inside{padding:10px}.report-intro{padding:15px}}</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html"><span class="brand-mark">BI</span>Kopere BI</a><div class="tools"><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Relatórios</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/students.html">Categoria</a> / 002</div><div class="kicker">RELATÓRIO 002</div><h1>Estudantes ativos</h1><p class="lead">Tabela de contas não suspensas e não excluídas com atribuição do papel de ID 5 em contexto de curso, incluindo informações cadastrais, notas agregadas e atividades concluídas.</p><section><h2>O que o relatório apresenta</h2><p>Tabela de contas não suspensas e não excluídas com atribuição do papel de ID 5 em contexto de curso, incluindo informações cadastrais, notas agregadas e atividades concluídas.</p></section><div class="report-intro"><strong>Por que e quando utilizar</strong><p>Serve como ponto de partida para a conferência administrativa de contas de estudantes e seus indicadores disponíveis, mas não substitui um relatório de matrículas por curso ou atividade recente.</p></div><div class="shortcuts"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualizações e SQL</a><a href="#cuidados">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>Não há parâmetros SQL dinâmicos de usuário, curso, coorte ou período nas consultas desta definição, portanto nenhum desses filtros modifica os dados neste relatório.</p><p>Há restrições fixas no SQL para contas não suspensas e não excluídas e para o papel de ID <code>5</code>; elas não são filtros interativos.</p></section><section id="visualizacoes"><h2>Como são as visualizações e o SQL</h2><p>1 consulta SQL compõe este relatório. Em cada item estão o tipo de visualização, sua finalidade, a configuração de cache e o SQL integral. Abra cada item para consultar o código.</p><details class="report-card" open><summary>1. Resumo tabular de estudantes · Tabela</summary><div class="inside"><p>Tabela com usuário, dados do curso, e-mail, datas de acesso, nota calculada e total de conclusões registradas.</p><p class="report-metadata">Cache: <code>30m</code>. Atualização: <code>30m</code>.</p><p class="report-sql-label">SQL original integral</p><pre><code>SELECT 
+    u.id AS u_id,
+    u.firstname,
+    u.lastname,
+    c.id AS c_id,
+    c.fullname AS c_fullname,
+    u.email,
+    u.lastaccess,
+    u.timecreated,
+    ROUND(
+        AVG(
+            CASE
+                WHEN g.rawgrademax &gt; 0
+                THEN (g.finalgrade / g.rawgrademax) * 100
+                ELSE g.finalgrade 
+            END
+        ), 0
+    ) AS g_finalgrade,
+    MAX(ca.completed_activities) AS ca_completed_activities
+FROM 
+    mdl_course c
+JOIN 
+    mdl_context ctx ON ctx.instanceid = c.id
+JOIN 
+    mdl_role_assignments ra ON ra.contextid = ctx.id
+                            AND ra.roleid = 5
+JOIN 
+    mdl_user u ON u.id = ra.userid
+LEFT JOIN (
+        SELECT 
+            COUNT(id) AS completed_activities, 
+            userid
+        FROM 
+            mdl_course_modules_completion
+        WHERE 
+            id &gt; 1
+            AND completionstate IN (1, 2)
+        GROUP BY 
+            userid
+    ) ca ON ca.userid = u.id
+LEFT JOIN 
+    mdl_grade_items gi ON gi.courseid = c.id 
+                       AND gi.itemtype = 'course'
+LEFT JOIN 
+    mdl_grade_grades g ON g.itemid = gi.id 
+                      AND g.userid = u.id 
+                      AND g.finalgrade IS NOT NULL
+WHERE u.id        &gt; 1
+  AND u.deleted   = 0
+  AND u.suspended = 0
+  AND u.username != 'guest'
+GROUP BY u.id</code></pre></div></details></section><section id="cuidados"><h2>Limitações e interpretação</h2><ul><li>O nome 'ativo' reflete o critério técnico de conta e papel, não um filtro por acessos recentes.</li><li>O papel ID 5 é fixo; ambientes com papéis personalizados precisam validar a consulta.</li><li>A consulta agrupa pelo usuário mesmo envolvendo cursos, portanto as informações não representam necessariamente uma linha por matrícula.</li><li>O total de atividades concluídas vem de uma subconsulta por usuário sem restringir as conclusões ao curso da linha.</li></ul><p class="report-caution">O SQL é reproduzido sem alterações a partir da definição do plugin na <code>master</code>. As consultas não foram executadas em uma instalação Moodle nesta documentação; verifique compatibilidade, permissões e resultados no seu ambiente.</p></section><section><h2>Fonte original</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-002.json" target="_blank" rel="noopener">Consultar o JSON que define o relatório no GitHub</a>.</p></section><nav class="pager"><a href="001.html">← Relatório 001</a><a href="003.html">Relatório 003 →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/students.html">Voltar à categoria</a> · Documentação em PT-BR</footer></body></html>
