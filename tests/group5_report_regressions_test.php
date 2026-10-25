@@ -13,7 +13,14 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-//
+
+/**
+ * Regression tests for stock reports and bundled SQL.
+ *
+ * @package   local_kopere_bi
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 namespace local_kopere_bi;
 
@@ -24,8 +31,11 @@ use local_kopere_bi\block\util\sql_util;
  * Active-driver SQL probes and regression checks for fixed metrics.
  * @package local_kopere_bi
  */
+/** @covers \\local_kopere_bi\\block\\util\\sql_util::prepare_sql */
 final class group5_report_regressions_test extends advanced_testcase {
     /**
+     * Provide one independent SQL check per report.
+     *
      * @return array<string, array{int}>
      */
     public static function report_ids(): array {

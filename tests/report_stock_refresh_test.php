@@ -13,7 +13,14 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-//
+
+/**
+ * Regression tests for stock reports and bundled SQL.
+ *
+ * @package   local_kopere_bi
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 namespace local_kopere_bi;
 
@@ -24,8 +31,11 @@ use local_kopere_bi\upgrade\report_stock_refresh;
  * Regression coverage for migration of untouched default reports.
  * @package local_kopere_bi
  */
+/** @covers \\local_kopere_bi\\upgrade\\report_stock_refresh */
 final class report_stock_refresh_test extends advanced_testcase {
     /**
+     * Install a historical stock report in the isolated test database.
+     *
      * @return array Legacy element ID and saved stock fixture.
      */
     private function install_legacy_fixture(): array {

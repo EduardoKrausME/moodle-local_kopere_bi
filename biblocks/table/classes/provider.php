@@ -404,8 +404,6 @@ class provider implements i_block_provider {
                         if ($type == "translate") {
                             $line->$key = string_util::get_string($line->$key);
                         }
-
-
                     }
                 }
 
