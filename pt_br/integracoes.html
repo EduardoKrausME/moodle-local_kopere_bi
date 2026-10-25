@@ -1,11 +1,44 @@
 <!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Consulte relatórios salvos como ferramentas de leitura, sem expor SQL arbitrário."><meta name="theme-color" content="#072c3a"><title>Integração opcional via MCP · Kopere BI</title><link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../site.css"><link rel="alternate" hreflang="en" href="../en/integracoes.html"></head>
 <body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../en/integracoes.html" lang="en">English</a></div></div></header>
-<div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="index.html">Visão geral</a><a href="dashboards.html">Dashboards</a><a href="visualizacoes.html">Gráficos e filtros</a><a href="relatorios.html">Relatórios</a><a href="learning-analytics.html">Learning Analytics</a><a href="permissoes.html">Segurança</a><a href="integracoes.html" class="active" aria-current="page">Integração MCP</a><a href="operacao.html">Operação</a></nav></aside>
+<div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="index.html">Visão geral</a><a href="dashboards.html">Dashboards</a><a href="visualizacoes.html">Gráficos e filtros</a><a href="relatorios.html">Relatórios</a><a href="learning-analytics.html">Learning Analytics</a><a href="integracoes.html" class="active" aria-current="page">Integração MCP</a><a href="operacao.html">Operação</a></nav></aside>
 <main id="main" class="main"><article class="article"><div class="crumb"><a href="index.html">Kopere BI</a> / Integração MCP</div><div class="kicker">DOCUMENTAÇÃO DO PLUGIN MOODLE</div><h1>Integração opcional via MCP</h1><p class="lead">Consulte relatórios salvos como ferramentas de leitura, sem expor SQL arbitrário.</p><div class="separator"></div><section aria-labelledby="s0"><h2 id="s0">Dependência opcional</h2><p>Quando o <a href="https://github.com/EduardoKrausME/moodle-local_mcp">local_mcp</a> está instalado e habilitado, o provedor <code>classes/mcp/provider.php</code> do Kopere BI é descoberto automaticamente. Sem ele, os dashboards e relatórios do Kopere BI continuam funcionando normalmente.</p><p>Isso é uma <strong>integração do Kopere BI</strong>, não uma documentação geral do servidor MCP.</p></section>
-<section aria-labelledby="s1"><h2 id="s1">Descoberta e leitura</h2><p><code>kopere_bi_list_reports</code> apresenta os relatórios que o usuário atual pode descobrir, com seus títulos, categorias, IDs e nomes de ferramentas. Cada relatório salvo e com <code>refkey</code> válido pode publicar uma ferramenta <code>kopere_bi_report_&lt;refkey&gt;</code>; relatórios com chaves inválidas ou duplicadas não são expostos.</p><pre><code>{
+<section aria-labelledby="s1">
+<h2 id="s1">Descoberta dinâmica dos relatórios</h2>
+<p>Com o <code>local_mcp</code> ativo, o provedor <code>classes/mcp/provider.php</code> é identificado automaticamente, sem configuração adicional ou alterações no servidor MCP. O comando de leitura <code>kopere_bi_list_reports</code> lista as páginas e os relatórios salvos que o usuário atual pode acessar, incluindo identificadores internos, títulos, categorias e nomes das ferramentas disponíveis.</p>
+<p>Cada relatório acessível com <code>refkey</code> válido é publicado como uma ferramenta independente de leitura, com o padrão <code>kopere_bi_report_&lt;refkey&gt;</code>. Relatórios novos ficam disponíveis na solicitação MCP seguinte, sem registro estático; os nomes permanecem consistentes entre instalações Moodle que utilizam as mesmas chaves.</p>
+<p>O <code>refkey</code> aceita letras, números, sublinhado (<code>_</code>), ponto (<code>.</code>) e hífen (<code>-</code>). Relatórios com chave vazia, inválida ou duplicada não são expostos até a correção. O ID do banco de dados é utilizado internamente na execução e não compõe o nome da ferramenta.</p>
+</section>
+<section aria-labelledby="s2">
+<h2 id="s2">Exemplo de chamada</h2>
+<p>Primeiro execute <code>kopere_bi_list_reports</code> e escolha o nome efetivamente retornado. Depois invoque a ferramenta do relatório selecionado, por exemplo:</p>
+<pre><code>{
   "name": "kopere_bi_report_learning_analytics",
-  "arguments": {"course_id": 2, "limit": 50, "offset": 0}
-}</code></pre><p class="note">O nome acima é ilustrativo. Consulte sempre a lista retornada por <code>kopere_bi_list_reports</code> para usar um <code>refkey</code> existente.</p></section>
-<section aria-labelledby="s2"><h2 id="s2">Filtros e segurança</h2><p>Argumentos aceitos: <code>user_id</code>, <code>course_id</code>, <code>cohort_id</code>, <code>limit</code> (padrão 50, máximo 200 por elemento) e <code>offset</code>. A resposta traz os dados tabulares brutos por elemento, metadados, contagem e indicador de mais páginas; não executa JavaScript de gráfico nem renderiza Mustache no cliente.</p><p>As operações são somente leitura. A integração aplica escopo MCP READ, permissões do Moodle, restrições de relatório e filtros. Consultas SQL devem ser consultas salvas do tipo SELECT/WITH, com parâmetros vinculados e limite de linhas no banco; um cliente não pode enviar seu próprio SQL para execução.</p></section>
-<section aria-labelledby="s3"><h2 id="s3">Fonte da especificação</h2><p>Detalhes sobre o contrato de retorno e validação podem ser conferidos no <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/docs/mcp.md">guia de integração do próprio Kopere BI no repositório</a>.</p></section><nav class="pager" aria-label="Navegar pela documentação"><a href="permissoes.html">← Segurança</a><a href="operacao.html">Operação →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a> · GPL v3 · Documentação baseada no código do plugin.</footer></body></html>
+  "arguments": {
+    "course_id": 2,
+    "limit": 50,
+    "offset": 0
+  }
+}</code></pre>
+<p class="note">O <code>refkey</code> <code>learning_analytics</code> é apenas um exemplo: use sempre a chave publicada pela ferramenta de descoberta.</p>
+</section>
+<section aria-labelledby="s3">
+<h2 id="s3">Filtros e paginação</h2>
+<p>As ferramentas de relatório aceitam os argumentos <code>user_id</code>, <code>course_id</code>, <code>cohort_id</code>, <code>limit</code> e <code>offset</code>. O limite padrão é de 50 linhas e o máximo é de 200 linhas <strong>por elemento</strong>. Cada elemento de visualização tem paginação independente, e <code>has_more</code> informa se há outra página de dados para consultar.</p>
+<p>O retorno apresenta os valores brutos, sem HTML processado pelo Mustache e sem executar JavaScript dos gráficos no cliente MCP.</p>
+</section>
+<section aria-labelledby="s4">
+<h2 id="s4">Estrutura da resposta e tratamento de erros</h2>
+<p>O resultado inclui metadados do relatório e da categoria, filtros aplicados e todos os blocos do relatório. Para cada elemento são apresentados o nome, o tipo de visualização, os títulos das colunas, as linhas originais retornadas pela consulta SQL, <code>row_count</code>, <code>has_more</code> e <code>status</code>.</p>
+<p>Elementos de indicadores, como KPI e informações, também retornam <code>value</code> quando disponível. Elementos sem fonte de dados recebem o status <code>no_data_source</code>. Se um elemento falhar, o erro retornado é genérico, sem expor o texto SQL nem rastreamentos internos de execução.</p>
+</section>
+<section aria-labelledby="s5">
+<h2 id="s5">Permissões e visibilidade</h2>
+<p>Todas as ferramentas são <strong>somente leitura</strong> e exigem o escopo MCP <code>READ</code> e a capacidade Moodle <code>local/kopere_bi:view</code>. A descoberta e a execução também respeitam a capacidade própria do relatório, sua visibilidade na página e as configurações de funcionalidades habilitadas no Kopere BI.</p>
+<p>Um usuário não pode selecionar outro <code>user_id</code> sem a capacidade <code>local/kopere_bi:manage</code>. Alterar o filtro <code>cohort_id</code> também exige essa permissão. Para usuários que não são gestores, o filtro <code>course_id</code> respeita a matrícula no curso ou a permissão de visualização do curso.</p>
+</section>
+<section aria-labelledby="s6">
+<h2 id="s6">Fontes de dados e limites de execução</h2>
+<p>A integração executa exclusivamente consultas <strong>salvas</strong> nos relatórios do Kopere BI; clientes MCP não podem fornecer SQL arbitrário. Fontes SQL são limitadas a uma única consulta do tipo <code>SELECT</code> ou <code>WITH</code>, com parâmetros de filtro vinculados e limite de linhas aplicado no banco de dados.</p>
+<p>Fontes implementadas por classes devem cumprir o contrato <code>external_report</code> do Kopere BI. A integração não modifica as configurações de sessão de banco para forçar modo somente leitura, tampouco expõe o texto das consultas SQL.</p>
+</section><nav class="pager" aria-label="Navegar pela documentação"><a href="learning-analytics.html">← Learning Analytics</a><a href="operacao.html">Operação →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a> · GPL v3 · Documentação baseada no código do plugin.</footer></body></html>
