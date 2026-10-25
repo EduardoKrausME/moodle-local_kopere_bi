@@ -1,0 +1,86 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Detalha as inscrições ativas no curso selecionado, os papéis associados aos participantes, datas de matrícula e do curso, critérios de conclusão e informações de quem modificou atribuições de papéis."><meta name="theme-color" content="#072c3a"><title>Relatório 050 · Detalhes dos métodos de inscrição · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/enrollments.html">Inscrições</a> / 050</div><div class="kicker">RELATÓRIO 050</div><h1>Detalhes dos métodos de inscrição</h1><p class="lead">Detalha as inscrições ativas no curso selecionado, os papéis associados aos participantes, datas de matrícula e do curso, critérios de conclusão e informações de quem modificou atribuições de papéis.</p><section><h2>Finalidade do relatório</h2><p>Detalha as inscrições ativas no curso selecionado, os papéis associados aos participantes, datas de matrícula e do curso, critérios de conclusão e informações de quem modificou atribuições de papéis.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Auxilia equipes administrativas a verificar como usuários foram matriculados, conferir papéis vinculados ao curso e relacionar registros de inscrições com configurações de conclusão e datas.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>O filtro SQL dinâmico é <strong>Curso</strong>, por meio de <code>:courseid</code>, presente uma vez em cada consulta original.</p><p>Os filtros fixos abrangem curso visível, inscrição e método de inscrição com status <code>0</code>, usuários não excluídos ou suspensos e conta diferente de <code>guest</code>. A agregação de papéis limita-se aos contextos de curso (<code>contextlevel = 50</code>), e a junção de critério de conclusão seleciona <code>criteriatype = 2</code>. Não há filtro dinâmico de usuário, método ou período.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>Este relatório apresenta uma visualização em tabela, com 2 consultas SQL, configurações de cache e realce de sintaxe usando Prism.js. MySQL e PostgreSQL são apresentados em caixas distintas na mesma visualização.</p><details class="report-block" open><summary>1. Detalhes dos métodos de inscrição · Tabela</summary><div class="inner"><p>Uma tabela por inscrição do curso com datas inicial e final da matrícula, data associada ao critério de conclusão de tipo 2 quando houver, nome e e-mail do participante, método, status, papéis em contexto de curso, possível modificador de atribuição de papel, data de conclusão formal e datas do curso. As versões MySQL e PostgreSQL compartilham a visualização e divergem na agregação de papéis.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT kbi_ue.id,
+       kbi_ue.timecreated                         AS enrolstart,
+       kbi_ue.timeend                             AS enrolend,
+       kbi_ccc.timeend,
+       kbi_c.enablecompletion,
+       kbi_cc.timecompleted                       AS complete,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_ue.userid,
+       kbi_e.courseid,
+       kbi_e.enrol                                AS enrols,
+       CONCAT(kbi_u1.firstname, &#39; &#39;, kbi_u1.lastname) AS endrolled_by,
+       kbi_ue.status                              AS enrol_status,
+       ra.roles                               AS course_roles,
+       kbi_c.fullname                             AS course,
+       kbi_c.startdate                            AS startdate,
+       kbi_c.enddate                              AS enddate
+FROM mdl_user_enrolments kbi_ue
+       JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ue.userid
+       JOIN (SELECT kbi_ctx.instanceid,
+                    kbi_ra.userid,
+                    MIN(kbi_ra.modifierid)                                 AS modifierid,
+                    GROUP_CONCAT(DISTINCT(kbi_r.shortname) SEPARATOR &#39;, &#39;) AS roles
+             FROM mdl_context kbi_ctx
+                    JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_ctx.id
+                    JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid
+             WHERE kbi_ctx.contextlevel = 50
+             GROUP BY kbi_ctx.instanceid, kbi_ra.userid) ra ON ra.instanceid = kbi_e.courseid AND ra.userid = kbi_ue.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_e.courseid
+       LEFT JOIN mdl_user kbi_u1 ON kbi_u1.id = ra.modifierid
+       LEFT JOIN mdl_course_completions kbi_cc ON kbi_cc.course = kbi_e.courseid AND kbi_cc.userid = kbi_ue.userid
+       LEFT JOIN mdl_course_completion_criteria kbi_ccc ON kbi_ccc.course = kbi_e.courseid AND kbi_ccc.criteriatype = 2
+WHERE kbi_ue.id &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_ue.status = 0
+  AND kbi_e.status = 0
+ORDER BY kbi_c.fullname, kbi_u.lastname, kbi_u.firstname</code></pre></div>
+<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT kbi_ue.id,
+       kbi_ue.timecreated                         AS enrolstart,
+       kbi_ue.timeend                             AS enrolend,
+       kbi_ccc.timeend,
+       kbi_c.enablecompletion,
+       kbi_cc.timecompleted                       AS complete,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_ue.userid,
+       kbi_e.courseid,
+       kbi_e.enrol                                AS enrols,
+       CONCAT(kbi_u1.firstname, &#39; &#39;, kbi_u1.lastname) AS endrolled_by,
+       kbi_ue.status                              AS enrol_status,
+       ra.roles                               AS course_roles,
+       kbi_c.fullname                             AS course,
+       kbi_c.startdate                            AS startdate,
+       kbi_c.enddate                              AS enddate
+FROM mdl_user_enrolments kbi_ue
+       JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ue.userid
+       JOIN(SELECT kbi_ctx.instanceid,
+                    kbi_ra.userid,
+                    MIN(kbi_ra.modifierid)                                 AS modifierid,
+                    STRING_AGG(DISTINCT ((kbi_r.shortname))::text, &#39;, &#39;) AS roles
+             FROM mdl_context kbi_ctx
+                    JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_ctx.id
+                    JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid
+             WHERE kbi_ctx.contextlevel = 50
+             GROUP BY kbi_ctx.instanceid, kbi_ra.userid) ra ON ra.instanceid = kbi_e.courseid AND ra.userid = kbi_ue.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_e.courseid
+       LEFT JOIN mdl_user kbi_u1 ON kbi_u1.id = ra.modifierid
+       LEFT JOIN mdl_course_completions kbi_cc ON kbi_cc.course = kbi_e.courseid AND kbi_cc.userid = kbi_ue.userid
+       LEFT JOIN mdl_course_completion_criteria kbi_ccc ON kbi_ccc.course = kbi_e.courseid AND kbi_ccc.criteriatype = 2
+WHERE kbi_ue.id &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_ue.status = 0
+  AND kbi_e.status = 0
+ORDER BY kbi_c.fullname, kbi_u.lastname, kbi_u.firstname</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>A coluna <code>endrolled_by</code> é obtida de <code>MIN(kbi_ra.modifierid)</code>, isto é, de quem modificou uma atribuição de papel. Isso não comprova quem realizou a matrícula e o menor ID não identifica necessariamente o modificador mais recente.</li><li>Como a subconsulta de papéis é unida por <code>JOIN</code>, inscrições sem atribuição de papel correspondente no contexto do curso são excluídas da tabela.</li><li>O campo <code>kbi_ccc.timeend</code> vem de um critério de conclusão de tipo 2, não da data final da matrícula. Ele não deve ser confundido com <code>enrolend</code> nem com <code>course.enddate</code>.</li><li>Podem existir múltiplos critérios de conclusão de tipo 2 para um curso. A junção sem agregação desses critérios pode gerar linhas repetidas para a mesma inscrição.</li><li>O status da matrícula é apresentado, mas fixado em zero no filtro. Assim, a listagem não mostra todas as situações de matrícula.</li><li>A data <code>complete</code> deriva do registro formal de conclusão, podendo estar vazia. O SQL não comprova conclusão de atividades individuais.</li><li>As versões MySQL e PostgreSQL possuem funções distintas para concatenar nomes de papéis. Os nomes e e-mails são dados pessoais sujeitos a controle de acesso.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-050.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-050-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="049.html">← Relatório 049</a><a href="051.html">Relatório 051 →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/enrollments.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
