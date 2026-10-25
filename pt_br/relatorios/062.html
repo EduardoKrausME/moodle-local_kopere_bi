@@ -1,0 +1,96 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Inventário das posições dos questionários em cursos visíveis, relacionando banco de questões, versão selecionada, características da questão e tags associadas."><meta name="theme-color" content="#072c3a"><title>Relatório 062 · Estrutura das questões dos questionários · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/quizzes.html">Questionários</a> / 062</div><div class="kicker">RELATÓRIO 062</div><h1>Estrutura das questões dos questionários</h1><p class="lead">Inventário das posições dos questionários em cursos visíveis, relacionando banco de questões, versão selecionada, características da questão e tags associadas.</p><section><h2>Finalidade do relatório</h2><p>Inventário das posições dos questionários em cursos visíveis, relacionando banco de questões, versão selecionada, características da questão e tags associadas.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Facilita auditar a organização dos questionários, conferir posições e páginas, identificar tipos e versões de questões e localizar estruturas com referências incompletas para revisão.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não há filtro SQL dinâmico</strong> para curso, questionário, categoria de questão, tag, versão ou data. A consulta abrange questionários pertencentes a cursos e módulos visíveis (<code>kbi_c.visible = 1</code> e <code>kbi_cm.visible = 1</code>).</p><p>Para cada posição, a referência a questão usa <code>component = 'mod_quiz'</code> e <code>questionarea = 'slot'</code>. A versão é a explicitamente referenciada ou, quando <code>kbi_qr.version IS NULL</code>, o maior número de versão da entrada correspondente.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>O relatório apresenta uma visualização em tabela, com 2 consultas SQL, cache, atualização e realce de sintaxe usando Prism.js. As versões MySQL e PostgreSQL da mesma visualização estão em caixas separadas dentro de um único bloco.</p><details class="report-block" open><summary>1. Estrutura das questões dos questionários · Tabela</summary><div class="inner"><p>Uma tabela por posição de questão (<code>quiz slot</code>), com curso, questionário, CMID, número e página da posição, nota máxima, entrada do banco de questões, versão, ID e nome da questão, tipo, nota padrão, comprimento, situação da versão e tags.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT kbi_slot.id                AS id,
+       kbi_c.id                   AS courseid,
+       kbi_c.fullname             AS course,
+       kbi_cm.id                  AS cmid,
+       kbi_qz.id                  AS quizid,
+       kbi_qz.name                AS quiz_name,
+       kbi_slot.slot,
+       kbi_slot.page              AS slot_page,
+       kbi_slot.maxmark,
+       kbi_qbe.id                 AS questionbankentryid,
+       kbi_qv.version,
+       kbi_q.id                   AS questionid,
+       kbi_q.name                 AS question_name,
+       kbi_q.qtype,
+       kbi_q.defaultmark,
+       kbi_q.length,
+       kbi_qv.status              AS question_status,
+       kbi_tags.tags              AS question_tags
+FROM mdl_quiz kbi_qz
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_qz.course
+       JOIN mdl_modules kbi_m ON kbi_m.name = &#39;quiz&#39;
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id AND kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_qz.id
+       JOIN mdl_quiz_slots kbi_slot ON kbi_slot.quizid = kbi_qz.id
+       LEFT JOIN mdl_question_references kbi_qr ON kbi_qr.component = &#39;mod_quiz&#39;
+             AND kbi_qr.questionarea = &#39;slot&#39;
+             AND kbi_qr.itemid = kbi_slot.id
+       LEFT JOIN mdl_question_bank_entries kbi_qbe ON kbi_qbe.id = kbi_qr.questionbankentryid
+       LEFT JOIN mdl_question_versions kbi_qv ON kbi_qv.questionbankentryid = kbi_qbe.id
+             AND (
+                 kbi_qv.version = kbi_qr.version
+                 OR (kbi_qr.version IS NULL AND kbi_qv.version = (
+                     SELECT MAX(kbi_qv2.version)
+                     FROM mdl_question_versions kbi_qv2
+                     WHERE kbi_qv2.questionbankentryid = kbi_qbe.id
+                 ))
+             )
+       LEFT JOIN mdl_question kbi_q ON kbi_q.id = kbi_qv.questionid
+       LEFT JOIN (
+             SELECT kbi_ti.itemid,
+                    GROUP_CONCAT(DISTINCT kbi_t.rawname ORDER BY kbi_t.rawname SEPARATOR &#39;, &#39;) AS tags
+             FROM mdl_tag_instance kbi_ti
+                    JOIN mdl_tag kbi_t ON kbi_t.id = kbi_ti.tagid
+             WHERE kbi_ti.itemtype = &#39;question&#39;
+             GROUP BY kbi_ti.itemid
+       ) kbi_tags ON kbi_tags.itemid = kbi_q.id
+WHERE kbi_c.visible = 1
+  AND kbi_cm.visible = 1
+ORDER BY kbi_c.fullname, kbi_qz.name, kbi_slot.slot</code></pre></div>
+<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT kbi_slot.id                AS id,
+       kbi_c.id                   AS courseid,
+       kbi_c.fullname             AS course,
+       kbi_cm.id                  AS cmid,
+       kbi_qz.id                  AS quizid,
+       kbi_qz.name                AS quiz_name,
+       kbi_slot.slot,
+       kbi_slot.page              AS slot_page,
+       kbi_slot.maxmark,
+       kbi_qbe.id                 AS questionbankentryid,
+       kbi_qv.version,
+       kbi_q.id                   AS questionid,
+       kbi_q.name                 AS question_name,
+       kbi_q.qtype,
+       kbi_q.defaultmark,
+       kbi_q.length,
+       kbi_qv.status              AS question_status,
+       kbi_tags.tags              AS question_tags
+FROM mdl_quiz kbi_qz
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_qz.course
+       JOIN mdl_modules kbi_m ON kbi_m.name = &#39;quiz&#39;
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id AND kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_qz.id
+       JOIN mdl_quiz_slots kbi_slot ON kbi_slot.quizid = kbi_qz.id
+       LEFT JOIN mdl_question_references kbi_qr ON kbi_qr.component = &#39;mod_quiz&#39;
+             AND kbi_qr.questionarea = &#39;slot&#39;
+             AND kbi_qr.itemid = kbi_slot.id
+       LEFT JOIN mdl_question_bank_entries kbi_qbe ON kbi_qbe.id = kbi_qr.questionbankentryid
+       LEFT JOIN mdl_question_versions kbi_qv ON kbi_qv.questionbankentryid = kbi_qbe.id
+             AND(
+                 kbi_qv.version = kbi_qr.version
+                 OR(kbi_qr.version IS NULL AND kbi_qv.version = (
+                     SELECT MAX(kbi_qv2.version)
+                     FROM mdl_question_versions kbi_qv2
+                     WHERE kbi_qv2.questionbankentryid = kbi_qbe.id
+                 ))
+             )
+       LEFT JOIN mdl_question kbi_q ON kbi_q.id = kbi_qv.questionid
+       LEFT JOIN(
+             SELECT kbi_ti.itemid,
+                    STRING_AGG(DISTINCT (kbi_t.rawname)::text, &#39;, &#39; ORDER BY (kbi_t.rawname)::text) AS tags
+             FROM mdl_tag_instance kbi_ti
+                    JOIN mdl_tag kbi_t ON kbi_t.id = kbi_ti.tagid
+             WHERE kbi_ti.itemtype = &#39;question&#39;
+             GROUP BY kbi_ti.itemid
+       ) kbi_tags ON kbi_tags.itemid = kbi_q.id
+WHERE kbi_c.visible = 1
+  AND kbi_cm.visible = 1
+ORDER BY kbi_c.fullname, kbi_qz.name, kbi_slot.slot</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>A consulta usa junções opcionais com referências, entradas do banco, versões, questões e tags. Assim, posições sem referência resolvida podem aparecer com informações de questão vazias.</li><li>Quando a referência não fixa uma versão, o SQL seleciona a de maior número da entrada. Não verifica, nessa seleção, se a versão possui status <code>ready</code> ou é a versão pedagogicamente desejada.</li><li>O campo <code>question_status</code> apenas expõe o status da versão selecionada. Questões não prontas não são excluídas da consulta.</li><li>O inventário não informa respostas, alternativas, critérios de correção, tentativas, desempenho de estudantes nem qualidade da formulação das questões.</li><li>A lista de tags agrega nomes relacionados à questão e não garante que a organização por categorias do banco esteja completa ou atualizada.</li><li>O SQL só inclui módulos e cursos visíveis, mas não verifica restrições individuais de acesso, condições de disponibilidade ou permissões de visualização de cada estudante.</li><li>As variantes MySQL e PostgreSQL diferem no agregador de tags. Não há filtro temporal, de modo que o relatório apresenta a estrutura disponível no momento da consulta.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-062.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-062-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="061.html">← Relatório 061</a><a href="063.html">Relatório 063 →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/quizzes.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
