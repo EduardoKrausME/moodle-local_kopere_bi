@@ -7,8 +7,6 @@ This file documents the two most recent **published releases of the main `local_
 ### Added
 - Added 16 bundled analytics reports (`db/files/page-112.json` through `page-127.json`) covering course-section engagement, activity reach, time tracking by activity type, daily activity by role, active courses, enrolments, completions, learner participation, quiz comparisons, grade history, frequently incorrect answers, question tags, grading criteria, feedback distribution, forum activity and submission timelines.
 - Added dedicated PostgreSQL variants of bundled reports for online activity, learners, instructors, courses, learning activities, quizzes and forums, while retaining the existing MySQL versions where database-specific SQL is required.
-- Added the `tools/mysql_to_postgres_reports.js` conversion helper for preparing PostgreSQL-compatible bundled SQL definitions.
-- Added `docs/expanded_reports.md` with the scope, assumptions and limitations of the 16 new reports.
 
 ### Changed
 - Updated the report-import routine to respect MySQL and PostgreSQL prerequisites independently on report pages, blocks and elements, including `postgres`, `postgresql` and `pgsql` aliases.
