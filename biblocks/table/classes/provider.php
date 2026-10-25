@@ -405,14 +405,14 @@ class provider implements i_block_provider {
                             $line->$key = string_util::get_string($line->$key);
                         }
 
-                        $value = $line->$key;
+
                     }
                 }
 
                 foreach ($koperebielement->info_obj["column"] as $key => $column) {
-                    if (isset($column["mustache"][3]) &&
-                        $column["mustache"] != "{{{{$key}}}}" &&
-                        isset($value[0])
+                    if (is_string($column["mustache"] ?? null) &&
+                        strlen($column["mustache"]) >= 4 &&
+                        $column["mustache"] !== "{{{{$key}}}}"
                     ) {
                         $line->{"{$key}_mustache"} = $mustache->render_from_string($column["mustache"], $line);
                     }

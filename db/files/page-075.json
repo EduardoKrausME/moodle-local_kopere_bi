@@ -33,7 +33,7 @@
               "id": {
                 "key": "id",
                 "title": "#",
-                "type": "number",
+                "type": "string",
                 "mustache": ""
               },
               "course": {
