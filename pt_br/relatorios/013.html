@@ -1,0 +1,103 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Apresenta o acompanhamento de estudantes matriculados no curso selecionado, reunindo notas, referência de aprovação, conclusão, acesso registrado e medidas de participação."><meta name="theme-color" content="#072c3a"><title>Relatório 013 · Sucesso e progresso dos estudantes · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>
+.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}
+.report-intro strong{font-size:17px;color:#096573}
+.report-intro p{margin:7px 0 0}
+.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}
+.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}
+.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}
+.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}
+.report-block summary:hover{background:#d9eff0}
+.report-block .inner{padding:16px}
+.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}
+.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}
+.report-meta{color:#54707b;font-size:13px}
+@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}
+</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/users.html">Usuários e perfis</a> / 013</div><div class="kicker">RELATÓRIO 013</div><h1>Sucesso e progresso dos estudantes</h1><p class="lead">Apresenta o acompanhamento de estudantes matriculados no curso selecionado, reunindo notas, referência de aprovação, conclusão, acesso registrado e medidas de participação.</p><section><h2>Finalidade do relatório</h2><p>Apresenta o acompanhamento de estudantes matriculados no curso selecionado, reunindo notas, referência de aprovação, conclusão, acesso registrado e medidas de participação.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>É útil para tutores e gestores acompanharem o progresso por estudante de um curso, identificarem possíveis dificuldades e compararem notas, critérios de aprovação, conclusão de módulos e registros de visitas.</p></div><div class="report-navigation"><a href="#filtros">Filtros reais</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>O SQL utiliza exclusivamente o parâmetro dinâmico <code>:courseid</code>, presente <strong>quatro vezes</strong>: na seleção de matrículas, nos agregados de acompanhamento, na média de notas do curso e na contagem de atividades concluídas. Esse filtro restringe os resultados ao curso escolhido.</p><p>Há também condições fixas: inscrições e métodos de inscrição com status <code>0</code>, papel de estudante com ID <code>5</code>, contas não excluídas ou suspensas, cursos visíveis e exclusão do usuário <code>guest</code>. Não existem filtros dinâmicos de usuário, coorte ou período.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>Uma visualização em tabela, com o SQL original completo e a configuração de cache e atualização. O código utiliza o destaque de sintaxe SQL do Prism.js.</p><details class="report-block" open><summary>1. Sucesso e progresso dos estudantes · Tabela</summary><div class="inner"><p>A tabela reúne por estudante e curso dados de matrícula, data de início, modalidade de inscrição, nota final e percentual, referência de aprovação, média das notas do curso, último acesso registrado, visitas, tempo acompanhado e conclusão formal do curso. A consulta combina informações de matrícula, notas, conclusão e acompanhamento do Kopere BI.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT CASE
+         WHEN kbi_gi.grademax &gt; 0 THEN (kbi_cri.gradepass / kbi_gi.grademax) * 100
+         ELSE kbi_cri.gradepass END            AS gradepass,
+       kbi_cri.gradepass                       AS gradepass_raw,
+       kbi_u.email,
+       ue.userid,
+       ue.started,
+       kbi_c.id                                AS cid,
+       kbi_c.fullname,
+       ue.enrolment,
+       kbi_c.startdate,
+       lit.lastaccess,
+       git.average,
+       ROUND((CASE
+                WHEN kbi_g.rawgrademax &gt; 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                ELSE kbi_g.finalgrade END), 2) AS grade,
+       ROUND((CASE
+                WHEN kbi_g.rawgrademax &gt; 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                ELSE kbi_g.finalgrade END), 2) AS grade_raw,
+       ROUND((CASE
+                WHEN (kbi_g.rawgrademax - kbi_g.rawgrademin) &gt; 0
+                        THEN ((kbi_g.finalgrade - kbi_g.rawgrademin) / (kbi_g.rawgrademax - kbi_g.rawgrademin)) * 100
+                ELSE kbi_g.finalgrade END), 2) AS grade_percent,
+       cmc.completed,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       lit.timespend,
+       lit.visits,
+       kbi_c.enablecompletion,
+       kbi_cc.timecompleted                    AS complete
+FROM (SELECT DISTINCT kbi_e.courseid,
+                      kbi_ue.userid,
+                      (CASE
+                         WHEN kbi_ue.timestart &gt; 0
+                                 THEN kbi_ue.timestart
+                         ELSE kbi_ue.timecreated
+                          END) AS started,
+                      (CASE
+                         WHEN kbi_e.name IS NULL
+                                 THEN kbi_e.enrol
+                         ELSE CONCAT(kbi_e.enrol, &#39;(&#39;, kbi_e.name, &#39;)&#39;)
+                          END) AS enrolment
+      FROM mdl_enrol kbi_e
+             JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id
+             JOIN mdl_context kbi_ctx ON kbi_ctx.contextlevel = 50 AND kbi_ctx.instanceid = kbi_e.courseid
+             JOIN mdl_role_assignments kbi_ra
+               ON kbi_ra.contextid = kbi_ctx.id AND kbi_ra.userid = kbi_ue.userid AND kbi_ra.roleid = 5
+      WHERE kbi_ue.userid &gt; 0
+        AND kbi_e.status = 0
+        AND kbi_ue.status = 0
+        AND kbi_e.courseid = :courseid) ue
+       JOIN mdl_user kbi_u ON kbi_u.id = ue.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = ue.courseid
+       LEFT JOIN mdl_course_completions kbi_cc ON kbi_cc.course = kbi_c.id AND kbi_cc.userid = kbi_u.id
+       LEFT JOIN mdl_course_completion_criteria kbi_cri ON kbi_cri.course = kbi_c.id AND kbi_cri.criteriatype = 6
+       LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.courseid = kbi_c.id AND kbi_gi.itemtype = &#39;course&#39;
+       LEFT JOIN mdl_grade_grades kbi_g ON kbi_g.itemid = kbi_gi.id AND kbi_g.userid = kbi_u.id
+       LEFT JOIN (SELECT kbi_lit.userid,
+                         kbi_lit.courseid,
+                         SUM(kbi_lit.timespend)  as timespend,
+                         SUM(kbi_lit.visits)     as visits,
+                         MAX(kbi_lit.lastaccess) as lastaccess
+                  FROM mdl_local_kopere_bi_tracking kbi_lit
+                  WHERE kbi_lit.courseid &gt; 0
+                    AND kbi_lit.courseid = :courseid
+                  GROUP BY kbi_lit.courseid, kbi_lit.userid) lit ON lit.courseid = kbi_c.id AND lit.userid = kbi_u.id
+       LEFT JOIN (SELECT kbi_gi.courseid,
+                         ROUND(AVG(CASE
+                                     WHEN (kbi_g.rawgrademax - kbi_g.rawgrademin) &gt; 0
+                                             THEN ((kbi_g.finalgrade - kbi_g.rawgrademin) / (kbi_g.rawgrademax - kbi_g.rawgrademin)) * 100
+                                     ELSE kbi_g.finalgrade END), 2) AS average
+                  FROM mdl_grade_items kbi_gi, mdl_grade_grades kbi_g
+                  WHERE kbi_gi.itemtype = &#39;course&#39;
+                    AND kbi_g.itemid = kbi_gi.id
+                    AND kbi_g.finalgrade IS NOT NULL
+                    AND kbi_gi.courseid = :courseid
+                  GROUP BY kbi_gi.courseid) git ON git.courseid = kbi_c.id
+       LEFT JOIN (SELECT kbi_cmc.userid, kbi_cm.course, COUNT(kbi_cmc.id) as completed
+                  FROM mdl_course_modules_completion kbi_cmc, mdl_course_modules kbi_cm
+                  WHERE kbi_cm.visible = 1
+                    AND kbi_cmc.coursemoduleid = kbi_cm.id
+                    AND kbi_cmc.completionstate IN (1, 2)
+                    AND kbi_cm.course = :courseid
+                  GROUP BY kbi_cm.course, kbi_cmc.userid) cmc ON cmc.course = kbi_c.id AND cmc.userid = kbi_u.id
+WHERE kbi_u.id &gt; 0
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>A consulta considera atribuições com papel de ID <code>5</code> em contexto de curso; instituições com papéis personalizados devem validar o critério.</li><li>O campo de nota é calculado a partir de escalas e notas registradas. Quando faltam dados de avaliação, alguns indicadores podem ficar vazios; não interprete ausência como nota zero.</li><li>Os dados de tempo, visitas e último acesso vêm de <code>mdl_local_kopere_bi_tracking</code> e dependem dos registros efetivamente coletados; tempo não equivale a aprendizagem.</li><li>O cálculo de conclusão de atividades conta estados <code>1</code> e <code>2</code> para módulos visíveis. Isso não deve ser confundido com a conclusão formal do curso, que é apresentada em outro campo.</li><li>A junção com itens de avaliação e critérios de conclusão pode multiplicar linhas em cursos com configurações específicas. Confira agregações antes de usar os resultados em decisões institucionais.</li><li>O SQL foi mantido como publicado; contém funções de arredondamento e outras expressões cuja compatibilidade depende do SGBD e da configuração. Não há variante PostgreSQL separada neste relatório.</li></ul></section><section><h2>Fonte técnica</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-013.json" target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="012.html">← Relatório 012</a><a href="014.html">Relatório 014 →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/users.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
