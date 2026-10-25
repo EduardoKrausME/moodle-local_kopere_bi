@@ -1,0 +1,76 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Relaciona recursos de arquivo do curso selecionado com nomes e referências dos arquivos armazenados, revisão do recurso e indicadores de visitas e tempo coletados pelo Kopere BI."><meta name="theme-color" content="#072c3a"><title>Relatório 093 · Uso de arquivos por curso · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/communication.html">Comunicação</a> / 093</div><div class="kicker">RELATÓRIO 093</div><h1>Uso de arquivos por curso</h1><p class="lead">Relaciona recursos de arquivo do curso selecionado com nomes e referências dos arquivos armazenados, revisão do recurso e indicadores de visitas e tempo coletados pelo Kopere BI.</p><section><h2>Finalidade do relatório</h2><p>Relaciona recursos de arquivo do curso selecionado com nomes e referências dos arquivos armazenados, revisão do recurso e indicadores de visitas e tempo coletados pelo Kopere BI.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Facilita localizar recursos de arquivo disponibilizados em um curso e examinar indicadores de uso dos respectivos módulos para apoiar a manutenção e organização dos materiais didáticos.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>O filtro dinâmico é <strong>Curso</strong>, identificado por <code>:courseid</code>, presente <strong>duas vezes em cada variante</strong>: na subconsulta dos arquivos dos módulos e no filtro principal <code>kbi_c.id = :courseid</code>.</p><p>As condições fixas exigem curso visível, recurso de arquivo com ID positivo, arquivos com <code>component = 'mod_resource'</code>, <code>filearea = 'content'</code>, <code>itemid = 0</code> e <code>filesize &gt; 0</code>. A coleta de visitas considera <code>page = 'module'</code> e módulos cujo tipo é <code>resource</code>. Não há filtro dinâmico de data, participante ou visibilidade do módulo.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>Uma visualização em tabela com as duas consultas SQL originais integrais, MySQL e PostgreSQL, apresentadas em caixas separadas dentro do mesmo bloco. A sintaxe das consultas é destacada por Prism.js.</p><details class="report-block" open><summary>1. Uso de arquivos por curso · Tabela</summary><div class="inner"><p>Uma tabela por recurso de arquivo, com identificador e nome do recurso, nome do curso, data de modificação, revisão configurada, visitas e tempo acompanhados para o módulo, uma lista de referências técnicas aos arquivos e uma lista de nomes para ordenação ou apresentação.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT kbi_r.id,
+       kbi_c.fullname,
+       kbi_r.name,
+       kbi_r.timemodified,
+       kbi_r.revision,
+       MAX(sl.visits)        AS visits,
+       MAX(sl.timespend)     AS timespend,
+       MAX(fs.files)         AS files,
+       MAX(fs.files_sorting) AS files_sorting
+FROM mdl_resource kbi_r
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_r.course
+       LEFT JOIN (SELECT kbi_cm.instance,
+                         GROUP_CONCAT(CASE
+                                        WHEN kbi_f.id IS NOT NULL THEN CONCAT(&#39;/&#39;, kbi_ctx.id,
+                                                                          &#39;/mod_resource/content/[[revision]]&#39;,
+                                                                          kbi_f.filepath, kbi_f.filename)
+                                        ELSE NULL END SEPARATOR &#39;[[,]]&#39;) AS files,
+                         GROUP_CONCAT(kbi_f.filename)                        AS files_sorting
+                  FROM mdl_files kbi_f
+                         JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_f.contextid
+                         JOIN mdl_course_modules kbi_cm ON kbi_cm.id = kbi_ctx.instanceid
+                  WHERE kbi_f.component = &#39;mod_resource&#39;
+                    AND kbi_f.filearea = &#39;content&#39;
+                    AND kbi_f.itemid = 0
+                    AND kbi_f.filesize &gt; 0
+                    AND kbi_cm.course = :courseid
+                  GROUP BY kbi_cm.instance) fs ON fs.instance = kbi_r.id
+       LEFT JOIN (SELECT kbi_cm.instance, SUM(kbi_lit.timespend) as timespend, SUM(kbi_lit.visits) as visits
+                  FROM mdl_local_kopere_bi_tracking kbi_lit, mdl_course_modules kbi_cm, mdl_modules kbi_m
+                  WHERE kbi_lit.page = &#39;module&#39;
+                    and kbi_cm.id = kbi_lit.param
+                    and kbi_m.id = kbi_cm.module
+                    and kbi_m.name = &#39;resource&#39;
+                  GROUP BY kbi_cm.instance) sl ON sl.instance = kbi_r.id
+WHERE kbi_r.id &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_c.visible = 1
+GROUP BY kbi_r.id, kbi_c.id</code></pre></div>
+<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT kbi_r.id,
+       kbi_c.fullname,
+       kbi_r.name,
+       kbi_r.timemodified,
+       kbi_r.revision,
+       MAX(sl.visits)        AS visits,
+       MAX(sl.timespend)     AS timespend,
+       MAX(fs.files)         AS files,
+       MAX(fs.files_sorting) AS files_sorting
+FROM mdl_resource kbi_r
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_r.course
+       LEFT JOIN(SELECT kbi_cm.instance,
+                         STRING_AGG((CASE
+                                        WHEN kbi_f.id IS NOT NULL THEN CONCAT(&#39;/&#39;, kbi_ctx.id,
+                                                                          &#39;/mod_resource/content/[[revision]]&#39;,
+                                                                          kbi_f.filepath, kbi_f.filename)
+                                        ELSE NULL END)::text, &#39;[[,]]&#39;) AS files,
+                         STRING_AGG((kbi_f.filename)::text, &#39;,&#39;)                        AS files_sorting
+                  FROM mdl_files kbi_f
+                         JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_f.contextid
+                         JOIN mdl_course_modules kbi_cm ON kbi_cm.id = kbi_ctx.instanceid
+                  WHERE kbi_f.component = &#39;mod_resource&#39;
+                    AND kbi_f.filearea = &#39;content&#39;
+                    AND kbi_f.itemid = 0
+                    AND kbi_f.filesize &gt; 0
+                    AND kbi_cm.course = :courseid
+                  GROUP BY kbi_cm.instance) fs ON fs.instance = kbi_r.id
+       LEFT JOIN(SELECT kbi_cm.instance, SUM(kbi_lit.timespend) as timespend, SUM(kbi_lit.visits) as visits
+                  FROM mdl_local_kopere_bi_tracking kbi_lit, mdl_course_modules kbi_cm, mdl_modules kbi_m
+                  WHERE kbi_lit.page = &#39;module&#39;
+                    and kbi_cm.id = kbi_lit.param
+                    and kbi_m.id = kbi_cm.module
+                    and kbi_m.name = &#39;resource&#39;
+                  GROUP BY kbi_cm.instance) sl ON sl.instance = kbi_r.id
+WHERE kbi_r.id &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_c.visible = 1
+GROUP BY kbi_r.id, kbi_c.id</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>Os totais <code>visits</code> e <code>timespend</code> vêm de <code>mdl_local_kopere_bi_tracking</code> por módulo de recurso. Não demonstram que cada arquivo foi baixado, aberto ou lido; um módulo pode conter mais de um arquivo.</li><li>A subconsulta de tracking não filtra curso diretamente e agrega pelo ID da instância do recurso, vinculada ao módulo; o vínculo depende da consistência dos IDs dos módulos e dos registros coletados.</li><li>Os campos <code>files</code> e <code>files_sorting</code> são agregações textuais dos arquivos encontrados, não contadores numéricos nem downloads. O texto <code>[[revision]]</code> é mantido como marcador literal para tratamento pela aplicação.</li><li>Os caminhos concatenados em <code>files</code> são referências técnicas construídas com contexto, área de arquivo, caminho e nome; não significam URLs externas publicamente acessíveis.</li><li>São incluídos somente arquivos com tamanho positivo, na área e componente esperados. Registros vazios, versões diferentes ou outros componentes podem não aparecer nas listas.</li><li>As variantes MySQL e PostgreSQL utilizam, respectivamente, <code>GROUP_CONCAT</code> e <code>STRING_AGG</code> para reunir nomes e caminhos. A ordem dos elementos concatenados não é garantida por <code>ORDER BY</code> dentro dessas agregações.</li><li>A seleção exige curso visível, mas não filtra <code>course_modules.visible = 1</code>, de modo que recursos ocultos podem ser incluídos. A exibição dos caminhos deve respeitar permissões de acesso a arquivos.</li><li>O relatório não possui recorte temporal, não identifica quais estudantes visualizaram o recurso e não calcula taxa de consumo efetivo do conteúdo.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-093.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-093-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="092.html">← Relatório 092</a><a href="../relatorios.html">Todas as categorias →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/communication.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
