@@ -1,0 +1,166 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Tabela de indicadores operacionais por professor e curso, reunindo matrículas, tarefas, avaliações, fóruns, eventos e quantidade de módulos."><meta name="theme-color" content="#072c3a"><title>Relatório 029 · Proporção de engajamento dos professores · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/instructors.html">Professores</a> / 029</div><div class="kicker">RELATÓRIO 029</div><h1>Proporção de engajamento dos professores</h1><p class="lead">Tabela de indicadores operacionais por professor e curso, reunindo matrículas, tarefas, avaliações, fóruns, eventos e quantidade de módulos.</p><section><h2>Finalidade do relatório</h2><p>Tabela de indicadores operacionais por professor e curso, reunindo matrículas, tarefas, avaliações, fóruns, eventos e quantidade de módulos.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Permite reunir diferentes sinais de uso do ambiente em uma mesma visão para identificar cursos com demandas de correção e aspectos que merecem investigação administrativa ou pedagógica.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não há filtros SQL dinâmicos</strong> de curso, usuário, professor, coorte ou período. A consulta contempla professores com papel ID <code>3</code> em contexto de curso de nível <code>50</code>, cursos visíveis e contas válidas.</p><p>O indicador <code>needs_grading</code> adota uma janela <strong>fixa de 30 dias</strong> (<code>2592000</code> segundos) para submissões recentes do tipo <code>submitted</code> com <code>latest = 1</code> e sem nota válida. Outros indicadores não compartilham necessariamente esse recorte temporal.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>O relatório possui uma visualização em tabela e 2 consultas SQL, com cache, atualização e destaque de sintaxe pelo Prism.js. As variantes MySQL e PostgreSQL ficam em caixas distintas dentro do mesmo bloco de visualização.</p><details class="report-block" open><summary>1. Proporção de engajamento dos professores · Tabela</summary><div class="inner"><p>A tabela apresenta professor e dados do curso, quantidade de estudantes com papel atribuído, número de tarefas, entregas recentes sem nota, tempo médio entre envio e avaliação, medidas de registros do Kopere BI, discussões e postagens dos fóruns, contagens de eventos e módulos do curso. As versões MySQL e PostgreSQL utilizam expressões diferentes para identificar a janela temporal de entregas.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT kbi_ra.id,
+       kbi_c.id                                                               AS courseid,
+       kbi_c.fullname                                                         AS course_name,
+       kbi_c.timecreated                                                      AS course_created,
+       kbi_u.id                                                               AS teacher_id,
+       kbi_u.lastname,
+       kbi_u.firstname,
+       kbi_u.email,
+       kbi_u.picture                                                          AS teacher_picture,
+       kbi_u.firstnamephonetic                                                AS teacher_firstnamephonetic,
+       kbi_u.lastnamephonetic                                                 AS teacher_lastnamephonetic,
+       kbi_u.middlename                                                       AS teacher_middlename,
+       kbi_u.alternatename                                                    AS teacher_alternatename,
+       kbi_u.imagealt                                                         AS teacher_imagealt,
+       (SELECT COUNT(distinct kbi_ras.userid)
+        FROM mdl_role_assignments kbi_ras, mdl_context kbi_con
+        WHERE kbi_con.id = kbi_ras.contextid
+          AND kbi_con.contextlevel = 50
+          AND kbi_ras.roleid = 5
+          AND kbi_con.instanceid = kbi_c.id)                                      AS enrolled_students,
+       (SELECT COUNT(kbi_ass.id) FROM mdl_assign kbi_ass WHERE kbi_ass.course = kbi_c.id) AS assignments,
+       (SELECT COUNT(DISTINCT kbi_sub.id)
+        FROM mdl_assign_submission kbi_sub
+               LEFT JOIN mdl_assign_grades kbi_as_grade
+                 ON kbi_as_grade.userid = kbi_sub.userid AND kbi_as_grade.assignment = kbi_sub.assignment AND
+                    kbi_as_grade.attemptnumber = kbi_sub.attemptnumber
+               JOIN mdl_assign kbi_ass ON kbi_ass.id = kbi_sub.assignment
+        WHERE kbi_sub.status = &#39;submitted&#39;
+          AND kbi_sub.latest = 1
+          AND kbi_sub.timecreated &gt; (UNIX_TIMESTAMP() - 2592000)
+          AND (kbi_as_grade.grade IS NULL OR kbi_as_grade.grade &lt; 0)
+          AND kbi_ass.course = kbi_c.id)                                          AS needs_grading,
+       (SELECT AVG(kbi_as_grade.timecreated - kbi_sub.timecreated)
+        FROM mdl_assign_submission kbi_sub
+               LEFT JOIN mdl_assign_grades kbi_as_grade
+                 ON kbi_as_grade.userid = kbi_sub.userid AND kbi_as_grade.assignment = kbi_sub.assignment AND
+                    kbi_as_grade.attemptnumber = kbi_sub.attemptnumber
+               JOIN mdl_assign kbi_ass ON kbi_ass.id = kbi_sub.assignment
+        WHERE kbi_sub.status = &#39;submitted&#39;
+          AND kbi_sub.latest = 1
+          AND kbi_as_grade.grade IS NOT NULL
+          AND kbi_as_grade.grade &gt;= 0
+          AND kbi_ass.course = kbi_c.id)                                          AS avg_time_to_grade,
+       (SELECT SUM(kbi_lil.visits) / COUNT(DISTINCT timepoint)
+        FROM mdl_local_kopere_bi_tracking kbi_lit, mdl_local_kopere_bi_track_log kbi_lil
+        WHERE kbi_lil.trackid = kbi_lit.id
+          AND kbi_lit.courseid = kbi_c.id)                                        AS logins_by_teacher,
+       (SELECT COUNT(DISTINCT kbi_fd.id)
+        FROM mdl_forum_discussions kbi_fd, mdl_forum_posts kbi_fp
+        WHERE kbi_fp.discussion = kbi_fd.id
+          AND kbi_fd.course = kbi_c.id)                                           AS teacher_discussions,
+       (SELECT COUNT(DISTINCT kbi_fp.id)
+        FROM mdl_forum_discussions kbi_fd, mdl_forum_posts kbi_fp
+        WHERE kbi_fp.discussion = kbi_fd.id
+          AND kbi_fd.course = kbi_c.id)                                           AS teacher_posts,
+       (SELECT COUNT(DISTINCT kbi_fp.id)
+        FROM mdl_role_assignments kbi_ras, mdl_context kbi_con, mdl_forum_discussions kbi_fd, mdl_forum_posts kbi_fp
+        WHERE kbi_con.id = kbi_ras.contextid
+          AND kbi_ras.roleid = 5
+          AND kbi_con.contextlevel = 50
+          AND kbi_fp.discussion = kbi_fd.id
+          AND kbi_fd.course = kbi_con.instanceid
+          AND kbi_con.instanceid = kbi_c.id)                                      AS students_posts,
+       (SELECT COUNT(distinct id) FROM mdl_event WHERE userid = kbi_u.id)     AS teacher_events,
+       (SELECT COUNT(distinct kbi_e.id)
+        FROM mdl_event kbi_e, mdl_role_assignments kbi_ras, mdl_context kbi_con
+        WHERE kbi_ras.userid = kbi_e.userid
+          AND kbi_ras.roleid = 5
+          AND kbi_con.id = kbi_ras.contextid
+          AND kbi_con.contextlevel = 50
+          AND kbi_e.courseid = kbi_con.instanceid
+          AND kbi_con.instanceid = kbi_c.id)                                      AS students_events,
+       (SELECT COUNT(id) FROM mdl_course_modules WHERE course = kbi_c.id)     AS added_course_module
+FROM mdl_role_assignments kbi_ra
+       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_ctx.instanceid
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid
+WHERE kbi_ra.id &gt; 0
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_ra.roleid = 3</code></pre></div>
+<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT kbi_ra.id,
+       kbi_c.id                                                               AS courseid,
+       kbi_c.fullname                                                         AS course_name,
+       kbi_c.timecreated                                                      AS course_created,
+       kbi_u.id                                                               AS teacher_id,
+       kbi_u.lastname,
+       kbi_u.firstname,
+       kbi_u.email,
+       kbi_u.picture                                                          AS teacher_picture,
+       kbi_u.firstnamephonetic                                                AS teacher_firstnamephonetic,
+       kbi_u.lastnamephonetic                                                 AS teacher_lastnamephonetic,
+       kbi_u.middlename                                                       AS teacher_middlename,
+       kbi_u.alternatename                                                    AS teacher_alternatename,
+       kbi_u.imagealt                                                         AS teacher_imagealt,
+       (SELECT COUNT(distinct kbi_ras.userid)
+        FROM mdl_role_assignments kbi_ras, mdl_context kbi_con
+        WHERE kbi_con.id = kbi_ras.contextid
+          AND kbi_con.contextlevel = 50
+          AND kbi_ras.roleid = 5
+          AND kbi_con.instanceid = kbi_c.id)                                      AS enrolled_students,
+       (SELECT COUNT(kbi_ass.id) FROM mdl_assign kbi_ass WHERE kbi_ass.course = kbi_c.id) AS assignments,
+       (SELECT COUNT(DISTINCT kbi_sub.id)
+        FROM mdl_assign_submission kbi_sub
+               LEFT JOIN mdl_assign_grades kbi_as_grade
+                 ON kbi_as_grade.userid = kbi_sub.userid AND kbi_as_grade.assignment = kbi_sub.assignment AND
+                    kbi_as_grade.attemptnumber = kbi_sub.attemptnumber
+               JOIN mdl_assign kbi_ass ON kbi_ass.id = kbi_sub.assignment
+        WHERE kbi_sub.status = &#39;submitted&#39;
+          AND kbi_sub.latest = 1
+          AND kbi_sub.timecreated &gt; ((EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::bigint) - 2592000)
+          AND(kbi_as_grade.grade IS NULL OR kbi_as_grade.grade &lt; 0)
+          AND kbi_ass.course = kbi_c.id)                                          AS needs_grading,
+       (SELECT AVG(kbi_as_grade.timecreated - kbi_sub.timecreated)
+        FROM mdl_assign_submission kbi_sub
+               LEFT JOIN mdl_assign_grades kbi_as_grade
+                 ON kbi_as_grade.userid = kbi_sub.userid AND kbi_as_grade.assignment = kbi_sub.assignment AND
+                    kbi_as_grade.attemptnumber = kbi_sub.attemptnumber
+               JOIN mdl_assign kbi_ass ON kbi_ass.id = kbi_sub.assignment
+        WHERE kbi_sub.status = &#39;submitted&#39;
+          AND kbi_sub.latest = 1
+          AND kbi_as_grade.grade IS NOT NULL
+          AND kbi_as_grade.grade &gt;= 0
+          AND kbi_ass.course = kbi_c.id)                                          AS avg_time_to_grade,
+       (SELECT SUM(kbi_lil.visits) / COUNT(DISTINCT timepoint)
+        FROM mdl_local_kopere_bi_tracking kbi_lit, mdl_local_kopere_bi_track_log kbi_lil
+        WHERE kbi_lil.trackid = kbi_lit.id
+          AND kbi_lit.courseid = kbi_c.id)                                        AS logins_by_teacher,
+       (SELECT COUNT(DISTINCT kbi_fd.id)
+        FROM mdl_forum_discussions kbi_fd, mdl_forum_posts kbi_fp
+        WHERE kbi_fp.discussion = kbi_fd.id
+          AND kbi_fd.course = kbi_c.id)                                           AS teacher_discussions,
+       (SELECT COUNT(DISTINCT kbi_fp.id)
+        FROM mdl_forum_discussions kbi_fd, mdl_forum_posts kbi_fp
+        WHERE kbi_fp.discussion = kbi_fd.id
+          AND kbi_fd.course = kbi_c.id)                                           AS teacher_posts,
+       (SELECT COUNT(DISTINCT kbi_fp.id)
+        FROM mdl_role_assignments kbi_ras, mdl_context kbi_con, mdl_forum_discussions kbi_fd, mdl_forum_posts kbi_fp
+        WHERE kbi_con.id = kbi_ras.contextid
+          AND kbi_ras.roleid = 5
+          AND kbi_con.contextlevel = 50
+          AND kbi_fp.discussion = kbi_fd.id
+          AND kbi_fd.course = kbi_con.instanceid
+          AND kbi_con.instanceid = kbi_c.id)                                      AS students_posts,
+       (SELECT COUNT(distinct id) FROM mdl_event WHERE userid = kbi_u.id)     AS teacher_events,
+       (SELECT COUNT(distinct kbi_e.id)
+        FROM mdl_event kbi_e, mdl_role_assignments kbi_ras, mdl_context kbi_con
+        WHERE kbi_ras.userid = kbi_e.userid
+          AND kbi_ras.roleid = 5
+          AND kbi_con.id = kbi_ras.contextid
+          AND kbi_con.contextlevel = 50
+          AND kbi_e.courseid = kbi_con.instanceid
+          AND kbi_con.instanceid = kbi_c.id)                                      AS students_events,
+       (SELECT COUNT(id) FROM mdl_course_modules WHERE course = kbi_c.id)     AS added_course_module
+FROM mdl_role_assignments kbi_ra
+       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_ctx.instanceid
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid
+WHERE kbi_ra.id &gt; 0
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_ra.roleid = 3</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>O relatório não define um índice ou percentual único de engajamento, apesar do título. Apresenta indicadores distintos, sem fórmula comum de proporção.</li><li>Os campos <code>teacher_discussions</code> e <code>teacher_posts</code> contam discussões e postagens de todos os participantes dos fóruns do curso; o SQL não compara o autor com o ID do professor.</li><li>O campo <code>students_posts</code> não relaciona o autor de cada postagem com os estudantes. Sua junção verifica a existência de atribuições do papel 5 no curso, o que pode causar uma contagem que não corresponde exclusivamente às postagens de estudantes.</li><li>A expressão <code>logins_by_teacher</code> soma visitas registradas no curso e divide por <code>COUNT(DISTINCT timepoint)</code>, mas não restringe a subconsulta ao ID do docente. Assim, não mede necessariamente logins daquele professor. Um denominador zero pode produzir NULL ou erro, dependendo do SGBD.</li><li>A janela de 30 dias vale apenas para <code>needs_grading</code>. O tempo médio de avaliação é calculado como diferença entre timestamps e não possui o mesmo limite temporal nem exclusão explícita de valores negativos.</li><li>Os campos <code>teacher_events</code> e <code>students_events</code> consultam <code>mdl_event</code>, não a tabela usual de eventos registrados <code>mdl_logstore_standard_log</code>; sua interpretação e utilidade dependem dos dados e da instalação Moodle.</li><li>O indicador de estudantes matriculados conta usuários com papel ID 5 em contexto de curso, sem verificar diretamente o status do método ou da matrícula.</li><li>Há versões MySQL e PostgreSQL com operações de tempo próprias de cada banco. Os resultados devem ser analisados com atenção às diferenças entre as consultas e à compatibilidade da instalação.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-029.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-029-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="028.html">← Relatório 028</a><a href="030.html">Relatório 030 →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/instructors.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
