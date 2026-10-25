@@ -25,7 +25,7 @@
           "css": "",
           "html_before": "",
           "html_after": "",
-          "commandsql": "SELECT MAX(kbi_qa.id)                              AS id,\n       kbi_c.fullname,\n       COUNT(DISTINCT kbi_q.id)                    AS quizzes,\n       SUM(kbi_qa.timefinish - kbi_qa.timestart)       AS duration,\n       COUNT(DISTINCT kbi_qa.id)                   AS attempts,\n       AVG((kbi_qa.sumgrades / kbi_q.sumgrades) * 100) AS grade,\n       (SELECT DISTINCT CONCAT(kbi_u.firstname, ' ', kbi_u.lastname)\n        FROM mdl_role_assignments kbi_ra\n               JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id\n               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid\n        WHERE kbi_ctx.instanceid = kbi_c.id\n          AND kbi_ctx.contextlevel = 50\n          AND kbi_ra.roleid = 3\n        LIMIT 1)                               AS teacher\nFROM mdl_quiz_attempts kbi_qa\n       LEFT JOIN mdl_quiz kbi_q ON kbi_q.id = kbi_qa.quiz\n       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_q.course\nWHERE kbi_qa.id > 0\n  AND kbi_c.id = :courseid\n  AND kbi_c.visible = 1\nGROUP BY kbi_c.id",
+          "commandsql": "SELECT MAX(kbi_qa.id)                              AS id,\n       kbi_c.fullname,\n       COUNT(DISTINCT kbi_q.id)                    AS quizzes,\n       SUM(CASE WHEN kbi_qa.state = 'finished' AND kbi_qa.timefinish >= kbi_qa.timestart THEN kbi_qa.timefinish - kbi_qa.timestart END)       AS duration,\n       COUNT(DISTINCT kbi_qa.id)                   AS attempts,\n       COUNT(DISTINCT kbi_qa.userid) AS learners_attempted,\n       COUNT(DISTINCT CASE WHEN kbi_qa.state = 'finished' THEN kbi_qa.id END) AS finished_attempts,\n       AVG(CASE WHEN kbi_qa.state = 'finished' AND kbi_q.sumgrades > 0 THEN 100.0 * kbi_qa.sumgrades / kbi_q.sumgrades END) AS grade,\n       (SELECT DISTINCT CONCAT(kbi_u.firstname, ' ', kbi_u.lastname)\n        FROM mdl_role_assignments kbi_ra\n               JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id\n               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid\n        WHERE kbi_ctx.instanceid = kbi_c.id\n          AND kbi_ctx.contextlevel = 50\n          AND kbi_ra.roleid = 3\n        LIMIT 1)                               AS teacher\nFROM mdl_quiz_attempts kbi_qa\n       LEFT JOIN mdl_quiz kbi_q ON kbi_q.id = kbi_qa.quiz\n       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_q.course\nWHERE kbi_qa.id > 0 AND kbi_qa.preview = 0\n  AND kbi_c.id = :courseid\n  AND kbi_c.visible = 1\nGROUP BY kbi_c.id",
           "cache": "1h",
           "reload": "none",
           "info": {
@@ -70,6 +70,18 @@
                 "key": "teacher",
                 "title": "lang::report_field_teacher_title::local_kopere_bi",
                 "type": "string",
+                "mustache": ""
+              },
+              "learners_attempted": {
+                "key": "learners_attempted",
+                "title": "lang::report_enrich_learners_attempted_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "finished_attempts": {
+                "key": "finished_attempts",
+                "title": "lang::report_enrich_finished_attempts_title::local_kopere_bi",
+                "type": "number",
                 "mustache": ""
               }
             }

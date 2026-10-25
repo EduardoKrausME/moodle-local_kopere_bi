@@ -1463,3 +1463,5 @@ $string['report_enrich_log_action_title'] = 'Ação do evento';
 $string['report_enrich_log_target_title'] = 'Alvo do evento';
 $string['report_enrich_days_since_enrolment_title'] = 'Dias desde a matrícula';
 $string['report_enrich_completion_rate_title'] = 'Taxa de conclusão (%)';
+$string['report_enrich_learners_attempted_title'] = 'Participantes distintos';
+$string['report_enrich_finished_attempts_title'] = 'Tentativas concluídas';

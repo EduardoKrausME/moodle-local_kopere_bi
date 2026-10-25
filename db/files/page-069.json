@@ -25,7 +25,7 @@
           "css": "",
           "html_before": "",
           "html_after": "",
-          "commandsql": "SELECT kbi_c.id,\n       kbi_c.fullname,\n       COUNT(DISTINCT kbi_qa.quiz) AS submitted,\n       COUNT(DISTINCT kbi_qa.id)   AS attempted\nFROM mdl_quiz_attempts kbi_qa\n       JOIN mdl_quiz kbi_q ON kbi_q.id = kbi_qa.quiz\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_q.course\nWHERE kbi_c.id = :courseid\n  AND kbi_c.visible = 1\nGROUP BY kbi_c.id, kbi_c.fullname\nORDER BY kbi_c.fullname",
+          "commandsql": "SELECT kbi_c.id,\n       kbi_c.fullname,\n       COUNT(DISTINCT kbi_qa.quiz) AS submitted,\n       COUNT(DISTINCT kbi_qa.id)   AS attempted,\n       COUNT(DISTINCT kbi_qa.userid) AS learners_attempted,\n       COUNT(DISTINCT CASE WHEN kbi_qa.state = 'finished' THEN kbi_qa.id END) AS finished_attempts\nFROM mdl_quiz_attempts kbi_qa\n       JOIN mdl_quiz kbi_q ON kbi_q.id = kbi_qa.quiz\n       JOIN mdl_course kbi_c ON kbi_c.id = kbi_q.course\nWHERE kbi_c.id = :courseid AND kbi_qa.preview = 0\n  AND kbi_c.visible = 1\nGROUP BY kbi_c.id, kbi_c.fullname\nORDER BY kbi_c.fullname",
           "cache": "1h",
           "reload": "none",
           "info": {
@@ -51,6 +51,18 @@
               "attempted": {
                 "key": "attempted",
                 "title": "lang::report_field_attempted_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "learners_attempted": {
+                "key": "learners_attempted",
+                "title": "lang::report_enrich_learners_attempted_title::local_kopere_bi",
+                "type": "number",
+                "mustache": ""
+              },
+              "finished_attempts": {
+                "key": "finished_attempts",
+                "title": "lang::report_enrich_finished_attempts_title::local_kopere_bi",
                 "type": "number",
                 "mustache": ""
               }
