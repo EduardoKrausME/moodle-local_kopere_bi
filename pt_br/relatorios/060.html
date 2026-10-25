@@ -1,0 +1,160 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Relaciona usuários e módulos visíveis do curso selecionado com datas de participação em tarefas, fóruns, questionários, glossários e escolhas, além de registros de notas e professores associados ao curso."><meta name="theme-color" content="#072c3a"><title>Relatório 060 · Progresso dos envios de atividades · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><div class="crumb"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/activities.html">Atividades</a> / 060</div><div class="kicker">RELATÓRIO 060</div><h1>Progresso dos envios de atividades</h1><p class="lead">Relaciona usuários e módulos visíveis do curso selecionado com datas de participação em tarefas, fóruns, questionários, glossários e escolhas, além de registros de notas e professores associados ao curso.</p><section><h2>Finalidade do relatório</h2><p>Relaciona usuários e módulos visíveis do curso selecionado com datas de participação em tarefas, fóruns, questionários, glossários e escolhas, além de registros de notas e professores associados ao curso.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Ajuda a equipe acadêmica a inspecionar evidências técnicas de participação nas atividades, datas de envio ou interação e registros de notas por tipo de módulo.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>O parâmetro SQL dinâmico <strong>Curso</strong>, <code>:courseid</code>, aparece <strong>seis vezes em cada variante</strong>: nas subconsultas de tarefas, fóruns, questionários, glossários e escolhas, além da seleção principal.</p><p>Os critérios fixos incluem curso e módulo visíveis, usuários não excluídos ou suspensos e conta diferente de <code>guest</code>. A lista de docentes parte de atribuições do papel ID <code>3</code> em contexto de curso. Para envios de tarefas, exige-se <code>status = 'submitted'</code>, mas não há filtro geral de inscrição ativa, período ou papel de estudante.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>Uma visualização em tabela com versões completas para MySQL e PostgreSQL, exibidas em caixas separadas dentro do mesmo bloco. O destaque de sintaxe utiliza Prism.js.</p><details class="report-block" open><summary>1. Progresso dos envios de atividades · Tabela</summary><div class="inner"><p>Uma tabela por matrícula e módulo visível com identificação do usuário e do curso, tipo e ID do módulo, último acesso ao curso, situação e término da inscrição, nome dos docentes e três indicadores calculados por <code>GREATEST</code>: data de envio/interação, data de avaliação e maior nota entre tarefa e questionário.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT kbi_u.username,
+       kbi_u.idnumber,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_c.shortname,
+       kbi_c.fullname,
+       kbi_m.name                               AS mod_name,
+       kbi_cm.id                                AS instance_id,
+       kbi_ul.timeaccess,
+       kbi_ue.status,
+       kbi_ue.timeend,
+       GREATEST(
+         COALESCE(ass.submitted, 0), COALESCE(f.posted, 0), COALESCE(q.started, 0), COALESCE(gl.submitted, 0),
+         COALESCE(ch.submitted, 0)
+           )                                AS overal_submission_date,
+       GREATEST(
+         COALESCE(ass.graded, 0), COALESCE(q.graded, 0)
+           )                                AS overal_submission_graded,
+       GREATEST(
+         COALESCE(ass.grade, 0), COALESCE(q.grade, 0)
+           )                                AS overal_submission_grade,
+       teachers.teacher
+FROM mdl_user_enrolments kbi_ue
+       JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ue.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_e.courseid
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id
+       JOIN mdl_modules kbi_m ON kbi_m.id = kbi_cm.module
+       LEFT JOIN mdl_user_lastaccess kbi_ul ON kbi_ul.userid = kbi_u.id AND kbi_ul.courseid = kbi_c.id
+       LEFT JOIN (SELECT kbi_ctx.instanceid,
+                         GROUP_CONCAT(DISTINCT CONCAT(kbi_u.firstname, &#39; &#39;, kbi_u.lastname) SEPARATOR &#39;, &#39;) AS teacher
+                  FROM mdl_role_assignments kbi_ra
+                         JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id
+                         JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+                  WHERE kbi_ctx.contextlevel = 50
+                    AND kbi_ra.roleid = 3
+                  GROUP BY kbi_ctx.instanceid) AS teachers ON teachers.instanceid = kbi_c.id
+       LEFT JOIN (SELECT kbi_ass.userid,
+                         kbi_ass.assignment,
+                         MAX(kbi_ass.timemodified) AS submitted,
+                         MAX(kbi_ag.grade)         AS grade,
+                         MAX(kbi_ag.timemodified)  AS graded
+                  FROM mdl_assign_submission kbi_ass
+                         JOIN mdl_assign kbi_m ON kbi_m.id = kbi_ass.assignment AND kbi_m.course = :courseid
+                         LEFT JOIN mdl_assign_grades kbi_ag ON kbi_ag.assignment = kbi_ass.assignment AND kbi_ag.userid = kbi_ass.userid
+                  WHERE kbi_ass.status = &#39;submitted&#39;
+                  GROUP BY kbi_ass.userid, kbi_ass.assignment) ass
+         ON ass.userid = kbi_u.id AND ass.assignment = kbi_cm.instance AND kbi_m.name = &#39;assign&#39;
+       LEFT JOIN (SELECT kbi_fd.forum, kbi_fp.userid, MAX(kbi_fp.modified) AS posted, NULL AS grade, NULL AS graded
+                  FROM mdl_forum_discussions kbi_fd
+                         JOIN mdl_forum kbi_m ON kbi_m.id = kbi_fd.forum AND kbi_m.course = :courseid
+                         LEFT JOIN mdl_forum_posts kbi_fp ON kbi_fp.discussion = kbi_fd.id
+                  GROUP BY kbi_fd.forum, kbi_fp.userid) f ON f.userid = kbi_u.id AND f.forum = kbi_cm.instance AND kbi_m.name = &#39;forum&#39;
+       LEFT JOIN (SELECT kbi_qa.quiz,
+                         kbi_qa.userid,
+                         MIN(kbi_qa.timestart)     AS started,
+                         MAX(kbi_qgr.grade)        AS grade,
+                         MAX(kbi_qgr.timemodified) AS graded
+                  FROM mdl_quiz_attempts kbi_qa
+                         JOIN mdl_quiz kbi_m ON kbi_m.id = kbi_qa.quiz AND kbi_m.course = :courseid
+                         LEFT JOIN mdl_quiz_grades kbi_qgr ON kbi_qgr.quiz = kbi_m.id AND kbi_qgr.userid = kbi_qa.userid
+                  GROUP BY kbi_qa.quiz, kbi_qa.userid) q ON q.userid = kbi_u.id AND q.quiz = kbi_cm.instance AND kbi_m.name = &#39;quiz&#39;
+       LEFT JOIN (SELECT kbi_ge.glossaryid, kbi_ge.userid, MAX(kbi_ge.timecreated) AS submitted, NULL AS grade, NULL AS graded
+                  FROM mdl_glossary_entries kbi_ge
+                         JOIN mdl_glossary kbi_m ON kbi_m.id = kbi_ge.glossaryid AND kbi_m.course = :courseid
+                  GROUP BY kbi_ge.glossaryid, kbi_ge.userid) gl
+         ON gl.userid = kbi_u.id AND gl.glossaryid = kbi_cm.instance AND kbi_m.name = &#39;glossary&#39;
+       LEFT JOIN (SELECT kbi_ca.choiceid, kbi_ca.userid, MAX(kbi_ca.timemodified) AS submitted, NULL AS grade, NULL AS graded
+                  FROM mdl_choice_answers kbi_ca
+                         JOIN mdl_choice kbi_m ON kbi_m.id = kbi_ca.choiceid AND kbi_m.course = :courseid
+                  GROUP BY kbi_ca.choiceid, kbi_ca.userid) ch
+         ON ch.userid = kbi_u.id AND ch.choiceid = kbi_cm.instance AND kbi_m.name = &#39;choice&#39;
+WHERE kbi_ue.id &gt; 0
+  AND kbi_c.visible = 1
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_cm.visible = 1
+  AND kbi_c.id = :courseid</code></pre></div>
+<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql"><code class="language-sql">SELECT kbi_u.username,
+       kbi_u.idnumber,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_c.shortname,
+       kbi_c.fullname,
+       kbi_m.name                               AS mod_name,
+       kbi_cm.id                                AS instance_id,
+       kbi_ul.timeaccess,
+       kbi_ue.status,
+       kbi_ue.timeend,
+       GREATEST(
+         COALESCE(ass.submitted, 0), COALESCE(f.posted, 0), COALESCE(q.started, 0), COALESCE(gl.submitted, 0),
+         COALESCE(ch.submitted, 0)
+           )                                AS overal_submission_date,
+       GREATEST(
+         COALESCE(ass.graded, 0), COALESCE(q.graded, 0)
+           )                                AS overal_submission_graded,
+       GREATEST(
+         COALESCE(ass.grade, 0), COALESCE(q.grade, 0)
+           )                                AS overal_submission_grade,
+       teachers.teacher
+FROM mdl_user_enrolments kbi_ue
+       JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ue.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_e.courseid
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id
+       JOIN mdl_modules kbi_m ON kbi_m.id = kbi_cm.module
+       LEFT JOIN mdl_user_lastaccess kbi_ul ON kbi_ul.userid = kbi_u.id AND kbi_ul.courseid = kbi_c.id
+       LEFT JOIN(SELECT kbi_ctx.instanceid,
+                         STRING_AGG(DISTINCT (CONCAT(kbi_u.firstname, &#39; &#39;, kbi_u.lastname))::text, &#39;, &#39;) AS teacher
+                  FROM mdl_role_assignments kbi_ra
+                         JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id
+                         JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+                  WHERE kbi_ctx.contextlevel = 50
+                    AND kbi_ra.roleid = 3
+                  GROUP BY kbi_ctx.instanceid) AS teachers ON teachers.instanceid = kbi_c.id
+       LEFT JOIN(SELECT kbi_ass.userid,
+                         kbi_ass.assignment,
+                         MAX(kbi_ass.timemodified) AS submitted,
+                         MAX(kbi_ag.grade)         AS grade,
+                         MAX(kbi_ag.timemodified)  AS graded
+                  FROM mdl_assign_submission kbi_ass
+                         JOIN mdl_assign kbi_m ON kbi_m.id = kbi_ass.assignment AND kbi_m.course = :courseid
+                         LEFT JOIN mdl_assign_grades kbi_ag ON kbi_ag.assignment = kbi_ass.assignment AND kbi_ag.userid = kbi_ass.userid
+                  WHERE kbi_ass.status = &#39;submitted&#39;
+                  GROUP BY kbi_ass.userid, kbi_ass.assignment) ass
+         ON ass.userid = kbi_u.id AND ass.assignment = kbi_cm.instance AND kbi_m.name = &#39;assign&#39;
+       LEFT JOIN(SELECT kbi_fd.forum, kbi_fp.userid, MAX(kbi_fp.modified) AS posted, NULL AS grade, NULL AS graded
+                  FROM mdl_forum_discussions kbi_fd
+                         JOIN mdl_forum kbi_m ON kbi_m.id = kbi_fd.forum AND kbi_m.course = :courseid
+                         LEFT JOIN mdl_forum_posts kbi_fp ON kbi_fp.discussion = kbi_fd.id
+                  GROUP BY kbi_fd.forum, kbi_fp.userid) f ON f.userid = kbi_u.id AND f.forum = kbi_cm.instance AND kbi_m.name = &#39;forum&#39;
+       LEFT JOIN(SELECT kbi_qa.quiz,
+                         kbi_qa.userid,
+                         MIN(kbi_qa.timestart)     AS started,
+                         MAX(kbi_qgr.grade)        AS grade,
+                         MAX(kbi_qgr.timemodified) AS graded
+                  FROM mdl_quiz_attempts kbi_qa
+                         JOIN mdl_quiz kbi_m ON kbi_m.id = kbi_qa.quiz AND kbi_m.course = :courseid
+                         LEFT JOIN mdl_quiz_grades kbi_qgr ON kbi_qgr.quiz = kbi_m.id AND kbi_qgr.userid = kbi_qa.userid
+                  GROUP BY kbi_qa.quiz, kbi_qa.userid) q ON q.userid = kbi_u.id AND q.quiz = kbi_cm.instance AND kbi_m.name = &#39;quiz&#39;
+       LEFT JOIN(SELECT kbi_ge.glossaryid, kbi_ge.userid, MAX(kbi_ge.timecreated) AS submitted, NULL AS grade, NULL AS graded
+                  FROM mdl_glossary_entries kbi_ge
+                         JOIN mdl_glossary kbi_m ON kbi_m.id = kbi_ge.glossaryid AND kbi_m.course = :courseid
+                  GROUP BY kbi_ge.glossaryid, kbi_ge.userid) gl
+         ON gl.userid = kbi_u.id AND gl.glossaryid = kbi_cm.instance AND kbi_m.name = &#39;glossary&#39;
+       LEFT JOIN(SELECT kbi_ca.choiceid, kbi_ca.userid, MAX(kbi_ca.timemodified) AS submitted, NULL AS grade, NULL AS graded
+                  FROM mdl_choice_answers kbi_ca
+                         JOIN mdl_choice kbi_m ON kbi_m.id = kbi_ca.choiceid AND kbi_m.course = :courseid
+                  GROUP BY kbi_ca.choiceid, kbi_ca.userid) ch
+         ON ch.userid = kbi_u.id AND ch.choiceid = kbi_cm.instance AND kbi_m.name = &#39;choice&#39;
+WHERE kbi_ue.id &gt; 0
+  AND kbi_c.visible = 1
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_cm.visible = 1
+  AND kbi_c.id = :courseid</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>O título indica progresso dos envios, mas a consulta não calcula percentual de conclusão, progresso curricular ou taxa de envio. Apresenta campos agregados de eventos e notas.</li><li>A coluna <code>overal_submission_date</code> usa <code>GREATEST</code> entre datas de fontes distintas: envio de tarefa, publicação em fórum, início de tentativa de questionário, entrada em glossário e resposta de escolha. Para questionários, considera <code>MIN(timestart)</code>, e não a data de conclusão ou envio da tentativa.</li><li>O campo <code>overal_submission_graded</code> escolhe a maior data de modificação de nota disponível entre tarefa e questionário. Não inclui correções de todas as modalidades.</li><li>A coluna <code>overal_submission_grade</code> usa <code>GREATEST</code> sobre notas de tarefas e questionários com valores faltantes substituídos por zero. Assim, não equivale à média de notas e pode ocultar notas negativas.</li><li>A consulta não aplica um filtro de status ativo aos registros de matrícula nem verifica sua vigência. Múltiplas inscrições do mesmo usuário podem gerar linhas repetidas no mesmo módulo.</li><li>A listagem de docentes depende do papel fixo ID <code>3</code> e não identifica necessariamente o avaliador ou mediador da atividade apresentada.</li><li>A ausência de eventos pode resultar em valor zero para datas ou notas agregadas, sem comprovar ausência de participação fora das fontes contempladas.</li><li>São exibidos e-mail, nome de usuário e identificador institucional. Restrinja o acesso e interprete os indicadores como registros técnicos, não como medição direta da aprendizagem.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-060.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-060-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="059.html">← Relatório 059</a><a href="../relatorios.html">Todas as categorias →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/activities.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
