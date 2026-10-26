@@ -414,8 +414,8 @@ final class report_columns {
                 $userparams + $fieldparams
             );
             foreach ($data as $datum) {
-            $field = $fields[$datum->fieldid];
-            if ((int)$field->visible === 2 ||
+                $field = $fields[$datum->fieldid];
+                if ((int)$field->visible === 2 ||
                     self::can_view_user_details((int)$datum->userid, $viewerid)) {
                     $result[(int)$datum->userid]['custom_' . $field->shortname] = $datum->data;
                 }
