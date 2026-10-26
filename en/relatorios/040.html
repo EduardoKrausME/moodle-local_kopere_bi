@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Lists users with active enrolments in the selected course who have no linked Kopere BI tracking and log records.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Course inactivity | Report 040 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/040.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/040.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/040.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Course inactivity | Report 040 · Kopere BI">
+    <meta property="og:description" content="Lists users with active enrolments in the selected course who have no linked Kopere BI tracking and log records.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/040.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/040.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/courses.html">Courses and content</a> / 040
+            </nav>
+            <div class="kicker">REPORT 040</div>
+            <h1>Course inactivity</h1>
+            <p class="lead">Lists users with active enrolments in the selected course who have no linked Kopere BI tracking and log records.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Lists users with active enrolments in the selected course who have no linked Kopere BI tracking and log records.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps tutoring teams identify enrolments requiring further investigation, especially when no Kopere BI tracking data has been collected for a particular student and course.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The available dynamic filter is <strong>Course</strong>, represented by <code>:courseid</code> and used once to select the course.</p>
+                <p>Other criteria are fixed: no matching record in the tracking subquery (<code>l.id IS
+                    NULL</code>), enrolment and enrolment method status <code>0</code>, a visible course, accounts that are neither deleted nor suspended, and exclusion of <code>guest</code>. There are no user, cohort, or date-range SQL filters.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains one full SQL query, cache and refresh settings, and Prism.js syntax highlighting. The original definition has no separate PostgreSQL variant file.</p>
+                <details class="report-block" open>
+                    <summary>1. Course inactivity · Table</summary>
+                    <div class="inner">
+                        <p>Each enrolment row shows the user's name and email, enrolment method and date, last Moodle course access, recorded percentage grade, course identifier, and category. The central selection criterion is the absence of linked tracking and log records.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_ue.id,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_ue.timecreated                      as enrolled,
+       kbi_ue.userid,
+       kbi_e.enrol                             AS enrols,
+       kbi_ul.timeaccess                       AS lastaccess,
+       ROUND((CASE
+                WHEN kbi_g.rawgrademax &gt; 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                ELSE kbi_g.finalgrade END), 0) AS grade,
+       kbi_c.id                                as cid,
+       kbi_c.shortname,
+       kbi_ca.name                             AS category,
+       kbi_c.fullname                          as course
+FROM mdl_user_enrolments kbi_ue
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ue.userid
+       JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_e.courseid
+       LEFT JOIN mdl_course_categories kbi_ca ON kbi_ca.id = kbi_c.category
+       LEFT JOIN mdl_user_lastaccess kbi_ul ON kbi_ul.courseid = kbi_c.id AND kbi_ul.userid = kbi_u.id
+       LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.itemtype = &#39;course&#39; AND kbi_gi.courseid = kbi_e.courseid
+       LEFT JOIN mdl_grade_grades kbi_g ON kbi_g.userid = kbi_u.id AND kbi_g.itemid = kbi_gi.id AND kbi_g.finalgrade IS NOT NULL
+       LEFT JOIN (SELECT MAX(kbi_t.id) AS id, kbi_t.userid, kbi_t.courseid
+                  FROM mdl_local_kopere_bi_tracking kbi_t, mdl_local_kopere_bi_track_log kbi_l
+                  WHERE kbi_l.trackid = kbi_t.id
+                  GROUP BY kbi_t.courseid, kbi_t.userid) as l ON l.courseid = kbi_e.courseid AND l.userid = kbi_ue.userid
+WHERE l.id IS NULL
+  AND kbi_c.id = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_ue.status = 0
+  AND kbi_e.status = 0</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li><strong>The report does not check how many days have passed since the last access.</strong> It identifies enrolments without tracking records linked to corresponding logs; these users are not automatically inactive for 30 days or any other period.</li>
+                    <li>A user may have accessed the course in Moodle without appearing in Kopere BI tracking because of differences or failures in data collection, retention, or synchronization.</li>
+                    <li>The <code>lastaccess</code> column comes from <code>mdl_user_lastaccess</code>, independently of the missing Kopere BI log criterion. It can show a course access even when the user appears in this list.</li>
+                    <li>The SQL does not explicitly require assignment of the student role. It includes active enrolments that may belong to users with different roles.</li>
+                    <li>Grades come from course grade items and can be empty. A missing grade does not demonstrate a lack of participation.</li>
+                    <li>Status zero for both enrolment and enrolment method does not directly validate enrolment start and end dates.</li>
+                    <li>The table contains personal information. Restrict access and exports; no separate PostgreSQL variant is supplied.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-040.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="039.html">← Report 039</a>
+                <a href="041.html">Report 041 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-040">
+                <h2 id="related-title-040">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="009.html"><span class="related-number">Report 009</span><span
+                            class="related-title">Course modules</span><span class="related-category">Courses and content</span></a>
+                    <a class="related-card" href="037.html"><span class="related-number">Report 037</span><span
+                            class="related-title">Course activities overview</span><span
+                            class="related-category">Courses and content</span></a>
+                    <a class="related-card" href="003.html"><span class="related-number">Report 003</span><span
+                            class="related-title">Courses</span><span
+                            class="related-category">Courses and content</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/courses.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
