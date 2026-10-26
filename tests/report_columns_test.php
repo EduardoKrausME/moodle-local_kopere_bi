@@ -134,6 +134,24 @@ final class report_columns_test extends advanced_testcase {
     }
 
     /**
+     * Empty SQL results must still include headers for the configured extra columns.
+     */
+    public function test_empty_table_preview_uses_column_definitions(): void {
+        $this->resetAfterTest();
+        $this->setAdminUser();
+        set_config('reportcols_user', json_encode(['name', 'email']), 'local_kopere_bi');
+        $columns = [
+            'id' => ['title' => 'ID', 'type' => 'number'],
+            'firstname' => ['title' => 'First', 'type' => 'userfullname'],
+            'lastname' => ['title' => 'Last', 'type' => 'none'],
+        ];
+        [$rows, $headers] = report_columns::prepare([], $columns,
+            'SELECT u.id, u.firstname, u.lastname FROM {user} u');
+        $this->assertSame([], $rows);
+        $this->assertArrayHasKey('user_email', $headers);
+    }
+
+    /**
      * Avoid silently treating an unrelated id (e.g. attempt or question id) as a person.
      */
     public function test_unrelated_id_is_not_treated_as_user_id(): void {
