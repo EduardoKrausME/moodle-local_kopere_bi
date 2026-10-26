@@ -33,7 +33,7 @@ use Mustache_Source;
 if (!class_exists('Mustache_Engine')) {
     class_alias('Mustache\Engine', 'Mustache_Engine');
 }
-if (!class_exists('Mustache_Source')) {
+if (!interface_exists('Mustache_Source')) {
     class_alias('Mustache\Source', 'Mustache_Source');
 }
 
