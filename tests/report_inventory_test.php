@@ -179,4 +179,92 @@ final class report_inventory_test extends advanced_testcase {
         $this->assertSame(0, $audit['audit']['writes']);
         $this->assertSame(64, strlen($audit['reports'][0]['sql']['sha256']));
     }
+    /**
+     * Preserve an individual decision for each record sharing the same refkey.
+     */
+    public function test_upgrade_projection_uses_each_element_id(): void {
+        [$catalogue, $installed, $stock] = $this->setup_sample();
+        $installed['element'][] = clone $installed['element'][0];
+        $installed['element'][1]->id = 5;
+        $installed['element'][1]->commandsql = $stock['commandsql'];
+        $installed['element'][1]->info = '{"column":{"custom":true}}';
+        $projection = report_inventory::migration_projection($catalogue, $installed,
+            report_stock_refresh::stock_signatures());
+        $this->assertSame(['updated' => 1, 'current' => 0, 'preserved' => 1],
+            $projection['counts']);
+        $this->assertSame([4, 5], array_column($projection['rows'], 'element_id'));
+        $this->assertSame(['WOULD_UPDATE', 'PRESERVED'],
+            array_column($projection['rows'], 'decision'));
+    }
+
+    /**
+     * A valid foreign key can point to the wrong stock hierarchy.
+     */
+    public function test_wrong_category_page_and_block_are_reported(): void {
+        [$catalogue, $installed] = $this->setup_sample();
+        $catalogue['pages']['testpage']['category_refkey'] = 'testcat';
+        $installed['cat'][] = (object)['id' => 10, 'refkey' => 'customcat'];
+        $installed['page'][0]->cat_id = 10;
+        $audit = report_inventory::inspect($catalogue, $installed, [], 'mysql');
+        $this->assertContains('WRONG_CATEGORY', array_column($audit['issues'], 'code'));
+
+        $installed['page'][0]->cat_id = 1;
+        $installed['page'][] = (object)['id' => 12, 'refkey' => 'otherpage', 'cat_id' => 1];
+        $installed['block'][0]->page_id = 12;
+        $audit = report_inventory::inspect($catalogue, $installed, [], 'mysql');
+        $this->assertContains('WRONG_PAGE', array_column($audit['issues'], 'code'));
+
+        $installed['block'][0]->page_id = 2;
+        $installed['block'][] = (object)['id' => 14, 'refkey' => 'otherblock', 'page_id' => 2];
+        $installed['element'][0]->block_id = 14;
+        $audit = report_inventory::inspect($catalogue, $installed, [], 'mysql');
+        $this->assertContains('WRONG_BLOCK', array_column($audit['issues'], 'code'));
+    }
+
+    /**
+     * Hash additional metadata without exposing institutional HTML or titles.
+     */
+    public function test_presentation_metadata_hashes_exclude_values(): void {
+        [$catalogue, $installed] = $this->setup_sample();
+        $ref = array_key_first($catalogue['elements']);
+        $catalogue['elements'][$ref]['metadata'] = [
+            'title' => 'Official report',
+            'info_other' => ['chart_options' => ['width' => 4]],
+        ];
+        $installed['element'][0]->title = 'Private institution title';
+        $audit = report_inventory::inspect($catalogue, $installed,
+            report_stock_refresh::stock_signatures(), 'mysql');
+        $data = $audit['reports'][0]['metadata'];
+        $this->assertFalse($data['matches_current']);
+        $this->assertSame(64, strlen($data['sha256']));
+        $this->assertContains('title', $data['changed_fields']);
+        $this->assertStringNotContainsString('Private institution title',
+            json_encode($audit, JSON_THROW_ON_ERROR));
+    }
+
+    /**
+     * Detect collisions across official page, block and category definitions.
+     */
+    public function test_official_catalogue_duplicate_names(): void {
+        $directory = make_temp_directory('local_kopere_bi_audit_duplicates');
+        $page = [
+            'title' => 'Page',
+            'refkey' => 'duplicate_page',
+            'category' => ['refkey' => 'cat1', 'title' => 'Category A'],
+            'blocks' => [[
+                'refkey' => 'duplicate_block',
+                'elements' => [['refkey' => 'first_element', 'commandsql' => 'SELECT 1']],
+            ]],
+        ];
+        file_put_contents($directory . '/page-900.json', json_encode($page));
+        $page['category']['title'] = 'Conflicting category';
+        $page['blocks'][0]['elements'][0]['refkey'] = 'second_element';
+        file_put_contents($directory . '/page-901.json', json_encode($page));
+        $catalogue = report_inventory::catalogue($directory, 'mysql');
+        $codes = array_column($catalogue['issues'], 'code');
+        $this->assertContains('DUPLICATE_STOCK_CATEGORY', $codes);
+        $this->assertContains('DUPLICATE_STOCK_PAGE', $codes);
+        $this->assertContains('DUPLICATE_STOCK_BLOCK', $codes);
+    }
+
 }
