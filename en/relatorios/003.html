@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Four tables for a selected course: completion progress, grades, activity access history, and classification of activity participation or completion.">
+    <title>Courses | Report 003 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e8f7f5;
+        border: 1px solid #c2e5df;
+        border-radius: 14px;
+        padding: 20px;
+        margin: 20px 0
+    }
+
+    .report-intro strong {
+        color: #045b64
+    }
+
+    .report-intro p {
+        margin: 6px 0 0
+    }
+
+    .report-card {
+        border: 1px solid #dbe6eb;
+        border-radius: 13px;
+        overflow: hidden;
+        margin: 16px 0
+    }
+
+    .report-card summary {
+        padding: 13px 17px;
+        cursor: pointer;
+        background: #ebf5f7;
+        font-weight: 750;
+        color: #0b5460
+    }
+
+    .report-card summary:hover {
+        background: #dcedef
+    }
+
+    .report-card .inside {
+        padding: 16px
+    }
+
+    .report-card pre {
+        max-height: 620px;
+        overflow: auto;
+        white-space: pre;
+        font-size: 13px
+    }
+
+    .report-metadata {
+        font-size: 13px;
+        color: #55717d
+    }
+
+    .report-sql-label {
+        font-size: 12px;
+        color: #056e76;
+        font-weight: 850;
+        letter-spacing: .04em
+    }
+
+    .report-caution {
+        background: #fff9e9;
+        border-left: 4px solid #d29c29;
+        padding: 12px 16px;
+        margin: 18px 0
+    }
+
+    .shortcuts {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 25px 0
+    }
+
+    .shortcuts a {
+        font-size: 13px;
+        border-radius: 9px;
+        padding: 7px 11px;
+        background: #e6f6f4;
+        text-decoration: none;
+        font-weight: 700
+    }
+
+    @media (max-width: 650px) {
+        .report-card .inside {
+            padding: 10px
+        }
+
+        .report-intro {
+            padding: 15px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/003.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/003.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/003.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Courses | Report 003 · Kopere BI">
+    <meta property="og:description" content="Four tables for a selected course: completion progress, grades, activity access history, and classification of activity participation or completion.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/003.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html"><span class="brand-mark">BI</span>Kopere BI</a>
+        <div class="tools">
+            <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/003.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/courses.html">Category</a> / 003
+            </nav>
+            <div class="kicker">REPORT 003</div>
+            <h1>Courses</h1>
+            <p class="lead">Four tables for a selected course: completion progress, grades, activity access history, and classification of activity participation or completion.</p>
+            <section>
+                <h2>What this report shows</h2>
+                <p>Four tables for a selected course: completion progress, grades, activity access history, and classification of activity participation or completion.</p>
+            </section>
+            <div class="report-intro"><strong>Why and when to use it</strong>
+                <p>Useful for course coordinators and tutors comparing student participation, enrolments, and performance within a specific course and investigating differences between access, grades, and completion.</p>
+            </div>
+            <div class="shortcuts">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualizations and SQL</a>
+                <a href="#cuidados">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Course</h2>
+                <p>The <strong>Available filters</strong> filter is linked to the SQL parameter <code>:courseid</code>. The course is selected through the corresponding control, when that filter subplugin is enabled, and applied to every query. No user, cohort, or date-range SQL filters were found.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualizations and SQL</h2>
+                <p>This report contains 4 SQL queries. Each item provides its visualization type, purpose, cache settings, and full SQL. Expand an item to inspect its code.</p>
+                <details class="report-card" open>
+                    <summary>1. Completion progress by student · Table</summary>
+                    <div class="inside">
+                        <p>Table showing the student profile, enrolment, and percentage of eligible modules with recorded completion.</p>
+                        <p class="report-metadata">Cache: <code>6h</code>. Refresh: <code>30m</code>.</p>
+                        <p class="report-sql-label">Full original SQL</p>
+                        <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT u.id AS u_id,
+       u.firstname,
+       u.lastname,
+       u.email,
+       u.institution,
+       u.department,
+       u.phone1,
+       u.phone2,
+       u.address,
+       u.city,
+       u.country,
+       u.timezone,
+       u.firstaccess,
+       u.lastaccess,
+       ue.timecreated,
+       MAX(cc.timecompleted) AS timecompleted,
+       ROUND(((MAX(cmc.completed) / MAX(m.modules)) * 100), 0) AS course_completed
+  FROM {user_enrolments} ue
+  JOIN {user} u ON u.id = ue.userid
+  JOIN {enrol} e ON e.id = ue.enrolid
+  JOIN {course} c ON c.id = e.courseid
+  LEFT JOIN {course_completions} cc ON cc.timecompleted &gt; 0
+                                   AND cc.course = e.courseid
+                                   AND cc.userid = ue.userid
+  LEFT JOIN (
+        SELECT course,
+               COUNT(id) AS modules
+          FROM {course_modules}
+         WHERE visible = 1
+           AND completion &gt; 0
+           AND deletioninprogress = 0
+      GROUP BY course
+      ) AS m ON m.course = c.id
+  LEFT JOIN (
+        SELECT cm_i.course,
+               cmc_i.userid,
+               COUNT(DISTINCT cmc_i.id) AS completed
+          FROM {course_modules} cm_i,
+               {course_modules_completion} cmc_i
+         WHERE cmc_i.coursemoduleid = cm_i.id
+           AND cm_i.visible = 1
+           AND cmc_i.completionstate IN (1, 2)
+           AND cm_i.deletioninprogress = 0
+      GROUP BY cm_i.course,
+               cmc_i.userid
+      ) AS cmc ON cmc.course = c.id
+              AND cmc.userid = ue.userid
+ WHERE ue.id &gt; 0
+   AND u.id &gt; 1
+   AND u.deleted = 0
+   AND u.suspended = 0
+   AND ue.status = 0
+   AND e.status = 0
+   AND c.id = :courseid
+GROUP BY u.id, ue.timecreated</code></pre>
+                    </div>
+                </details>
+                <details class="report-card">
+                    <summary>2. Course grade indicators · Table</summary>
+                    <div class="inside">
+                        <p>Table showing the course grade item score and student information.</p>
+                        <p class="report-metadata">Cache: <code>none</code>. Refresh: <code>none</code>.</p>
+                        <p class="report-sql-label">Full original SQL</p>
+                        <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT u.id AS u_id,
+       u.firstname,
+       u.lastname,
+       u.email,
+       MIN(gc.grade) AS grade
+  FROM mdl_user_enrolments ue
+  LEFT JOIN mdl_user u ON u.id = ue.userid
+  LEFT JOIN mdl_enrol e ON e.id = ue.enrolid
+  LEFT JOIN mdl_course c ON c.id = e.courseid
+  LEFT JOIN (
+             SELECT course, COUNT(id) AS cmnums
+               FROM mdl_course_modules
+              WHERE visible = 1
+           GROUP BY course
+            ) AS cm ON cm.course = c.id
+  LEFT JOIN (
+             SELECT course, COUNT(id) AS cmnumx
+               FROM mdl_course_modules
+              WHERE visible = 1
+                AND completion &gt; 0
+           GROUP BY course
+            ) cmx ON cmx.course = c.id
+  LEFT JOIN (
+             SELECT cm.course, cmc.userid, COUNT(cmc.id) AS cmcnums
+               FROM mdl_course_modules cm,
+                    mdl_course_modules_completion cmc
+              WHERE cmc.coursemoduleid = cm.id
+                AND cm.visible = 1
+                AND cmc.completionstate IN (1, 2)
+           GROUP BY cm.course, cmc.userid
+            ) cmc ON cmc.course = c.id
+                AND cmc.userid = u.id
+  LEFT JOIN (
+             SELECT cm.course, cmc.userid, COUNT(cmc.id) AS cmcnuma
+               FROM mdl_course_modules cm,
+                    mdl_course_modules_completion cmc
+              WHERE cmc.coursemoduleid = cm.id
+                AND cm.module = 1
+                AND cm.visible = 1
+                AND cmc.completionstate IN (1, 2)
+           GROUP BY cm.course, cmc.userid
+            ) AS cmca ON cmca.course = c.id
+                   AND cmca.userid = u.id
+  LEFT JOIN (
+             SELECT gi.courseid,
+                    g.userid,
+                    ROUND((CASE WHEN g.rawgrademax &gt; 0 THEN (g.finalgrade / g.rawgrademax) * 100 ELSE g.finalgrade END), 0) AS grade
+               FROM mdl_grade_items gi,
+                    mdl_grade_grades g
+              WHERE gi.itemtype = &#39;course&#39;
+                AND g.itemid = gi.id
+                AND g.finalgrade IS NOT NULL
+           GROUP BY gi.courseid, g.userid, g.finalgrade, g.rawgrademax
+            ) AS gc ON gc.courseid = c.id
+                AND gc.userid = u.id
+ WHERE ue.id &gt; 0
+   AND e.courseid = :courseid
+   AND u.deleted = 0
+   AND u.suspended = 0
+   AND c.visible = 1
+GROUP BY u.id, c.id</code></pre>
+                    </div>
+                </details>
+                <details class="report-card">
+                    <summary>3. Activity access records · Table</summary>
+                    <div class="inside">
+                        <p>Table of recorded events, including module, source, IP address, and access date and time.</p>
+                        <p class="report-metadata">Cache: <code>6h</code>. Refresh: <code>30m</code>.</p>
+                        <p class="report-sql-label">Full original SQL</p>
+                        <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT u.id                    AS u_id,
+       u.firstname,
+       u.lastname,
+       u.email,
+       l.contextinstanceid     AS cm_cmid,
+       CONCAT(&#39;lang::modulename::&#39;, l.objecttable) AS module_name,
+       l.origin                AS l_origin,
+       l.ip                    AS l_ip,
+       l.timecreated           AS l_timecreated,
+       l.objecttable
+       
+     FROM mdl_local_kopere_bi_log_tmp l
+LEFT JOIN mdl_course       c  ON c.id = l.courseid
+LEFT JOIN mdl_user         u  ON u.id = l.userid
+LEFT JOIN mdl_modules      m  ON m.name = SUBSTRING(l.component, 5)
+LEFT JOIN mdl_course_modules cm ON cm.id = l.contextinstanceid
+
+WHERE u.id &gt; 1
+  AND l.component LIKE &#39;%mod_%&#39;
+  AND l.courseid = :courseid
+  AND u.deleted = 0
+  AND u.suspended = 0
+  AND c.visible = 1
+  AND cm.visible = 1</code></pre>
+                    </div>
+                </details>
+                <details class="report-card">
+                    <summary>4. Participation and completion analysis · Table</summary>
+                    <div class="inside">
+                        <p>Table with a status calculated from last access and the presence of activity completion records.</p>
+                        <p class="report-metadata">Cache: <code>6h</code>. Refresh: <code>30m</code>.</p>
+                        <p class="report-sql-label">Full original SQL</p>
+                        <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT u.id        AS u_id,
+       u.firstname,
+       u.lastname,
+       u.email,
+       CASE 
+           WHEN ul.id IS NULL THEN &#39;lang::case_never_accessed::local_kopere_bi&#39;
+           WHEN comp.userid IS NOT NULL THEN &#39;lang::case_complete::local_kopere_bi&#39;
+           ELSE &#39;lang::case_incomplete::local_kopere_bi&#39;
+       END AS status
+       
+FROM mdl_role_assignments ra
+       JOIN mdl_context ctx                                   ON ctx.id = ra.contextid 
+                                                            AND ctx.contextlevel = 50
+       JOIN mdl_course c                                     ON c.id = ctx.instanceid
+       JOIN mdl_user u                                      ON u.id = ra.userid
+       
+       LEFT JOIN (SELECT cm.course, cmc.userid
+                  FROM   mdl_course_modules cm
+                         JOIN mdl_course_modules_completion cmc ON cmc.coursemoduleid = cm.id 
+                                                              AND cmc.completionstate = 1
+                  WHERE  cmc.id &gt; 0
+                  GROUP BY cm.course, cmc.userid
+                 ) comp ON comp.userid = u.id 
+                         AND comp.course = c.id
+       
+       LEFT JOIN mdl_user_lastaccess ul                         ON ul.courseid = c.id 
+                                                            AND ul.userid = ra.userid
+       
+WHERE  c.id = :courseid 
+  AND  u.deleted = 0 
+  AND  u.suspended = 0  
+  AND  c.visible = 1 
+  AND  ra.roleid = 5
+GROUP BY u.id</code></pre>
+                    </div>
+                </details>
+            </section>
+            <section id="cuidados">
+                <h2>Limitations and interpretation</h2>
+                <ul>
+                    <li>The :courseid filter is used in all four queries and restricts the tables to the selected course.</li>
+                    <li>The 'Completo' (complete) classification in the participation table depends on activity completion records and does not prove formal course completion.</li>
+                    <li>One query uses a fixed role ID 5, and its grouping expressions need compatibility checks against the installed database.</li>
+                    <li>This report contains personal information, IP addresses, and grades; strictly control access permissions and page visibility.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Original source</h2>
+                <p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-003.json"
+                       target="_blank" rel="noopener">View the JSON defining this report on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="002.html">← Report 002</a>
+                <a href="004.html">Report 004 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-003">
+                <h2 id="related-title-003">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="009.html"><span class="related-number">Report 009</span><span
+                            class="related-title">Course modules</span><span class="related-category">Courses and content</span></a>
+                    <a class="related-card" href="035.html"><span class="related-number">Report 035</span><span
+                            class="related-title">Course access</span><span class="related-category">Courses and content</span></a>
+                    <a class="related-card" href="036.html"><span class="related-number">Report 036</span><span
+                            class="related-title">Course access details</span><span class="related-category">Courses and content</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/courses.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

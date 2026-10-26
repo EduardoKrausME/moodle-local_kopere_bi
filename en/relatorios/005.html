@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="A table lists students and courses when the join to user_lastaccess finds no access-time record.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Inactive enrolments | Report 005 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-why {
+        background: #e9f7f4;
+        border: 1px solid #bfdfdc;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 22px 0
+    }
+
+    .report-why strong {
+        color: #05656f
+    }
+
+    .report-why p {
+        margin: 5px 0 0
+    }
+
+    .report-item {
+        border: 1px solid #d8e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 16px 0
+    }
+
+    .report-item summary {
+        cursor: pointer;
+        background: #eaf5f7;
+        color: #09515e;
+        font-weight: 800;
+        padding: 14px 16px
+    }
+
+    .report-item summary:hover {
+        background: #d8ecef
+    }
+
+    .report-item .details {
+        padding: 15px
+    }
+
+    .report-sql {
+        background: #f6fafb;
+        border: 1px solid #d6e6e8;
+        border-radius: 11px;
+        padding: 12px;
+        margin: 15px 0
+    }
+
+    .report-sql h3 {
+        font-size: 14px;
+        font-weight: 800;
+        color: #08717a;
+        margin: 0 0 10px
+    }
+
+    .report-sql pre {
+        margin: 0;
+        max-height: 650px;
+        overflow: auto;
+        font-size: 13px
+    }
+
+    .report-meta {
+        color: #56737e;
+        font-size: 13px
+    }
+
+    .report-warning {
+        border-left: 4px solid #d9a63e;
+        background: #fff9e9;
+        padding: 12px 17px
+    }
+
+    .report-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 21px 0
+    }
+
+    .report-links a {
+        padding: 7px 11px;
+        border-radius: 8px;
+        background: #e5f4f3;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none
+    }
+
+    @media (max-width: 650px) {
+        .report-item .details {
+            padding: 10px
+        }
+
+        .report-sql {
+            padding: 9px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/005.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/005.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/005.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Inactive enrolments | Report 005 · Kopere BI">
+    <meta property="og:description" content="A table lists students and courses when the join to user_lastaccess finds no access-time record.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/005.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span>Kopere BI</a>
+        <div class="tools">
+            <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/005.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/enrollments.html">Category</a> / 005
+            </nav>
+            <div class="kicker">REPORT 005</div>
+            <h1>Inactive enrolments</h1>
+            <p class="lead">A table lists students and courses when the join to user_lastaccess finds no access-time record.</p>
+            <h2>Purpose and content</h2>
+            <p>A table lists students and courses when the join to user_lastaccess finds no access-time record.</p>
+            <div class="report-why"><strong>Why and when to use it</strong>
+                <p>Helps identify potential first-access difficulties and review enrolled users, but does not establish whether an enrolment is actually inactive or expired.</p>
+            </div>
+            <div class="report-links">
+                <a href="#filtros">Filters</a>
+                <a href="#visualizacoes">SQL and visualizations</a>
+                <a href="#limites">Cautions</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>There are no dynamic SQL parameters for course, user, cohort, or date range. The query criterion is <code>ul.timeaccess IS NULL</code>, without filtering by enrolment status.</p>
+                <p>The SQL does not check <code>ue.status</code>, <code>e.status</code>, or <code>ue.timeend</code>; therefore, the title does not imply that only genuinely inactive enrolments appear.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualizations and full original SQL</h2>
+                <p>This report contains 1 visualization and 1 SQL query. Where a visualization has separate MySQL and PostgreSQL queries, they are displayed in separate panels within the same item.</p>
+                <details class="report-item" open>
+                    <summary>1. Students without recorded access time – Table</summary>
+                    <div class="details">
+                        <p>The table shows the student, course, contact details, location, first and last access, last login, and IP address. Its main condition is ul.timeaccess IS NULL.</p>
+                        <p class="report-meta">Cache: <code>30m</code> · Refresh: <code>30m</code>.</p>
+                        <div class="report-sql">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT u.id        AS u_id,
+       u.firstname,
+       u.lastname,
+       c.id       AS c_id,
+       c.fullname AS c_fullname,
+       u.email,
+       u.phone1,
+       u.city,
+       u.country,
+       u.firstaccess,
+       u.lastaccess,
+       u.lastlogin,
+       u.lastip,
+       (SELECT r.name
+           FROM {user_enrolments} ue2
+           JOIN {enrol} e ON e.id = ue2.enrolid
+           JOIN {role}  r ON e.id = r.id
+          WHERE ue2.userid = u.id
+            AND e.courseid = c.id ) AS rolename
+  FROM mdl_user_enrolments ue
+  JOIN mdl_enrol  e ON e.id = ue.enrolid
+  JOIN mdl_course c ON c.id = e.courseid
+  JOIN mdl_user   u ON u.id = ue.userid
+LEFT JOIN {user_lastaccess} ul ON ul.userid = u.id
+ WHERE ul.timeaccess IS NULL</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and interpretation</h2>
+                <ul>
+                    <li>Missing access time is not equivalent to an inactive enrolment; active enrolments may appear.</li>
+                    <li>The join to user_lastaccess uses only userid and does not restrict courseid. Access to another course may exclude a user from the table.</li>
+                    <li>The role subquery links enrol.id to role.id, which is not the usual Moodle role assignment relationship; it may return incorrect information or multiple records.</li>
+                    <li>There are no explicit exclusions for suspended users, deleted accounts, or hidden courses.</li>
+                    <li>To audit suspended or expired enrolments, check status fields and end dates directly.</li>
+                </ul>
+                <p class="report-warning">The SQL was transcribed without changes from the JSON definitions on <code>master</code> and was not run against Moodle at this stage. Validate permissions, performance, and results in the target environment.</p>
+            </section>
+            <h2>Technical source</h2>
+            <p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-005.json"
+                   target="_blank" rel="noopener">Original report definition on GitHub</a>.</p>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="004.html">← Report 004</a>
+                <a href="006.html">Report 006 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-005">
+                <h2 id="related-title-005">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="004.html"><span class="related-number">Report 004</span><span
+                            class="related-title">Enrolment statistics</span><span class="related-category">Enrolments and revenue</span></a>
+                    <a class="related-card" href="048.html"><span class="related-number">Report 048</span><span
+                            class="related-title">Enrolments and course completion</span><span class="related-category">Enrolments and revenue</span></a>
+                    <a class="related-card" href="050.html"><span class="related-number">Report 050</span><span
+                            class="related-title">Enrolment method details</span><span
+                            class="related-category">Enrolments and revenue</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/enrollments.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
