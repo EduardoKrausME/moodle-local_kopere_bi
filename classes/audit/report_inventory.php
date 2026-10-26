@@ -58,7 +58,8 @@ final class report_inventory {
             throw new \RuntimeException('No bundled page definitions found.');
         }
         sort($files, SORT_STRING);
-        $result = ['pages' => [], 'blocks' => [], 'elements' => [], 'allrefs' => [], 'issues' => []];
+        $result = ['categories' => [], 'pages' => [], 'blocks' => [],
+            'elements' => [], 'allrefs' => [], 'issues' => []];
         foreach ($files as $file) {
             $name = basename($file);
             try {
@@ -101,17 +102,41 @@ final class report_inventory {
                         'block_refkey' => $blockref, 'type' => (string)($element['type'] ?? ''),
                         'sql' => (string)($element['commandsql'] ?? ''),
                         'columns' => $element['info']['column'] ?? null,
+                        'metadata' => self::metadata($element, $element['info'] ?? null),
                     ];
                     $usableelements[] = $ref;
                 }
                 if ($usableelements) {
+                    if (isset($result['blocks'][$blockref])) {
+                        $result['issues'][] = ['code' => 'DUPLICATE_STOCK_BLOCK',
+                            'refkey' => $blockref, 'file' => $name];
+                    }
                     $result['blocks'][$blockref] = ['refkey' => $blockref, 'page_refkey' => $pageref,
                         'file' => $name];
                     $usableblocks[] = $blockref;
                 }
             }
             if ($usableblocks) {
-                $result['pages'][$pageref] = ['refkey' => $pageref, 'file' => $name];
+                $category = $page['category'] ?? [];
+                $catref = (string)($category['refkey'] ?? '');
+                if ($catref === '') {
+                    $result['issues'][] = ['code' => 'INVALID_STOCK_CATEGORY', 'file' => $name];
+                } else if (isset($result['categories'][$catref]) &&
+                        $result['categories'][$catref]['title'] !== ($category['title'] ?? null)) {
+                    $result['issues'][] = ['code' => 'DUPLICATE_STOCK_CATEGORY',
+                        'refkey' => $catref, 'file' => $name];
+                } else {
+                    $result['categories'][$catref] = [
+                        'refkey' => $catref, 'title' => $category['title'] ?? null,
+                    ];
+                }
+                if (isset($result['pages'][$pageref])) {
+                    $result['issues'][] = ['code' => 'DUPLICATE_STOCK_PAGE',
+                        'refkey' => $pageref, 'file' => $name];
+                }
+                $result['pages'][$pageref] = [
+                    'refkey' => $pageref, 'file' => $name, 'category_refkey' => $catref,
+                ];
             }
         }
         return $result;
@@ -125,6 +150,48 @@ final class report_inventory {
      */
     public static function column_json(array $columns): string {
         return json_encode($columns, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
+    }
+
+    /**
+     * Extract presentation metadata separately from SQL and report columns.
+     *
+     * @param array $row Bundled or installed report attributes.
+     * @param mixed $info Decoded element information.
+     * @return array
+     */
+    private static function metadata(array $row, $info): array {
+        $result = [];
+        foreach (['title', 'type', 'theme', 'css', 'html_before', 'html_after',
+                'cache', 'reload', 'block_num'] as $field) {
+            $result[$field] = $row[$field] ?? null;
+        }
+        $result['info_other'] = is_array($info) ? array_diff_key($info, ['column' => true]) : null;
+        return $result;
+    }
+
+    /**
+     * Return metadata fingerprints and changed field names without values.
+     *
+     * @param array $actual Installed metadata.
+     * @param array $target Bundled metadata.
+     * @return array
+     */
+    private static function metadata_diff(array $actual, array $target): array {
+        $oldjson = self::column_json($actual);
+        $newjson = self::column_json($target);
+        $changed = [];
+        foreach ($target as $field => $value) {
+            if (($actual[$field] ?? null) !== $value) {
+                $changed[] = $field;
+            }
+        }
+        return [
+            'crc32b' => hash('crc32b', $oldjson),
+            'sha256' => hash('sha256', $oldjson),
+            'target_sha256' => hash('sha256', $newjson),
+            'matches_current' => $oldjson === $newjson,
+            'changed_fields' => $changed,
+        ];
     }
 
     /**
@@ -188,6 +255,10 @@ final class report_inventory {
                 'matches_current' => $storedcolumn !== null && $storedcolumn === $targetcolumn,
                 'diff' => self::column_diff($columns, is_array($target) ? $target : null)],
         ];
+        if (isset($current['metadata'])) {
+            $result['metadata'] = self::metadata_diff(
+                self::metadata(get_object_vars($installed), $info), $current['metadata']);
+        }
         if ($signature === null) {
             $result['status'] = 'NOT_COVERED';
             $result['reason'] = 'NO_MIGRATION_SIGNATURE';
@@ -284,6 +355,43 @@ final class report_inventory {
                 }
             }
         }
+        // Validate the expected parent, not just existence of the foreign key.
+        foreach ($catalogue['pages'] as $ref => $page) {
+            if (count($index['page'][$ref] ?? []) !== 1) {
+                continue;
+            }
+            $record = $index['page'][$ref][0];
+            $catref = $page['category_refkey'] ?? '';
+            if ($catref !== '' && count($index['cat'][$catref] ?? []) === 1 &&
+                    (int)$record->cat_id !== (int)$index['cat'][$catref][0]->id) {
+                $issues[] = ['code' => 'WRONG_CATEGORY', 'refkey' => $ref,
+                    'id' => (int)$record->id];
+            }
+        }
+        foreach ($catalogue['blocks'] as $ref => $block) {
+            if (count($index['block'][$ref] ?? []) !== 1) {
+                continue;
+            }
+            $record = $index['block'][$ref][0];
+            $pageref = $block['page_refkey'];
+            if (count($index['page'][$pageref] ?? []) === 1 &&
+                    (int)$record->page_id !== (int)$index['page'][$pageref][0]->id) {
+                $issues[] = ['code' => 'WRONG_PAGE', 'refkey' => $ref,
+                    'id' => (int)$record->id];
+            }
+        }
+        foreach ($catalogue['elements'] as $ref => $element) {
+            if (count($index['element'][$ref] ?? []) !== 1) {
+                continue;
+            }
+            $record = $index['element'][$ref][0];
+            $blockref = $element['block_refkey'];
+            if (count($index['block'][$blockref] ?? []) === 1 &&
+                    (int)$record->block_id !== (int)$index['block'][$blockref][0]->id) {
+                $issues[] = ['code' => 'WRONG_BLOCK', 'refkey' => $ref,
+                    'id' => (int)$record->id];
+            }
+        }
         $reports = [];
         foreach ($catalogue['elements'] as $ref => $official) {
             $records = $index['element'][$ref] ?? [];
@@ -371,4 +479,78 @@ final class report_inventory {
         }
         return implode("\n", $lines) . "\n";
     }
+    /**
+     * Reproduce per-row migration eligibility, even for duplicate refkeys.
+     *
+     * @param array $catalogue Active-engine stock definitions.
+     * @param array $installed Installed records grouped by table.
+     * @param array $signatures Historical stock signatures.
+     * @return array
+     */
+    public static function migration_projection(array $catalogue, array $installed, array $signatures): array {
+        $counts = ['updated' => 0, 'current' => 0, 'preserved' => 0];
+        $rows = [];
+        foreach ($signatures as $ref => $signature) {
+            if (!isset($catalogue['elements'][$ref])) {
+                continue;
+            }
+            foreach ($installed['element'] ?? [] as $record) {
+                if ((string)($record->refkey ?? '') !== $ref) {
+                    continue;
+                }
+                $item = self::classify($catalogue['elements'][$ref], $record, $signature);
+                $status = $item['status'];
+                $counter = $status === 'WOULD_UPDATE' ? 'updated' :
+                    ($status === 'CURRENT' ? 'current' : 'preserved');
+                $counts[$counter]++;
+                $rows[] = ['refkey' => $ref, 'element_id' => (int)$record->id,
+                    'decision' => $status, 'migration_counter' => $counter,
+                    'reason' => $item['reason']];
+            }
+        }
+        usort($rows, static function($a, $b) {
+            return strcmp($a['refkey'], $b['refkey']) ?:
+                ($a['element_id'] <=> $b['element_id']);
+        });
+        return ['counts' => $counts, 'rows' => $rows];
+    }
+
+    /**
+     * Validate CLI options after Moodle parses the command line.
+     *
+     * @param array $options Parsed options.
+     * @param array $unrecognized Extra arguments.
+     * @return void
+     */
+    public static function validate_options(array $options, array $unrecognized): void {
+        if ($unrecognized || !in_array($options['format'] ?? null, ['text', 'json'], true)) {
+            throw new \InvalidArgumentException('Invalid audit CLI options.');
+        }
+    }
+
+    /**
+     * Format a report without printing or changing any state.
+     *
+     * @param array $audit Inspection payload.
+     * @param string $format Output format.
+     * @return string
+     */
+    public static function render(array $audit, string $format): string {
+        self::validate_options(['format' => $format], []);
+        return $format === 'json' ? json_encode($audit, JSON_PRETTY_PRINT |
+            JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) :
+            self::text($audit);
+    }
+
+    /**
+     * Return an error code only for strict blocked audits.
+     *
+     * @param array $audit Inspection payload.
+     * @param bool $strict Strict mode.
+     * @return int
+     */
+    public static function exit_code(array $audit, bool $strict): int {
+        return $strict && !empty($audit['approval']['blocking_issues']) ? 2 : 0;
+    }
+
 }
