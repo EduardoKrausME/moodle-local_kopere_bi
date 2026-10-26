@@ -30,6 +30,7 @@ use InvalidArgumentException;
 use local_kopere_bi\block\util\string_util;
 use local_kopere_bi\feature;
 use local_kopere_bi\page_access;
+use local_kopere_bi\report_columns;
 use local_kopere_bi\vo\external_report;
 use local_mcp\security\authenticated_identity;
 use moodle_exception;
@@ -214,7 +215,7 @@ final class report_service {
             ];
             foreach ($elements as $element) {
                 $output['elements'][] = self::element_data($element, $userid, $courseid,
-                    $cohortid, $limit, $offset, $manager);
+                    $cohortid, $limit, $offset, $manager, $identity->userid);
             }
             $result['blocks'][] = $output;
         }
@@ -234,7 +235,7 @@ final class report_service {
      * @return array
      */
     private static function element_data(object $element, int $userid, int $courseid,
-            int $cohortid, int $limit, int $offset, bool $showdetails): array {
+            int $cohortid, int $limit, int $offset, bool $showdetails, int $viewerid): array {
         $output = [
             'id' => (int)$element->id,
             'refkey' => (string)($element->refkey ?? ''),
@@ -254,10 +255,18 @@ final class report_service {
         try {
             $rows = self::rows($source, $userid, $courseid, $cohortid, $limit, $offset);
             $output['has_more'] = count($rows) > $limit;
-            $output['rows'] = array_slice($rows, 0, $limit);
-            $output['row_count'] = count($output['rows']);
             $details = json_decode((string)($element->info ?? ''), true);
             $definitions = is_array($details) ? ($details['column'] ?? []) : [];
+            $visible = array_slice($rows, 0, $limit);
+            if ($element->type === 'table') {
+                [$visible, $definitions] = report_columns::prepare($visible,
+                    is_array($definitions) ? $definitions : [], $source,
+                    is_array($details) ? $details : [], $viewerid);
+            }
+            $output['rows'] = array_map(static function($row) {
+                return (array)$row;
+            }, $visible);
+            $output['row_count'] = count($output['rows']);
             $keys = $output['rows'] ? array_keys($output['rows'][0]) :
                 (is_array($definitions) ? array_keys($definitions) : []);
             foreach ($keys as $key) {
