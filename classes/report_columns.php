@@ -176,7 +176,8 @@ final class report_columns {
             if (array_key_exists('username', $sample) && preg_match('/(?:\bmdl_user\b|\{user\})/i', $sql)) {
                 return 'username';
             }
-            if (isset($sample['id'], $sample['firstname'], $sample['lastname']) &&
+            if (array_key_exists('id', $sample) && array_key_exists('firstname', $sample) &&
+                    array_key_exists('lastname', $sample) &&
                     preg_match('/(?:\bmdl_user\b|\{user\})/i', $sql)) {
                 return 'id';
             }
