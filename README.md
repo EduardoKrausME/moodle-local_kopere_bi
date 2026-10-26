@@ -60,7 +60,6 @@ Table columns can be customized using [Mustache](https://moodledev.io/docs/guide
 
 See [the additional report collection](docs/expanded_reports.md) for 16 reports on activity reach, tracking, participation, grading, questions, feedback and forum activity.
 
-
 ## MySQL and PostgreSQL report editions
 
 The built-in catalog includes separate MySQL and PostgreSQL definitions for reports that use
