@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Details forum discussions in a course, their authors, reply counts, and access and time indicators recorded by Kopere BI.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Forum activity details | Report 071 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/071.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/071.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/071.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Forum activity details | Report 071 · Kopere BI">
+    <meta property="og:description" content="Details forum discussions in a course, their authors, reply counts, and access and time indicators recorded by Kopere BI.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/071.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/071.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/forums.html">Forums</a> / 071
+            </nav>
+            <div class="kicker">REPORT 071</div>
+            <h1>Forum activity details</h1>
+            <p class="lead">Details forum discussions in a course, their authors, reply counts, and access and time indicators recorded by Kopere BI.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Details forum discussions in a course, their authors, reply counts, and access and time indicators recorded by Kopere BI.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps educational teams identify discussions, review participation through replies, and examine tracking records associated with forum modules.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The dynamic SQL filter is <strong>Course</strong>, represented by <code>:courseid</code> and used once in <code>kbi_f.course = :courseid</code>.</p>
+                <p>Fixed criteria include a positive forum ID, a course context (<code>contextlevel =
+                    50</code>), and role ID <code>5</code> assignments in the tracking aggregation subquery. There are no filters for time period, discussion, author, course or module visibility, or account status.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization includes the complete original SQL query, cache and refresh settings, and Prism.js syntax highlighting. No separate PostgreSQL variant is provided in the source.</p>
+                <details class="report-block" open>
+                    <summary>1. Forum activity details · Table</summary>
+                    <div class="inner">
+                        <p>The table shows each forum discussion's ID, course, forum, discussion title, author, earliest date among its posts, distinct reply count, and aggregate counts of tracked users and time recorded for the forum module.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_fd.id,
+       kbi_c.id                                                             AS courseid,
+       kbi_c.fullname                                                       AS course_name,
+       kbi_f.name                                                           AS forum,
+       kbi_fd.name                                                          AS discusion,
+       kbi_u.id                                                             AS userid,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       MIN(kbi_fp.created)                                                  AS time_started,
+       MIN(stat.students_accesed)                                       AS students_accesed,
+       MIN(stat.timespend)                                              AS timespend,
+       COUNT(DISTINCT CASE WHEN kbi_fp.parent &gt; 0 THEN kbi_fp.id ELSE NULL END) AS posts
+FROM mdl_forum kbi_f
+       JOIN mdl_forum_discussions kbi_fd ON kbi_fd.forum = kbi_f.id
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_fd.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_f.course
+       LEFT JOIN mdl_forum_posts kbi_fp ON kbi_fp.discussion = kbi_fd.id
+       JOIN mdl_modules kbi_m ON kbi_m.name = &#39;forum&#39;
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.instance = kbi_f.id AND kbi_cm.module = kbi_m.id
+       LEFT JOIN (SELECT kbi_lit.param                  AS module,
+                         COUNT(DISTINCT kbi_lit.userid) AS students_accesed,
+                         SUM(kbi_lit.timespend)         AS timespend
+                  FROM mdl_context kbi_ctx
+                         JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_ctx.id
+                         LEFT JOIN mdl_local_kopere_bi_tracking kbi_lit
+                           ON kbi_lit.page = &#39;module&#39; AND kbi_lit.courseid = kbi_ctx.instanceid AND kbi_lit.userid = kbi_ra.userid
+                  WHERE kbi_ctx.contextlevel = 50
+                    AND kbi_ra.roleid = 5
+                  GROUP BY kbi_lit.param) stat ON stat.module = kbi_cm.id
+WHERE kbi_f.id &gt; 0
+  AND kbi_f.course = :courseid
+GROUP BY kbi_fd.id, kbi_c.id, kbi_f.name, kbi_u.id</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The <code>posts</code> column counts only posts with <code>kbi_fp.parent &gt; 0</code>, namely replies to discussions. It excludes the discussion's initial post.</li>
+                    <li>The <code>time_started</code> column uses <code>MIN(kbi_fp.created)</code>, the earliest date among associated posts. It may be NULL when no matching posts exist; it is not taken directly from <code>mdl_forum_discussions.timecreated</code>.</li>
+                    <li>The <code>students_accesed</code> and <code>timespend</code> indicators come from Kopere BI tracking for <code>page = 'module'</code>, not confirmed visits to a particular discussion. The same module-level metrics may be repeated across multiple discussions in the forum.</li>
+                    <li>The tracking subquery aggregates by <code>kbi_lit.param</code> without including <code>courseid</code> in the grouping key. If parameter values overlap across contexts, totals may mix records. Verify that the parameter corresponds to the CMID.</li>
+                    <li>The <code>COUNT(DISTINCT kbi_lit.userid)</code> counts tracked users assigned role ID <code>5</code> in the corresponding context without requiring active enrolment. The <code>students_accesed</code> column does not indicate whether posts were read or understood.</li>
+                    <li>The main query does not require course or module visibility or check whether the discussion author is deleted or suspended.</li>
+                    <li>The reply count may include authors with various roles. The role ID 5 condition applies only to the tracking subquery, not to the <code>posts</code> count.</li>
+                    <li>There is no dynamic date filter, and the report does not provide a separate PostgreSQL variant.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-071.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="070.html">← Report 070</a>
+                <a href="072.html">Report 072 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-071">
+                <h2 id="related-title-071">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="072.html"><span class="related-number">Report 072</span><span
+                            class="related-title">Forum post ratio</span><span
+                            class="related-category">Forums</span></a>
+                    <a class="related-card" href="073.html"><span class="related-number">Report 073</span><span
+                            class="related-title">Replies to forum posts</span><span
+                            class="related-category">Forums</span></a>
+                    <a class="related-card" href="074.html"><span class="related-number">Report 074</span><span
+                            class="related-title">Forum post performance</span><span
+                            class="related-category">Forums</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/forums.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

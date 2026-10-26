@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Shows distinct quizzes with recorded attempts and the total number of attempts for each user who attempted quizzes in the selected course.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Quiz progress by user | Report 070 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/070.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/070.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/070.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Quiz progress by user | Report 070 · Kopere BI">
+    <meta property="og:description" content="Shows distinct quizzes with recorded attempts and the total number of attempts for each user who attempted quizzes in the selected course.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/070.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/070.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/quizzes.html">Quizzes</a> / 070
+            </nav>
+            <div class="kicker">REPORT 070</div>
+            <h1>Quiz progress by user</h1>
+            <p class="lead">Shows distinct quizzes with recorded attempts and the total number of attempts for each user who attempted quizzes in the selected course.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Shows distinct quizzes with recorded attempts and the total number of attempts for each user who attempted quizzes in the selected course.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps teachers and administrators identify users appearing in the attempt history and how many different quizzes and attempts each has in the course before reviewing assessment details.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The only dynamic SQL filter is <strong>Course</strong>, represented by <code>:courseid</code> and used once in <code>kbi_c.id = :courseid</code>.</p>
+                <p>The SQL requires a visible course and a user who is neither deleted nor suspended and is not <code>guest</code>. Results originate in <code>mdl_quiz_attempts</code>, without restricting completion state, previews, student role, active enrolment, specific quiz, or time period.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization includes the complete original SQL query, cache and refresh settings, and Prism.js syntax highlighting. There is no separate PostgreSQL variant in the source.</p>
+                <details class="report-block" open>
+                    <summary>1. Quiz progress by user · Table</summary>
+                    <div class="inner">
+                        <p>The per-user table displays ID, first name, surname, email, phone numbers, institution, department, address, city, country, the number of distinct quizzes with attempts (<code>submitted</code>), and the total number of distinct attempts (<code>attempted</code>).</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_u.id,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_u.phone1,
+       kbi_u.phone2,
+       kbi_u.institution,
+       kbi_u.department,
+       kbi_u.address,
+       kbi_u.city,
+       kbi_u.country,
+       COUNT(DISTINCT kbi_qa.quiz) AS submitted,
+       COUNT(DISTINCT kbi_qa.id)   AS attempted
+FROM mdl_quiz_attempts kbi_qa
+       JOIN mdl_quiz kbi_q ON kbi_q.id = kbi_qa.quiz
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_q.course
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_qa.userid
+WHERE kbi_c.id = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+GROUP BY kbi_u.id,
+         kbi_u.firstname,
+         kbi_u.lastname,
+         kbi_u.email,
+         kbi_u.phone1,
+         kbi_u.phone2,
+         kbi_u.institution,
+         kbi_u.department,
+         kbi_u.address,
+         kbi_u.city,
+         kbi_u.country
+ORDER BY kbi_u.lastname, kbi_u.firstname</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>Despite the title, the report <strong>does not calculate progress, completion percentages, or performance</strong>; it only presents distinct counts of quizzes with attempts and recorded attempts.</li>
+                    <li>The <code>submitted</code> column corresponds to <code>COUNT(DISTINCT kbi_qa.quiz)</code>. It does not mean that the quizzes were submitted or completed.</li>
+                    <li>The <code>attempted</code> column corresponds to <code>COUNT(DISTINCT kbi_qa.id)</code> and may include unfinished attempts and preview records because there are no filters for <code>state</code> or <code>preview</code>.</li>
+                    <li>Users without attempts do not appear, even when enrolled in the course. Conversely, there is no verification of current enrolment or student role.</li>
+                    <li>Course visibility is checked, but the query does not check visibility of each quiz module.</li>
+                    <li>There is no time filter or normalization against the total number of quizzes. These counts do not show what proportion of the assessment content was covered.</li>
+                    <li>Results include email addresses, phone numbers, and address, institution, and department information. Restrict access and exports in accordance with privacy policies.</li>
+                    <li>The catalog does not include a separate PostgreSQL variant for this report.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-070.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="069.html">← Report 069</a>
+                <a href="071.html">Report 071 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-070">
+                <h2 id="related-title-070">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="068.html"><span class="related-number">Report 068</span><span
+                            class="related-title">Quiz progress by cohort</span><span
+                            class="related-category">Quizzes</span></a>
+                    <a class="related-card" href="069.html"><span class="related-number">Report 069</span><span
+                            class="related-title">Quiz progress by course</span><span
+                            class="related-category">Quizzes</span></a>
+                    <a class="related-card" href="062.html"><span class="related-number">Report 062</span><span
+                            class="related-title">Quiz question structure</span><span
+                            class="related-category">Quizzes</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/quizzes.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
