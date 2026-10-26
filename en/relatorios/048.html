@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Per-visible-course summary of users enrolled through active methods, formal course completions, and the completion ratio between those totals.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Enrolments and completion by course | Report 048 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/048.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/048.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/048.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Enrolments and completion by course | Report 048 · Kopere BI">
+    <meta property="og:description" content="Per-visible-course summary of users enrolled through active methods, formal course completions, and the completion ratio between those totals.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/048.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/048.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/enrollments.html">Enrolments and revenue</a> / 048
+            </nav>
+            <div class="kicker">REPORT 048</div>
+            <h1>Enrolments and completion by course</h1>
+            <p class="lead">Per-visible-course summary of users enrolled through active methods, formal course completions, and the completion ratio between those totals.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Per-visible-course summary of users enrolled through active methods, formal course completions, and the completion ratio between those totals.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Supports administrative monitoring of enrolments and formal course completions by providing an initial proportion of enrolled users who completed the course.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> to select a course, period, cohort, or participant. The report lists visible courses with positive IDs and enrolments and enrolment methods with status <code>0</code>, excluding deleted, suspended, and <code>guest</code> accounts.</p>
+                <p>A completion record requires <code>mdl_course_completions.timecompleted &gt; 0</code>. There is no student-role filter or date restriction on completion.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization includes the full original SQL query, cache and refresh settings, and Prism.js syntax highlighting. The catalog has no separate PostgreSQL variant for this report.</p>
+                <details class="report-block" open>
+                    <summary>1. Enrolments and completion by course · Table</summary>
+                    <div class="inner">
+                        <p>The table lists the course ID and name, distinct number of enrolled users, distinct number of users with a formal course completion record, and the progress ratio calculated by dividing those totals and rounding to two decimal places.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
+       kbi_c.fullname,
+       COUNT(DISTINCT kbi_ue.userid)                                          users,
+       COUNT(DISTINCT kbi_cc.userid)                                       as completed,
+       ROUND(COUNT(DISTINCT kbi_cc.userid) / COUNT(DISTINCT kbi_ue.userid), 2) as progress
+FROM mdl_user_enrolments kbi_ue
+       INNER JOIN mdl_user kbi_u ON kbi_u.id = kbi_ue.userid
+       LEFT JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_e.courseid
+       LEFT JOIN mdl_course_completions kbi_cc ON kbi_cc.course = kbi_e.courseid AND kbi_cc.userid = kbi_ue.userid AND kbi_cc.timecompleted &gt; 0
+WHERE kbi_c.id &gt; 0
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_ue.status = 0
+  AND kbi_e.status = 0
+GROUP BY kbi_c.id, kbi_c.fullname
+ORDER BY kbi_c.fullname</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The <code>progress</code> column is a rounded ratio from 0 to 1, not a percentage from 0 to 100. For example, <code>0.75</code> represents 75%.</li>
+                    <li>The calculation uses distinct users whose enrolment and enrolment method both have status zero. The SQL does not explicitly verify whether enrolment start and end dates are currently valid.</li>
+                    <li>There is no role filter: the count may include teachers or other users enrolled in the course, not just students.</li>
+                    <li>The <code>completed</code> total depends on dated formal course completion records, not completion of individual activities.</li>
+                    <li>The query starts from <code>mdl_user_enrolments</code>. Courses without users enrolled under the specified conditions are excluded.</li>
+                    <li>The SQL has no date-range filter and does not calculate time to completion, average grades, or usage time.</li>
+                    <li>There is no separate PostgreSQL variant. Interpret the ratios in the context of the institution's completion rules and enrolment settings.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-048.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="047.html">← Report 047</a>
+                <a href="049.html">Report 049 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-048">
+                <h2 id="related-title-048">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="117.html"><span class="related-number">Report 117</span><span
+                            class="related-title">Enrolments versus completions by week</span><span
+                            class="related-category">Enrolments and revenue</span></a>
+                    <a class="related-card" href="004.html"><span class="related-number">Report 004</span><span
+                            class="related-title">Enrolment statistics</span><span class="related-category">Enrolments and revenue</span></a>
+                    <a class="related-card" href="005.html"><span class="related-number">Report 005</span><span
+                            class="related-title">Inactive enrolments</span><span class="related-category">Enrolments and revenue</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/enrollments.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
