@@ -310,6 +310,13 @@
                 border: 1px dashed #d4d4d4;
                 box-shadow: 0 0.5rem 1rem rgba(151, 149, 149, .15);
             }
+            &.type-table {
+                background-color: rgba(0, 0, 0, .0) !important;
+                &.test-theme {
+                    border: 1px dashed rgba(0, 0, 0, .0);
+                    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .0);
+                }
+            }
         }
         .theme-dark {
             background-color: #2b2d3e !important;
