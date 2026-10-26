@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Per-teacher table for the selected course, including assignment totals, aggregated submission, completion and grading indicators, and time and visits tracked in assignment activities.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Teacher participation in assignments | Report 028 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/028.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/028.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/028.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Teacher participation in assignments | Report 028 · Kopere BI">
+    <meta property="og:description" content="Per-teacher table for the selected course, including assignment totals, aggregated submission, completion and grading indicators, and time and visits tracked in assignment activities.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/028.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/028.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/instructors.html">Teachers and tutors</a> / 028
+            </nav>
+            <div class="kicker">REPORT 028</div>
+            <h1>Teacher participation in assignments</h1>
+            <p class="lead">Per-teacher table for the selected course, including assignment totals, aggregated submission, completion and grading indicators, and time and visits tracked in assignment activities.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Per-teacher table for the selected course, including assignment totals, aggregated submission, completion and grading indicators, and time and visits tracked in assignment activities.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps coordinators and managers assess the number of available assignments in a course alongside teachers' activity access records, supporting further investigation of follow-up practices.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The only dynamic SQL parameter is <code>:courseid</code>, used <strong>three times</strong>: to aggregate course assignments, aggregate tracking for assignment modules, and select the main course.</p>
+                <p>Other criteria are fixed: teachers assigned role ID <code>3</code> in the course context (<code>contextlevel = 50</code>), a visible course, accounts that are neither deleted nor suspended, and non-guest accounts. Tracking includes <code>page = 'module'</code> linked to <code>assign</code> modules. There are no parameters for teacher, individual assignment, or date range.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>The report contains one table visualization and one SQL query, with cache, refresh settings, and Prism.js syntax highlighting. No separate PostgreSQL variant is provided in the catalog.</p>
+                <details class="report-block" open>
+                    <summary>1. Teacher participation in assignments · Table</summary>
+                    <div class="inner">
+                        <p>The table combines teacher name and email with course details, assignment count, assignments with recorded completions, submissions and grades, and time and visits tracked for that teacher in assignment modules. All four assignment counts are aggregated by course; time and visits are calculated by teacher.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_ra.id AS id,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_c.fullname,
+       kbi_c.shortname,
+       stat.assignments,
+       stat.completed,
+       stat.submissions,
+       stat.grades,
+       l.timespend,
+       visits
+FROM mdl_role_assignments kbi_ra
+       JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id
+       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_ctx.instanceid
+       LEFT JOIN (SELECT kbi_a.course                           AS courseid,
+                         COUNT(distinct kbi_a.id)               AS assignments,
+                         COUNT(distinct kbi_cmc.coursemoduleid) AS completed,
+                         COUNT(distinct kbi_s.assignment)       AS submissions,
+                         COUNT(distinct kbi_g.assignment)       AS grades
+                  FROM mdl_assign kbi_a
+                         LEFT JOIN mdl_modules kbi_m ON kbi_m.name = &#39;assign&#39;
+                         LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.instance = kbi_a.id AND kbi_cm.module = kbi_m.id
+                         LEFT JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.coursemoduleid = kbi_cm.id AND
+                                                                        kbi_cmc.completionstate IN
+                                                                        (1,
+                                                                         2)
+                         LEFT JOIN mdl_assign_submission kbi_s ON kbi_s.status = &#39;submitted&#39; AND kbi_s.assignment = kbi_a.id
+                         LEFT JOIN mdl_assign_grades kbi_g ON kbi_g.assignment = kbi_a.id
+                  WHERE kbi_a.course &gt; 0
+                    AND kbi_a.course = :courseid
+                  GROUP BY kbi_a.course) stat ON stat.courseid = kbi_c.id
+       LEFT JOIN (SELECT kbi_l.userid, kbi_l.courseid, SUM(kbi_l.timespend) as timespend, SUM(kbi_l.visits) as visits
+                  FROM mdl_local_kopere_bi_tracking kbi_l, mdl_modules kbi_m, mdl_course_modules kbi_cm
+                  WHERE kbi_l.page = &#39;module&#39;
+                    and kbi_m.name = &#39;assign&#39;
+                    AND kbi_cm.id = kbi_l.param
+                    AND kbi_cm.module = kbi_m.id
+                    AND kbi_l.courseid = :courseid
+                  GROUP BY kbi_l.userid, kbi_l.courseid) l ON l.userid = kbi_u.id AND l.courseid = kbi_c.id
+WHERE kbi_ctx.contextlevel = 50
+  AND kbi_c.id = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_ra.roleid = 3</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The <code>assignments</code>, <code>completed</code>, <code>submissions</code>, and <code>grades</code> indicators are aggregated for the entire course, not per teacher. The same totals may appear for multiple teachers in that course.</li>
+                    <li>The <code>completed</code> count uses <code>COUNT(DISTINCT coursemoduleid)</code> for student completion states 1 and 2. It counts assignment modules with at least one recorded completion, not students who completed them or assignments graded by that teacher.</li>
+                    <li>The <code>submissions</code> count uses <code>COUNT(DISTINCT assignment)</code> and therefore counts assignments with at least one submission, not the total number of student submissions.</li>
+                    <li>The <code>grades</code> count also uses <code>COUNT(DISTINCT assignment)</code> on grading records. It does not represent the number of grades awarded or identify the grader.</li>
+                    <li>Time and visits come from <code>mdl_local_kopere_bi_tracking</code> by user, course, and module. They depend on the plugin's data collection and do not prove educational follow-up.</li>
+                    <li>The assignment subqueries do not filter by date range, module visibility, or submission status. Interpret their metrics as technical indicators.</li>
+                    <li>The original file has no separate PostgreSQL variant. Check SQL compatibility and permissions on the database in use.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-028.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="027.html">← Report 027</a>
+                <a href="029.html">Report 029 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-028">
+                <h2 id="related-title-028">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="025.html"><span class="related-number">Report 025</span><span
+                            class="related-title">Assignments graded by teacher</span><span class="related-category">Teachers and tutors</span></a>
+                    <a class="related-card" href="031.html"><span class="related-number">Report 031</span><span
+                            class="related-title">Teacher participation in forums</span><span
+                            class="related-category">Teachers and tutors</span></a>
+                    <a class="related-card" href="026.html"><span class="related-number">Report 026</span><span
+                            class="related-title">Forum statistics by teacher</span><span
+                            class="related-category">Teachers and tutors</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/instructors.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

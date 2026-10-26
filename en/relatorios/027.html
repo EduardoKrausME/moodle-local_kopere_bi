@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Table of teachers associated with the selected course and its visible activities, including visits, tracked time, and access dates recorded by Kopere BI.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Teacher activity engagement details | Report 027 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/027.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/027.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/027.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Teacher activity engagement details | Report 027 · Kopere BI">
+    <meta property="og:description" content="Table of teachers associated with the selected course and its visible activities, including visits, tracked time, and access dates recorded by Kopere BI.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/027.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/027.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/instructors.html">Teachers and tutors</a> / 027
+            </nav>
+            <div class="kicker">REPORT 027</div>
+            <h1>Teacher activity engagement details</h1>
+            <p class="lead">Table of teachers associated with the selected course and its visible activities, including visits, tracked time, and access dates recorded by Kopere BI.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Table of teachers associated with the selected course and its visible activities, including visits, tracked time, and access dates recorded by Kopere BI.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps course coordinators and support teams review teachers' tracking records for course activities and locate modules with little recorded usage.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The dynamic SQL filter is <strong><code>:courseid</code></strong>, which selects the course to analyze.</p>
+                <p>The SQL requires teacher role ID <code>3</code> in a course context (<code>contextlevel = 50</code>), users who are neither deleted nor suspended and are not <code>guest</code>, a visible course, and visible modules (<code>kbi_cm.visible = 1</code>). The tracking join uses <code>kbi_lit.page
+                        = 'module'</code> and <code>kbi_lit.param = kbi_cm.id</code>. There is no teacher, module-type, or date SQL filter.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>The report contains one table visualization and one SQL query, with cache, refresh settings, and Prism.js syntax highlighting. No separate PostgreSQL variant file is provided.</p>
+                <details class="report-block" open>
+                    <summary>1. Teacher activity engagement details · Table</summary>
+                    <div class="inner">
+                        <p>Table combining teachers, courses, modules, and activity instances with visits, tracked time, and first and last access dates. Teachers are paired with visible modules before the optional join to Kopere BI tracking data.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_lit.id                                                        AS lid,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_c.fullname,
+       kbi_c.shortname,
+       CASE WHEN kbi_lit.visits IS NULL THEN 0 ELSE kbi_lit.visits END       AS visits,
+       CASE WHEN kbi_lit.timespend IS NULL THEN 0 ELSE kbi_lit.timespend END AS timespend,
+       kbi_lit.firstaccess,
+       kbi_lit.lastaccess,
+       kbi_cm.instance,
+       kbi_m.name                                                        AS module
+FROM mdl_role_assignments kbi_ra
+       JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id
+       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_ctx.instanceid
+       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id
+       LEFT JOIN mdl_modules kbi_m ON kbi_m.id = kbi_cm.module
+       LEFT JOIN mdl_local_kopere_bi_tracking kbi_lit ON kbi_lit.userid = kbi_u.id AND kbi_lit.param = kbi_cm.id AND kbi_lit.page = &#39;module&#39;
+WHERE kbi_ctx.contextlevel = 50
+  AND kbi_c.id = :courseid
+  AND kbi_ra.roleid = 3
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_cm.visible = 1</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The table matches assigned teachers with visible modules even where no tracking records exist. SQL converts missing visits and time to zero; this does not necessarily prove that the activity was never accessed.</li>
+                    <li>First and last access dates are empty where there is no corresponding tracking record. Data collection depends on Kopere BI.</li>
+                    <li>The teacher filter relies on fixed role ID <code>3</code> in the course context. Customized roles or assignments outside that context may be omitted.</li>
+                    <li>There is no date-range restriction: the indicators reflect the tracking records available, and retention may vary.</li>
+                    <li>The row identifies the module instance and type but does not provide the activity name directly. The user represented in the table is the teacher, not the student.</li>
+                    <li>The report measures technical usage traces, not learning or the quality of educational facilitation.</li>
+                    <li>There is no dedicated PostgreSQL variant file for this report.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-027.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="026.html">← Report 026</a>
+                <a href="028.html">Report 028 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-027">
+                <h2 id="related-title-027">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="029.html"><span class="related-number">Report 029</span><span
+                            class="related-title">Teacher engagement ratio</span><span
+                            class="related-category">Teachers and tutors</span></a>
+                    <a class="related-card" href="030.html"><span class="related-number">Report 030</span><span
+                            class="related-title">Teacher engagement by course</span><span
+                            class="related-category">Teachers and tutors</span></a>
+                    <a class="related-card" href="034.html"><span class="related-number">Report 034</span><span
+                            class="related-title">Teacher and student engagement by course</span><span
+                            class="related-category">Teachers and tutors</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/instructors.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Operational indicators by teacher and course, including enrolments, assignments, grading, forums, events, and module counts.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Teacher engagement ratio | Report 029 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/029.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/029.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/029.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Teacher engagement ratio | Report 029 · Kopere BI">
+    <meta property="og:description" content="Operational indicators by teacher and course, including enrolments, assignments, grading, forums, events, and module counts.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/029.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/029.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/instructors.html">Teachers and tutors</a> / 029
+            </nav>
+            <div class="kicker">REPORT 029</div>
+            <h1>Teacher engagement ratio</h1>
+            <p class="lead">Operational indicators by teacher and course, including enrolments, assignments, grading, forums, events, and module counts.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Operational indicators by teacher and course, including enrolments, assignments, grading, forums, events, and module counts.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Combines different signals of platform usage in one view to identify courses that may need attention and indicators warranting administrative or educational investigation.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL filters</strong> for course, user, teacher, cohort, or date range. The query includes teachers assigned role ID <code>3</code> in level <code>50</code> course contexts, visible courses, and valid accounts.</p>
+                <p>The <code>needs_grading</code> indicator uses a <strong>fixed 30-day window</strong> (<code>2592000</code> seconds) for recent <code>submitted</code> submissions with <code>latest = 1</code> and no valid grade. Other indicators do not necessarily share that time window.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>The report contains one table visualization and two SQL queries, with cache, refresh settings, and Prism.js syntax highlighting. MySQL and PostgreSQL variants appear in separate panels within the same visualization block.</p>
+                <details class="report-block" open>
+                    <summary>1. Teacher engagement ratio · Table</summary>
+                    <div class="inner">
+                        <p>The table shows teacher and course data, users assigned the student role, assignment counts, recently ungraded submissions, average time between submission and grading, Kopere BI tracking measures, forum discussions and posts, event counts, and course module counts. MySQL and PostgreSQL use different expressions for the submission time window.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_ra.id,
+       kbi_c.id                                                               AS courseid,
+       kbi_c.fullname                                                         AS course_name,
+       kbi_c.timecreated                                                      AS course_created,
+       kbi_u.id                                                               AS teacher_id,
+       kbi_u.lastname,
+       kbi_u.firstname,
+       kbi_u.email,
+       kbi_u.picture                                                          AS teacher_picture,
+       kbi_u.firstnamephonetic                                                AS teacher_firstnamephonetic,
+       kbi_u.lastnamephonetic                                                 AS teacher_lastnamephonetic,
+       kbi_u.middlename                                                       AS teacher_middlename,
+       kbi_u.alternatename                                                    AS teacher_alternatename,
+       kbi_u.imagealt                                                         AS teacher_imagealt,
+       (SELECT COUNT(distinct kbi_ras.userid)
+        FROM mdl_role_assignments kbi_ras, mdl_context kbi_con
+        WHERE kbi_con.id = kbi_ras.contextid
+          AND kbi_con.contextlevel = 50
+          AND kbi_ras.roleid = 5
+          AND kbi_con.instanceid = kbi_c.id)                                      AS enrolled_students,
+       (SELECT COUNT(kbi_ass.id) FROM mdl_assign kbi_ass WHERE kbi_ass.course = kbi_c.id) AS assignments,
+       (SELECT COUNT(DISTINCT kbi_sub.id)
+        FROM mdl_assign_submission kbi_sub
+               LEFT JOIN mdl_assign_grades kbi_as_grade
+                 ON kbi_as_grade.userid = kbi_sub.userid AND kbi_as_grade.assignment = kbi_sub.assignment AND
+                    kbi_as_grade.attemptnumber = kbi_sub.attemptnumber
+               JOIN mdl_assign kbi_ass ON kbi_ass.id = kbi_sub.assignment
+        WHERE kbi_sub.status = &#39;submitted&#39;
+          AND kbi_sub.latest = 1
+          AND kbi_sub.timecreated &gt; (UNIX_TIMESTAMP() - 2592000)
+          AND (kbi_as_grade.grade IS NULL OR kbi_as_grade.grade &lt; 0)
+          AND kbi_ass.course = kbi_c.id)                                          AS needs_grading,
+       (SELECT AVG(kbi_as_grade.timecreated - kbi_sub.timecreated)
+        FROM mdl_assign_submission kbi_sub
+               LEFT JOIN mdl_assign_grades kbi_as_grade
+                 ON kbi_as_grade.userid = kbi_sub.userid AND kbi_as_grade.assignment = kbi_sub.assignment AND
+                    kbi_as_grade.attemptnumber = kbi_sub.attemptnumber
+               JOIN mdl_assign kbi_ass ON kbi_ass.id = kbi_sub.assignment
+        WHERE kbi_sub.status = &#39;submitted&#39;
+          AND kbi_sub.latest = 1
+          AND kbi_as_grade.grade IS NOT NULL
+          AND kbi_as_grade.grade &gt;= 0
+          AND kbi_ass.course = kbi_c.id)                                          AS avg_time_to_grade,
+       (SELECT SUM(kbi_lil.visits) / COUNT(DISTINCT timepoint)
+        FROM mdl_local_kopere_bi_tracking kbi_lit, mdl_local_kopere_bi_track_log kbi_lil
+        WHERE kbi_lil.trackid = kbi_lit.id
+          AND kbi_lit.courseid = kbi_c.id)                                        AS logins_by_teacher,
+       (SELECT COUNT(DISTINCT kbi_fd.id)
+        FROM mdl_forum_discussions kbi_fd, mdl_forum_posts kbi_fp
+        WHERE kbi_fp.discussion = kbi_fd.id
+          AND kbi_fd.course = kbi_c.id)                                           AS teacher_discussions,
+       (SELECT COUNT(DISTINCT kbi_fp.id)
+        FROM mdl_forum_discussions kbi_fd, mdl_forum_posts kbi_fp
+        WHERE kbi_fp.discussion = kbi_fd.id
+          AND kbi_fd.course = kbi_c.id)                                           AS teacher_posts,
+       (SELECT COUNT(DISTINCT kbi_fp.id)
+        FROM mdl_role_assignments kbi_ras, mdl_context kbi_con, mdl_forum_discussions kbi_fd, mdl_forum_posts kbi_fp
+        WHERE kbi_con.id = kbi_ras.contextid
+          AND kbi_ras.roleid = 5
+          AND kbi_con.contextlevel = 50
+          AND kbi_fp.discussion = kbi_fd.id
+          AND kbi_fd.course = kbi_con.instanceid
+          AND kbi_con.instanceid = kbi_c.id)                                      AS students_posts,
+       (SELECT COUNT(distinct id) FROM mdl_event WHERE userid = kbi_u.id)     AS teacher_events,
+       (SELECT COUNT(distinct kbi_e.id)
+        FROM mdl_event kbi_e, mdl_role_assignments kbi_ras, mdl_context kbi_con
+        WHERE kbi_ras.userid = kbi_e.userid
+          AND kbi_ras.roleid = 5
+          AND kbi_con.id = kbi_ras.contextid
+          AND kbi_con.contextlevel = 50
+          AND kbi_e.courseid = kbi_con.instanceid
+          AND kbi_con.instanceid = kbi_c.id)                                      AS students_events,
+       (SELECT COUNT(id) FROM mdl_course_modules WHERE course = kbi_c.id)     AS added_course_module
+FROM mdl_role_assignments kbi_ra
+       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_ctx.instanceid
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid
+WHERE kbi_ra.id &gt; 0
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_ra.roleid = 3</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_ra.id,
+       kbi_c.id                                                               AS courseid,
+       kbi_c.fullname                                                         AS course_name,
+       kbi_c.timecreated                                                      AS course_created,
+       kbi_u.id                                                               AS teacher_id,
+       kbi_u.lastname,
+       kbi_u.firstname,
+       kbi_u.email,
+       kbi_u.picture                                                          AS teacher_picture,
+       kbi_u.firstnamephonetic                                                AS teacher_firstnamephonetic,
+       kbi_u.lastnamephonetic                                                 AS teacher_lastnamephonetic,
+       kbi_u.middlename                                                       AS teacher_middlename,
+       kbi_u.alternatename                                                    AS teacher_alternatename,
+       kbi_u.imagealt                                                         AS teacher_imagealt,
+       (SELECT COUNT(distinct kbi_ras.userid)
+        FROM mdl_role_assignments kbi_ras, mdl_context kbi_con
+        WHERE kbi_con.id = kbi_ras.contextid
+          AND kbi_con.contextlevel = 50
+          AND kbi_ras.roleid = 5
+          AND kbi_con.instanceid = kbi_c.id)                                      AS enrolled_students,
+       (SELECT COUNT(kbi_ass.id) FROM mdl_assign kbi_ass WHERE kbi_ass.course = kbi_c.id) AS assignments,
+       (SELECT COUNT(DISTINCT kbi_sub.id)
+        FROM mdl_assign_submission kbi_sub
+               LEFT JOIN mdl_assign_grades kbi_as_grade
+                 ON kbi_as_grade.userid = kbi_sub.userid AND kbi_as_grade.assignment = kbi_sub.assignment AND
+                    kbi_as_grade.attemptnumber = kbi_sub.attemptnumber
+               JOIN mdl_assign kbi_ass ON kbi_ass.id = kbi_sub.assignment
+        WHERE kbi_sub.status = &#39;submitted&#39;
+          AND kbi_sub.latest = 1
+          AND kbi_sub.timecreated &gt; ((EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::bigint) - 2592000)
+          AND(kbi_as_grade.grade IS NULL OR kbi_as_grade.grade &lt; 0)
+          AND kbi_ass.course = kbi_c.id)                                          AS needs_grading,
+       (SELECT AVG(kbi_as_grade.timecreated - kbi_sub.timecreated)
+        FROM mdl_assign_submission kbi_sub
+               LEFT JOIN mdl_assign_grades kbi_as_grade
+                 ON kbi_as_grade.userid = kbi_sub.userid AND kbi_as_grade.assignment = kbi_sub.assignment AND
+                    kbi_as_grade.attemptnumber = kbi_sub.attemptnumber
+               JOIN mdl_assign kbi_ass ON kbi_ass.id = kbi_sub.assignment
+        WHERE kbi_sub.status = &#39;submitted&#39;
+          AND kbi_sub.latest = 1
+          AND kbi_as_grade.grade IS NOT NULL
+          AND kbi_as_grade.grade &gt;= 0
+          AND kbi_ass.course = kbi_c.id)                                          AS avg_time_to_grade,
+       (SELECT SUM(kbi_lil.visits) / COUNT(DISTINCT timepoint)
+        FROM mdl_local_kopere_bi_tracking kbi_lit, mdl_local_kopere_bi_track_log kbi_lil
+        WHERE kbi_lil.trackid = kbi_lit.id
+          AND kbi_lit.courseid = kbi_c.id)                                        AS logins_by_teacher,
+       (SELECT COUNT(DISTINCT kbi_fd.id)
+        FROM mdl_forum_discussions kbi_fd, mdl_forum_posts kbi_fp
+        WHERE kbi_fp.discussion = kbi_fd.id
+          AND kbi_fd.course = kbi_c.id)                                           AS teacher_discussions,
+       (SELECT COUNT(DISTINCT kbi_fp.id)
+        FROM mdl_forum_discussions kbi_fd, mdl_forum_posts kbi_fp
+        WHERE kbi_fp.discussion = kbi_fd.id
+          AND kbi_fd.course = kbi_c.id)                                           AS teacher_posts,
+       (SELECT COUNT(DISTINCT kbi_fp.id)
+        FROM mdl_role_assignments kbi_ras, mdl_context kbi_con, mdl_forum_discussions kbi_fd, mdl_forum_posts kbi_fp
+        WHERE kbi_con.id = kbi_ras.contextid
+          AND kbi_ras.roleid = 5
+          AND kbi_con.contextlevel = 50
+          AND kbi_fp.discussion = kbi_fd.id
+          AND kbi_fd.course = kbi_con.instanceid
+          AND kbi_con.instanceid = kbi_c.id)                                      AS students_posts,
+       (SELECT COUNT(distinct id) FROM mdl_event WHERE userid = kbi_u.id)     AS teacher_events,
+       (SELECT COUNT(distinct kbi_e.id)
+        FROM mdl_event kbi_e, mdl_role_assignments kbi_ras, mdl_context kbi_con
+        WHERE kbi_ras.userid = kbi_e.userid
+          AND kbi_ras.roleid = 5
+          AND kbi_con.id = kbi_ras.contextid
+          AND kbi_con.contextlevel = 50
+          AND kbi_e.courseid = kbi_con.instanceid
+          AND kbi_con.instanceid = kbi_c.id)                                      AS students_events,
+       (SELECT COUNT(id) FROM mdl_course_modules WHERE course = kbi_c.id)     AS added_course_module
+FROM mdl_role_assignments kbi_ra
+       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_ctx.instanceid
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid
+WHERE kbi_ra.id &gt; 0
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_ra.roleid = 3</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>Despite its title, the report does not calculate a single engagement index or percentage. It shows different indicators without a shared ratio formula.</li>
+                    <li>The <code>teacher_discussions</code> and <code>teacher_posts</code> fields count discussions and posts by all participants in course forums. The SQL does not match the author to the teacher's ID.</li>
+                    <li>The <code>students_posts</code> field does not link individual post authors to students. Its join tests for role ID 5 assignments in the course, so the count may not exclusively represent student posts.</li>
+                    <li>The <code>logins_by_teacher</code> expression sums course visits and divides by <code>COUNT(DISTINCT
+                        timepoint)</code>, but does not restrict the subquery to that teacher's ID. It therefore does not necessarily measure that teacher's logins. A zero denominator may produce NULL or an error depending on the database.</li>
+                    <li>The 30-day window applies only to <code>needs_grading</code>. Average grading time is the difference between timestamps, with neither the same time limit nor an explicit exclusion of negative values.</li>
+                    <li>The <code>teacher_events</code> and <code>students_events</code> fields query <code>mdl_event</code> rather than the usual recorded event log <code>mdl_logstore_standard_log</code>; their interpretation and usefulness depend on the Moodle installation and available data.</li>
+                    <li>The enrolled-student indicator counts users assigned role ID 5 in the course context without directly checking enrolment or enrolment-method status.</li>
+                    <li>MySQL and PostgreSQL versions use database-specific time operations. Interpret results with attention to differences between queries and compatibility with the installation.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-029.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-029-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="028.html">← Report 028</a>
+                <a href="030.html">Report 030 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-029">
+                <h2 id="related-title-029">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="027.html"><span class="related-number">Report 027</span><span
+                            class="related-title">Teacher activity engagement details</span><span
+                            class="related-category">Teachers and tutors</span></a>
+                    <a class="related-card" href="030.html"><span class="related-number">Report 030</span><span
+                            class="related-title">Teacher engagement by course</span><span
+                            class="related-category">Teachers and tutors</span></a>
+                    <a class="related-card" href="034.html"><span class="related-number">Report 034</span><span
+                            class="related-title">Teacher and student engagement by course</span><span
+                            class="related-category">Teachers and tutors</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/instructors.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
