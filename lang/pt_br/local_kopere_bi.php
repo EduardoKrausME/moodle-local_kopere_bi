@@ -1504,3 +1504,5 @@ $string['reportcols_course_category'] = 'ID da categoria';
 $string['reportcols_course_startdate'] = 'Data de início';
 $string['reportcols_course_enddate'] = 'Data de término';
 $string['reportcols_course_visible'] = 'Visível';
+
+$string['reportcols_customlabel'] = '$a (campo personalizado)';
