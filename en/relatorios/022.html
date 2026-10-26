@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Table of users with recorded access, average course grades, system-context roles, course counts, and tracked time and visits recorded by Kopere BI.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Platform usage summary by user | Report 022 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/022.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/022.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/022.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Platform usage summary by user | Report 022 · Kopere BI">
+    <meta property="og:description" content="Table of users with recorded access, average course grades, system-context roles, course counts, and tracked time and visits recorded by Kopere BI.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/022.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/022.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/users.html">Users and profiles</a> / 022
+            </nav>
+            <div class="kicker">REPORT 022</div>
+            <h1>Platform usage summary by user</h1>
+            <p class="lead">Table of users with recorded access, average course grades, system-context roles, course counts, and tracked time and visits recorded by Kopere BI.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Table of users with recorded access, average course grades, system-context roles, course counts, and tracked time and visits recorded by Kopere BI.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps administrators review profile information, academic associations, and usage measures in one table, identifying accounts that may require further investigation or follow-up.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Actual filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>There are no dynamic SQL parameters for course, user, cohort, or date range. Included accounts have <code>id &gt; 0</code>, are neither deleted nor suspended, and are not <code>guest</code>.</p>
+                <p>Average grades and course counts use role ID <code>5</code> assignments in course contexts (<code>contextlevel = 50</code>), visible courses, and grade items of type <code>course</code>. Roles in the roles column come from system-context assignments (<code>contextlevel
+                        = 10</code>). Time and visits have no explicit time-window restriction.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>The report contains one table visualization and two SQL queries, with cache, refresh settings, and Prism.js syntax highlighting. MySQL and PostgreSQL variants are displayed in separate panels within the same block.</p>
+                <details class="report-block" open>
+                    <summary>1. Platform usage summary by user · Table</summary>
+                    <div class="inner">
+                        <p>The table includes the user's name, email, last access, and account creation date, average course grade percentage, aggregated course count, system-context roles, and total recorded time and visits. MySQL and PostgreSQL produce the same visualization using different aggregation and rounding functions.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_u.id,
+       kbi_u.lastaccess,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       grd.grade,
+       sls.roles,
+       kbi_u.timecreated,
+       grd.courses,
+       lit.timespend AS timespend,
+       lit.visits    AS visits
+FROM mdl_user kbi_u
+       LEFT JOIN (SELECT kbi_ra.userid,
+                         ROUND(AVG(CASE
+                                     WHEN kbi_g.rawgrademax &gt; 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                                     ELSE kbi_g.finalgrade END), 0) AS grade,
+                         COUNT(DISTINCT kbi_ctx.instanceid)         as courses
+                  FROM mdl_role_assignments kbi_ra
+                         JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND
+                                                    kbi_ctx.contextlevel = 50
+                         JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid
+                         LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.courseid = kbi_ctx.instanceid AND
+                                                         kbi_gi.itemtype = &#39;course&#39;
+                         LEFT JOIN mdl_grade_grades kbi_g ON kbi_g.itemid = kbi_gi.id AND
+                                                         kbi_g.userid = kbi_ra.userid AND
+                                                         kbi_g.finalgrade IS NOT NULL
+                         JOIN mdl_course kbi_c ON kbi_ctx.instanceid = kbi_c.id AND
+                                              kbi_c.visible = 1
+                  WHERE kbi_gi.itemtype = &#39;course&#39;
+                    AND kbi_ra.roleid = 5
+                  GROUP BY kbi_ra.userid) grd ON grd.userid = kbi_u.id
+       LEFT JOIN (SELECT kbi_ra.userid, GROUP_CONCAT(DISTINCT (kbi_r.shortname) SEPARATOR &#39;,&#39;) AS roles
+                  FROM mdl_context kbi_ctx
+                         JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_ctx.id
+                         JOIN mdl_role kbi_r ON kbi_ra.roleid = kbi_r.id
+                  WHERE kbi_ctx.contextlevel = 10
+                  GROUP BY kbi_ra.userid) sls ON sls.userid = kbi_u.id
+       LEFT JOIN (SELECT kbi_lit.userid, SUM(kbi_lil.timespend) as timespend, SUM(kbi_lil.visits) as visits
+                  FROM mdl_local_kopere_bi_tracking kbi_lit
+                         JOIN mdl_local_kopere_bi_track_log kbi_lil ON kbi_lil.trackid = kbi_lit.id
+                  WHERE kbi_lil.id &gt; 0
+                  GROUP BY kbi_lit.userid) lit ON lit.userid = kbi_u.id
+WHERE kbi_u.id &gt; 0
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_u.id,
+       kbi_u.lastaccess,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       grd.grade,
+       sls.roles,
+       kbi_u.timecreated,
+       grd.courses,
+       lit.timespend AS timespend,
+       lit.visits    AS visits
+FROM mdl_user kbi_u
+       LEFT JOIN(SELECT kbi_ra.userid,
+                         ROUND((AVG(CASE
+                                     WHEN kbi_g.rawgrademax &gt; 0 THEN(kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                                     ELSE kbi_g.finalgrade END))::numeric, 0) AS grade,
+                         COUNT(DISTINCT kbi_ctx.instanceid)         as courses
+                  FROM mdl_role_assignments kbi_ra
+                         JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND
+                                                    kbi_ctx.contextlevel = 50
+                         JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid
+                         LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.courseid = kbi_ctx.instanceid AND
+                                                         kbi_gi.itemtype = &#39;course&#39;
+                         LEFT JOIN mdl_grade_grades kbi_g ON kbi_g.itemid = kbi_gi.id AND
+                                                         kbi_g.userid = kbi_ra.userid AND
+                                                         kbi_g.finalgrade IS NOT NULL
+                         JOIN mdl_course kbi_c ON kbi_ctx.instanceid = kbi_c.id AND
+                                              kbi_c.visible = 1
+                  WHERE kbi_gi.itemtype = &#39;course&#39;
+                    AND kbi_ra.roleid = 5
+                  GROUP BY kbi_ra.userid) grd ON grd.userid = kbi_u.id
+       LEFT JOIN(SELECT kbi_ra.userid, STRING_AGG(DISTINCT ((kbi_r.shortname))::text, &#39;,&#39;) AS roles
+                  FROM mdl_context kbi_ctx
+                         JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_ctx.id
+                         JOIN mdl_role kbi_r ON kbi_ra.roleid = kbi_r.id
+                  WHERE kbi_ctx.contextlevel = 10
+                  GROUP BY kbi_ra.userid) sls ON sls.userid = kbi_u.id
+       LEFT JOIN(SELECT kbi_lit.userid, SUM(kbi_lil.timespend) as timespend, SUM(kbi_lil.visits) as visits
+                  FROM mdl_local_kopere_bi_tracking kbi_lit
+                         JOIN mdl_local_kopere_bi_track_log kbi_lil ON kbi_lil.trackid = kbi_lit.id
+                  WHERE kbi_lil.id &gt; 0
+                  GROUP BY kbi_lit.userid) lit ON lit.userid = kbi_u.id
+WHERE kbi_u.id &gt; 0
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The aggregated course count is linked to role ID <code>5</code> assignments and the presence of grade items of type <code>course</code>; it does not necessarily include all of a user's enrolments.</li>
+                    <li>The roles column includes system-context assignments, not necessarily every role held by the user in each course.</li>
+                    <li>The grade average depends on available records and is not weighted by credits, contact hours, or enrolment.</li>
+                    <li>Time and visit totals come from <code>mdl_local_kopere_bi_tracking</code> and <code>mdl_local_kopere_bi_track_log</code> and depend on the plugin's collection and retention.</li>
+                    <li>Users without grades, system roles, or tracking data may have empty columns because of optional joins.</li>
+                    <li>The table contains personal information. Restrict access, especially before exporting data. Validate MySQL and PostgreSQL variants against the corresponding database.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-022.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-022-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="021.html">← Report 021</a>
+                <a href="023.html">Report 023 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-022">
+                <h2 id="related-title-022">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="012.html"><span class="related-number">Report 012</span><span
+                            class="related-title">Inactive users on the platform</span><span class="related-category">Users and profiles</span></a>
+                    <a class="related-card" href="021.html"><span class="related-number">Report 021</span><span
+                            class="related-title">Detailed platform usage summary by user</span><span
+                            class="related-category">Users and profiles</span></a>
+                    <a class="related-card" href="033.html"><span class="related-number">Report 033</span><span
+                            class="related-title">Platform usage by teachers</span><span
+                            class="related-category">Teachers and tutors</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/users.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
