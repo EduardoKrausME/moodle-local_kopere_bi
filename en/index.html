@@ -4,12 +4,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
-          content="Explore indicators, create visualizations and monitor courses, participation and learner progress in your Moodle site.">
+          content="Explore indicators, create visualizations, and monitor courses, participation, and progress using data from your Moodle site.">
     <meta name="theme-color" content="#072c3a">
     <title>Kopere BI for Moodle · Kopere BI</title>
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../site.css">
-    <link rel="alternate" hreflang="pt-BR" href="../pt_br/index.html">
+    <link rel="stylesheet" href="accessibility.css">
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/index.html">
+    <link rel="alternate" hreflang="en"
+          href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/index.html">
+    <link rel="alternate" hreflang="pt-BR"
+          href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/index.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Kopere BI for Moodle · Kopere BI">
+    <meta property="og:description"
+          content="Explore indicators, create visualizations, and monitor courses, participation, and progress using data from your Moodle site.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/index.html">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -39,57 +51,58 @@
     </aside>
     <main id="main" class="main">
         <article class="article">
-            <div class="crumb">
+            <nav class="crumb" aria-label="Breadcrumb">
                 <a href="index.html">Kopere BI</a> / Overview
-            </div>
+            </nav>
             <div class="kicker">MOODLE PLUGIN DOCUMENTATION</div>
             <h1>Kopere BI for Moodle</h1>
-            <p class="lead">Dashboards, reports and learning analytics built on Moodle data.</p>
+            <p class="lead">Dashboards, reports, and learning analytics in Moodle</p>
             <div class="hero"><strong>Moodle data, presented in context.</strong>
-                <p>Reports, charts and indicators inside the Moodle ecosystem.</p>
+                <p>Reports, charts, and indicators without leaving the Moodle ecosystem.</p>
             </div>
             <div class="separator">
             </div>
             <section aria-labelledby="s0">
-                <h2 id="s0">What Kopere BI does</h2>
-                <p><strong>Kopere BI</strong> is a Moodle local plugin for visual, interactive reporting. Administrators
-                    organize categories, report pages, blocks, elements and filters to answer operational and
-                    educational questions using Moodle data.</p>
-                <p>It includes interactive charts, data tables, KPI cards, HTML elements, approximate IP-based maps, a
-                    built-in report catalog, MySQL/PostgreSQL report variants and scheduled learning analytics
-                    snapshots.</p>
+                <h2 id="s0">What is Kopere BI?</h2>
+                <p><strong>Kopere BI</strong> is a Moodle local plugin for building and viewing data analytics
+                    dashboards. Rather than relying on a single fixed screen, administrators organize categories,
+                    pages, blocks, elements, and filters to present indicators relevant to their institutions.</p>
+                <p>Visualizations combine interactive charts, tables, summary metrics, HTML, and maps. The catalog
+                    includes ready-made reports, database-specific definitions for MySQL and PostgreSQL, and
+                    learning analytics calculated by scheduled tasks.</p>
             </section>
             <section aria-labelledby="s1">
-                <h2 id="s1">Getting started</h2>
+                <h2 id="s1">Start with a practical workflow</h2>
                 <ol class="steps">
-                    <li>Install the required <strong>Kopere Dashboard</strong> component.</li>
-                    <li>Open Kopere BI from Moodle’s <strong>Integrations</strong> administration area.</li>
-                    <li>Start with a bundled report or build a page from blocks.</li>
-                    <li>Review filters, permissions and visibility before sharing.</li>
-                    <li>Monitor scheduled tasks that maintain analytics data.</li>
+                    <li><strong>Install the dependencies</strong> and configure permissions in Moodle.</li>
+                    <li><strong>Open Kopere BI</strong> from the Integrations menu in site administration.</li>
+                    <li><strong>Choose an existing report</strong> or build your own page using blocks.</li>
+                    <li><strong>Set filters and access rules</strong> before making individual data available.</li>
+                    <li><strong>Monitor scheduled tasks</strong> that maintain tracking and analytics indicators.</li>
                 </ol>
             </section>
             <section aria-labelledby="s2">
-                <h2 id="s2">Explore the guide</h2>
+                <h2 id="s2">What this guide covers</h2>
                 <div class="feature-list">
-                    <p><b>Installation</b> - dependencies and upgrade procedure.</p>
-                    <p><b>Dashboards</b> - category and report layout structure.</p>
-                    <p><b>Visualizations</b> - charts, tables, filters and maps.</p>
-                    <p><b>Reports</b> - catalog and database-specific definitions.</p>
-                    <p><b>Learning Analytics</b> - risk indicators and snapshots.</p>
-                    <p><b>Security</b> - capabilities and privacy.</p>
-                    <p><b>Integration</b> - optional read-only MCP report tools.</p>
-                    <p><b>Operations</b> - cron and troubleshooting.</p>
+                    <p><b>Installation:</b> dependencies, upgrades, and access.</p>
+                    <p><b>Dashboards:</b> categories, pages, and block structure.</p>
+                    <p><b>Visualizations:</b> charts, tables, maps, and filters.</p>
+                    <p><b>Reports:</b> <a href="relatorios.html">19 categories, report catalog, MySQL/PostgreSQL, and
+                        imports</a>.</p>
+                    <p><b>Learning Analytics:</b> dashboards, snapshots, and risk rules.</p>
+                    <p><b>Security:</b> capabilities, visibility, and personal data.</p>
+                    <p><b>Integrations:</b> optional read-only access via MCP.</p>
+                    <p><b>Operations:</b> cron, maintenance, and troubleshooting.</p>
                 </div>
             </section>
             <div class="cards">
-                <a class="card-link" href="instalacao.html"><strong>Installation</strong><span>Required dependency, installation paths and Moodle setup. →</span></a>
-                <a class="card-link" href="dashboards.html"><strong>Dashboards</strong><span>Arrange categories, pages, blocks and visual elements. →</span></a>
-                <a class="card-link" href="visualizacoes.html"><strong>Charts and filters</strong><span>Eight block families and four built-in filter subplugins. →</span></a>
-                <a class="card-link" href="relatorios.html"><strong>Reports</strong><span>Bundled reports, MySQL/PostgreSQL variants and safe refreshes. →</span></a>
-                <a class="card-link" href="learning-analytics.html"><strong>Learning Analytics</strong><span>Six dashboards, scheduled snapshots and configurable thresholds. →</span></a>
-                <a class="card-link" href="integracoes.html"><strong>MCP integration</strong><span>Read saved Kopere BI report data through discoverable read-only tools. →</span></a>
-                <a class="card-link" href="operacao.html"><strong>Operations</strong><span>Scheduled maintenance, database performance and missing-data checks. →</span></a>
+                <a class="card-link" href="instalacao.html"><strong>Installation</strong><span>Set up dependencies, install the plugin, and configure Moodle. →</span></a>
+                <a class="card-link" href="dashboards.html"><strong>Dashboards</strong><span>Structure reports using categories, pages, blocks, and elements. →</span></a>
+                <a class="card-link" href="visualizacoes.html"><strong>Charts and filters</strong><span>Explore visualization types and good practices for presenting data. →</span></a>
+                <a class="card-link" href="relatorios.html"><strong>Reports</strong><span>127 reports across 19 categories, with MySQL and PostgreSQL definitions. →</span></a>
+                <a class="card-link" href="learning-analytics.html"><strong>Learning Analytics</strong><span>Six dashboards, aggregated snapshots, and adjustable student risk rules. →</span></a>
+                <a class="card-link" href="integracoes.html"><strong>MCP integration</strong><span>Query saved reports through read-only tools without exposing arbitrary SQL. →</span></a>
+                <a class="card-link" href="operacao.html"><strong>Operations</strong><span>Scheduled tasks, query costs, consistency, and troubleshooting. →</span></a>
             </div>
             <nav class="pager" aria-label="Documentation navigation"><span></span>
                 <a href="instalacao.html">Installation →</a>
@@ -98,7 +111,7 @@
     </main>
 </div>
 <footer class="foot">
-Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a>
+    Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a>
     · GPL v3 · Documentation based on the plugin source code.
 </footer>
 </body>

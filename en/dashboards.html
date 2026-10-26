@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Structure reports using categories, pages, blocks, and elements.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Dashboards and organization · Kopere BI</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../site.css">
+    <link rel="stylesheet" href="accessibility.css">
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/dashboards.html">
+    <link rel="alternate" hreflang="en"
+          href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/dashboards.html">
+    <link rel="alternate" hreflang="pt-BR"
+          href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/dashboards.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Dashboards and organization · Kopere BI">
+    <meta property="og:description" content="Structure reports using categories, pages, blocks, and elements.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/dashboards.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../pt_br/dashboards.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="index.html">Overview</a>
+            <a href="instalacao.html">Installation</a>
+            <a href="dashboards.html" class="active" aria-current="page">Dashboards</a>
+            <a href="visualizacoes.html">Charts and filters</a>
+            <a href="relatorios.html">Reports</a>
+            <a href="learning-analytics.html">Learning Analytics</a>
+            <a href="integracoes.html">MCP integration</a>
+            <a href="operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="index.html">Kopere BI</a> / Dashboards
+            </nav>
+            <div class="kicker">MOODLE PLUGIN DOCUMENTATION</div>
+            <h1>Dashboards and organization</h1>
+            <p class="lead">Structure reports using categories, pages, blocks, and elements.</p>
+            <div class="separator">
+            </div>
+            <section aria-labelledby="s0">
+                <h2 id="s0">Content structure</h2>
+                <p>Kopere BI organizes content into <strong>categories</strong> and <strong>report pages</strong>.
+                    Each page contains visually arranged blocks, and each block holds elements populated by
+                    queries or other data sources available in the plugin.</p>
+                <div class="diagram">
+                    <span>Category</span><b>→</b><span>Page</span><b>→</b><span>Blocks</span><b>→</b><span>Elements</span>
+                </div>
+                <p>This makes it possible to combine a completion indicator, a student table, and a progress
+                    chart on the same page while keeping filters and access rules appropriate for the report.</p>
+            </section>
+            <section aria-labelledby="s1">
+                <h2 id="s1">Build a useful report page</h2>
+                <ol class="steps">
+                    <li>Define the question the report should answer, such as “Which courses need attention?”</li>
+                    <li>Create or select a category, register a page, and choose the block layout.</li>
+                    <li>Add visualizations to each block and configure the data source, labels, and cache lifetime.</li>
+                    <li>Attach course, date range, cohort, or user filters when they make sense for the SQL query.</li>
+                    <li>Test with an account that only has viewing permission, not just an administrator account.</li>
+                </ol>
+            </section>
+            <section aria-labelledby="s2">
+                <h2 id="s2">SQL, formatting, and caching</h2>
+                <p>Elements can use SQL and customize titles and columns; tables support Mustache formatting
+                    for displayed values. Set cache lifetimes according to query cost and required freshness:
+                    running a heavy aggregation every time someone reloads a page makes little sense.</p>
+                <p>When creating custom reports, verify the database engine and use bound parameters, correct
+                    escaping, and access checks. A technically valid query does not mean that every user should
+                    be allowed to see the records it returns.</p>
+            </section>
+            <section aria-labelledby="s3">
+                <h2 id="s3">Import and export</h2>
+                <p>The code includes a JSON representation for reports, and the interface provides
+                    dashboard import and export features. Before publishing a definition moved between
+                    environments, review its <code>refkey</code>, database requirements, associated
+                    capability, and SQL fields.</p>
+            </section>
+            <nav class="pager" aria-label="Documentation navigation">
+                <a href="instalacao.html">← Installation</a>
+                <a href="visualizacoes.html">Charts and filters →</a>
+            </nav>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a>
+    · GPL v3 · Documentation based on the plugin source code.
+</footer>
+</body>
+</html>
