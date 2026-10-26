@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Summary of the selected course with enrolled participants, tracked users, course and activity completions, visits, recorded time, and assigned teachers.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Course access | Report 035 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/035.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/035.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/035.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Course access | Report 035 · Kopere BI">
+    <meta property="og:description" content="Summary of the selected course with enrolled participants, tracked users, course and activity completions, visits, recorded time, and assigned teachers.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/035.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/035.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/courses.html">Courses and content</a> / 035
+            </nav>
+            <div class="kicker">REPORT 035</div>
+            <h1>Course access</h1>
+            <p class="lead">Summary of the selected course with enrolled participants, tracked users, course and activity completions, visits, recorded time, and assigned teachers.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Summary of the selected course with enrolled participants, tracked users, course and activity completions, visits, recorded time, and assigned teachers.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps administrators and managers examine a specific course, compare enrolments against tracking records, and review completions, visits, and usage captured by Kopere BI.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The available dynamic filter is <strong>Course</strong>, associated with <code>:courseid</code>, which occurs <strong>five times in each SQL variant</strong>: in course completion, activity completion, enrolment, and tracking subqueries and in the main course selection.</p>
+                <p>Fixed conditions require a course with an ID greater than <code>1</code> that is visible (<code>kbi_c.visible =
+                    1</code>), enrolments and enrolment methods with status <code>0</code>, course completion with <code>timecompleted &gt; 0</code>, and activities in completion states <code>1</code> or <code>2</code>. Teachers are identified by role ID <code>3</code> in the course context. There is no dynamic time filter.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains two complete SQL queries, cache settings, and Prism.js syntax highlighting. The MySQL and PostgreSQL variants appear in separate panels of the same visualization.</p>
+                <details class="report-block" open>
+                    <summary>1. Course access · Table</summary>
+                    <div class="inner">
+                        <p>The table displays the course name, category, and start date; users with tracking data; enrolments classified as active by their recorded status; a calculated inactive-user difference; formal course and activity completions; total time and visits; latest recorded access; and assigned teachers' names.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
+       kbi_c.fullname,
+       kbi_c.shortname,
+       kbi_ca.name                             AS category,
+       kbi_c.startdate,
+       x.users,
+       (ue.enrolled - x.users)             AS inactiveusers,
+       ue.enrolled,
+       cc.completed,
+       x.timespend,
+       x.visits,
+       x.lastaccess,
+       completed_activities,
+       (SELECT GROUP_CONCAT(DISTINCT CONCAT(kbi_u.firstname, &#39; &#39;, kbi_u.lastname) SEPARATOR &#39;, &#39;)
+        FROM mdl_role_assignments kbi_ra
+               JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id
+               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+        WHERE kbi_ctx.instanceid = kbi_c.id
+          AND kbi_ctx.contextlevel = 50
+          AND kbi_ra.roleid = 3) AS teacher
+FROM mdl_course kbi_c
+       LEFT JOIN mdl_course_categories kbi_ca ON kbi_ca.id = kbi_c.category
+       LEFT JOIN (SELECT course, COUNT(*) AS completed
+                  FROM mdl_course_completions
+                  WHERE timecompleted &gt; 0
+                    AND course = :courseid
+                  GROUP BY course) cc ON cc.course = kbi_c.id
+       LEFT JOIN (SELECT kbi_cc.course, COUNT(*) as completed_activities
+                  FROM mdl_course_modules_completion kbi_cmc
+                         JOIN mdl_course_modules kbi_cc ON kbi_cc.id = kbi_cmc.coursemoduleid
+                  WHERE 1 = 1
+                    AND kbi_cmc.completionstate IN (1, 2)
+                    AND kbi_cc.course = :courseid
+                  GROUP BY kbi_cc.course) compl ON compl.course = kbi_c.id
+       LEFT JOIN (SELECT kbi_e.courseid, COUNT(DISTINCT kbi_ue.userid) AS enrolled
+                  FROM mdl_enrol kbi_e
+                         JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id
+                  WHERE 1 = 1
+                    AND kbi_ue.status = 0
+                    AND kbi_e.status = 0
+                    AND kbi_e.courseid = :courseid
+                  GROUP BY kbi_e.courseid) ue ON ue.courseid = kbi_c.id
+       LEFT JOIN (SELECT kbi_t.courseid,
+                         COUNT(DISTINCT kbi_t.userid) as users,
+                         MAX(lastaccess)          AS lastaccess,
+                         SUM(kbi_l.timespend)         AS timespend,
+                         SUM(kbi_l.visits)            AS visits
+                  FROM mdl_local_kopere_bi_tracking kbi_t
+                         JOIN mdl_local_kopere_bi_track_log kbi_l ON kbi_l.trackid = kbi_t.id
+                  WHERE 1 = 1
+                    AND kbi_t.courseid = :courseid
+                  GROUP BY kbi_t.courseid) x ON x.courseid = kbi_c.id
+WHERE kbi_c.id &gt; 1
+  AND kbi_c.id = :courseid
+  AND kbi_c.visible = 1</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
+       kbi_c.fullname,
+       kbi_c.shortname,
+       kbi_ca.name                             AS category,
+       kbi_c.startdate,
+       x.users,
+       (ue.enrolled - x.users)             AS inactiveusers,
+       ue.enrolled,
+       cc.completed,
+       x.timespend,
+       x.visits,
+       x.lastaccess,
+       completed_activities,
+       (SELECT STRING_AGG(DISTINCT (CONCAT(kbi_u.firstname, &#39; &#39;, kbi_u.lastname))::text, &#39;, &#39;)
+        FROM mdl_role_assignments kbi_ra
+               JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id
+               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+        WHERE kbi_ctx.instanceid = kbi_c.id
+          AND kbi_ctx.contextlevel = 50
+          AND kbi_ra.roleid = 3) AS teacher
+FROM mdl_course kbi_c
+       LEFT JOIN mdl_course_categories kbi_ca ON kbi_ca.id = kbi_c.category
+       LEFT JOIN(SELECT course, COUNT(*) AS completed
+                  FROM mdl_course_completions
+                  WHERE timecompleted &gt; 0
+                    AND course = :courseid
+                  GROUP BY course) cc ON cc.course = kbi_c.id
+       LEFT JOIN(SELECT kbi_cc.course, COUNT(*) as completed_activities
+                  FROM mdl_course_modules_completion kbi_cmc
+                         JOIN mdl_course_modules kbi_cc ON kbi_cc.id = kbi_cmc.coursemoduleid
+                  WHERE 1 = 1
+                    AND kbi_cmc.completionstate IN(1, 2)
+                    AND kbi_cc.course = :courseid
+                  GROUP BY kbi_cc.course) compl ON compl.course = kbi_c.id
+       LEFT JOIN(SELECT kbi_e.courseid, COUNT(DISTINCT kbi_ue.userid) AS enrolled
+                  FROM mdl_enrol kbi_e
+                         JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id
+                  WHERE 1 = 1
+                    AND kbi_ue.status = 0
+                    AND kbi_e.status = 0
+                    AND kbi_e.courseid = :courseid
+                  GROUP BY kbi_e.courseid) ue ON ue.courseid = kbi_c.id
+       LEFT JOIN(SELECT kbi_t.courseid,
+                         COUNT(DISTINCT kbi_t.userid) as users,
+                         MAX(lastaccess)          AS lastaccess,
+                         SUM(kbi_l.timespend)         AS timespend,
+                         SUM(kbi_l.visits)            AS visits
+                  FROM mdl_local_kopere_bi_tracking kbi_t
+                         JOIN mdl_local_kopere_bi_track_log kbi_l ON kbi_l.trackid = kbi_t.id
+                  WHERE 1 = 1
+                    AND kbi_t.courseid = :courseid
+                  GROUP BY kbi_t.courseid) x ON x.courseid = kbi_c.id
+WHERE kbi_c.id &gt; 1
+  AND kbi_c.id = :courseid
+  AND kbi_c.visible = 1</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The <code>inactiveusers</code> column calculates <code>ue.enrolled - x.users</code>, the difference between enrolled users and users appearing in tracking records. It applies no inactivity threshold and does not necessarily identify inactive users.</li>
+                    <li>The <code>x.users</code> count includes distinct users with tracking records linked to logs, even when those users no longer have active enrolments. The <code>inactiveusers</code> difference may therefore be negative.</li>
+                    <li>If a subquery has no records, <code>LEFT JOIN</code> operations may produce <code>NULL</code> values. Missing data should not automatically be interpreted as zero.</li>
+                    <li>The <code>completed_activities</code> field counts module completion records, not the number of distinct completed modules or the number of students who completed them.</li>
+                    <li>The <code>completed</code> field counts formal course completions with a recorded date, without directly restricting them to users with active enrolments in the corresponding subquery.</li>
+                    <li>Visit, time, and last-access values depend on Kopere BI logs and tracking data. There is no selectable date range, and the last activity is taken from the tracking source.</li>
+                    <li>Teacher names are aggregated with <code>GROUP_CONCAT</code> in MySQL and <code>STRING_AGG</code> in PostgreSQL. Each query variant must be used with the compatible database.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-035.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-035-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="034.html">← Report 034</a>
+                <a href="036.html">Report 036 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-035">
+                <h2 id="related-title-035">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="036.html"><span class="related-number">Report 036</span><span
+                            class="related-title">Course access details</span><span class="related-category">Courses and content</span></a>
+                    <a class="related-card" href="091.html"><span class="related-number">Report 091</span><span
+                            class="related-title">Course access by day and time period</span><span
+                            class="related-category">Courses and content</span></a>
+                    <a class="related-card" href="099.html"><span class="related-number">Report 099</span><span
+                            class="related-title">Students who have not accessed the course</span><span class="related-category">Students</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/courses.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
