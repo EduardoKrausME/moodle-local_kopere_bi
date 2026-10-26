@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Unified table of recent assignment submissions and quiz questions awaiting grading, with deadlines, waiting time, and teachers associated with the courses.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Items awaiting grading | Report 052 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/052.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/052.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/052.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Items awaiting grading | Report 052 · Kopere BI">
+    <meta property="og:description" content="Unified table of recent assignment submissions and quiz questions awaiting grading, with deadlines, waiting time, and teachers associated with the courses.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/052.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/052.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/grades.html">Grades and assessments</a> / 052
+            </nav>
+            <div class="kicker">REPORT 052</div>
+            <h1>Items awaiting grading</h1>
+            <p class="lead">Unified table of recent assignment submissions and quiz questions awaiting grading, with deadlines, waiting time, and teachers associated with the courses.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Unified table of recent assignment submissions and quiz questions awaiting grading, with deadlines, waiting time, and teachers associated with the courses.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps teachers and academic teams find submitted work and questions needing assessment, prioritizing items beyond their activity deadline or awaiting grading for longer.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, teacher, student, or date range. Both variants cover all visible courses and modules, exclude deleted, suspended, and <code>guest</code> accounts, and require active enrolments and enrolment methods within their validity period.</p>
+                <p>For assignments, the query selects the latest submission with <code>status = 'submitted'</code> and a missing or negative grade, or a grade older than the last submission change. For quiz questions, it considers finished, non-preview attempts whose last step has the <code>needsgrading</code> state. Each SQL query has a <strong>fixed limit of 500 results</strong>.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization includes two complete SQL queries, cache and refresh settings, and Prism.js syntax highlighting. The MySQL and PostgreSQL variants appear in separate panels within the same block.</p>
+                <details class="report-block" open>
+                    <summary>1. Items awaiting grading · Table</summary>
+                    <div class="inner">
+                        <p>The pending-item table combines assignment submissions with no valid grade or modified after their last grading and questions from finished quiz attempts whose latest step is needsgrading. It shows the course, activity, student, course teachers, deadline, submission date, attempt details when applicable, overdue indicator, and days waiting.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_waiting.*,
+       CASE WHEN kbi_waiting.duedate &gt; 0 AND kbi_waiting.duedate &lt; UNIX_TIMESTAMP()
+            THEN 1 ELSE 0 END AS is_overdue,
+       CASE WHEN kbi_waiting.submitted_at &gt; 0
+            THEN FLOOR((UNIX_TIMESTAMP() - kbi_waiting.submitted_at) / 86400.0)
+            ELSE NULL END AS waiting_days
+FROM (
+       SELECT CONCAT(&#39;assign-&#39;, kbi_s.id) AS id,
+              kbi_c.id                   AS courseid,
+              kbi_c.fullname             AS course,
+              kbi_cm.id                  AS cmid,
+              kbi_a.id                   AS activityid,
+              kbi_a.name                 AS activity_name,
+              &#39;assign&#39;                   AS activity_type,
+              kbi_u.id                   AS userid,
+              kbi_u.firstname,
+              kbi_u.lastname,
+              kbi_u.email,
+              kbi_a.duedate,
+              kbi_s.timemodified         AS submitted_at,
+              kbi_g.timemodified         AS graded_at,
+              NULL                       AS slot,
+              NULL                       AS attemptid,
+              NULL                       AS question_name,
+              kbi_teachers.teacher_names AS teachers
+       FROM mdl_assign_submission kbi_s
+              JOIN mdl_assign kbi_a ON kbi_a.id = kbi_s.assignment
+              JOIN mdl_course kbi_c ON kbi_c.id = kbi_a.course
+              JOIN mdl_modules kbi_m ON kbi_m.name = &#39;assign&#39;
+              JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id
+                    AND kbi_cm.module = kbi_m.id
+                    AND kbi_cm.instance = kbi_a.id
+              JOIN mdl_user kbi_u ON kbi_u.id = kbi_s.userid
+              LEFT JOIN mdl_assign_grades kbi_g ON kbi_g.assignment = kbi_s.assignment
+                    AND kbi_g.userid = kbi_s.userid
+                    AND kbi_g.attemptnumber = kbi_s.attemptnumber
+              LEFT JOIN (
+                    SELECT kbi_ctx.instanceid AS courseid,
+                           GROUP_CONCAT(DISTINCT CONCAT(kbi_t.firstname, &#39; &#39;, kbi_t.lastname) ORDER BY kbi_t.lastname, kbi_t.firstname SEPARATOR &#39;, &#39;) AS teacher_names
+                    FROM mdl_role_assignments kbi_ra
+                           JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid AND kbi_r.shortname IN (&#39;editingteacher&#39;, &#39;teacher&#39;)
+                           JOIN mdl_user kbi_t ON kbi_t.id = kbi_ra.userid
+                           JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+                    WHERE kbi_t.deleted = 0
+                      AND kbi_t.suspended = 0
+                    GROUP BY kbi_ctx.instanceid
+              ) kbi_teachers ON kbi_teachers.courseid = kbi_c.id
+       WHERE kbi_s.latest = 1
+         AND kbi_s.status = &#39;submitted&#39;
+         AND (kbi_g.id IS NULL OR kbi_g.grade IS NULL OR kbi_g.grade &lt; 0 OR kbi_s.timemodified &gt; COALESCE(kbi_g.timemodified, 0))
+         AND kbi_c.visible = 1
+         AND kbi_cm.visible = 1
+         AND EXISTS (
+               SELECT 1 FROM mdl_user_enrolments kbi_ue
+               JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+              WHERE kbi_e.courseid = kbi_c.id AND kbi_ue.userid = kbi_u.id
+                AND kbi_e.status = 0 AND kbi_ue.status = 0
+                AND (kbi_ue.timestart = 0 OR kbi_ue.timestart &lt;= UNIX_TIMESTAMP())
+                AND (kbi_ue.timeend = 0 OR kbi_ue.timeend &gt; UNIX_TIMESTAMP()))
+         AND kbi_u.deleted = 0
+         AND kbi_u.suspended = 0
+         AND kbi_u.username &lt;&gt; &#39;guest&#39;
+
+       UNION ALL
+
+       SELECT CONCAT(&#39;quiz-&#39;, kbi_qa.id, &#39;-&#39;, kbi_qatt.id) AS id,
+              kbi_c.id                                    AS courseid,
+              kbi_c.fullname                              AS course,
+              kbi_cm.id                                   AS cmid,
+              kbi_qz.id                                   AS activityid,
+              kbi_qz.name                                 AS activity_name,
+              &#39;quiz&#39;                                      AS activity_type,
+              kbi_u.id                                    AS userid,
+              kbi_u.firstname,
+              kbi_u.lastname,
+              kbi_u.email,
+              kbi_qz.timeclose                            AS duedate,
+              kbi_qa.timefinish                           AS submitted_at,
+              NULL                                        AS graded_at,
+              kbi_qatt.slot                               AS slot,
+              kbi_qa.id                                   AS attemptid,
+              kbi_q.name                                  AS question_name,
+              kbi_teachers.teacher_names                  AS teachers
+       FROM mdl_quiz_attempts kbi_qa
+              JOIN mdl_quiz kbi_qz ON kbi_qz.id = kbi_qa.quiz
+              JOIN mdl_course kbi_c ON kbi_c.id = kbi_qz.course
+              JOIN mdl_user kbi_u ON kbi_u.id = kbi_qa.userid
+              JOIN mdl_question_attempts kbi_qatt ON kbi_qatt.questionusageid = kbi_qa.uniqueid
+              JOIN mdl_question kbi_q ON kbi_q.id = kbi_qatt.questionid
+              JOIN mdl_question_attempt_steps kbi_qas ON kbi_qas.questionattemptid = kbi_qatt.id
+                    AND kbi_qas.sequencenumber = (
+                        SELECT MAX(kbi_qas2.sequencenumber)
+                        FROM mdl_question_attempt_steps kbi_qas2
+                        WHERE kbi_qas2.questionattemptid = kbi_qatt.id
+                    )
+              JOIN mdl_modules kbi_m ON kbi_m.name = &#39;quiz&#39;
+              JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id
+                    AND kbi_cm.module = kbi_m.id
+                    AND kbi_cm.instance = kbi_qz.id
+              LEFT JOIN (
+                    SELECT kbi_ctx.instanceid AS courseid,
+                           GROUP_CONCAT(DISTINCT CONCAT(kbi_t.firstname, &#39; &#39;, kbi_t.lastname) ORDER BY kbi_t.lastname, kbi_t.firstname SEPARATOR &#39;, &#39;) AS teacher_names
+                    FROM mdl_role_assignments kbi_ra
+                           JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid AND kbi_r.shortname IN (&#39;editingteacher&#39;, &#39;teacher&#39;)
+                           JOIN mdl_user kbi_t ON kbi_t.id = kbi_ra.userid
+                           JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+                    WHERE kbi_t.deleted = 0
+                      AND kbi_t.suspended = 0
+                    GROUP BY kbi_ctx.instanceid
+              ) kbi_teachers ON kbi_teachers.courseid = kbi_c.id
+       WHERE kbi_qa.preview = 0
+         AND kbi_qa.state = &#39;finished&#39;
+         AND kbi_qas.state = &#39;needsgrading&#39;
+         AND kbi_c.visible = 1
+         AND kbi_cm.visible = 1
+         AND EXISTS (
+               SELECT 1 FROM mdl_user_enrolments kbi_ue
+               JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+              WHERE kbi_e.courseid = kbi_c.id AND kbi_ue.userid = kbi_u.id
+                AND kbi_e.status = 0 AND kbi_ue.status = 0
+                AND (kbi_ue.timestart = 0 OR kbi_ue.timestart &lt;= UNIX_TIMESTAMP())
+                AND (kbi_ue.timeend = 0 OR kbi_ue.timeend &gt; UNIX_TIMESTAMP()))
+         AND kbi_u.deleted = 0
+         AND kbi_u.suspended = 0
+         AND kbi_u.username &lt;&gt; &#39;guest&#39;
+) kbi_waiting
+ORDER BY kbi_waiting.course, kbi_waiting.activity_name, kbi_waiting.submitted_at DESC
+LIMIT 500</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_waiting.*,
+       CASE WHEN kbi_waiting.duedate &gt; 0 AND kbi_waiting.duedate &lt; EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)
+            THEN 1 ELSE 0 END AS is_overdue,
+       CASE WHEN kbi_waiting.submitted_at &gt; 0
+            THEN FLOOR((EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) - kbi_waiting.submitted_at) / 86400.0)
+            ELSE NULL END AS waiting_days
+FROM (
+       SELECT CONCAT(&#39;assign-&#39;, kbi_s.id) AS id,
+              kbi_c.id                   AS courseid,
+              kbi_c.fullname             AS course,
+              kbi_cm.id                  AS cmid,
+              kbi_a.id                   AS activityid,
+              kbi_a.name                 AS activity_name,
+              &#39;assign&#39;                   AS activity_type,
+              kbi_u.id                   AS userid,
+              kbi_u.firstname,
+              kbi_u.lastname,
+              kbi_u.email,
+              kbi_a.duedate,
+              kbi_s.timemodified         AS submitted_at,
+              kbi_g.timemodified         AS graded_at,
+              NULL                       AS slot,
+              NULL                       AS attemptid,
+              NULL                       AS question_name,
+              kbi_teachers.teacher_names AS teachers
+       FROM mdl_assign_submission kbi_s
+              JOIN mdl_assign kbi_a ON kbi_a.id = kbi_s.assignment
+              JOIN mdl_course kbi_c ON kbi_c.id = kbi_a.course
+              JOIN mdl_modules kbi_m ON kbi_m.name = &#39;assign&#39;
+              JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id
+                    AND kbi_cm.module = kbi_m.id
+                    AND kbi_cm.instance = kbi_a.id
+              JOIN mdl_user kbi_u ON kbi_u.id = kbi_s.userid
+              LEFT JOIN mdl_assign_grades kbi_g ON kbi_g.assignment = kbi_s.assignment
+                    AND kbi_g.userid = kbi_s.userid
+                    AND kbi_g.attemptnumber = kbi_s.attemptnumber
+              LEFT JOIN(
+                    SELECT kbi_ctx.instanceid AS courseid,
+                           STRING_AGG(DISTINCT (CONCAT(kbi_t.firstname, &#39; &#39;, kbi_t.lastname))::text, &#39;, &#39; ORDER BY (CONCAT(kbi_t.firstname, &#39; &#39;, kbi_t.lastname))::text) AS teacher_names
+                    FROM mdl_role_assignments kbi_ra
+                           JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid AND kbi_r.shortname IN(&#39;editingteacher&#39;, &#39;teacher&#39;)
+                           JOIN mdl_user kbi_t ON kbi_t.id = kbi_ra.userid
+                           JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+                    WHERE kbi_t.deleted = 0
+                      AND kbi_t.suspended = 0
+                    GROUP BY kbi_ctx.instanceid
+              ) kbi_teachers ON kbi_teachers.courseid = kbi_c.id
+       WHERE kbi_s.latest = 1
+         AND kbi_s.status = &#39;submitted&#39;
+         AND(kbi_g.id IS NULL OR kbi_g.grade IS NULL OR kbi_g.grade &lt; 0 OR kbi_s.timemodified &gt; COALESCE(kbi_g.timemodified, 0))
+         AND kbi_c.visible = 1
+         AND kbi_cm.visible = 1
+         AND EXISTS (
+               SELECT 1 FROM mdl_user_enrolments kbi_ue
+               JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+              WHERE kbi_e.courseid = kbi_c.id AND kbi_ue.userid = kbi_u.id
+                AND kbi_e.status = 0 AND kbi_ue.status = 0
+                AND (kbi_ue.timestart = 0 OR kbi_ue.timestart &lt;= EXTRACT(EPOCH FROM CURRENT_TIMESTAMP))
+                AND (kbi_ue.timeend = 0 OR kbi_ue.timeend &gt; EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)))
+         AND kbi_u.deleted = 0
+         AND kbi_u.suspended = 0
+         AND kbi_u.username &lt;&gt; &#39;guest&#39;
+
+       UNION ALL
+
+       SELECT CONCAT(&#39;quiz-&#39;, kbi_qa.id, &#39;-&#39;, kbi_qatt.id) AS id,
+              kbi_c.id                                    AS courseid,
+              kbi_c.fullname                              AS course,
+              kbi_cm.id                                   AS cmid,
+              kbi_qz.id                                   AS activityid,
+              kbi_qz.name                                 AS activity_name,
+              &#39;quiz&#39;                                      AS activity_type,
+              kbi_u.id                                    AS userid,
+              kbi_u.firstname,
+              kbi_u.lastname,
+              kbi_u.email,
+              kbi_qz.timeclose                            AS duedate,
+              kbi_qa.timefinish                           AS submitted_at,
+              NULL                                        AS graded_at,
+              kbi_qatt.slot                               AS slot,
+              kbi_qa.id                                   AS attemptid,
+              kbi_q.name                                  AS question_name,
+              kbi_teachers.teacher_names                  AS teachers
+       FROM mdl_quiz_attempts kbi_qa
+              JOIN mdl_quiz kbi_qz ON kbi_qz.id = kbi_qa.quiz
+              JOIN mdl_course kbi_c ON kbi_c.id = kbi_qz.course
+              JOIN mdl_user kbi_u ON kbi_u.id = kbi_qa.userid
+              JOIN mdl_question_attempts kbi_qatt ON kbi_qatt.questionusageid = kbi_qa.uniqueid
+              JOIN mdl_question kbi_q ON kbi_q.id = kbi_qatt.questionid
+              JOIN mdl_question_attempt_steps kbi_qas ON kbi_qas.questionattemptid = kbi_qatt.id
+                    AND kbi_qas.sequencenumber = (
+                        SELECT MAX(kbi_qas2.sequencenumber)
+                        FROM mdl_question_attempt_steps kbi_qas2
+                        WHERE kbi_qas2.questionattemptid = kbi_qatt.id
+                    )
+              JOIN mdl_modules kbi_m ON kbi_m.name = &#39;quiz&#39;
+              JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id
+                    AND kbi_cm.module = kbi_m.id
+                    AND kbi_cm.instance = kbi_qz.id
+              LEFT JOIN(
+                    SELECT kbi_ctx.instanceid AS courseid,
+                           STRING_AGG(DISTINCT (CONCAT(kbi_t.firstname, &#39; &#39;, kbi_t.lastname))::text, &#39;, &#39; ORDER BY (CONCAT(kbi_t.firstname, &#39; &#39;, kbi_t.lastname))::text) AS teacher_names
+                    FROM mdl_role_assignments kbi_ra
+                           JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid AND kbi_r.shortname IN(&#39;editingteacher&#39;, &#39;teacher&#39;)
+                           JOIN mdl_user kbi_t ON kbi_t.id = kbi_ra.userid
+                           JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+                    WHERE kbi_t.deleted = 0
+                      AND kbi_t.suspended = 0
+                    GROUP BY kbi_ctx.instanceid
+              ) kbi_teachers ON kbi_teachers.courseid = kbi_c.id
+       WHERE kbi_qa.preview = 0
+         AND kbi_qa.state = &#39;finished&#39;
+         AND kbi_qas.state = &#39;needsgrading&#39;
+         AND kbi_c.visible = 1
+         AND kbi_cm.visible = 1
+         AND EXISTS (
+               SELECT 1 FROM mdl_user_enrolments kbi_ue
+               JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+              WHERE kbi_e.courseid = kbi_c.id AND kbi_ue.userid = kbi_u.id
+                AND kbi_e.status = 0 AND kbi_ue.status = 0
+                AND (kbi_ue.timestart = 0 OR kbi_ue.timestart &lt;= EXTRACT(EPOCH FROM CURRENT_TIMESTAMP))
+                AND (kbi_ue.timeend = 0 OR kbi_ue.timeend &gt; EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)))
+         AND kbi_u.deleted = 0
+         AND kbi_u.suspended = 0
+         AND kbi_u.username &lt;&gt; &#39;guest&#39;
+) kbi_waiting
+ORDER BY kbi_waiting.course, kbi_waiting.activity_name, kbi_waiting.submitted_at DESC
+LIMIT 500</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The list is limited to <code>500</code> rows, ordered by course and activity before submission date. If more items are pending, the report may omit some, including the oldest items across the platform.</li>
+                    <li>The query has no course or date-range parameter. Status is filtered through fixed assignment and question conditions, while the waiting-day calculation uses the database's current time.</li>
+                    <li>The <code>is_overdue</code> field compares the activity's configured deadline with the current time. It does not necessarily mean the student submitted late; for quizzes it uses <code>timeclose</code>.</li>
+                    <li>The <code>waiting_days</code> field measures time since submission or attempt completion, not time since the deadline or when grading first became necessary. The calculation does not use business days.</li>
+                    <li>The teacher list includes users with course-context roles whose short names are <code>editingteacher</code> or <code>teacher</code>. It does not necessarily identify the teacher responsible for grading that submission.</li>
+                    <li>The union combines different levels of detail: one row per selected assignment submission and one row per question pending manual grading in a quiz attempt. Counting rows does not equal counting distinct students or activities.</li>
+                    <li>Results depend on grading rules, attempt steps, enrolment tables, and visibility. As student identities and email addresses are included, restrict access to authorized users.</li>
+                    <li>MySQL and PostgreSQL use database-specific date and name-aggregation functions. Refer to the complete variant for the database in use.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-052.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-052-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="051.html">← Report 051</a>
+                <a href="053.html">Report 053 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-052">
+                <h2 id="related-title-052">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="053.html"><span class="related-number">Report 053</span><span
+                            class="related-title">Gradebook by course category</span><span
+                            class="related-category">Grades and assessments</span></a>
+                    <a class="related-card" href="054.html"><span class="related-number">Report 054</span><span
+                            class="related-title">Gradebook overview</span><span class="related-category">Grades and assessments</span></a>
+                    <a class="related-card" href="121.html"><span class="related-number">Report 121</span><span
+                            class="related-title">Grade change history</span><span
+                            class="related-category">Grades and assessments</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/grades.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

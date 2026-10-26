@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Summarizes enrolments associated with enabled enrolment methods, showing course counts, enrolment records, and distinct users for each method type.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Enrolment method summary | Report 051 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/051.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/051.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/051.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Enrolment method summary | Report 051 · Kopere BI">
+    <meta property="og:description" content="Summarizes enrolments associated with enabled enrolment methods, showing course counts, enrolment records, and distinct users for each method type.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/051.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/051.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/enrollments.html">Enrolments and revenue</a> / 051
+            </nav>
+            <div class="kicker">REPORT 051</div>
+            <h1>Enrolment method summary</h1>
+            <p class="lead">Summarizes enrolments associated with enabled enrolment methods, showing course counts, enrolment records, and distinct users for each method type.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Summarizes enrolments associated with enabled enrolment methods, showing course counts, enrolment records, and distinct users for each method type.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps explain how enrolment methods are distributed across the platform and compare the volume of enrolment records, course coverage, and unique participants by method.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL filters</strong> for course, method, user, cohort, or time period. The query includes enrolment method instances with <code>kbi_e.id &gt; 0</code> and <code>kbi_e.status
+                        = 0</code>, as well as user enrolments with <code>kbi_ue.status = 0</code>.</p>
+                <p>Results are grouped by <code>kbi_e.enrol</code>, the enrolment method type code, and ordered by the number of enrolment records in descending order, followed by method name.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization includes one complete SQL query, cache settings, and Prism.js syntax highlighting. No separate PostgreSQL variant is provided in the original catalog.</p>
+                <details class="report-block" open>
+                    <summary>1. Enrolment method summary · Table</summary>
+                    <div class="inner">
+                        <p>One row per enrolment method code, displaying an aggregate method instance identifier, the number of distinct courses, the number of user enrolment records, and the number of distinct users.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT MAX(kbi_e.id)                  AS id,
+       kbi_e.enrol                    as enrol,
+       COUNT(DISTINCT kbi_e.courseid) as courses,
+       COUNT(kbi_ue.userid)           as users,
+       COUNT(DISTINCT kbi_ue.userid)  as uniusers
+FROM mdl_enrol kbi_e
+       LEFT JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id
+WHERE kbi_e.id &gt; 0
+  AND kbi_e.status = 0
+  AND kbi_ue.status = 0
+GROUP BY kbi_e.enrol
+ORDER BY users DESC, kbi_e.enrol</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The <code>users</code> field uses <code>COUNT(kbi_ue.userid)</code>, which counts enrolment records rather than distinct people. A person enrolled in multiple courses or methods may be counted several times.</li>
+                    <li>The <code>uniusers</code> field uses <code>COUNT(DISTINCT kbi_ue.userid)</code> to count distinct people within each method type, not a platform-wide deduplicated total.</li>
+                    <li>The <code>courses</code> column counts distinct courses associated with enrolments using the method, not necessarily every course where that method is configured.</li>
+                    <li>Although enrolments are joined using <code>LEFT JOIN</code>, the <code>kbi_ue.status = 0</code> condition in the <code>WHERE</code> clause excludes methods without matching enrolments, effectively making that join mandatory.</li>
+                    <li>The query does not filter course visibility or status, deleted or suspended users, enrolment start and end dates, or time periods.</li>
+                    <li>The displayed ID is <code>MAX(kbi_e.id)</code>, an aggregate identifier of one method instance, not a unique identifier for the method type throughout the platform.</li>
+                    <li>There is no separate PostgreSQL variant in the catalog; these totals do not represent payments, revenue, or course completions.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-051.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="050.html">← Report 050</a>
+                <a href="052.html">Report 052 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-051">
+                <h2 id="related-title-051">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="050.html"><span class="related-number">Report 050</span><span
+                            class="related-title">Enrolment method details</span><span
+                            class="related-category">Enrolments and revenue</span></a>
+                    <a class="related-card" href="004.html"><span class="related-number">Report 004</span><span
+                            class="related-title">Enrolment statistics</span><span class="related-category">Enrolments and revenue</span></a>
+                    <a class="related-card" href="005.html"><span class="related-number">Report 005</span><span
+                            class="related-title">Inactive enrolments</span><span class="related-category">Enrolments and revenue</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/enrollments.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
