@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Expanded summary of the selected course covering enrolments, completions, grades, recorded usage, visible modules, categories, and teacher and student indicators.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Advanced course statistics | Report 044 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/044.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/044.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/044.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Advanced course statistics | Report 044 · Kopere BI">
+    <meta property="og:description" content="Expanded summary of the selected course covering enrolments, completions, grades, recorded usage, visible modules, categories, and teacher and student indicators.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/044.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/044.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/courses.html">Courses and content</a> / 044
+            </nav>
+            <div class="kicker">REPORT 044</div>
+            <h1>Advanced course statistics</h1>
+            <p class="lead">Expanded summary of the selected course covering enrolments, completions, grades, recorded usage, visible modules, categories, and teacher and student indicators.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Expanded summary of the selected course covering enrolments, completions, grades, recorded usage, visible modules, categories, and teacher and student indicators.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps management teams compare performance indicators, activity provision, and teacher and student tracking data for a more comprehensive operational assessment of a course.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The effective dynamic filter is <strong>Course</strong>, indicated by <code>:courseid</code> and used <strong>five times in each SQL variant</strong>: in the student and grade aggregation, overall tracking, teacher query, student tracking average, and main course selection.</p>
+                <p>Fixed criteria include a visible course, enrolments and enrolment methods with status <code>0</code>, student role ID <code>5</code>, teacher role ID <code>3</code> in the course context, and visible modules with <code>deletioninprogress = 0</code>. Neither database variant defines a time filter.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization includes two complete original SQL queries, cache settings, and Prism.js syntax highlighting. MySQL and PostgreSQL appear in separate panels within the same visualization.</p>
+                <details class="report-block" open>
+                    <summary>1. Advanced course statistics · Table</summary>
+                    <div class="inner">
+                        <p>The table combines the course name and identifier, average grades, enrolments and formal completions, recorded visits and time, count of visible modules not being deleted, category and parent category, associated teachers and their count, teachers' recorded time, and average recorded time for students.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
+       kbi_c.fullname                                                          AS course,
+       kbi_c.shortname,
+       kbi_c.timecreated                                                       AS created,
+       kbi_c.idnumber,
+       kbi_c.enablecompletion,
+       kbi_c.visible,
+       MAX(e.grade)                                                        AS grade,
+       MAX(l.timespend)                                                    AS timespend,
+       MAX(l.visits)                                                       AS visits,
+       MAX(e.completed)                                                    AS completed,
+       MAX(e.learners)                                                     AS learners,
+       (SELECT COUNT(id) FROM mdl_course_modules WHERE course = kbi_c.id
+                                                   AND deletioninprogress = 0
+                                                   AND visible = 1)        AS modules,
+       MAX(kbi_cat.name)                                                       AS category,
+       (SELECT name FROM mdl_course_categories WHERE id = MAX(kbi_cat.parent)) AS parent_category,
+       MAX(t.teachers)                                                     AS teachers,
+       MAX(t.teachers_count)                                               AS teachers_count,
+       MAX(t.teachers_timespend)                                           AS teachers_timespend,
+       MAX(s.avg_learners_timespend)                                       AS avg_learners_timespend
+FROM mdl_course kbi_c
+       JOIN (SELECT kbi_e.courseid,
+                    ROUND(AVG(CASE
+                                WHEN kbi_g.rawgrademax &gt; 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                                ELSE kbi_g.finalgrade END), 0) AS grade,
+                    COUNT(DISTINCT kbi_cc.userid)              AS completed,
+                    COUNT(DISTINCT kbi_ue.userid)              AS learners
+             FROM mdl_enrol kbi_e
+                    JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id
+                    JOIN mdl_context kbi_ctx ON kbi_ctx.instanceid = kbi_e.courseid AND kbi_ctx.contextlevel = 50
+                    JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_ctx.id AND kbi_ra.userid = kbi_ue.userid
+                    LEFT JOIN mdl_course_completions kbi_cc
+                      ON kbi_cc.timecompleted &gt; 0 AND kbi_cc.course = kbi_e.courseid AND kbi_cc.userid = kbi_ue.userid
+                    JOIN mdl_grade_items kbi_gi ON kbi_gi.itemtype = &#39;course&#39; AND kbi_gi.courseid = kbi_e.courseid
+                    LEFT JOIN mdl_grade_grades kbi_g
+                      ON kbi_g.userid = kbi_ue.userid AND kbi_g.itemid = kbi_gi.id AND kbi_g.finalgrade IS NOT NULL
+             WHERE kbi_e.courseid &gt; 0
+               AND kbi_e.courseid = :courseid
+               AND kbi_ue.status = 0
+               AND kbi_e.status = 0
+               AND kbi_ra.roleid = 5
+             GROUP BY kbi_e.courseid) e ON e.courseid = kbi_c.id
+       LEFT JOIN (SELECT courseid, SUM(timespend) AS timespend, SUM(visits) AS visits
+                  FROM (SELECT kbi_ctx.instanceid, kbi_ra.userid
+                        FROM mdl_role_assignments kbi_ra
+                               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+                        WHERE kbi_ctx.contextlevel = 50
+                          AND kbi_ctx.instanceid = :courseid
+                        GROUP BY kbi_ctx.instanceid, kbi_ra.userid) cu
+                         LEFT JOIN mdl_local_kopere_bi_tracking kbi_ltu
+                           ON kbi_ltu.courseid = cu.instanceid AND kbi_ltu.userid = cu.userid
+                  WHERE cu.instanceid &gt; 0
+                  GROUP BY kbi_ltu.courseid) l ON l.courseid = kbi_c.id
+       LEFT JOIN mdl_course_categories kbi_cat ON kbi_cat.id = kbi_c.category
+       LEFT JOIN (SELECT ct.instanceid,
+                         GROUP_CONCAT(DISTINCT CONCAT(kbi_u.firstname, &#39; &#39;, kbi_u.lastname) SEPARATOR &#39;, &#39;) AS teachers,
+                         COUNT(DISTINCT kbi_u.id)                                                       AS teachers_count,
+                         SUM(timespend)                                                             AS teachers_timespend
+                  FROM (SELECT kbi_ctx.instanceid, kbi_ra.userid
+                        FROM mdl_role_assignments kbi_ra
+                               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+                        WHERE kbi_ctx.contextlevel = 50
+                          AND kbi_ctx.instanceid = :courseid
+                          AND kbi_ra.roleid = 3
+                        GROUP BY kbi_ctx.instanceid, kbi_ra.userid) ct
+                         JOIN mdl_user kbi_u ON ct.userid = kbi_u.id
+                         LEFT JOIN mdl_local_kopere_bi_tracking kbi_lit
+                           ON kbi_lit.courseid = ct.instanceid AND kbi_lit.userid = kbi_u.id
+                  GROUP BY ct.instanceid) t ON t.instanceid = kbi_c.id
+       LEFT JOIN (SELECT cl.instanceid, SUM(kbi_lit.timespend) / COUNT(DISTINCT(cl.userid)) AS avg_learners_timespend
+                  FROM (SELECT kbi_ctx.instanceid, kbi_ra.userid
+                        FROM mdl_role_assignments kbi_ra
+                               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+                        WHERE kbi_ctx.contextlevel = 50
+                          AND kbi_ctx.instanceid = :courseid
+                          AND kbi_ra.roleid = 5
+                        GROUP BY kbi_ctx.instanceid, kbi_ra.userid) cl
+                         LEFT JOIN mdl_local_kopere_bi_tracking kbi_lit
+                           ON kbi_lit.courseid = cl.instanceid AND kbi_lit.userid = cl.userid
+                  GROUP BY cl.instanceid) s ON s.instanceid = kbi_c.id
+WHERE kbi_c.id &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_c.visible = 1
+GROUP BY kbi_c.id</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
+       kbi_c.fullname                                                          AS course,
+       kbi_c.shortname,
+       kbi_c.timecreated                                                       AS created,
+       kbi_c.idnumber,
+       kbi_c.enablecompletion,
+       kbi_c.visible,
+       MAX(e.grade)                                                        AS grade,
+       MAX(l.timespend)                                                    AS timespend,
+       MAX(l.visits)                                                       AS visits,
+       MAX(e.completed)                                                    AS completed,
+       MAX(e.learners)                                                     AS learners,
+       (SELECT COUNT(id) FROM mdl_course_modules WHERE course = kbi_c.id
+                                                   AND deletioninprogress = 0
+                                                   AND visible = 1)        AS modules,
+       MAX(kbi_cat.name)                                                       AS category,
+       (SELECT name FROM mdl_course_categories WHERE id = MAX(kbi_cat.parent)) AS parent_category,
+       MAX(t.teachers)                                                     AS teachers,
+       MAX(t.teachers_count)                                               AS teachers_count,
+       MAX(t.teachers_timespend)                                           AS teachers_timespend,
+       MAX(s.avg_learners_timespend)                                       AS avg_learners_timespend
+FROM mdl_course kbi_c
+       JOIN(SELECT kbi_e.courseid,
+                    ROUND((AVG(CASE
+                                WHEN kbi_g.rawgrademax &gt; 0 THEN(kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                                ELSE kbi_g.finalgrade END))::numeric, 0) AS grade,
+                    COUNT(DISTINCT kbi_cc.userid)              AS completed,
+                    COUNT(DISTINCT kbi_ue.userid)              AS learners
+             FROM mdl_enrol kbi_e
+                    JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id
+                    JOIN mdl_context kbi_ctx ON kbi_ctx.instanceid = kbi_e.courseid AND kbi_ctx.contextlevel = 50
+                    JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_ctx.id AND kbi_ra.userid = kbi_ue.userid
+                    LEFT JOIN mdl_course_completions kbi_cc
+                      ON kbi_cc.timecompleted &gt; 0 AND kbi_cc.course = kbi_e.courseid AND kbi_cc.userid = kbi_ue.userid
+                    JOIN mdl_grade_items kbi_gi ON kbi_gi.itemtype = &#39;course&#39; AND kbi_gi.courseid = kbi_e.courseid
+                    LEFT JOIN mdl_grade_grades kbi_g
+                      ON kbi_g.userid = kbi_ue.userid AND kbi_g.itemid = kbi_gi.id AND kbi_g.finalgrade IS NOT NULL
+             WHERE kbi_e.courseid &gt; 0
+               AND kbi_e.courseid = :courseid
+               AND kbi_ue.status = 0
+               AND kbi_e.status = 0
+               AND kbi_ra.roleid = 5
+             GROUP BY kbi_e.courseid) e ON e.courseid = kbi_c.id
+       LEFT JOIN(SELECT courseid, SUM(timespend) AS timespend, SUM(visits) AS visits
+                  FROM(SELECT kbi_ctx.instanceid, kbi_ra.userid
+                        FROM mdl_role_assignments kbi_ra
+                               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+                        WHERE kbi_ctx.contextlevel = 50
+                          AND kbi_ctx.instanceid = :courseid
+                        GROUP BY kbi_ctx.instanceid, kbi_ra.userid) cu
+                         LEFT JOIN mdl_local_kopere_bi_tracking kbi_ltu
+                           ON kbi_ltu.courseid = cu.instanceid AND kbi_ltu.userid = cu.userid
+                  WHERE cu.instanceid &gt; 0
+                  GROUP BY kbi_ltu.courseid) l ON l.courseid = kbi_c.id
+       LEFT JOIN mdl_course_categories kbi_cat ON kbi_cat.id = kbi_c.category
+       LEFT JOIN(SELECT ct.instanceid,
+                         STRING_AGG(DISTINCT (CONCAT(kbi_u.firstname, &#39; &#39;, kbi_u.lastname))::text, &#39;, &#39;) AS teachers,
+                         COUNT(DISTINCT kbi_u.id)                                                       AS teachers_count,
+                         SUM(timespend)                                                             AS teachers_timespend
+                  FROM(SELECT kbi_ctx.instanceid, kbi_ra.userid
+                        FROM mdl_role_assignments kbi_ra
+                               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+                        WHERE kbi_ctx.contextlevel = 50
+                          AND kbi_ctx.instanceid = :courseid
+                          AND kbi_ra.roleid = 3
+                        GROUP BY kbi_ctx.instanceid, kbi_ra.userid) ct
+                         JOIN mdl_user kbi_u ON ct.userid = kbi_u.id
+                         LEFT JOIN mdl_local_kopere_bi_tracking kbi_lit
+                           ON kbi_lit.courseid = ct.instanceid AND kbi_lit.userid = kbi_u.id
+                  GROUP BY ct.instanceid) t ON t.instanceid = kbi_c.id
+       LEFT JOIN(SELECT cl.instanceid, SUM(kbi_lit.timespend) / COUNT(DISTINCT(cl.userid)) AS avg_learners_timespend
+                  FROM(SELECT kbi_ctx.instanceid, kbi_ra.userid
+                        FROM mdl_role_assignments kbi_ra
+                               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+                        WHERE kbi_ctx.contextlevel = 50
+                          AND kbi_ctx.instanceid = :courseid
+                          AND kbi_ra.roleid = 5
+                        GROUP BY kbi_ctx.instanceid, kbi_ra.userid) cl
+                         LEFT JOIN mdl_local_kopere_bi_tracking kbi_lit
+                           ON kbi_lit.courseid = cl.instanceid AND kbi_lit.userid = cl.userid
+                  GROUP BY cl.instanceid) s ON s.instanceid = kbi_c.id
+WHERE kbi_c.id &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_c.visible = 1
+GROUP BY kbi_c.id</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The query uses <code>JOIN</code> to connect the course to aggregated enrolments, roles, and <code>course</code>-type grade items. Courses without matching records may be omitted even when they exist and are visible.</li>
+                    <li>Student counts use distinct users with enrolments active according to status fields and role ID 5. Custom roles may require additional interpretation.</li>
+                    <li>The completion total comes from <code>mdl_course_completions</code> with <code>timecompleted
+                        &gt; 0</code> for users in the selected enrolment population.</li>
+                    <li>Overall recorded time and visits come from tracking for users assigned roles in the course, without limiting those roles to teachers or students.</li>
+                    <li>The teacher list and teachers' recorded time use role ID 3. Summed time depends on tracking records and does not necessarily equal actual working hours.</li>
+                    <li>The <code>avg_learners_timespend</code> average divides students' total tracked time by the number of distinct students assigned role ID 5, with no fixed time period. Null values can complicate interpretation.</li>
+                    <li>MySQL and PostgreSQL differ in their text aggregation and numeric rounding functions. Their complete statements are therefore shown separately without modifications.</li>
+                    <li>Grades and tracked time alone do not establish learning outcomes or the quality of educational support.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-044.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-044-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="043.html">← Report 043</a>
+                <a href="045.html">Report 045 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-044">
+                <h2 id="related-title-044">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="043.html"><span class="related-number">Report 043</span><span
+                            class="related-title">Course statistics</span><span class="related-category">Courses and content</span></a>
+                    <a class="related-card" href="003.html"><span class="related-number">Report 003</span><span
+                            class="related-title">Courses</span><span
+                            class="related-category">Courses and content</span></a>
+                    <a class="related-card" href="009.html"><span class="related-number">Report 009</span><span
+                            class="related-title">Course modules</span><span class="related-category">Courses and content</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/courses.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
