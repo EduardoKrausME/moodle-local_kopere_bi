@@ -81,7 +81,7 @@ try {
             $audit['approval']['status'] = 'BLOCKED';
         }
     }
-    // refresh(true) does not update its missing counter.
+    // The migration dry-run does not update its missing counter.
     cli_writeln(report_inventory::render($audit, $options['format']));
     exit(report_inventory::exit_code($audit, (bool)$options['strict']));
 } catch (\Throwable $exception) {
