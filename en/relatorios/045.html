@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Groups users with the student role in visible courses according to the presence of a last course access record and at least one activity completion record.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Engaged and non-engaged participant totals by course | Report 045 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/045.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/045.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/045.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Engaged and non-engaged participant totals by course | Report 045 · Kopere BI">
+    <meta property="og:description" content="Groups users with the student role in visible courses according to the presence of a last course access record and at least one activity completion record.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/045.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/045.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/courses.html">Courses and content</a> / 045
+            </nav>
+            <div class="kicker">REPORT 045</div>
+            <h1>Engaged and non-engaged participant totals by course</h1>
+            <p class="lead">Groups users with the student role in visible courses according to the presence of a last course access record and at least one activity completion record.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Groups users with the student role in visible courses according to the presence of a last course access record and at least one activity completion record.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Provides an exploratory view of course access coverage and activity completion records, helping identify participants who may require follow-up.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, student, cohort, or date range. The query covers all visible courses with positive IDs and role ID <code>5</code> assignments in course contexts (<code>contextlevel = 50</code>), for users who are neither deleted nor suspended and are not <code>guest</code>.</p>
+                <p>Classification uses fixed criteria: whether a record exists in <code>mdl_user_lastaccess</code> and whether a module completion with <code>completionstate = 1</code> exists for the same user and course.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains a full original SQL query, cache settings, and Prism.js syntax highlighting. No separate PostgreSQL variant is provided for this report.</p>
+                <details class="report-block" open>
+                    <summary>1. Engaged and non-engaged participant totals by course · Table</summary>
+                    <div class="inner">
+                        <p>The per-course table counts distinct users assigned role ID 5, students with both a recorded course access and an activity completion, students who accessed without such a completion, and students with no entry in the course last-access table.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
+       kbi_c.fullname,
+       COUNT(DISTINCT kbi_ra.userid)                                        as all_learners,
+       COUNT(DISTINCT CASE
+                        WHEN comp.userid IS NOT NULL AND kbi_ula.id IS NOT NULL THEN kbi_u.id
+                        ELSE NULL END)                                  as completed_learners,
+       COUNT(DISTINCT CASE
+                        WHEN comp.userid IS NULL AND kbi_ula.id IS NOT NULL THEN kbi_u.id
+                        ELSE NULL END)                                  as not_completed_learners,
+       COUNT(DISTINCT CASE WHEN kbi_ula.id IS NULL THEN kbi_u.id ELSE NULL END) as not_accessed_learners
+FROM mdl_role_assignments kbi_ra
+       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_ctx.instanceid
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ra.userid
+       LEFT JOIN (SELECT kbi_cm.course, kbi_cmc.userid
+                  FROM mdl_course_modules kbi_cm
+                         JOIN mdl_course_modules_completion kbi_cmc
+                           ON kbi_cmc.coursemoduleid = kbi_cm.id AND kbi_cmc.completionstate = 1
+                  WHERE kbi_cmc.id &gt; 0
+                  GROUP BY kbi_cm.course, kbi_cmc.userid) comp ON comp.userid = kbi_u.id AND comp.course = kbi_c.id
+       LEFT JOIN mdl_user_lastaccess kbi_ula ON kbi_ula.courseid = kbi_c.id AND kbi_ula.userid = kbi_ra.userid
+WHERE kbi_c.id &gt; 0
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_ra.roleid = 5
+GROUP BY kbi_c.id</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li><strong>This report does not directly measure educational engagement.</strong> Classification relies solely on evidence of a last course access record and completion of at least one activity.</li>
+                    <li>The <code>completed_learners</code> field does not indicate formal course completion. An activity with <code>completionstate = 1</code> associated with the student is sufficient.</li>
+                    <li>Other completion states, including <code>completionstate = 2</code> (completed with a passing grade), are excluded from the subquery. Students who completed activities only in these states may be classified as not having completed any.</li>
+                    <li>The <code>kbi_ula.id IS NOT NULL</code> check tests whether a last-access record exists, not whether access occurred recently or lasted for a minimum period.</li>
+                    <li>Student counts rely on role ID <code>5</code> assignments without restricting enrolment or enrolment-method status. They may therefore differ from active enrolment totals.</li>
+                    <li>The <code>not_accessed_learners</code> category groups participants with no record in <code>mdl_user_lastaccess</code>; it does not establish that they have never used other areas of Moodle.</li>
+                    <li>The original query has no course or date filter and no independent PostgreSQL variant.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-045.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="044.html">← Report 044</a>
+                <a href="046.html">Report 046 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-045">
+                <h2 id="related-title-045">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="046.html"><span class="related-number">Report 046</span><span
+                            class="related-title">Engaged and non-engaged participant details by course</span><span
+                            class="related-category">Courses and content</span></a>
+                    <a class="related-card" href="119.html"><span class="related-number">Report 119</span><span
+                            class="related-title">Student participation compared with their cohort</span><span
+                            class="related-category">Operational participation indicators</span></a>
+                    <a class="related-card" href="107.html"><span class="related-number">Report 107</span><span
+                            class="related-title">Students requiring attention queue</span><span
+                            class="related-category">Learning Analytics dashboards</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/courses.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
