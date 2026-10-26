@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Displays grade items associated with visible modules in the selected course, including student details, final grades, percentages, and grade modification dates.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Gradebook overview | Report 054 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/054.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/054.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/054.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Gradebook overview | Report 054 · Kopere BI">
+    <meta property="og:description" content="Displays grade items associated with visible modules in the selected course, including student details, final grades, percentages, and grade modification dates.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/054.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/054.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/grades.html">Grades and assessments</a> / 054
+            </nav>
+            <div class="kicker">REPORT 054</div>
+            <h1>Gradebook overview</h1>
+            <p class="lead">Displays grade items associated with visible modules in the selected course, including student details, final grades, percentages, and grade modification dates.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Displays grade items associated with visible modules in the selected course, including student details, final grades, percentages, and grade modification dates.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps teachers and academic administrators review course activity grades, identify students without recorded grades, and inspect when grades were last updated.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The dynamic SQL filter is <strong>Course</strong>, represented by <code>:courseid</code> and used once in the main selection.</p>
+                <p>Fixed criteria require a visible course and module, a positive course ID, a user who is neither deleted nor suspended and is not <code>guest</code>, and student role ID <code>5</code> assigned in a course context (<code>contextlevel = 50</code>). Grade items have type <code>mod</code> and are matched to modules using <code>itemmodule</code> and <code>iteminstance</code>.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains one SQL query, cache and refresh settings, and Prism.js syntax highlighting. There is no separate PostgreSQL definition for this report.</p>
+                <details class="report-block" open>
+                    <summary>1. Gradebook overview · Table</summary>
+                    <div class="inner">
+                        <p>The table lists student and module grade-item information: course, student, activity type and name, module ID, grade values, calculated grade percentage, modification date, and course start and end dates.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id                                AS courseid,
+       kbi_c.fullname,
+       kbi_u.id                                AS userid,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_m.name,
+       kbi_gi.itemname                         AS activity,
+       kbi_cm.id                               as cmid,
+       0                                   AS slot,
+       0                                   AS attempt,
+       ROUND((CASE
+                WHEN kbi_g.rawgrademax &gt; 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                ELSE kbi_g.finalgrade END), 0) AS grade,
+       kbi_g.finalgrade                        AS finalgrade,
+       kbi_g.timemodified                      AS graded,
+       kbi_c.startdate                         AS startdate,
+       kbi_c.enddate                           AS enddate
+FROM mdl_course kbi_c
+       JOIN (SELECT kbi_con.instanceid, kbi_ra.userid
+             FROM mdl_context kbi_con
+                    JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_con.id
+             WHERE kbi_con.contextlevel = 50
+               AND kbi_ra.roleid = 5
+             GROUP BY kbi_con.instanceid, kbi_ra.userid) student ON student.instanceid = kbi_c.id
+       JOIN mdl_user kbi_u ON kbi_u.id = student.userid
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id
+       JOIN mdl_modules kbi_m ON kbi_m.id = kbi_cm.module
+       JOIN mdl_grade_items kbi_gi ON kbi_gi.itemtype = &#39;mod&#39; AND kbi_gi.itemmodule = kbi_m.name AND kbi_gi.iteminstance = kbi_cm.instance
+       LEFT JOIN mdl_grade_grades kbi_g ON kbi_g.userid = kbi_u.id AND kbi_g.itemid = kbi_gi.id
+WHERE kbi_c.id &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_cm.visible = 1</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The <code>grade</code> column calculates a final-grade percentage when <code>rawgrademax &gt;
+                        0</code>, but uses <code>finalgrade</code> directly otherwise. It is not a percentage in every situation.</li>
+                    <li>The <code>slot</code> and <code>attempt</code> fields are fixed to <code>0</code> in SQL and do not indicate actual question slots or assessment attempts.</li>
+                    <li>The query matches <code>mod</code>-type grade items to modules but does not directly display overall course grades or all gradebook categories.</li>
+                    <li>The grade join is optional (<code>LEFT JOIN</code>); students without an item grade may appear with NULL <code>finalgrade</code>, <code>grade</code>, and assessment-date fields.</li>
+                    <li>Student selection uses role ID <code>5</code> assignments without directly verifying enrolment status or validity dates.</li>
+                    <li>The SQL includes only visible modules and courses, but does not check individual availability restrictions or the visibility of each grade item.</li>
+                    <li>Academic performance data require institutional access controls. No separate PostgreSQL variant is provided.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-054.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="053.html">← Report 053</a>
+                <a href="055.html">Report 055 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-054">
+                <h2 id="related-title-054">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="053.html"><span class="related-number">Report 053</span><span
+                            class="related-title">Gradebook by course category</span><span
+                            class="related-category">Grades and assessments</span></a>
+                    <a class="related-card" href="121.html"><span class="related-number">Report 121</span><span
+                            class="related-title">Grade change history</span><span
+                            class="related-category">Grades and assessments</span></a>
+                    <a class="related-card" href="052.html"><span class="related-number">Report 052</span><span
+                            class="related-title">Items awaiting grading</span><span class="related-category">Grades and assessments</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/grades.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
