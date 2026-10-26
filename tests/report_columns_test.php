@@ -27,6 +27,8 @@ namespace local_kopere_bi;
 use advanced_testcase;
 
 /**
+ * Test global field selection, entity resolution and privacy.
+ *
  * @covers \local_kopere_bi\report_columns
  */
 final class report_columns_test extends advanced_testcase {
