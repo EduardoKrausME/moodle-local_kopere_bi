@@ -112,6 +112,8 @@ final class report_columns {
     }
 
     /**
+     * Read selected column identifiers.
+     *
      * @param string $entity
      * @return string[]
      */
@@ -270,7 +272,9 @@ final class report_columns {
 
             // Batch metadata, never a SQL lookup per report row.
             $ids = array_values(array_unique(array_filter($identityvalues,
-                static function($id) { return $id !== ''; })));
+                static function($id) {
+                    return $id !== '';
+                })));
             if (!$ids) {
                 continue;
             }
@@ -359,6 +363,8 @@ final class report_columns {
     }
 
     /**
+     * Check whether the viewer may read this user's private details.
+     *
      * @param int $userid
      * @param int $viewerid
      * @return bool
@@ -369,6 +375,8 @@ final class report_columns {
     }
 
     /**
+     * Check whether the viewer may read this course's metadata.
+     *
      * @param int $courseid
      * @param int $viewerid
      * @return bool
@@ -402,7 +410,9 @@ final class report_columns {
         if (!$fields) {
             return [];
         }
-        $userids = array_map(static function($record) { return (int)$record->id; }, array_values($records));
+        $userids = array_map(static function($record) {
+            return (int)$record->id;
+        }, array_values($records));
         $result = [];
         foreach (array_chunk($userids, 250) as $chunk) {
             [$usersql, $userparams] = $DB->get_in_or_equal($chunk, SQL_PARAMS_NAMED, 'biu');
@@ -438,7 +448,9 @@ final class report_columns {
             return [];
         }
         $values = course_handler::create()->get_instances_data(array_map(
-            static function($record) { return (int)$record->id; }, array_values($records)
+            static function($record) {
+                return (int)$record->id;
+            }, array_values($records)
         ));
         $result = [];
         foreach ($values as $courseid => $fields) {
