@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Shows account details, access dates, and accumulated time recorded by Kopere BI for the platform, courses, and activities.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Login statistics | Report 014 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>
+        .report-intro {
+            background: #e7f6f4;
+            border: 1px solid #bee1dd;
+            border-radius: 13px;
+            padding: 22px 24px;
+            margin: 22px 0
+        }
+
+        .report-intro strong {
+            font-size: 17px;
+            color: #096573
+        }
+
+        .report-intro p {
+            margin: 7px 0 0
+        }
+
+        .report-navigation {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 23px 0
+        }
+
+        .report-navigation a {
+            font-size: 13px;
+            font-weight: 750;
+            text-decoration: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            background: #e4f4f2
+        }
+
+        .report-block {
+            border: 1px solid #d9e6e9;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 18px 0
+        }
+
+        .report-block summary {
+            padding: 16px;
+            background: #eaf5f7;
+            color: #0b5261;
+            font-weight: 800;
+            cursor: pointer
+        }
+
+        .report-block summary:hover {
+            background: #d9eff0
+        }
+
+        .report-block .inner {
+            padding: 16px
+        }
+
+        .sql-variant {
+            background: #f5f9f9;
+            border: 1px solid #dbe7e9;
+            border-radius: 12px;
+            margin: 16px 0;
+            padding: 13px 15px
+        }
+
+        .sql-variant h3 {
+            font-size: 14px;
+            color: #095f6d;
+            font-weight: 800;
+            margin: 0 0 10px
+        }
+
+        .report-meta {
+            color: #54707b;
+            font-size: 13px
+        }
+
+        @media (max-width: 650px) {
+            .report-block .inner {
+                padding: 10px
+            }
+
+            .sql-variant {
+                padding: 8px
+            }
+        }
+    </style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/014.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/014.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/014.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Login statistics | Report 014 · Kopere BI">
+    <meta property="og:description" content="Shows account details, access dates, and accumulated time recorded by Kopere BI for the platform, courses, and activities.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/014.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/014.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/users.html">Users and profiles</a> / 014
+            </nav>
+            <div class="kicker">REPORT 014</div>
+            <h1>Login statistics</h1>
+            <p class="lead">Shows account details, access dates, and accumulated time recorded by Kopere BI for the platform, courses, and activities.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Shows account details, access dates, and accumulated time recorded by Kopere BI for the platform, courses, and activities.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps administrators locate user profiles and inspect recorded tracking patterns, comparing time attributed to general site use, courses, and activities.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Actual filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>This definition has no dynamic course, user, cohort, or date-range SQL parameters, so it does not apply selectors for those dimensions.</p>
+                <p>Fixed conditions require an account that is neither deleted nor suspended, an ID greater than <code>0</code>, and a username other than <code>guest</code>. Course-level calculations use <code>courseid &gt; 0</code>; activity-level calculations use <code>page = 'module'</code>.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization with the full original SQL and its cache and refresh settings. The code uses Prism.js SQL syntax highlighting.</p>
+                <details class="report-block" open>
+                    <summary>1. Login statistics · Table</summary>
+                    <div class="inner">
+                        <p>Per-user table showing name, email address, telephone numbers, institution, department, address, location, account creation date, first and last access, and the sums timespend_site, timespend_courses, and timespend_activities from the Kopere BI tracking table.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_u.id,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_u.phone1,
+       kbi_u.phone2,
+       kbi_u.institution,
+       kbi_u.department,
+       kbi_u.address,
+       kbi_u.city,
+       kbi_u.country,
+       kbi_u.timecreated,
+       kbi_u.firstaccess,
+       kbi_u.lastaccess,
+       lit1.timespend_site,
+       lit2.timespend_courses,
+       lit3.timespend_activities
+FROM mdl_user kbi_u
+       LEFT JOIN (SELECT kbi_t.userid, SUM(timespend) AS timespend_site
+                  FROM mdl_local_kopere_bi_tracking kbi_t
+                  WHERE kbi_t.id &gt; 0
+                  GROUP BY kbi_t.userid) lit1 ON lit1.userid = kbi_u.id
+       LEFT JOIN (SELECT kbi_t.userid, SUM(timespend) AS timespend_courses
+                  FROM mdl_local_kopere_bi_tracking kbi_t
+                  WHERE kbi_t.courseid &gt; 0
+                  GROUP BY kbi_t.userid) lit2 ON lit2.userid = kbi_u.id
+       LEFT JOIN (SELECT kbi_t.userid, SUM(timespend) AS timespend_activities
+                  FROM mdl_local_kopere_bi_tracking kbi_t
+                  WHERE kbi_t.page = &#39;module&#39;
+                  GROUP BY kbi_t.userid) lit3 ON lit3.userid = kbi_u.id
+WHERE kbi_u.id &gt; 0
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>Despite the title, the SQL does not calculate the number of logins or sessions. It reads user profile fields and sums tracked time stored in <code>mdl_local_kopere_bi_tracking</code>.</li>
+                    <li>Time spent on the site, in courses, and in activities may represent overlapping sets; do not add them as independent categories without reviewing the meaning of the records.</li>
+                    <li>There is no time window in the SQL. The totals therefore reflect the history available in the tracking table, subject to plugin maintenance and data collection.</li>
+                    <li>The report contains sensitive address, telephone, and institution fields; control the viewing and exporting of personal information.</li>
+                    <li>Missing time values may indicate an absence of records in the source rather than a lack of participation or access.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-014.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="013.html">← Report 013</a>
+                <a href="015.html">Report 015 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-014">
+                <h2 id="related-title-014">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="006.html"><span class="related-number">Report 006</span><span
+                            class="related-title">Login records</span><span class="related-category">Access and logins</span></a>
+                    <a class="related-card" href="015.html"><span class="related-number">Report 015</span><span
+                            class="related-title">Platform logins and logouts</span><span class="related-category">Users and profiles</span></a>
+                    <a class="related-card" href="092.html"><span class="related-number">Report 092</span><span
+                            class="related-title">Student access by day and time period</span><span
+                            class="related-category">Users and profiles</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/users.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
