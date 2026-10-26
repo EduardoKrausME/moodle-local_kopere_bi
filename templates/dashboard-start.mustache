@@ -55,6 +55,14 @@
 {{/editing}}
 
 <div class="reports-home">
+    {{#manage_columns}}
+        <div class="reports-home-toolbar">
+            <a class="btn btn-outline-secondary"
+               href="?classname=report_column_settings&method=index">
+                {{#str}}reportcols_heading,local_kopere_bi{{/str}}
+            </a>
+        </div>
+    {{/manage_columns}}
     {{#show_mcp_banner}}
         {{> local_kopere_bi/mcp_banner}}
     {{/show_mcp_banner}}

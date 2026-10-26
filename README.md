@@ -5,6 +5,8 @@ The **Kopere BI** plugin was designed to provide **visual and interactive data a
 ## Requirements  
 To function properly, **Kopere BI** requires the [**local_kopere_dashboard**](https://github.com/EduardoKrausME/moodle-local-kopere_dashboard) plugin to be installed.
 
+See [global user and course report columns](docs/report_columns.md) for configuring standard and Moodle custom profile fields from within Kopere BI without changing report SQL.
+
 ## Features
 
 Kopere BI offers a variety of options to present data, including diverse charts and formats:

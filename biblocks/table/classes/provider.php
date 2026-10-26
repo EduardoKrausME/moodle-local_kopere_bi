@@ -25,6 +25,7 @@ use local_kopere_bi\block\util\database_util;
 use local_kopere_bi\block\util\sql_util;
 use local_kopere_bi\block\util\string_util;
 use local_kopere_bi\output\renderer_bi_mustache;
+use local_kopere_bi\report_columns;
 use local_kopere_dashboard\html\data_table;
 use local_kopere_bi\form\dynamic_moodleform;
 use local_kopere_bi\form\input_select;
@@ -285,14 +286,15 @@ class provider implements i_block_provider {
             return message::danger(get_string("table_column_not_configured", "biblocks_table"));
         }
 
-        foreach ($koperebielement->info_obj["column"] as $key => $column) {
+        [, $columns] = report_columns::prepare([], $koperebielement->info_obj["column"],
+            $koperebielement->commandsql, $koperebielement->info_obj);
+        foreach ($columns as $key => $column) {
 
             if ($column["type"] == "none") {
                 continue;
             }
 
-            $name = $koperebielement->info_obj["column"][$key]["title"];
-            $name = string_util::get_string($name);
+            $name = string_util::get_string($column["title"]);
 
             switch ($column["type"]) {
                 case "number":
@@ -423,6 +425,8 @@ class provider implements i_block_provider {
             $cache->set($cachekey, $lines);
         }
 
+        [$lines, $columns] = report_columns::prepare($lines,
+            $koperebielement->info_obj["column"], $koperebielement->commandsql, $koperebielement->info_obj);
         json::encode($lines);
         die();
     }

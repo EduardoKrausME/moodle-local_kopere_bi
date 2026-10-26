@@ -83,6 +83,17 @@ class menu {
             ];
         }
 
+        if (has_capability("local/kopere_bi:manage", $context)) {
+            $children[] = [
+                "title" => get_string("reportcols_heading", "local_kopere_bi"),
+                "url" => new moodle_url("/local/kopere_bi/index.php", [
+                    "classname" => "report_column_settings", "method" => "index",
+                ]),
+                "icon" => "settings",
+                "capability" => "local/kopere_bi:manage",
+            ];
+        }
+
         return [
             "category" => subplugin_manager::CAT_PEDAGOGIC,
             "items" => [
