@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Table counting course activity and resource module records, grouped by module type.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Course modules | Report 009 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>
+        .report-purpose {
+            padding: 21px 23px;
+            border: 1px solid #bfe0df;
+            border-radius: 12px;
+            background: #e8f7f5;
+            margin: 22px 0
+        }
+
+        .report-purpose strong {
+            color: #086471;
+            font-size: 16px
+        }
+
+        .report-purpose p {
+            margin: 8px 0 0
+        }
+
+        .report-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin: 24px 0
+        }
+
+        .report-nav a {
+            padding: 7px 11px;
+            border-radius: 8px;
+            background: #e4f3f2;
+            font-size: 13px;
+            font-weight: 750;
+            text-decoration: none
+        }
+
+        .report-group {
+            margin: 18px 0;
+            border: 1px solid #d5e4e9;
+            border-radius: 12px;
+            overflow: hidden
+        }
+
+        .report-group summary {
+            cursor: pointer;
+            background: #eaf5f7;
+            padding: 15px;
+            color: #0a5360;
+            font-weight: 800
+        }
+
+        .report-group summary:hover {
+            background: #daeff0
+        }
+
+        .report-group-body {
+            padding: 15px
+        }
+
+        .report-meta {
+            font-size: 13px;
+            color: #5b7480
+        }
+
+        .report-variant {
+            padding: 12px 14px;
+            margin: 16px 0;
+            background: #f3f9f9;
+            border: 1px solid #d5e3e9;
+            border-radius: 11px
+        }
+
+        .report-variant h3 {
+            font-size: 14px;
+            color: #146677;
+            font-weight: 800;
+            margin: 0 0 8px
+        }
+
+        .report-note {
+            background: #fff8e7;
+            border-left: 4px solid #d2a43e;
+            padding: 13px 16px;
+            margin: 20px 0
+        }
+
+        @media (max-width: 650px) {
+            .report-group-body {
+                padding: 10px
+            }
+
+            .report-variant {
+                padding: 8px
+            }
+        }
+    </style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/009.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/009.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/009.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Course modules | Report 009 · Kopere BI">
+    <meta property="og:description" content="Table counting course activity and resource module records, grouped by module type.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/009.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/009.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/courses.html">Category</a> / 009
+            </nav>
+            <div class="kicker">REPORT 009</div>
+            <h1>Course modules</h1>
+            <p class="lead">Table counting course activity and resource module records, grouped by module type.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Table counting course activity and resource module records, grouped by module type.</p>
+            </section>
+            <div class="report-purpose"><strong>Why use this report?</strong>
+                <p>Helps administrators identify the most common activities and resources in Moodle, recognize course configuration patterns, and plan maintenance or training for the module types in use.</p>
+            </div>
+            <div class="report-nav">
+                <a href="#filtros">Actual filters</a>
+                <a href="#visualizacoes">Visualizations and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>There are no dynamic user, course, cohort, or date-range placeholders in this query. The condition is fixed: <code>cm.deletioninprogress = 0</code>. The query does not restrict results to a selected course or require the course to be visible.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualizations and full original SQL</h2>
+                <p>This report contains 1 visualization and 1 SQL query. Syntax highlighting preserves the original characters. Separate MySQL and PostgreSQL variants, where available, are displayed in their corresponding visualization panels.</p>
+                <details class="report-group" open>
+                    <summary>1. Module count by type — Table</summary>
+                    <div class="report-group-body">
+                        <p>Table showing the module's translatable and technical names, number of occurrences, and a course field. The SQL excludes modules being deleted and groups the results by module type name.</p>
+                        <p class="report-meta">Cache: <code>1h</code>. Refresh: <code>1h</code>.</p>
+                        <div class="report-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">  SELECT CONCAT(&#39;lang::modulename::&#39;, m.name) AS lang_module_name,
+         m.name AS module_name,
+         COUNT(cm.id) AS module_count,
+         cm.course
+    FROM mdl_course_modules cm
+    JOIN mdl_modules         m ON cm.module = m.id
+   WHERE cm.deletioninprogress = 0
+GROUP BY m.name
+ORDER BY module_count DESC</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>Counts are aggregated by module type across the entire Moodle installation, not by individual course.</li>
+                    <li>The <code>cm.course</code> field is in SELECT but neither in GROUP BY nor an aggregate function. This may cause an error in PostgreSQL or MySQL with ONLY_FULL_GROUP_BY; when accepted, the course value may be arbitrary.</li>
+                    <li>There is no dedicated PostgreSQL variant in this definition. The single SQL query is reproduced exactly as published, without guaranteeing it will run on every database system.</li>
+                    <li>The count includes hidden modules and modules in hidden courses because there is no explicit visibility filter.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-009.json"
+                       target="_blank" rel="noopener">View the original JSON for this report on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="008.html">← Report 008</a>
+                <a href="010.html">Report 010 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-009">
+                <h2 id="related-title-009">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="037.html"><span class="related-number">Report 037</span><span
+                            class="related-title">Course activity overview</span><span
+                            class="related-category">Courses and content</span></a>
+                    <a class="related-card" href="113.html"><span class="related-number">Report 113</span><span
+                            class="related-title">Activity reach by course</span><span class="related-category">Activities</span></a>
+                    <a class="related-card" href="003.html"><span class="related-number">Report 003</span><span
+                            class="related-title">Courses</span><span
+                            class="related-category">Courses and content</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/courses.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
