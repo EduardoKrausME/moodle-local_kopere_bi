@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Access saved reports through read-only tools without exposing arbitrary SQL.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Optional MCP integration · Kopere BI</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../site.css">
+    <link rel="stylesheet" href="accessibility.css">
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/integracoes.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/integracoes.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/integracoes.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Optional MCP integration · Kopere BI">
+    <meta property="og:description" content="Access saved reports through read-only tools without exposing arbitrary SQL.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/integracoes.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../pt_br/integracoes.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="index.html">Overview</a>
+            <a href="instalacao.html">Installation</a>
+            <a href="dashboards.html">Dashboards</a>
+            <a href="visualizacoes.html">Charts and filters</a>
+            <a href="relatorios.html">Reports</a>
+            <a href="learning-analytics.html">Learning Analytics</a>
+            <a href="integracoes.html" class="active" aria-current="page">MCP integration</a>
+            <a href="operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="index.html">Kopere BI</a> / MCP integration
+            </nav>
+            <div class="kicker">MOODLE PLUGIN DOCUMENTATION</div>
+            <h1>Optional MCP integration</h1>
+            <p class="lead">Access saved reports through read-only tools without exposing arbitrary SQL.</p>
+            <div class="separator">
+            </div>
+            <section aria-labelledby="s0">
+                <h2 id="s0">Optional dependency</h2>
+                <p>When <a href="https://github.com/EduardoKrausME/moodle-local_mcp">local_mcp</a> is installed and
+                    enabled, Kopere BI's <code>classes/mcp/provider.php</code> provider is automatically
+                    discovered. Without it, Kopere BI dashboards and reports continue to work normally.</p>
+                <p>This documents a <strong>Kopere BI integration</strong>, not the MCP server in general.</p>
+            </section>
+            <section aria-labelledby="s1">
+                <h2 id="s1">Dynamic report discovery</h2>
+                <p>With <code>local_mcp</code> active, the <code>classes/mcp/provider.php</code> provider
+                    is detected automatically, without additional configuration or changes to the MCP
+                    server. The <code>kopere_bi_list_reports</code> read tool lists the saved report pages
+                    and reports accessible to the current user, including internal identifiers, titles,
+                    categories, and available tool names.</p>
+                <p>Each accessible report with a valid <code>refkey</code> is exposed as a separate
+                    read-only tool named according to <code>kopere_bi_report_&lt;refkey&gt;</code>.
+                    New reports become available on the next MCP request without static registration;
+                    tool names remain consistent across Moodle installations that use the same keys.</p>
+                <p>A <code>refkey</code> can contain letters, numbers, underscores (<code>_</code>),
+                    periods (<code>.</code>), and hyphens (<code>-</code>). Reports with empty,
+                    invalid, or duplicate keys are not exposed until corrected. The database ID is
+                    used internally when running the report and does not form part of the tool name.</p>
+            </section>
+            <section aria-labelledby="s2">
+                <h2 id="s2">Example tool call</h2>
+                <p>First run <code>kopere_bi_list_reports</code> and select a tool name actually returned
+                    by discovery. Then call the selected report tool, for example:</p>
+                <pre><code>{
+  "name": "kopere_bi_report_learning_analytics",
+  "arguments": {
+    "course_id": 2,
+    "limit": 50,
+    "offset": 0
+  }
+}</code></pre>
+                <p class="note">The <code>learning_analytics</code> <code>refkey</code> is only an
+                    example: always use the key exposed by the discovery tool.</p>
+            </section>
+            <section aria-labelledby="s3">
+                <h2 id="s3">Filters and pagination</h2>
+                <p>Report tools accept <code>user_id</code>, <code>course_id</code>,
+                    <code>cohort_id</code>, <code>limit</code>, and <code>offset</code>.
+                    The default limit is 50 rows and the maximum is 200 rows
+                    <strong>per element</strong>. Each visualization element is paginated
+                    independently, and <code>has_more</code> indicates whether another page
+                    of data is available.</p>
+                <p>The response contains raw values without Mustache-processed HTML or JavaScript
+                    chart rendering in the MCP client.</p>
+            </section>
+            <section aria-labelledby="s4">
+                <h2 id="s4">Response structure and error handling</h2>
+                <p>The result includes report and category metadata, applied filters, and all report
+                    blocks. For each element, it provides the name, visualization type, column
+                    headings, original rows returned by the SQL query, <code>row_count</code>,
+                    <code>has_more</code>, and <code>status</code>.</p>
+                <p>Indicator elements, such as KPIs and information cards, also include
+                    <code>value</code> when available. Elements without a data source return
+                    <code>no_data_source</code> as their status. If an element fails, the returned
+                    error is generic and does not expose SQL text or internal execution traces.</p>
+            </section>
+            <section aria-labelledby="s5">
+                <h2 id="s5">Permissions and visibility</h2>
+                <p>All tools are <strong>read-only</strong> and require the MCP <code>READ</code>
+                    scope and the Moodle <code>local/kopere_bi:view</code> capability.
+                    Discovery and execution also respect each report's capability, its page
+                    visibility, and the feature settings enabled in Kopere BI.</p>
+                <p>A user cannot select another <code>user_id</code> without the
+                    <code>local/kopere_bi:manage</code> capability. Changing the
+                    <code>cohort_id</code> filter requires the same permission. For users
+                    who are not managers, the <code>course_id</code> filter respects their
+                    course enrolment or permission to view the course.</p>
+            </section>
+            <section aria-labelledby="s6">
+                <h2 id="s6">Data sources and execution limits</h2>
+                <p>The integration runs only <strong>saved</strong> Kopere BI report queries;
+                    MCP clients cannot supply arbitrary SQL. SQL sources are restricted to a
+                    single <code>SELECT</code> or <code>WITH</code> statement, with bound
+                    filter parameters and a row limit enforced at the database level.</p>
+                <p>Class-based data sources must implement Kopere BI's
+                    <code>external_report</code> contract. The integration does not modify
+                    database session settings to force read-only mode, nor does it expose the
+                    SQL query text.</p>
+            </section>
+            <nav class="pager" aria-label="Documentation navigation">
+                <a href="learning-analytics.html">← Learning Analytics</a>
+                <a href="operacao.html">Operations →</a>
+            </nav>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a>
+    · GPL v3 · Documentation based on the plugin source code.
+</footer>
+</body>
+</html>

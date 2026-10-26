@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Available visualization types and considerations for presenting data.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Charts, tables, and filters · Kopere BI</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../site.css">
+    <link rel="stylesheet" href="accessibility.css">
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/visualizacoes.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/visualizacoes.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/visualizacoes.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Charts, tables, and filters · Kopere BI">
+    <meta property="og:description" content="Available visualization types and considerations for presenting data.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/visualizacoes.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../pt_br/visualizacoes.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="index.html">Overview</a>
+            <a href="instalacao.html">Installation</a>
+            <a href="dashboards.html">Dashboards</a>
+            <a href="visualizacoes.html" class="active" aria-current="page">Charts and filters</a>
+            <a href="relatorios.html">Reports</a>
+            <a href="learning-analytics.html">Learning Analytics</a>
+            <a href="integracoes.html">MCP integration</a>
+            <a href="operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="index.html">Kopere BI</a> / Charts and filters
+            </nav>
+            <div class="kicker">MOODLE PLUGIN DOCUMENTATION</div>
+            <h1>Charts, tables, and filters</h1>
+            <p class="lead">Available visualization types and considerations for presenting data.</p>
+            <div class="separator">
+            </div>
+            <section aria-labelledby="s0">
+                <h2 id="s0">Eight block families</h2>
+                <div class="data-grid">
+                    <div><b>Area</b><small>Cumulative trends</small>
+                    </div>
+                    <div><b>Column</b><small>Comparisons across groups</small>
+                    </div>
+                    <div><b>Line</b><small>Time series</small>
+                    </div>
+                    <div><b>Pie</b><small>Percentage distribution</small>
+                    </div>
+                    <div><b>Table</b><small>Rows, sorting, and export</small>
+                    </div>
+                    <div><b>Info</b><small>Single-value indicator</small>
+                    </div>
+                    <div><b>HTML</b><small>Formatted content</small>
+                    </div>
+                    <div><b>Maps</b><small>Approximate location based on IP address</small>
+                    </div>
+                </div>
+                <p>Charts use <a href="https://apexcharts.com/">ApexCharts</a>; tables use
+                    <a href="https://datatables.net/">DataTables</a> features, including pagination, searching,
+                    and sorting, as well as printing, copying, and CSV, Excel, or PDF exports when configured.</p>
+            </section>
+            <section aria-labelledby="s1">
+                <h2 id="s1">Available filters</h2>
+                <p>The filter subplugins found in the repository are <code>bifilters/course</code>,
+                    <code>bifilters/cohort</code>, <code>bifilters/period</code>, and
+                    <code>bifilters/user</code>. Choose only filters that the query actually handles;
+                    otherwise a dashboard may appear filtered while its data is incorrectly aggregated.</p>
+            </section>
+            <section aria-labelledby="s2">
+                <h2 id="s2">Best practices</h2>
+                <ul>
+                    <li>For a time series, specify the date range and unit of measurement.</li>
+                    <li>For percentages, explain the denominator; “30% completion” is ambiguous without a baseline.</li>
+                    <li>Do not treat IP-based geolocation as an exact physical location.</li>
+                    <li>Do not expose personal identifiers in exports intended for broad audiences.</li>
+                    <li>Escape text derived from user data and avoid untrusted HTML in custom templates.</li>
+                </ul>
+            </section>
+            <section aria-labelledby="s3">
+                <h2 id="s3">Appearance settings</h2>
+                <p>The plugin administration interface provides color palettes and advanced options for area,
+                    column, line, and pie charts. These options use ApexCharts settings, so global changes
+                    need care: an unsuitable axis or formatter can distort how the data is interpreted.</p>
+            </section>
+            <nav class="pager" aria-label="Documentation navigation">
+                <a href="dashboards.html">← Dashboards</a>
+                <a href="relatorios.html">Reports →</a>
+            </nav>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a>
+    · GPL v3 · Documentation based on the plugin source code.
+</footer>
+</body>
+</html>

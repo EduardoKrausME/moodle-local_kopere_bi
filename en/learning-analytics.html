@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Six dashboards, aggregated snapshots, and configurable rules for identifying students who may need attention.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Learning Analytics · Kopere BI</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../site.css">
+    <link rel="stylesheet" href="accessibility.css">
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/learning-analytics.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/learning-analytics.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/learning-analytics.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Learning Analytics · Kopere BI">
+    <meta property="og:description" content="Six dashboards, aggregated snapshots, and configurable rules for identifying students who may need attention.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/learning-analytics.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../pt_br/learning-analytics.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="index.html">Overview</a>
+            <a href="instalacao.html">Installation</a>
+            <a href="dashboards.html">Dashboards</a>
+            <a href="visualizacoes.html">Charts and filters</a>
+            <a href="relatorios.html">Reports</a>
+            <a href="learning-analytics.html" class="active" aria-current="page">Learning Analytics</a>
+            <a href="integracoes.html">MCP integration</a>
+            <a href="operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="index.html">Kopere BI</a> / Learning Analytics
+            </nav>
+            <div class="kicker">MOODLE PLUGIN DOCUMENTATION</div>
+            <h1>Learning Analytics</h1>
+            <p class="lead">Six dashboards, aggregated snapshots, and configurable rules for identifying students who may need attention.</p>
+            <div class="separator">
+            </div>
+            <section aria-labelledby="s0">
+                <h2 id="s0">Dashboards in this category</h2>
+                <ol class="steps">
+                    <li><strong>Overview:</strong> daily activity indicators and trends.</li>
+                    <li><strong>Attention queue:</strong> risk classification and identified reasons.</li>
+                    <li><strong>Course health:</strong> completion, progress, grades, and engagement.</li>
+                    <li><strong>Student 360:</strong> an overview of each active course enrolment.</li>
+                    <li><strong>Progress versus grade:</strong> comparison between progress and performance.</li>
+                    <li><strong>Learning pace:</strong> identification of declining participation.</li>
+                </ol>
+            </section>
+            <section aria-labelledby="s1">
+                <h2 id="s1">How the data is calculated</h2>
+                <p>When a dashboard opens, Kopere BI queries student, course, and daily activity
+                    <em>snapshot</em> tables instead of scanning the entire
+                    <code>logstore_standard_log</code> on every visit. With the default schedule,
+                    data synchronization runs hourly at minute 10, and snapshots are refreshed hourly
+                    at minute 20.</p>
+                <div class="diagram"><span>Moodle events and data</span><b>→</b><span>Synchronization</span><b>→</b><span>Snapshots</span><b>→</b><span>Dashboards</span>
+                </div>
+                <p>These calculated indicators are not, on their own, evidence of disengagement,
+                    dropout, or effective learning.</p>
+            </section>
+            <section aria-labelledby="s2">
+                <h2 id="s2">Default parameters</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Setting</th>
+                        <th>Default value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Moderate inactivity</td>
+                        <td>14 days</td>
+                    </tr>
+                    <tr>
+                        <td>High inactivity</td>
+                        <td>30 days</td>
+                    </tr>
+                    <tr>
+                        <td>Minimum actions</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>Low progress</td>
+                        <td>25%</td>
+                    </tr>
+                    <tr>
+                        <td>Grace period after enrolment</td>
+                        <td>7 days</td>
+                    </tr>
+                    <tr>
+                        <td>Analysis history</td>
+                        <td>90 days</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>All these values can be changed under <em>Site administration → Plugins → Local plugins →
+                    Kopere BI</em>. Adjust them to the characteristics of each course before interpreting
+                    the attention queue.</p>
+            </section>
+            <section aria-labelledby="s3">
+                <h2 id="s3">Responsible use</h2>
+                <p>Use trends and anomalies to guide educational interventions rather than automatically
+                    assigning educational risk to someone based solely on clicks, days without access, or
+                    grades. Review false positives, gaps in event logs, accessibility and connectivity
+                    constraints, and academic calendar considerations.</p>
+            </section>
+            <nav class="pager" aria-label="Documentation navigation">
+                <a href="relatorios.html">← Reports</a>
+                <a href="integracoes.html">MCP integration →</a>
+            </nav>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a>
+    · GPL v3 · Documentation based on the plugin source code.
+</footer>
+</body>
+</html>
