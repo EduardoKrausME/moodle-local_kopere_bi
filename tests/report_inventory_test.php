@@ -203,6 +203,7 @@ final class report_inventory_test extends advanced_testcase {
     public function test_wrong_category_page_and_block_are_reported(): void {
         [$catalogue, $installed] = $this->setup_sample();
         $catalogue['pages']['testpage']['category_refkey'] = 'testcat';
+        $catalogue['blocks']['testblock']['page_refkey'] = 'testpage';
         $installed['cat'][] = (object)['id' => 10, 'refkey' => 'customcat'];
         $installed['page'][0]->cat_id = 10;
         $audit = report_inventory::inspect($catalogue, $installed, [], 'mysql');
