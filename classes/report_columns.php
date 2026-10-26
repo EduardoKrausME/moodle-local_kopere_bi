@@ -74,7 +74,9 @@ final class report_columns {
             }
             foreach ($DB->get_records('user_info_field', [], 'sortorder ASC, id ASC') as $field) {
                 if (preg_match('/^[a-zA-Z0-9_]+$/D', $field->shortname)) {
-                    $fields['custom_' . $field->shortname] = $field->name;
+                    $fields['custom_' . $field->shortname] = get_string(
+                        'reportcols_customlabel', 'local_kopere_bi', $field->name
+                    );
                 }
             }
             return $fields;
@@ -88,7 +90,9 @@ final class report_columns {
             foreach (course_handler::create()->get_fields() as $field) {
                 $shortname = (string)$field->get('shortname');
                 if (preg_match('/^[a-zA-Z0-9_]+$/D', $shortname)) {
-                    $fields['custom_' . $shortname] = (string)$field->get('name');
+                    $fields['custom_' . $shortname] = get_string(
+                        'reportcols_customlabel', 'local_kopere_bi', (string)$field->get('name')
+                    );
                 }
             }
             return $fields;
@@ -312,10 +316,14 @@ final class report_columns {
     private static function user_records(string $identity, array $ids): array {
         global $DB;
 
-        if ($identity === 'username') {
-            $records = $DB->get_records_list('user', 'username', $ids, '', '*');
-        } else {
-            $records = $DB->get_records_list('user', 'id', array_map('intval', $ids), '', '*');
+        $records = [];
+        foreach (array_chunk($ids, 250) as $chunk) {
+            $part = $identity === 'username' ?
+                $DB->get_records_list('user', 'username', $chunk, '', '*') :
+                $DB->get_records_list('user', 'id', array_map('intval', $chunk), '', '*');
+            foreach ($part as $record) {
+                $records[] = $record;
+            }
         }
         $result = [];
         foreach ($records as $record) {
@@ -335,8 +343,14 @@ final class report_columns {
         global $DB;
 
         $field = $identity === 'shortname' ? 'shortname' : 'id';
-        $records = $DB->get_records_list('course', $field,
-            $field === 'id' ? array_map('intval', $ids) : $ids, '', '*');
+        $records = [];
+        foreach (array_chunk($ids, 250) as $chunk) {
+            $part = $DB->get_records_list('course', $field,
+                $field === 'id' ? array_map('intval', $chunk) : $chunk, '', '*');
+            foreach ($part as $record) {
+                $records[] = $record;
+            }
+        }
         $result = [];
         foreach ($records as $record) {
             $result[(string)$record->{$field}] = $record;
@@ -350,7 +364,7 @@ final class report_columns {
      * @return bool
      */
     private static function can_view_user_details(int $userid, int $viewerid): bool {
-        return has_capability('local/kopere_bi:manage', context_system::instance(), $viewerid) ||
+        return $userid === $viewerid || has_capability('local/kopere_bi:manage', context_system::instance(), $viewerid) ||
             has_capability('moodle/user:viewalldetails', context_user::instance($userid), $viewerid);
     }
 
@@ -389,20 +403,22 @@ final class report_columns {
             return [];
         }
         $userids = array_map(static function($record) { return (int)$record->id; }, array_values($records));
-        [$usersql, $userparams] = $DB->get_in_or_equal($userids, SQL_PARAMS_NAMED, 'biu');
-        [$fieldsql, $fieldparams] = $DB->get_in_or_equal(array_keys($fields), SQL_PARAMS_NAMED, 'bif');
-        $data = $DB->get_records_sql(
-            "SELECT d.id, d.userid, d.fieldid, d.data
-               FROM {user_info_data} d
-              WHERE d.userid $usersql AND d.fieldid $fieldsql",
-            $userparams + $fieldparams
-        );
         $result = [];
-        foreach ($data as $datum) {
+        foreach (array_chunk($userids, 250) as $chunk) {
+            [$usersql, $userparams] = $DB->get_in_or_equal($chunk, SQL_PARAMS_NAMED, 'biu');
+            [$fieldsql, $fieldparams] = $DB->get_in_or_equal(array_keys($fields), SQL_PARAMS_NAMED, 'bif');
+            $data = $DB->get_records_sql(
+                "SELECT d.id, d.userid, d.fieldid, d.data
+                   FROM {user_info_data} d
+                  WHERE d.userid $usersql AND d.fieldid $fieldsql",
+                $userparams + $fieldparams
+            );
+            foreach ($data as $datum) {
             $field = $fields[$datum->fieldid];
             if ((int)$field->visible === 2 ||
                     self::can_view_user_details((int)$datum->userid, $viewerid)) {
-                $result[(int)$datum->userid]['custom_' . $field->shortname] = $datum->data;
+                    $result[(int)$datum->userid]['custom_' . $field->shortname] = $datum->data;
+                }
             }
         }
         return $result;
