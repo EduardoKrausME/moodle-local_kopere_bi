@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Per-quiz summary of visible quizzes showing attempt counts, distinct participants, score statistics, average duration, and calculated pass rates.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Quiz performance statistics | Report 063 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/063.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/063.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/063.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Quiz performance statistics | Report 063 · Kopere BI">
+    <meta property="og:description" content="Per-quiz summary of visible quizzes showing attempt counts, distinct participants, score statistics, average duration, and calculated pass rates.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/063.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/063.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/quizzes.html">Quizzes</a> / 063
+            </nav>
+            <div class="kicker">REPORT 063</div>
+            <h1>Quiz performance statistics</h1>
+            <p class="lead">Per-quiz summary of visible quizzes showing attempt counts, distinct participants, score statistics, average duration, and calculated pass rates.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Per-quiz summary of visible quizzes showing attempt counts, distinct participants, score statistics, average duration, and calculated pass rates.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Provides course managers with preliminary indicators of quiz usage and grade distributions, helping identify assessments that warrant pedagogical or technical investigation.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, quiz, student, or time period. The query includes quizzes associated with visible courses and modules.</p>
+                <p>Attempts are included when <code>kbi_qa.preview = 0</code>. Finished attempts are counted using <code>kbi_qa.state = 'finished'</code>; score and duration calculations use fixed conditions requiring a positive maximum grade and an end time later than the start, respectively. The calculated pass rate requires <code>kbi_gi.gradepass &gt; 0</code> and a final grade at least equal to the configured threshold.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains two full SQL queries, cache and refresh settings, and Prism.js syntax highlighting. The MySQL and PostgreSQL variants appear in separate panels within the same block.</p>
+                <details class="report-block" open>
+                    <summary>1. Quiz performance statistics · Table</summary>
+                    <div class="inner">
+                        <p>The table shows each quiz and course, question slot count, distinct users with attempts, total and finished attempts, mean, minimum, maximum, and population standard deviation of percentage scores, average duration in seconds, and a calculated pass rate.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_qz.id                                                           AS id,
+       kbi_c.id                                                            AS courseid,
+       kbi_c.fullname                                                      AS course,
+       kbi_cm.id                                                           AS cmid,
+       kbi_qz.id                                                           AS quizid,
+       kbi_qz.name                                                         AS quiz_name,
+       COUNT(DISTINCT kbi_slot.id)                                         AS question_slots,
+       COUNT(DISTINCT kbi_qa.userid)                                       AS learners_attempted,
+       COUNT(kbi_qa.id)                                                    AS attempts,
+       SUM(CASE WHEN kbi_qa.state = &#39;finished&#39; THEN 1 ELSE 0 END)          AS finished_attempts,
+       ROUND(AVG(CASE WHEN kbi_qz.sumgrades &gt; 0 THEN (kbi_qa.sumgrades * 100 / kbi_qz.sumgrades) ELSE NULL END), 2) AS average_score_percent,
+       ROUND(MIN(CASE WHEN kbi_qz.sumgrades &gt; 0 THEN (kbi_qa.sumgrades * 100 / kbi_qz.sumgrades) ELSE NULL END), 2) AS minimum_score_percent,
+       ROUND(MAX(CASE WHEN kbi_qz.sumgrades &gt; 0 THEN (kbi_qa.sumgrades * 100 / kbi_qz.sumgrades) ELSE NULL END), 2) AS maximum_score_percent,
+       ROUND(STDDEV_POP(CASE WHEN kbi_qz.sumgrades &gt; 0 THEN (kbi_qa.sumgrades * 100 / kbi_qz.sumgrades) ELSE NULL END), 2) AS standard_deviation_percent,
+       ROUND(AVG(CASE WHEN kbi_qa.timefinish &gt; kbi_qa.timestart THEN kbi_qa.timefinish - kbi_qa.timestart ELSE NULL END), 0) AS average_duration,
+       ROUND(SUM(CASE WHEN kbi_gi.gradepass &gt; 0 AND kbi_gg.finalgrade &gt;= kbi_gi.gradepass THEN 1 ELSE 0 END) * 100 / NULLIF(COUNT(kbi_qa.id), 0), 2) AS pass_rate_percent
+FROM mdl_quiz kbi_qz
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_qz.course
+       JOIN mdl_modules kbi_m ON kbi_m.name = &#39;quiz&#39;
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id AND kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_qz.id
+       LEFT JOIN mdl_quiz_slots kbi_slot ON kbi_slot.quizid = kbi_qz.id
+       LEFT JOIN mdl_quiz_attempts kbi_qa ON kbi_qa.quiz = kbi_qz.id AND kbi_qa.preview = 0
+       LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.itemmodule = &#39;quiz&#39; AND kbi_gi.iteminstance = kbi_qz.id AND kbi_gi.courseid = kbi_c.id
+       LEFT JOIN mdl_grade_grades kbi_gg ON kbi_gg.itemid = kbi_gi.id AND kbi_gg.userid = kbi_qa.userid
+WHERE kbi_c.visible = 1
+  AND kbi_cm.visible = 1
+GROUP BY kbi_qz.id, kbi_c.id, kbi_cm.id, kbi_gi.gradepass
+ORDER BY kbi_c.fullname, kbi_qz.name</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_qz.id                                                           AS id,
+       kbi_c.id                                                            AS courseid,
+       kbi_c.fullname                                                      AS course,
+       kbi_cm.id                                                           AS cmid,
+       kbi_qz.id                                                           AS quizid,
+       kbi_qz.name                                                         AS quiz_name,
+       COUNT(DISTINCT kbi_slot.id)                                         AS question_slots,
+       COUNT(DISTINCT kbi_qa.userid)                                       AS learners_attempted,
+       COUNT(kbi_qa.id)                                                    AS attempts,
+       SUM(CASE WHEN kbi_qa.state = &#39;finished&#39; THEN 1 ELSE 0 END)          AS finished_attempts,
+       ROUND((AVG(CASE WHEN kbi_qz.sumgrades &gt; 0 THEN(kbi_qa.sumgrades * 100 / kbi_qz.sumgrades) ELSE NULL END))::numeric, 2) AS average_score_percent,
+       ROUND((MIN(CASE WHEN kbi_qz.sumgrades &gt; 0 THEN(kbi_qa.sumgrades * 100 / kbi_qz.sumgrades) ELSE NULL END))::numeric, 2) AS minimum_score_percent,
+       ROUND((MAX(CASE WHEN kbi_qz.sumgrades &gt; 0 THEN(kbi_qa.sumgrades * 100 / kbi_qz.sumgrades) ELSE NULL END))::numeric, 2) AS maximum_score_percent,
+       ROUND((STDDEV_POP(CASE WHEN kbi_qz.sumgrades &gt; 0 THEN(kbi_qa.sumgrades * 100 / kbi_qz.sumgrades) ELSE NULL END))::numeric, 2) AS standard_deviation_percent,
+       ROUND((AVG(CASE WHEN kbi_qa.timefinish &gt; kbi_qa.timestart THEN kbi_qa.timefinish - kbi_qa.timestart ELSE NULL END))::numeric, 0) AS average_duration,
+       ROUND((SUM(CASE WHEN kbi_gi.gradepass &gt; 0 AND kbi_gg.finalgrade &gt;= kbi_gi.gradepass THEN 1 ELSE 0 END) * 100.0 / NULLIF(COUNT(kbi_qa.id), 0))::numeric, 2) AS pass_rate_percent
+FROM mdl_quiz kbi_qz
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_qz.course
+       JOIN mdl_modules kbi_m ON kbi_m.name = &#39;quiz&#39;
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id AND kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_qz.id
+       LEFT JOIN mdl_quiz_slots kbi_slot ON kbi_slot.quizid = kbi_qz.id
+       LEFT JOIN mdl_quiz_attempts kbi_qa ON kbi_qa.quiz = kbi_qz.id AND kbi_qa.preview = 0
+       LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.itemmodule = &#39;quiz&#39; AND kbi_gi.iteminstance = kbi_qz.id AND kbi_gi.courseid = kbi_c.id
+       LEFT JOIN mdl_grade_grades kbi_gg ON kbi_gg.itemid = kbi_gi.id AND kbi_gg.userid = kbi_qa.userid
+WHERE kbi_c.visible = 1
+  AND kbi_cm.visible = 1
+GROUP BY kbi_qz.id, kbi_c.id, kbi_cm.id, kbi_gi.gradepass
+ORDER BY kbi_c.fullname, kbi_qz.name</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li><strong>Beware of multiplied rows.</strong> The SQL joins question slots and attempts to the same quiz without first aggregating them. In quizzes with multiple slots, each attempt may be repeated, inflating <code>attempts</code> and <code>finished_attempts</code>.</li>
+                    <li>The <code>question_slots</code> column uses <code>COUNT(DISTINCT kbi_slot.id)</code>, while <code>learners_attempted</code> counts distinct users. These measures are not affected by the same multiplication as simple attempt counts.</li>
+                    <li>The <code>pass_rate_percent</code> value is calculated from attempt rows produced by the joins, not unique users. A final grade record may cause multiple attempts by the same user to be classified as passed; this is not an official student pass rate.</li>
+                    <li>Percentage scores use <code>kbi_qa.sumgrades / kbi_qz.sumgrades</code>, requiring a positive maximum grade. Except for the specific <code>finished_attempts</code> count, scores are not restricted to completed attempts.</li>
+                    <li>Average duration includes attempts with <code>timefinish &gt; timestart</code> and calculates elapsed seconds. It does not account for pauses or study time outside the attempt.</li>
+                    <li>The standard deviation uses <code>STDDEV_POP</code> and can return NULL when sufficient valid scoring data are unavailable.</li>
+                    <li>For quizzes without attempts, some aggregates may be zero or NULL. The pass-rate calculation uses <code>NULLIF</code> to protect against division by zero.</li>
+                    <li>The MySQL and PostgreSQL variants use database-specific rounding and type conversions. Validate results before making assessment decisions.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-063.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-063-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="062.html">← Report 062</a>
+                <a href="064.html">Report 064 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-063">
+                <h2 id="related-title-063">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="123.html"><span class="related-number">Report 123</span><span
+                            class="related-title">Quiz performance by question tag</span><span
+                            class="related-category">Quizzes</span></a>
+                    <a class="related-card" href="062.html"><span class="related-number">Report 062</span><span
+                            class="related-title">Quiz question structure</span><span
+                            class="related-category">Quizzes</span></a>
+                    <a class="related-card" href="064.html"><span class="related-number">Report 064</span><span
+                            class="related-title">Quiz activity by student</span><span
+                            class="related-category">Quizzes</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/quizzes.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
