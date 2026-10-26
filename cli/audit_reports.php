@@ -42,7 +42,9 @@ if ($options['help']) {
         "No reports are executed and no records are modified.");
     exit(0);
 }
-if ($unrecognized || !in_array($options['format'], ['text', 'json'], true)) {
+try {
+    report_inventory::validate_options($options, $unrecognized);
+} catch (\InvalidArgumentException $exception) {
     cli_error('Invalid arguments. Run with --help for usage.');
 }
 
@@ -53,7 +55,9 @@ try {
         'cat' => ['local_kopere_bi_cat', 'id, refkey'],
         'page' => ['local_kopere_bi_page', 'id, refkey, cat_id'],
         'block' => ['local_kopere_bi_block', 'id, refkey, page_id'],
-        'element' => ['local_kopere_bi_element', 'id, refkey, block_id, commandsql, info'],
+        'element' => ['local_kopere_bi_element',
+            'id, refkey, block_id, commandsql, info, title, type, theme, css, ' .
+            'html_before, html_after, cache, reload, block_num'],
     ];
     $installed = [];
     foreach ($tables as $key => [$name, $fields]) {
@@ -65,27 +69,21 @@ try {
     // This method does not update records when true is passed. Reconcile only
     // the three counters which the migration actually calculates.
     $dryrun = report_stock_refresh::refresh(true);
+    $projection = report_inventory::migration_projection($catalogue, $installed, $signatures);
     $audit['migration_dryrun'] = $dryrun;
-    $comparison = ['updated' => 'WOULD_UPDATE', 'current' => 'CURRENT', 'preserved' => 'PRESERVED'];
-    foreach ($comparison as $key => $status) {
-        if ($audit['summary'][$status] !== $dryrun[$key]) {
+    $audit['migration_projection'] = $projection;
+    foreach (['updated', 'current', 'preserved'] as $key) {
+        if ($projection['counts'][$key] !== $dryrun[$key]) {
             $issue = ['code' => 'MIGRATION_COUNT_MISMATCH', 'counter' => $key,
-                'inventory' => $audit['summary'][$status], 'dryrun' => $dryrun[$key]];
+                'inventory' => $projection['counts'][$key], 'dryrun' => $dryrun[$key]];
             $audit['issues'][] = $issue;
             $audit['approval']['blocking_issues'][] = $issue;
             $audit['approval']['status'] = 'BLOCKED';
         }
     }
-    // The migration's missing counter is not populated: our independent
-    // catalogue comparison is the authoritative absence check.
-    if ($options['format'] === 'json') {
-        cli_writeln(json_encode($audit, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE |
-            JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR));
-    } else {
-        cli_writeln(report_inventory::text($audit));
-        cli_writeln('Migration dry-run: ' . json_encode($dryrun, JSON_THROW_ON_ERROR));
-    }
-    exit($options['strict'] && $audit['approval']['blocking_issues'] ? 2 : 0);
+    // refresh(true) does not update its missing counter.
+    cli_writeln(report_inventory::render($audit, $options['format']));
+    exit(report_inventory::exit_code($audit, (bool)$options['strict']));
 } catch (\Throwable $exception) {
     // Do not expose installed SQL or configuration contents in an error log.
     cli_error('Unable to complete the read-only audit (' . get_class($exception) . ').');
