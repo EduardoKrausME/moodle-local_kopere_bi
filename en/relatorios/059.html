@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Compact overview of grades, completion states, and dates for visible modules by enrolled user in the selected course.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Simplified activity status overview | Report 059 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/059.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/059.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/059.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Simplified activity status overview | Report 059 · Kopere BI">
+    <meta property="og:description" content="Compact overview of grades, completion states, and dates for visible modules by enrolled user in the selected course.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/059.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/059.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/activities.html">Activities</a> / 059
+            </nav>
+            <div class="kicker">REPORT 059</div>
+            <h1>Simplified activity status overview</h1>
+            <p class="lead">Compact overview of grades, completion states, and dates for visible modules by enrolled user in the selected course.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Compact overview of grades, completion states, and dates for visible modules by enrolled user in the selected course.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps monitor recorded performance and activity completion without exposing the expanded personal profile information shown in the detailed report.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The dynamic SQL filter is <strong>Course</strong>, through <code>:courseid</code>, used <strong>once in each variant</strong> in <code>kbi_cm.course = :courseid</code>.</p>
+                <p>Fixed criteria include a visible course and module, and users who are neither deleted nor suspended and are not <code>guest</code>. The query requires a grade item of type <code>course</code> but does not filter enrolment status, validity dates, or user role.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization includes full MySQL and PostgreSQL variants in separate panels within the same block, with Prism.js syntax highlighting.</p>
+                <details class="report-block" open>
+                    <summary>1. Simplified activity status overview · Table</summary>
+                    <div class="inner">
+                        <p>One row per enrolled participant and visible module, with name and email, course, grade-item type and name, module addition date, grade modification date, activity and course grades, maximum grade, completion configuration and state, aggregated enrolment status and end date, and activity completion record update date.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT ue.userid,
+       kbi_u.email,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_c.fullname,
+       kbi_g.timemodified                                        as graduated,
+       kbi_cm.added                                              as created,
+       ROUND((CASE
+                WHEN kbi_g.rawgrademax &gt; 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                ELSE kbi_g.finalgrade END), 0)                   AS grade,
+       ROUND((CASE
+                WHEN kbi_g_c.rawgrademax &gt; 0 THEN (kbi_g_c.finalgrade / kbi_g_c.rawgrademax) * 100
+                ELSE kbi_g_c.finalgrade END), 0)                 AS grade_course,
+       kbi_gi.gradepass,
+       kbi_g.rawgrademax,
+       kbi_g.finalgrade,
+       kbi_cm.completion,
+       kbi_cmc.completionstate,
+       kbi_m.name                                                AS module_name,
+       kbi_gi.itemname,
+       ue.status                                             AS enrol_status,
+       ue.timeend,
+       CASE
+         WHEN ue.id &gt; 0 AND kbi_cmc.completionstate IN (1, 2)
+                 THEN kbi_cmc.timemodified
+         ELSE NULL END                                       AS completed_date
+FROM (SELECT MAX(kbi_ue.id) AS id, MIN(kbi_ue.status) AS status, MAX(kbi_ue.timeend) AS timeend, kbi_ue.userid, kbi_e.courseid
+      FROM mdl_user_enrolments kbi_ue
+             JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+      GROUP BY kbi_e.courseid, kbi_ue.userid) ue
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = ue.courseid
+       JOIN mdl_modules kbi_m ON kbi_m.id = kbi_cm.module
+       JOIN mdl_user kbi_u ON kbi_u.id = ue.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = ue.courseid
+       JOIN mdl_grade_items kbi_gi_c ON kbi_gi_c.itemtype = &#39;course&#39; AND kbi_gi_c.courseid = ue.courseid
+       LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.itemtype = &#39;mod&#39; AND kbi_gi.iteminstance = kbi_cm.instance AND kbi_gi.itemmodule = kbi_m.name
+       LEFT JOIN mdl_grade_grades kbi_g ON kbi_g.itemid = kbi_gi.id AND kbi_g.userid = ue.userid
+       LEFT JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.coursemoduleid = kbi_cm.id AND kbi_cmc.userid = ue.userid
+       LEFT JOIN mdl_grade_grades kbi_g_c ON kbi_g_c.itemid = kbi_gi_c.id AND kbi_g_c.userid = ue.userid
+WHERE ue.id &gt; 0
+  AND kbi_cm.course = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_cm.visible = 1</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT ue.userid,
+       kbi_u.email,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_c.fullname,
+       kbi_g.timemodified                                        as graduated,
+       kbi_cm.added                                              as created,
+       ROUND(((CASE
+                WHEN kbi_g.rawgrademax &gt; 0 THEN(kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                ELSE kbi_g.finalgrade END))::numeric, 0)                   AS grade,
+       ROUND(((CASE
+                WHEN kbi_g_c.rawgrademax &gt; 0 THEN(kbi_g_c.finalgrade / kbi_g_c.rawgrademax) * 100
+                ELSE kbi_g_c.finalgrade END))::numeric, 0)                 AS grade_course,
+       kbi_gi.gradepass,
+       kbi_g.rawgrademax,
+       kbi_g.finalgrade,
+       kbi_cm.completion,
+       kbi_cmc.completionstate,
+       kbi_m.name                                                AS module_name,
+       kbi_gi.itemname,
+       ue.status                                             AS enrol_status,
+       ue.timeend,
+       CASE
+         WHEN ue.id &gt; 0 AND kbi_cmc.completionstate IN(1, 2)
+                 THEN kbi_cmc.timemodified
+         ELSE NULL END                                       AS completed_date
+FROM(SELECT MAX(kbi_ue.id) AS id, MIN(kbi_ue.status) AS status, MAX(kbi_ue.timeend) AS timeend, kbi_ue.userid, kbi_e.courseid
+      FROM mdl_user_enrolments kbi_ue
+             JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+      GROUP BY kbi_e.courseid, kbi_ue.userid) ue
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = ue.courseid
+       JOIN mdl_modules kbi_m ON kbi_m.id = kbi_cm.module
+       JOIN mdl_user kbi_u ON kbi_u.id = ue.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = ue.courseid
+       JOIN mdl_grade_items kbi_gi_c ON kbi_gi_c.itemtype = &#39;course&#39; AND kbi_gi_c.courseid = ue.courseid
+       LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.itemtype = &#39;mod&#39; AND kbi_gi.iteminstance = kbi_cm.instance AND kbi_gi.itemmodule = kbi_m.name
+       LEFT JOIN mdl_grade_grades kbi_g ON kbi_g.itemid = kbi_gi.id AND kbi_g.userid = ue.userid
+       LEFT JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.coursemoduleid = kbi_cm.id AND kbi_cmc.userid = ue.userid
+       LEFT JOIN mdl_grade_grades kbi_g_c ON kbi_g_c.itemid = kbi_gi_c.id AND kbi_g_c.userid = ue.userid
+WHERE ue.id &gt; 0
+  AND kbi_cm.course = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_cm.visible = 1</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The query includes users with course enrolment records even if some enrolments are inactive. The <code>enrol_status</code> and <code>timeend</code> values come from independent aggregates (<code>MIN(status)</code> and <code>MAX(timeend)</code>), which need not describe the same enrolment.</li>
+                    <li>Because the query uses <code>JOIN mdl_grade_items</code> for a <code>course</code>-type grade item, courses without such an item may be excluded.</li>
+                    <li>The <code>completed_date</code> field returns <code>mdl_course_modules_completion.timemodified</code> when the state is <code>1</code> or <code>2</code>. This is the record's modification date, not necessarily the first date the activity was completed.</li>
+                    <li>The <code>graduated</code> column means the last grade modification, not issuance of a diploma or formal course completion.</li>
+                    <li>The <code>grade</code> and <code>grade_course</code> calculations may represent percentages when the maximum grade is positive or raw grade values otherwise; interpret the figures according to the grading scale.</li>
+                    <li>Visible modules appear even without an activity grade, because joining the module grade item is optional.</li>
+                    <li>The SQL does not filter for the student role or a date range. Displaying identifiable data and grades requires appropriate permissions.</li>
+                    <li>MySQL and PostgreSQL variants serve the same purpose but use different rounding expressions.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-059.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-059-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="058.html">← Report 058</a>
+                <a href="060.html">Report 060 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-059">
+                <h2 id="related-title-059">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="058.html"><span class="related-number">Report 058</span><span
+                            class="related-title">Activity status details</span><span
+                            class="related-category">Activities</span></a>
+                    <a class="related-card" href="055.html"><span class="related-number">Report 055</span><span
+                            class="related-title">Activity completion statistics</span><span
+                            class="related-category">Activities</span></a>
+                    <a class="related-card" href="056.html"><span class="related-number">Report 056</span><span
+                            class="related-title">Activity grades and dates</span><span
+                            class="related-category">Activities</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/activities.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
