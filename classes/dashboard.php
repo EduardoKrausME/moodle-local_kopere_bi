@@ -111,6 +111,7 @@ class dashboard extends bi_all {
             "total_categories" => count($categorys),
             "total_pages" => $totalpages,
             "editing" => isset($USER->editing) ? $USER->editing : 0,
+            "manage_columns" => has_capability("local/kopere_bi:manage", context_system::instance()),
             "wwwroot" => $CFG->wwwroot,
             "show_mcp_banner" => mcp_banner::should_show(),
             "mcp_banner_dismiss_url" => new moodle_url("/local/kopere_bi/index.php", [
