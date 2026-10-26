@@ -73,12 +73,11 @@ installations that missed it and refreshes bundled analytics SQL without overwri
 customised report definitions. No dedicated CLI import script is required.
 
 The operation is idempotent: existing report definitions are preserved and only missing
-pages, blocks and elements are added. Run the normal Moodle upgrade process to apply it.
+pages, blocks and elements are added.
 
 ## MCP: report APIs
 
-Install [local_mcp](https://eduardokrausme.github.io/moodle-local_mcp/) to
-automatically publish each BI report as a separate read-only MCP tool. Use
+With [local_mcp](https://eduardokrausme.github.io/moodle-local_mcp/), each BI report can be published as a separate read-only MCP tool. Use
 `kopere_bi_list_reports` to discover report APIs and
 `kopere_bi_report_<refkey>` to read the underlying tabular data from
 all elements, with optional filters and pagination. See
