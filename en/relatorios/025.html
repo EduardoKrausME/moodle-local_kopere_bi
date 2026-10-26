@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Course assignment table relating students, their submissions, grades, grading teachers, and last recorded course access.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Assignments graded by teacher | Report 025 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/025.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/025.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/025.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Assignments graded by teacher | Report 025 · Kopere BI">
+    <meta property="og:description" content="Course assignment table relating students, their submissions, grades, grading teachers, and last recorded course access.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/025.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/025.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/instructors.html">Teachers and tutors</a> / 025
+            </nav>
+            <div class="kicker">REPORT 025</div>
+            <h1>Assignments graded by teacher</h1>
+            <p class="lead">Course assignment table relating students, their submissions, grades, grading teachers, and last recorded course access.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Course assignment table relating students, their submissions, grades, grading teachers, and last recorded course access.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Provides academic teams with an operational view of assignments in the selected course, identifying students with submissions, recorded grades, and assessments associated with teachers.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The dynamic SQL parameter is <strong><code>:courseid</code></strong>, which restricts the selection to the chosen course.</p>
+                <p>Other criteria are fixed: Moodle modules of type <code>assign</code>, users assigned role ID <code>5</code> in the course context, visible courses, users who are neither deleted nor suspended, and accounts other than <code>guest</code>. The submission subquery requires <code>status =
+                        'submitted'</code> and <code>latest = 1</code>, while the grading association accepts <code>grade
+                        &gt; -1</code>. There are no dynamic teacher, assignment, or date-range parameters.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>The report contains one table visualization and one SQL query, with cache and refresh settings and Prism.js syntax highlighting. No separate PostgreSQL variant file is provided.</p>
+                <details class="report-block" open>
+                    <summary>1. Assignments graded by teacher · Table</summary>
+                    <div class="inner">
+                        <p>The table shows assignment name, course and category, student details, grader name, dates associated with the grade and submission, percentage grade, and student's last course access. The SQL starts from course assignment activities and role ID 5 student assignments.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_gi.itemname                            AS activity_name,
+       kbi_g.userid,
+       kbi_u.username,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_c.fullname,
+       kbi_cc1.name                               AS course_category,
+       kbi_c.shortname,
+       CONCAT(kbi_gu.firstname, &#39; &#39;, kbi_gu.lastname) AS grader_name,
+       kbi_g.timemodified                         AS graduated,
+       ROUND((CASE
+                WHEN kbi_g.rawgrademax &gt; 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                ELSE kbi_g.finalgrade END), 0)    AS grade,
+       ROUND((CASE
+                WHEN (kbi_g.rawgrademax - kbi_g.rawgrademin) &gt; 0
+                        THEN ((kbi_g.finalgrade - kbi_g.rawgrademin) / (kbi_g.rawgrademax - kbi_g.rawgrademin)) * 100
+                ELSE kbi_g.finalgrade END), 0)    AS grade_percent,
+       kbi_gi.itemtype,
+       kbi_sg.timemodified                        AS need_grade_assignment,
+       kbi_ass.timemodified                       AS submission_date,
+       kbi_ul.timeaccess                          AS course_lastaccess
+FROM mdl_course kbi_c
+       JOIN mdl_course_categories kbi_cc1 ON kbi_cc1.id = kbi_c.category
+       JOIN mdl_modules kbi_m ON kbi_m.name = &#39;assign&#39;
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id AND kbi_cm.module = kbi_m.id
+       JOIN (SELECT kbi_ctx.instanceid, kbi_ra.userid
+             FROM mdl_context kbi_ctx
+                    JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_ctx.id AND kbi_ra.roleid = 5
+             WHERE kbi_ctx.contextlevel = 50
+             GROUP BY kbi_ctx.instanceid, kbi_ra.userid) ra ON ra.instanceid = kbi_c.id
+       JOIN mdl_user kbi_u ON kbi_u.id = ra.userid
+       JOIN mdl_grade_items kbi_gi ON kbi_gi.iteminstance = kbi_cm.instance AND kbi_gi.itemmodule = &#39;assign&#39;
+       LEFT JOIN mdl_grade_grades kbi_g ON kbi_gi.id = kbi_g.itemid AND kbi_g.userid = kbi_u.id
+       LEFT JOIN mdl_assign_submission kbi_ass
+         ON kbi_ass.userid = kbi_u.id AND kbi_ass.assignment = kbi_cm.instance AND kbi_ass.status = &#39;submitted&#39; AND kbi_ass.latest = 1
+       LEFT JOIN mdl_assign_grades kbi_sg
+         ON kbi_ass.assignment = kbi_sg.assignment AND kbi_ass.userid = kbi_sg.userid AND kbi_sg.attemptnumber = kbi_ass.attemptnumber AND
+            kbi_sg.grade &gt; -1
+       LEFT JOIN mdl_user kbi_gu ON kbi_gu.id = kbi_sg.grader
+       LEFT JOIN mdl_user_lastaccess kbi_ul ON kbi_ul.courseid = kbi_c.id AND kbi_ul.userid = kbi_u.id
+WHERE kbi_c.id &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The table is not filtered by teacher: student identifiers and grades appear alongside the grader's name when a corresponding record exists. The title does not imply selecting a specific teacher.</li>
+                    <li>The <code>graduated</code> field represents <code>kbi_g.timemodified</code>, a change to the grade record, whereas <code>need_grade_assignment</code> represents <code>kbi_sg.timemodified</code>, despite potentially confusing field names.</li>
+                    <li>The query uses optional joins for grades, submissions, and grading, so rows without a submission or grade may appear. A missing grade alone does not imply a pending submission.</li>
+                    <li>The SQL associates grade items by assignment instance and module type <code>assign</code>; for unusual grading records, verify that grades correspond to the intended assignment.</li>
+                    <li>The query does not explicitly filter individual assignments by module visibility or deletion in progress; visibility is applied only at course level.</li>
+                    <li>The data include students' names and identifiers, grades, and grading teachers. Restrict access and exports according to institutional privacy rules.</li>
+                    <li>There is no separate PostgreSQL definition for this report. Validate the SQL against the database system actually in use.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-025.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="024.html">← Report 024</a>
+                <a href="026.html">Report 026 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-025">
+                <h2 id="related-title-025">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="028.html"><span class="related-number">Report 028</span><span
+                            class="related-title">Teacher participation in assignments</span><span
+                            class="related-category">Teachers and tutors</span></a>
+                    <a class="related-card" href="026.html"><span class="related-number">Report 026</span><span
+                            class="related-title">Forum statistics by teacher</span><span
+                            class="related-category">Teachers and tutors</span></a>
+                    <a class="related-card" href="027.html"><span class="related-number">Report 027</span><span
+                            class="related-title">Teacher activity engagement details</span><span
+                            class="related-category">Teachers and tutors</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/instructors.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

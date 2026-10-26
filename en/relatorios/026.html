@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Summary of forums in the selected course, including tracked visits and time, discussion and post counts, calculated forum count, and assigned teachers' names.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Forum statistics by teacher | Report 026 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/026.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/026.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/026.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Forum statistics by teacher | Report 026 · Kopere BI">
+    <meta property="og:description" content="Summary of forums in the selected course, including tracked visits and time, discussion and post counts, calculated forum count, and assigned teachers' names.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/026.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/026.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/instructors.html">Teachers and tutors</a> / 026
+            </nav>
+            <div class="kicker">REPORT 026</div>
+            <h1>Forum statistics by teacher</h1>
+            <p class="lead">Summary of forums in the selected course, including tracked visits and time, discussion and post counts, calculated forum count, and assigned teachers' names.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Summary of forums in the selected course, including tracked visits and time, discussion and post counts, calculated forum count, and assigned teachers' names.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps analyze aggregate forum usage in a course, including discussion volume, posts, and recorded tracking data, to inform moderation and facilitation.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The dynamic SQL filter is <strong><code>:courseid</code></strong>, applied to the course being summarized.</p>
+                <p>Fixed criteria include a visible course (<code>kbi_c.visible = 1</code>), a positive course ID, activity tracking records with <code>page = 'module'</code> linked to <code>forum</code> modules, and teachers identified by role ID <code>3</code> in a course context (<code>contextlevel
+                        = 50</code>). There is no dynamic filter for teacher, individual forum, or date range.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>The report contains one table visualization and two SQL queries, with cache and refresh settings and Prism.js syntax highlighting. MySQL and PostgreSQL variants appear in separate panels within the same visualization block.</p>
+                <details class="report-block" open>
+                    <summary>1. Forum statistics by teacher · Table</summary>
+                    <div class="inner">
+                        <p>The per-course summary shows visits and time spent in forum modules recorded by Kopere BI, discussion counts, post counts, aggregate forum record counts, and teachers assigned role ID 3.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
+       kbi_c.fullname,
+       MAX(v.visits)      AS visits,
+       MAX(v.timespend)   AS timespend,
+       MAX(d.discussions) AS discussions,
+       MAX(p.posts)       AS posts,
+       COUNT(*)           AS total,
+       tchr.teacher
+FROM mdl_course kbi_c
+       LEFT JOIN mdl_forum kbi_f ON kbi_f.course = kbi_c.id
+       LEFT JOIN (SELECT kbi_lit.courseid, SUM(kbi_lit.timespend) as timespend, SUM(kbi_lit.visits) as visits
+                  FROM mdl_local_kopere_bi_tracking kbi_lit, mdl_course_modules kbi_cm, mdl_modules kbi_m
+                  WHERE kbi_lit.page = &#39;module&#39;
+                    and kbi_cm.id = kbi_lit.param
+                    and kbi_m.id = kbi_cm.module
+                    and kbi_m.name = &#39;forum&#39;
+                  GROUP BY kbi_lit.courseid) v ON v.courseid = kbi_c.id
+       LEFT JOIN (SELECT course, count(*) discussions FROM mdl_forum_discussions group by course) d ON d.course = kbi_c.id
+       LEFT JOIN (SELECT kbi_fd.course, count(*) posts
+                  FROM mdl_forum_discussions kbi_fd, mdl_forum_posts kbi_fp
+                  WHERE kbi_fp.discussion = kbi_fd.id
+                  group by kbi_fd.course) p ON p.course = kbi_c.id
+       LEFT JOIN (SELECT GROUP_CONCAT(DISTINCT CONCAT(kbi_u.firstname, &#39; &#39;, kbi_u.lastname) SEPARATOR &#39;, &#39;) AS teacher,
+                         kbi_ctx.instanceid
+                  FROM mdl_role_assignments kbi_ra
+                         JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id
+                         JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+                  WHERE kbi_ctx.contextlevel = 50
+                    AND kbi_ra.roleid = 3
+                  GROUP BY kbi_ctx.instanceid) tchr ON tchr.instanceid = kbi_c.id
+WHERE kbi_c.id &gt; 0
+  AND kbi_c.visible = 1
+  AND kbi_c.id = :courseid
+GROUP BY kbi_c.id, tchr.teacher</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
+       kbi_c.fullname,
+       MAX(v.visits)      AS visits,
+       MAX(v.timespend)   AS timespend,
+       MAX(d.discussions) AS discussions,
+       MAX(p.posts)       AS posts,
+       COUNT(*)           AS total,
+       tchr.teacher
+FROM mdl_course kbi_c
+       LEFT JOIN mdl_forum kbi_f ON kbi_f.course = kbi_c.id
+       LEFT JOIN(SELECT kbi_lit.courseid, SUM(kbi_lit.timespend) as timespend, SUM(kbi_lit.visits) as visits
+                  FROM mdl_local_kopere_bi_tracking kbi_lit, mdl_course_modules kbi_cm, mdl_modules kbi_m
+                  WHERE kbi_lit.page = &#39;module&#39;
+                    and kbi_cm.id = kbi_lit.param
+                    and kbi_m.id = kbi_cm.module
+                    and kbi_m.name = &#39;forum&#39;
+                  GROUP BY kbi_lit.courseid) v ON v.courseid = kbi_c.id
+       LEFT JOIN(SELECT course, count(*) discussions FROM mdl_forum_discussions group by course) d ON d.course = kbi_c.id
+       LEFT JOIN(SELECT kbi_fd.course, count(*) posts
+                  FROM mdl_forum_discussions kbi_fd, mdl_forum_posts kbi_fp
+                  WHERE kbi_fp.discussion = kbi_fd.id
+                  group by kbi_fd.course) p ON p.course = kbi_c.id
+       LEFT JOIN(SELECT STRING_AGG(DISTINCT (CONCAT(kbi_u.firstname, &#39; &#39;, kbi_u.lastname))::text, &#39;, &#39;) AS teacher,
+                         kbi_ctx.instanceid
+                  FROM mdl_role_assignments kbi_ra
+                         JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id
+                         JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+                  WHERE kbi_ctx.contextlevel = 50
+                    AND kbi_ra.roleid = 3
+                  GROUP BY kbi_ctx.instanceid) tchr ON tchr.instanceid = kbi_c.id
+WHERE kbi_c.id &gt; 0
+  AND kbi_c.visible = 1
+  AND kbi_c.id = :courseid
+GROUP BY kbi_c.id, tchr.teacher</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>Despite its 'by teacher' title, the query groups results by course and lists assigned teachers. Visits, discussions, and posts are not attributed to individual teachers.</li>
+                    <li>The <code>total</code> field uses <code>COUNT(*)</code> over a forum <code>LEFT JOIN</code>. Even if no forum records exist, the count may be 1 because the course row is retained. This does not guarantee an accurate forum count.</li>
+                    <li>Discussion and post counts aggregate activity across all forums in the course without distinguishing authorship, teacher participation, or time period.</li>
+                    <li>Time and visits come from forum-module tracking records and depend on the installation and data collection and retention.</li>
+                    <li>The teacher list uses role ID <code>3</code>, which may be customized in the installation. MySQL and PostgreSQL variants use different aggregators to concatenate names.</li>
+                    <li>There are no date selectors in this definition. Analysis of a particular period requires different SQL or a compatible filtering mechanism.</li>
+                    <li>The query includes teachers' names and course-related data; respect administrative access permissions.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-026.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-026-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="025.html">← Report 025</a>
+                <a href="027.html">Report 027 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-026">
+                <h2 id="related-title-026">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="031.html"><span class="related-number">Report 031</span><span
+                            class="related-title">Teacher participation in forums</span><span
+                            class="related-category">Teachers and tutors</span></a>
+                    <a class="related-card" href="025.html"><span class="related-number">Report 025</span><span
+                            class="related-title">Assignments graded by teacher</span><span class="related-category">Teachers and tutors</span></a>
+                    <a class="related-card" href="027.html"><span class="related-number">Report 027</span><span
+                            class="related-title">Teacher activity engagement details</span><span
+                            class="related-category">Teachers and tutors</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/instructors.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
