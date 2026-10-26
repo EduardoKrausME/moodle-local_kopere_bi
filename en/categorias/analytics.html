@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Daily activity, active courses, and comparisons of participation across students and classes.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Operational participation indicators · Kopere BI reports</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <style>
+        .catalog-summary {
+            background: #e8f7f4;
+            border: 1px solid #bee5df;
+            border-radius: 13px;
+            padding: 15px 20px;
+            margin: 23px 0;
+            color: #12515b
+        }
+
+        .catalog-summary strong {
+            font-size: 22px;
+            display: block
+        }
+
+        .catalog-summary p {
+            margin: 4px 0;
+            color: #405c65
+        }
+
+        .categories-list {
+            margin-top: 18px
+        }
+
+        .category-menu {
+            margin-top: 15px;
+            padding: 10px 6px;
+            border-top: 1px solid #e4ebf0
+        }
+
+        .category-menu summary {
+            cursor: pointer;
+            color: #006d75;
+            font-weight: 800;
+            font-size: 13px;
+            padding: 6px 8px
+        }
+
+        .category-menu nav {
+            max-height: 300px;
+            overflow: auto;
+            margin-top: 5px
+        }
+
+        .category-menu a {
+            display: block;
+            padding: 6px 9px;
+            text-decoration: none;
+            color: #486273;
+            font-size: 12px;
+            border-radius: 6px
+        }
+
+        .category-menu a:hover, .category-menu a[aria-current] {
+            background: #e5f6f3;
+            color: #005c65
+        }
+
+        .report-list {
+            display: grid;
+            gap: 15px;
+            margin-top: 24px
+        }
+
+        .report-row {
+            border: 1px solid #dce7eb;
+            border-radius: 13px;
+            padding: 20px;
+            background: #fff;
+            scroll-margin-top: 90px
+        }
+
+        .report-row h2 {
+            font-size: 20px;
+            margin: 7px 0 10px
+        }
+
+        .report-row .num {
+            display: inline-block;
+            background: #e1f5f1;
+            color: #056b73;
+            font-weight: 800;
+            font-size: 12px;
+            border-radius: 7px;
+            padding: 3px 9px
+        }
+
+        .report-row p {
+            font-size: 14px;
+            margin: 8px 0
+        }
+
+        .report-row .metadata {
+            font-size: 12px;
+            color: #536c79;
+            overflow-wrap: anywhere
+        }
+
+        .report-row .metadata code {
+            font-size: 12px
+        }
+
+        .report-row .sources {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 11px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-top: 13px
+        }
+
+        .report-row .sources a {
+            border-bottom: 1px solid #8ccbc5;
+            text-decoration: none
+        }
+
+        .report-row .sources a:hover {
+            text-decoration: underline
+        }
+
+        .report-mini-search {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin: 19px 0
+        }
+
+        .report-mini-search input {
+            width: min(100%, 500px);
+            font: inherit;
+            border: 1px solid #b8cdd3;
+            border-radius: 9px;
+            padding: 10px 12px
+        }
+
+        .report-mini-search label {
+            font-size: 14px;
+            font-weight: 700
+        }
+
+        .tiny {
+            font-size: 12px;
+            color: #678
+        }
+
+        .category-caption {
+            font-size: 13px;
+            color: #6a7c88
+        }
+
+        .category-shortcuts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 18px 0
+        }
+
+        .category-shortcuts a {
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid #bce2df;
+            padding: 6px 9px;
+            border-radius: 7px;
+            background: #f2faf9
+        }
+
+        .category-shortcuts a:hover {
+            background: #d9f5ef
+        }
+
+        .report-row[hidden] {
+            display: none !important
+        }
+
+        @media (max-width: 750px) {
+            .report-mini-search {
+                display: block
+            }
+
+            .report-mini-search label {
+                display: block;
+                margin-bottom: 6px
+            }
+
+            .report-row {
+                padding: 15px
+            }
+
+            .catalog-summary {
+                padding: 13px
+            }
+        }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/categorias/analytics.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/categorias/analytics.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/categorias/analytics.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Operational participation indicators · Kopere BI reports">
+    <meta property="og:description"
+          content="Daily activity, active courses, and comparisons of participation across students and classes.">
+    <meta property="og:url"
+          content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/categorias/analytics.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../../pt_br/categorias/analytics.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+        <details class="category-menu">
+            <summary>19 report categories</summary>
+            <nav aria-label="Categories">
+                <a href="enrollments.html">Enrolments and revenue (7)</a>
+                <a href="learning_analytics.html">Learning Analytics dashboards (6)</a>
+                <a href="users.html">Users and profiles (16)</a>
+                <a href="instructors.html">Teachers and tutors (10)</a>
+                <a href="courses.html">Courses and content (18)</a>
+                <a href="grades.html">Grades and assessments (5)</a>
+                <a href="activities.html">Activities (9)</a>
+                <a href="quizzes.html">Quizzes (14)</a>
+                <a href="forums.html">Forums (7)</a>
+                <a href="scorm.html">SCORM (3)</a>
+                <a href="assignments.html">Assignments and submissions (3)</a>
+                <a href="feedback.html">Feedback and surveys (3)</a>
+                <a href="competencies.html">Competencies, plans and badges (5)</a>
+                <a href="communication.html">Communication and files (5)</a>
+                <a href="login_reports.html">Access and logins (2)</a>
+                <a href="students.html">Students (9)</a>
+                <a href="online.html">Online students (1)</a>
+                <a href="analytics.html" aria-current="page">Operational participation indicators (3)</a>
+                <a href="dashboard.html">General dashboard (1)</a>
+            </nav>
+        </details>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / Operational participation indicators
+            </nav>
+            <div class="kicker">REPORT CATALOG · EN</div>
+            <h1>Operational participation indicators</h1>
+            <p class="lead">Daily activity, active courses, and comparisons of participation across students and classes.</p>
+            <div class="catalog-summary"><strong>3 reports</strong>
+            </div>
+            <p class="category-caption">The report names have been translated into English for this guide; their <code>refkeys</code>
+                and JSON files remain unchanged from the plugin. PostgreSQL variants, when available, appear
+                alongside the corresponding reports.</p>
+            <div class="report-mini-search">
+                <label for="filtrar-analytics">Filter reports</label>
+                <input type="search" id="filtrar-analytics" placeholder="Name, number, or identifier"
+                       aria-controls="lista-relatorios">
+            </div>
+            <div class="tiny" id="search-count" role="status" aria-live="polite">
+            </div>
+            <div id="lista-relatorios" class="report-list">
+                <article class="report-row" id="relatorio-115"
+                         data-search="115 daily activity by course role kbi_page_daily_role_activity daily recorded module actions grouped by student, teacher, and other roles, using utc days. ">
+                    <span class="num">Report 115</span>
+                    <h2>Daily activity by course role</h2>
+                    <p>Daily recorded module actions grouped by student, teacher, and other roles, using UTC days.</p>
+                    <p class="metadata">Visualizations: Table</p>
+                    <div class="sources">
+                        <a href="../relatorios/115.html">Explanation, visualizations, filters, and SQL →</a>
+                    </div>
+                </article>
+                <article class="report-row" id="relatorio-116"
+                         data-search="116 active courses by day kbi_page_active_courses_daily daily number of courses with recorded module actions, based on the most recent snapshot. ">
+                    <span class="num">Report 116</span>
+                    <h2>Active courses by day</h2>
+                    <p>Daily number of courses with recorded module actions, based on the most recent snapshot.</p>
+                    <p class="metadata">Visualizations: Table</p>
+                    <div class="sources">
+                        <a href="../relatorios/116.html">Explanation, visualizations, filters, and SQL →</a>
+                    </div>
+                </article>
+                <article class="report-row" id="relatorio-119"
+                         data-search="119 student versus class participation kbi_page_learner_vs_class_activity compares the number of individual actions over the past 30 days with the class in the same course and snapshot; actions do not measure learning. ">
+                    <span class="num">Report 119</span>
+                    <h2>Student versus class participation</h2>
+                    <p>Compares the number of individual actions over the past 30 days with the class in the same course and snapshot; actions do not measure learning.</p>
+                    <p class="metadata">Visualizations: Table</p>
+                    <div class="sources">
+                        <a href="../relatorios/119.html">Explanation, visualizations, filters, and SQL →</a>
+                    </div>
+                </article>
+            </div>
+            <p class="note" id="notfound" hidden>No reports in this category match the search term.</p>
+            <nav class="pager" aria-label="Navigate report categories">
+                <a href="online.html">← Online students</a>
+                <a href="dashboard.html">General dashboard →</a>
+            </nav>
+            <p>
+                <a href="../relatorios.html">View all categories and usage guidance →</a>
+            </p></article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a>
+    · GPL v3 · Catalog based on the plugin’s own report definitions.
+</footer>
+<script>(function () {
+    const field = document.querySelector('input[type="search"]');
+    const rows = [...document.querySelectorAll('.report-row')];
+    const status = document.getElementById('search-count');
+    const empty = document.getElementById('notfound');
+
+    function update() {
+        const q = field.value.toLocaleLowerCase('en-US').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        let visible = 0;
+        for (const row of rows) {
+            const content = row.getAttribute('data-search').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            row.hidden = !content.includes(q);
+            if (!row.hidden) visible++;
+        }
+        status.textContent = q ? visible + ' de ' + rows.length + ' reports found' : '';
+        empty.hidden = visible !== 0;
+    }
+
+    field.addEventListener('input', update);
+})();</script>
+</body>
+</html>
