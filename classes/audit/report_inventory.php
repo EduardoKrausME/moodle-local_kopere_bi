@@ -373,7 +373,7 @@ final class report_inventory {
                 continue;
             }
             $record = $index['block'][$ref][0];
-            $pageref = $block['page_refkey'];
+            $pageref = $block['page_refkey'] ?? '';
             if (count($index['page'][$pageref] ?? []) === 1 &&
                     (int)$record->page_id !== (int)$index['page'][$pageref][0]->id) {
                 $issues[] = ['code' => 'WRONG_PAGE', 'refkey' => $ref,
