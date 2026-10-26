@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Summary of Moodle file records grouped by component, including the number of files with positive sizes and the total recorded file sizes.">
+    <meta name="theme-color" content="#072c3a">
+    <title>File uploads | Report 061 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/061.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/061.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/061.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="File uploads | Report 061 · Kopere BI">
+    <meta property="og:description" content="Summary of Moodle file records grouped by component, including the number of files with positive sizes and the total recorded file sizes.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/061.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/061.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/activities.html">Activities</a> / 061
+            </nav>
+            <div class="kicker">REPORT 061</div>
+            <h1>File uploads</h1>
+            <p class="lead">Summary of Moodle file records grouped by component, including the number of files with positive sizes and the total recorded file sizes.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Summary of Moodle file records grouped by component, including the number of files with positive sizes and the total recorded file sizes.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps administrators identify which components account for the most file records and recorded storage volume, providing a starting point for assessing space consumption and data growth.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, component, user, file type, or date range.</p>
+                <p>The only condition is <code>kbi_f.filesize &gt; 0</code>, applied to <code>mdl_files</code>. The SQL groups records by <code>kbi_f.component</code> and sorts the results by summed file sizes in descending order.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains one SQL query, cache and refresh settings, and Prism.js syntax highlighting. The catalog does not provide a separate PostgreSQL variant for this definition.</p>
+                <details class="report-block" open>
+                    <summary>1. File uploads · Table</summary>
+                    <div class="inner">
+                        <p>The table lists each component code, its file record count, the sum of file sizes in bytes, and the largest file ID in that component group. Results are sorted from the largest to the smallest byte total.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT MAX(kbi_f.id)             AS id,
+       kbi_f.component,
+       COUNT(kbi_f.id)           AS files,
+       COALESCE(SUM(kbi_f.filesize), 0) AS filesize
+FROM mdl_files kbi_f
+WHERE kbi_f.filesize &gt; 0
+GROUP BY kbi_f.component
+ORDER BY filesize DESC, component</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>Despite the title 'File uploads', the results do not necessarily represent user uploads: <code>mdl_files</code> includes files maintained by different components, including files generated or managed by Moodle.</li>
+                    <li>The <code>files</code> count represents table records with positive sizes, not necessarily unique physical files. Storage may deduplicate content or retain multiple versions.</li>
+                    <li>The <code>filesize</code> value is the sum of logical file sizes in bytes. It does not necessarily equal actual disk usage because of shared content, metadata, and storage infrastructure.</li>
+                    <li>Empty files and records with a size of zero are excluded by the filter.</li>
+                    <li>The <code>id</code> field is <code>MAX(kbi_f.id)</code>, merely the highest identifier in the group. It is not a unique identifier of the component.</li>
+                    <li>There is no filtering by course, period, user, or upload source; do not treat the results as an auditable upload history.</li>
+                    <li>No separate PostgreSQL file is provided for this report. Access to administrative storage data should be restricted.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-061.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="060.html">← Report 060</a>
+                <a href="062.html">Report 062 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-061">
+                <h2 id="related-title-061">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="060.html"><span class="related-number">Report 060</span><span
+                            class="related-title">Activity submission progress</span><span
+                            class="related-category">Activities</span></a>
+                    <a class="related-card" href="093.html"><span class="related-number">Report 093</span><span
+                            class="related-title">File usage by course</span><span class="related-category">Communication and files</span></a>
+                    <a class="related-card" href="094.html"><span class="related-number">Report 094</span><span
+                            class="related-title">File usage by teacher</span><span class="related-category">Communication and files</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/activities.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
