@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Two tables use account access fields to distinguish users without recorded logins or last access from users with a recorded first-access date.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Login records | Report 006 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-why {
+        background: #e9f7f4;
+        border: 1px solid #bfdfdc;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 22px 0
+    }
+
+    .report-why strong {
+        color: #05656f
+    }
+
+    .report-why p {
+        margin: 5px 0 0
+    }
+
+    .report-item {
+        border: 1px solid #d8e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 16px 0
+    }
+
+    .report-item summary {
+        cursor: pointer;
+        background: #eaf5f7;
+        color: #09515e;
+        font-weight: 800;
+        padding: 14px 16px
+    }
+
+    .report-item summary:hover {
+        background: #d8ecef
+    }
+
+    .report-item .details {
+        padding: 15px
+    }
+
+    .report-sql {
+        background: #f6fafb;
+        border: 1px solid #d6e6e8;
+        border-radius: 11px;
+        padding: 12px;
+        margin: 15px 0
+    }
+
+    .report-sql h3 {
+        font-size: 14px;
+        font-weight: 800;
+        color: #08717a;
+        margin: 0 0 10px
+    }
+
+    .report-sql pre {
+        margin: 0;
+        max-height: 650px;
+        overflow: auto;
+        font-size: 13px
+    }
+
+    .report-meta {
+        color: #56737e;
+        font-size: 13px
+    }
+
+    .report-warning {
+        border-left: 4px solid #d9a63e;
+        background: #fff9e9;
+        padding: 12px 17px
+    }
+
+    .report-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 21px 0
+    }
+
+    .report-links a {
+        padding: 7px 11px;
+        border-radius: 8px;
+        background: #e5f4f3;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none
+    }
+
+    @media (max-width: 650px) {
+        .report-item .details {
+            padding: 10px
+        }
+
+        .report-sql {
+            padding: 9px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/006.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/006.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/006.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Login records | Report 006 · Kopere BI">
+    <meta property="og:description" content="Two tables use account access fields to distinguish users without recorded logins or last access from users with a recorded first-access date.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/006.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span>Kopere BI</a>
+        <div class="tools">
+            <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/006.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/login_reports.html">Category</a> / 006
+            </nav>
+            <div class="kicker">REPORT 006</div>
+            <h1>Login records</h1>
+            <p class="lead">Two tables use account access fields to distinguish users without recorded logins or last access from users with a recorded first-access date.</p>
+            <h2>Purpose and content</h2>
+            <p>Two tables use account access fields to distinguish users without recorded logins or last access from users with a recorded first-access date.</p>
+            <div class="report-why"><strong>Why and when to use it?</strong>
+                <p>Useful for identifying accounts that have not yet been used and following up with users who have accessed the platform for the first time, without checking each profile manually.</p>
+            </div>
+            <div class="report-links">
+                <a href="#filtros">Filters</a>
+                <a href="#visualizacoes">SQL and visualizations</a>
+                <a href="#limites">Cautions</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>There are no course, user, cohort, or date-range parameters. Both tables restrict users to <code>u.deleted
+                    = 0</code> and <code>u.id &gt; 1</code>.</p>
+                <p>The first query uses <code>lastlogin = 0</code> and <code>lastaccess = 0</code>; the second uses <code>firstaccess
+                    &gt; 0</code>. These fixed criteria are not equivalent to historical authentication events.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualizations and full original SQL</h2>
+                <p>This report contains 2 visualizations and 2 SQL queries. If a visualization has separate MySQL and PostgreSQL queries, they are shown in separate panels within the same item.</p>
+                <details class="report-item" open>
+                    <summary>1. Accounts with no recorded login or last access – Table</summary>
+                    <div class="details">
+                        <p>Table with contact details, city, country, and account creation time for users whose lastlogin = 0 and lastaccess = 0.</p>
+                        <p class="report-meta">Cache: <code>30m</code> · Refresh: <code>30m</code>.</p>
+                        <div class="report-sql">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT u.id        AS u_id,
+       u.firstname, 
+       u.lastname, 
+       u.email,
+       u.phone1, 
+       u.phone2, 
+       u.city, 
+       u.country, 
+       u.timecreated
+  FROM mdl_user u
+ WHERE u.deleted    = 0
+   AND u.id         &gt; 1
+   AND u.lastlogin  = 0
+   AND u.lastaccess = 0</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-item">
+                    <summary>2. Accounts with a recorded first access – Table</summary>
+                    <div class="details">
+                        <p>Table with profile details, firstaccess, lastaccess, lastlogin, and lastip for users whose firstaccess is greater than zero.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Refresh: <code>none</code>.</p>
+                        <div class="report-sql">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT u.id        AS u_id,
+       u.firstname,
+       u.lastname,
+       u.email,
+       u.phone1,
+       u.phone2,
+       u.city,
+       u.country,
+       u.firstaccess,
+       u.lastaccess,
+       u.lastlogin,
+       u.lastip, 
+       u.timecreated
+  FROM mdl_user u
+ WHERE u.deleted     = 0
+   AND u.id          &gt; 1
+   AND u.firstaccess &gt; 0</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and interpretation</h2>
+                <ul>
+                    <li>The SQL does not query the event log: this report shows values stored on user accounts, not a login history.</li>
+                    <li>The two groups do not necessarily form a complete partition of all user profiles.</li>
+                    <li>The first table uses a 30-minute cache and refresh interval, while the second configures both as none.</li>
+                    <li>The results contain personal information, including IP addresses in the second query. Review permissions and exports.</li>
+                </ul>
+                <p class="report-warning">The SQL statements were transcribed without changes from the JSON definitions on <code>master</code> and were not executed against Moodle at this stage. Validate permissions, performance, and results in the target environment.</p>
+            </section>
+            <h2>Technical source</h2>
+            <p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-006.json"
+                   target="_blank" rel="noopener">Original report definition on GitHub</a>.</p>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="005.html">← Report 005</a>
+                <a href="007.html">Report 007 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-006">
+                <h2 id="related-title-006">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="014.html"><span class="related-number">Report 014</span><span
+                            class="related-title">Login statistics</span><span class="related-category">Users and profiles</span></a>
+                    <a class="related-card" href="015.html"><span class="related-number">Report 015</span><span
+                            class="related-title">Platform logins and logouts</span><span class="related-category">Users and profiles</span></a>
+                    <a class="related-card" href="012.html"><span class="related-number">Report 012</span><span
+                            class="related-title">Inactive users on the platform</span><span class="related-category">Users and profiles</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/login_reports.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

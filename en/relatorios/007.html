@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Two tables summarize teacher and course indicators: associated students, recorded completion, grades, and student access or participation status.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Engagement indicators | Report 007 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>
+        .report-purpose {
+            padding: 21px 23px;
+            border: 1px solid #bfe0df;
+            border-radius: 12px;
+            background: #e8f7f5;
+            margin: 22px 0
+        }
+
+        .report-purpose strong {
+            color: #086471;
+            font-size: 16px
+        }
+
+        .report-purpose p {
+            margin: 8px 0 0
+        }
+
+        .report-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin: 24px 0
+        }
+
+        .report-nav a {
+            padding: 7px 11px;
+            border-radius: 8px;
+            background: #e4f3f2;
+            font-size: 13px;
+            font-weight: 750;
+            text-decoration: none
+        }
+
+        .report-group {
+            margin: 18px 0;
+            border: 1px solid #d5e4e9;
+            border-radius: 12px;
+            overflow: hidden
+        }
+
+        .report-group summary {
+            cursor: pointer;
+            background: #eaf5f7;
+            padding: 15px;
+            color: #0a5360;
+            font-weight: 800
+        }
+
+        .report-group summary:hover {
+            background: #daeff0
+        }
+
+        .report-group-body {
+            padding: 15px
+        }
+
+        .report-meta {
+            font-size: 13px;
+            color: #5b7480
+        }
+
+        .report-variant {
+            padding: 12px 14px;
+            margin: 16px 0;
+            background: #f3f9f9;
+            border: 1px solid #d5e3e9;
+            border-radius: 11px
+        }
+
+        .report-variant h3 {
+            font-size: 14px;
+            color: #146677;
+            font-weight: 800;
+            margin: 0 0 8px
+        }
+
+        .report-note {
+            background: #fff8e7;
+            border-left: 4px solid #d2a43e;
+            padding: 13px 16px;
+            margin: 20px 0
+        }
+
+        @media (max-width: 650px) {
+            .report-group-body {
+                padding: 10px
+            }
+
+            .report-variant {
+                padding: 8px
+            }
+        }
+    </style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/007.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/007.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/007.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Engagement indicators | Report 007 · Kopere BI">
+    <meta property="og:description" content="Two tables summarize teacher and course indicators: associated students, recorded completion, grades, and student access or participation status.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/007.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/007.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/login_reports.html">Category</a> / 007
+            </nav>
+            <div class="kicker">REPORT 007</div>
+            <h1>Engagement indicators</h1>
+            <p class="lead">Two tables summarize teacher and course indicators: associated students, recorded completion, grades, and student access or participation status.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Two tables summarize teacher and course indicators: associated students, recorded completion, grades, and student access or participation status.</p>
+            </section>
+            <div class="report-purpose"><strong>Why use this report?</strong>
+                <p>Useful for course coordinators and tutors identifying courses with low participation, comparing support across classes, and checking teacher-related learning indicators.</p>
+            </div>
+            <div class="report-nav">
+                <a href="#filtros">Actual filters</a>
+                <a href="#visualizacoes">Visualizations and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL filters</strong> for user, course, cohort, or date range. Both tables have fixed criteria: course context level <code>50</code>, role IDs <code>3</code> and <code>5</code>, visible courses, and users who are neither deleted nor suspended, as specified in each query.</p>
+                <p>The SQL contains a date condition on <code>lastaccess</code> only as a comment, so it is <strong>not</strong> applied.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualizations and full original SQL</h2>
+                <p>This report contains 2 visualizations and 2 SQL queries. Syntax highlighting preserves the original characters. MySQL and PostgreSQL variants are shown in separate panels for each applicable visualization.</p>
+                <details class="report-group" open>
+                    <summary>1. Teacher-related engagement – Table</summary>
+                    <div class="report-group-body">
+                        <p>Teacher-level table showing role ID 3 in a course context, number of courses, students assigned role ID 5, non-suspended accounts, formal course completions, and calculated average grades.</p>
+                        <p class="report-meta">Cache: <code>30m</code>. Refresh: <code>30m</code>.</p>
+                        <div class="report-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT
+    kbi_u.id        AS u_id,
+    kbi_u.firstname,
+    kbi_u.lastname,
+    COUNT(DISTINCT kbi_ctx.instanceid)  AS num_courses,
+    SUM(l.learners)                 AS num_learners,
+    SUM(l1.activelearners)          AS num_activelearners,
+    SUM(cc.completed)               AS num_completedlearners,
+    AVG(g.grade)                    AS grade
+FROM mdl_user kbi_u
+LEFT JOIN mdl_role_assignments kbi_ra ON kbi_ra.userid = kbi_u.id
+LEFT JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+JOIN mdl_course kbi_c ON kbi_ctx.instanceid = kbi_c.id AND kbi_c.visible = 1
+LEFT JOIN (
+    SELECT 
+        kbi_ctx.instanceid, 
+        COUNT(DISTINCT kbi_ra.userid) AS learners
+    FROM mdl_role_assignments kbi_ra, mdl_context kbi_ctx
+    WHERE 
+        kbi_ctx.id = kbi_ra.contextid
+        AND kbi_ctx.contextlevel = 50
+        AND kbi_ra.roleid = 5
+    GROUP BY 
+        kbi_ctx.instanceid
+) AS l ON l.instanceid = kbi_ctx.instanceid
+LEFT JOIN (
+    SELECT 
+        kbi_ctx.instanceid, 
+        COUNT(DISTINCT kbi_ra.userid) AS activelearners
+    FROM mdl_role_assignments kbi_ra, mdl_user kbi_u, mdl_context kbi_ctx
+    WHERE 
+        kbi_ctx.id = kbi_ra.contextid
+        AND kbi_ctx.contextlevel = 50
+        AND kbi_u.id = kbi_ra.userid
+        -- AND kbi_u.lastaccess BETWEEN 1707755694 AND 1710347694
+        AND kbi_u.deleted = 0
+        AND kbi_u.suspended = 0
+        AND kbi_ra.roleid = 5
+    GROUP BY 
+        kbi_ctx.instanceid
+) AS l1 ON l1.instanceid = kbi_ctx.instanceid
+LEFT JOIN (
+    SELECT 
+        course, 
+        COUNT(id) AS completed
+    FROM 
+        mdl_course_completions
+    WHERE 
+        timecompleted &gt; 0
+    GROUP BY 
+        course
+) cc ON cc.course = kbi_ctx.instanceid
+LEFT JOIN (
+    SELECT 
+        kbi_gi.courseid,
+        ROUND(AVG(CASE
+            WHEN kbi_g.rawgrademax &gt; 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+            ELSE kbi_g.finalgrade 
+        END), 0) AS grade
+    FROM mdl_grade_items kbi_gi, mdl_grade_grades kbi_g
+    WHERE 
+        kbi_gi.itemtype = &#39;course&#39;
+        AND kbi_g.itemid = kbi_gi.id
+        AND kbi_g.finalgrade IS NOT NULL
+    GROUP BY 
+        kbi_gi.courseid
+) g ON g.courseid = kbi_ctx.instanceid
+WHERE kbi_ctx.contextlevel = 50
+  AND kbi_ra.roleid        = 3
+  AND kbi_u.deleted        = 0
+  AND kbi_u.suspended      = 0
+GROUP BY kbi_u.id, kbi_u.firstname, kbi_u.lastname</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-group">
+                    <summary>2. Activity participation and completion by course – Table</summary>
+                    <div class="report-group-body">
+                        <p>Table of visible courses, counting students with role ID 5 who accessed the course and have a recorded activity completion, those who accessed it without that record, and those with no last access to the course.</p>
+                        <p class="report-meta">Cache: <code>30m</code>. Refresh: <code>30m</code>.</p>
+                        <div class="report-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id       AS c_id,
+       kbi_c.fullname AS c_fullname,
+       COUNT(DISTINCT kbi_ra.userid) AS num_learners,
+       COUNT(DISTINCT CASE
+           WHEN comp.userid IS NOT NULL AND kbi_ula.id IS NOT NULL THEN kbi_u.id
+           ELSE NULL 
+       END) AS completed_learners,
+       COUNT(DISTINCT CASE
+           WHEN comp.userid IS NULL AND kbi_ula.id IS NOT NULL THEN kbi_u.id
+           ELSE NULL 
+       END) AS not_completed_learners,
+       COUNT(DISTINCT CASE 
+           WHEN kbi_ula.id IS NULL THEN kbi_u.id 
+           ELSE NULL 
+       END) AS not_accessed_learners
+FROM mdl_role_assignments kbi_ra
+JOIN mdl_context kbi_ctx 
+    ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+JOIN mdl_course kbi_c 
+    ON kbi_c.id = kbi_ctx.instanceid
+JOIN mdl_user kbi_u 
+    ON kbi_u.id = kbi_ra.userid
+LEFT JOIN (
+    SELECT kbi_cm.course, kbi_cmc.userid
+    FROM mdl_course_modules kbi_cm
+    JOIN mdl_course_modules_completion kbi_cmc 
+        ON kbi_cmc.coursemoduleid = kbi_cm.id AND kbi_cmc.completionstate = 1
+    WHERE kbi_cmc.id &gt; 0
+    GROUP BY kbi_cm.course, kbi_cmc.userid
+) comp 
+    ON comp.userid = kbi_u.id AND comp.course = kbi_c.id
+LEFT JOIN mdl_user_lastaccess kbi_ula 
+    ON kbi_ula.courseid = kbi_c.id AND kbi_ula.userid = kbi_ra.userid
+WHERE kbi_c.id &gt; 0
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_c.visible = 1
+  AND kbi_ra.roleid = 5
+GROUP BY kbi_c.id</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>Despite being in the access/login category, this report does not query authentication logs.</li>
+                    <li>The active student indicator in the first table counts valid, non-suspended accounts, not recent activity.</li>
+                    <li>The first table calculates course completions using <code>mdl_course_completions</code>; the second counts completion of at least one activity. These metrics are not equivalent.</li>
+                    <li>Sums and averages across joins between courses and teachers may give repeated records additional weight; verify counts before institutional comparisons.</li>
+                    <li>Role IDs 3 and 5 are assumed by the SQL and may not match role structures on customized Moodle installations.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-007.json"
+                       target="_blank" rel="noopener">View this report’s original JSON on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="006.html">← Report 006</a>
+                <a href="008.html">Report 008 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-007">
+                <h2 id="related-title-007">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="018.html"><span class="related-number">Report 018</span><span
+                            class="related-title">User engagement</span><span class="related-category">Users and profiles</span></a>
+                    <a class="related-card" href="022.html"><span class="related-number">Report 022</span><span
+                            class="related-title">Summary of platform usage by user</span><span
+                            class="related-category">Users and profiles</span></a>
+                    <a class="related-card" href="119.html"><span class="related-number">Report 119</span><span
+                            class="related-title">Student versus class participation</span><span
+                            class="related-category">Operational participation indicators</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/login_reports.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
