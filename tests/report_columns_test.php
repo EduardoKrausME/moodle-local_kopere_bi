@@ -71,7 +71,7 @@ final class report_columns_test extends advanced_testcase {
             'SELECT u.username, u.firstname, u.lastname FROM {user} u');
 
         $this->assertArrayNotHasKey('username', $headers);
-        $this->assertObjectNotHasProperty('username', $output[0]);
+        $this->assertFalse(property_exists($output[0], 'username'));
         $this->assertSame($user->email, $output[0]->user_email);
         $this->assertArrayHasKey('user_email', $headers);
     }
