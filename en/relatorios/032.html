@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Per-teacher summary of visible courses, students assigned relevant roles, active accounts, course completions, and average grades.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Teacher workload summary | Report 032 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/032.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/032.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/032.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Teacher workload summary | Report 032 · Kopere BI">
+    <meta property="og:description" content="Per-teacher summary of visible courses, students assigned relevant roles, active accounts, course completions, and average grades.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/032.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/032.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/instructors.html">Teachers and tutors</a> / 032
+            </nav>
+            <div class="kicker">REPORT 032</div>
+            <h1>Teacher workload summary</h1>
+            <p class="lead">Per-teacher summary of visible courses, students assigned relevant roles, active accounts, course completions, and average grades.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Per-teacher summary of visible courses, students assigned relevant roles, active accounts, course completions, and average grades.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps estimate the number of courses and students associated with each teacher, providing administrative reference points for academic workload and course indicators.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, teacher, student, cohort, or date range. The query considers visible courses (<code>kbi_c.visible = 1</code>), teacher role ID <code>3</code> assigned in a course context (<code>contextlevel = 50</code>), and teacher accounts that are neither deleted nor suspended and are not <code>guest</code>.</p>
+                <p>Student counts use role ID <code>5</code> assignments in course contexts. The completion aggregate includes <code>timecompleted &gt; 0</code>, while grade averages use <code>course</code>-type grade items with recorded final grades.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>The report includes one table visualization and one SQL query, with cache and refresh settings and Prism.js syntax highlighting. The catalog does not provide a separate PostgreSQL variant.</p>
+                <details class="report-block" open>
+                    <summary>1. Teacher workload summary · Table</summary>
+                    <div class="inner">
+                        <p>Per-teacher table listing name, distinct course count, sum of students across courses, sum of accounts that are neither deleted nor suspended, sum of formal course completion records, and mean of per-course aggregated grades.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_u.id,
+       CONCAT(kbi_u.firstname, &#39; &#39;, kbi_u.lastname) as teacher,
+       COUNT(DISTINCT kbi_ctx.instanceid)       as courses,
+       SUM(l.learners)                      as learners,
+       SUM(l1.activelearners)               as activelearners,
+       SUM(cc.completed)                    as completedlearners,
+       AVG(g.grade)                         as grade
+FROM mdl_user kbi_u
+       LEFT JOIN mdl_role_assignments kbi_ra ON kbi_ra.userid = kbi_u.id
+       LEFT JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+       JOIN mdl_course kbi_c ON kbi_ctx.instanceid = kbi_c.id AND
+                            kbi_c.visible = 1
+       LEFT JOIN (SELECT kbi_ctx.instanceid, count(distinct kbi_ra.userid) as learners
+                  FROM mdl_role_assignments kbi_ra, mdl_context kbi_ctx
+                  WHERE kbi_ctx.id = kbi_ra.contextid
+                    AND kbi_ctx.contextlevel = 50
+                    AND kbi_ra.roleid = 5
+                  GROUP BY kbi_ctx.instanceid) AS l ON l.instanceid = kbi_ctx.instanceid
+       LEFT JOIN (SELECT kbi_ctx.instanceid, count(distinct kbi_ra.userid) as activelearners
+                  FROM mdl_role_assignments kbi_ra, mdl_user kbi_u, mdl_context kbi_ctx
+                  WHERE kbi_ctx.id = kbi_ra.contextid
+                    AND kbi_ctx.contextlevel = 50
+                    AND kbi_u.id = kbi_ra.userid
+                    AND kbi_u.deleted = 0
+                    AND kbi_u.suspended = 0
+                    AND kbi_ra.roleid = 5
+                  GROUP BY kbi_ctx.instanceid) AS l1 ON l1.instanceid = kbi_ctx.instanceid
+       LEFT JOIN (SELECT course, count(id) as completed
+                  FROM mdl_course_completions
+                  WHERE timecompleted &gt; 0
+                  GROUP BY course) cc ON cc.course = kbi_ctx.instanceid
+       LEFT JOIN (SELECT kbi_gi.courseid,
+                         ROUND(AVG(CASE
+                                     WHEN kbi_g.rawgrademax &gt; 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                                     ELSE kbi_g.finalgrade END), 0) AS grade
+                  FROM mdl_grade_items kbi_gi, mdl_grade_grades kbi_g
+                  WHERE kbi_gi.itemtype = &#39;course&#39;
+                    AND kbi_g.itemid = kbi_gi.id
+                    AND kbi_g.finalgrade IS NOT NULL
+                  GROUP BY kbi_gi.courseid) g ON g.courseid = kbi_ctx.instanceid
+WHERE kbi_ctx.contextlevel = 50
+  AND kbi_ra.roleid = 3
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+GROUP BY kbi_u.id, kbi_u.firstname, kbi_u.lastname</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>Workload is approximated by course and student counts. The SQL does not calculate teaching hours, marking time, student support sessions, or contracted workload.</li>
+                    <li>The <code>learners</code> and <code>activelearners</code> columns sum counts across courses. A student enrolled in several courses may be counted more than once.</li>
+                    <li>The <code>activelearners</code> field counts accounts that are neither deleted nor suspended, not users with recent access, and does not directly verify active enrolments.</li>
+                    <li>The <code>completedlearners</code> count sums course completion records and may count the same person in different courses.</li>
+                    <li>The <code>grade</code> field is the mean of averages calculated per course, without necessarily weighting by student count, credits, or course hours.</li>
+                    <li>The joins begin with role assignments. Repeated assignments for the same teacher and course can duplicate <code>SUM</code> aggregates, whereas the course count uses <code>COUNT(DISTINCT
+                            ...)</code>.</li>
+                    <li>There is no selectable period or separate PostgreSQL variant. Verify indicators before using them to allocate workload.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-032.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="031.html">← Report 031</a>
+                <a href="033.html">Report 033 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-032">
+                <h2 id="related-title-032">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="025.html"><span class="related-number">Report 025</span><span
+                            class="related-title">Assignments graded by teacher</span><span class="related-category">Teachers and tutors</span></a>
+                    <a class="related-card" href="026.html"><span class="related-number">Report 026</span><span
+                            class="related-title">Forum statistics by teacher</span><span
+                            class="related-category">Teachers and tutors</span></a>
+                    <a class="related-card" href="027.html"><span class="related-number">Report 027</span><span
+                            class="related-title">Teacher activity engagement details</span><span
+                            class="related-category">Teachers and tutors</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/instructors.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
