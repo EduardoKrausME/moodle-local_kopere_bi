@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Built-in report catalog, MySQL/PostgreSQL variants, and safe updates.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Reports and SQL compatibility · Kopere BI</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../site.css">
+    <link rel="stylesheet" href="accessibility.css">
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Reports and SQL compatibility · Kopere BI">
+    <meta property="og:description" content="Built-in report catalog, MySQL/PostgreSQL variants, and safe updates.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios.html">
+    <link rel="sitemap" type="application/xml"
+          href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/sitemap.xml">
+<style>
+        .catalog-summary {
+            background: #e8f7f4;
+            border: 1px solid #bee5df;
+            border-radius: 13px;
+            padding: 15px 20px;
+            margin: 23px 0;
+            color: #12515b
+        }
+
+        .catalog-summary strong {
+            font-size: 22px;
+            display: block
+        }
+
+        .catalog-summary p {
+            margin: 4px 0;
+            color: #405c65
+        }
+
+        .categories-list {
+            margin-top: 18px
+        }
+
+        .category-menu {
+            margin-top: 15px;
+            padding: 10px 6px;
+            border-top: 1px solid #e4ebf0
+        }
+
+        .category-menu summary {
+            cursor: pointer;
+            color: #006d75;
+            font-weight: 800;
+            font-size: 13px;
+            padding: 6px 8px
+        }
+
+        .category-menu nav {
+            max-height: 300px;
+            overflow: auto;
+            margin-top: 5px
+        }
+
+        .category-menu a {
+            display: block;
+            padding: 6px 9px;
+            text-decoration: none;
+            color: #486273;
+            font-size: 12px;
+            border-radius: 6px
+        }
+
+        .category-menu a:hover, .category-menu a[aria-current] {
+            background: #e5f6f3;
+            color: #005c65
+        }
+
+        .report-list {
+            display: grid;
+            gap: 15px;
+            margin-top: 24px
+        }
+
+        .report-row {
+            border: 1px solid #dce7eb;
+            border-radius: 13px;
+            padding: 20px;
+            background: #fff;
+            scroll-margin-top: 90px
+        }
+
+        .report-row h2 {
+            font-size: 20px;
+            margin: 7px 0 10px
+        }
+
+        .report-row .num {
+            display: inline-block;
+            background: #e1f5f1;
+            color: #056b73;
+            font-weight: 800;
+            font-size: 12px;
+            border-radius: 7px;
+            padding: 3px 9px
+        }
+
+        .report-row p {
+            font-size: 14px;
+            margin: 8px 0
+        }
+
+        .report-row .metadata {
+            font-size: 12px;
+            color: #536c79;
+            overflow-wrap: anywhere
+        }
+
+        .report-row .metadata code {
+            font-size: 12px
+        }
+
+        .report-row .sources {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 11px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-top: 13px
+        }
+
+        .report-row .sources a {
+            border-bottom: 1px solid #8ccbc5;
+            text-decoration: none
+        }
+
+        .report-row .sources a:hover {
+            text-decoration: underline
+        }
+
+        .report-mini-search {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin: 19px 0
+        }
+
+        .report-mini-search input {
+            width: min(100%, 500px);
+            font: inherit;
+            border: 1px solid #b8cdd3;
+            border-radius: 9px;
+            padding: 10px 12px
+        }
+
+        .report-mini-search label {
+            font-size: 14px;
+            font-weight: 700
+        }
+
+        .tiny {
+            font-size: 12px;
+            color: #678
+        }
+
+        .category-caption {
+            font-size: 13px;
+            color: #6a7c88
+        }
+
+        .category-shortcuts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 18px 0
+        }
+
+        .category-shortcuts a {
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid #bce2df;
+            padding: 6px 9px;
+            border-radius: 7px;
+            background: #f2faf9
+        }
+
+        .category-shortcuts a:hover {
+            background: #d9f5ef
+        }
+
+        .report-row[hidden] {
+            display: none !important
+        }
+
+        @media (max-width: 750px) {
+            .report-mini-search {
+                display: block
+            }
+
+            .report-mini-search label {
+                display: block;
+                margin-bottom: 6px
+            }
+
+            .report-row {
+                padding: 15px
+            }
+
+            .catalog-summary {
+                padding: 13px
+            }
+        }</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../pt_br/relatorios.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="index.html">Overview</a>
+            <a href="instalacao.html">Installation</a>
+            <a href="dashboards.html">Dashboards</a>
+            <a href="visualizacoes.html">Charts and filters</a>
+            <a href="relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="learning-analytics.html">Learning Analytics</a>
+            <a href="integracoes.html">MCP integration</a>
+            <a href="operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="index.html">Kopere BI</a> / Reports
+            </nav>
+            <div class="kicker">MOODLE PLUGIN DOCUMENTATION</div>
+            
+            <h1>Reports by category</h1>
+            <p class="lead">Browse the 127 Kopere BI reports grouped into 19 categories, with separate
+                MySQL and PostgreSQL versions where available.</p>
+            <div class="catalog-summary"><strong>127 reports across 19 categories</strong>
+                <p>40 additional PostgreSQL-specific definitions are linked to their corresponding
+                    base reports.</p>
+            </div>
+            <div class="separator">
+            </div>
+            <section aria-labelledby="categorias-catalogo">
+                <h2 id="categorias-catalogo">Choose a category</h2>
+                <p>These categories come directly from Kopere BI's report definitions. Each category page
+                    lists all of its reports, including their number, name in Brazilian Portuguese,
+                    internal identifier, visualization types, and links to the source files.</p>
+                <div class="cards" id="grade-categorias">
+                    <a class="card-link" href="categorias/enrollments.html"><strong>Enrolments and revenue</strong><span>7 reports · Enrolments, enrolment methods, enrolment status, completions, and financial indicators included in the reports.</span></a>
+                    <a class="card-link" href="categorias/learning_analytics.html"><strong>Learning Analytics -
+                        dashboards</strong><span>6 reports · Six dashboards covering engagement, students needing attention, course health, grades, progress, and learning pace.</span></a>
+                    <a class="card-link" href="categorias/users.html"><strong>Users and profiles</strong><span>16 reports · User status, access activity, engagement, roles, and platform usage indicators.</span></a>
+                    <a class="card-link" href="categorias/instructors.html"><strong>Teachers and tutors</strong><span>10 reports · Teacher involvement in activities, assignments, forums, platform usage, and workload.</span></a>
+                    <a class="card-link" href="categorias/courses.html"><strong>Courses and content</strong><span>18 reports · Access, structure, usage, progress, completion, and statistics about courses and their sections.</span></a>
+                    <a class="card-link" href="categorias/grades.html"><strong>Grades and assessment</strong><span>5 reports · Gradebook queries, assessment criteria, change history, and pending items.</span></a>
+                    <a class="card-link" href="categorias/activities.html"><strong>Activities</strong><span>9 reports · Activity completion, submissions, grades, reach, and participation.</span></a>
+                    <a class="card-link" href="categorias/quizzes.html"><strong>Quizzes</strong><span>14 reports · Quiz structure, attempts, grades, answers, common mistakes, progress, and performance.</span></a>
+                    <a class="card-link" href="categorias/forums.html"><strong>Forums</strong><span>7 reports · Posts, replies, participation, and forum activity indicators.</span></a>
+                    <a class="card-link" href="categorias/scorm.html"><strong>SCORM</strong><span>3 reports · Course-level records and usage statistics for SCORM activities.</span></a>
+                    <a class="card-link" href="categorias/assignments.html"><strong>Assignments and submissions</strong><span>3 reports · Submission status, reviews, and assignment-related events.</span></a>
+                    <a class="card-link" href="categorias/feedback.html"><strong>Feedback and surveys</strong><span>3 reports · Results, response distribution, and views of Moodle's Feedback activity.</span></a>
+                    <a class="card-link" href="categorias/competencies.html"><strong>Competencies, plans, and
+                        badges</strong><span>5 reports · Competency evidence, outcomes, learning plans, and awarded badges.</span></a>
+                    <a class="card-link" href="categorias/communication.html"><strong>Communication and
+                        files</strong><span>5 reports · Usage of files, lessons, and messages recorded in Moodle.</span></a>
+                    <a class="card-link" href="categorias/login_reports.html"><strong>Access and logins</strong><span>2 reports · Authentication reports and access-related engagement indicators.</span></a>
+                    <a class="card-link" href="categorias/students.html"><strong>Students</strong><span>9 reports · Student overviews, progress, access, inactivity, risk, and enrolments.</span></a>
+                    <a class="card-link" href="categorias/online.html"><strong>Online students</strong><span>1 report · Online monitoring dashboard with tables, charts, and approximate IP-based maps.</span></a>
+                    <a class="card-link" href="categorias/analytics.html"><strong>Operational participation
+                        indicators</strong><span>3 reports · Daily activity, active courses, and comparative participation across students and classes.</span></a>
+                    <a class="card-link" href="categorias/dashboard.html"><strong>General dashboard</strong><span>1 report · Platform summary indicators displayed in the default dashboard.</span></a>
+                </div>
+                <p class="note">The 127 base reports are each listed once. The 40 PostgreSQL variants
+                    are database-specific versions of existing definitions, not conceptually new reports.
+                    Actual availability depends on the database engine, settings, and data in your Moodle site.</p>
+            </section>
+            <section aria-labelledby="s3">
+                <h2 id="s3">Interpretation and limitations</h2>
+                <p>Daily and weekly aggregations may use UTC. Reports based on quiz attempts consider completed
+                    states, and grade history depends on Moodle's native data retention. Some individual reports
+                    limit queries to 500 rows; use course and date filters for extensive analyses.</p>
+            </section>
+            <nav class="pager" aria-label="Documentation navigation">
+                <a href="visualizacoes.html">← Charts and filters</a>
+                <a href="learning-analytics.html">Learning Analytics →</a>
+            </nav>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a>
+    · GPL v3 · Documentation based on the plugin source code. · <a href="../pt_br/sitemap.xml">Portuguese sitemap (XML)</a>
+</footer>
+</body>
+</html>
