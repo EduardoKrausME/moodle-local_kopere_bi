@@ -313,6 +313,8 @@ final class report_columns {
     }
 
     /**
+     * Read records for the configured user identity.
+     *
      * @param string $identity
      * @param string[] $ids
      * @return array<string, object>
@@ -339,6 +341,8 @@ final class report_columns {
     }
 
     /**
+     * Read records for the configured course identity.
+     *
      * @param string $identity
      * @param string[] $ids
      * @return array<string, object>
@@ -387,6 +391,8 @@ final class report_columns {
     }
 
     /**
+     * Resolve visible custom profile data for report users.
+     *
      * @param array<string, object> $records
      * @param string[] $keys
      * @param int $viewerid
@@ -435,6 +441,8 @@ final class report_columns {
     }
 
     /**
+     * Resolve visible custom course fields in batches.
+     *
      * @param array<string, object> $records
      * @param string[] $keys
      * @param int $viewerid
