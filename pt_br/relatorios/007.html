@@ -1,19 +1,194 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Duas tabelas resumem indicadores de professores e cursos: estudantes vinculados, conclusão registrada, notas e situação de acesso ou participação dos estudantes."><meta name="theme-color" content="#072c3a"><title>Relatório 007 · Indicadores de engajamento · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>
-.report-purpose{padding:21px 23px;border:1px solid #bfe0df;border-radius:12px;background:#e8f7f5;margin:22px 0}
-.report-purpose strong{color:#086471;font-size:16px}
-.report-purpose p{margin:8px 0 0}
-.report-nav{display:flex;flex-wrap:wrap;gap:9px;margin:24px 0}
-.report-nav a{padding:7px 11px;border-radius:8px;background:#e4f3f2;font-size:13px;font-weight:750;text-decoration:none}
-.report-group{margin:18px 0;border:1px solid #d5e4e9;border-radius:12px;overflow:hidden}
-.report-group summary{cursor:pointer;background:#eaf5f7;padding:15px;color:#0a5360;font-weight:800}
-.report-group summary:hover{background:#daeff0}
-.report-group-body{padding:15px}
-.report-meta{font-size:13px;color:#5b7480}
-.report-variant{padding:12px 14px;margin:16px 0;background:#f3f9f9;border:1px solid #d5e3e9;border-radius:11px}
-.report-variant h3{font-size:14px;color:#146677;font-weight:800;margin:0 0 8px}
-.report-note{background:#fff8e7;border-left:4px solid #d2a43e;padding:13px 16px;margin:20px 0}
-@media(max-width:650px){.report-group-body{padding:10px}.report-variant{padding:8px}}
-</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/007.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 007 · Indicadores de engajamento · Kopere BI"><meta property="og:description" content="Duas tabelas resumem indicadores de professores e cursos: estudantes vinculados, conclusão registrada, notas e situação de acesso ou participação dos estudantes."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/007.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/login_reports.html">Categoria</a> / 007</nav><div class="kicker">RELATÓRIO 007</div><h1>Indicadores de engajamento</h1><p class="lead">Duas tabelas resumem indicadores de professores e cursos: estudantes vinculados, conclusão registrada, notas e situação de acesso ou participação dos estudantes.</p><section><h2>Finalidade do relatório</h2><p>Duas tabelas resumem indicadores de professores e cursos: estudantes vinculados, conclusão registrada, notas e situação de acesso ou participação dos estudantes.</p></section><div class="report-purpose"><strong>Por que utilizar?</strong><p>É útil para coordenações e tutores que precisam localizar cursos com baixa participação, comparar o acompanhamento de diferentes turmas e verificar indicadores pedagógicos associados aos professores.</p></div><div class="report-nav"><a href="#filtros">Filtros reais</a><a href="#visualizacoes">Visualizações e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não há filtros SQL dinâmicos</strong> de usuário, curso, coorte ou período. As duas tabelas têm critérios fixos: contexto de curso de nível <code>50</code>, papéis de IDs <code>3</code> e <code>5</code>, cursos visíveis e usuários não excluídos ou suspensos, conforme cada consulta.</p><p>O SQL contém um filtro por data de <code>lastaccess</code> apenas como comentário, ou seja, <strong>não</strong> está sendo aplicado.</p></section><section id="visualizacoes"><h2>Visualizações e SQL original integral</h2><p>O relatório contém 2 visualizações e 2 consultas SQL. O código possui destaque de sintaxe, mantendo os caracteres originais. As variantes MySQL e PostgreSQL estão em caixas separadas dentro de cada visualização correspondente.</p><details class="report-group" open><summary>1. Engajamento associado a professores — Tabela</summary><div class="report-group-body"><p>Tabela por professor com o papel de ID 3 em contexto de curso, quantidade de cursos, alunos associados ao papel de ID 5, contas não suspensas, registros de conclusão formal de curso e média calculada das notas.</p><p class="report-meta">Cache: <code>30m</code>. Atualização: <code>30m</code>.</p><div class="report-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT 
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Duas tabelas resumem indicadores de professores e cursos: estudantes vinculados, conclusão registrada, notas e situação de acesso ou participação dos estudantes.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 007 · Indicadores de engajamento · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>
+        .report-purpose {
+            padding: 21px 23px;
+            border: 1px solid #bfe0df;
+            border-radius: 12px;
+            background: #e8f7f5;
+            margin: 22px 0
+        }
+
+        .report-purpose strong {
+            color: #086471;
+            font-size: 16px
+        }
+
+        .report-purpose p {
+            margin: 8px 0 0
+        }
+
+        .report-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin: 24px 0
+        }
+
+        .report-nav a {
+            padding: 7px 11px;
+            border-radius: 8px;
+            background: #e4f3f2;
+            font-size: 13px;
+            font-weight: 750;
+            text-decoration: none
+        }
+
+        .report-group {
+            margin: 18px 0;
+            border: 1px solid #d5e4e9;
+            border-radius: 12px;
+            overflow: hidden
+        }
+
+        .report-group summary {
+            cursor: pointer;
+            background: #eaf5f7;
+            padding: 15px;
+            color: #0a5360;
+            font-weight: 800
+        }
+
+        .report-group summary:hover {
+            background: #daeff0
+        }
+
+        .report-group-body {
+            padding: 15px
+        }
+
+        .report-meta {
+            font-size: 13px;
+            color: #5b7480
+        }
+
+        .report-variant {
+            padding: 12px 14px;
+            margin: 16px 0;
+            background: #f3f9f9;
+            border: 1px solid #d5e3e9;
+            border-radius: 11px
+        }
+
+        .report-variant h3 {
+            font-size: 14px;
+            color: #146677;
+            font-weight: 800;
+            margin: 0 0 8px
+        }
+
+        .report-note {
+            background: #fff8e7;
+            border-left: 4px solid #d2a43e;
+            padding: 13px 16px;
+            margin: 20px 0
+        }
+
+        @media (max-width: 650px) {
+            .report-group-body {
+                padding: 10px
+            }
+
+            .report-variant {
+                padding: 8px
+            }
+        }
+    </style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/007.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 007 · Indicadores de engajamento · Kopere BI">
+    <meta property="og:description"
+          content="Duas tabelas resumem indicadores de professores e cursos: estudantes vinculados, conclusão registrada, notas e situação de acesso ou participação dos estudantes.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/007.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/login_reports.html">Categoria</a> / 007
+            </nav>
+            <div class="kicker">RELATÓRIO 007</div>
+            <h1>Indicadores de engajamento</h1>
+            <p class="lead">Duas tabelas resumem indicadores de professores e cursos: estudantes vinculados, conclusão
+                registrada, notas e situação de acesso ou participação dos estudantes.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Duas tabelas resumem indicadores de professores e cursos: estudantes vinculados, conclusão
+                    registrada, notas e situação de acesso ou participação dos estudantes.</p>
+            </section>
+            <div class="report-purpose"><strong>Por que utilizar?</strong>
+                <p>É útil para coordenações e tutores que precisam localizar cursos com baixa participação, comparar o
+                    acompanhamento de diferentes turmas e verificar indicadores pedagógicos associados aos
+                    professores.</p>
+            </div>
+            <div class="report-nav">
+                <a href="#filtros">Filtros reais</a>
+                <a href="#visualizacoes">Visualizações e SQL</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p><strong>Não há filtros SQL dinâmicos</strong> de usuário, curso, coorte ou período. As duas tabelas
+                    têm critérios fixos: contexto de curso de nível <code>50</code>, papéis de IDs <code>3</code> e
+                    <code>5</code>, cursos visíveis e usuários não excluídos ou suspensos, conforme cada consulta.</p>
+                <p>O SQL contém um filtro por data de <code>lastaccess</code> apenas como comentário, ou seja, <strong>não</strong>
+                    está sendo aplicado.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualizações e SQL original integral</h2>
+                <p>O relatório contém 2 visualizações e 2 consultas SQL. O código possui destaque de sintaxe, mantendo
+                    os caracteres originais. As variantes MySQL e PostgreSQL estão em caixas separadas dentro de cada
+                    visualização correspondente.</p>
+                <details class="report-group" open>
+                    <summary>1. Engajamento associado a professores — Tabela</summary>
+                    <div class="report-group-body">
+                        <p>Tabela por professor com o papel de ID 3 em contexto de curso,
+                            quantidade de cursos, alunos associados ao papel de ID 5, contas não suspensas, registros de
+                            conclusão formal de curso e média calculada das notas.</p>
+                        <p class="report-meta">Cache: <code>30m</code>. Atualização: <code>30m</code>.</p>
+                        <div class="report-variant">
+                            <h3>SQL original integral</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT
     kbi_u.id        AS u_id,
     kbi_u.firstname,
     kbi_u.lastname,
@@ -84,8 +259,20 @@ WHERE kbi_ctx.contextlevel = 50
   AND kbi_ra.roleid        = 3
   AND kbi_u.deleted        = 0
   AND kbi_u.suspended      = 0
-GROUP BY kbi_u.id, kbi_u.firstname, kbi_u.lastname</code></pre></div></div></details>
-<details class="report-group"><summary>2. Participação e conclusão de atividades por curso — Tabela</summary><div class="report-group-body"><p>Tabela de cursos visíveis com total de estudantes de papel ID 5, estudantes que acessaram e possuem registro de conclusão de atividade, que acessaram e não possuem esse registro, e que não têm último acesso no curso.</p><p class="report-meta">Cache: <code>30m</code>. Atualização: <code>30m</code>.</p><div class="report-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id       AS c_id,
+GROUP BY kbi_u.id, kbi_u.firstname, kbi_u.lastname</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-group">
+                    <summary>2. Participação e conclusão de atividades por curso — Tabela</summary>
+                    <div class="report-group-body">
+                        <p>Tabela de cursos visíveis com total de estudantes de papel ID 5,
+                            estudantes que acessaram e possuem registro de conclusão de atividade, que acessaram e não
+                            possuem esse registro, e que não têm último acesso no curso.</p>
+                        <p class="report-meta">Cache: <code>30m</code>. Atualização: <code>30m</code>.</p>
+                        <div class="report-variant">
+                            <h3>SQL original integral</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id       AS c_id,
        kbi_c.fullname AS c_fullname,
        COUNT(DISTINCT kbi_ra.userid) AS num_learners,
        COUNT(DISTINCT CASE
@@ -123,4 +310,58 @@ WHERE kbi_c.id &gt; 0
   AND kbi_u.suspended = 0
   AND kbi_c.visible = 1
   AND kbi_ra.roleid = 5
-GROUP BY kbi_c.id</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>O relatório não consulta logs de autenticação, embora esteja na categoria de acessos/login.</li><li>O indicador de estudantes ativos, na primeira tabela, considera contas válidas e não suspensas, não atividade recente.</li><li>A primeira tabela calcula conclusões de curso em <code>mdl_course_completions</code>; a segunda utiliza a conclusão de pelo menos uma atividade. Essas métricas não são equivalentes.</li><li>Somas e médias sobre junções entre cursos e professores podem pesar registros repetidos; confira os números antes de comparações institucionais.</li><li>Os IDs de papel 3 e 5 são assumidos pelo SQL e podem não corresponder à organização de papéis de uma instalação personalizada.</li></ul></section><section><h2>Fonte técnica</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-007.json" target="_blank" rel="noopener">Consultar o JSON original deste relatório no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="006.html">← Relatório 006</a><a href="008.html">Relatório 008 →</a></nav><section class="related-reports" aria-labelledby="related-title-007"><h2 id="related-title-007">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="018.html"><span class="related-number">Relatório 018</span><span class="related-title">Engajamento dos usuários</span><span class="related-category">Usuários e perfis</span></a><a class="related-card" href="022.html"><span class="related-number">Relatório 022</span><span class="related-title">Resumo do uso da plataforma pelos usuários</span><span class="related-category">Usuários e perfis</span></a><a class="related-card" href="119.html"><span class="related-number">Relatório 119</span><span class="related-title">Participação do aluno versus turma</span><span class="related-category">Indicadores operacionais de participação</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/login_reports.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+GROUP BY kbi_c.id</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul>
+                    <li>O relatório não consulta logs de autenticação, embora esteja na categoria de acessos/login.</li>
+                    <li>O indicador de estudantes ativos, na primeira tabela, considera contas válidas e não suspensas,
+                        não atividade recente.
+                    </li>
+                    <li>A primeira tabela calcula conclusões de curso em <code>mdl_course_completions</code>; a segunda
+                        utiliza a conclusão de pelo menos uma atividade. Essas métricas não são equivalentes.
+                    </li>
+                    <li>Somas e médias sobre junções entre cursos e professores podem pesar registros repetidos; confira
+                        os números antes de comparações institucionais.
+                    </li>
+                    <li>Os IDs de papel 3 e 5 são assumidos pelo SQL e podem não corresponder à organização de papéis de
+                        uma instalação personalizada.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Fonte técnica</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-007.json"
+                       target="_blank" rel="noopener">Consultar o JSON original deste relatório no GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="006.html">← Relatório 006</a>
+                <a href="008.html">Relatório 008 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-007">
+                <h2 id="related-title-007">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="018.html"><span class="related-number">Relatório 018</span><span
+                            class="related-title">Engajamento dos usuários</span><span class="related-category">Usuários e perfis</span></a>
+                    <a class="related-card" href="022.html"><span class="related-number">Relatório 022</span><span
+                            class="related-title">Resumo do uso da plataforma pelos usuários</span><span
+                            class="related-category">Usuários e perfis</span></a>
+                    <a class="related-card" href="119.html"><span class="related-number">Relatório 119</span><span
+                            class="related-title">Participação do aluno versus turma</span><span
+                            class="related-category">Indicadores operacionais de participação</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/login_reports.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

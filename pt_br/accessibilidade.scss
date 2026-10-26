@@ -1,0 +1,128 @@
+/* Accessibility and responsiveness improvements scoped to PT-BR documentation. */
+html {
+    scroll-padding-top: 6rem
+}
+.sidebar-label {
+    color: #526779
+}
+.kicker {
+    color: #006D75
+}
+.foot {
+    color: #526779
+}
+.article .category-caption {
+    color: #526779
+}
+.article .tiny {
+    color: #526779
+}
+:is(a,button,input,summary,[tabindex]):focus-visible {
+    outline: 3px solid #006875;
+    outline-offset: 3px
+}
+.report-navigation a:focus-visible, .pager a:focus-visible {
+    outline: 3px solid #006875;
+    outline-offset: 3px
+}
+summary {
+    scroll-margin-top: 6rem
+}
+h1, h2, h3 {
+    overflow-wrap: break-word;
+    hyphens: auto
+}
+pre.sql-source {
+    max-width: 100%;
+    overflow: auto;
+    overscroll-behavior-x: contain
+}
+pre.sql-source:focus-visible {
+    outline: 3px solid #006875;
+    outline-offset: 2px
+}
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto !important
+    }
+    .card-link {
+        transition: none !important
+    }
+}
+@media (max-width: 750px) {
+    .report-navigation {
+        flex-wrap: wrap
+    }
+    .pager a {
+        max-width: 100%;
+        overflow-wrap: anywhere
+    }
+}
+/* Static related-report cards, placed below previous/next navigation. */
+.related-reports {
+    margin: 2rem 0 1rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #D6E5E9
+}
+.related-reports h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+    line-height: 1.4
+}
+.related-grid {
+    display: grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap: .8rem
+}
+.related-card {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    min-width: 0;
+    min-height: 7.5rem;
+    padding: 1rem;
+    border: 1px solid #D6E5E9;
+    border-radius: .8rem;
+    background: #F6FAFB;
+    color: #173B47;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    transition: border-color .12s, background-color .12s
+}
+.related-card:hover {
+    background: #EAF6F6;
+    border-color: #548C93;
+    color: #063C49
+}
+.related-card:focus-visible {
+    outline: 3px solid #006875;
+    outline-offset: 3px
+}
+.related-number {
+    font-size: .75rem;
+    font-weight: 700;
+    color: #075D66
+}
+.related-title {
+    font-size: .95rem;
+    font-weight: 700;
+    line-height: 1.45
+}
+.related-category {
+    margin-top: auto;
+    font-size: .8rem;
+    color: #415D68
+}
+@media (max-width: 800px) {
+    .related-grid {
+        grid-template-columns:1fr
+    }
+    .related-card {
+        min-height: auto
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .related-card {
+        transition: none
+    }
+}

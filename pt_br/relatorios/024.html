@@ -1,4 +1,185 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Tabela consolidada por usuário com data de cadastro e último acesso, média calculada de notas, quantidade de cursos, conclusões formais, atividades concluídas e medidas de acompanhamento."><meta name="theme-color" content="#072c3a"><title>Relatório 024 · Resumo da situação dos usuários · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/024.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 024 · Resumo da situação dos usuários · Kopere BI"><meta property="og:description" content="Tabela consolidada por usuário com data de cadastro e último acesso, média calculada de notas, quantidade de cursos, conclusões formais, atividades concluídas e medidas de acompanhamento."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/024.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/users.html">Usuários e perfis</a> / 024</nav><div class="kicker">RELATÓRIO 024</div><h1>Resumo da situação dos usuários</h1><p class="lead">Tabela consolidada por usuário com data de cadastro e último acesso, média calculada de notas, quantidade de cursos, conclusões formais, atividades concluídas e medidas de acompanhamento.</p><section><h2>Finalidade do relatório</h2><p>Tabela consolidada por usuário com data de cadastro e último acesso, média calculada de notas, quantidade de cursos, conclusões formais, atividades concluídas e medidas de acompanhamento.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Apoia gestores a obter uma visão geral da trajetória dos usuários, relacionando cursos associados, notas, conclusão formal e registros de utilização da plataforma.</p></div><div class="report-navigation"><a href="#filtros">Filtros reais</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>Não existem parâmetros SQL dinâmicos de curso, usuário, coorte ou período. O relatório considera contas com <code>id &gt; 0</code>, não excluídas, não suspensas e diferentes de <code>guest</code>.</p><p>A contagem de atividades concluídas usa <code>completionstate IN (1, 2)</code>. O agregado de tempo e visitas considera registros da tabela de acompanhamento associados a cursos visíveis e com <code>courseid &gt; 0</code>. Não há seleção dinâmica de período ou curso.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>O relatório contém uma visualização em tabela e 1 consulta SQL, com cache, atualização e destaque de sintaxe pela biblioteca Prism.js. O catálogo não disponibiliza variante PostgreSQL separada.</p><details class="report-block" open><summary>1. Resumo da situação dos usuários · Tabela</summary><div class="inner"><p>A tabela mostra nome, e-mail, cadastro, último acesso global, média de notas, cursos distintos derivados de atribuições em contextos, cursos concluídos formalmente, contagem de conclusões de atividades, tempo e visitas. Os indicadores são reunidos por usuário.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_u.id,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Tabela consolidada por usuário com data de cadastro e último acesso, média calculada de notas, quantidade de cursos, conclusões formais, atividades concluídas e medidas de acompanhamento.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 024 · Resumo da situação dos usuários · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/024.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 024 · Resumo da situação dos usuários · Kopere BI">
+    <meta property="og:description"
+          content="Tabela consolidada por usuário com data de cadastro e último acesso, média calculada de notas, quantidade de cursos, conclusões formais, atividades concluídas e medidas de acompanhamento.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/024.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/users.html">Usuários e perfis</a> / 024
+            </nav>
+            <div class="kicker">RELATÓRIO 024</div>
+            <h1>Resumo da situação dos usuários</h1>
+            <p class="lead">Tabela consolidada por usuário com data de cadastro e último acesso, média calculada de
+                notas, quantidade de cursos, conclusões formais, atividades concluídas e medidas de acompanhamento.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Tabela consolidada por usuário com data de cadastro e último acesso, média calculada de notas,
+                    quantidade de cursos, conclusões formais, atividades concluídas e medidas de acompanhamento.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Apoia gestores a obter uma visão geral da trajetória dos usuários, relacionando cursos associados,
+                    notas, conclusão formal e registros de utilização da plataforma.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros reais</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p>Não existem parâmetros SQL dinâmicos de curso, usuário, coorte ou período. O relatório considera
+                    contas com <code>id &gt; 0</code>, não excluídas, não suspensas e diferentes de <code>guest</code>.
+                </p>
+                <p>A contagem de atividades concluídas usa <code>completionstate IN (1, 2)</code>. O agregado de tempo e
+                    visitas considera registros da tabela de acompanhamento associados a cursos visíveis e com <code>courseid
+                        &gt; 0</code>. Não há seleção dinâmica de período ou curso.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL original integral</h2>
+                <p>O relatório contém uma visualização em tabela e 1 consulta SQL, com cache, atualização e destaque de
+                    sintaxe pela biblioteca Prism.js. O catálogo não disponibiliza variante PostgreSQL separada.</p>
+                <details class="report-block" open>
+                    <summary>1. Resumo da situação dos usuários · Tabela</summary>
+                    <div class="inner">
+                        <p>A tabela mostra nome, e-mail, cadastro, último acesso global, média de notas,
+                            cursos distintos derivados de atribuições em contextos, cursos concluídos formalmente,
+                            contagem
+                            de conclusões de atividades, tempo e visitas. Os indicadores são reunidos por usuário.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_u.id,
        kbi_u.firstname,
        kbi_u.lastname,
        kbi_u.email,
@@ -36,4 +217,62 @@ WHERE kbi_u.id &gt; 0
   AND kbi_u.deleted = 0
   AND kbi_u.suspended = 0
   AND kbi_u.username != &#39;guest&#39;
-GROUP BY kbi_u.id</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>A quantidade de cursos resulta de contextos distintos vinculados a atribuições de papéis do usuário, sem restringir a um papel específico nem confirmar o status da matrícula.</li><li>O total de atividades concluídas conta registros de conclusão associados ao usuário sem filtrar curso, visibilidade do módulo ou exigência de conclusão. Não é uma contagem apenas de atividades do curso escolhido.</li><li>A média de notas usa valores encontrados em itens de nota de cursos e pode ser influenciada pela cardinalidade das junções. Não é uma média ponderada por créditos ou matrícula.</li><li>Os cursos concluídos formalmente são obtidos de <code>mdl_course_completions</code> com <code>timecompleted &gt; 0</code>, métrica diferente de conclusão de atividades.</li><li>O campo <code>cohortname</code> é preenchido com texto vazio; a consulta não faz uma análise real por coorte.</li><li>Tempo e visitas dependem dos dados gravados pelo Kopere BI em cursos visíveis; não comprovam aprendizagem. Não existe variante PostgreSQL separada no catálogo.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-024.json" target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="023.html">← Relatório 023</a><a href="025.html">Relatório 025 →</a></nav><section class="related-reports" aria-labelledby="related-title-024"><h2 id="related-title-024">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="023.html"><span class="related-number">Relatório 023</span><span class="related-title">Situação dos usuários</span><span class="related-category">Usuários e perfis</span></a><a class="related-card" href="011.html"><span class="related-number">Relatório 011</span><span class="related-title">Usuários inativos por curso</span><span class="related-category">Usuários e perfis</span></a><a class="related-card" href="012.html"><span class="related-number">Relatório 012</span><span class="related-title">Usuários inativos na plataforma</span><span class="related-category">Usuários e perfis</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/users.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+GROUP BY kbi_u.id</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul>
+                    <li>A quantidade de cursos resulta de contextos distintos vinculados a atribuições de papéis do
+                        usuário, sem restringir a um papel específico nem confirmar o status da matrícula.
+                    </li>
+                    <li>O total de atividades concluídas conta registros de conclusão associados ao usuário sem filtrar
+                        curso, visibilidade do módulo ou exigência de conclusão. Não é uma contagem apenas de atividades
+                        do curso escolhido.
+                    </li>
+                    <li>A média de notas usa valores encontrados em itens de nota de cursos e pode ser influenciada pela
+                        cardinalidade das junções. Não é uma média ponderada por créditos ou matrícula.
+                    </li>
+                    <li>Os cursos concluídos formalmente são obtidos de <code>mdl_course_completions</code> com <code>timecompleted
+                        &gt; 0</code>, métrica diferente de conclusão de atividades.
+                    </li>
+                    <li>O campo <code>cohortname</code> é preenchido com texto vazio; a consulta não faz uma análise
+                        real por coorte.
+                    </li>
+                    <li>Tempo e visitas dependem dos dados gravados pelo Kopere BI em cursos visíveis; não comprovam
+                        aprendizagem. Não existe variante PostgreSQL separada no catálogo.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Fontes técnicas</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-024.json"
+                       target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="023.html">← Relatório 023</a>
+                <a href="025.html">Relatório 025 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-024">
+                <h2 id="related-title-024">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="023.html"><span class="related-number">Relatório 023</span><span
+                            class="related-title">Situação dos usuários</span><span class="related-category">Usuários e perfis</span></a>
+                    <a class="related-card" href="011.html"><span class="related-number">Relatório 011</span><span
+                            class="related-title">Usuários inativos por curso</span><span class="related-category">Usuários e perfis</span></a>
+                    <a class="related-card" href="012.html"><span class="related-number">Relatório 012</span><span
+                            class="related-title">Usuários inativos na plataforma</span><span class="related-category">Usuários e perfis</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/users.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

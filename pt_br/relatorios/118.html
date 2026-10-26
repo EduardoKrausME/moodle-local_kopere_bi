@@ -1,4 +1,201 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Volume de conclusões e cursos distintos com conclusão por categoria e semana UTC."><meta name="theme-color" content="#072c3a"><title>Relatório 118 · Conclusões semanais por categoria · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}.report-technical{background:#f2f8f9;border-left:3px solid #70aeb4;padding:13px 16px;margin:18px 0}.report-limit li{margin:10px 0}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/118.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 118 · Conclusões semanais por categoria · Kopere BI"><meta property="og:description" content="Volume de conclusões e cursos distintos com conclusão por categoria e semana UTC."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/118.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/courses.html">Cursos</a> / 118</nav><div class="kicker">RELATÓRIO 118</div><h1>Conclusões semanais por categoria</h1><p class="lead">Volume de conclusões e cursos distintos com conclusão por categoria e semana UTC.</p><section><h2>Finalidade do relatório</h2><p>Tabela com nome da categoria, início da semana UTC, quantidade de registros de conclusão e quantidade de cursos distintos com conclusões. As linhas são ordenadas por semana mais recente e categoria, com limite de 500.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Permite analisar a distribuição de conclusões formais de curso entre categorias e semanas, identificando volumes e quantos cursos diferentes registraram pelo menos uma conclusão no período.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#criterios">Critérios de cálculo</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não há filtros SQL dinâmicos</strong> de categoria, curso, estudante ou período. A consulta considera <code>cc.timecompleted IS NOT NULL</code>, <code>cc.timecompleted &gt; 0</code> e conclusão nos últimos <code>31536000</code> segundos — janela móvel de <strong>365 dias</strong>.</p><p>Não existe restrição explícita de visibilidade do curso, condição da conta, papel do participante ou categoria selecionada. O SQL retorna até <strong>500 combinações de categoria e semana</strong>, priorizando as mais recentes.</p></section><section id="visualizacoes"><h2>Visualização e SQL integral</h2><p>O relatório possui uma visualização em tabela, com o SQL original integral, cache e configuração de atualização. O código tem destaque de sintaxe com Prism.js. Não existe uma variante PostgreSQL separada na <code>master</code> para esta definição, portanto não foi criada uma consulta inexistente.</p><details class="report-block" open><summary>1. Conclusões semanais por categoria · Tabela</summary><div class="inner"><p>Tabela com nome da categoria, início da semana UTC, quantidade de registros de conclusão e quantidade de cursos distintos com conclusões. As linhas são ordenadas por semana mais recente e categoria, com limite de 500.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(cat.id, &#39;-&#39;, (FLOOR((cc.timecompleted + 259200) / 604800.0) * 604800 - 259200)) AS id,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Volume de conclusões e cursos distintos com conclusão por categoria e semana UTC.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 118 · Conclusões semanais por categoria · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/118.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 118 · Conclusões semanais por categoria · Kopere BI">
+    <meta property="og:description"
+          content="Volume de conclusões e cursos distintos com conclusão por categoria e semana UTC.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/118.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/courses.html">Cursos</a> / 118
+            </nav>
+            <div class="kicker">RELATÓRIO 118</div>
+            <h1>Conclusões semanais por categoria</h1>
+            <p class="lead">Volume de conclusões e cursos distintos com conclusão por categoria e semana UTC.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Tabela com nome da categoria, início da semana UTC, quantidade de registros de conclusão e quantidade
+                    de cursos distintos com conclusões. As linhas são ordenadas por semana mais recente e categoria, com
+                    limite de 500.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Permite analisar a distribuição de conclusões formais de curso entre categorias e semanas,
+                    identificando volumes e quantos cursos diferentes registraram pelo menos uma conclusão no
+                    período.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros disponíveis</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#criterios">Critérios de cálculo</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p><strong>Não há filtros SQL dinâmicos</strong> de categoria, curso, estudante ou período. A consulta
+                    considera <code>cc.timecompleted IS NOT NULL</code>, <code>cc.timecompleted &gt; 0</code> e
+                    conclusão nos últimos <code>31536000</code> segundos — janela móvel de <strong>365 dias</strong>.
+                </p>
+                <p>Não existe restrição explícita de visibilidade do curso, condição da conta, papel do participante ou
+                    categoria selecionada. O SQL retorna até <strong>500 combinações de categoria e semana</strong>,
+                    priorizando as mais recentes.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL integral</h2>
+                <p>O relatório possui uma visualização em tabela, com o SQL original integral, cache e configuração de
+                    atualização. O código tem destaque de sintaxe com Prism.js. Não existe uma variante PostgreSQL
+                    separada na <code>master</code> para esta definição, portanto não foi criada uma consulta
+                    inexistente.</p>
+                <details class="report-block" open>
+                    <summary>1. Conclusões semanais por categoria · Tabela</summary>
+                    <div class="inner">
+                        <p>Tabela com nome da categoria, início da semana UTC, quantidade de registros de
+                            conclusão e quantidade de cursos distintos com conclusões. As linhas são ordenadas por
+                            semana
+                            mais recente e categoria, com limite de 500.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(cat.id, &#39;-&#39;, (FLOOR((cc.timecompleted + 259200) / 604800.0) * 604800 - 259200)) AS id,
        cat.name AS category, (FLOOR((cc.timecompleted + 259200) / 604800.0) * 604800 - 259200) AS weekstart,
        COUNT(cc.id) AS completed, COUNT(DISTINCT cc.course) AS completed_courses
   FROM mdl_course_completions cc
@@ -8,4 +205,78 @@
    AND cc.timecompleted &gt;= UNIX_TIMESTAMP() - 31536000
  GROUP BY cat.id, cat.name, (FLOOR((cc.timecompleted + 259200) / 604800.0) * 604800 - 259200)
  ORDER BY weekstart DESC, cat.name
- LIMIT 500</code></pre></div></div></details></section><section id="criterios"><h2>Critérios e funcionamento</h2><p>O período semanal é derivado de <code>cc.timecompleted</code> pela expressão <code>FLOOR((timecompleted + 259200) / 604800.0) * 604800 - 259200</code>. Esse deslocamento agrupa os registros em semanas que começam na segunda-feira às 00:00 UTC.</p><p><code>COUNT(cc.id)</code> representa registros de conclusão de curso; <code>COUNT(DISTINCT cc.course)</code> representa cursos diferentes com conclusões naquela categoria/semana. O agrupamento utiliza a categoria atual do curso na tabela <code>mdl_course_categories</code>.</p></section><section id="limites"><h2>Limitações e cuidados</h2><ul class="report-limit"><li>Concluídos não são necessariamente alunos distintos: uma pessoa pode concluir cursos diferentes na mesma categoria e semana.</li><li>A quantidade de cursos distintos com conclusão não é a quantidade de todos os cursos existentes ou ativos na categoria.</li><li>A categoria é a atualmente vinculada ao curso. Movimentos posteriores de cursos entre categorias podem modificar a classificação de conclusões históricas.</li><li>A janela de 365 dias não equivale exatamente a doze meses civis e pode apresentar semanas parciais no início e no fim do período.</li><li>Cursos ocultos, contas excluídas e outras situações não são filtrados explicitamente pela consulta.</li><li>O limite de 500 linhas pode omitir categorias ou semanas mais antigas. Datas de conclusão derivadas de timestamps devem ser interpretadas em UTC.</li><li>A definição usa UNIX_TIMESTAMP() e não possui variante PostgreSQL separada; a execução em outro SGBD necessita validação de compatibilidade.</li></ul><p class="report-technical">A consulta é reproduzida literalmente do JSON original da <code>master</code>. O SQL não foi executado no Moodle nesta etapa; antes do uso institucional, valide a compatibilidade do banco, as permissões de dados e a interpretação das métricas.</p></section><section><h2>Fonte técnica</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-118.json" target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="117.html">← Relatório 117</a><a href="119.html">Relatório 119 →</a></nav><section class="related-reports" aria-labelledby="related-title-118"><h2 id="related-title-118">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="117.html"><span class="related-number">Relatório 117</span><span class="related-title">Matrículas versus conclusões por semana</span><span class="related-category">Inscrições e receitas</span></a><a class="related-card" href="048.html"><span class="related-number">Relatório 048</span><span class="related-title">Inscrições e conclusão por curso</span><span class="related-category">Inscrições e receitas</span></a><a class="related-card" href="103.html"><span class="related-number">Relatório 103</span><span class="related-title">Status de conclusão do curso por aluno</span><span class="related-category">Estudantes</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/courses.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+ LIMIT 500</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Critérios e funcionamento</h2>
+                <p>O período semanal é derivado de <code>cc.timecompleted</code> pela expressão <code>FLOOR((timecompleted
+                    + 259200) / 604800.0) * 604800 - 259200</code>. Esse deslocamento agrupa os registros em semanas que
+                    começam na segunda-feira às 00:00 UTC.</p>
+                <p><code>COUNT(cc.id)</code> representa registros de conclusão de curso; <code>COUNT(DISTINCT
+                    cc.course)</code> representa cursos diferentes com conclusões naquela categoria/semana. O
+                    agrupamento utiliza a categoria atual do curso na tabela <code>mdl_course_categories</code>.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul class="report-limit">
+                    <li>Concluídos não são necessariamente alunos distintos: uma pessoa pode concluir cursos diferentes
+                        na mesma categoria e semana.
+                    </li>
+                    <li>A quantidade de cursos distintos com conclusão não é a quantidade de todos os cursos existentes
+                        ou ativos na categoria.
+                    </li>
+                    <li>A categoria é a atualmente vinculada ao curso. Movimentos posteriores de cursos entre categorias
+                        podem modificar a classificação de conclusões históricas.
+                    </li>
+                    <li>A janela de 365 dias não equivale exatamente a doze meses civis e pode apresentar semanas
+                        parciais no início e no fim do período.
+                    </li>
+                    <li>Cursos ocultos, contas excluídas e outras situações não são filtrados explicitamente pela
+                        consulta.
+                    </li>
+                    <li>O limite de 500 linhas pode omitir categorias ou semanas mais antigas. Datas de conclusão
+                        derivadas de timestamps devem ser interpretadas em UTC.
+                    </li>
+                    <li>A definição usa UNIX_TIMESTAMP() e não possui variante PostgreSQL separada; a execução em outro
+                        SGBD necessita validação de compatibilidade.
+                    </li>
+                </ul>
+                <p class="report-technical">A consulta é reproduzida literalmente do JSON original da
+                    <code>master</code>. O SQL não foi executado no Moodle nesta etapa; antes do uso institucional,
+                    valide a compatibilidade do banco, as permissões de dados e a interpretação das métricas.</p>
+            </section>
+            <section>
+                <h2>Fonte técnica</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-118.json"
+                       target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="117.html">← Relatório 117</a>
+                <a href="119.html">Relatório 119 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-118">
+                <h2 id="related-title-118">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="117.html"><span class="related-number">Relatório 117</span><span
+                            class="related-title">Matrículas versus conclusões por semana</span><span
+                            class="related-category">Inscrições e receitas</span></a>
+                    <a class="related-card" href="048.html"><span class="related-number">Relatório 048</span><span
+                            class="related-title">Inscrições e conclusão por curso</span><span class="related-category">Inscrições e receitas</span></a>
+                    <a class="related-card" href="103.html"><span class="related-number">Relatório 103</span><span
+                            class="related-title">Status de conclusão do curso por aluno</span><span
+                            class="related-category">Estudantes</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/courses.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

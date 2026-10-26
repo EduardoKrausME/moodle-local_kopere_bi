@@ -1,8 +1,95 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Arrange categories, pages, blocks and visual elements."><meta name="theme-color" content="#072c3a"><title>Dashboards and report pages · Kopere BI</title><link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../site.css"><link rel="alternate" hreflang="pt-BR" href="../pt_br/dashboards.html"></head>
-<body><a class="skip" href="#main">Skip to content</a><header class="top"><div class="top-inner"><a class="brand" href="index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a><a class="lang" href="../pt_br/dashboards.html" lang="pt-BR">Português</a></div></div></header>
-<div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentation</div><nav class="nav" aria-label="Documentation sections"><a href="index.html">Overview</a><a href="instalacao.html">Installation</a><a href="dashboards.html" class="active" aria-current="page">Dashboards</a><a href="visualizacoes.html">Charts and filters</a><a href="relatorios.html">Reports</a><a href="learning-analytics.html">Learning Analytics</a><a href="integracoes.html">MCP integration</a><a href="operacao.html">Operations</a></nav></aside>
-<main id="main" class="main"><article class="article"><div class="crumb"><a href="index.html">Kopere BI</a> / Dashboards</div><div class="kicker">MOODLE PLUGIN DOCUMENTATION</div><h1>Dashboards and report pages</h1><p class="lead">Arrange categories, pages, blocks and visual elements.</p><div class="separator"></div><section aria-labelledby="s0"><h2 id="s0">Content structure</h2><p>Kopere BI groups reports into <strong>categories</strong> and <strong>pages</strong>. A page contains layout blocks, which in turn hold report elements and their data sources.</p><div class="diagram"><span>Category</span><b>→</b><span>Page</span><b>→</b><span>Blocks</span><b>→</b><span>Elements</span></div><p>For example, one course-health page may combine completion KPIs, participation charts and a detailed table without requiring separate destinations for each indicator.</p></section>
-<section aria-labelledby="s1"><h2 id="s1">Build a useful page</h2><ol class="steps"><li>Define a specific question, such as which courses need attention.</li><li>Create or select a category and report page.</li><li>Choose the block layout and add elements with suitable data sources.</li><li>Configure filters, labeling, chart options and SQL caching.</li><li>Check visibility using an account with viewing permissions only.</li></ol></section>
-<section aria-labelledby="s2"><h2 id="s2">SQL and caching</h2><p>Elements can use SQL queries and format table columns using Mustache. Choose cache durations according to the cost of each query and freshness requirements; rerunning expensive aggregation on every page view is usually unnecessary.</p><p>Always confirm both SQL compatibility with the Moodle database and the privacy implications of returned records.</p></section>
-<section aria-labelledby="s3"><h2 id="s3">Moving reports</h2><p>Report definitions use JSON and the plugin supports dashboard import/export. Before reusing definitions, review <code>refkey</code>, database prerequisites, page capability, user filter behavior and SQL references.</p></section><nav class="pager" aria-label="Documentation navigation"><a href="instalacao.html">← Installation</a><a href="visualizacoes.html">Charts and filters →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a> · GPL v3 · Documentation based on the plugin source code.</footer></body></html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Arrange categories, pages, blocks and visual elements.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Dashboards and report pages · Kopere BI</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../site.css">
+    <link rel="alternate" hreflang="pt-BR" href="../pt_br/dashboards.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../pt_br/dashboards.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="index.html">Overview</a>
+            <a href="instalacao.html">Installation</a>
+            <a href="dashboards.html" class="active" aria-current="page">Dashboards</a>
+            <a href="visualizacoes.html">Charts and filters</a>
+            <a href="relatorios.html">Reports</a>
+            <a href="learning-analytics.html">Learning Analytics</a>
+            <a href="integracoes.html">MCP integration</a>
+            <a href="operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <div class="crumb">
+                <a href="index.html">Kopere BI</a> / Dashboards
+            </div>
+            <div class="kicker">MOODLE PLUGIN DOCUMENTATION</div>
+            <h1>Dashboards and report pages</h1>
+            <p class="lead">Arrange categories, pages, blocks and visual elements.</p>
+            <div class="separator">
+            </div>
+            <section aria-labelledby="s0">
+                <h2 id="s0">Content structure</h2>
+                <p>Kopere BI groups reports into <strong>categories</strong> and <strong>pages</strong>. A page contains
+                    layout blocks, which in turn hold report elements and their data sources.</p>
+                <div class="diagram">
+                    <span>Category</span><b>→</b><span>Page</span><b>→</b><span>Blocks</span><b>→</b><span>Elements</span>
+                </div>
+                <p>For example, one course-health page may combine completion KPIs, participation charts and a detailed
+                    table without requiring separate destinations for each indicator.</p>
+            </section>
+            <section aria-labelledby="s1">
+                <h2 id="s1">Build a useful page</h2>
+                <ol class="steps">
+                    <li>Define a specific question, such as which courses need attention.</li>
+                    <li>Create or select a category and report page.</li>
+                    <li>Choose the block layout and add elements with suitable data sources.</li>
+                    <li>Configure filters, labeling, chart options and SQL caching.</li>
+                    <li>Check visibility using an account with viewing permissions only.</li>
+                </ol>
+            </section>
+            <section aria-labelledby="s2">
+                <h2 id="s2">SQL and caching</h2>
+                <p>Elements can use SQL queries and format table columns using Mustache. Choose cache durations
+                    according to the cost of each query and freshness requirements; rerunning expensive aggregation on
+                    every page view is usually unnecessary.</p>
+                <p>Always confirm both SQL compatibility with the Moodle database and the privacy implications of
+                    returned records.</p>
+            </section>
+            <section aria-labelledby="s3">
+                <h2 id="s3">Moving reports</h2>
+                <p>Report definitions use JSON and the plugin supports dashboard import/export. Before reusing
+                    definitions, review <code>refkey</code>, database prerequisites, page capability, user filter
+                    behavior and SQL references.</p>
+            </section>
+            <nav class="pager" aria-label="Documentation navigation">
+                <a href="instalacao.html">← Installation</a>
+                <a href="visualizacoes.html">Charts and filters →</a>
+            </nav>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a>
+    · GPL v3 · Documentation based on the plugin source code.
+</footer>
+</body>
+</html>

@@ -1,4 +1,189 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Resumo do curso selecionado com participantes matriculados, usuários presentes no acompanhamento, conclusões de curso e atividades, visitas, tempo registrado e docentes atribuídos."><meta name="theme-color" content="#072c3a"><title>Relatório 035 · Acessos aos cursos · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/035.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 035 · Acessos aos cursos · Kopere BI"><meta property="og:description" content="Resumo do curso selecionado com participantes matriculados, usuários presentes no acompanhamento, conclusões de curso e atividades, visitas, tempo registrado e docentes atribuídos."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/035.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/courses.html">Cursos</a> / 035</nav><div class="kicker">RELATÓRIO 035</div><h1>Acessos aos cursos</h1><p class="lead">Resumo do curso selecionado com participantes matriculados, usuários presentes no acompanhamento, conclusões de curso e atividades, visitas, tempo registrado e docentes atribuídos.</p><section><h2>Finalidade do relatório</h2><p>Resumo do curso selecionado com participantes matriculados, usuários presentes no acompanhamento, conclusões de curso e atividades, visitas, tempo registrado e docentes atribuídos.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Ajuda administradores e gestores a acompanhar um curso específico, comparar matrículas com registros de acompanhamento e observar conclusões, visitas e utilização coletada pelo Kopere BI.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>O filtro dinâmico disponível é <strong>Curso</strong>, associado a <code>:courseid</code>, que aparece <strong>cinco vezes em cada versão SQL</strong>: nas subconsultas de conclusão de curso, conclusão de atividades, matrículas, acompanhamento e na seleção principal do curso.</p><p>As condições fixas são curso com ID maior que <code>1</code> e visível (<code>kbi_c.visible = 1</code>); matrículas e métodos de inscrição com status <code>0</code>; conclusão de curso com <code>timecompleted &gt; 0</code>; atividades nos estados de conclusão <code>1</code> ou <code>2</code>. Os docentes são identificados pelo papel ID <code>3</code> no contexto do curso. Não há filtro temporal dinâmico.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>Uma visualização em tabela, com 2 consultas SQL integrais, configuração de cache e destaque de sintaxe usando Prism.js. As variantes MySQL e PostgreSQL correspondentes estão no mesmo bloco, em caixas separadas.</p><details class="report-block" open><summary>1. Acessos aos cursos · Tabela</summary><div class="inner"><p>Uma tabela com nome e categoria do curso, data de início, usuários com tracking, matrículas ativas segundo os estados cadastrados, diferença calculada como usuários inativos, cursos concluídos, atividades concluídas, total de tempo e visitas, último acesso registrado e nomes dos professores.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Resumo do curso selecionado com participantes matriculados, usuários presentes no acompanhamento, conclusões de curso e atividades, visitas, tempo registrado e docentes atribuídos.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 035 · Acessos aos cursos · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/035.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 035 · Acessos aos cursos · Kopere BI">
+    <meta property="og:description"
+          content="Resumo do curso selecionado com participantes matriculados, usuários presentes no acompanhamento, conclusões de curso e atividades, visitas, tempo registrado e docentes atribuídos.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/035.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/courses.html">Cursos</a> / 035
+            </nav>
+            <div class="kicker">RELATÓRIO 035</div>
+            <h1>Acessos aos cursos</h1>
+            <p class="lead">Resumo do curso selecionado com participantes matriculados, usuários presentes no
+                acompanhamento, conclusões de curso e atividades, visitas, tempo registrado e docentes atribuídos.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Resumo do curso selecionado com participantes matriculados, usuários presentes no acompanhamento,
+                    conclusões de curso e atividades, visitas, tempo registrado e docentes atribuídos.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Ajuda administradores e gestores a acompanhar um curso específico, comparar matrículas com registros
+                    de acompanhamento e observar conclusões, visitas e utilização coletada pelo Kopere BI.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros disponíveis</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p>O filtro dinâmico disponível é <strong>Curso</strong>, associado a <code>:courseid</code>, que
+                    aparece <strong>cinco vezes em cada versão SQL</strong>: nas subconsultas de conclusão de curso,
+                    conclusão de atividades, matrículas, acompanhamento e na seleção principal do curso.</p>
+                <p>As condições fixas são curso com ID maior que <code>1</code> e visível (<code>kbi_c.visible =
+                    1</code>); matrículas e métodos de inscrição com status <code>0</code>; conclusão de curso com
+                    <code>timecompleted &gt; 0</code>; atividades nos estados de conclusão <code>1</code> ou
+                    <code>2</code>. Os docentes são identificados pelo papel ID <code>3</code> no contexto do curso. Não
+                    há filtro temporal dinâmico.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL original integral</h2>
+                <p>Uma visualização em tabela, com 2 consultas SQL integrais, configuração de cache e destaque de
+                    sintaxe usando Prism.js. As variantes MySQL e PostgreSQL correspondentes estão no mesmo bloco, em
+                    caixas separadas.</p>
+                <details class="report-block" open>
+                    <summary>1. Acessos aos cursos · Tabela</summary>
+                    <div class="inner">
+                        <p>Uma tabela com nome e categoria do curso, data de início, usuários com
+                            tracking, matrículas ativas segundo os estados cadastrados, diferença calculada como
+                            usuários
+                            inativos, cursos concluídos, atividades concluídas, total de tempo e visitas, último acesso
+                            registrado e nomes dos professores.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral MySQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
        kbi_c.fullname,
        kbi_c.shortname,
        kbi_ca.name                             AS category,
@@ -52,8 +237,11 @@ FROM mdl_course kbi_c
                   GROUP BY kbi_t.courseid) x ON x.courseid = kbi_c.id
 WHERE kbi_c.id &gt; 1
   AND kbi_c.id = :courseid
-  AND kbi_c.visible = 1</code></pre></div>
-<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
+  AND kbi_c.visible = 1</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>SQL original integral PostgreSQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
        kbi_c.fullname,
        kbi_c.shortname,
        kbi_ca.name                             AS category,
@@ -107,4 +295,70 @@ FROM mdl_course kbi_c
                   GROUP BY kbi_t.courseid) x ON x.courseid = kbi_c.id
 WHERE kbi_c.id &gt; 1
   AND kbi_c.id = :courseid
-  AND kbi_c.visible = 1</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>A coluna <code>inactiveusers</code> calcula <code>ue.enrolled - x.users</code>, ou seja, a diferença entre usuários matriculados e usuários que aparecem no acompanhamento. Ela não verifica um limite de dias sem acesso e não identifica necessariamente inatividade.</li><li>A contagem <code>x.users</code> considera usuários distintos com registros de tracking associados a logs, sem exigir que esses usuários mantenham matrícula ativa. Por isso, a diferença em <code>inactiveusers</code> pode ficar negativa.</li><li>Se não houver registros em alguma subconsulta, as junções <code>LEFT JOIN</code> podem produzir valores <code>NULL</code>. Assim, ausência de informação não equivale necessariamente a zero.</li><li>O campo <code>completed_activities</code> conta registros de conclusão de módulos, não o número de módulos distintos concluídos e nem o número de estudantes concluintes.</li><li>O campo <code>completed</code> conta conclusões formais do curso com data registrada, mas não se limita diretamente aos usuários com matrícula ativa da subconsulta correspondente.</li><li>Os campos de visitas, tempo e último acesso dependem dos logs e do tracking do Kopere BI. Não há período selecionável, e a última atividade é obtida da fonte de acompanhamento.</li><li>Os nomes de docentes são agregados com <code>GROUP_CONCAT</code> no MySQL e <code>STRING_AGG</code> no PostgreSQL. As duas variantes precisam ser usadas no banco compatível.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-035.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-035-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="034.html">← Relatório 034</a><a href="036.html">Relatório 036 →</a></nav><section class="related-reports" aria-labelledby="related-title-035"><h2 id="related-title-035">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="036.html"><span class="related-number">Relatório 036</span><span class="related-title">Detalhes dos acessos aos cursos</span><span class="related-category">Cursos e conteúdo</span></a><a class="related-card" href="091.html"><span class="related-number">Relatório 091</span><span class="related-title">Acessos aos cursos por dia e período</span><span class="related-category">Cursos e conteúdo</span></a><a class="related-card" href="099.html"><span class="related-number">Relatório 099</span><span class="related-title">Alunos sem acesso ao curso</span><span class="related-category">Estudantes</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/courses.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+  AND kbi_c.visible = 1</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul>
+                    <li>A coluna <code>inactiveusers</code> calcula <code>ue.enrolled - x.users</code>, ou seja, a
+                        diferença entre usuários matriculados e usuários que aparecem no acompanhamento. Ela não
+                        verifica um limite de dias sem acesso e não identifica necessariamente inatividade.
+                    </li>
+                    <li>A contagem <code>x.users</code> considera usuários distintos com registros de tracking
+                        associados a logs, sem exigir que esses usuários mantenham matrícula ativa. Por isso, a
+                        diferença em <code>inactiveusers</code> pode ficar negativa.
+                    </li>
+                    <li>Se não houver registros em alguma subconsulta, as junções <code>LEFT JOIN</code> podem produzir
+                        valores <code>NULL</code>. Assim, ausência de informação não equivale necessariamente a zero.
+                    </li>
+                    <li>O campo <code>completed_activities</code> conta registros de conclusão de módulos, não o número
+                        de módulos distintos concluídos e nem o número de estudantes concluintes.
+                    </li>
+                    <li>O campo <code>completed</code> conta conclusões formais do curso com data registrada, mas não se
+                        limita diretamente aos usuários com matrícula ativa da subconsulta correspondente.
+                    </li>
+                    <li>Os campos de visitas, tempo e último acesso dependem dos logs e do tracking do Kopere BI. Não há
+                        período selecionável, e a última atividade é obtida da fonte de acompanhamento.
+                    </li>
+                    <li>Os nomes de docentes são agregados com <code>GROUP_CONCAT</code> no MySQL e
+                        <code>STRING_AGG</code> no PostgreSQL. As duas variantes precisam ser usadas no banco
+                        compatível.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Fontes técnicas</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-035.json"
+                       target="_blank" rel="noopener">Definição MySQL</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-035-postgres.json"
+                        target="_blank" rel="noopener">Definição PostgreSQL</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="034.html">← Relatório 034</a>
+                <a href="036.html">Relatório 036 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-035">
+                <h2 id="related-title-035">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="036.html"><span class="related-number">Relatório 036</span><span
+                            class="related-title">Detalhes dos acessos aos cursos</span><span class="related-category">Cursos e conteúdo</span></a>
+                    <a class="related-card" href="091.html"><span class="related-number">Relatório 091</span><span
+                            class="related-title">Acessos aos cursos por dia e período</span><span
+                            class="related-category">Cursos e conteúdo</span></a>
+                    <a class="related-card" href="099.html"><span class="related-number">Relatório 099</span><span
+                            class="related-title">Alunos sem acesso ao curso</span><span class="related-category">Estudantes</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/courses.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

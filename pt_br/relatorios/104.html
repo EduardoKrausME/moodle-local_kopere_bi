@@ -1,27 +1,198 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Apresenta a quantidade de contas identificadas como estudantes, agrupadas pelo mês de criação da conta e distribuídas entre situações ativa, suspensa e excluída."><meta name="theme-color" content="#072c3a"><title>Relatório 104 · Cadastros de alunos por mês · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>
-.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}
-.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}
-.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}
-.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}
-.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}
-.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}
-.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}
-.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}
-.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}
-.report-meta{color:#54707b;font-size:13px}
-.report-technical{background:#f2f8f9;border-left:3px solid #70aeb4;padding:13px 16px;margin:18px 0}
-.report-limit li{margin:10px 0}
-@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}
-</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/104.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 104 · Cadastros de alunos por mês · Kopere BI"><meta property="og:description" content="Apresenta a quantidade de contas identificadas como estudantes, agrupadas pelo mês de criação da conta e distribuídas entre situações ativa, suspensa e excluída."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/104.html"></head>
-<body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header>
-<div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside>
-<main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/students.html">Estudantes</a> / 104</nav><div class="kicker">RELATÓRIO 104</div><h1>Cadastros de alunos por mês</h1><p class="lead">Apresenta a quantidade de contas identificadas como estudantes, agrupadas pelo mês de criação da conta e distribuídas entre situações ativa, suspensa e excluída.</p>
-<section><h2>Finalidade do relatório</h2><p>Apresenta a quantidade de contas identificadas como estudantes, agrupadas pelo mês de criação da conta e distribuídas entre situações ativa, suspensa e excluída.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Permite acompanhar a evolução da base de contas que receberam o papel de estudante e observar, mês a mês, a composição atual de situações administrativas dessas contas.</p></div>
-<div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#metodologia">Critérios de cálculo</a><a href="#limites">Limitações</a></div>
-<section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não há filtros SQL dinâmicos</strong> de curso, usuário, coorte ou período, nem intervalo de meses predefinido. A consulta agrupa todo o histórico de criação das contas encontradas.</p>
- <p>O único recorte explícito no <code>WHERE</code> da consulta externa é <code>username &lt;&gt; 'guest'</code>. A subconsulta exige a atribuição do papel <code>student</code> em contexto de curso. Contas suspensas e excluídas <strong>não são excluídas</strong> do conjunto, pois são necessárias às contagens por situação.</p></section>
-<section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>Uma visualização em tabela e duas consultas SQL integrais equivalentes, MySQL e PostgreSQL, agrupadas no mesmo bloco. O realce de sintaxe é realizado por Prism.js e não modifica o SQL.</p>
-<details class="report-block" open><summary>1. Cadastros de alunos por mês · Tabela</summary><div class="inner"><p>Tabela com uma linha por mês no formato AAAA-MM, total de estudantes distintos e três contagens de contas atualmente ativas, suspensas e excluídas; apresentada em ordem decrescente de mês.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT DATE_FORMAT(FROM_UNIXTIME(kbi_u.timecreated), &#39;%Y-%m&#39;) AS id,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Apresenta a quantidade de contas identificadas como estudantes, agrupadas pelo mês de criação da conta e distribuídas entre situações ativa, suspensa e excluída.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 104 · Cadastros de alunos por mês · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>
+        .report-intro {
+            background: #e7f6f4;
+            border: 1px solid #bee1dd;
+            border-radius: 13px;
+            padding: 22px 24px;
+            margin: 22px 0
+        }
+
+        .report-intro strong {
+            font-size: 17px;
+            color: #096573
+        }
+
+        .report-intro p {
+            margin: 7px 0 0
+        }
+
+        .report-navigation {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 23px 0
+        }
+
+        .report-navigation a {
+            font-size: 13px;
+            font-weight: 750;
+            text-decoration: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            background: #e4f4f2
+        }
+
+        .report-block {
+            border: 1px solid #d9e6e9;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 18px 0
+        }
+
+        .report-block summary {
+            padding: 16px;
+            background: #eaf5f7;
+            color: #0b5261;
+            font-weight: 800;
+            cursor: pointer
+        }
+
+        .report-block summary:hover {
+            background: #d9eff0
+        }
+
+        .report-block .inner {
+            padding: 16px
+        }
+
+        .sql-variant {
+            background: #f5f9f9;
+            border: 1px solid #dbe7e9;
+            border-radius: 12px;
+            margin: 16px 0;
+            padding: 13px 15px
+        }
+
+        .sql-variant h3 {
+            font-size: 14px;
+            color: #095f6d;
+            font-weight: 800;
+            margin: 0 0 10px
+        }
+
+        .report-meta {
+            color: #54707b;
+            font-size: 13px
+        }
+
+        .report-technical {
+            background: #f2f8f9;
+            border-left: 3px solid #70aeb4;
+            padding: 13px 16px;
+            margin: 18px 0
+        }
+
+        .report-limit li {
+            margin: 10px 0
+        }
+
+        @media (max-width: 650px) {
+            .report-block .inner {
+                padding: 10px
+            }
+
+            .sql-variant {
+                padding: 8px
+            }
+        }
+    </style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/104.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 104 · Cadastros de alunos por mês · Kopere BI">
+    <meta property="og:description"
+          content="Apresenta a quantidade de contas identificadas como estudantes, agrupadas pelo mês de criação da conta e distribuídas entre situações ativa, suspensa e excluída.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/104.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/students.html">Estudantes</a> / 104
+            </nav>
+            <div class="kicker">RELATÓRIO 104</div>
+            <h1>Cadastros de alunos por mês</h1>
+            <p class="lead">Apresenta a quantidade de contas identificadas como estudantes, agrupadas pelo mês de
+                criação da conta e distribuídas entre situações ativa, suspensa e excluída.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Apresenta a quantidade de contas identificadas como estudantes, agrupadas pelo mês de criação da
+                    conta e distribuídas entre situações ativa, suspensa e excluída.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Permite acompanhar a evolução da base de contas que receberam o papel de estudante e observar, mês a
+                    mês, a composição atual de situações administrativas dessas contas.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros disponíveis</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#metodologia">Critérios de cálculo</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p><strong>Não há filtros SQL dinâmicos</strong> de curso, usuário, coorte ou período, nem intervalo de
+                    meses predefinido. A consulta agrupa todo o histórico de criação das contas encontradas.</p>
+                <p>O único recorte explícito no <code>WHERE</code> da consulta externa é <code>username &lt;&gt;
+                    'guest'</code>. A subconsulta exige a atribuição do papel <code>student</code> em contexto de curso.
+                    Contas suspensas e excluídas <strong>não são excluídas</strong> do conjunto, pois são necessárias às
+                    contagens por situação.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL original integral</h2>
+                <p>Uma visualização em tabela e duas consultas SQL integrais equivalentes, MySQL e PostgreSQL, agrupadas
+                    no mesmo bloco. O realce de sintaxe é realizado por Prism.js e não modifica o SQL.</p>
+                <details class="report-block" open>
+                    <summary>1. Cadastros de alunos por mês · Tabela</summary>
+                    <div class="inner">
+                        <p>Tabela com uma linha por mês no formato AAAA-MM, total de estudantes distintos
+                            e três contagens de contas atualmente ativas, suspensas e excluídas; apresentada em ordem
+                            decrescente de mês.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral MySQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT DATE_FORMAT(FROM_UNIXTIME(kbi_u.timecreated), &#39;%Y-%m&#39;) AS id,
        DATE_FORMAT(FROM_UNIXTIME(kbi_u.timecreated), &#39;%Y-%m&#39;) AS period_month,
        COUNT(DISTINCT kbi_u.id) AS student_count,
        SUM(CASE WHEN kbi_u.deleted = 0 AND kbi_u.suspended = 0 THEN 1 ELSE 0 END) AS active_students,
@@ -37,8 +208,11 @@ FROM mdl_user kbi_u
        ) kbi_students ON kbi_students.userid = kbi_u.id
 WHERE kbi_u.username &lt;&gt; &#39;guest&#39;
 GROUP BY period_month
-ORDER BY period_month DESC</code></pre></div>
-<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT TO_CHAR(TO_TIMESTAMP(kbi_u.timecreated), &#39;YYYY-MM&#39;) AS id,
+ORDER BY period_month DESC</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>SQL original integral PostgreSQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT TO_CHAR(TO_TIMESTAMP(kbi_u.timecreated), &#39;YYYY-MM&#39;) AS id,
        TO_CHAR(TO_TIMESTAMP(kbi_u.timecreated), &#39;YYYY-MM&#39;) AS period_month,
        COUNT(DISTINCT kbi_u.id) AS student_count,
        SUM(CASE WHEN kbi_u.deleted = 0 AND kbi_u.suspended = 0 THEN 1 ELSE 0 END) AS active_students,
@@ -54,10 +228,77 @@ FROM mdl_user kbi_u
        ) kbi_students ON kbi_students.userid = kbi_u.id
 WHERE kbi_u.username &lt;&gt; &#39;guest&#39;
 GROUP BY period_month
-ORDER BY period_month DESC</code></pre></div></div></details></section>
-<section id="metodologia"><h2>Critérios e funcionamento</h2><p>O relatório usa <code>mdl_user.timecreated</code> como referência temporal e seleciona usuários que possuem o papel de nome curto <code>student</code> em algum contexto de curso (<code>contextlevel = 50</code>). A subconsulta usa <code>DISTINCT userid</code> para evitar duplicação por múltiplos cursos.</p>
- <p>A versão MySQL formata o período com <code>DATE_FORMAT(FROM_UNIXTIME(...), '%Y-%m')</code>; a versão PostgreSQL usa <code>TO_CHAR(TO_TIMESTAMP(...), 'YYYY-MM')</code>. Os campos <code>active_students</code>, <code>suspended_students</code> e <code>deleted_students</code> são calculados com condições sobre o estado <em>atual</em> da conta.</p></section>
-<section id="limites"><h2>Limitações e cuidados</h2><ul class="report-limit"><li>O mês representa a criação da conta no Moodle, não a data de inscrição em um curso nem a data em que o papel student foi atribuído.</li><li>As categorias ativa, suspensa e excluída consideram o estado atual das contas. O relatório não reconstrói historicamente qual era a situação de cada conta no mês informado.</li><li>A consulta só encontra usuários que ainda possuem uma atribuição do papel student no contexto de algum curso; cadastros que perderam esse papel podem não aparecer.</li><li>Não há segmentação dinâmica por curso, método de inscrição ou período. Uma mesma pessoa com mais de uma conta poderá ser contada como múltiplos cadastros.</li><li>A conversão de timestamps para meses pode variar com o fuso horário da conexão do banco; diferenças próximas da virada do mês devem ser verificadas.</li></ul><p class="report-technical">O SQL está reproduzido literalmente das definições JSON da <code>master</code>, sem execução em uma instalação Moodle nesta etapa. Verifique compatibilidade, resultados, permissões e privacidade antes do uso institucional.</p></section>
-<section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-104.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-104-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section>
-<nav class="pager" aria-label="Navegação entre relatórios"><a href="103.html">← Relatório 103</a><a href="105.html">Relatório 105 →</a></nav><section class="related-reports" aria-labelledby="related-title-104"><h2 id="related-title-104">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="002.html"><span class="related-number">Relatório 002</span><span class="related-title">Estudantes ativos</span><span class="related-category">Estudantes</span></a><a class="related-card" href="105.html"><span class="related-number">Relatório 105</span><span class="related-title">Distribuição do perfil dos alunos</span><span class="related-category">Estudantes</span></a><a class="related-card" href="019.html"><span class="related-number">Relatório 019</span><span class="related-title">Perfis e dados demográficos dos usuários</span><span class="related-category">Usuários e perfis</span></a></div></section></article></main></div>
-<footer class="foot">Kopere BI · <a href="../categorias/students.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+ORDER BY period_month DESC</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="metodologia">
+                <h2>Critérios e funcionamento</h2>
+                <p>O relatório usa <code>mdl_user.timecreated</code> como referência temporal e seleciona usuários que
+                    possuem o papel de nome curto <code>student</code> em algum contexto de curso (<code>contextlevel =
+                        50</code>). A subconsulta usa <code>DISTINCT userid</code> para evitar duplicação por múltiplos
+                    cursos.</p>
+                <p>A versão MySQL formata o período com <code>DATE_FORMAT(FROM_UNIXTIME(...), '%Y-%m')</code>; a versão
+                    PostgreSQL usa <code>TO_CHAR(TO_TIMESTAMP(...), 'YYYY-MM')</code>. Os campos
+                    <code>active_students</code>, <code>suspended_students</code> e <code>deleted_students</code> são
+                    calculados com condições sobre o estado <em>atual</em> da conta.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul class="report-limit">
+                    <li>O mês representa a criação da conta no Moodle, não a data de inscrição em um curso nem a data em
+                        que o papel student foi atribuído.
+                    </li>
+                    <li>As categorias ativa, suspensa e excluída consideram o estado atual das contas. O relatório não
+                        reconstrói historicamente qual era a situação de cada conta no mês informado.
+                    </li>
+                    <li>A consulta só encontra usuários que ainda possuem uma atribuição do papel student no contexto de
+                        algum curso; cadastros que perderam esse papel podem não aparecer.
+                    </li>
+                    <li>Não há segmentação dinâmica por curso, método de inscrição ou período. Uma mesma pessoa com mais
+                        de uma conta poderá ser contada como múltiplos cadastros.
+                    </li>
+                    <li>A conversão de timestamps para meses pode variar com o fuso horário da conexão do banco;
+                        diferenças próximas da virada do mês devem ser verificadas.
+                    </li>
+                </ul>
+                <p class="report-technical">O SQL está reproduzido literalmente das definições JSON da
+                    <code>master</code>, sem execução em uma instalação Moodle nesta etapa. Verifique compatibilidade,
+                    resultados, permissões e privacidade antes do uso institucional.</p>
+            </section>
+            <section>
+                <h2>Fontes técnicas</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-104.json"
+                       target="_blank" rel="noopener">Definição MySQL</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-104-postgres.json"
+                        target="_blank" rel="noopener">Definição PostgreSQL</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="103.html">← Relatório 103</a>
+                <a href="105.html">Relatório 105 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-104">
+                <h2 id="related-title-104">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="002.html"><span class="related-number">Relatório 002</span><span
+                            class="related-title">Estudantes ativos</span><span
+                            class="related-category">Estudantes</span></a>
+                    <a class="related-card" href="105.html"><span class="related-number">Relatório 105</span><span
+                            class="related-title">Distribuição do perfil dos alunos</span><span
+                            class="related-category">Estudantes</span></a>
+                    <a class="related-card" href="019.html"><span class="related-number">Relatório 019</span><span
+                            class="related-title">Perfis e dados demográficos dos usuários</span><span
+                            class="related-category">Usuários e perfis</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/students.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

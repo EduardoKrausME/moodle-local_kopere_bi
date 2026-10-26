@@ -1,4 +1,185 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Resumo dos fóruns do curso selecionado, reunindo visitas e tempo registrado, número de discussões, postagens, quantidade calculada de fóruns e nomes de docentes atribuídos."><meta name="theme-color" content="#072c3a"><title>Relatório 026 · Estatísticas dos fóruns por professor · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/026.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 026 · Estatísticas dos fóruns por professor · Kopere BI"><meta property="og:description" content="Resumo dos fóruns do curso selecionado, reunindo visitas e tempo registrado, número de discussões, postagens, quantidade calculada de fóruns e nomes de docentes atribuídos."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/026.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/instructors.html">Professores</a> / 026</nav><div class="kicker">RELATÓRIO 026</div><h1>Estatísticas dos fóruns por professor</h1><p class="lead">Resumo dos fóruns do curso selecionado, reunindo visitas e tempo registrado, número de discussões, postagens, quantidade calculada de fóruns e nomes de docentes atribuídos.</p><section><h2>Finalidade do relatório</h2><p>Resumo dos fóruns do curso selecionado, reunindo visitas e tempo registrado, número de discussões, postagens, quantidade calculada de fóruns e nomes de docentes atribuídos.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Facilita analisar o uso agregado dos fóruns de uma disciplina, identificando volume de discussões, postagens e acompanhamento registrado para orientar ações de mediação.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>O filtro SQL dinâmico é <strong><code>:courseid</code></strong>, aplicado ao curso do resumo.</p><p>Os critérios fixos incluem curso visível (<code>kbi_c.visible = 1</code>), ID de curso positivo, tracking de atividade <code>page = 'module'</code> vinculado a módulos <code>forum</code>, e professores identificados por atribuição de papel ID <code>3</code> em contexto de curso (<code>contextlevel = 50</code>). Não há filtro dinâmico de professor, fórum individual ou período.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>O relatório possui uma visualização em tabela e 2 consultas SQL, com cache, atualização e destaque de sintaxe usando Prism.js. As variantes MySQL e PostgreSQL estão no mesmo bloco de visualização, em caixas separadas.</p><details class="report-block" open><summary>1. Estatísticas dos fóruns por professor · Tabela</summary><div class="inner"><p>Uma tabela resumida por curso com visitas e tempo de uso dos módulos de fórum registrados pelo Kopere BI, quantidade de discussões, quantidade de postagens, contagem agregada de registros de fórum e lista de professores com papel de ID 3.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Resumo dos fóruns do curso selecionado, reunindo visitas e tempo registrado, número de discussões, postagens, quantidade calculada de fóruns e nomes de docentes atribuídos.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 026 · Estatísticas dos fóruns por professor · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/026.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 026 · Estatísticas dos fóruns por professor · Kopere BI">
+    <meta property="og:description"
+          content="Resumo dos fóruns do curso selecionado, reunindo visitas e tempo registrado, número de discussões, postagens, quantidade calculada de fóruns e nomes de docentes atribuídos.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/026.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/instructors.html">Professores</a> / 026
+            </nav>
+            <div class="kicker">RELATÓRIO 026</div>
+            <h1>Estatísticas dos fóruns por professor</h1>
+            <p class="lead">Resumo dos fóruns do curso selecionado, reunindo visitas e tempo registrado, número de
+                discussões, postagens, quantidade calculada de fóruns e nomes de docentes atribuídos.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Resumo dos fóruns do curso selecionado, reunindo visitas e tempo registrado, número de discussões,
+                    postagens, quantidade calculada de fóruns e nomes de docentes atribuídos.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Facilita analisar o uso agregado dos fóruns de uma disciplina, identificando volume de discussões,
+                    postagens e acompanhamento registrado para orientar ações de mediação.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros disponíveis</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p>O filtro SQL dinâmico é <strong><code>:courseid</code></strong>, aplicado ao curso do resumo.</p>
+                <p>Os critérios fixos incluem curso visível (<code>kbi_c.visible = 1</code>), ID de curso positivo,
+                    tracking de atividade <code>page = 'module'</code> vinculado a módulos <code>forum</code>, e
+                    professores identificados por atribuição de papel ID <code>3</code> em contexto de curso (<code>contextlevel
+                        = 50</code>). Não há filtro dinâmico de professor, fórum individual ou período.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL original integral</h2>
+                <p>O relatório possui uma visualização em tabela e 2 consultas SQL, com cache, atualização e destaque de
+                    sintaxe usando Prism.js. As variantes MySQL e PostgreSQL estão no mesmo bloco de visualização, em
+                    caixas separadas.</p>
+                <details class="report-block" open>
+                    <summary>1. Estatísticas dos fóruns por professor · Tabela</summary>
+                    <div class="inner">
+                        <p>Uma tabela resumida por curso com visitas e tempo de uso dos módulos de fórum
+                            registrados pelo Kopere BI, quantidade de discussões, quantidade de postagens, contagem
+                            agregada
+                            de registros de fórum e lista de professores com papel de ID 3.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral MySQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
        kbi_c.fullname,
        MAX(v.visits)      AS visits,
        MAX(v.timespend)   AS timespend,
@@ -31,8 +212,11 @@ FROM mdl_course kbi_c
 WHERE kbi_c.id &gt; 0
   AND kbi_c.visible = 1
   AND kbi_c.id = :courseid
-GROUP BY kbi_c.id, tchr.teacher</code></pre></div>
-<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
+GROUP BY kbi_c.id, tchr.teacher</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>SQL original integral PostgreSQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
        kbi_c.fullname,
        MAX(v.visits)      AS visits,
        MAX(v.timespend)   AS timespend,
@@ -65,4 +249,69 @@ FROM mdl_course kbi_c
 WHERE kbi_c.id &gt; 0
   AND kbi_c.visible = 1
   AND kbi_c.id = :courseid
-GROUP BY kbi_c.id, tchr.teacher</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>Embora se chame “por professor”, a consulta agrupa os resultados por curso e lista professores atribuídos; visitas, discussões e postagens não são atribuídas individualmente a cada docente.</li><li>O campo <code>total</code> usa <code>COUNT(*)</code> sobre um <code>LEFT JOIN</code> de fóruns. Mesmo sem registros de fórum, a contagem pode ser 1 pela linha preservada do curso. Não é garantia de quantidade correta de fóruns.</li><li>As contagens de discussões e postagens agregam toda a atividade nos fóruns do curso e não distinguem autoria, participação docente ou período.</li><li>O tempo e as visitas vêm de registros de tracking de módulos de fórum e dependem da instalação, da coleta e da retenção dos dados.</li><li>A listagem de professores usa o papel ID <code>3</code>, que pode ser personalizado na instalação. As versões MySQL e PostgreSQL usam agregadores diferentes para concatenar nomes.</li><li>Não existem seletores de data na definição. Para analisar um período é necessário outro SQL ou mecanismo de filtro compatível.</li><li>A consulta inclui nomes de docentes e dados associados a cursos; respeite as permissões de acesso administrativo.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-026.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-026-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="025.html">← Relatório 025</a><a href="027.html">Relatório 027 →</a></nav><section class="related-reports" aria-labelledby="related-title-026"><h2 id="related-title-026">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="031.html"><span class="related-number">Relatório 031</span><span class="related-title">Participação dos professores nos fóruns</span><span class="related-category">Professores e tutores</span></a><a class="related-card" href="025.html"><span class="related-number">Relatório 025</span><span class="related-title">Tarefas avaliadas por professor</span><span class="related-category">Professores e tutores</span></a><a class="related-card" href="027.html"><span class="related-number">Relatório 027</span><span class="related-title">Detalhes do engajamento dos professores em atividades</span><span class="related-category">Professores e tutores</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/instructors.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+GROUP BY kbi_c.id, tchr.teacher</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul>
+                    <li>Embora se chame “por professor”, a consulta agrupa os resultados por curso e lista professores
+                        atribuídos; visitas, discussões e postagens não são atribuídas individualmente a cada docente.
+                    </li>
+                    <li>O campo <code>total</code> usa <code>COUNT(*)</code> sobre um <code>LEFT JOIN</code> de fóruns.
+                        Mesmo sem registros de fórum, a contagem pode ser 1 pela linha preservada do curso. Não é
+                        garantia de quantidade correta de fóruns.
+                    </li>
+                    <li>As contagens de discussões e postagens agregam toda a atividade nos fóruns do curso e não
+                        distinguem autoria, participação docente ou período.
+                    </li>
+                    <li>O tempo e as visitas vêm de registros de tracking de módulos de fórum e dependem da instalação,
+                        da coleta e da retenção dos dados.
+                    </li>
+                    <li>A listagem de professores usa o papel ID <code>3</code>, que pode ser personalizado na
+                        instalação. As versões MySQL e PostgreSQL usam agregadores diferentes para concatenar nomes.
+                    </li>
+                    <li>Não existem seletores de data na definição. Para analisar um período é necessário outro SQL ou
+                        mecanismo de filtro compatível.
+                    </li>
+                    <li>A consulta inclui nomes de docentes e dados associados a cursos; respeite as permissões de
+                        acesso administrativo.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Fontes técnicas</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-026.json"
+                       target="_blank" rel="noopener">Definição MySQL</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-026-postgres.json"
+                        target="_blank" rel="noopener">Definição PostgreSQL</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="025.html">← Relatório 025</a>
+                <a href="027.html">Relatório 027 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-026">
+                <h2 id="related-title-026">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="031.html"><span class="related-number">Relatório 031</span><span
+                            class="related-title">Participação dos professores nos fóruns</span><span
+                            class="related-category">Professores e tutores</span></a>
+                    <a class="related-card" href="025.html"><span class="related-number">Relatório 025</span><span
+                            class="related-title">Tarefas avaliadas por professor</span><span class="related-category">Professores e tutores</span></a>
+                    <a class="related-card" href="027.html"><span class="related-number">Relatório 027</span><span
+                            class="related-title">Detalhes do engajamento dos professores em atividades</span><span
+                            class="related-category">Professores e tutores</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/instructors.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

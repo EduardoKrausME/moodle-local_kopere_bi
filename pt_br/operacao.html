@@ -1,64 +1,374 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Rotinas agendadas, custo de consulta, consistência e resolução de problemas."><meta name="theme-color" content="#072c3a"><title>Operação, cron e diagnóstico · Kopere BI</title><link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../site.css"><link rel="stylesheet" href="accessibilidade.css"><link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/operacao.html"><style>
-.operations-schedule{margin:18px 0}
-.operation-task{margin:22px 0;padding:16px 20px;border:1px solid #dae7ea;border-radius:12px;background:#f8fbfc}
-.operation-task h3{font-size:18px;margin:0 0 11px;color:#075b66}
-.operation-task h3 code{font-size:.88em}
-.operation-task p:last-child{margin-bottom:0}
-.diagnostic-grid{display:grid;grid-template-columns:1fr;gap:12px;margin:18px 0 24px}
-.diagnostic-item{border:1px solid #d4e5e9;border-radius:11px;overflow:hidden;background:#fff}
-.diagnostic-item summary{cursor:pointer;font-weight:750;color:#075b66;padding:14px 17px;background:#edf7f7}
-.diagnostic-item[open] summary{border-bottom:1px solid #d4e5e9}
-.diagnostic-item>div{padding:3px 18px 13px}
-.diagnostic-item>div p{margin:12px 0}
-@media(max-width:720px){.operations-schedule{display:block;overflow-x:auto}.operation-task{padding:14px}.diagnostic-item>div{padding:3px 13px 11px}}
-</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/operacao.html"><link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/operacao.html"><meta property="og:type" content="website"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Operação, cron e diagnóstico · Kopere BI"><meta property="og:description" content="Rotinas agendadas, custo de consulta, consistência e resolução de problemas."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/operacao.html"></head>
-<body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../en/operacao.html" lang="en">English</a></div></div></header>
-<div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="index.html">Visão geral</a><a href="dashboards.html">Dashboards</a><a href="visualizacoes.html">Gráficos e filtros</a><a href="relatorios.html">Relatórios</a><a href="learning-analytics.html">Learning Analytics</a><a href="integracoes.html">Integração MCP</a><a href="operacao.html" class="active" aria-current="page">Operação</a></nav></aside>
-<main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="index.html">Kopere BI</a> / Operação</nav><div class="kicker">DOCUMENTAÇÃO DO PLUGIN MOODLE</div><h1>Operação, cron e diagnóstico</h1><p class="lead">Rotinas agendadas, custo de consulta, consistência e resolução de problemas.</p><div class="separator"></div><section aria-labelledby="s0">
-<h2 id="s0">Tarefas agendadas por padrão</h2>
-<p>O Kopere BI registra quatro tarefas em <code>db/tasks.php</code>. Os horários abaixo são a configuração inicial do plugin, não um compromisso de execução no minuto exato: o processamento depende do cron do Moodle, da fila e de eventuais alterações feitas pelo administrador em <em>Administração do site → Servidor → Tarefas → Tarefas agendadas</em>.</p>
-<table class="operations-schedule"><thead><tr><th>Tarefa</th><th>Periodicidade inicial</th><th>Finalidade</th></tr></thead><tbody>
-<tr><td><code>report_tables_sync</code></td><td>A cada hora, minuto 10</td><td>Atualização das tabelas auxiliares de rastreamento e dos logs usados pelos relatórios.</td></tr>
-<tr><td><code>analytics_snapshot</code></td><td>A cada hora, minuto 20</td><td>Recalcula os indicadores agregados de aprendizagem, cursos e atividade diária.</td></tr>
-<tr><td><code>ip_location_update</code></td><td>Diariamente, às 03:15</td><td>Resolve endereços IP sem localização e tenta novamente consultas pendentes.</td></tr>
-<tr><td><code>online_delete</code></td><td><strong>Dia 1 de cada mês, às 06:00</strong></td><td>Remove registros de rastreamento e períodos mais antigos que 12 meses.</td></tr>
-</tbody></table>
-<p class="note">A ordem nominal das tarefas <code>report_tables_sync</code> (:10) e <code>analytics_snapshot</code> (:20) não garante que a primeira já tenha terminado quando a segunda começar. Sob atraso do cron ou carga elevada, confira os horários reais de início e término. As tarefas de sincronização, snapshots e limpeza online possuem configurações de ativação independentes; a tarefa de geolocalização não verifica esses três controles em seu próprio método de execução.</p>
-<div class="operation-task">
-<h3><code>report_tables_sync</code> — sincronização dos dados auxiliares</h3>
-<p>Quando <code>report_tables_sync_enabled</code> está ativo, a tarefa recria as tabelas <code>local_kopere_bi_tracking</code> e <code>local_kopere_bi_track_log</code> a partir de <code>local_kopere_bi_online</code>, consolidando visitas, tempo registrado e totais diários. Também atualiza <code>local_kopere_bi_log_tmp</code> com eventos relevantes de <code>logstore_standard_log</code>, incluindo atividades, login, logout e atribuições de papéis, mantendo uma janela de aproximadamente 12 meses e incorporando novos logs pelo ID.</p>
-<p><strong>Impacto operacional:</strong> a reconstrução das tabelas de rastreamento pode consumir recursos proporcionais ao volume de dados, e os indicadores derivados desses caches dependem de uma sincronização concluída. A tarefa aceita MySQL e PostgreSQL; em outros SGBDs ou com a funcionalidade desabilitada, informa que a execução foi ignorada. No histórico, procure mensagens como <code>tracking cache rebuilt</code> e <code>temporary log cache synchronised</code>.</p>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Rotinas agendadas, custo de consulta, consistência e resolução de problemas.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Operação, cron e diagnóstico · Kopere BI</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../site.css">
+    <link rel="stylesheet" href="accessibilidade.css">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/operacao.html">
+    <style>
+        .operations-schedule {
+            margin: 18px 0
+        }
+
+        .operation-task {
+            margin: 22px 0;
+            padding: 16px 20px;
+            border: 1px solid #dae7ea;
+            border-radius: 12px;
+            background: #f8fbfc
+        }
+
+        .operation-task h3 {
+            font-size: 18px;
+            margin: 0 0 11px;
+            color: #075b66
+        }
+
+        .operation-task h3 code {
+            font-size: .88em
+        }
+
+        .operation-task p:last-child {
+            margin-bottom: 0
+        }
+
+        .diagnostic-grid {
+            display: grid;
+            grid-template-columns:1fr;
+            gap: 12px;
+            margin: 18px 0 24px
+        }
+
+        .diagnostic-item {
+            border: 1px solid #d4e5e9;
+            border-radius: 11px;
+            overflow: hidden;
+            background: #fff
+        }
+
+        .diagnostic-item summary {
+            cursor: pointer;
+            font-weight: 750;
+            color: #075b66;
+            padding: 14px 17px;
+            background: #edf7f7
+        }
+
+        .diagnostic-item[open] summary {
+            border-bottom: 1px solid #d4e5e9
+        }
+
+        .diagnostic-item > div {
+            padding: 3px 18px 13px
+        }
+
+        .diagnostic-item > div p {
+            margin: 12px 0
+        }
+
+        @media (max-width: 720px) {
+            .operations-schedule {
+                display: block;
+                overflow-x: auto
+            }
+
+            .operation-task {
+                padding: 14px
+            }
+
+            .diagnostic-item > div {
+                padding: 3px 13px 11px
+            }
+        }
+    </style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/operacao.html">
+    <link rel="alternate" hreflang="pt-BR"
+          href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/operacao.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Operação, cron e diagnóstico · Kopere BI">
+    <meta property="og:description"
+          content="Rotinas agendadas, custo de consulta, consistência e resolução de problemas.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/operacao.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../en/operacao.html" lang="en">English</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="index.html">Visão geral</a>
+            <a href="dashboards.html">Dashboards</a>
+            <a href="visualizacoes.html">Gráficos e filtros</a>
+            <a href="relatorios.html">Relatórios</a>
+            <a href="learning-analytics.html">Learning Analytics</a>
+            <a href="integracoes.html">Integração MCP</a>
+            <a href="operacao.html" class="active" aria-current="page">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="index.html">Kopere BI</a> / Operação
+            </nav>
+            <div class="kicker">DOCUMENTAÇÃO DO PLUGIN MOODLE</div>
+            <h1>Operação, cron e diagnóstico</h1>
+            <p class="lead">Rotinas agendadas, custo de consulta, consistência e resolução de problemas.</p>
+            <div class="separator">
+            </div>
+            <section aria-labelledby="s0">
+                <h2 id="s0">Tarefas agendadas por padrão</h2>
+                <p>O Kopere BI registra quatro tarefas em <code>db/tasks.php</code>. Os horários abaixo são a
+                    configuração inicial do plugin, não um compromisso de execução no minuto exato: o processamento
+                    depende do cron do Moodle, da fila e de eventuais alterações feitas pelo administrador em <em>Administração
+                        do site → Servidor → Tarefas → Tarefas agendadas</em>.</p>
+                <table class="operations-schedule">
+                    <thead>
+                    <tr>
+                        <th>Tarefa</th>
+                        <th>Periodicidade inicial</th>
+                        <th>Finalidade</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><code>report_tables_sync</code></td>
+                        <td>A cada hora, minuto 10</td>
+                        <td>Atualização das tabelas auxiliares de rastreamento e dos logs usados pelos relatórios.</td>
+                    </tr>
+                    <tr>
+                        <td><code>analytics_snapshot</code></td>
+                        <td>A cada hora, minuto 20</td>
+                        <td>Recalcula os indicadores agregados de aprendizagem, cursos e atividade diária.</td>
+                    </tr>
+                    <tr>
+                        <td><code>ip_location_update</code></td>
+                        <td>Diariamente, às 03:15</td>
+                        <td>Resolve endereços IP sem localização e tenta novamente consultas pendentes.</td>
+                    </tr>
+                    <tr>
+                        <td><code>online_delete</code></td>
+                        <td><strong>Dia 1 de cada mês, às 06:00</strong></td>
+                        <td>Remove registros de rastreamento e períodos mais antigos que 12 meses.</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p class="note">A ordem nominal das tarefas <code>report_tables_sync</code> (:10) e <code>analytics_snapshot</code>
+                    (:20) não garante que a primeira já tenha terminado quando a segunda começar. Sob atraso do cron ou
+                    carga elevada, confira os horários reais de início e término. As tarefas de sincronização, snapshots
+                    e limpeza online possuem configurações de ativação independentes; a tarefa de geolocalização não
+                    verifica esses três controles em seu próprio método de execução.</p>
+                <div class="operation-task">
+                    <h3><code>report_tables_sync</code> — sincronização dos dados auxiliares</h3>
+                    <p>Quando <code>report_tables_sync_enabled</code> está ativo, a tarefa recria as tabelas <code>local_kopere_bi_tracking</code>
+                        e <code>local_kopere_bi_track_log</code> a partir de <code>local_kopere_bi_online</code>,
+                        consolidando visitas, tempo registrado e totais diários. Também atualiza <code>local_kopere_bi_log_tmp</code>
+                        com eventos relevantes de <code>logstore_standard_log</code>, incluindo atividades, login,
+                        logout e atribuições de papéis, mantendo uma janela de aproximadamente 12 meses e incorporando
+                        novos logs pelo ID.</p>
+                    <p><strong>Impacto operacional:</strong> a reconstrução das tabelas de rastreamento pode consumir
+                        recursos proporcionais ao volume de dados, e os indicadores derivados desses caches dependem de
+                        uma sincronização concluída. A tarefa aceita MySQL e PostgreSQL; em outros SGBDs ou com a
+                        funcionalidade desabilitada, informa que a execução foi ignorada. No histórico, procure
+                        mensagens como <code>tracking cache rebuilt</code> e <code>temporary log cache
+                            synchronised</code>.</p>
+                </div>
+                <div class="operation-task">
+                    <h3><code>analytics_snapshot</code> — consolidação dos indicadores de aprendizagem</h3>
+                    <p>Quando <code>analytics_snapshot_enabled</code> está ativo, a tarefa executa <code>snapshot_builder</code>
+                        para calcular indicadores de estudantes matriculados, progresso de conclusão, notas, atividade
+                        recente, nível de risco e saúde dos cursos. Os resultados são armazenados em <code>local_kopere_bi_engage</code>
+                        (estudantes por curso), <code>local_kopere_bi_courseag</code> (agregações por curso) e <code>local_kopere_bi_daily</code>
+                        (séries de atividade diária).</p>
+                    <p><strong>Impacto operacional:</strong> os três conjuntos são construídos para um mesmo <code>batchid</code>
+                        em transação; após a conclusão, os registros de lotes anteriores são removidos. O intervalo
+                        histórico das séries diárias é configurável (90 dias por padrão). A tarefa depende da
+                        disponibilidade de dados de matrículas, conclusão, notas e dos caches de logs/rastreamento
+                        quando esses indicadores são necessários; a mensagem <code>Snapshot ... ready</code> traz as
+                        quantidades produzidas, mas não garante por si só que o curso possua dados úteis.</p>
+                </div>
+                <div class="operation-task">
+                    <h3><code>ip_location_update</code> — complementação da localização por IP</h3>
+                    <p>Procura registros em <code>local_kopere_bi_online</code> com IP informado e
+                        <code>iplocationid</code> vazio, tentando resolver até <strong>100 IPs novos por
+                            execução</strong>. Depois tenta novamente até <strong>100 localizações pendentes ou com
+                            falha</strong> cujo último processamento ocorreu há mais de 24 horas, utilizando a rotina
+                        <code>ip_location::resolve()</code> e vinculando o resultado aos registros online
+                        correspondentes.</p>
+                    <p><strong>Impacto operacional:</strong> o resolvedor consulta um serviço externo para IPs públicos,
+                        enquanto IPs privados, reservados ou não roteáveis não geram uma localização geográfica válida.
+                        Limites por execução, indisponibilidade do serviço e restrições de saída do servidor podem
+                        deixar o mapa incompleto, mesmo com a tarefa executada corretamente. No histórico, procure a
+                        contagem <code>IP locations: ... new IPs and ... retries processed</code>.</p>
+                </div>
+                <div class="operation-task">
+                    <h3><code>online_delete</code> — retenção e limpeza do rastreamento</h3>
+                    <p>A tarefa executa no <strong>primeiro dia de cada mês às 06:00</strong>, conforme <code>day =
+                        1</code> em <code>db/tasks.php</code>, e não diariamente. Com
+                        <code>online_tracking_enabled</code> ativo, remove linhas de <code>local_kopere_bi_online</code>
+                        cujo <code>currenttime</code> seja anterior a 12 meses e linhas de
+                        <code>local_kopere_bi_period</code> cujo <code>daystart</code> ultrapasse o mesmo prazo.</p>
+                    <p><strong>Impacto operacional:</strong> é uma exclusão de registros antigos, não de todos os
+                        registros dos últimos 12 meses, e não atualiza os mapas nem cria novos acessos. Considere
+                        retenção institucional e eventuais necessidades de auditoria antes de alterar a periodicidade;
+                        em instalações com rastreamento desativado ou SGBD incompatível, a tarefa é ignorada.</p>
+                </div>
+                <p>Para conferir o cadastro e o comportamento de cada tarefa no código, consulte <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/tasks.php">db/tasks.php</a>
+                    e as classes em <a
+                            href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/tree/master/classes/task">classes/task</a>.
+                </p>
+            </section>
+            <section aria-labelledby="s1">
+                <h2 id="s1">Diagnóstico por sintoma</h2>
+                <p>Comece pelo dado mais próximo da origem do problema. Em <em>Administração do site → Servidor →
+                    Tarefas → Tarefas agendadas</em>, confira última execução, próxima execução, falhas e horários
+                    efetivos; depois valide os três controles do Kopere BI (<code>online_tracking_enabled</code>, <code>report_tables_sync_enabled</code>
+                    e <code>analytics_snapshot_enabled</code>). Um relatório pode estar vazio porque não há registros na
+                    fonte, porque o cache não foi atualizado ou porque o usuário não tem acesso — situações que exigem
+                    correções diferentes.</p>
+                <div class="diagnostic-grid">
+                    <details class="diagnostic-item" open>
+                        <summary>Relatório ou categoria não aparece</summary>
+                        <div>
+                            <p><strong>Verifique:</strong> permissão e visibilidade para o usuário, categoria
+                                escolhida, filtros e requisitos de cada relatório, compatibilidade entre a consulta e
+                                MySQL/PostgreSQL. A categoria <code>online</code> e o relatório
+                                <code>online_students</code>
+                                deixam de ser publicados quando o rastreamento online é desabilitado.</p>
+                            <p><strong>Ação:</strong> compare com um administrador autorizado no mesmo ambiente, confira
+                                a configuração da funcionalidade e escolha a variante do relatório compatível com o
+                                SGBD; não altere permissões globalmente apenas para fazer um relatório aparecer.</p>
+                        </div>
+                    </details>
+                    <details class="diagnostic-item">
+                        <summary>Learning Analytics vazio ou desatualizado</summary>
+                        <div>
+                            <p><strong>Verifique:</strong> histórico de <code>report_tables_sync</code> (:10) e <code>analytics_snapshot</code>
+                                (:20), tempos reais de execução e mensagens <code>Snapshot ... ready</code>. Confirme
+                                matrículas ativas e dados nas fontes, depois examine
+                                <code>local_kopere_bi_log_tmp</code>,
+                                <code>local_kopere_bi_engage</code>, <code>local_kopere_bi_courseag</code> e <code>local_kopere_bi_daily</code>
+                                com ferramentas administrativas autorizadas.</p>
+                            <p><strong>Ação:</strong> corrija primeiro a coleta/sincronização, execute a sincronização
+                                pelo gerenciador de tarefas quando apropriado e somente depois refaça o snapshot;
+                                verifique os contadores gerados antes de concluir que o painel está atualizado.</p>
+                        </div>
+                    </details>
+                    <details class="diagnostic-item">
+                        <summary>Dados online ausentes ou tempo de uso zerado</summary>
+                        <div>
+                            <p><strong>Verifique:</strong> <code>online_tracking_enabled</code>, existência de
+                                registros recentes em <code>local_kopere_bi_online</code>, permissão <code>local/kopere_bi:view</code>,
+                                erros JavaScript e respostas AJAX do coletor. A presença online considera uma janela
+                                recente; não é equivalente à manutenção de uma conexão permanente.</p>
+                            <p><strong>Ação:</strong> teste uma visita real de usuário autorizado, confira a atualização
+                                dos registros e o envio do tempo acumulado. A tarefa <code>online_delete</code> remove
+                                apenas dados anteriores ao período de retenção e não corrige falhas do coletor.</p>
+                        </div>
+                    </details>
+                    <details class="diagnostic-item">
+                        <summary>Mapa sem pontos ou cidades incorretas</summary>
+                        <div>
+                            <p><strong>Verifique:</strong> se os registros possuem <code>lastip</code> e <code>iplocationid</code>,
+                                o status de <code>local_kopere_bi_iplocation</code>, as mensagens de <code>ip_location_update</code>,
+                                conectividade de saída e bloqueios ao serviço externo. IPs privados ou reservados não
+                                oferecem geolocalização pública útil.</p>
+                            <p><strong>Ação:</strong> identifique falhas pendentes, respeite os limites de 100 novos IPs
+                                e 100 tentativas por execução e confirme os resultados antes de considerar a localização
+                                correta. Cidade e país obtidos por IP são aproximações, não a posição exata do
+                                estudante.</p>
+                        </div>
+                    </details>
+                    <details class="diagnostic-item">
+                        <summary>Tabela lenta ou página demorando para abrir</summary>
+                        <div>
+                            <p><strong>Verifique:</strong> duração da consulta SQL salva, plano de execução, índices,
+                                filtros, volume e paginação, cache e concorrência. Distinga lentidão do SQL, do servidor
+                                PHP
+                                e do navegador; a sincronização de tabelas também pode competir por recursos em horários
+                                de
+                                maior uso.</p>
+                            <p><strong>Ação:</strong> analise o plano de consulta com segurança, limite o intervalo e o
+                                volume retornado, revise índices e cache em homologação e compare a consulta equivalente
+                                nos SGBDs suportados. Não adicione índices ou substitua SQL de produção sem medir
+                                impacto.</p>
+                        </div>
+                    </details>
+                    <details class="diagnostic-item">
+                        <summary>Valores divergentes entre dashboards, logs e relatórios</summary>
+                        <div>
+                            <p><strong>Verifique:</strong> fonte de cada indicador e sua janela temporal: registros
+                                online, cache de logs de até 12 meses, séries diárias com histórico configurável e
+                                agregações do último snapshot não representam necessariamente o mesmo recorte. Confira
+                                curso, fuso horário, filtros e instante de atualização.</p>
+                            <p><strong>Ação:</strong> compare as mesmas matrículas, cursos e períodos em ambas as
+                                consultas; só trate como erro após eliminar diferenças de origem, granularidade,
+                                sincronização e cache.</p>
+                        </div>
+                    </details>
+                    <details class="diagnostic-item">
+                        <summary>Tarefa executou, mas produziu zero linhas</summary>
+                        <div>
+                            <p><strong>Verifique:</strong> se a funcionalidade estava habilitada, se o SGBD é
+                                MySQL/PostgreSQL, se há registros nas tabelas de origem e se o histórico contém
+                                mensagens de
+                                execução ignorada, erro ou contagens zeradas. Um <code>Snapshot ... ready</code> com
+                                zero
+                                matrículas pode refletir falta de dados elegíveis, não necessariamente uma exceção.</p>
+                            <p><strong>Ação:</strong> investigue filtros, permissões de contexto, matrículas, geração do
+                                log padrão e coleta de eventos; não fique repetindo a tarefa sem descobrir por que a
+                                origem está vazia.</p>
+                        </div>
+                    </details>
+                    <details class="diagnostic-item">
+                        <summary>Falhas intermitentes no cron ou após uma atualização</summary>
+                        <div>
+                            <p><strong>Verifique:</strong> histórico de falhas da tarefa específica, mensagens PHP,
+                                consultas SQL incompatíveis, tempo de execução, bloqueios e uso de recursos. Em
+                                especial, a
+                                sincronização recria caches de rastreamento, enquanto os snapshots são construídos por
+                                lote,
+                                portanto interromper uma execução tem consequências diferentes.</p>
+                            <p><strong>Ação:</strong> registre tarefa, horário, mensagem e versão do plugin; reproduza o
+                                erro em homologação com dados representativos e repita apenas a tarefa necessária, após
+                                corrigir a causa. Evite executar manualmente várias tarefas pesadas simultaneamente.</p>
+                        </div>
+                    </details>
+                </div>
+            </section>
+            <section aria-labelledby="s2">
+                <h2 id="s2">Planejamento de produção</h2>
+                <p>Consultas personalizadas são uma responsabilidade operacional: acompanhe volume, tempo de execução,
+                    filtros, cache, limites de exportação, concorrência e exposição de dados. Compare resultados em
+                    MySQL/PostgreSQL em uma cópia de homologação quando a instituição mantiver ambientes com SGBDs
+                    diferentes.</p>
+            </section>
+            <nav class="pager" aria-label="Navegar pela documentação">
+                <a href="integracoes.html">← Integração MCP</a>
+            </nav>
+        </article>
+    </main>
 </div>
-<div class="operation-task">
-<h3><code>analytics_snapshot</code> — consolidação dos indicadores de aprendizagem</h3>
-<p>Quando <code>analytics_snapshot_enabled</code> está ativo, a tarefa executa <code>snapshot_builder</code> para calcular indicadores de estudantes matriculados, progresso de conclusão, notas, atividade recente, nível de risco e saúde dos cursos. Os resultados são armazenados em <code>local_kopere_bi_engage</code> (estudantes por curso), <code>local_kopere_bi_courseag</code> (agregações por curso) e <code>local_kopere_bi_daily</code> (séries de atividade diária).</p>
-<p><strong>Impacto operacional:</strong> os três conjuntos são construídos para um mesmo <code>batchid</code> em transação; após a conclusão, os registros de lotes anteriores são removidos. O intervalo histórico das séries diárias é configurável (90 dias por padrão). A tarefa depende da disponibilidade de dados de matrículas, conclusão, notas e dos caches de logs/rastreamento quando esses indicadores são necessários; a mensagem <code>Snapshot ... ready</code> traz as quantidades produzidas, mas não garante por si só que o curso possua dados úteis.</p>
-</div>
-<div class="operation-task">
-<h3><code>ip_location_update</code> — complementação da localização por IP</h3>
-<p>Procura registros em <code>local_kopere_bi_online</code> com IP informado e <code>iplocationid</code> vazio, tentando resolver até <strong>100 IPs novos por execução</strong>. Depois tenta novamente até <strong>100 localizações pendentes ou com falha</strong> cujo último processamento ocorreu há mais de 24 horas, utilizando a rotina <code>ip_location::resolve()</code> e vinculando o resultado aos registros online correspondentes.</p>
-<p><strong>Impacto operacional:</strong> o resolvedor consulta um serviço externo para IPs públicos, enquanto IPs privados, reservados ou não roteáveis não geram uma localização geográfica válida. Limites por execução, indisponibilidade do serviço e restrições de saída do servidor podem deixar o mapa incompleto, mesmo com a tarefa executada corretamente. No histórico, procure a contagem <code>IP locations: ... new IPs and ... retries processed</code>.</p>
-</div>
-<div class="operation-task">
-<h3><code>online_delete</code> — retenção e limpeza do rastreamento</h3>
-<p>A tarefa executa no <strong>primeiro dia de cada mês às 06:00</strong>, conforme <code>day = 1</code> em <code>db/tasks.php</code>, e não diariamente. Com <code>online_tracking_enabled</code> ativo, remove linhas de <code>local_kopere_bi_online</code> cujo <code>currenttime</code> seja anterior a 12 meses e linhas de <code>local_kopere_bi_period</code> cujo <code>daystart</code> ultrapasse o mesmo prazo.</p>
-<p><strong>Impacto operacional:</strong> é uma exclusão de registros antigos, não de todos os registros dos últimos 12 meses, e não atualiza os mapas nem cria novos acessos. Considere retenção institucional e eventuais necessidades de auditoria antes de alterar a periodicidade; em instalações com rastreamento desativado ou SGBD incompatível, a tarefa é ignorada.</p>
-</div>
-<p>Para conferir o cadastro e o comportamento de cada tarefa no código, consulte <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/tasks.php">db/tasks.php</a> e as classes em <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/tree/master/classes/task">classes/task</a>.</p>
-</section>
-<section aria-labelledby="s1">
-<h2 id="s1">Diagnóstico por sintoma</h2>
-<p>Comece pelo dado mais próximo da origem do problema. Em <em>Administração do site → Servidor → Tarefas → Tarefas agendadas</em>, confira última execução, próxima execução, falhas e horários efetivos; depois valide os três controles do Kopere BI (<code>online_tracking_enabled</code>, <code>report_tables_sync_enabled</code> e <code>analytics_snapshot_enabled</code>). Um relatório pode estar vazio porque não há registros na fonte, porque o cache não foi atualizado ou porque o usuário não tem acesso — situações que exigem correções diferentes.</p>
-<div class="diagnostic-grid">
-<details class="diagnostic-item" open><summary>Relatório ou categoria não aparece</summary><div><p><strong>Verifique:</strong> permissão e visibilidade para o usuário, categoria escolhida, filtros e requisitos de cada relatório, compatibilidade entre a consulta e MySQL/PostgreSQL. A categoria <code>online</code> e o relatório <code>online_students</code> deixam de ser publicados quando o rastreamento online é desabilitado.</p><p><strong>Ação:</strong> compare com um administrador autorizado no mesmo ambiente, confira a configuração da funcionalidade e escolha a variante do relatório compatível com o SGBD; não altere permissões globalmente apenas para fazer um relatório aparecer.</p></div></details>
-<details class="diagnostic-item"><summary>Learning Analytics vazio ou desatualizado</summary><div><p><strong>Verifique:</strong> histórico de <code>report_tables_sync</code> (:10) e <code>analytics_snapshot</code> (:20), tempos reais de execução e mensagens <code>Snapshot ... ready</code>. Confirme matrículas ativas e dados nas fontes, depois examine <code>local_kopere_bi_log_tmp</code>, <code>local_kopere_bi_engage</code>, <code>local_kopere_bi_courseag</code> e <code>local_kopere_bi_daily</code> com ferramentas administrativas autorizadas.</p><p><strong>Ação:</strong> corrija primeiro a coleta/sincronização, execute a sincronização pelo gerenciador de tarefas quando apropriado e somente depois refaça o snapshot; verifique os contadores gerados antes de concluir que o painel está atualizado.</p></div></details>
-<details class="diagnostic-item"><summary>Dados online ausentes ou tempo de uso zerado</summary><div><p><strong>Verifique:</strong> <code>online_tracking_enabled</code>, existência de registros recentes em <code>local_kopere_bi_online</code>, permissão <code>local/kopere_bi:view</code>, erros JavaScript e respostas AJAX do coletor. A presença online considera uma janela recente; não é equivalente à manutenção de uma conexão permanente.</p><p><strong>Ação:</strong> teste uma visita real de usuário autorizado, confira a atualização dos registros e o envio do tempo acumulado. A tarefa <code>online_delete</code> remove apenas dados anteriores ao período de retenção e não corrige falhas do coletor.</p></div></details>
-<details class="diagnostic-item"><summary>Mapa sem pontos ou cidades incorretas</summary><div><p><strong>Verifique:</strong> se os registros possuem <code>lastip</code> e <code>iplocationid</code>, o status de <code>local_kopere_bi_iplocation</code>, as mensagens de <code>ip_location_update</code>, conectividade de saída e bloqueios ao serviço externo. IPs privados ou reservados não oferecem geolocalização pública útil.</p><p><strong>Ação:</strong> identifique falhas pendentes, respeite os limites de 100 novos IPs e 100 tentativas por execução e confirme os resultados antes de considerar a localização correta. Cidade e país obtidos por IP são aproximações, não a posição exata do estudante.</p></div></details>
-<details class="diagnostic-item"><summary>Tabela lenta ou página demorando para abrir</summary><div><p><strong>Verifique:</strong> duração da consulta SQL salva, plano de execução, índices, filtros, volume e paginação, cache e concorrência. Distinga lentidão do SQL, do servidor PHP e do navegador; a sincronização de tabelas também pode competir por recursos em horários de maior uso.</p><p><strong>Ação:</strong> analise o plano de consulta com segurança, limite o intervalo e o volume retornado, revise índices e cache em homologação e compare a consulta equivalente nos SGBDs suportados. Não adicione índices ou substitua SQL de produção sem medir impacto.</p></div></details>
-<details class="diagnostic-item"><summary>Valores divergentes entre dashboards, logs e relatórios</summary><div><p><strong>Verifique:</strong> fonte de cada indicador e sua janela temporal: registros online, cache de logs de até 12 meses, séries diárias com histórico configurável e agregações do último snapshot não representam necessariamente o mesmo recorte. Confira curso, fuso horário, filtros e instante de atualização.</p><p><strong>Ação:</strong> compare as mesmas matrículas, cursos e períodos em ambas as consultas; só trate como erro após eliminar diferenças de origem, granularidade, sincronização e cache.</p></div></details>
-<details class="diagnostic-item"><summary>Tarefa executou, mas produziu zero linhas</summary><div><p><strong>Verifique:</strong> se a funcionalidade estava habilitada, se o SGBD é MySQL/PostgreSQL, se há registros nas tabelas de origem e se o histórico contém mensagens de execução ignorada, erro ou contagens zeradas. Um <code>Snapshot ... ready</code> com zero matrículas pode refletir falta de dados elegíveis, não necessariamente uma exceção.</p><p><strong>Ação:</strong> investigue filtros, permissões de contexto, matrículas, geração do log padrão e coleta de eventos; não fique repetindo a tarefa sem descobrir por que a origem está vazia.</p></div></details>
-<details class="diagnostic-item"><summary>Falhas intermitentes no cron ou após uma atualização</summary><div><p><strong>Verifique:</strong> histórico de falhas da tarefa específica, mensagens PHP, consultas SQL incompatíveis, tempo de execução, bloqueios e uso de recursos. Em especial, a sincronização recria caches de rastreamento, enquanto os snapshots são construídos por lote, portanto interromper uma execução tem consequências diferentes.</p><p><strong>Ação:</strong> registre tarefa, horário, mensagem e versão do plugin; reproduza o erro em homologação com dados representativos e repita apenas a tarefa necessária, após corrigir a causa. Evite executar manualmente várias tarefas pesadas simultaneamente.</p></div></details>
-</div>
-</section>
-<section aria-labelledby="s2"><h2 id="s2">Planejamento de produção</h2><p>Consultas personalizadas são uma responsabilidade operacional: acompanhe volume, tempo de execução, filtros, cache, limites de exportação, concorrência e exposição de dados. Compare resultados em MySQL/PostgreSQL em uma cópia de homologação quando a instituição mantiver ambientes com SGBDs diferentes.</p></section><nav class="pager" aria-label="Navegar pela documentação"><a href="integracoes.html">← Integração MCP</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a> · GPL v3 · Documentação baseada no código do plugin.</footer></body></html>
+<footer class="foot">
+    Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a>
+    · GPL v3 · Documentação baseada no código do plugin.
+</footer>
+</body>
+</html>

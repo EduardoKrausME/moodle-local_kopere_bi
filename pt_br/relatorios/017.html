@@ -1,16 +1,187 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Exibe estudantes matriculados no curso selecionado, acompanhados das datas de matrícula, conclusão formal do curso e nota calculada."><meta name="theme-color" content="#072c3a"><title>Relatório 017 · Usuários em atraso · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>
-.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}
-.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}
-.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}
-.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}
-.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}
-.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}
-.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}
-.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}
-.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}
-.report-meta{color:#54707b;font-size:13px}
-@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}
-</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/017.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 017 · Usuários em atraso · Kopere BI"><meta property="og:description" content="Exibe estudantes matriculados no curso selecionado, acompanhados das datas de matrícula, conclusão formal do curso e nota calculada."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/017.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/users.html">Usuários e perfis</a> / 017</nav><div class="kicker">RELATÓRIO 017</div><h1>Usuários em atraso</h1><p class="lead">Exibe estudantes matriculados no curso selecionado, acompanhados das datas de matrícula, conclusão formal do curso e nota calculada.</p><section><h2>Finalidade do relatório</h2><p>Exibe estudantes matriculados no curso selecionado, acompanhados das datas de matrícula, conclusão formal do curso e nota calculada.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Pode apoiar o acompanhamento individual das matrículas de um curso e a triagem administrativa de estudantes ainda sem conclusão registrada, desde que o atraso seja determinado por critérios adicionais.</p></div><div class="report-navigation"><a href="#filtros">Filtros reais</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>O filtro dinâmico disponível é <strong>Curso</strong>, vinculado ao parâmetro <code>:courseid</code>. O SQL restringe as linhas a esse curso.</p><p>Outros critérios são fixos: usuários não excluídos nem suspensos, diferentes de <code>guest</code>, cursos visíveis e matrícula e método de inscrição com status <code>0</code>. Não existe filtro SQL por estudante, coorte ou intervalo de tempo.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>O relatório apresenta uma tabela e uma consulta SQL, com cache, atualização e destaque de sintaxe pela biblioteca Prism.js. Não existe variante PostgreSQL separada no catálogo original.</p><details class="report-block" open><summary>1. Usuários em atraso · Tabela</summary><div class="inner"><p>Tabela nominal com data de inscrição, data de conclusão do curso, nota percentual quando houver avaliação, identificadores técnicos do curso para navegação, configuração de conclusão e nome do curso. O campo de coorte é apresentado vazio na definição.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_ue.id,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Exibe estudantes matriculados no curso selecionado, acompanhados das datas de matrícula, conclusão formal do curso e nota calculada.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 017 · Usuários em atraso · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>
+        .report-intro {
+            background: #e7f6f4;
+            border: 1px solid #bee1dd;
+            border-radius: 13px;
+            padding: 22px 24px;
+            margin: 22px 0
+        }
+
+        .report-intro strong {
+            font-size: 17px;
+            color: #096573
+        }
+
+        .report-intro p {
+            margin: 7px 0 0
+        }
+
+        .report-navigation {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 23px 0
+        }
+
+        .report-navigation a {
+            font-size: 13px;
+            font-weight: 750;
+            text-decoration: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            background: #e4f4f2
+        }
+
+        .report-block {
+            border: 1px solid #d9e6e9;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 18px 0
+        }
+
+        .report-block summary {
+            padding: 16px;
+            background: #eaf5f7;
+            color: #0b5261;
+            font-weight: 800;
+            cursor: pointer
+        }
+
+        .report-block summary:hover {
+            background: #d9eff0
+        }
+
+        .report-block .inner {
+            padding: 16px
+        }
+
+        .sql-variant {
+            background: #f5f9f9;
+            border: 1px solid #dbe7e9;
+            border-radius: 12px;
+            margin: 16px 0;
+            padding: 13px 15px
+        }
+
+        .sql-variant h3 {
+            font-size: 14px;
+            color: #095f6d;
+            font-weight: 800;
+            margin: 0 0 10px
+        }
+
+        .report-meta {
+            color: #54707b;
+            font-size: 13px
+        }
+
+        @media (max-width: 650px) {
+            .report-block .inner {
+                padding: 10px
+            }
+
+            .sql-variant {
+                padding: 8px
+            }
+        }
+    </style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/017.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 017 · Usuários em atraso · Kopere BI">
+    <meta property="og:description"
+          content="Exibe estudantes matriculados no curso selecionado, acompanhados das datas de matrícula, conclusão formal do curso e nota calculada.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/017.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/users.html">Usuários e perfis</a> / 017
+            </nav>
+            <div class="kicker">RELATÓRIO 017</div>
+            <h1>Usuários em atraso</h1>
+            <p class="lead">Exibe estudantes matriculados no curso selecionado, acompanhados das datas de matrícula,
+                conclusão formal do curso e nota calculada.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Exibe estudantes matriculados no curso selecionado, acompanhados das datas de matrícula, conclusão
+                    formal do curso e nota calculada.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Pode apoiar o acompanhamento individual das matrículas de um curso e a triagem administrativa de
+                    estudantes ainda sem conclusão registrada, desde que o atraso seja determinado por critérios
+                    adicionais.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros reais</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p>O filtro dinâmico disponível é <strong>Curso</strong>, vinculado ao parâmetro <code>:courseid</code>.
+                    O SQL restringe as linhas a esse curso.</p>
+                <p>Outros critérios são fixos: usuários não excluídos nem suspensos, diferentes de <code>guest</code>,
+                    cursos visíveis e matrícula e método de inscrição com status <code>0</code>. Não existe filtro SQL
+                    por estudante, coorte ou intervalo de tempo.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL original integral</h2>
+                <p>O relatório apresenta uma tabela e uma consulta SQL, com cache, atualização e destaque de sintaxe
+                    pela biblioteca Prism.js. Não existe variante PostgreSQL separada no catálogo original.</p>
+                <details class="report-block" open>
+                    <summary>1. Usuários em atraso · Tabela</summary>
+                    <div class="inner">
+                        <p>Tabela nominal com data de inscrição, data de conclusão do curso, nota
+                            percentual quando houver avaliação, identificadores técnicos do curso para navegação,
+                            configuração de conclusão e nome do curso. O campo de coorte é apresentado vazio na
+                            definição.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_ue.id,
        kbi_ue.timecreated                      as enrolled,
        kbi_cc.timecompleted                    as complete,
        ROUND((CASE
@@ -39,4 +210,63 @@ WHERE kbi_ue.id &gt; 0
   AND kbi_c.visible = 1
   AND kbi_ue.status = 0
   AND kbi_e.status = 0
-ORDER BY kbi_c.fullname, kbi_u.lastname, kbi_u.firstname</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li><strong>O SQL não identifica efetivamente estudantes em atraso.</strong> Não há comparação com data-limite, <code>timeend</code>, prazo de entrega ou critério semelhante. Ele lista matrículas do curso, inclusive as concluídas.</li><li>O campo <code>cohortname</code> recebe uma string vazia e não indica participação real em coortes.</li><li>A nota usa <code>finalgrade</code> e <code>rawgrademax</code>; a ausência de nota não deve ser interpretada como reprovação ou atraso.</li><li>A data de conclusão formal do curso pode estar vazia mesmo quando o estudante concluiu algumas atividades; conclusão de atividade e conclusão de curso são conceitos distintos.</li><li>A consulta utiliza itens de nota do curso em junção opcional, o que pode afetar a quantidade de linhas conforme a configuração de notas.</li><li>O arquivo original não possui uma variante PostgreSQL independente e contém SQL cuja compatibilidade deve ser validada no banco instalado.</li></ul></section><section><h2>Fonte técnica</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-017.json" target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="016.html">← Relatório 016</a><a href="018.html">Relatório 018 →</a></nav><section class="related-reports" aria-labelledby="related-title-017"><h2 id="related-title-017">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="011.html"><span class="related-number">Relatório 011</span><span class="related-title">Usuários inativos por curso</span><span class="related-category">Usuários e perfis</span></a><a class="related-card" href="012.html"><span class="related-number">Relatório 012</span><span class="related-title">Usuários inativos na plataforma</span><span class="related-category">Usuários e perfis</span></a><a class="related-card" href="016.html"><span class="related-number">Relatório 016</span><span class="related-title">Sistemas operacionais e navegadores por usuário</span><span class="related-category">Usuários e perfis</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/users.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+ORDER BY kbi_c.fullname, kbi_u.lastname, kbi_u.firstname</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul>
+                    <li><strong>O SQL não identifica efetivamente estudantes em atraso.</strong> Não há comparação com
+                        data-limite, <code>timeend</code>, prazo de entrega ou critério semelhante. Ele lista matrículas
+                        do curso, inclusive as concluídas.
+                    </li>
+                    <li>O campo <code>cohortname</code> recebe uma string vazia e não indica participação real em
+                        coortes.
+                    </li>
+                    <li>A nota usa <code>finalgrade</code> e <code>rawgrademax</code>; a ausência de nota não deve ser
+                        interpretada como reprovação ou atraso.
+                    </li>
+                    <li>A data de conclusão formal do curso pode estar vazia mesmo quando o estudante concluiu algumas
+                        atividades; conclusão de atividade e conclusão de curso são conceitos distintos.
+                    </li>
+                    <li>A consulta utiliza itens de nota do curso em junção opcional, o que pode afetar a quantidade de
+                        linhas conforme a configuração de notas.
+                    </li>
+                    <li>O arquivo original não possui uma variante PostgreSQL independente e contém SQL cuja
+                        compatibilidade deve ser validada no banco instalado.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Fonte técnica</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-017.json"
+                       target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="016.html">← Relatório 016</a>
+                <a href="018.html">Relatório 018 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-017">
+                <h2 id="related-title-017">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="011.html"><span class="related-number">Relatório 011</span><span
+                            class="related-title">Usuários inativos por curso</span><span class="related-category">Usuários e perfis</span></a>
+                    <a class="related-card" href="012.html"><span class="related-number">Relatório 012</span><span
+                            class="related-title">Usuários inativos na plataforma</span><span class="related-category">Usuários e perfis</span></a>
+                    <a class="related-card" href="016.html"><span class="related-number">Relatório 016</span><span
+                            class="related-title">Sistemas operacionais e navegadores por usuário</span><span
+                            class="related-category">Usuários e perfis</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/users.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

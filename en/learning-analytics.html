@@ -1,8 +1,126 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Six dashboards, scheduled snapshots and configurable thresholds."><meta name="theme-color" content="#072c3a"><title>Learning Analytics · Kopere BI</title><link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../site.css"><link rel="alternate" hreflang="pt-BR" href="../pt_br/learning-analytics.html"></head>
-<body><a class="skip" href="#main">Skip to content</a><header class="top"><div class="top-inner"><a class="brand" href="index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a><a class="lang" href="../pt_br/learning-analytics.html" lang="pt-BR">Português</a></div></div></header>
-<div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentation</div><nav class="nav" aria-label="Documentation sections"><a href="index.html">Overview</a><a href="instalacao.html">Installation</a><a href="dashboards.html">Dashboards</a><a href="visualizacoes.html">Charts and filters</a><a href="relatorios.html">Reports</a><a href="learning-analytics.html" class="active" aria-current="page">Learning Analytics</a><a href="integracoes.html">MCP integration</a><a href="operacao.html">Operations</a></nav></aside>
-<main id="main" class="main"><article class="article"><div class="crumb"><a href="index.html">Kopere BI</a> / Learning Analytics</div><div class="kicker">MOODLE PLUGIN DOCUMENTATION</div><h1>Learning Analytics</h1><p class="lead">Six dashboards, scheduled snapshots and configurable thresholds.</p><div class="separator"></div><section aria-labelledby="s0"><h2 id="s0">Six operational dashboards</h2><ol class="steps"><li><b>Overview</b> - key metrics and daily activity trends.</li><li><b>Attention queue</b> - risk level and contributing reasons.</li><li><b>Course health</b> - completion, progress, grades and engagement.</li><li><b>Student 360</b> - metrics for active course enrolments.</li><li><b>Progress vs grade</b> - relationships between advancement and results.</li><li><b>Learning momentum</b> - falling-participation detection.</li></ol></section>
-<section aria-labelledby="s1"><h2 id="s1">How snapshots work</h2><p>Instead of scanning <code>logstore_standard_log</code> whenever users open pages, the plugin reads aggregated learner, course and daily snapshot tables. The default schedule runs report-table synchronization hourly at minute 10 and snapshot building hourly at minute 20.</p><div class="diagram"><span>Moodle records</span><b>→</b><span>Sync</span><b>→</b><span>Snapshots</span><b>→</b><span>Dashboards</span></div></section>
-<section aria-labelledby="s2"><h2 id="s2">Default thresholds</h2><table><thead><tr><th>Setting</th><th>Default</th></tr></thead><tbody><tr><td>Medium inactivity</td><td>14 days</td></tr><tr><td>High inactivity</td><td>30 days</td></tr><tr><td>Minimum actions</td><td>5</td></tr><tr><td>Low progress</td><td>25%</td></tr><tr><td>Enrolment grace period</td><td>7 days</td></tr><tr><td>Analysis history</td><td>90 days</td></tr></tbody></table><p>These values can be changed in <em>Site administration → Plugins → Local plugins → Kopere BI</em>.</p></section>
-<section aria-labelledby="s3"><h2 id="s3">Interpret carefully</h2><p>Risk scores support review and intervention; they are not proof that a learner is disengaged or will fail. Consider calendar, accessibility, connectivity, atypical usage and missing data before taking action.</p></section><nav class="pager" aria-label="Documentation navigation"><a href="relatorios.html">← Reports</a><a href="integracoes.html">MCP integration →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a> · GPL v3 · Documentation based on the plugin source code.</footer></body></html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Six dashboards, scheduled snapshots and configurable thresholds.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Learning Analytics · Kopere BI</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../site.css">
+    <link rel="alternate" hreflang="pt-BR" href="../pt_br/learning-analytics.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../pt_br/learning-analytics.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="index.html">Overview</a>
+            <a href="instalacao.html">Installation</a>
+            <a href="dashboards.html">Dashboards</a>
+            <a href="visualizacoes.html">Charts and filters</a>
+            <a href="relatorios.html">Reports</a>
+            <a href="learning-analytics.html" class="active" aria-current="page">Learning Analytics</a>
+            <a href="integracoes.html">MCP integration</a>
+            <a href="operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <div class="crumb">
+                <a href="index.html">Kopere BI</a> / Learning Analytics
+            </div>
+            <div class="kicker">MOODLE PLUGIN DOCUMENTATION</div>
+            <h1>Learning Analytics</h1>
+            <p class="lead">Six dashboards, scheduled snapshots and configurable thresholds.</p>
+            <div class="separator">
+            </div>
+            <section aria-labelledby="s0">
+                <h2 id="s0">Six operational dashboards</h2>
+                <ol class="steps">
+                    <li><b>Overview</b> - key metrics and daily activity trends.</li>
+                    <li><b>Attention queue</b> - risk level and contributing reasons.</li>
+                    <li><b>Course health</b> - completion, progress, grades and engagement.</li>
+                    <li><b>Student 360</b> - metrics for active course enrolments.</li>
+                    <li><b>Progress vs grade</b> - relationships between advancement and results.</li>
+                    <li><b>Learning momentum</b> - falling-participation detection.</li>
+                </ol>
+            </section>
+            <section aria-labelledby="s1">
+                <h2 id="s1">How snapshots work</h2>
+                <p>Instead of scanning <code>logstore_standard_log</code> whenever users open pages, the plugin reads
+                    aggregated learner, course and daily snapshot tables. The default schedule runs report-table
+                    synchronization hourly at minute 10 and snapshot building hourly at minute 20.</p>
+                <div class="diagram">
+                    <span>Moodle records</span><b>→</b><span>Sync</span><b>→</b><span>Snapshots</span><b>→</b><span>Dashboards</span>
+                </div>
+            </section>
+            <section aria-labelledby="s2">
+                <h2 id="s2">Default thresholds</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Setting</th>
+                        <th>Default</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Medium inactivity</td>
+                        <td>14 days</td>
+                    </tr>
+                    <tr>
+                        <td>High inactivity</td>
+                        <td>30 days</td>
+                    </tr>
+                    <tr>
+                        <td>Minimum actions</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>Low progress</td>
+                        <td>25%</td>
+                    </tr>
+                    <tr>
+                        <td>Enrolment grace period</td>
+                        <td>7 days</td>
+                    </tr>
+                    <tr>
+                        <td>Analysis history</td>
+                        <td>90 days</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>These values can be changed in <em>Site administration → Plugins → Local plugins → Kopere BI</em>.
+                </p>
+            </section>
+            <section aria-labelledby="s3">
+                <h2 id="s3">Interpret carefully</h2>
+                <p>Risk scores support review and intervention; they are not proof that a learner is disengaged or will
+                    fail. Consider calendar, accessibility, connectivity, atypical usage and missing data before taking
+                    action.</p>
+            </section>
+            <nav class="pager" aria-label="Documentation navigation">
+                <a href="relatorios.html">← Reports</a>
+                <a href="integracoes.html">MCP integration →</a>
+            </nav>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a>
+    · GPL v3 · Documentation based on the plugin source code.
+</footer>
+</body>
+</html>

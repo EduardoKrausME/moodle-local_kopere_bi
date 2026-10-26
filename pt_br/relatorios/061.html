@@ -1,8 +1,251 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Resumo dos arquivos armazenados no Moodle, agrupados pelo componente responsável, com quantidade de registros de arquivos de tamanho positivo e soma dos tamanhos registrados."><meta name="theme-color" content="#072c3a"><title>Relatório 061 · Envios de arquivos · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/061.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 061 · Envios de arquivos · Kopere BI"><meta property="og:description" content="Resumo dos arquivos armazenados no Moodle, agrupados pelo componente responsável, com quantidade de registros de arquivos de tamanho positivo e soma dos tamanhos registrados."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/061.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/activities.html">Atividades</a> / 061</nav><div class="kicker">RELATÓRIO 061</div><h1>Envios de arquivos</h1><p class="lead">Resumo dos arquivos armazenados no Moodle, agrupados pelo componente responsável, com quantidade de registros de arquivos de tamanho positivo e soma dos tamanhos registrados.</p><section><h2>Finalidade do relatório</h2><p>Resumo dos arquivos armazenados no Moodle, agrupados pelo componente responsável, com quantidade de registros de arquivos de tamanho positivo e soma dos tamanhos registrados.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Ajuda administradores a identificar quais componentes concentram arquivos e volume armazenado, oferecendo uma referência inicial para avaliar consumo de espaço e crescimento dos dados.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não há parâmetros SQL dinâmicos</strong> de curso, componente, usuário, tipo de arquivo ou período.</p><p>A única condição é <code>kbi_f.filesize &gt; 0</code>, aplicada a <code>mdl_files</code>. O SQL agrupa os registros por <code>kbi_f.component</code> e ordena os resultados pela soma dos tamanhos, em ordem decrescente.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>O relatório apresenta uma visualização em tabela, com 1 consulta SQL, cache, atualização e realce de sintaxe usando Prism.js. O catálogo não disponibiliza arquivo de variante PostgreSQL para esta definição.</p><details class="report-block" open><summary>1. Envios de arquivos · Tabela</summary><div class="inner"><p>Uma tabela por componente com o código do componente, quantidade de arquivos, soma de bytes e maior ID de arquivo no grupo. O resultado é ordenado do maior volume de bytes para o menor.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT MAX(kbi_f.id)             AS id,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Resumo dos arquivos armazenados no Moodle, agrupados pelo componente responsável, com quantidade de registros de arquivos de tamanho positivo e soma dos tamanhos registrados.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 061 · Envios de arquivos · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/061.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 061 · Envios de arquivos · Kopere BI">
+    <meta property="og:description"
+          content="Resumo dos arquivos armazenados no Moodle, agrupados pelo componente responsável, com quantidade de registros de arquivos de tamanho positivo e soma dos tamanhos registrados.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/061.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/activities.html">Atividades</a> / 061
+            </nav>
+            <div class="kicker">RELATÓRIO 061</div>
+            <h1>Envios de arquivos</h1>
+            <p class="lead">Resumo dos arquivos armazenados no Moodle, agrupados pelo componente responsável, com
+                quantidade de registros de arquivos de tamanho positivo e soma dos tamanhos registrados.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Resumo dos arquivos armazenados no Moodle, agrupados pelo componente responsável, com quantidade de
+                    registros de arquivos de tamanho positivo e soma dos tamanhos registrados.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Ajuda administradores a identificar quais componentes concentram arquivos e volume armazenado,
+                    oferecendo uma referência inicial para avaliar consumo de espaço e crescimento dos dados.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros disponíveis</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p><strong>Não há parâmetros SQL dinâmicos</strong> de curso, componente, usuário, tipo de arquivo ou
+                    período.</p>
+                <p>A única condição é <code>kbi_f.filesize &gt; 0</code>, aplicada a <code>mdl_files</code>. O SQL
+                    agrupa os registros por <code>kbi_f.component</code> e ordena os resultados pela soma dos tamanhos,
+                    em ordem decrescente.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL original integral</h2>
+                <p>O relatório apresenta uma visualização em tabela, com 1 consulta SQL, cache, atualização e realce de
+                    sintaxe usando Prism.js. O catálogo não disponibiliza arquivo de variante PostgreSQL para esta
+                    definição.</p>
+                <details class="report-block" open>
+                    <summary>1. Envios de arquivos · Tabela</summary>
+                    <div class="inner">
+                        <p>Uma tabela por componente com o código do componente, quantidade de arquivos,
+                            soma de bytes e maior ID de arquivo no grupo. O resultado é ordenado do maior volume de
+                            bytes
+                            para o menor.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT MAX(kbi_f.id)             AS id,
        kbi_f.component,
        COUNT(kbi_f.id)           AS files,
        COALESCE(SUM(kbi_f.filesize), 0) AS filesize
 FROM mdl_files kbi_f
 WHERE kbi_f.filesize &gt; 0
 GROUP BY kbi_f.component
-ORDER BY filesize DESC, component</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>O título “Envios de arquivos” não corresponde necessariamente a uploads realizados por usuários: a tabela <code>mdl_files</code> inclui arquivos mantidos por diferentes componentes, inclusive arquivos gerados ou administrados pelo Moodle.</li><li>A contagem <code>files</code> representa registros da tabela com tamanho positivo, e não necessariamente arquivos físicos únicos: o armazenamento pode deduplicar conteúdos ou manter versões.</li><li>O volume <code>filesize</code> é uma soma dos tamanhos lógicos em bytes. Não equivale, obrigatoriamente, ao espaço real ocupado em disco, devido a conteúdos compartilhados, metadados e infraestrutura de armazenamento.</li><li>Arquivos vazios ou registros com tamanho zero são excluídos pelo filtro.</li><li>O campo <code>id</code> é <code>MAX(kbi_f.id)</code>, ou seja, apenas o maior identificador no grupo. Não representa um identificador exclusivo do componente.</li><li>Não há recorte de curso, período, usuário ou origem do envio; não use o resultado como histórico auditável de uploads.</li><li>Não existe arquivo PostgreSQL separado para este relatório. O acesso a dados administrativos de armazenamento deve ser restrito.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-061.json" target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="060.html">← Relatório 060</a><a href="062.html">Relatório 062 →</a></nav><section class="related-reports" aria-labelledby="related-title-061"><h2 id="related-title-061">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="060.html"><span class="related-number">Relatório 060</span><span class="related-title">Progresso dos envios de atividades</span><span class="related-category">Atividades</span></a><a class="related-card" href="093.html"><span class="related-number">Relatório 093</span><span class="related-title">Uso de arquivos por curso</span><span class="related-category">Comunicação e arquivos</span></a><a class="related-card" href="094.html"><span class="related-number">Relatório 094</span><span class="related-title">Uso de arquivos por professor</span><span class="related-category">Comunicação e arquivos</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/activities.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+ORDER BY filesize DESC, component</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul>
+                    <li>O título “Envios de arquivos” não corresponde necessariamente a uploads realizados por usuários:
+                        a tabela <code>mdl_files</code> inclui arquivos mantidos por diferentes componentes, inclusive
+                        arquivos gerados ou administrados pelo Moodle.
+                    </li>
+                    <li>A contagem <code>files</code> representa registros da tabela com tamanho positivo, e não
+                        necessariamente arquivos físicos únicos: o armazenamento pode deduplicar conteúdos ou manter
+                        versões.
+                    </li>
+                    <li>O volume <code>filesize</code> é uma soma dos tamanhos lógicos em bytes. Não equivale,
+                        obrigatoriamente, ao espaço real ocupado em disco, devido a conteúdos compartilhados, metadados
+                        e infraestrutura de armazenamento.
+                    </li>
+                    <li>Arquivos vazios ou registros com tamanho zero são excluídos pelo filtro.</li>
+                    <li>O campo <code>id</code> é <code>MAX(kbi_f.id)</code>, ou seja, apenas o maior identificador no
+                        grupo. Não representa um identificador exclusivo do componente.
+                    </li>
+                    <li>Não há recorte de curso, período, usuário ou origem do envio; não use o resultado como histórico
+                        auditável de uploads.
+                    </li>
+                    <li>Não existe arquivo PostgreSQL separado para este relatório. O acesso a dados administrativos de
+                        armazenamento deve ser restrito.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Fontes técnicas</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-061.json"
+                       target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="060.html">← Relatório 060</a>
+                <a href="062.html">Relatório 062 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-061">
+                <h2 id="related-title-061">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="060.html"><span class="related-number">Relatório 060</span><span
+                            class="related-title">Progresso dos envios de atividades</span><span
+                            class="related-category">Atividades</span></a>
+                    <a class="related-card" href="093.html"><span class="related-number">Relatório 093</span><span
+                            class="related-title">Uso de arquivos por curso</span><span class="related-category">Comunicação e arquivos</span></a>
+                    <a class="related-card" href="094.html"><span class="related-number">Relatório 094</span><span
+                            class="related-title">Uso de arquivos por professor</span><span class="related-category">Comunicação e arquivos</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/activities.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

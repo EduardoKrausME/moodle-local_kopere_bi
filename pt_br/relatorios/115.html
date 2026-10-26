@@ -1,4 +1,200 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Ações diárias registradas dos módulos agrupadas por aluno, professor e outros papéis, em dias UTC."><meta name="theme-color" content="#072c3a"><title>Relatório 115 · Atividade diária por papel no curso · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}.report-technical{background:#f2f8f9;border-left:3px solid #70aeb4;padding:13px 16px;margin:18px 0}.report-limit li{margin:10px 0}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/115.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 115 · Atividade diária por papel no curso · Kopere BI"><meta property="og:description" content="Ações diárias registradas dos módulos agrupadas por aluno, professor e outros papéis, em dias UTC."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/115.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/analytics.html">Analytics</a> / 115</nav><div class="kicker">RELATÓRIO 115</div><h1>Atividade diária por papel no curso</h1><p class="lead">Ações diárias registradas dos módulos agrupadas por aluno, professor e outros papéis, em dias UTC.</p><section><h2>Finalidade do relatório</h2><p>Tabela por curso, dia UTC e papel predominante, com curso, início do dia, classificação teacher/student/other, quantidade de ações registradas e usuários distintos. Ordena dias mais recentes primeiro, seguido de curso e papel; o SQL devolve no máximo 500 grupos.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Comparar a participação registrada nos módulos de cada curso entre estudantes, professores e outros papéis, identificando variações diárias de ações e usuários participantes.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#criterios">Critérios de cálculo</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>Não há parâmetros SQL dinâmicos de curso, papel, usuário ou período. Os recortes são fixos: eventos de <code>mdl_local_kopere_bi_log_tmp</code> com <code>component LIKE 'mod_%'</code> e <code>timecreated &gt;= UNIX_TIMESTAMP() - 7776000</code>, equivalente a <strong>90 dias de 24 horas</strong>.</p><p>Somente entram eventos associados a usuários que tenham atribuição de papel no contexto do curso (<code>contextlevel = 50</code>). Os grupos de papel são definidos pelos arquétipos <code>teacher</code>, <code>editingteacher</code> e <code>student</code>, com prioridade para professor quando houver ambos. O resultado é limitado a <strong>500 linhas</strong>.</p></section><section id="visualizacoes"><h2>Visualização e SQL integral</h2><p>O relatório contém uma visualização do tipo tabela, com SQL integral, cache e configuração de atualização. O código utiliza Prism.js para realce de sintaxe. Não existe arquivo PostgreSQL separado para esta definição na <code>master</code>; não foi criada uma variante inexistente.</p><details class="report-block" open><summary>1. Atividade diária por papel no curso · Tabela</summary><div class="inner"><p>Tabela por curso, dia UTC e papel predominante, com curso, início do dia, classificação teacher/student/other, quantidade de ações registradas e usuários distintos. Ordena dias mais recentes primeiro, seguido de curso e papel; o SQL devolve no máximo 500 grupos.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(c.id, &#39;-&#39;, FLOOR(l.timecreated / 86400.0), &#39;-&#39;, roles.role_type) AS id,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Ações diárias registradas dos módulos agrupadas por aluno, professor e outros papéis, em dias UTC.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 115 · Atividade diária por papel no curso · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/115.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 115 · Atividade diária por papel no curso · Kopere BI">
+    <meta property="og:description"
+          content="Ações diárias registradas dos módulos agrupadas por aluno, professor e outros papéis, em dias UTC.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/115.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/analytics.html">Analytics</a> / 115
+            </nav>
+            <div class="kicker">RELATÓRIO 115</div>
+            <h1>Atividade diária por papel no curso</h1>
+            <p class="lead">Ações diárias registradas dos módulos agrupadas por aluno, professor e outros papéis, em
+                dias UTC.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Tabela por curso, dia UTC e papel predominante, com curso, início do dia, classificação
+                    teacher/student/other, quantidade de ações registradas e usuários distintos. Ordena dias mais
+                    recentes primeiro, seguido de curso e papel; o SQL devolve no máximo 500 grupos.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Comparar a participação registrada nos módulos de cada curso entre estudantes, professores e outros
+                    papéis, identificando variações diárias de ações e usuários participantes.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros disponíveis</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#criterios">Critérios de cálculo</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p>Não há parâmetros SQL dinâmicos de curso, papel, usuário ou período. Os recortes são fixos: eventos
+                    de <code>mdl_local_kopere_bi_log_tmp</code> com <code>component LIKE 'mod_%'</code> e <code>timecreated
+                        &gt;= UNIX_TIMESTAMP() - 7776000</code>, equivalente a <strong>90 dias de 24 horas</strong>.</p>
+                <p>Somente entram eventos associados a usuários que tenham atribuição de papel no contexto do curso
+                    (<code>contextlevel = 50</code>). Os grupos de papel são definidos pelos arquétipos
+                    <code>teacher</code>, <code>editingteacher</code> e <code>student</code>, com prioridade para
+                    professor quando houver ambos. O resultado é limitado a <strong>500 linhas</strong>.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL integral</h2>
+                <p>O relatório contém uma visualização do tipo tabela, com SQL integral, cache e configuração de
+                    atualização. O código utiliza Prism.js para realce de sintaxe. Não existe arquivo PostgreSQL
+                    separado para esta definição na <code>master</code>; não foi criada uma variante inexistente.</p>
+                <details class="report-block" open>
+                    <summary>1. Atividade diária por papel no curso · Tabela</summary>
+                    <div class="inner">
+                        <p>Tabela por curso, dia UTC e papel predominante, com curso, início do dia,
+                            classificação teacher/student/other, quantidade de ações registradas e usuários distintos.
+                            Ordena dias mais recentes primeiro, seguido de curso e papel; o SQL devolve no máximo 500
+                            grupos.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(c.id, &#39;-&#39;, FLOOR(l.timecreated / 86400.0), &#39;-&#39;, roles.role_type) AS id,
        c.id AS courseid, c.fullname AS course,
        FLOOR(l.timecreated / 86400.0) * 86400 AS daystart,
        roles.role_type, COUNT(l.id) AS actions, COUNT(DISTINCT l.userid) AS users
@@ -18,4 +214,80 @@
  WHERE l.component LIKE &#39;mod_%&#39; AND l.timecreated &gt;= UNIX_TIMESTAMP() - 7776000
  GROUP BY c.id, c.fullname, FLOOR(l.timecreated / 86400.0), roles.role_type
  ORDER BY daystart DESC, c.fullname, roles.role_type
- LIMIT 500</code></pre></div></div></details></section><section id="criterios"><h2>Critérios e funcionamento</h2><p>A consulta agrupa o timestamp Unix do evento em dias com <code>FLOOR(timecreated / 86400.0) * 86400</code>, produzindo limites de dia UTC. <code>COUNT(l.id)</code> mede registros de ações e <code>COUNT(DISTINCT l.userid)</code> mede usuários únicos <em>dentro de cada combinação curso–dia–papel</em>.</p><p>Os registros são associados ao curso e a uma subconsulta de papéis. Nesta, cada usuário e curso recebe um único tipo, priorizando <code>teacher</code> sobre <code>student</code>, depois <code>other</code>. O filtro <code>LIKE 'mod_%'</code> usa o sublinhado como curinga SQL, e não como sublinhado literal escapado.</p></section><section id="limites"><h2>Limitações e cuidados</h2><ul class="report-limit"><li>A soma dos usuários distintos de diferentes dias, cursos ou papéis não equivale ao número de pessoas distintas da plataforma.</li><li>O agrupamento depende dos papéis atuais atribuídos no contexto do curso; alterações posteriores de papel podem mudar a interpretação de ações antigas.</li><li>Sem atribuição de papel em contexto de curso, um evento registrado pode ser excluído pela junção INNER JOIN, mesmo que exista no log temporário.</li><li>O padrão SQL LIKE 'mod_%' não escapa o sublinhado, que funciona como curinga de um caractere; a seleção pode abranger componentes que não começam literalmente por 'mod_'.</li><li>O recorte histórico é de 90 dias em relação ao momento da consulta. Os últimos 500 grupos após ordenação não representam necessariamente toda a distribuição do período.</li><li>Não há filtro explícito de usuários excluídos ou suspensos, tampouco de visibilidade dos cursos; a tabela mede eventos registrados, não aprendizagem efetiva.</li><li>A consulta utiliza UNIX_TIMESTAMP() e o arquivo JSON não possui variante PostgreSQL. A execução em PostgreSQL depende de adaptação validada, não fornecida nesta documentação.</li></ul><p class="report-technical">O SQL está reproduzido integralmente do JSON original da <code>master</code>, sem execução em uma instalação Moodle nesta etapa. Verifique compatibilidade do SGBD, visibilidade dos dados, permissões e consistência de resultados.</p></section><section><h2>Fonte técnica</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-115.json" target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="114.html">← Relatório 114</a><a href="116.html">Relatório 116 →</a></nav><section class="related-reports" aria-labelledby="related-title-115"><h2 id="related-title-115">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="119.html"><span class="related-number">Relatório 119</span><span class="related-title">Participação do aluno versus turma</span><span class="related-category">Indicadores operacionais de participação</span></a><a class="related-card" href="116.html"><span class="related-number">Relatório 116</span><span class="related-title">Cursos ativos por dia</span><span class="related-category">Indicadores operacionais de participação</span></a><a class="related-card" href="034.html"><span class="related-number">Relatório 034</span><span class="related-title">Engajamento de professores e estudantes por curso</span><span class="related-category">Professores e tutores</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/analytics.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+ LIMIT 500</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Critérios e funcionamento</h2>
+                <p>A consulta agrupa o timestamp Unix do evento em dias com <code>FLOOR(timecreated / 86400.0) *
+                    86400</code>, produzindo limites de dia UTC. <code>COUNT(l.id)</code> mede registros de ações e
+                    <code>COUNT(DISTINCT l.userid)</code> mede usuários únicos <em>dentro de cada combinação
+                        curso–dia–papel</em>.</p>
+                <p>Os registros são associados ao curso e a uma subconsulta de papéis. Nesta, cada usuário e curso
+                    recebe um único tipo, priorizando <code>teacher</code> sobre <code>student</code>, depois <code>other</code>.
+                    O filtro <code>LIKE 'mod_%'</code> usa o sublinhado como curinga SQL, e não como sublinhado literal
+                    escapado.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul class="report-limit">
+                    <li>A soma dos usuários distintos de diferentes dias, cursos ou papéis não equivale ao número de
+                        pessoas distintas da plataforma.
+                    </li>
+                    <li>O agrupamento depende dos papéis atuais atribuídos no contexto do curso; alterações posteriores
+                        de papel podem mudar a interpretação de ações antigas.
+                    </li>
+                    <li>Sem atribuição de papel em contexto de curso, um evento registrado pode ser excluído pela junção
+                        INNER JOIN, mesmo que exista no log temporário.
+                    </li>
+                    <li>O padrão SQL LIKE 'mod_%' não escapa o sublinhado, que funciona como curinga de um caractere; a
+                        seleção pode abranger componentes que não começam literalmente por 'mod_'.
+                    </li>
+                    <li>O recorte histórico é de 90 dias em relação ao momento da consulta. Os últimos 500 grupos após
+                        ordenação não representam necessariamente toda a distribuição do período.
+                    </li>
+                    <li>Não há filtro explícito de usuários excluídos ou suspensos, tampouco de visibilidade dos cursos;
+                        a tabela mede eventos registrados, não aprendizagem efetiva.
+                    </li>
+                    <li>A consulta utiliza UNIX_TIMESTAMP() e o arquivo JSON não possui variante PostgreSQL. A execução
+                        em PostgreSQL depende de adaptação validada, não fornecida nesta documentação.
+                    </li>
+                </ul>
+                <p class="report-technical">O SQL está reproduzido integralmente do JSON original da <code>master</code>,
+                    sem execução em uma instalação Moodle nesta etapa. Verifique compatibilidade do SGBD, visibilidade
+                    dos dados, permissões e consistência de resultados.</p>
+            </section>
+            <section>
+                <h2>Fonte técnica</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-115.json"
+                       target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="114.html">← Relatório 114</a>
+                <a href="116.html">Relatório 116 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-115">
+                <h2 id="related-title-115">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="119.html"><span class="related-number">Relatório 119</span><span
+                            class="related-title">Participação do aluno versus turma</span><span
+                            class="related-category">Indicadores operacionais de participação</span></a>
+                    <a class="related-card" href="116.html"><span class="related-number">Relatório 116</span><span
+                            class="related-title">Cursos ativos por dia</span><span class="related-category">Indicadores operacionais de participação</span></a>
+                    <a class="related-card" href="034.html"><span class="related-number">Relatório 034</span><span
+                            class="related-title">Engajamento de professores e estudantes por curso</span><span
+                            class="related-category">Professores e tutores</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/analytics.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

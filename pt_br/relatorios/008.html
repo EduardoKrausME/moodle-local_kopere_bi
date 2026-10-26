@@ -1,29 +1,221 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Dashboard com três indicadores e dois gráficos de linhas: usuários, acessos recentes, cursos, situação das inscrições por curso e cadastros mensais."><meta name="theme-color" content="#072c3a"><title>Relatório 008 · Painel geral · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>
-.report-purpose{padding:21px 23px;border:1px solid #bfe0df;border-radius:12px;background:#e8f7f5;margin:22px 0}
-.report-purpose strong{color:#086471;font-size:16px}
-.report-purpose p{margin:8px 0 0}
-.report-nav{display:flex;flex-wrap:wrap;gap:9px;margin:24px 0}
-.report-nav a{padding:7px 11px;border-radius:8px;background:#e4f3f2;font-size:13px;font-weight:750;text-decoration:none}
-.report-group{margin:18px 0;border:1px solid #d5e4e9;border-radius:12px;overflow:hidden}
-.report-group summary{cursor:pointer;background:#eaf5f7;padding:15px;color:#0a5360;font-weight:800}
-.report-group summary:hover{background:#daeff0}
-.report-group-body{padding:15px}
-.report-meta{font-size:13px;color:#5b7480}
-.report-variant{padding:12px 14px;margin:16px 0;background:#f3f9f9;border:1px solid #d5e3e9;border-radius:11px}
-.report-variant h3{font-size:14px;color:#146677;font-weight:800;margin:0 0 8px}
-.report-note{background:#fff8e7;border-left:4px solid #d2a43e;padding:13px 16px;margin:20px 0}
-@media(max-width:650px){.report-group-body{padding:10px}.report-variant{padding:8px}}
-</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/008.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 008 · Painel geral · Kopere BI"><meta property="og:description" content="Dashboard com três indicadores e dois gráficos de linhas: usuários, acessos recentes, cursos, situação das inscrições por curso e cadastros mensais."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/008.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/dashboard.html">Categoria</a> / 008</nav><div class="kicker">RELATÓRIO 008</div><h1>Painel geral</h1><p class="lead">Dashboard com três indicadores e dois gráficos de linhas: usuários, acessos recentes, cursos, situação das inscrições por curso e cadastros mensais.</p><section><h2>Finalidade do relatório</h2><p>Dashboard com três indicadores e dois gráficos de linhas: usuários, acessos recentes, cursos, situação das inscrições por curso e cadastros mensais.</p></section><div class="report-purpose"><strong>Por que utilizar?</strong><p>Centraliza indicadores administrativos para uma leitura rápida da evolução dos cadastros e do uso do Moodle. Pode apoiar revisões de atividade da plataforma, desde que os critérios técnicos e eventuais limitações do SQL sejam considerados.</p></div><div class="report-nav"><a href="#filtros">Filtros reais</a><a href="#visualizacoes">Visualizações e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>Não existem parâmetros SQL dinâmicos de usuário, curso, coorte ou período nos dez SQLs deste painel. As condições temporais são fixas, como <strong>5 minutos</strong>, <strong>1 hora</strong> e <strong>12 meses</strong>, e não filtros escolhidos no painel.</p><p>Os indicadores de cursos e usuários utilizam condições fixas de visibilidade, confirmação ou exclusão; a situação das matrículas é calculada no momento da execução da consulta.</p></section><section id="visualizacoes"><h2>Visualizações e SQL original integral</h2><p>O relatório contém 5 visualizações e 10 consultas SQL. O código possui destaque de sintaxe, mantendo os caracteres originais. As variantes MySQL e PostgreSQL estão em caixas separadas dentro de cada visualização correspondente.</p><details class="report-group" open><summary>1. Usuários totais e usuários com acesso registrado — Indicador</summary><div class="report-group-body"><p>Indicador numérico apresentado como total de usuários não excluídos / usuários não excluídos que têm lastaccess maior que zero, com exclusão do usuário ID 1.</p><p class="report-meta">Cache: <code>1h</code>. Atualização: <code>none</code>.</p><div class="report-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Dashboard com três indicadores e dois gráficos de linhas: usuários, acessos recentes, cursos, situação das inscrições por curso e cadastros mensais.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 008 · Painel geral · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>
+        .report-purpose {
+            padding: 21px 23px;
+            border: 1px solid #bfe0df;
+            border-radius: 12px;
+            background: #e8f7f5;
+            margin: 22px 0
+        }
+
+        .report-purpose strong {
+            color: #086471;
+            font-size: 16px
+        }
+
+        .report-purpose p {
+            margin: 8px 0 0
+        }
+
+        .report-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin: 24px 0
+        }
+
+        .report-nav a {
+            padding: 7px 11px;
+            border-radius: 8px;
+            background: #e4f3f2;
+            font-size: 13px;
+            font-weight: 750;
+            text-decoration: none
+        }
+
+        .report-group {
+            margin: 18px 0;
+            border: 1px solid #d5e4e9;
+            border-radius: 12px;
+            overflow: hidden
+        }
+
+        .report-group summary {
+            cursor: pointer;
+            background: #eaf5f7;
+            padding: 15px;
+            color: #0a5360;
+            font-weight: 800
+        }
+
+        .report-group summary:hover {
+            background: #daeff0
+        }
+
+        .report-group-body {
+            padding: 15px
+        }
+
+        .report-meta {
+            font-size: 13px;
+            color: #5b7480
+        }
+
+        .report-variant {
+            padding: 12px 14px;
+            margin: 16px 0;
+            background: #f3f9f9;
+            border: 1px solid #d5e3e9;
+            border-radius: 11px
+        }
+
+        .report-variant h3 {
+            font-size: 14px;
+            color: #146677;
+            font-weight: 800;
+            margin: 0 0 8px
+        }
+
+        .report-note {
+            background: #fff8e7;
+            border-left: 4px solid #d2a43e;
+            padding: 13px 16px;
+            margin: 20px 0
+        }
+
+        @media (max-width: 650px) {
+            .report-group-body {
+                padding: 10px
+            }
+
+            .report-variant {
+                padding: 8px
+            }
+        }
+    </style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/008.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 008 · Painel geral · Kopere BI">
+    <meta property="og:description"
+          content="Dashboard com três indicadores e dois gráficos de linhas: usuários, acessos recentes, cursos, situação das inscrições por curso e cadastros mensais.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/008.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/dashboard.html">Categoria</a> / 008
+            </nav>
+            <div class="kicker">RELATÓRIO 008</div>
+            <h1>Painel geral</h1>
+            <p class="lead">Dashboard com três indicadores e dois gráficos de linhas: usuários, acessos recentes,
+                cursos, situação das inscrições por curso e cadastros mensais.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Dashboard com três indicadores e dois gráficos de linhas: usuários, acessos recentes, cursos,
+                    situação das inscrições por curso e cadastros mensais.</p>
+            </section>
+            <div class="report-purpose"><strong>Por que utilizar?</strong>
+                <p>Centraliza indicadores administrativos para uma leitura rápida da evolução dos cadastros e do uso do
+                    Moodle. Pode apoiar revisões de atividade da plataforma, desde que os critérios técnicos e eventuais
+                    limitações do SQL sejam considerados.</p>
+            </div>
+            <div class="report-nav">
+                <a href="#filtros">Filtros reais</a>
+                <a href="#visualizacoes">Visualizações e SQL</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p>Não existem parâmetros SQL dinâmicos de usuário, curso, coorte ou período nos dez SQLs deste painel.
+                    As condições temporais são fixas, como <strong>5 minutos</strong>, <strong>1 hora</strong> e
+                    <strong>12 meses</strong>, e não filtros escolhidos no painel.</p>
+                <p>Os indicadores de cursos e usuários utilizam condições fixas de visibilidade, confirmação ou
+                    exclusão; a situação das matrículas é calculada no momento da execução da consulta.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualizações e SQL original integral</h2>
+                <p>O relatório contém 5 visualizações e 10 consultas SQL. O código possui destaque de sintaxe, mantendo
+                    os caracteres originais. As variantes MySQL e PostgreSQL estão em caixas separadas dentro de cada
+                    visualização correspondente.</p>
+                <details class="report-group" open>
+                    <summary>1. Usuários totais e usuários com acesso registrado — Indicador</summary>
+                    <div class="report-group-body">
+                        <p>Indicador numérico apresentado como total de usuários não
+                            excluídos / usuários não excluídos que têm lastaccess maior que zero, com exclusão do
+                            usuário ID
+                            1.</p>
+                        <p class="report-meta">Cache: <code>1h</code>. Atualização: <code>none</code>.</p>
+                        <div class="report-variant">
+                            <h3>SQL original integral MySQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(
     (SELECT count(*) AS num FROM mdl_user WHERE id &gt; 1 AND deleted = 0),
     &#39; / &#39;,
     (SELECT count(*) AS num FROM mdl_user WHERE id &gt; 1 AND deleted = 0 AND lastaccess &gt; 0)
-)</code></pre></div>
-<div class="report-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(
+)</code></pre>
+                        </div>
+                        <div class="report-variant">
+                            <h3>SQL original integral PostgreSQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(
     (SELECT count(*) AS num FROM mdl_user WHERE id &gt; 1 AND deleted = 0),
     &#39; / &#39;,
     (SELECT count(*) AS num FROM mdl_user WHERE id &gt; 1 AND deleted = 0 AND lastaccess &gt; 0)
-)</code></pre></div></div></details>
-<details class="report-group"><summary>2. Usuários recentes: cinco minutos e uma hora — Indicador</summary><div class="report-group-body"><p>Indicador com duas contagens a partir de lastaccess: acessos nos últimos 300 e nos últimos 3600 segundos. A implementação do MySQL contém agrupamentos ausentes na variante PostgreSQL.</p><p class="report-meta">Cache: <code>1h</code>. Atualização: <code>none</code>.</p><div class="report-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(
+)</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-group">
+                    <summary>2. Usuários recentes: cinco minutos e uma hora — Indicador</summary>
+                    <div class="report-group-body">
+                        <p>Indicador com duas contagens a partir de lastaccess: acessos nos
+                            últimos 300 e nos últimos 3600 segundos. A implementação do MySQL contém agrupamentos
+                            ausentes
+                            na variante PostgreSQL.</p>
+                        <p class="report-meta">Cache: <code>1h</code>. Atualização: <code>none</code>.</p>
+                        <div class="report-variant">
+                            <h3>SQL original integral MySQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(
     (
          SELECT count(id)
            FROM mdl_user
@@ -37,8 +229,11 @@
          WHERE lastaccess &gt; UNIX_TIMESTAMP() - 3600
       GROUP BY id
     )
-)</code></pre></div>
-<div class="report-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(
+)</code></pre>
+                        </div>
+                        <div class="report-variant">
+                            <h3>SQL original integral PostgreSQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(
     (
          SELECT count(id)
            FROM mdl_user
@@ -50,8 +245,19 @@
           FROM mdl_user
          WHERE lastaccess &gt; (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::bigint) - 3600
     )
-)</code></pre></div></div></details>
-<details class="report-group"><summary>3. Cursos cadastrados e cursos visíveis — Indicador</summary><div class="report-group-body"><p>Indicador numérico com total de cursos, excluindo ID 1, e quantidade de cursos visíveis.</p><p class="report-meta">Cache: <code>1h</code>. Atualização: <code>none</code>.</p><div class="report-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(
+)</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-group">
+                    <summary>3. Cursos cadastrados e cursos visíveis — Indicador</summary>
+                    <div class="report-group-body">
+                        <p>Indicador numérico com total de cursos, excluindo ID 1, e
+                            quantidade de cursos visíveis.</p>
+                        <p class="report-meta">Cache: <code>1h</code>. Atualização: <code>none</code>.</p>
+                        <div class="report-variant">
+                            <h3>SQL original integral MySQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(
     (
         SELECT count(*) FROM mdl_course WHERE id &gt; 1
     ),
@@ -59,8 +265,11 @@
     (
         SELECT count(*) FROM mdl_course WHERE id &gt; 1 AND visible = 1
     )
-)</code></pre></div>
-<div class="report-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(
+)</code></pre>
+                        </div>
+                        <div class="report-variant">
+                            <h3>SQL original integral PostgreSQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(
     (
         SELECT count(*) FROM mdl_course WHERE id &gt; 1
     ),
@@ -68,8 +277,19 @@
     (
         SELECT count(*) FROM mdl_course WHERE id &gt; 1 AND visible = 1
     )
-)</code></pre></div></div></details>
-<details class="report-group"><summary>4. Inscrições por curso — Gráfico de linhas</summary><div class="report-group-body"><p>Gráfico de linhas por curso com três medidas de matrículas: ativas, inativas e expiradas, classificadas por status e vencimento.</p><p class="report-meta">Cache: <code>1h</code>. Atualização: <code>none</code>.</p><div class="report-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT c.fullname,
+)</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-group">
+                    <summary>4. Inscrições por curso — Gráfico de linhas</summary>
+                    <div class="report-group-body">
+                        <p>Gráfico de linhas por curso com três medidas de matrículas:
+                            ativas, inativas e expiradas, classificadas por status e vencimento.</p>
+                        <p class="report-meta">Cache: <code>1h</code>. Atualização: <code>none</code>.</p>
+                        <div class="report-variant">
+                            <h3>SQL original integral MySQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT c.fullname,
        SUM(CASE 
                WHEN ue.status = 0 AND (ue.timeend = 0 OR ue.timeend &gt; UNIX_TIMESTAMP()) THEN 1
                ELSE 0
@@ -86,8 +306,11 @@ FROM mdl_course c
 JOIN mdl_enrol e ON e.courseid = c.id
 JOIN mdl_user_enrolments ue ON ue.enrolid = e.id
 GROUP BY c.id
-ORDER BY c.fullname</code></pre></div>
-<div class="report-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT c.fullname,
+ORDER BY c.fullname</code></pre>
+                        </div>
+                        <div class="report-variant">
+                            <h3>SQL original integral PostgreSQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT c.fullname,
        SUM(CASE 
                WHEN ue.status = 0 AND(ue.timeend = 0 OR ue.timeend &gt; (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::bigint)) THEN 1
                ELSE 0
@@ -104,20 +327,88 @@ FROM mdl_course c
 JOIN mdl_enrol e ON e.courseid = c.id
 JOIN mdl_user_enrolments ue ON ue.enrolid = e.id
 GROUP BY c.id
-ORDER BY c.fullname</code></pre></div></div></details>
-<details class="report-group"><summary>5. Novos usuários nos últimos 12 meses — Gráfico de linhas</summary><div class="report-group-body"><p>Gráfico de linhas com quantidade de contas confirmadas e não excluídas criadas em cada mês dos últimos 12 meses.</p><p class="report-meta">Cache: <code>none</code>. Atualização: <code>none</code>.</p><div class="report-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">  SELECT FROM_UNIXTIME(timecreated, &#39;%m/%Y&#39;) AS yearmonth,
+ORDER BY c.fullname</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-group">
+                    <summary>5. Novos usuários nos últimos 12 meses — Gráfico de linhas</summary>
+                    <div class="report-group-body">
+                        <p>Gráfico de linhas com quantidade de contas confirmadas e não
+                            excluídas criadas em cada mês dos últimos 12 meses.</p>
+                        <p class="report-meta">Cache: <code>none</code>. Atualização: <code>none</code>.</p>
+                        <div class="report-variant">
+                            <h3>SQL original integral MySQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">  SELECT FROM_UNIXTIME(timecreated, &#39;%m/%Y&#39;) AS yearmonth,
          COUNT(id) AS &#39;lang::num_user::local_kopere_bi&#39;
     FROM mdl_user
    WHERE deleted = 0
      AND confirmed = 1
      AND timecreated &gt;= UNIX_TIMESTAMP(DATE_SUB(CURDATE(), INTERVAL 12 MONTH))
 GROUP BY yearmonth
-ORDER BY yearmonth DESC</code></pre></div>
-<div class="report-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">  SELECT TO_CHAR(TO_TIMESTAMP(timecreated), &#39;MM/YYYY&#39;) AS yearmonth,
+ORDER BY yearmonth DESC</code></pre>
+                        </div>
+                        <div class="report-variant">
+                            <h3>SQL original integral PostgreSQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">  SELECT TO_CHAR(TO_TIMESTAMP(timecreated), &#39;MM/YYYY&#39;) AS yearmonth,
          COUNT(id) AS &quot;lang::num_user::local_kopere_bi&quot;
     FROM mdl_user
    WHERE deleted = 0
      AND confirmed = 1
      AND timecreated &gt;= (EXTRACT(EPOCH FROM (CURRENT_DATE - INTERVAL &#39;12 month&#39;))::bigint)
 GROUP BY yearmonth
-ORDER BY yearmonth DESC</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>O indicador de acesso recente usa <code>lastaccess</code> no cadastro do usuário, não a presença online do Kopere BI, e não garante sessão aberta.</li><li>Na variante MySQL do indicador online, as subconsultas apresentam <code>GROUP BY id</code> apesar de serem usadas como expressões escalares; quando retornam várias linhas, podem causar erro de subconsulta com mais de um resultado. A variante PostgreSQL não tem esse agrupamento.</li><li>O gráfico de inscrições é uma comparação por curso, não uma série histórica por dia.</li><li>O gráfico de novos usuários ordena a etiqueta textual MM/AAAA; isso pode causar ordenação não cronológica na virada do ano.</li><li>Os indicadores com cache de uma hora podem ficar defasados em relação aos dados mais recentes. As versões MySQL/PostgreSQL estão documentadas em caixas separadas, mesmo quando o SQL é igual.</li></ul></section><section><h2>Fonte técnica</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-008.json" target="_blank" rel="noopener">Consultar o JSON original deste relatório no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="007.html">← Relatório 007</a><a href="009.html">Relatório 009 →</a></nav><section class="related-reports" aria-labelledby="related-title-008"><h2 id="related-title-008">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="106.html"><span class="related-number">Relatório 106</span><span class="related-title">Dashboard de analytics de aprendizagem</span><span class="related-category">Learning Analytics - painéis</span></a><a class="related-card" href="108.html"><span class="related-number">Relatório 108</span><span class="related-title">Saúde dos cursos</span><span class="related-category">Learning Analytics - painéis</span></a><a class="related-card" href="043.html"><span class="related-number">Relatório 043</span><span class="related-title">Estatísticas dos cursos</span><span class="related-category">Cursos e conteúdo</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/dashboard.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+ORDER BY yearmonth DESC</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul>
+                    <li>O indicador de acesso recente usa <code>lastaccess</code> no cadastro do usuário, não a presença
+                        online do Kopere BI, e não garante sessão aberta.
+                    </li>
+                    <li>Na variante MySQL do indicador online, as subconsultas apresentam <code>GROUP BY id</code>
+                        apesar de serem usadas como expressões escalares; quando retornam várias linhas, podem causar
+                        erro de subconsulta com mais de um resultado. A variante PostgreSQL não tem esse agrupamento.
+                    </li>
+                    <li>O gráfico de inscrições é uma comparação por curso, não uma série histórica por dia.</li>
+                    <li>O gráfico de novos usuários ordena a etiqueta textual MM/AAAA; isso pode causar ordenação não
+                        cronológica na virada do ano.
+                    </li>
+                    <li>Os indicadores com cache de uma hora podem ficar defasados em relação aos dados mais recentes.
+                        As versões MySQL/PostgreSQL estão documentadas em caixas separadas, mesmo quando o SQL é igual.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Fonte técnica</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-008.json"
+                       target="_blank" rel="noopener">Consultar o JSON original deste relatório no GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="007.html">← Relatório 007</a>
+                <a href="009.html">Relatório 009 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-008">
+                <h2 id="related-title-008">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="106.html"><span class="related-number">Relatório 106</span><span
+                            class="related-title">Dashboard de analytics de aprendizagem</span><span
+                            class="related-category">Learning Analytics - painéis</span></a>
+                    <a class="related-card" href="108.html"><span class="related-number">Relatório 108</span><span
+                            class="related-title">Saúde dos cursos</span><span class="related-category">Learning Analytics - painéis</span></a>
+                    <a class="related-card" href="043.html"><span class="related-number">Relatório 043</span><span
+                            class="related-title">Estatísticas dos cursos</span><span class="related-category">Cursos e conteúdo</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/dashboard.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

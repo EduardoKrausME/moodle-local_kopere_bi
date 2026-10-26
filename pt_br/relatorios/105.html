@@ -1,27 +1,198 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Agrupa contas com papel de estudante por país, cidade, instituição e departamento declarados no perfil, mostrando totais e situação administrativa das contas."><meta name="theme-color" content="#072c3a"><title>Relatório 105 · Distribuição do perfil dos alunos · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>
-.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}
-.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}
-.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}
-.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}
-.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}
-.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}
-.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}
-.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}
-.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}
-.report-meta{color:#54707b;font-size:13px}
-.report-technical{background:#f2f8f9;border-left:3px solid #70aeb4;padding:13px 16px;margin:18px 0}
-.report-limit li{margin:10px 0}
-@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}
-</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/105.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 105 · Distribuição do perfil dos alunos · Kopere BI"><meta property="og:description" content="Agrupa contas com papel de estudante por país, cidade, instituição e departamento declarados no perfil, mostrando totais e situação administrativa das contas."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/105.html"></head>
-<body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header>
-<div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside>
-<main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/students.html">Estudantes</a> / 105</nav><div class="kicker">RELATÓRIO 105</div><h1>Distribuição do perfil dos alunos</h1><p class="lead">Agrupa contas com papel de estudante por país, cidade, instituição e departamento declarados no perfil, mostrando totais e situação administrativa das contas.</p>
-<section><h2>Finalidade do relatório</h2><p>Agrupa contas com papel de estudante por país, cidade, instituição e departamento declarados no perfil, mostrando totais e situação administrativa das contas.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Ajuda a entender a distribuição geográfica e institucional declarada pelos estudantes, detectar lacunas no preenchimento de perfis e dimensionar conjuntos de contas ativas ou suspensas.</p></div>
-<div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#metodologia">Critérios de cálculo</a><a href="#limites">Limitações</a></div>
-<section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não há filtros SQL dinâmicos</strong> de curso, usuário, coorte, país, cidade, instituição, departamento ou período. O único recorte fixo do <code>WHERE</code> é a exclusão da conta com <code>username = 'guest'</code>.</p>
- <p>Os estados ativa e suspensa são apenas colunas de contagem: contas excluídas continuam no total <code>student_count</code>, mas não nas duas contagens de situação.</p></section>
-<section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>Uma visualização em tabela e duas consultas SQL integrais equivalentes, MySQL e PostgreSQL, agrupadas no mesmo bloco. O realce de sintaxe é realizado por Prism.js e não modifica o SQL.</p>
-<details class="report-block" open><summary>1. Distribuição do perfil dos alunos · Tabela</summary><div class="inner"><p>Tabela de grupos de perfil, com país, cidade, instituição, departamento, total de contas distintas, quantidade de contas ativas e quantidade de contas suspensas, ordenados do maior grupo para o menor.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(COALESCE(NULLIF(TRIM(kbi_u.country), &#39;&#39;), &#39;not-informed&#39;), &#39;-&#39;,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Agrupa contas com papel de estudante por país, cidade, instituição e departamento declarados no perfil, mostrando totais e situação administrativa das contas.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 105 · Distribuição do perfil dos alunos · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>
+        .report-intro {
+            background: #e7f6f4;
+            border: 1px solid #bee1dd;
+            border-radius: 13px;
+            padding: 22px 24px;
+            margin: 22px 0
+        }
+
+        .report-intro strong {
+            font-size: 17px;
+            color: #096573
+        }
+
+        .report-intro p {
+            margin: 7px 0 0
+        }
+
+        .report-navigation {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 23px 0
+        }
+
+        .report-navigation a {
+            font-size: 13px;
+            font-weight: 750;
+            text-decoration: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            background: #e4f4f2
+        }
+
+        .report-block {
+            border: 1px solid #d9e6e9;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 18px 0
+        }
+
+        .report-block summary {
+            padding: 16px;
+            background: #eaf5f7;
+            color: #0b5261;
+            font-weight: 800;
+            cursor: pointer
+        }
+
+        .report-block summary:hover {
+            background: #d9eff0
+        }
+
+        .report-block .inner {
+            padding: 16px
+        }
+
+        .sql-variant {
+            background: #f5f9f9;
+            border: 1px solid #dbe7e9;
+            border-radius: 12px;
+            margin: 16px 0;
+            padding: 13px 15px
+        }
+
+        .sql-variant h3 {
+            font-size: 14px;
+            color: #095f6d;
+            font-weight: 800;
+            margin: 0 0 10px
+        }
+
+        .report-meta {
+            color: #54707b;
+            font-size: 13px
+        }
+
+        .report-technical {
+            background: #f2f8f9;
+            border-left: 3px solid #70aeb4;
+            padding: 13px 16px;
+            margin: 18px 0
+        }
+
+        .report-limit li {
+            margin: 10px 0
+        }
+
+        @media (max-width: 650px) {
+            .report-block .inner {
+                padding: 10px
+            }
+
+            .sql-variant {
+                padding: 8px
+            }
+        }
+    </style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/105.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 105 · Distribuição do perfil dos alunos · Kopere BI">
+    <meta property="og:description"
+          content="Agrupa contas com papel de estudante por país, cidade, instituição e departamento declarados no perfil, mostrando totais e situação administrativa das contas.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/105.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/students.html">Estudantes</a> / 105
+            </nav>
+            <div class="kicker">RELATÓRIO 105</div>
+            <h1>Distribuição do perfil dos alunos</h1>
+            <p class="lead">Agrupa contas com papel de estudante por país, cidade, instituição e departamento declarados
+                no perfil, mostrando totais e situação administrativa das contas.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Agrupa contas com papel de estudante por país, cidade, instituição e departamento declarados no
+                    perfil, mostrando totais e situação administrativa das contas.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Ajuda a entender a distribuição geográfica e institucional declarada pelos estudantes, detectar
+                    lacunas no preenchimento de perfis e dimensionar conjuntos de contas ativas ou suspensas.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros disponíveis</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#metodologia">Critérios de cálculo</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p><strong>Não há filtros SQL dinâmicos</strong> de curso, usuário, coorte, país, cidade, instituição,
+                    departamento ou período. O único recorte fixo do <code>WHERE</code> é a exclusão da conta com <code>username
+                        = 'guest'</code>.</p>
+                <p>Os estados ativa e suspensa são apenas colunas de contagem: contas excluídas continuam no total
+                    <code>student_count</code>, mas não nas duas contagens de situação.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL original integral</h2>
+                <p>Uma visualização em tabela e duas consultas SQL integrais equivalentes, MySQL e PostgreSQL, agrupadas
+                    no mesmo bloco. O realce de sintaxe é realizado por Prism.js e não modifica o SQL.</p>
+                <details class="report-block" open>
+                    <summary>1. Distribuição do perfil dos alunos · Tabela</summary>
+                    <div class="inner">
+                        <p>Tabela de grupos de perfil, com país, cidade, instituição, departamento, total
+                            de contas distintas, quantidade de contas ativas e quantidade de contas suspensas, ordenados
+                            do
+                            maior grupo para o menor.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral MySQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(COALESCE(NULLIF(TRIM(kbi_u.country), &#39;&#39;), &#39;not-informed&#39;), &#39;-&#39;,
               COALESCE(NULLIF(TRIM(kbi_u.city), &#39;&#39;), &#39;not-informed&#39;), &#39;-&#39;,
               COALESCE(NULLIF(TRIM(kbi_u.institution), &#39;&#39;), &#39;not-informed&#39;), &#39;-&#39;,
               COALESCE(NULLIF(TRIM(kbi_u.department), &#39;&#39;), &#39;not-informed&#39;)) AS id,
@@ -42,8 +213,11 @@ FROM mdl_user kbi_u
        ) kbi_students ON kbi_students.userid = kbi_u.id
 WHERE kbi_u.username &lt;&gt; &#39;guest&#39;
 GROUP BY country, city, institution, department
-ORDER BY student_count DESC, country, city, institution, department</code></pre></div>
-<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(COALESCE(NULLIF(TRIM(kbi_u.country), &#39;&#39;), &#39;not-informed&#39;), &#39;-&#39;,
+ORDER BY student_count DESC, country, city, institution, department</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>SQL original integral PostgreSQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(COALESCE(NULLIF(TRIM(kbi_u.country), &#39;&#39;), &#39;not-informed&#39;), &#39;-&#39;,
               COALESCE(NULLIF(TRIM(kbi_u.city), &#39;&#39;), &#39;not-informed&#39;), &#39;-&#39;,
               COALESCE(NULLIF(TRIM(kbi_u.institution), &#39;&#39;), &#39;not-informed&#39;), &#39;-&#39;,
               COALESCE(NULLIF(TRIM(kbi_u.department), &#39;&#39;), &#39;not-informed&#39;)) AS id,
@@ -64,10 +238,75 @@ FROM mdl_user kbi_u
        ) kbi_students ON kbi_students.userid = kbi_u.id
 WHERE kbi_u.username &lt;&gt; &#39;guest&#39;
 GROUP BY country, city, institution, department
-ORDER BY student_count DESC, country, city, institution, department</code></pre></div></div></details></section>
-<section id="metodologia"><h2>Critérios e funcionamento</h2><p>A seleção considera usuários com atribuição do papel <code>student</code> em algum contexto de curso e ignora apenas a conta <code>guest</code>. A lista de estudantes é deduplicada por usuário antes do agrupamento.</p>
- <p>Os valores de país, cidade, instituição e departamento são normalizados com <code>TRIM</code>, <code>NULLIF</code> e <code>COALESCE</code>. Campos vazios ou nulos aparecem como <code>Not informed</code>. O total usa <code>COUNT(DISTINCT id)</code>, e as contagens de ativos e suspensos são calculadas por <code>SUM(CASE ...)</code>.</p></section>
-<section id="limites"><h2>Limitações e cuidados</h2><ul class="report-limit"><li>País, cidade, instituição e departamento são campos declarados no perfil do usuário, não dados de geolocalização por IP nem endereços validados.</li><li>Valores não preenchidos aparecem como Not informed; nomes de cidade e instituição com grafias diferentes podem criar grupos separados.</li><li>O total de estudantes inclui contas excluídas que ainda possuam a atribuição de papel pertinente; portanto pode superar a soma de ativos e suspensos.</li><li>A atribuição student pode existir em qualquer curso; o resultado não indica em quais cursos cada grupo está matriculado e não permite selecionar um curso.</li><li>A publicação de grupos pequenos pode revelar informações sobre pessoas em contextos específicos. Avalie limites mínimos de agrupamento e controle de acesso antes de divulgar ou exportar.</li></ul><p class="report-technical">O SQL está reproduzido literalmente das definições JSON da <code>master</code>, sem execução em uma instalação Moodle nesta etapa. Verifique compatibilidade, resultados, permissões e privacidade antes do uso institucional.</p></section>
-<section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-105.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-105-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section>
-<nav class="pager" aria-label="Navegação entre relatórios"><a href="104.html">← Relatório 104</a><a href="106.html">Relatório 106 →</a></nav><section class="related-reports" aria-labelledby="related-title-105"><h2 id="related-title-105">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="002.html"><span class="related-number">Relatório 002</span><span class="related-title">Estudantes ativos</span><span class="related-category">Estudantes</span></a><a class="related-card" href="098.html"><span class="related-number">Relatório 098</span><span class="related-title">Visão geral do progresso do aluno</span><span class="related-category">Estudantes</span></a><a class="related-card" href="099.html"><span class="related-number">Relatório 099</span><span class="related-title">Alunos sem acesso ao curso</span><span class="related-category">Estudantes</span></a></div></section></article></main></div>
-<footer class="foot">Kopere BI · <a href="../categorias/students.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+ORDER BY student_count DESC, country, city, institution, department</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="metodologia">
+                <h2>Critérios e funcionamento</h2>
+                <p>A seleção considera usuários com atribuição do papel <code>student</code> em algum contexto de curso
+                    e ignora apenas a conta <code>guest</code>. A lista de estudantes é deduplicada por usuário antes do
+                    agrupamento.</p>
+                <p>Os valores de país, cidade, instituição e departamento são normalizados com <code>TRIM</code>, <code>NULLIF</code>
+                    e <code>COALESCE</code>. Campos vazios ou nulos aparecem como <code>Not informed</code>. O total usa
+                    <code>COUNT(DISTINCT id)</code>, e as contagens de ativos e suspensos são calculadas por <code>SUM(CASE
+                        ...)</code>.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul class="report-limit">
+                    <li>País, cidade, instituição e departamento são campos declarados no perfil do usuário, não dados
+                        de geolocalização por IP nem endereços validados.
+                    </li>
+                    <li>Valores não preenchidos aparecem como Not informed; nomes de cidade e instituição com grafias
+                        diferentes podem criar grupos separados.
+                    </li>
+                    <li>O total de estudantes inclui contas excluídas que ainda possuam a atribuição de papel
+                        pertinente; portanto pode superar a soma de ativos e suspensos.
+                    </li>
+                    <li>A atribuição student pode existir em qualquer curso; o resultado não indica em quais cursos cada
+                        grupo está matriculado e não permite selecionar um curso.
+                    </li>
+                    <li>A publicação de grupos pequenos pode revelar informações sobre pessoas em contextos específicos.
+                        Avalie limites mínimos de agrupamento e controle de acesso antes de divulgar ou exportar.
+                    </li>
+                </ul>
+                <p class="report-technical">O SQL está reproduzido literalmente das definições JSON da
+                    <code>master</code>, sem execução em uma instalação Moodle nesta etapa. Verifique compatibilidade,
+                    resultados, permissões e privacidade antes do uso institucional.</p>
+            </section>
+            <section>
+                <h2>Fontes técnicas</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-105.json"
+                       target="_blank" rel="noopener">Definição MySQL</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-105-postgres.json"
+                        target="_blank" rel="noopener">Definição PostgreSQL</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="104.html">← Relatório 104</a>
+                <a href="106.html">Relatório 106 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-105">
+                <h2 id="related-title-105">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="002.html"><span class="related-number">Relatório 002</span><span
+                            class="related-title">Estudantes ativos</span><span
+                            class="related-category">Estudantes</span></a>
+                    <a class="related-card" href="098.html"><span class="related-number">Relatório 098</span><span
+                            class="related-title">Visão geral do progresso do aluno</span><span
+                            class="related-category">Estudantes</span></a>
+                    <a class="related-card" href="099.html"><span class="related-number">Relatório 099</span><span
+                            class="related-title">Alunos sem acesso ao curso</span><span class="related-category">Estudantes</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/students.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

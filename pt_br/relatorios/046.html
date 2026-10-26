@@ -1,4 +1,188 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Tabela por usuário e curso que classifica participantes com papel de estudante de acordo com registros de último acesso e de conclusão de ao menos uma atividade."><meta name="theme-color" content="#072c3a"><title>Relatório 046 · Detalhes de participantes engajados e não engajados por curso · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/046.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 046 · Detalhes de participantes engajados e não engajados por curso · Kopere BI"><meta property="og:description" content="Tabela por usuário e curso que classifica participantes com papel de estudante de acordo com registros de último acesso e de conclusão de ao menos uma atividade."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/046.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/courses.html">Cursos</a> / 046</nav><div class="kicker">RELATÓRIO 046</div><h1>Detalhes de participantes engajados e não engajados por curso</h1><p class="lead">Tabela por usuário e curso que classifica participantes com papel de estudante de acordo com registros de último acesso e de conclusão de ao menos uma atividade.</p><section><h2>Finalidade do relatório</h2><p>Tabela por usuário e curso que classifica participantes com papel de estudante de acordo com registros de último acesso e de conclusão de ao menos uma atividade.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Oferece uma visão individual dos participantes que possuem indícios de acesso e conclusão de atividades, apoiando a identificação de casos que necessitam de verificação e acompanhamento pela equipe pedagógica.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não há parâmetros SQL dinâmicos</strong> para selecionar curso, pessoa ou período. A consulta abrange cursos visíveis com ID positivo e usuários com papel ID <code>5</code> em contextos de curso (<code>contextlevel = 50</code>), desde que não estejam excluídos ou suspensos e não sejam a conta <code>guest</code>.</p><p>A classificação utiliza a existência de linha em <code>mdl_user_lastaccess</code> e a existência de conclusão de módulo com <code>completionstate = 1</code> no mesmo curso. O SQL não filtra a situação da matrícula ou o método de inscrição.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>Uma visualização em tabela, com SQL original integral, cache, atualização e destaque de sintaxe por Prism.js. O catálogo de definições não possui arquivo de variante PostgreSQL separado para este relatório.</p><details class="report-block" open><summary>1. Detalhes de participantes engajados e não engajados por curso · Tabela</summary><div class="inner"><p>Uma linha por usuário e curso, com ID do curso, nome, identificação e e-mail do participante e os indicadores binários completed, not_completed e not_accessed. O valor 1 indica que o critério foi atendido e 0 indica que não foi.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id                                              courseid,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Tabela por usuário e curso que classifica participantes com papel de estudante de acordo com registros de último acesso e de conclusão de ao menos uma atividade.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 046 · Detalhes de participantes engajados e não engajados por curso · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/046.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title"
+          content="Relatório 046 · Detalhes de participantes engajados e não engajados por curso · Kopere BI">
+    <meta property="og:description"
+          content="Tabela por usuário e curso que classifica participantes com papel de estudante de acordo com registros de último acesso e de conclusão de ao menos uma atividade.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/046.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/courses.html">Cursos</a> / 046
+            </nav>
+            <div class="kicker">RELATÓRIO 046</div>
+            <h1>Detalhes de participantes engajados e não engajados por curso</h1>
+            <p class="lead">Tabela por usuário e curso que classifica participantes com papel de estudante de acordo com
+                registros de último acesso e de conclusão de ao menos uma atividade.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Tabela por usuário e curso que classifica participantes com papel de estudante de acordo com
+                    registros de último acesso e de conclusão de ao menos uma atividade.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Oferece uma visão individual dos participantes que possuem indícios de acesso e conclusão de
+                    atividades, apoiando a identificação de casos que necessitam de verificação e acompanhamento pela
+                    equipe pedagógica.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros disponíveis</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p><strong>Não há parâmetros SQL dinâmicos</strong> para selecionar curso, pessoa ou período. A consulta
+                    abrange cursos visíveis com ID positivo e usuários com papel ID <code>5</code> em contextos de curso
+                    (<code>contextlevel = 50</code>), desde que não estejam excluídos ou suspensos e não sejam a conta
+                    <code>guest</code>.</p>
+                <p>A classificação utiliza a existência de linha em <code>mdl_user_lastaccess</code> e a existência de
+                    conclusão de módulo com <code>completionstate = 1</code> no mesmo curso. O SQL não filtra a situação
+                    da matrícula ou o método de inscrição.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL original integral</h2>
+                <p>Uma visualização em tabela, com SQL original integral, cache, atualização e destaque de sintaxe por
+                    Prism.js. O catálogo de definições não possui arquivo de variante PostgreSQL separado para este
+                    relatório.</p>
+                <details class="report-block" open>
+                    <summary>1. Detalhes de participantes engajados e não engajados por curso · Tabela</summary>
+                    <div class="inner">
+                        <p>Uma linha por usuário e curso, com ID do curso, nome, identificação e e-mail
+                            do participante e os indicadores binários completed, not_completed e not_accessed. O valor 1
+                            indica que o critério foi atendido e 0 indica que não foi.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id                                              courseid,
        kbi_c.fullname                                     AS course_name,
        kbi_u.id                                           AS userid,
        kbi_u.firstname,
@@ -28,4 +212,71 @@ WHERE kbi_c.id &gt; 0
   AND kbi_u.username != &#39;guest&#39;
   AND kbi_c.visible = 1
   AND kbi_ra.roleid = 5
-GROUP BY kbi_c.id, kbi_u.id</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>A palavra “engajado” não corresponde a uma medida de participação pedagógica ou tempo ativo: a classificação depende somente de registros de último acesso e da existência de alguma atividade concluída.</li><li>O indicador <code>completed</code> não representa conclusão formal do curso. Basta pelo menos um módulo com <code>completionstate = 1</code>, e também é exigido um registro de último acesso ao curso.</li><li>O estado <code>completionstate = 2</code>, que pode representar conclusão com aprovação, não entra na consulta de atividades concluídas; alunos que só possuem esse estado podem aparecer como não concluídos.</li><li>O indicador <code>not_completed</code> aplica-se a quem possui registro de acesso, mas não possui conclusão de módulo no estado 1. Isso não implica necessariamente abandono ou reprovação.</li><li>O indicador <code>not_accessed</code> significa ausência da linha em <code>mdl_user_lastaccess</code>, não prova que a pessoa nunca teve atividade em outros contextos do Moodle.</li><li>A população inclui usuários com atribuição do papel ID 5, mas não restringe inscrições ativas, de modo que pode incluir estudantes cuja matrícula não esteja vigente.</li><li>Os nomes e e-mails são dados pessoais e devem ser exibidos apenas a quem possui permissão adequada. Não existe arquivo PostgreSQL dedicado a este relatório.</li></ul></section><section><h2>Fonte técnica</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-046.json" target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="045.html">← Relatório 045</a><a href="047.html">Relatório 047 →</a></nav><section class="related-reports" aria-labelledby="related-title-046"><h2 id="related-title-046">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="045.html"><span class="related-number">Relatório 045</span><span class="related-title">Totais de participantes engajados e não engajados por curso</span><span class="related-category">Cursos e conteúdo</span></a><a class="related-card" href="107.html"><span class="related-number">Relatório 107</span><span class="related-title">Fila de alunos que precisam de atenção</span><span class="related-category">Learning Analytics - painéis</span></a><a class="related-card" href="119.html"><span class="related-number">Relatório 119</span><span class="related-title">Participação do aluno versus turma</span><span class="related-category">Indicadores operacionais de participação</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/courses.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+GROUP BY kbi_c.id, kbi_u.id</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul>
+                    <li>A palavra “engajado” não corresponde a uma medida de participação pedagógica ou tempo ativo: a
+                        classificação depende somente de registros de último acesso e da existência de alguma atividade
+                        concluída.
+                    </li>
+                    <li>O indicador <code>completed</code> não representa conclusão formal do curso. Basta pelo menos um
+                        módulo com <code>completionstate = 1</code>, e também é exigido um registro de último acesso ao
+                        curso.
+                    </li>
+                    <li>O estado <code>completionstate = 2</code>, que pode representar conclusão com aprovação, não
+                        entra na consulta de atividades concluídas; alunos que só possuem esse estado podem aparecer
+                        como não concluídos.
+                    </li>
+                    <li>O indicador <code>not_completed</code> aplica-se a quem possui registro de acesso, mas não
+                        possui conclusão de módulo no estado 1. Isso não implica necessariamente abandono ou reprovação.
+                    </li>
+                    <li>O indicador <code>not_accessed</code> significa ausência da linha em
+                        <code>mdl_user_lastaccess</code>, não prova que a pessoa nunca teve atividade em outros
+                        contextos do Moodle.
+                    </li>
+                    <li>A população inclui usuários com atribuição do papel ID 5, mas não restringe inscrições ativas,
+                        de modo que pode incluir estudantes cuja matrícula não esteja vigente.
+                    </li>
+                    <li>Os nomes e e-mails são dados pessoais e devem ser exibidos apenas a quem possui permissão
+                        adequada. Não existe arquivo PostgreSQL dedicado a este relatório.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Fonte técnica</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-046.json"
+                       target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="045.html">← Relatório 045</a>
+                <a href="047.html">Relatório 047 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-046">
+                <h2 id="related-title-046">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="045.html"><span class="related-number">Relatório 045</span><span
+                            class="related-title">Totais de participantes engajados e não engajados por curso</span><span
+                            class="related-category">Cursos e conteúdo</span></a>
+                    <a class="related-card" href="107.html"><span class="related-number">Relatório 107</span><span
+                            class="related-title">Fila de alunos que precisam de atenção</span><span
+                            class="related-category">Learning Analytics - painéis</span></a>
+                    <a class="related-card" href="119.html"><span class="related-number">Relatório 119</span><span
+                            class="related-title">Participação do aluno versus turma</span><span
+                            class="related-category">Indicadores operacionais de participação</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/courses.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

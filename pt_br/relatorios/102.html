@@ -1,4 +1,185 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Relaciona matrículas de estudantes com data final definida que já expiraram ou expirarão dentro dos próximos 30 dias, incluindo a situação calculada do prazo."><meta name="theme-color" content="#072c3a"><title>Relatório 102 · Matrículas de alunos terminando em breve · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/102.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 102 · Matrículas de alunos terminando em breve · Kopere BI"><meta property="og:description" content="Relaciona matrículas de estudantes com data final definida que já expiraram ou expirarão dentro dos próximos 30 dias, incluindo a situação calculada do prazo."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/102.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/students.html">Estudantes</a> / 102</nav><div class="kicker">RELATÓRIO 102</div><h1>Matrículas de alunos terminando em breve</h1><p class="lead">Relaciona matrículas de estudantes com data final definida que já expiraram ou expirarão dentro dos próximos 30 dias, incluindo a situação calculada do prazo.</p><section><h2>Finalidade do relatório</h2><p>Relaciona matrículas de estudantes com data final definida que já expiraram ou expirarão dentro dos próximos 30 dias, incluindo a situação calculada do prazo.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Permite identificar matrículas próximas do encerramento e outras já expiradas para organizar comunicações, renovações e verificações administrativas.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não existem parâmetros SQL dinâmicos</strong> de curso, estudante, matrícula, data ou janela temporal. O horizonte de <strong>30 dias</strong> é fixado nas versões MySQL e PostgreSQL.</p><p>Os filtros exigem conta não excluída e diferente de <code>guest</code>, curso visível, método de inscrição habilitado (<code>kbi_e.status = 0</code>), data final positiva (<code>kbi_ue.timeend &gt; 0</code>) e papel com <code>shortname = 'student'</code> no contexto do curso. Também exigem término anterior ao momento atual ou até 30 dias à frente.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>Uma visualização em tabela com as consultas SQL originais integrais MySQL e PostgreSQL, em caixas separadas dentro do mesmo bloco, e realce de sintaxe com Prism.js.</p><details class="report-block" open><summary>1. Matrículas de alunos terminando em breve · Tabela</summary><div class="inner"><p>Uma tabela por registro de matrícula elegível, com ID da matrícula, estudante e contato, curso, método de inscrição, data inicial, data final, dias até o encerramento e situação textual <code>Expired</code>, <code>Ends in 7 days</code> ou <code>Ends in 30 days</code>.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(kbi_ue.id, &#39;-&#39;, kbi_c.id) AS id,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Relaciona matrículas de estudantes com data final definida que já expiraram ou expirarão dentro dos próximos 30 dias, incluindo a situação calculada do prazo.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 102 · Matrículas de alunos terminando em breve · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/102.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 102 · Matrículas de alunos terminando em breve · Kopere BI">
+    <meta property="og:description"
+          content="Relaciona matrículas de estudantes com data final definida que já expiraram ou expirarão dentro dos próximos 30 dias, incluindo a situação calculada do prazo.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/102.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/students.html">Estudantes</a> / 102
+            </nav>
+            <div class="kicker">RELATÓRIO 102</div>
+            <h1>Matrículas de alunos terminando em breve</h1>
+            <p class="lead">Relaciona matrículas de estudantes com data final definida que já expiraram ou expirarão
+                dentro dos próximos 30 dias, incluindo a situação calculada do prazo.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Relaciona matrículas de estudantes com data final definida que já expiraram ou expirarão dentro dos
+                    próximos 30 dias, incluindo a situação calculada do prazo.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Permite identificar matrículas próximas do encerramento e outras já expiradas para organizar
+                    comunicações, renovações e verificações administrativas.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros disponíveis</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p><strong>Não existem parâmetros SQL dinâmicos</strong> de curso, estudante, matrícula, data ou janela
+                    temporal. O horizonte de <strong>30 dias</strong> é fixado nas versões MySQL e PostgreSQL.</p>
+                <p>Os filtros exigem conta não excluída e diferente de <code>guest</code>, curso visível, método de
+                    inscrição habilitado (<code>kbi_e.status = 0</code>), data final positiva (<code>kbi_ue.timeend &gt;
+                        0</code>) e papel com <code>shortname = 'student'</code> no contexto do curso. Também exigem
+                    término anterior ao momento atual ou até 30 dias à frente.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL original integral</h2>
+                <p>Uma visualização em tabela com as consultas SQL originais integrais MySQL e PostgreSQL, em caixas
+                    separadas dentro do mesmo bloco, e realce de sintaxe com Prism.js.</p>
+                <details class="report-block" open>
+                    <summary>1. Matrículas de alunos terminando em breve · Tabela</summary>
+                    <div class="inner">
+                        <p>Uma tabela por registro de matrícula elegível, com ID da matrícula, estudante
+                            e contato, curso, método de inscrição, data inicial, data final, dias até o encerramento e
+                            situação textual <code>Expired</code>, <code>Ends in 7 days</code> ou <code>Ends in 30
+                                days</code>.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral MySQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(kbi_ue.id, &#39;-&#39;, kbi_c.id) AS id,
        kbi_ue.id AS enrolid,
        kbi_u.id AS userid,
        kbi_u.firstname,
@@ -29,8 +210,11 @@ WHERE kbi_u.deleted = 0
   AND kbi_e.status = 0
   AND kbi_ue.timeend &gt; 0
   AND (kbi_ue.timeend &lt; UNIX_TIMESTAMP() OR kbi_ue.timeend &lt;= (UNIX_TIMESTAMP() + (30 * 24 * 60 * 60)))
-ORDER BY kbi_ue.timeend, kbi_c.fullname, kbi_u.lastname, kbi_u.firstname</code></pre></div>
-<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(kbi_ue.id, &#39;-&#39;, kbi_c.id) AS id,
+ORDER BY kbi_ue.timeend, kbi_c.fullname, kbi_u.lastname, kbi_u.firstname</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>SQL original integral PostgreSQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(kbi_ue.id, &#39;-&#39;, kbi_c.id) AS id,
        kbi_ue.id AS enrolid,
        kbi_u.id AS userid,
        kbi_u.firstname,
@@ -61,4 +245,76 @@ WHERE kbi_u.deleted = 0
   AND kbi_e.status = 0
   AND kbi_ue.timeend &gt; 0
   AND(kbi_ue.timeend &lt; (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::bigint) OR kbi_ue.timeend &lt;= ((EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::bigint) + (30 * 24 * 60 * 60)))
-ORDER BY kbi_ue.timeend, kbi_c.fullname, kbi_u.lastname, kbi_u.firstname</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li><strong>A consulta inclui matrículas que já expiraram</strong>, mesmo que o título destaque as que estão próximas do vencimento. Registros antigos ainda existentes podem entrar no resultado.</li><li>Somente matrículas com <code>timeend &gt; 0</code> são listadas. Matrículas sem prazo final não aparecem.</li><li>A condição não testa <code>kbi_ue.status = 0</code>, ou seja, o próprio registro de matrícula pode estar suspenso. A consulta também não verifica <code>kbi_u.suspended = 0</code>.</li><li>O papel de estudante é identificado pelo nome curto <code>student</code> no contexto do curso. Papéis personalizados com outro nome curto podem ficar fora dos resultados.</li><li>Os grupos de status usam comparações com segundos Unix, mas <code>days_to_end</code> é uma diferença entre datas. Pode haver divergência de arredondamento nas fronteiras dos períodos de 7 e 30 dias.</li><li>O <code>CASE</code> contém o resultado alternativo <code>Scheduled</code>, porém o filtro de até 30 dias ou vencimento anterior impede que matrículas futuras além desse prazo sejam incluídas normalmente.</li><li>Os dados de data dependem do fuso horário e das conversões próprias de MySQL ou PostgreSQL. Resultados próximos da meia-noite podem variar.</li><li>A consulta pode produzir mais de uma linha para uma matrícula em caso de atribuições múltiplas de papel correspondentes. O acompanhamento precisa considerar o identificador da matrícula.</li><li>A lista mostra nome e e-mail do participante; controle permissões e exportações antes de usá-la para notificações.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-102.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-102-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="101.html">← Relatório 101</a><a href="103.html">Relatório 103 →</a></nav><section class="related-reports" aria-labelledby="related-title-102"><h2 id="related-title-102">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="002.html"><span class="related-number">Relatório 002</span><span class="related-title">Estudantes ativos</span><span class="related-category">Estudantes</span></a><a class="related-card" href="098.html"><span class="related-number">Relatório 098</span><span class="related-title">Visão geral do progresso do aluno</span><span class="related-category">Estudantes</span></a><a class="related-card" href="099.html"><span class="related-number">Relatório 099</span><span class="related-title">Alunos sem acesso ao curso</span><span class="related-category">Estudantes</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/students.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+ORDER BY kbi_ue.timeend, kbi_c.fullname, kbi_u.lastname, kbi_u.firstname</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul>
+                    <li><strong>A consulta inclui matrículas que já expiraram</strong>, mesmo que o título destaque as
+                        que estão próximas do vencimento. Registros antigos ainda existentes podem entrar no resultado.
+                    </li>
+                    <li>Somente matrículas com <code>timeend &gt; 0</code> são listadas. Matrículas sem prazo final não
+                        aparecem.
+                    </li>
+                    <li>A condição não testa <code>kbi_ue.status = 0</code>, ou seja, o próprio registro de matrícula
+                        pode estar suspenso. A consulta também não verifica <code>kbi_u.suspended = 0</code>.
+                    </li>
+                    <li>O papel de estudante é identificado pelo nome curto <code>student</code> no contexto do curso.
+                        Papéis personalizados com outro nome curto podem ficar fora dos resultados.
+                    </li>
+                    <li>Os grupos de status usam comparações com segundos Unix, mas <code>days_to_end</code> é uma
+                        diferença entre datas. Pode haver divergência de arredondamento nas fronteiras dos períodos de 7
+                        e 30 dias.
+                    </li>
+                    <li>O <code>CASE</code> contém o resultado alternativo <code>Scheduled</code>, porém o filtro de até
+                        30 dias ou vencimento anterior impede que matrículas futuras além desse prazo sejam incluídas
+                        normalmente.
+                    </li>
+                    <li>Os dados de data dependem do fuso horário e das conversões próprias de MySQL ou PostgreSQL.
+                        Resultados próximos da meia-noite podem variar.
+                    </li>
+                    <li>A consulta pode produzir mais de uma linha para uma matrícula em caso de atribuições múltiplas
+                        de papel correspondentes. O acompanhamento precisa considerar o identificador da matrícula.
+                    </li>
+                    <li>A lista mostra nome e e-mail do participante; controle permissões e exportações antes de usá-la
+                        para notificações.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Fontes técnicas</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-102.json"
+                       target="_blank" rel="noopener">Definição MySQL</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-102-postgres.json"
+                        target="_blank" rel="noopener">Definição PostgreSQL</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="101.html">← Relatório 101</a>
+                <a href="103.html">Relatório 103 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-102">
+                <h2 id="related-title-102">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="002.html"><span class="related-number">Relatório 002</span><span
+                            class="related-title">Estudantes ativos</span><span
+                            class="related-category">Estudantes</span></a>
+                    <a class="related-card" href="098.html"><span class="related-number">Relatório 098</span><span
+                            class="related-title">Visão geral do progresso do aluno</span><span
+                            class="related-category">Estudantes</span></a>
+                    <a class="related-card" href="099.html"><span class="related-number">Relatório 099</span><span
+                            class="related-title">Alunos sem acesso ao curso</span><span class="related-category">Estudantes</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/students.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

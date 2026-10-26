@@ -1,4 +1,201 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Resultados de questões totalmente corretas agrupados pelas tags das questões, considerando apenas tentativas finalizadas."><meta name="theme-color" content="#072c3a"><title>Relatório 123 · Desempenho em questionários por tag da questão · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}.report-technical{background:#f2f8f9;border-left:3px solid #70aeb4;padding:13px 16px;margin:18px 0}.report-limit li{margin:10px 0}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/123.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 123 · Desempenho em questionários por tag da questão · Kopere BI"><meta property="og:description" content="Resultados de questões totalmente corretas agrupados pelas tags das questões, considerando apenas tentativas finalizadas."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/123.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/quizzes.html">Questionários</a> / 123</nav><div class="kicker">RELATÓRIO 123</div><h1>Desempenho em questionários por tag da questão</h1><p class="lead">Resultados de questões totalmente corretas agrupados pelas tags das questões, considerando apenas tentativas finalizadas.</p><section><h2>Finalidade do relatório</h2><p>Tabela por curso e tag, com nome da tag, número de questões distintas encontradas, quantidade de ocorrências avaliadas, quantidade totalmente correta e percentual de respostas com fração igual ou superior a 1. Ordena por maior volume de ocorrências e curso, com limite de 500 linhas.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Analisar quais tags associadas a questões apresentam maior volume de respostas avaliadas e qual parcela obteve crédito integral, permitindo investigar padrões de desempenho por tema.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#criterios">Critérios de cálculo</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não há filtros SQL dinâmicos</strong> de curso, questionário, tag, estudante ou período. São exigidas tentativas de questionário <code>a.state = 'finished'</code> e etapas finais de tentativa de questão com <code>st.fraction IS NOT NULL</code>.</p><p>A associação à tag utiliza o critério fixo <code>ti.itemtype = 'question'</code> e <code>ti.itemid = q.id</code>. A consulta não filtra explicitamente prévias (<code>a.preview</code>), contas excluídas ou ocultação dos cursos. A saída é limitada a <strong>500 grupos</strong>.</p></section><section id="visualizacoes"><h2>Visualização e SQL integral</h2><p>Este relatório possui uma visualização em tabela, com SQL original completo, cache e configuração de atualização. O realce de sintaxe utiliza Prism.js. Não foi encontrada uma variante PostgreSQL separada na <code>master</code>, portanto não foi criada uma versão inexistente.</p><details class="report-block" open><summary>1. Desempenho em questionários por tag da questão · Tabela</summary><div class="inner"><p>Tabela por curso e tag, com nome da tag, número de questões distintas encontradas, quantidade de ocorrências avaliadas, quantidade totalmente correta e percentual de respostas com fração igual ou superior a 1. Ordena por maior volume de ocorrências e curso, com limite de 500 linhas.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(c.id, &#39;-&#39;, tag.id) AS id, c.id AS courseid, c.fullname AS course,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Resultados de questões totalmente corretas agrupados pelas tags das questões, considerando apenas tentativas finalizadas.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 123 · Desempenho em questionários por tag da questão · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/123.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 123 · Desempenho em questionários por tag da questão · Kopere BI">
+    <meta property="og:description"
+          content="Resultados de questões totalmente corretas agrupados pelas tags das questões, considerando apenas tentativas finalizadas.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/123.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/quizzes.html">Questionários</a> / 123
+            </nav>
+            <div class="kicker">RELATÓRIO 123</div>
+            <h1>Desempenho em questionários por tag da questão</h1>
+            <p class="lead">Resultados de questões totalmente corretas agrupados pelas tags das questões, considerando
+                apenas tentativas finalizadas.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Tabela por curso e tag, com nome da tag, número de questões distintas encontradas, quantidade de
+                    ocorrências avaliadas, quantidade totalmente correta e percentual de respostas com fração igual ou
+                    superior a 1. Ordena por maior volume de ocorrências e curso, com limite de 500 linhas.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Analisar quais tags associadas a questões apresentam maior volume de respostas avaliadas e qual
+                    parcela obteve crédito integral, permitindo investigar padrões de desempenho por tema.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros disponíveis</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#criterios">Critérios de cálculo</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p><strong>Não há filtros SQL dinâmicos</strong> de curso, questionário, tag, estudante ou período. São
+                    exigidas tentativas de questionário <code>a.state = 'finished'</code> e etapas finais de tentativa
+                    de questão com <code>st.fraction IS NOT NULL</code>.</p>
+                <p>A associação à tag utiliza o critério fixo <code>ti.itemtype = 'question'</code> e <code>ti.itemid =
+                    q.id</code>. A consulta não filtra explicitamente prévias (<code>a.preview</code>), contas excluídas
+                    ou ocultação dos cursos. A saída é limitada a <strong>500 grupos</strong>.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL integral</h2>
+                <p>Este relatório possui uma visualização em tabela, com SQL original completo, cache e configuração de
+                    atualização. O realce de sintaxe utiliza Prism.js. Não foi encontrada uma variante PostgreSQL
+                    separada na <code>master</code>, portanto não foi criada uma versão inexistente.</p>
+                <details class="report-block" open>
+                    <summary>1. Desempenho em questionários por tag da questão · Tabela</summary>
+                    <div class="inner">
+                        <p>Tabela por curso e tag, com nome da tag, número de questões distintas
+                            encontradas, quantidade de ocorrências avaliadas, quantidade totalmente correta e percentual
+                            de
+                            respostas com fração igual ou superior a 1. Ordena por maior volume de ocorrências e curso,
+                            com
+                            limite de 500 linhas.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(c.id, &#39;-&#39;, tag.id) AS id, c.id AS courseid, c.fullname AS course,
        tag.rawname AS tag, COUNT(DISTINCT q.id) AS questions, COUNT(*) AS attempts,
        SUM(CASE WHEN st.fraction &gt;= 1 THEN 1 ELSE 0 END) AS fully_correct,
        ROUND(100.0 * SUM(CASE WHEN st.fraction &gt;= 1 THEN 1 ELSE 0 END) / COUNT(*), 2) AS fully_correct_percent
@@ -16,4 +213,82 @@
  WHERE a.state = &#39;finished&#39; AND st.fraction IS NOT NULL
  GROUP BY c.id, c.fullname, tag.id, tag.rawname
  ORDER BY attempts DESC, c.fullname
- LIMIT 500</code></pre></div></div></details></section><section id="criterios"><h2>Critérios e funcionamento</h2><p>A consulta associa o questionário, as questões e suas tags e usa a última etapa por <code>MAX(st2.sequencenumber)</code> para obter a fração da resposta. O agrupamento é por curso e tag; <code>COUNT(DISTINCT q.id)</code> conta questões diferentes, enquanto <code>COUNT(*)</code> conta ocorrências avaliadas para aquela tag.</p><p><code>fully_correct</code> conta ocorrências com <code>st.fraction &gt;= 1</code>. O percentual <code>fully_correct_percent</code> divide essa contagem pelo número de ocorrências do grupo. Uma questão com mais de uma tag pode contribuir separadamente para diversos grupos; a métrica não é um percentual de estudantes únicos.</p></section><section id="limites"><h2>Limitações e cuidados</h2><ul class="report-limit"><li>Tentativas de prévia não são excluídas explicitamente no SQL, pois não há condição a.preview = 0. Dependendo dos dados, podem afetar o total.</li><li>COUNT(*) conta ocorrências por questão e tag, não usuários distintos. Repetições de tentativa podem ampliar o peso de uma mesma pessoa.</li><li>Uma questão com múltiplas tags aparece em mais de um agrupamento; os totais das tags não devem ser somados como se fossem categorias exclusivas.</li><li>A associação entre tag e questão depende do esquema e da forma como a instalação grava tags de questões. A relação ti.itemtype = 'question' e ti.itemid = q.id deve ser verificada quanto à compatibilidade da versão.</li><li>O corte fraction >= 1 representa crédito integral no registro da etapa selecionada, não necessariamente aprovação ou domínio pedagógico do tema.</li><li>Não há janela temporal, filtro de situação da conta ou de visibilidade do curso. Os 500 grupos de maior volume podem ocultar tags menos utilizadas.</li><li>A comparação entre tags pode ser enviesada por quantidade, dificuldade e tipos diferentes de questões, além de políticas de tentativa.</li></ul><p class="report-technical">O código SQL foi reproduzido literalmente do JSON original da <code>master</code>. Não foi executado no Moodle nesta etapa. Antes do uso institucional, confirme a compatibilidade com o banco, a integridade da interpretação e as permissões de acesso.</p></section><section><h2>Fonte técnica</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-123.json" target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="122.html">← Relatório 122</a><a href="124.html">Relatório 124 →</a></nav><section class="related-reports" aria-labelledby="related-title-123"><h2 id="related-title-123">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="062.html"><span class="related-number">Relatório 062</span><span class="related-title">Estrutura das questões dos questionários</span><span class="related-category">Questionários</span></a><a class="related-card" href="088.html"><span class="related-number">Relatório 088</span><span class="related-title">Respostas por questão do questionário</span><span class="related-category">Questionários</span></a><a class="related-card" href="063.html"><span class="related-number">Relatório 063</span><span class="related-title">Estatísticas de desempenho dos questionários</span><span class="related-category">Questionários</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/quizzes.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+ LIMIT 500</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Critérios e funcionamento</h2>
+                <p>A consulta associa o questionário, as questões e suas tags e usa a última etapa por <code>MAX(st2.sequencenumber)</code>
+                    para obter a fração da resposta. O agrupamento é por curso e tag; <code>COUNT(DISTINCT q.id)</code>
+                    conta questões diferentes, enquanto <code>COUNT(*)</code> conta ocorrências avaliadas para aquela
+                    tag.</p>
+                <p><code>fully_correct</code> conta ocorrências com <code>st.fraction &gt;= 1</code>. O percentual
+                    <code>fully_correct_percent</code> divide essa contagem pelo número de ocorrências do grupo. Uma
+                    questão com mais de uma tag pode contribuir separadamente para diversos grupos; a métrica não é um
+                    percentual de estudantes únicos.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul class="report-limit">
+                    <li>Tentativas de prévia não são excluídas explicitamente no SQL, pois não há condição a.preview =
+                        0. Dependendo dos dados, podem afetar o total.
+                    </li>
+                    <li>COUNT(*) conta ocorrências por questão e tag, não usuários distintos. Repetições de tentativa
+                        podem ampliar o peso de uma mesma pessoa.
+                    </li>
+                    <li>Uma questão com múltiplas tags aparece em mais de um agrupamento; os totais das tags não devem
+                        ser somados como se fossem categorias exclusivas.
+                    </li>
+                    <li>A associação entre tag e questão depende do esquema e da forma como a instalação grava tags de
+                        questões. A relação ti.itemtype = 'question' e ti.itemid = q.id deve ser verificada quanto à
+                        compatibilidade da versão.
+                    </li>
+                    <li>O corte fraction >= 1 representa crédito integral no registro da etapa selecionada, não
+                        necessariamente aprovação ou domínio pedagógico do tema.
+                    </li>
+                    <li>Não há janela temporal, filtro de situação da conta ou de visibilidade do curso. Os 500 grupos
+                        de maior volume podem ocultar tags menos utilizadas.
+                    </li>
+                    <li>A comparação entre tags pode ser enviesada por quantidade, dificuldade e tipos diferentes de
+                        questões, além de políticas de tentativa.
+                    </li>
+                </ul>
+                <p class="report-technical">O código SQL foi reproduzido literalmente do JSON original da
+                    <code>master</code>. Não foi executado no Moodle nesta etapa. Antes do uso institucional, confirme a
+                    compatibilidade com o banco, a integridade da interpretação e as permissões de acesso.</p>
+            </section>
+            <section>
+                <h2>Fonte técnica</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-123.json"
+                       target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="122.html">← Relatório 122</a>
+                <a href="124.html">Relatório 124 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-123">
+                <h2 id="related-title-123">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="062.html"><span class="related-number">Relatório 062</span><span
+                            class="related-title">Estrutura das questões dos questionários</span><span
+                            class="related-category">Questionários</span></a>
+                    <a class="related-card" href="088.html"><span class="related-number">Relatório 088</span><span
+                            class="related-title">Respostas por questão do questionário</span><span
+                            class="related-category">Questionários</span></a>
+                    <a class="related-card" href="063.html"><span class="related-number">Relatório 063</span><span
+                            class="related-title">Estatísticas de desempenho dos questionários</span><span
+                            class="related-category">Questionários</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/quizzes.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

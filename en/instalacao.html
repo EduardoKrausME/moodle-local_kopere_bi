@@ -1,9 +1,102 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Required dependency, installation paths and Moodle setup."><meta name="theme-color" content="#072c3a"><title>Installation and updates · Kopere BI</title><link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../site.css"><link rel="alternate" hreflang="pt-BR" href="../pt_br/instalacao.html"></head>
-<body><a class="skip" href="#main">Skip to content</a><header class="top"><div class="top-inner"><a class="brand" href="index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a><a class="lang" href="../pt_br/instalacao.html" lang="pt-BR">Português</a></div></div></header>
-<div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentation</div><nav class="nav" aria-label="Documentation sections"><a href="index.html">Overview</a><a href="instalacao.html" class="active" aria-current="page">Installation</a><a href="dashboards.html">Dashboards</a><a href="visualizacoes.html">Charts and filters</a><a href="relatorios.html">Reports</a><a href="learning-analytics.html">Learning Analytics</a><a href="integracoes.html">MCP integration</a><a href="operacao.html">Operations</a></nav></aside>
-<main id="main" class="main"><article class="article"><div class="crumb"><a href="index.html">Kopere BI</a> / Installation</div><div class="kicker">MOODLE PLUGIN DOCUMENTATION</div><h1>Installation and updates</h1><p class="lead">Required dependency, installation paths and Moodle setup.</p><div class="separator"></div><section aria-labelledby="s0"><h2 id="s0">Requirements</h2><p>The plugin component is <code>local_kopere_bi</code> and belongs in <code>local/kopere_bi</code>. The declared dependency is <code>local_kopere_dashboard</code> version <code>2026092300</code> or higher; the core requirement in <code>version.php</code> is <code>2024042200</code>. Verify the selected Moodle release in your own testing environment.</p><p>Database-aware reports and Learning Analytics documented here support MySQL and PostgreSQL.</p></section>
-<section aria-labelledby="s1"><h2 id="s1">Install</h2><ol class="steps"><li>Install <a href="https://github.com/EduardoKrausME/moodle-local-kopere_dashboard">Kopere Dashboard</a> at <code>local/kopere_dashboard</code>.</li><li>Install this repository at <code>local/kopere_bi</code>.</li><li>Complete the Moodle upgrade in <em>Site administration → Notifications</em> or on the command line.</li><li>Check <code>local/kopere_bi:view</code>, <code>local/kopere_bi:manage</code>, scheduled tasks and plugin settings.</li></ol><pre><code>php admin/cli/upgrade.php --non-interactive
-php admin/cli/purge_caches.php</code></pre><p class="note">Run the commands from the Moodle root with the correct OS account after taking backups and planning an appropriate maintenance window.</p></section>
-<section aria-labelledby="s2"><h2 id="s2">Import bundled reports</h2><p>Report templates are stored under <code>db/files/page-*.json</code>. The upgrade adds missing report/database variants while preserving existing custom SQL and settings.</p><pre><code>php local/kopere_bi/cli/import_database_reports.php</code></pre><p>The importer is idempotent. For selective updates to existing analytic queries, use the separate command on the <a href="relatorios.html">Reports</a> page.</p></section>
-<section aria-labelledby="s3"><h2 id="s3">Verify access</h2><p>Open <em>Site administration → Integrations → Kopere BI</em> and confirm that compatible reports load. If the menu is missing, check the dependency, the completed upgrade and the current user's permissions.</p></section><nav class="pager" aria-label="Documentation navigation"><a href="index.html">← Overview</a><a href="dashboards.html">Dashboards →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a> · GPL v3 · Documentation based on the plugin source code.</footer></body></html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Required dependency, installation paths and Moodle setup.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Installation and updates · Kopere BI</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../site.css">
+    <link rel="alternate" hreflang="pt-BR" href="../pt_br/instalacao.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../pt_br/instalacao.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="index.html">Overview</a>
+            <a href="instalacao.html" class="active" aria-current="page">Installation</a>
+            <a href="dashboards.html">Dashboards</a>
+            <a href="visualizacoes.html">Charts and filters</a>
+            <a href="relatorios.html">Reports</a>
+            <a href="learning-analytics.html">Learning Analytics</a>
+            <a href="integracoes.html">MCP integration</a>
+            <a href="operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <div class="crumb">
+                <a href="index.html">Kopere BI</a> / Installation
+            </div>
+            <div class="kicker">MOODLE PLUGIN DOCUMENTATION</div>
+            <h1>Installation and updates</h1>
+            <p class="lead">Required dependency, installation paths and Moodle setup.</p>
+            <div class="separator">
+            </div>
+            <section aria-labelledby="s0">
+                <h2 id="s0">Requirements</h2>
+                <p>The plugin component is <code>local_kopere_bi</code> and belongs in <code>local/kopere_bi</code>. The
+                    declared dependency is <code>local_kopere_dashboard</code> version <code>2026092300</code> or
+                    higher; the core requirement in <code>version.php</code> is <code>2024042200</code>. Verify the
+                    selected Moodle release in your own testing environment.</p>
+                <p>Database-aware reports and Learning Analytics documented here support MySQL and PostgreSQL.</p>
+            </section>
+            <section aria-labelledby="s1">
+                <h2 id="s1">Install</h2>
+                <ol class="steps">
+                    <li>Install <a href="https://github.com/EduardoKrausME/moodle-local-kopere_dashboard">Kopere
+                        Dashboard</a> at <code>local/kopere_dashboard</code>.
+                    </li>
+                    <li>Install this repository at <code>local/kopere_bi</code>.</li>
+                    <li>Complete the Moodle upgrade in <em>Site administration → Notifications</em> or on the command
+                        line.
+                    </li>
+                    <li>Check <code>local/kopere_bi:view</code>, <code>local/kopere_bi:manage</code>, scheduled tasks
+                        and plugin settings.
+                    </li>
+                </ol>
+                <pre><code>php admin/cli/upgrade.php --non-interactive
+php admin/cli/purge_caches.php</code></pre>
+                <p class="note">Run the commands from the Moodle root with the correct OS account after taking backups
+                    and planning an appropriate maintenance window.</p>
+            </section>
+            <section aria-labelledby="s2">
+                <h2 id="s2">Import bundled reports</h2>
+                <p>Report templates are stored under <code>db/files/page-*.json</code>. The upgrade adds missing
+                    report/database variants while preserving existing custom SQL and settings.</p>
+                <pre><code>php local/kopere_bi/cli/import_database_reports.php</code></pre>
+                <p>The importer is idempotent. For selective updates to existing analytic queries, use the separate
+                    command on the <a href="relatorios.html">Reports</a> page.</p>
+            </section>
+            <section aria-labelledby="s3">
+                <h2 id="s3">Verify access</h2>
+                <p>Open <em>Site administration → Integrations → Kopere BI</em> and confirm that compatible reports
+                    load. If the menu is missing, check the dependency, the completed upgrade and the current user's
+                    permissions.</p>
+            </section>
+            <nav class="pager" aria-label="Documentation navigation">
+                <a href="index.html">← Overview</a>
+                <a href="dashboards.html">Dashboards →</a>
+            </nav>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a>
+    · GPL v3 · Documentation based on the plugin source code.
+</footer>
+</body>
+</html>

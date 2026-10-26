@@ -1,4 +1,187 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Tabela de tarefas dos cursos que relaciona estudantes, seus envios, notas, professor avaliador e último acesso registrado ao curso."><meta name="theme-color" content="#072c3a"><title>Relatório 025 · Tarefas avaliadas por professor · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/025.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 025 · Tarefas avaliadas por professor · Kopere BI"><meta property="og:description" content="Tabela de tarefas dos cursos que relaciona estudantes, seus envios, notas, professor avaliador e último acesso registrado ao curso."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/025.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/instructors.html">Professores</a> / 025</nav><div class="kicker">RELATÓRIO 025</div><h1>Tarefas avaliadas por professor</h1><p class="lead">Tabela de tarefas dos cursos que relaciona estudantes, seus envios, notas, professor avaliador e último acesso registrado ao curso.</p><section><h2>Finalidade do relatório</h2><p>Tabela de tarefas dos cursos que relaciona estudantes, seus envios, notas, professor avaliador e último acesso registrado ao curso.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Oferece à equipe acadêmica uma visão operacional das tarefas do curso escolhido, identificando quais estudantes possuem envios, notas lançadas e registros de avaliação associados a professores.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>O parâmetro SQL dinâmico é <strong><code>:courseid</code></strong>, usado para restringir a seleção ao curso escolhido.</p><p>Os demais recortes são condições fixas: módulo Moodle do tipo <code>assign</code>, usuários atribuídos ao papel ID <code>5</code> em contexto de curso, cursos visíveis, usuários não excluídos nem suspensos e conta diferente de <code>guest</code>. A subconsulta de envio exige <code>status = 'submitted'</code> e <code>latest = 1</code>, enquanto a associação de avaliação aceita <code>grade &gt; -1</code>. Não há parâmetros dinâmicos de professor, tarefa ou período.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>O relatório possui uma visualização em tabela e 1 consulta SQL, com cache, atualização e destaque de sintaxe usando Prism.js. Não existe arquivo de variante PostgreSQL separado para este relatório.</p><details class="report-block" open><summary>1. Tarefas avaliadas por professor · Tabela</summary><div class="inner"><p>Uma tabela com nome da tarefa, curso e categoria, informações do estudante, nome do avaliador, datas associadas à nota e ao envio, nota percentual e último acesso do estudante ao curso. O SQL parte das atividades de tarefa do curso e das atribuições do papel de estudante de ID 5.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_gi.itemname                            AS activity_name,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Tabela de tarefas dos cursos que relaciona estudantes, seus envios, notas, professor avaliador e último acesso registrado ao curso.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 025 · Tarefas avaliadas por professor · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/025.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 025 · Tarefas avaliadas por professor · Kopere BI">
+    <meta property="og:description"
+          content="Tabela de tarefas dos cursos que relaciona estudantes, seus envios, notas, professor avaliador e último acesso registrado ao curso.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/025.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/instructors.html">Professores</a> / 025
+            </nav>
+            <div class="kicker">RELATÓRIO 025</div>
+            <h1>Tarefas avaliadas por professor</h1>
+            <p class="lead">Tabela de tarefas dos cursos que relaciona estudantes, seus envios, notas, professor
+                avaliador e último acesso registrado ao curso.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Tabela de tarefas dos cursos que relaciona estudantes, seus envios, notas, professor avaliador e
+                    último acesso registrado ao curso.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Oferece à equipe acadêmica uma visão operacional das tarefas do curso escolhido, identificando quais
+                    estudantes possuem envios, notas lançadas e registros de avaliação associados a professores.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros disponíveis</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p>O parâmetro SQL dinâmico é <strong><code>:courseid</code></strong>, usado para restringir a seleção
+                    ao curso escolhido.</p>
+                <p>Os demais recortes são condições fixas: módulo Moodle do tipo <code>assign</code>, usuários
+                    atribuídos ao papel ID <code>5</code> em contexto de curso, cursos visíveis, usuários não excluídos
+                    nem suspensos e conta diferente de <code>guest</code>. A subconsulta de envio exige <code>status =
+                        'submitted'</code> e <code>latest = 1</code>, enquanto a associação de avaliação aceita <code>grade
+                        &gt; -1</code>. Não há parâmetros dinâmicos de professor, tarefa ou período.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL original integral</h2>
+                <p>O relatório possui uma visualização em tabela e 1 consulta SQL, com cache, atualização e destaque de
+                    sintaxe usando Prism.js. Não existe arquivo de variante PostgreSQL separado para este relatório.</p>
+                <details class="report-block" open>
+                    <summary>1. Tarefas avaliadas por professor · Tabela</summary>
+                    <div class="inner">
+                        <p>Uma tabela com nome da tarefa, curso e categoria, informações do estudante,
+                            nome do avaliador, datas associadas à nota e ao envio, nota percentual e último acesso do
+                            estudante ao curso. O SQL parte das atividades de tarefa do curso e das atribuições do papel
+                            de
+                            estudante de ID 5.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_gi.itemname                            AS activity_name,
        kbi_g.userid,
        kbi_u.username,
        kbi_u.firstname,
@@ -43,4 +226,69 @@ WHERE kbi_c.id &gt; 0
   AND kbi_u.deleted = 0
   AND kbi_u.suspended = 0
   AND kbi_u.username != &#39;guest&#39;
-  AND kbi_c.visible = 1</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>A tabela não é filtrada por professor: o identificador do estudante e suas notas são apresentados junto ao nome do avaliador quando existe registro correspondente. O título não implica seleção de um professor específico.</li><li>O campo <code>graduated</code> representa <code>kbi_g.timemodified</code>, a alteração do registro de nota, enquanto <code>need_grade_assignment</code> representa <code>kbi_sg.timemodified</code>, apesar da nomenclatura potencialmente confusa.</li><li>A consulta usa junções opcionais de nota, entrega e avaliação; linhas sem envio ou nota podem aparecer. A ausência de nota não significa, por si só, envio pendente.</li><li>O SQL associa itens de nota por instância e módulo do tipo <code>assign</code>; em cenários com dados incomuns de avaliação, verifique se as notas correspondem à tarefa esperada.</li><li>A consulta não impõe filtro explícito de visibilidade de módulo ou exclusão em andamento para cada tarefa; a visibilidade é aplicada somente ao curso.</li><li>Os dados incluem nome e identificação dos estudantes, desempenho e docente avaliador. Restrinja acesso e exportação segundo as regras institucionais de privacidade.</li><li>Não há definição PostgreSQL separada neste relatório; a compatibilidade efetiva do SQL deve ser verificada no SGBD utilizado.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-025.json" target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="024.html">← Relatório 024</a><a href="026.html">Relatório 026 →</a></nav><section class="related-reports" aria-labelledby="related-title-025"><h2 id="related-title-025">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="028.html"><span class="related-number">Relatório 028</span><span class="related-title">Participação dos professores em tarefas</span><span class="related-category">Professores e tutores</span></a><a class="related-card" href="026.html"><span class="related-number">Relatório 026</span><span class="related-title">Estatísticas dos fóruns por professor</span><span class="related-category">Professores e tutores</span></a><a class="related-card" href="027.html"><span class="related-number">Relatório 027</span><span class="related-title">Detalhes do engajamento dos professores em atividades</span><span class="related-category">Professores e tutores</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/instructors.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+  AND kbi_c.visible = 1</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul>
+                    <li>A tabela não é filtrada por professor: o identificador do estudante e suas notas são
+                        apresentados junto ao nome do avaliador quando existe registro correspondente. O título não
+                        implica seleção de um professor específico.
+                    </li>
+                    <li>O campo <code>graduated</code> representa <code>kbi_g.timemodified</code>, a alteração do
+                        registro de nota, enquanto <code>need_grade_assignment</code> representa <code>kbi_sg.timemodified</code>,
+                        apesar da nomenclatura potencialmente confusa.
+                    </li>
+                    <li>A consulta usa junções opcionais de nota, entrega e avaliação; linhas sem envio ou nota podem
+                        aparecer. A ausência de nota não significa, por si só, envio pendente.
+                    </li>
+                    <li>O SQL associa itens de nota por instância e módulo do tipo <code>assign</code>; em cenários com
+                        dados incomuns de avaliação, verifique se as notas correspondem à tarefa esperada.
+                    </li>
+                    <li>A consulta não impõe filtro explícito de visibilidade de módulo ou exclusão em andamento para
+                        cada tarefa; a visibilidade é aplicada somente ao curso.
+                    </li>
+                    <li>Os dados incluem nome e identificação dos estudantes, desempenho e docente avaliador. Restrinja
+                        acesso e exportação segundo as regras institucionais de privacidade.
+                    </li>
+                    <li>Não há definição PostgreSQL separada neste relatório; a compatibilidade efetiva do SQL deve ser
+                        verificada no SGBD utilizado.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Fontes técnicas</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-025.json"
+                       target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="024.html">← Relatório 024</a>
+                <a href="026.html">Relatório 026 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-025">
+                <h2 id="related-title-025">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="028.html"><span class="related-number">Relatório 028</span><span
+                            class="related-title">Participação dos professores em tarefas</span><span
+                            class="related-category">Professores e tutores</span></a>
+                    <a class="related-card" href="026.html"><span class="related-number">Relatório 026</span><span
+                            class="related-title">Estatísticas dos fóruns por professor</span><span
+                            class="related-category">Professores e tutores</span></a>
+                    <a class="related-card" href="027.html"><span class="related-number">Relatório 027</span><span
+                            class="related-title">Detalhes do engajamento dos professores em atividades</span><span
+                            class="related-category">Professores e tutores</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/instructors.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

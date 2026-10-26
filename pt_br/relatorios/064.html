@@ -1,4 +1,191 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Detalha tentativas de questionários realizadas por usuários com registros de inscrição no curso selecionado, incluindo pontuações, duração calculada, situação da tentativa e indicadores de conclusão."><meta name="theme-color" content="#072c3a"><title>Relatório 064 · Atividade nos questionários por estudante · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/064.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 064 · Atividade nos questionários por estudante · Kopere BI"><meta property="og:description" content="Detalha tentativas de questionários realizadas por usuários com registros de inscrição no curso selecionado, incluindo pontuações, duração calculada, situação da tentativa e indicadores de conclusão."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/064.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/quizzes.html">Questionários</a> / 064</nav><div class="kicker">RELATÓRIO 064</div><h1>Atividade nos questionários por estudante</h1><p class="lead">Detalha tentativas de questionários realizadas por usuários com registros de inscrição no curso selecionado, incluindo pontuações, duração calculada, situação da tentativa e indicadores de conclusão.</p><section><h2>Finalidade do relatório</h2><p>Detalha tentativas de questionários realizadas por usuários com registros de inscrição no curso selecionado, incluindo pontuações, duração calculada, situação da tentativa e indicadores de conclusão.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Permite a docentes e coordenações investigar tentativas individuais de questionários, observar valores mínimos e máximos apurados por usuário e conferir datas e estados associados às atividades avaliativas.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>O filtro dinâmico é <strong>Curso</strong>, vinculado a <code>:courseid</code>, presente uma vez na condição principal <code>WHERE kbi_c.id = :courseid</code>.</p><p>A consulta exige participante não excluído, não suspenso e diferente de <code>guest</code>, com algum registro de matrícula associado ao curso. O contexto inclui todos os estados de tentativa, sem condições de <code>preview = 0</code> ou <code>state = 'finished'</code>, e não exige matrícula vigente, curso visível, módulo visível ou papel específico de estudante.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>O relatório contém uma visualização em tabela com a consulta SQL original integral, cache, atualização e destaque de sintaxe com Prism.js. Não existe arquivo PostgreSQL separado no catálogo de definições.</p><details class="report-block" open><summary>1. Atividade nos questionários por estudante · Tabela</summary><div class="inner"><p>Uma tabela por tentativa registrada, com ID da tentativa, curso, questionário, usuário, número da tentativa, maior e menor pontuação percentual agregada por usuário e questionário, duração em segundos, status e término da matrícula, estado da tentativa, última finalização, primeira data calculada de conclusão, pontuação bruta, nota máxima, nota de aprovação e alteração do registro de conclusão do módulo.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_qa.id                        as quiz_attempt_id,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Detalha tentativas de questionários realizadas por usuários com registros de inscrição no curso selecionado, incluindo pontuações, duração calculada, situação da tentativa e indicadores de conclusão.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 064 · Atividade nos questionários por estudante · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/064.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 064 · Atividade nos questionários por estudante · Kopere BI">
+    <meta property="og:description"
+          content="Detalha tentativas de questionários realizadas por usuários com registros de inscrição no curso selecionado, incluindo pontuações, duração calculada, situação da tentativa e indicadores de conclusão.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/064.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/quizzes.html">Questionários</a> / 064
+            </nav>
+            <div class="kicker">RELATÓRIO 064</div>
+            <h1>Atividade nos questionários por estudante</h1>
+            <p class="lead">Detalha tentativas de questionários realizadas por usuários com registros de inscrição no
+                curso selecionado, incluindo pontuações, duração calculada, situação da tentativa e indicadores de
+                conclusão.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Detalha tentativas de questionários realizadas por usuários com registros de inscrição no curso
+                    selecionado, incluindo pontuações, duração calculada, situação da tentativa e indicadores de
+                    conclusão.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Permite a docentes e coordenações investigar tentativas individuais de questionários, observar
+                    valores mínimos e máximos apurados por usuário e conferir datas e estados associados às atividades
+                    avaliativas.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros disponíveis</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p>O filtro dinâmico é <strong>Curso</strong>, vinculado a <code>:courseid</code>, presente uma vez na
+                    condição principal <code>WHERE kbi_c.id = :courseid</code>.</p>
+                <p>A consulta exige participante não excluído, não suspenso e diferente de <code>guest</code>, com algum
+                    registro de matrícula associado ao curso. O contexto inclui todos os estados de tentativa, sem
+                    condições de <code>preview = 0</code> ou <code>state = 'finished'</code>, e não exige matrícula
+                    vigente, curso visível, módulo visível ou papel específico de estudante.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL original integral</h2>
+                <p>O relatório contém uma visualização em tabela com a consulta SQL original integral, cache,
+                    atualização e destaque de sintaxe com Prism.js. Não existe arquivo PostgreSQL separado no catálogo
+                    de definições.</p>
+                <details class="report-block" open>
+                    <summary>1. Atividade nos questionários por estudante · Tabela</summary>
+                    <div class="inner">
+                        <p>Uma tabela por tentativa registrada, com ID da tentativa, curso, questionário,
+                            usuário, número da tentativa, maior e menor pontuação percentual agregada por usuário e
+                            questionário, duração em segundos, status e término da matrícula, estado da tentativa,
+                            última
+                            finalização, primeira data calculada de conclusão, pontuação bruta, nota máxima, nota de
+                            aprovação e alteração do registro de conclusão do módulo.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_qa.id                        as quiz_attempt_id,
        kbi_c.fullname                   AS course_name,
        kbi_q.name                       AS quiz_name,
        kbi_u.id,
@@ -49,4 +236,75 @@ FROM mdl_quiz_attempts kbi_qa
 WHERE kbi_c.id = :courseid
   AND kbi_u.deleted = 0
   AND kbi_u.suspended = 0
-  AND kbi_u.username != &#39;guest&#39;</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>O resultado possui uma linha por tentativa de questionário, mas <code>highest_grade</code> e <code>lowest_grade</code> são métricas agregadas de todas as tentativas do usuário naquele questionário, repetidas em cada uma delas.</li><li>Os percentuais máximo e mínimo dividem a pontuação da tentativa por <code>kbi_q1.sumgrades</code>, sem proteção contra nota máxima igual a zero (<code>NULLIF</code> ausente).</li><li>A duração <code>timespend</code> é <code>timefinish - timestart</code>. Tentativas em andamento podem apresentar tempo inválido ou negativo, pois não há filtro de estado de finalização.</li><li>A coluna <code>first_completed_date</code> usa <code>MIN(kbi_qa1.timefinish)</code> em todas as tentativas, inclusive registros com término zero. Portanto, não corresponde necessariamente à primeira tentativa realmente concluída.</li><li>O campo <code>latest_submission</code> considera somente tentativas com estado <code>finished</code>, mas o agrupamento de notas máximas e mínimas não aplica essa restrição.</li><li>A situação e data final da matrícula são produzidas por <code>MIN(status)</code> e <code>MIN(timeend)</code> de todas as inscrições do usuário no curso, sem garantir que se refiram à mesma inscrição.</li><li>O SQL não verifica <code>kbi_c.visible</code> ou <code>kbi_cm.visible</code> e não restringe o papel do participante. Dados de curso ou atividade ocultos podem aparecer dependendo das permissões do relatório.</li><li>O campo <code>finalgrade</code> é <code>kbi_qa.sumgrades</code>, pontuação bruta da tentativa, e não necessariamente a nota final consolidada do livro de notas. Não há variante PostgreSQL separada no catálogo.</li></ul></section><section><h2>Fonte técnica</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-064.json" target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="063.html">← Relatório 063</a><a href="065.html">Relatório 065 →</a></nav><section class="related-reports" aria-labelledby="related-title-064"><h2 id="related-title-064">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="067.html"><span class="related-number">Relatório 067</span><span class="related-title">Detalhes das notas dos questionários por estudante</span><span class="related-category">Questionários</span></a><a class="related-card" href="062.html"><span class="related-number">Relatório 062</span><span class="related-title">Estrutura das questões dos questionários</span><span class="related-category">Questionários</span></a><a class="related-card" href="063.html"><span class="related-number">Relatório 063</span><span class="related-title">Estatísticas de desempenho dos questionários</span><span class="related-category">Questionários</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/quizzes.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+  AND kbi_u.username != &#39;guest&#39;</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul>
+                    <li>O resultado possui uma linha por tentativa de questionário, mas <code>highest_grade</code> e
+                        <code>lowest_grade</code> são métricas agregadas de todas as tentativas do usuário naquele
+                        questionário, repetidas em cada uma delas.
+                    </li>
+                    <li>Os percentuais máximo e mínimo dividem a pontuação da tentativa por
+                        <code>kbi_q1.sumgrades</code>, sem proteção contra nota máxima igual a zero (<code>NULLIF</code>
+                        ausente).
+                    </li>
+                    <li>A duração <code>timespend</code> é <code>timefinish - timestart</code>. Tentativas em andamento
+                        podem apresentar tempo inválido ou negativo, pois não há filtro de estado de finalização.
+                    </li>
+                    <li>A coluna <code>first_completed_date</code> usa <code>MIN(kbi_qa1.timefinish)</code> em todas as
+                        tentativas, inclusive registros com término zero. Portanto, não corresponde necessariamente à
+                        primeira tentativa realmente concluída.
+                    </li>
+                    <li>O campo <code>latest_submission</code> considera somente tentativas com estado
+                        <code>finished</code>, mas o agrupamento de notas máximas e mínimas não aplica essa restrição.
+                    </li>
+                    <li>A situação e data final da matrícula são produzidas por <code>MIN(status)</code> e <code>MIN(timeend)</code>
+                        de todas as inscrições do usuário no curso, sem garantir que se refiram à mesma inscrição.
+                    </li>
+                    <li>O SQL não verifica <code>kbi_c.visible</code> ou <code>kbi_cm.visible</code> e não restringe o
+                        papel do participante. Dados de curso ou atividade ocultos podem aparecer dependendo das
+                        permissões do relatório.
+                    </li>
+                    <li>O campo <code>finalgrade</code> é <code>kbi_qa.sumgrades</code>, pontuação bruta da tentativa, e
+                        não necessariamente a nota final consolidada do livro de notas. Não há variante PostgreSQL
+                        separada no catálogo.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Fonte técnica</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-064.json"
+                       target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="063.html">← Relatório 063</a>
+                <a href="065.html">Relatório 065 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-064">
+                <h2 id="related-title-064">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="067.html"><span class="related-number">Relatório 067</span><span
+                            class="related-title">Detalhes das notas dos questionários por estudante</span><span
+                            class="related-category">Questionários</span></a>
+                    <a class="related-card" href="062.html"><span class="related-number">Relatório 062</span><span
+                            class="related-title">Estrutura das questões dos questionários</span><span
+                            class="related-category">Questionários</span></a>
+                    <a class="related-card" href="063.html"><span class="related-number">Relatório 063</span><span
+                            class="related-title">Estatísticas de desempenho dos questionários</span><span
+                            class="related-category">Questionários</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/quizzes.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

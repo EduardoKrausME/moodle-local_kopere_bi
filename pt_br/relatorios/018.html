@@ -1,16 +1,186 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Reúne estudantes com papel atribuído em contextos de curso, quantidade de cursos associados e tempo registrado pelo Kopere BI no site, nos cursos e nas atividades."><meta name="theme-color" content="#072c3a"><title>Relatório 018 · Engajamento dos usuários · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>
-.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}
-.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}
-.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}
-.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}
-.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}
-.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}
-.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}
-.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}
-.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}
-.report-meta{color:#54707b;font-size:13px}
-@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}
-</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/018.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 018 · Engajamento dos usuários · Kopere BI"><meta property="og:description" content="Reúne estudantes com papel atribuído em contextos de curso, quantidade de cursos associados e tempo registrado pelo Kopere BI no site, nos cursos e nas atividades."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/018.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/users.html">Usuários e perfis</a> / 018</nav><div class="kicker">RELATÓRIO 018</div><h1>Engajamento dos usuários</h1><p class="lead">Reúne estudantes com papel atribuído em contextos de curso, quantidade de cursos associados e tempo registrado pelo Kopere BI no site, nos cursos e nas atividades.</p><section><h2>Finalidade do relatório</h2><p>Reúne estudantes com papel atribuído em contextos de curso, quantidade de cursos associados e tempo registrado pelo Kopere BI no site, nos cursos e nas atividades.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Oferece uma visão administrativa do acompanhamento registrado por estudante, útil para triagens sobre participação geral e identificação de casos para investigação pedagógica.</p></div><div class="report-navigation"><a href="#filtros">Filtros reais</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>Não existem parâmetros SQL dinâmicos de usuário, curso, coorte ou período. O SQL considera os usuários que possuem atribuição do papel de ID <code>5</code> em contexto de curso (<code>contextlevel = 50</code>).</p><p>Também são exigidos usuários com ID maior que <code>0</code>, não excluídos, não suspensos e diferentes de <code>guest</code>. A consulta agrega os registros de acompanhamento disponíveis sem aplicar uma janela temporal.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>O relatório apresenta uma tabela e uma consulta SQL, com cache, atualização e destaque de sintaxe pela biblioteca Prism.js. Não existe variante PostgreSQL separada no catálogo original.</p><details class="report-block" open><summary>1. Engajamento dos usuários · Tabela</summary><div class="inner"><p>Tabela com dados de identificação do usuário e criação da conta, quantidade de cursos distintos com atribuição do papel de ID 5 e três medidas de tempo: total do site, registros associados a cursos e registros associados a atividades.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_u.id,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Reúne estudantes com papel atribuído em contextos de curso, quantidade de cursos associados e tempo registrado pelo Kopere BI no site, nos cursos e nas atividades.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 018 · Engajamento dos usuários · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>
+        .report-intro {
+            background: #e7f6f4;
+            border: 1px solid #bee1dd;
+            border-radius: 13px;
+            padding: 22px 24px;
+            margin: 22px 0
+        }
+
+        .report-intro strong {
+            font-size: 17px;
+            color: #096573
+        }
+
+        .report-intro p {
+            margin: 7px 0 0
+        }
+
+        .report-navigation {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 23px 0
+        }
+
+        .report-navigation a {
+            font-size: 13px;
+            font-weight: 750;
+            text-decoration: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            background: #e4f4f2
+        }
+
+        .report-block {
+            border: 1px solid #d9e6e9;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 18px 0
+        }
+
+        .report-block summary {
+            padding: 16px;
+            background: #eaf5f7;
+            color: #0b5261;
+            font-weight: 800;
+            cursor: pointer
+        }
+
+        .report-block summary:hover {
+            background: #d9eff0
+        }
+
+        .report-block .inner {
+            padding: 16px
+        }
+
+        .sql-variant {
+            background: #f5f9f9;
+            border: 1px solid #dbe7e9;
+            border-radius: 12px;
+            margin: 16px 0;
+            padding: 13px 15px
+        }
+
+        .sql-variant h3 {
+            font-size: 14px;
+            color: #095f6d;
+            font-weight: 800;
+            margin: 0 0 10px
+        }
+
+        .report-meta {
+            color: #54707b;
+            font-size: 13px
+        }
+
+        @media (max-width: 650px) {
+            .report-block .inner {
+                padding: 10px
+            }
+
+            .sql-variant {
+                padding: 8px
+            }
+        }
+    </style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/018.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 018 · Engajamento dos usuários · Kopere BI">
+    <meta property="og:description"
+          content="Reúne estudantes com papel atribuído em contextos de curso, quantidade de cursos associados e tempo registrado pelo Kopere BI no site, nos cursos e nas atividades.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/018.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/users.html">Usuários e perfis</a> / 018
+            </nav>
+            <div class="kicker">RELATÓRIO 018</div>
+            <h1>Engajamento dos usuários</h1>
+            <p class="lead">Reúne estudantes com papel atribuído em contextos de curso, quantidade de cursos associados
+                e tempo registrado pelo Kopere BI no site, nos cursos e nas atividades.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Reúne estudantes com papel atribuído em contextos de curso, quantidade de cursos associados e tempo
+                    registrado pelo Kopere BI no site, nos cursos e nas atividades.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Oferece uma visão administrativa do acompanhamento registrado por estudante, útil para triagens sobre
+                    participação geral e identificação de casos para investigação pedagógica.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros reais</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p>Não existem parâmetros SQL dinâmicos de usuário, curso, coorte ou período. O SQL considera os
+                    usuários que possuem atribuição do papel de ID <code>5</code> em contexto de curso (<code>contextlevel
+                        = 50</code>).</p>
+                <p>Também são exigidos usuários com ID maior que <code>0</code>, não excluídos, não suspensos e
+                    diferentes de <code>guest</code>. A consulta agrega os registros de acompanhamento disponíveis sem
+                    aplicar uma janela temporal.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL original integral</h2>
+                <p>O relatório apresenta uma tabela e uma consulta SQL, com cache, atualização e destaque de sintaxe
+                    pela biblioteca Prism.js. Não existe variante PostgreSQL separada no catálogo original.</p>
+                <details class="report-block" open>
+                    <summary>1. Engajamento dos usuários · Tabela</summary>
+                    <div class="inner">
+                        <p>Tabela com dados de identificação do usuário e criação da conta, quantidade de
+                            cursos distintos com atribuição do papel de ID 5 e três medidas de tempo: total do site,
+                            registros associados a cursos e registros associados a atividades.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_u.id,
        kbi_u.firstname,
        kbi_u.lastname,
        kbi_u.email,
@@ -33,4 +203,62 @@ WHERE kbi_u.id &gt; 0
   AND kbi_u.suspended = 0
   AND kbi_u.username != &#39;guest&#39;
   AND kbi_ra.roleid = 5
-GROUP BY kbi_u.id</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>A definição de estudante depende do papel de ID <code>5</code>. Em instalações com papéis personalizados, a população selecionada pode diferir daquela esperada.</li><li>A quantidade de cursos corresponde a contextos distintos com atribuição desse papel; não necessariamente a todas as matrículas ativas do usuário.</li><li>O tempo de site, de cursos e de atividades provém de somatórios potencialmente sobrepostos. Não some essas três colunas para obter um tempo total sem examinar os critérios de coleta.</li><li>Tempos registrados não demonstram atenção contínua, aprendizagem, cumprimento de atividades ou conclusão do curso.</li><li>Não existe período selecionável. Os números dependem da abrangência histórica e da atualização de <code>mdl_local_kopere_bi_tracking</code>.</li><li>O arquivo não disponibiliza uma variante PostgreSQL separada. Revise o SQL e as permissões de acesso a informações pessoais no seu ambiente.</li></ul></section><section><h2>Fonte técnica</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-018.json" target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="017.html">← Relatório 017</a><a href="019.html">Relatório 019 →</a></nav><section class="related-reports" aria-labelledby="related-title-018"><h2 id="related-title-018">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="011.html"><span class="related-number">Relatório 011</span><span class="related-title">Usuários inativos por curso</span><span class="related-category">Usuários e perfis</span></a><a class="related-card" href="012.html"><span class="related-number">Relatório 012</span><span class="related-title">Usuários inativos na plataforma</span><span class="related-category">Usuários e perfis</span></a><a class="related-card" href="016.html"><span class="related-number">Relatório 016</span><span class="related-title">Sistemas operacionais e navegadores por usuário</span><span class="related-category">Usuários e perfis</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/users.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+GROUP BY kbi_u.id</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul>
+                    <li>A definição de estudante depende do papel de ID <code>5</code>. Em instalações com papéis
+                        personalizados, a população selecionada pode diferir daquela esperada.
+                    </li>
+                    <li>A quantidade de cursos corresponde a contextos distintos com atribuição desse papel; não
+                        necessariamente a todas as matrículas ativas do usuário.
+                    </li>
+                    <li>O tempo de site, de cursos e de atividades provém de somatórios potencialmente sobrepostos. Não
+                        some essas três colunas para obter um tempo total sem examinar os critérios de coleta.
+                    </li>
+                    <li>Tempos registrados não demonstram atenção contínua, aprendizagem, cumprimento de atividades ou
+                        conclusão do curso.
+                    </li>
+                    <li>Não existe período selecionável. Os números dependem da abrangência histórica e da atualização
+                        de <code>mdl_local_kopere_bi_tracking</code>.
+                    </li>
+                    <li>O arquivo não disponibiliza uma variante PostgreSQL separada. Revise o SQL e as permissões de
+                        acesso a informações pessoais no seu ambiente.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Fonte técnica</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-018.json"
+                       target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="017.html">← Relatório 017</a>
+                <a href="019.html">Relatório 019 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-018">
+                <h2 id="related-title-018">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="011.html"><span class="related-number">Relatório 011</span><span
+                            class="related-title">Usuários inativos por curso</span><span class="related-category">Usuários e perfis</span></a>
+                    <a class="related-card" href="012.html"><span class="related-number">Relatório 012</span><span
+                            class="related-title">Usuários inativos na plataforma</span><span class="related-category">Usuários e perfis</span></a>
+                    <a class="related-card" href="016.html"><span class="related-number">Relatório 016</span><span
+                            class="related-title">Sistemas operacionais e navegadores por usuário</span><span
+                            class="related-category">Usuários e perfis</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/users.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

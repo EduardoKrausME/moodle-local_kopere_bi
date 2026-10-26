@@ -1,7 +1,100 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Separate reporting access from administrative editing."><meta name="theme-color" content="#072c3a"><title>Permissions and privacy · Kopere BI</title><link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../site.css"></head>
-<body><a class="skip" href="#main">Skip to content</a><header class="top"><div class="top-inner"><a class="brand" href="index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a></div></div></header>
-<div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentation</div><nav class="nav" aria-label="Documentation sections"><a href="index.html">Overview</a><a href="instalacao.html">Installation</a><a href="dashboards.html">Dashboards</a><a href="visualizacoes.html">Charts and filters</a><a href="relatorios.html">Reports</a><a href="learning-analytics.html">Learning Analytics</a><a href="integracoes.html">MCP integration</a><a href="operacao.html">Operations</a></nav></aside>
-<main id="main" class="main"><article class="article"><div class="crumb"><a href="index.html">Kopere BI</a> / Security</div><div class="kicker">MOODLE PLUGIN DOCUMENTATION</div><h1>Permissions and privacy</h1><p class="lead">Separate reporting access from administrative editing.</p><div class="separator"></div><section aria-labelledby="s0"><h2 id="s0">Capabilities</h2><table><thead><tr><th>Capability</th><th>Purpose</th></tr></thead><tbody><tr><td><code>local/kopere_bi:view</code></td><td>View authorized dashboards.</td></tr><tr><td><code>local/kopere_bi:manage</code></td><td>Create, edit, import, export and manage dashboards.</td></tr></tbody></table><p>Both are system-context capabilities and granted to the <code>manager</code> role archetype by default in <code>db/access.php</code>.</p></section>
-<section aria-labelledby="s1"><h2 id="s1">Reporting access is data access</h2><p>Access to a page does not automatically mean access to every personal record returned by its custom SQL. Apply page capabilities and visibility, limit datasets, review export paths and test actual permissions using non-administrator accounts.</p><ul><li>Restrict SQL authoring to trusted administrators.</li><li>Prefer aggregated values where personal detail is unnecessary.</li><li>Review filters, course scope and report exports.</li><li>Respect your institution’s retention and privacy policies.</li></ul></section>
-<section aria-labelledby="s2"><h2 id="s2">External reading</h2><p>The optional MCP integration enforces the MCP READ scope, <code>local/kopere_bi:view</code>, page access and feature switches. Access to other users or changing cohort filters also requires the relevant manage permission. See <a href="integracoes.html">MCP integration</a>.</p></section><nav class="pager" aria-label="Documentation navigation"><a href="learning-analytics.html">← Learning Analytics</a><a href="integracoes.html">MCP integration →</a></nav></article></main></div><footer class="foot">Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a> · GPL v3 · Documentation based on the plugin source code.</footer></body></html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Separate reporting access from administrative editing.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Permissions and privacy · Kopere BI</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="index.html">Overview</a>
+            <a href="instalacao.html">Installation</a>
+            <a href="dashboards.html">Dashboards</a>
+            <a href="visualizacoes.html">Charts and filters</a>
+            <a href="relatorios.html">Reports</a>
+            <a href="learning-analytics.html">Learning Analytics</a>
+            <a href="integracoes.html">MCP integration</a>
+            <a href="operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <div class="crumb">
+                <a href="index.html">Kopere BI</a> / Security
+            </div>
+            <div class="kicker">MOODLE PLUGIN DOCUMENTATION</div>
+            <h1>Permissions and privacy</h1>
+            <p class="lead">Separate reporting access from administrative editing.</p>
+            <div class="separator">
+            </div>
+            <section aria-labelledby="s0">
+                <h2 id="s0">Capabilities</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Capability</th>
+                        <th>Purpose</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><code>local/kopere_bi:view</code></td>
+                        <td>View authorized dashboards.</td>
+                    </tr>
+                    <tr>
+                        <td><code>local/kopere_bi:manage</code></td>
+                        <td>Create, edit, import, export and manage dashboards.</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Both are system-context capabilities and granted to the <code>manager</code> role archetype by
+                    default in <code>db/access.php</code>.</p>
+            </section>
+            <section aria-labelledby="s1">
+                <h2 id="s1">Reporting access is data access</h2>
+                <p>Access to a page does not automatically mean access to every personal record returned by its custom
+                    SQL. Apply page capabilities and visibility, limit datasets, review export paths and test actual
+                    permissions using non-administrator accounts.</p>
+                <ul>
+                    <li>Restrict SQL authoring to trusted administrators.</li>
+                    <li>Prefer aggregated values where personal detail is unnecessary.</li>
+                    <li>Review filters, course scope and report exports.</li>
+                    <li>Respect your institution’s retention and privacy policies.</li>
+                </ul>
+            </section>
+            <section aria-labelledby="s2">
+                <h2 id="s2">External reading</h2>
+                <p>The optional MCP integration enforces the MCP READ scope, <code>local/kopere_bi:view</code>, page
+                    access and feature switches. Access to other users or changing cohort filters also requires the
+                    relevant manage permission. See <a href="integracoes.html">MCP integration</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Documentation navigation">
+                <a href="learning-analytics.html">← Learning Analytics</a>
+                <a href="integracoes.html">MCP integration →</a>
+            </nav>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+Kopere BI · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">https://github.com/EduardoKrausME/moodle-local_kopere_bi</a>
+    · GPL v3 · Documentation based on the plugin source code.
+</footer>
+</body>
+</html>

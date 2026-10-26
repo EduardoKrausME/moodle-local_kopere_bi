@@ -1,4 +1,187 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Calcula, por plano de aprendizagem baseado em um modelo de competências, uma estimativa percentual de proficiência, além de informar seu proprietário, status e uma data calculada quando a estimativa alcança 100%."><meta name="theme-color" content="#072c3a"><title>Relatório 086 · Progresso nos planos de aprendizagem · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/086.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 086 · Progresso nos planos de aprendizagem · Kopere BI"><meta property="og:description" content="Calcula, por plano de aprendizagem baseado em um modelo de competências, uma estimativa percentual de proficiência, além de informar seu proprietário, status e uma data calculada quando a estimativa alcança 100%."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/086.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/competencies.html">Competências</a> / 086</nav><div class="kicker">RELATÓRIO 086</div><h1>Progresso nos planos de aprendizagem</h1><p class="lead">Calcula, por plano de aprendizagem baseado em um modelo de competências, uma estimativa percentual de proficiência, além de informar seu proprietário, status e uma data calculada quando a estimativa alcança 100%.</p><section><h2>Finalidade do relatório</h2><p>Calcula, por plano de aprendizagem baseado em um modelo de competências, uma estimativa percentual de proficiência, além de informar seu proprietário, status e uma data calculada quando a estimativa alcança 100%.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Apoia administradores e responsáveis pedagógicos na conferência de planos baseados em modelos e no acompanhamento preliminar da proporção de competências com registros de proficiência.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não há parâmetros SQL dinâmicos</strong> de curso, pessoa, plano, competência, modelo ou período.</p><p>A consulta considera modelos em <code>mdl_competency_template</code> e planos com <code>kbi_cp.id IS NOT NULL</code>. Ela associa competências pelo modelo e registros de proficiência pelo usuário e pela competência. O agrupamento ocorre por plano e usuário, ordenado por sobrenome, nome e nome do plano.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>O relatório apresenta uma visualização em tabela com a consulta SQL original integral, configuração de cache e atualização e realce de sintaxe usando Prism.js. Não existe variante PostgreSQL separada no catálogo de definições.</p><details class="report-block" open><summary>1. Progresso nos planos de aprendizagem · Tabela</summary><div class="inner"><p>Uma tabela por plano com ID, nome e sobrenome do usuário, identificador do usuário, título, data de criação e status do plano, percentual calculado de progresso, data calculada de conclusão e ID do modelo de plano.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_cp.id,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Calcula, por plano de aprendizagem baseado em um modelo de competências, uma estimativa percentual de proficiência, além de informar seu proprietário, status e uma data calculada quando a estimativa alcança 100%.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 086 · Progresso nos planos de aprendizagem · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/086.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 086 · Progresso nos planos de aprendizagem · Kopere BI">
+    <meta property="og:description"
+          content="Calcula, por plano de aprendizagem baseado em um modelo de competências, uma estimativa percentual de proficiência, além de informar seu proprietário, status e uma data calculada quando a estimativa alcança 100%.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/086.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/competencies.html">Competências</a> / 086
+            </nav>
+            <div class="kicker">RELATÓRIO 086</div>
+            <h1>Progresso nos planos de aprendizagem</h1>
+            <p class="lead">Calcula, por plano de aprendizagem baseado em um modelo de competências, uma estimativa
+                percentual de proficiência, além de informar seu proprietário, status e uma data calculada quando a
+                estimativa alcança 100%.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Calcula, por plano de aprendizagem baseado em um modelo de competências, uma estimativa percentual de
+                    proficiência, além de informar seu proprietário, status e uma data calculada quando a estimativa
+                    alcança 100%.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Apoia administradores e responsáveis pedagógicos na conferência de planos baseados em modelos e no
+                    acompanhamento preliminar da proporção de competências com registros de proficiência.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros disponíveis</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p><strong>Não há parâmetros SQL dinâmicos</strong> de curso, pessoa, plano, competência, modelo ou
+                    período.</p>
+                <p>A consulta considera modelos em <code>mdl_competency_template</code> e planos com <code>kbi_cp.id IS
+                    NOT NULL</code>. Ela associa competências pelo modelo e registros de proficiência pelo usuário e
+                    pela competência. O agrupamento ocorre por plano e usuário, ordenado por sobrenome, nome e nome do
+                    plano.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL original integral</h2>
+                <p>O relatório apresenta uma visualização em tabela com a consulta SQL original integral, configuração
+                    de cache e atualização e realce de sintaxe usando Prism.js. Não existe variante PostgreSQL separada
+                    no catálogo de definições.</p>
+                <details class="report-block" open>
+                    <summary>1. Progresso nos planos de aprendizagem · Tabela</summary>
+                    <div class="inner">
+                        <p>Uma tabela por plano com ID, nome e sobrenome do usuário, identificador do
+                            usuário, título, data de criação e status do plano, percentual calculado de progresso, data
+                            calculada de conclusão e ID do modelo de plano.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_cp.id,
        kbi_u.firstname,
        kbi_u.lastname,
        kbi_u.id                                                  AS userid,
@@ -17,4 +200,73 @@ FROM mdl_competency_template kbi_ct
        LEFT JOIN mdl_user kbi_u ON kbi_u.id = kbi_cp.userid
 WHERE kbi_cp.id IS NOT NULL
 GROUP BY kbi_cp.id, kbi_u.id
-ORDER BY kbi_u.lastname, kbi_u.firstname, kbi_cp.name</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>O campo <code>progress</code> usa <code>SUM(kbi_cu.proficiency) / COUNT(kbi_ctc.id) * 100</code>. Isso pressupõe que os valores de proficiência sejam utilizáveis como indicadores numéricos, mas não corresponde necessariamente ao percentual oficial de conclusão do plano.</li><li>A consulta não utiliza <code>COALESCE</code> para transformar a ausência de registros de proficiência em zero. Planos sem valores de proficiência podem apresentar <code>progress</code> nulo.</li><li>Quando o modelo não contém competências, o denominador <code>COUNT(kbi_ctc.id)</code> pode ser zero. O SQL não contém <code>NULLIF</code> para proteger a divisão por zero.</li><li>Registros duplicados ou múltiplas relações de proficiência para uma mesma competência podem alterar numerador e contagem intermediária; a consulta não conta explicitamente competências distintas com proficiência.</li><li>A coluna <code>completion_date</code> retorna o maior <code>mdl_competency_usercomp.timecreated</code> quando o percentual calculado alcança 100% ou mais. Esse valor é a data de criação do registro de competência do usuário, não necessariamente a data oficial de conclusão do plano.</li><li>O valor <code>0</code> em <code>completion_date</code> significa que o cálculo não atingiu o limiar de 100%, não uma data válida.</li><li>A consulta não exige <code>kbi_cp.status</code> específico, não verifica usuários excluídos ou suspensos nem filtra por curso ou plano de aprendizagem individual.</li><li>O nome e os indicadores devem ser interpretados considerando a configuração e a atualização das proficiências. Não existe arquivo PostgreSQL separado.</li></ul></section><section><h2>Fonte técnica</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-086.json" target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="085.html">← Relatório 085</a><a href="087.html">Relatório 087 →</a></nav><section class="related-reports" aria-labelledby="related-title-086"><h2 id="related-title-086">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="087.html"><span class="related-number">Relatório 087</span><span class="related-title">Detalhes do progresso nos planos de aprendizagem</span><span class="related-category">Competências, planos e selos</span></a><a class="related-card" href="084.html"><span class="related-number">Relatório 084</span><span class="related-title">Evidências de competências</span><span class="related-category">Competências, planos e selos</span></a><a class="related-card" href="085.html"><span class="related-number">Relatório 085</span><span class="related-title">Resultados dos cursos</span><span class="related-category">Competências, planos e selos</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/competencies.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+ORDER BY kbi_u.lastname, kbi_u.firstname, kbi_cp.name</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul>
+                    <li>O campo <code>progress</code> usa <code>SUM(kbi_cu.proficiency) / COUNT(kbi_ctc.id) * 100</code>.
+                        Isso pressupõe que os valores de proficiência sejam utilizáveis como indicadores numéricos, mas
+                        não corresponde necessariamente ao percentual oficial de conclusão do plano.
+                    </li>
+                    <li>A consulta não utiliza <code>COALESCE</code> para transformar a ausência de registros de
+                        proficiência em zero. Planos sem valores de proficiência podem apresentar <code>progress</code>
+                        nulo.
+                    </li>
+                    <li>Quando o modelo não contém competências, o denominador <code>COUNT(kbi_ctc.id)</code> pode ser
+                        zero. O SQL não contém <code>NULLIF</code> para proteger a divisão por zero.
+                    </li>
+                    <li>Registros duplicados ou múltiplas relações de proficiência para uma mesma competência podem
+                        alterar numerador e contagem intermediária; a consulta não conta explicitamente competências
+                        distintas com proficiência.
+                    </li>
+                    <li>A coluna <code>completion_date</code> retorna o maior
+                        <code>mdl_competency_usercomp.timecreated</code> quando o percentual calculado alcança 100% ou
+                        mais. Esse valor é a data de criação do registro de competência do usuário, não necessariamente
+                        a data oficial de conclusão do plano.
+                    </li>
+                    <li>O valor <code>0</code> em <code>completion_date</code> significa que o cálculo não atingiu o
+                        limiar de 100%, não uma data válida.
+                    </li>
+                    <li>A consulta não exige <code>kbi_cp.status</code> específico, não verifica usuários excluídos ou
+                        suspensos nem filtra por curso ou plano de aprendizagem individual.
+                    </li>
+                    <li>O nome e os indicadores devem ser interpretados considerando a configuração e a atualização das
+                        proficiências. Não existe arquivo PostgreSQL separado.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Fonte técnica</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-086.json"
+                       target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="085.html">← Relatório 085</a>
+                <a href="087.html">Relatório 087 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-086">
+                <h2 id="related-title-086">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="087.html"><span class="related-number">Relatório 087</span><span
+                            class="related-title">Detalhes do progresso nos planos de aprendizagem</span><span
+                            class="related-category">Competências, planos e selos</span></a>
+                    <a class="related-card" href="084.html"><span class="related-number">Relatório 084</span><span
+                            class="related-title">Evidências de competências</span><span class="related-category">Competências, planos e selos</span></a>
+                    <a class="related-card" href="085.html"><span class="related-number">Relatório 085</span><span
+                            class="related-title">Resultados dos cursos</span><span class="related-category">Competências, planos e selos</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/competencies.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

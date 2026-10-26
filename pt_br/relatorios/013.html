@@ -1,18 +1,191 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Apresenta o acompanhamento de estudantes matriculados no curso selecionado, reunindo notas, referência de aprovação, conclusão, acesso registrado e medidas de participação."><meta name="theme-color" content="#072c3a"><title>Relatório 013 · Sucesso e progresso dos estudantes · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>
-.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}
-.report-intro strong{font-size:17px;color:#096573}
-.report-intro p{margin:7px 0 0}
-.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}
-.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}
-.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}
-.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}
-.report-block summary:hover{background:#d9eff0}
-.report-block .inner{padding:16px}
-.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}
-.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}
-.report-meta{color:#54707b;font-size:13px}
-@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}
-</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/013.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 013 · Sucesso e progresso dos estudantes · Kopere BI"><meta property="og:description" content="Apresenta o acompanhamento de estudantes matriculados no curso selecionado, reunindo notas, referência de aprovação, conclusão, acesso registrado e medidas de participação."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/013.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/users.html">Usuários e perfis</a> / 013</nav><div class="kicker">RELATÓRIO 013</div><h1>Sucesso e progresso dos estudantes</h1><p class="lead">Apresenta o acompanhamento de estudantes matriculados no curso selecionado, reunindo notas, referência de aprovação, conclusão, acesso registrado e medidas de participação.</p><section><h2>Finalidade do relatório</h2><p>Apresenta o acompanhamento de estudantes matriculados no curso selecionado, reunindo notas, referência de aprovação, conclusão, acesso registrado e medidas de participação.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>É útil para tutores e gestores acompanharem o progresso por estudante de um curso, identificarem possíveis dificuldades e compararem notas, critérios de aprovação, conclusão de módulos e registros de visitas.</p></div><div class="report-navigation"><a href="#filtros">Filtros reais</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>O SQL utiliza exclusivamente o parâmetro dinâmico <code>:courseid</code>, presente <strong>quatro vezes</strong>: na seleção de matrículas, nos agregados de acompanhamento, na média de notas do curso e na contagem de atividades concluídas. Esse filtro restringe os resultados ao curso escolhido.</p><p>Há também condições fixas: inscrições e métodos de inscrição com status <code>0</code>, papel de estudante com ID <code>5</code>, contas não excluídas ou suspensas, cursos visíveis e exclusão do usuário <code>guest</code>. Não existem filtros dinâmicos de usuário, coorte ou período.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>Uma visualização em tabela, com o SQL original completo e a configuração de cache e atualização. O código utiliza o destaque de sintaxe SQL do Prism.js.</p><details class="report-block" open><summary>1. Sucesso e progresso dos estudantes · Tabela</summary><div class="inner"><p>A tabela reúne por estudante e curso dados de matrícula, data de início, modalidade de inscrição, nota final e percentual, referência de aprovação, média das notas do curso, último acesso registrado, visitas, tempo acompanhado e conclusão formal do curso. A consulta combina informações de matrícula, notas, conclusão e acompanhamento do Kopere BI.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CASE
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Apresenta o acompanhamento de estudantes matriculados no curso selecionado, reunindo notas, referência de aprovação, conclusão, acesso registrado e medidas de participação.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 013 · Sucesso e progresso dos estudantes · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>
+        .report-intro {
+            background: #e7f6f4;
+            border: 1px solid #bee1dd;
+            border-radius: 13px;
+            padding: 22px 24px;
+            margin: 22px 0
+        }
+
+        .report-intro strong {
+            font-size: 17px;
+            color: #096573
+        }
+
+        .report-intro p {
+            margin: 7px 0 0
+        }
+
+        .report-navigation {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 23px 0
+        }
+
+        .report-navigation a {
+            font-size: 13px;
+            font-weight: 750;
+            text-decoration: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            background: #e4f4f2
+        }
+
+        .report-block {
+            border: 1px solid #d9e6e9;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 18px 0
+        }
+
+        .report-block summary {
+            padding: 16px;
+            background: #eaf5f7;
+            color: #0b5261;
+            font-weight: 800;
+            cursor: pointer
+        }
+
+        .report-block summary:hover {
+            background: #d9eff0
+        }
+
+        .report-block .inner {
+            padding: 16px
+        }
+
+        .sql-variant {
+            background: #f5f9f9;
+            border: 1px solid #dbe7e9;
+            border-radius: 12px;
+            margin: 16px 0;
+            padding: 13px 15px
+        }
+
+        .sql-variant h3 {
+            font-size: 14px;
+            color: #095f6d;
+            font-weight: 800;
+            margin: 0 0 10px
+        }
+
+        .report-meta {
+            color: #54707b;
+            font-size: 13px
+        }
+
+        @media (max-width: 650px) {
+            .report-block .inner {
+                padding: 10px
+            }
+
+            .sql-variant {
+                padding: 8px
+            }
+        }
+    </style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/013.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 013 · Sucesso e progresso dos estudantes · Kopere BI">
+    <meta property="og:description"
+          content="Apresenta o acompanhamento de estudantes matriculados no curso selecionado, reunindo notas, referência de aprovação, conclusão, acesso registrado e medidas de participação.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/013.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/users.html">Usuários e perfis</a> / 013
+            </nav>
+            <div class="kicker">RELATÓRIO 013</div>
+            <h1>Sucesso e progresso dos estudantes</h1>
+            <p class="lead">Apresenta o acompanhamento de estudantes matriculados no curso selecionado, reunindo notas,
+                referência de aprovação, conclusão, acesso registrado e medidas de participação.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Apresenta o acompanhamento de estudantes matriculados no curso selecionado, reunindo notas,
+                    referência de aprovação, conclusão, acesso registrado e medidas de participação.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>É útil para tutores e gestores acompanharem o progresso por estudante de um curso, identificarem
+                    possíveis dificuldades e compararem notas, critérios de aprovação, conclusão de módulos e registros
+                    de visitas.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros reais</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p>O SQL utiliza exclusivamente o parâmetro dinâmico <code>:courseid</code>, presente <strong>quatro
+                    vezes</strong>: na seleção de matrículas, nos agregados de acompanhamento, na média de notas do
+                    curso e na contagem de atividades concluídas. Esse filtro restringe os resultados ao curso
+                    escolhido.</p>
+                <p>Há também condições fixas: inscrições e métodos de inscrição com status <code>0</code>, papel de
+                    estudante com ID <code>5</code>, contas não excluídas ou suspensas, cursos visíveis e exclusão do
+                    usuário <code>guest</code>. Não existem filtros dinâmicos de usuário, coorte ou período.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL original integral</h2>
+                <p>Uma visualização em tabela, com o SQL original completo e a configuração de cache e atualização. O
+                    código utiliza o destaque de sintaxe SQL do Prism.js.</p>
+                <details class="report-block" open>
+                    <summary>1. Sucesso e progresso dos estudantes · Tabela</summary>
+                    <div class="inner">
+                        <p>A tabela reúne por estudante e curso dados de matrícula, data de início,
+                            modalidade de inscrição, nota final e percentual, referência de aprovação, média das notas
+                            do
+                            curso, último acesso registrado, visitas, tempo acompanhado e conclusão formal do curso. A
+                            consulta combina informações de matrícula, notas, conclusão e acompanhamento do Kopere
+                            BI.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CASE
          WHEN kbi_gi.grademax &gt; 0 THEN (kbi_cri.gradepass / kbi_gi.grademax) * 100
          ELSE kbi_cri.gradepass END            AS gradepass,
        kbi_cri.gradepass                       AS gradepass_raw,
@@ -100,4 +273,66 @@ WHERE kbi_u.id &gt; 0
   AND kbi_u.deleted = 0
   AND kbi_u.suspended = 0
   AND kbi_u.username != &#39;guest&#39;
-  AND kbi_c.visible = 1</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>A consulta considera atribuições com papel de ID <code>5</code> em contexto de curso; instituições com papéis personalizados devem validar o critério.</li><li>O campo de nota é calculado a partir de escalas e notas registradas. Quando faltam dados de avaliação, alguns indicadores podem ficar vazios; não interprete ausência como nota zero.</li><li>Os dados de tempo, visitas e último acesso vêm de <code>mdl_local_kopere_bi_tracking</code> e dependem dos registros efetivamente coletados; tempo não equivale a aprendizagem.</li><li>O cálculo de conclusão de atividades conta estados <code>1</code> e <code>2</code> para módulos visíveis. Isso não deve ser confundido com a conclusão formal do curso, que é apresentada em outro campo.</li><li>A junção com itens de avaliação e critérios de conclusão pode multiplicar linhas em cursos com configurações específicas. Confira agregações antes de usar os resultados em decisões institucionais.</li><li>O SQL foi mantido como publicado; contém funções de arredondamento e outras expressões cuja compatibilidade depende do SGBD e da configuração. Não há variante PostgreSQL separada neste relatório.</li></ul></section><section><h2>Fonte técnica</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-013.json" target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="012.html">← Relatório 012</a><a href="014.html">Relatório 014 →</a></nav><section class="related-reports" aria-labelledby="related-title-013"><h2 id="related-title-013">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="010.html"><span class="related-number">Relatório 010</span><span class="related-title">Sucesso e progresso por coorte</span><span class="related-category">Usuários e perfis</span></a><a class="related-card" href="098.html"><span class="related-number">Relatório 098</span><span class="related-title">Visão geral do progresso do aluno</span><span class="related-category">Estudantes</span></a><a class="related-card" href="092.html"><span class="related-number">Relatório 092</span><span class="related-title">Acessos dos estudantes por dia e período</span><span class="related-category">Usuários e perfis</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/users.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+  AND kbi_c.visible = 1</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul>
+                    <li>A consulta considera atribuições com papel de ID <code>5</code> em contexto de curso;
+                        instituições com papéis personalizados devem validar o critério.
+                    </li>
+                    <li>O campo de nota é calculado a partir de escalas e notas registradas. Quando faltam dados de
+                        avaliação, alguns indicadores podem ficar vazios; não interprete ausência como nota zero.
+                    </li>
+                    <li>Os dados de tempo, visitas e último acesso vêm de <code>mdl_local_kopere_bi_tracking</code> e
+                        dependem dos registros efetivamente coletados; tempo não equivale a aprendizagem.
+                    </li>
+                    <li>O cálculo de conclusão de atividades conta estados <code>1</code> e <code>2</code> para módulos
+                        visíveis. Isso não deve ser confundido com a conclusão formal do curso, que é apresentada em
+                        outro campo.
+                    </li>
+                    <li>A junção com itens de avaliação e critérios de conclusão pode multiplicar linhas em cursos com
+                        configurações específicas. Confira agregações antes de usar os resultados em decisões
+                        institucionais.
+                    </li>
+                    <li>O SQL foi mantido como publicado; contém funções de arredondamento e outras expressões cuja
+                        compatibilidade depende do SGBD e da configuração. Não há variante PostgreSQL separada neste
+                        relatório.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Fonte técnica</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-013.json"
+                       target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="012.html">← Relatório 012</a>
+                <a href="014.html">Relatório 014 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-013">
+                <h2 id="related-title-013">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="010.html"><span class="related-number">Relatório 010</span><span
+                            class="related-title">Sucesso e progresso por coorte</span><span class="related-category">Usuários e perfis</span></a>
+                    <a class="related-card" href="098.html"><span class="related-number">Relatório 098</span><span
+                            class="related-title">Visão geral do progresso do aluno</span><span
+                            class="related-category">Estudantes</span></a>
+                    <a class="related-card" href="092.html"><span class="related-number">Relatório 092</span><span
+                            class="related-title">Acessos dos estudantes por dia e período</span><span
+                            class="related-category">Usuários e perfis</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/users.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

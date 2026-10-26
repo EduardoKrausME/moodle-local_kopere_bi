@@ -1,4 +1,194 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Consolida pontuações por tentativa de questionário, comparando valores brutos, percentual calculado, nota ajustada à escala do questionário, nota final do livro de notas e quantidade de respostas por estado de correção."><meta name="theme-color" content="#072c3a"><title>Relatório 089 · Pontuações por tentativa do questionário · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/089.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 089 · Pontuações por tentativa do questionário · Kopere BI"><meta property="og:description" content="Consolida pontuações por tentativa de questionário, comparando valores brutos, percentual calculado, nota ajustada à escala do questionário, nota final do livro de notas e quantidade de respostas por estado de correção."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/089.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/quizzes.html">Questionários</a> / 089</nav><div class="kicker">RELATÓRIO 089</div><h1>Pontuações por tentativa do questionário</h1><p class="lead">Consolida pontuações por tentativa de questionário, comparando valores brutos, percentual calculado, nota ajustada à escala do questionário, nota final do livro de notas e quantidade de respostas por estado de correção.</p><section><h2>Finalidade do relatório</h2><p>Consolida pontuações por tentativa de questionário, comparando valores brutos, percentual calculado, nota ajustada à escala do questionário, nota final do livro de notas e quantidade de respostas por estado de correção.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Ajuda docentes e administradores a investigar diferenças entre pontuação de uma tentativa, nota calculada e nota registrada no livro de notas, além de consultar a distribuição de estados das questões.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não há parâmetros SQL dinâmicos</strong> para restringir curso, questionário, estudante, tentativa ou período nas variantes MySQL e PostgreSQL.</p><p>Os filtros fixos são <code>kbi_qa.preview = 0</code>, curso e módulo visíveis, usuário não excluído, não suspenso e diferente de <code>guest</code>. Para cada questão, o SQL relaciona o passo de maior <code>sequencenumber</code>. Não há exigência de tentativa finalizada, matrícula ativa ou papel de estudante.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>Uma visualização em tabela, com 2 consultas SQL integrais, configuração de cache e atualização e realce de sintaxe usando Prism.js. As versões MySQL e PostgreSQL equivalentes estão em caixas separadas na mesma visualização.</p><details class="report-block" open><summary>1. Pontuações por tentativa do questionário · Tabela</summary><div class="inner"><p>Uma tabela por tentativa e suas associações de nota, mostrando curso, questionário, módulo, usuário, número e datas da tentativa, estado, número de questões, soma das pontuações máximas, soma das pontuações derivadas das frações, pontuação bruta da tentativa, pontuação máxima, percentual, nota ajustada, nota máxima configurada, nota mínima de aprovação, nota final no livro de notas e contagens de questões totalmente, parcialmente e incorretamente avaliadas.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_qa.id                                                           AS id,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Consolida pontuações por tentativa de questionário, comparando valores brutos, percentual calculado, nota ajustada à escala do questionário, nota final do livro de notas e quantidade de respostas por estado de correção.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 089 · Pontuações por tentativa do questionário · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/089.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 089 · Pontuações por tentativa do questionário · Kopere BI">
+    <meta property="og:description"
+          content="Consolida pontuações por tentativa de questionário, comparando valores brutos, percentual calculado, nota ajustada à escala do questionário, nota final do livro de notas e quantidade de respostas por estado de correção.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/089.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/quizzes.html">Questionários</a> / 089
+            </nav>
+            <div class="kicker">RELATÓRIO 089</div>
+            <h1>Pontuações por tentativa do questionário</h1>
+            <p class="lead">Consolida pontuações por tentativa de questionário, comparando valores brutos, percentual
+                calculado, nota ajustada à escala do questionário, nota final do livro de notas e quantidade de
+                respostas por estado de correção.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Consolida pontuações por tentativa de questionário, comparando valores brutos, percentual calculado,
+                    nota ajustada à escala do questionário, nota final do livro de notas e quantidade de respostas por
+                    estado de correção.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Ajuda docentes e administradores a investigar diferenças entre pontuação de uma tentativa, nota
+                    calculada e nota registrada no livro de notas, além de consultar a distribuição de estados das
+                    questões.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros disponíveis</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p><strong>Não há parâmetros SQL dinâmicos</strong> para restringir curso, questionário, estudante,
+                    tentativa ou período nas variantes MySQL e PostgreSQL.</p>
+                <p>Os filtros fixos são <code>kbi_qa.preview = 0</code>, curso e módulo visíveis, usuário não excluído,
+                    não suspenso e diferente de <code>guest</code>. Para cada questão, o SQL relaciona o passo de maior
+                    <code>sequencenumber</code>. Não há exigência de tentativa finalizada, matrícula ativa ou papel de
+                    estudante.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL original integral</h2>
+                <p>Uma visualização em tabela, com 2 consultas SQL integrais, configuração de cache e atualização e
+                    realce de sintaxe usando Prism.js. As versões MySQL e PostgreSQL equivalentes estão em caixas
+                    separadas na mesma visualização.</p>
+                <details class="report-block" open>
+                    <summary>1. Pontuações por tentativa do questionário · Tabela</summary>
+                    <div class="inner">
+                        <p>Uma tabela por tentativa e suas associações de nota, mostrando curso,
+                            questionário, módulo, usuário, número e datas da tentativa, estado, número de questões, soma
+                            das
+                            pontuações máximas, soma das pontuações derivadas das frações, pontuação bruta da tentativa,
+                            pontuação máxima, percentual, nota ajustada, nota máxima configurada, nota mínima de
+                            aprovação,
+                            nota final no livro de notas e contagens de questões totalmente, parcialmente e
+                            incorretamente
+                            avaliadas.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral MySQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_qa.id                                                           AS id,
        kbi_c.id                                                            AS courseid,
        kbi_c.fullname                                                      AS course,
        kbi_cm.id                                                           AS cmid,
@@ -47,8 +237,11 @@ WHERE kbi_qa.preview = 0
   AND kbi_u.suspended = 0
   AND kbi_u.username &lt;&gt; &#39;guest&#39;
 GROUP BY kbi_qa.id, kbi_c.id, kbi_cm.id, kbi_qz.id, kbi_u.id, kbi_gi.gradepass, kbi_gg.finalgrade
-ORDER BY kbi_c.fullname, kbi_qz.name, kbi_u.lastname, kbi_u.firstname, kbi_qa.attempt</code></pre></div>
-<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_qa.id                                                           AS id,
+ORDER BY kbi_c.fullname, kbi_qz.name, kbi_u.lastname, kbi_u.firstname, kbi_qa.attempt</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>SQL original integral PostgreSQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_qa.id                                                           AS id,
        kbi_c.id                                                            AS courseid,
        kbi_c.fullname                                                      AS course,
        kbi_cm.id                                                           AS cmid,
@@ -97,4 +290,83 @@ WHERE kbi_qa.preview = 0
   AND kbi_u.suspended = 0
   AND kbi_u.username &lt;&gt; &#39;guest&#39;
 GROUP BY kbi_qa.id, kbi_c.id, kbi_cm.id, kbi_qz.id, kbi_u.id, kbi_gi.gradepass, kbi_gg.finalgrade
-ORDER BY kbi_c.fullname, kbi_qz.name, kbi_u.lastname, kbi_u.firstname, kbi_qa.attempt</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>A consulta não exige <code>kbi_qa.state = 'finished'</code>. Pontuações de tentativas não finalizadas podem estar nulas, incompletas ou sujeitas a alterações.</li><li>A coluna <code>total_question_score</code> é a soma dos pesos das questões multiplicados pelas frações de seus últimos passos, substituindo frações nulas por zero; pode diferir de <code>rawgrade</code>, calculada a partir de <code>mdl_quiz_attempts.sumgrades</code>.</li><li>O campo <code>score_percent</code> depende de <code>sumgrades</code> máximo do questionário ser positivo. Se não for, o resultado é nulo; a mesma proteção se aplica à conversão de pontuação para <code>finalgrade</code>.</li><li>A coluna <code>finalgrade</code> é uma nota calculada a partir da pontuação da tentativa e da escala configurada em <code>mdl_quiz.grade</code>. Já <code>gradebook_finalgrade</code> vem do livro de notas, pode representar outra política de agregação entre tentativas e pode se repetir em várias linhas de um mesmo usuário.</li><li>As contagens <code>correct_answers</code>, <code>partial_answers</code> e <code>wrong_answers</code> dependem exclusivamente dos estados finais <code>gradedright</code>, <code>gradedpartial</code> e <code>gradedwrong</code>. Questões com outros estados não entram nesses três totais.</li><li>A contagem <code>questions</code> usa IDs distintos de tentativas de questão. Não deve ser confundida com questões únicas do banco ou com a quantidade de posições configuradas no questionário.</li><li>O SQL utiliza agrupamento por tentativa e por associações do livro de notas; se houver mais de um item ou registro associado, a granularidade efetiva poderá gerar linhas adicionais ou alterar somatórios.</li><li>Não há verificação de matrícula ou papel de estudante, nem filtro dinâmico de curso. Os dados pessoais e as notas exigem acesso e exportação controlados.</li><li>As variantes MySQL e PostgreSQL diferem nas conversões explícitas para o arredondamento, sem alteração da intenção dos indicadores.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-089.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-089-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="088.html">← Relatório 088</a><a href="090.html">Relatório 090 →</a></nav><section class="related-reports" aria-labelledby="related-title-089"><h2 id="related-title-089">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="066.html"><span class="related-number">Relatório 066</span><span class="related-title">Resumo das tentativas por questionário</span><span class="related-category">Questionários</span></a><a class="related-card" href="065.html"><span class="related-number">Relatório 065</span><span class="related-title">Resumo das tentativas dos questionários por curso</span><span class="related-category">Questionários</span></a><a class="related-card" href="067.html"><span class="related-number">Relatório 067</span><span class="related-title">Detalhes das notas dos questionários por estudante</span><span class="related-category">Questionários</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/quizzes.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+ORDER BY kbi_c.fullname, kbi_qz.name, kbi_u.lastname, kbi_u.firstname, kbi_qa.attempt</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul>
+                    <li>A consulta não exige <code>kbi_qa.state = 'finished'</code>. Pontuações de tentativas não
+                        finalizadas podem estar nulas, incompletas ou sujeitas a alterações.
+                    </li>
+                    <li>A coluna <code>total_question_score</code> é a soma dos pesos das questões multiplicados pelas
+                        frações de seus últimos passos, substituindo frações nulas por zero; pode diferir de <code>rawgrade</code>,
+                        calculada a partir de <code>mdl_quiz_attempts.sumgrades</code>.
+                    </li>
+                    <li>O campo <code>score_percent</code> depende de <code>sumgrades</code> máximo do questionário ser
+                        positivo. Se não for, o resultado é nulo; a mesma proteção se aplica à conversão de pontuação
+                        para <code>finalgrade</code>.
+                    </li>
+                    <li>A coluna <code>finalgrade</code> é uma nota calculada a partir da pontuação da tentativa e da
+                        escala configurada em <code>mdl_quiz.grade</code>. Já <code>gradebook_finalgrade</code> vem do
+                        livro de notas, pode representar outra política de agregação entre tentativas e pode se repetir
+                        em várias linhas de um mesmo usuário.
+                    </li>
+                    <li>As contagens <code>correct_answers</code>, <code>partial_answers</code> e
+                        <code>wrong_answers</code> dependem exclusivamente dos estados finais <code>gradedright</code>,
+                        <code>gradedpartial</code> e <code>gradedwrong</code>. Questões com outros estados não entram
+                        nesses três totais.
+                    </li>
+                    <li>A contagem <code>questions</code> usa IDs distintos de tentativas de questão. Não deve ser
+                        confundida com questões únicas do banco ou com a quantidade de posições configuradas no
+                        questionário.
+                    </li>
+                    <li>O SQL utiliza agrupamento por tentativa e por associações do livro de notas; se houver mais de
+                        um item ou registro associado, a granularidade efetiva poderá gerar linhas adicionais ou alterar
+                        somatórios.
+                    </li>
+                    <li>Não há verificação de matrícula ou papel de estudante, nem filtro dinâmico de curso. Os dados
+                        pessoais e as notas exigem acesso e exportação controlados.
+                    </li>
+                    <li>As variantes MySQL e PostgreSQL diferem nas conversões explícitas para o arredondamento, sem
+                        alteração da intenção dos indicadores.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Fontes técnicas</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-089.json"
+                       target="_blank" rel="noopener">Definição MySQL</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-089-postgres.json"
+                        target="_blank" rel="noopener">Definição PostgreSQL</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="088.html">← Relatório 088</a>
+                <a href="090.html">Relatório 090 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-089">
+                <h2 id="related-title-089">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="066.html"><span class="related-number">Relatório 066</span><span
+                            class="related-title">Resumo das tentativas por questionário</span><span
+                            class="related-category">Questionários</span></a>
+                    <a class="related-card" href="065.html"><span class="related-number">Relatório 065</span><span
+                            class="related-title">Resumo das tentativas dos questionários por curso</span><span
+                            class="related-category">Questionários</span></a>
+                    <a class="related-card" href="067.html"><span class="related-number">Relatório 067</span><span
+                            class="related-title">Detalhes das notas dos questionários por estudante</span><span
+                            class="related-category">Questionários</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/quizzes.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

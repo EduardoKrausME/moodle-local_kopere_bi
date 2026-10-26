@@ -1,4 +1,189 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Resumo ampliado do curso selecionado com matrículas e conclusões, notas, uso registrado, módulos visíveis, categorias e indicadores de docentes e estudantes."><meta name="theme-color" content="#072c3a"><title>Relatório 044 · Estatísticas avançadas dos cursos · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/044.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 044 · Estatísticas avançadas dos cursos · Kopere BI"><meta property="og:description" content="Resumo ampliado do curso selecionado com matrículas e conclusões, notas, uso registrado, módulos visíveis, categorias e indicadores de docentes e estudantes."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/044.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/courses.html">Cursos</a> / 044</nav><div class="kicker">RELATÓRIO 044</div><h1>Estatísticas avançadas dos cursos</h1><p class="lead">Resumo ampliado do curso selecionado com matrículas e conclusões, notas, uso registrado, módulos visíveis, categorias e indicadores de docentes e estudantes.</p><section><h2>Finalidade do relatório</h2><p>Resumo ampliado do curso selecionado com matrículas e conclusões, notas, uso registrado, módulos visíveis, categorias e indicadores de docentes e estudantes.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Auxilia equipes gestoras a comparar informações de desempenho, oferta de atividades e acompanhamento de professores e estudantes para uma avaliação operacional mais completa de um curso.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>O filtro dinâmico efetivo é <strong>Curso</strong>, indicado por <code>:courseid</code>, utilizado <strong>cinco vezes em cada variante SQL</strong>: na apuração de estudantes e notas, no acompanhamento geral, na consulta de docentes, na média de acompanhamento de estudantes e na seleção principal do curso.</p><p>As condições fixas incluem curso visível, matrículas e métodos de inscrição com status <code>0</code>, estudante com papel ID <code>5</code>, docente com papel ID <code>3</code> em contexto de curso, e módulos visíveis com <code>deletioninprogress = 0</code>. As duas versões do banco não definem filtro por período.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>O relatório oferece uma visualização em tabela com 2 consultas SQL originais integrais, configuração de cache e realce de sintaxe com Prism.js. MySQL e PostgreSQL são apresentados em caixas separadas na mesma visualização.</p><details class="report-block" open><summary>1. Estatísticas avançadas dos cursos · Tabela</summary><div class="inner"><p>Uma tabela que reúne nome e identificação do curso, média de notas, matrículas e conclusões formais, visitas e tempo registrados, número de módulos visíveis não excluídos, categoria e categoria superior, docentes vinculados, quantidade de docentes, tempo registrado para docentes e média de tempo para estudantes.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral MySQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Resumo ampliado do curso selecionado com matrículas e conclusões, notas, uso registrado, módulos visíveis, categorias e indicadores de docentes e estudantes.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 044 · Estatísticas avançadas dos cursos · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/044.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 044 · Estatísticas avançadas dos cursos · Kopere BI">
+    <meta property="og:description"
+          content="Resumo ampliado do curso selecionado com matrículas e conclusões, notas, uso registrado, módulos visíveis, categorias e indicadores de docentes e estudantes.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/044.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/courses.html">Cursos</a> / 044
+            </nav>
+            <div class="kicker">RELATÓRIO 044</div>
+            <h1>Estatísticas avançadas dos cursos</h1>
+            <p class="lead">Resumo ampliado do curso selecionado com matrículas e conclusões, notas, uso registrado,
+                módulos visíveis, categorias e indicadores de docentes e estudantes.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Resumo ampliado do curso selecionado com matrículas e conclusões, notas, uso registrado, módulos
+                    visíveis, categorias e indicadores de docentes e estudantes.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Auxilia equipes gestoras a comparar informações de desempenho, oferta de atividades e acompanhamento
+                    de professores e estudantes para uma avaliação operacional mais completa de um curso.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros disponíveis</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p>O filtro dinâmico efetivo é <strong>Curso</strong>, indicado por <code>:courseid</code>, utilizado
+                    <strong>cinco vezes em cada variante SQL</strong>: na apuração de estudantes e notas, no
+                    acompanhamento geral, na consulta de docentes, na média de acompanhamento de estudantes e na seleção
+                    principal do curso.</p>
+                <p>As condições fixas incluem curso visível, matrículas e métodos de inscrição com status <code>0</code>,
+                    estudante com papel ID <code>5</code>, docente com papel ID <code>3</code> em contexto de curso, e
+                    módulos visíveis com <code>deletioninprogress = 0</code>. As duas versões do banco não definem
+                    filtro por período.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL original integral</h2>
+                <p>O relatório oferece uma visualização em tabela com 2 consultas SQL originais integrais, configuração
+                    de cache e realce de sintaxe com Prism.js. MySQL e PostgreSQL são apresentados em caixas separadas
+                    na mesma visualização.</p>
+                <details class="report-block" open>
+                    <summary>1. Estatísticas avançadas dos cursos · Tabela</summary>
+                    <div class="inner">
+                        <p>Uma tabela que reúne nome e identificação do curso, média de notas, matrículas
+                            e conclusões formais, visitas e tempo registrados, número de módulos visíveis não excluídos,
+                            categoria e categoria superior, docentes vinculados, quantidade de docentes, tempo
+                            registrado
+                            para docentes e média de tempo para estudantes.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral MySQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
        kbi_c.fullname                                                          AS course,
        kbi_c.shortname,
        kbi_c.timecreated                                                       AS created,
@@ -82,8 +267,11 @@ FROM mdl_course kbi_c
 WHERE kbi_c.id &gt; 0
   AND kbi_c.id = :courseid
   AND kbi_c.visible = 1
-GROUP BY kbi_c.id</code></pre></div>
-<div class="sql-variant"><h3>SQL original integral PostgreSQL</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
+GROUP BY kbi_c.id</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>SQL original integral PostgreSQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
        kbi_c.fullname                                                          AS course,
        kbi_c.shortname,
        kbi_c.timecreated                                                       AS created,
@@ -167,4 +355,73 @@ FROM mdl_course kbi_c
 WHERE kbi_c.id &gt; 0
   AND kbi_c.id = :courseid
   AND kbi_c.visible = 1
-GROUP BY kbi_c.id</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>A consulta usa <code>JOIN</code> para conectar o curso ao agregado de matrículas, papéis e itens de nota do tipo <code>course</code>. Cursos sem registros compatíveis podem não aparecer, mesmo que existam e estejam visíveis.</li><li>A contagem de estudantes usa usuários distintos com matrículas ativas segundo os campos de status e papel ID 5. Papéis personalizados podem exigir interpretação adicional.</li><li>O total de concluintes decorre de <code>mdl_course_completions</code> com <code>timecompleted &gt; 0</code> para usuários do conjunto de matrículas selecionadas.</li><li>O tempo e as visitas gerais provêm do tracking dos usuários que possuem atribuições de papel no curso, sem restringir esses papéis a docentes ou estudantes.</li><li>A lista de professores e o tempo de docentes são apurados usando papel ID 3. A soma de tempo depende dos registros de tracking e não corresponde necessariamente à carga horária efetivamente trabalhada.</li><li>A média <code>avg_learners_timespend</code> divide a soma de tempo de acompanhamento dos estudantes pela quantidade distinta de estudantes com papel ID 5, sem fixar período. Valores nulos podem dificultar a interpretação.</li><li>MySQL e PostgreSQL possuem diferenças específicas de agregação textual e arredondamento numérico; por isso, os comandos completos são apresentados separadamente sem alterações.</li><li>Notas e tempos registrados não demonstram, isoladamente, aprendizagem ou qualidade da mediação pedagógica.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-044.json" target="_blank" rel="noopener">Definição MySQL</a> · <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-044-postgres.json" target="_blank" rel="noopener">Definição PostgreSQL</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="043.html">← Relatório 043</a><a href="045.html">Relatório 045 →</a></nav><section class="related-reports" aria-labelledby="related-title-044"><h2 id="related-title-044">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="043.html"><span class="related-number">Relatório 043</span><span class="related-title">Estatísticas dos cursos</span><span class="related-category">Cursos e conteúdo</span></a><a class="related-card" href="003.html"><span class="related-number">Relatório 003</span><span class="related-title">Cursos</span><span class="related-category">Cursos e conteúdo</span></a><a class="related-card" href="009.html"><span class="related-number">Relatório 009</span><span class="related-title">Módulos dos cursos</span><span class="related-category">Cursos e conteúdo</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/courses.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+GROUP BY kbi_c.id</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul>
+                    <li>A consulta usa <code>JOIN</code> para conectar o curso ao agregado de matrículas, papéis e itens
+                        de nota do tipo <code>course</code>. Cursos sem registros compatíveis podem não aparecer, mesmo
+                        que existam e estejam visíveis.
+                    </li>
+                    <li>A contagem de estudantes usa usuários distintos com matrículas ativas segundo os campos de
+                        status e papel ID 5. Papéis personalizados podem exigir interpretação adicional.
+                    </li>
+                    <li>O total de concluintes decorre de <code>mdl_course_completions</code> com <code>timecompleted
+                        &gt; 0</code> para usuários do conjunto de matrículas selecionadas.
+                    </li>
+                    <li>O tempo e as visitas gerais provêm do tracking dos usuários que possuem atribuições de papel no
+                        curso, sem restringir esses papéis a docentes ou estudantes.
+                    </li>
+                    <li>A lista de professores e o tempo de docentes são apurados usando papel ID 3. A soma de tempo
+                        depende dos registros de tracking e não corresponde necessariamente à carga horária efetivamente
+                        trabalhada.
+                    </li>
+                    <li>A média <code>avg_learners_timespend</code> divide a soma de tempo de acompanhamento dos
+                        estudantes pela quantidade distinta de estudantes com papel ID 5, sem fixar período. Valores
+                        nulos podem dificultar a interpretação.
+                    </li>
+                    <li>MySQL e PostgreSQL possuem diferenças específicas de agregação textual e arredondamento
+                        numérico; por isso, os comandos completos são apresentados separadamente sem alterações.
+                    </li>
+                    <li>Notas e tempos registrados não demonstram, isoladamente, aprendizagem ou qualidade da mediação
+                        pedagógica.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Fontes técnicas</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-044.json"
+                       target="_blank" rel="noopener">Definição MySQL</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-044-postgres.json"
+                        target="_blank" rel="noopener">Definição PostgreSQL</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="043.html">← Relatório 043</a>
+                <a href="045.html">Relatório 045 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-044">
+                <h2 id="related-title-044">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="043.html"><span class="related-number">Relatório 043</span><span
+                            class="related-title">Estatísticas dos cursos</span><span class="related-category">Cursos e conteúdo</span></a>
+                    <a class="related-card" href="003.html"><span class="related-number">Relatório 003</span><span
+                            class="related-title">Cursos</span><span
+                            class="related-category">Cursos e conteúdo</span></a>
+                    <a class="related-card" href="009.html"><span class="related-number">Relatório 009</span><span
+                            class="related-title">Módulos dos cursos</span><span class="related-category">Cursos e conteúdo</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/courses.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

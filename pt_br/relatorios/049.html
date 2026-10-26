@@ -1,4 +1,184 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Apresenta inscrições ativas de um curso visível com custo configurado no método de inscrição, incluindo participante, data do registro, valor e moeda."><meta name="theme-color" content="#072c3a"><title>Relatório 049 · Receita dos cursos · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/049.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 049 · Receita dos cursos · Kopere BI"><meta property="og:description" content="Apresenta inscrições ativas de um curso visível com custo configurado no método de inscrição, incluindo participante, data do registro, valor e moeda."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/049.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/enrollments.html">Inscrições</a> / 049</nav><div class="kicker">RELATÓRIO 049</div><h1>Receita dos cursos</h1><p class="lead">Apresenta inscrições ativas de um curso visível com custo configurado no método de inscrição, incluindo participante, data do registro, valor e moeda.</p><section><h2>Finalidade do relatório</h2><p>Apresenta inscrições ativas de um curso visível com custo configurado no método de inscrição, incluindo participante, data do registro, valor e moeda.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Permite à administração conferir as inscrições associadas a métodos com preço configurado, inspecionar custos por método e identificar a necessidade de reconciliação com dados financeiros reais.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p>O filtro SQL dinâmico é <strong>Curso</strong>, indicado por <code>:courseid</code>, presente uma vez na cláusula principal <code>WHERE</code>.</p><p>Os critérios fixos são custo configurado (<code>kbi_e.cost IS NOT NULL</code>), curso visível, usuário não excluído e não suspenso, conta diferente de <code>guest</code> e matrícula e método de inscrição com status <code>0</code>. Não há filtro dinâmico por período, forma de pagamento ou transação.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>Este relatório apresenta uma visualização em tabela, com 1 consulta SQL, configurações de cache e realce de sintaxe usando Prism.js. Não existe variante PostgreSQL separada no catálogo original.</p><details class="report-block" open><summary>1. Receita dos cursos · Tabela</summary><div class="inner"><p>Uma tabela por registro de matrícula, com curso, data de criação da inscrição, nome e e-mail do usuário, método de inscrição, custo cadastrado e moeda configurada.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_ue.id,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Apresenta inscrições ativas de um curso visível com custo configurado no método de inscrição, incluindo participante, data do registro, valor e moeda.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 049 · Receita dos cursos · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/049.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 049 · Receita dos cursos · Kopere BI">
+    <meta property="og:description"
+          content="Apresenta inscrições ativas de um curso visível com custo configurado no método de inscrição, incluindo participante, data do registro, valor e moeda.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/049.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/enrollments.html">Inscrições</a> / 049
+            </nav>
+            <div class="kicker">RELATÓRIO 049</div>
+            <h1>Receita dos cursos</h1>
+            <p class="lead">Apresenta inscrições ativas de um curso visível com custo configurado no método de
+                inscrição, incluindo participante, data do registro, valor e moeda.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Apresenta inscrições ativas de um curso visível com custo configurado no método de inscrição,
+                    incluindo participante, data do registro, valor e moeda.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Permite à administração conferir as inscrições associadas a métodos com preço configurado,
+                    inspecionar custos por método e identificar a necessidade de reconciliação com dados financeiros
+                    reais.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros disponíveis</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p>O filtro SQL dinâmico é <strong>Curso</strong>, indicado por <code>:courseid</code>, presente uma vez
+                    na cláusula principal <code>WHERE</code>.</p>
+                <p>Os critérios fixos são custo configurado (<code>kbi_e.cost IS NOT NULL</code>), curso visível,
+                    usuário não excluído e não suspenso, conta diferente de <code>guest</code> e matrícula e método de
+                    inscrição com status <code>0</code>. Não há filtro dinâmico por período, forma de pagamento ou
+                    transação.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL original integral</h2>
+                <p>Este relatório apresenta uma visualização em tabela, com 1 consulta SQL, configurações de cache e
+                    realce de sintaxe usando Prism.js. Não existe variante PostgreSQL separada no catálogo original.</p>
+                <details class="report-block" open>
+                    <summary>1. Receita dos cursos · Tabela</summary>
+                    <div class="inner">
+                        <p>Uma tabela por registro de matrícula, com curso, data de criação da inscrição,
+                            nome e e-mail do usuário, método de inscrição, custo cadastrado e moeda configurada.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_ue.id,
        kbi_c.fullname,
        kbi_ue.timecreated,
        kbi_u.firstname,
@@ -19,4 +199,65 @@ WHERE kbi_e.cost IS NOT NULL
   AND kbi_c.visible = 1
   AND kbi_ue.status = 0
   AND kbi_e.status = 0
-ORDER BY kbi_ue.timecreated DESC, kbi_c.fullname, kbi_u.lastname, kbi_u.firstname</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li><strong>Este relatório não demonstra receita efetivamente recebida.</strong> O campo <code>kbi_e.cost</code> representa o preço configurado no método de inscrição, e a consulta não acessa registros de pagamentos, confirmação financeira ou reembolso.</li><li>O campo <code>currency</code> corresponde à moeda configurada para o método. Valores de moedas diferentes não podem ser somados sem conversão.</li><li>A condição <code>cost IS NOT NULL</code> inclui custos iguais a zero, quando cadastrados. Ela não exige custo maior que zero.</li><li>Uma matrícula ativa não prova que o usuário efetuou pagamento ou que a receita foi reconhecida contabilmente.</li><li>A consulta não restringe prazos de vigência da matrícula nem data de inscrição; <code>timecreated</code> indica criação do registro de matrícula.</li><li>Pode haver múltiplas linhas por pessoa quando existem inscrições em métodos diferentes. A soma direta de custos não corresponde a um demonstrativo financeiro auditado.</li><li>Como há nomes e e-mails de participantes, restrinja permissões e exportações. O catálogo não disponibiliza variante PostgreSQL separada.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-049.json" target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="048.html">← Relatório 048</a><a href="050.html">Relatório 050 →</a></nav><section class="related-reports" aria-labelledby="related-title-049"><h2 id="related-title-049">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="048.html"><span class="related-number">Relatório 048</span><span class="related-title">Inscrições e conclusão por curso</span><span class="related-category">Inscrições e receitas</span></a><a class="related-card" href="004.html"><span class="related-number">Relatório 004</span><span class="related-title">Estatísticas de inscrições</span><span class="related-category">Inscrições e receitas</span></a><a class="related-card" href="005.html"><span class="related-number">Relatório 005</span><span class="related-title">Inscrições inativas</span><span class="related-category">Inscrições e receitas</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/enrollments.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+ORDER BY kbi_ue.timecreated DESC, kbi_c.fullname, kbi_u.lastname, kbi_u.firstname</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul>
+                    <li><strong>Este relatório não demonstra receita efetivamente recebida.</strong> O campo <code>kbi_e.cost</code>
+                        representa o preço configurado no método de inscrição, e a consulta não acessa registros de
+                        pagamentos, confirmação financeira ou reembolso.
+                    </li>
+                    <li>O campo <code>currency</code> corresponde à moeda configurada para o método. Valores de moedas
+                        diferentes não podem ser somados sem conversão.
+                    </li>
+                    <li>A condição <code>cost IS NOT NULL</code> inclui custos iguais a zero, quando cadastrados. Ela
+                        não exige custo maior que zero.
+                    </li>
+                    <li>Uma matrícula ativa não prova que o usuário efetuou pagamento ou que a receita foi reconhecida
+                        contabilmente.
+                    </li>
+                    <li>A consulta não restringe prazos de vigência da matrícula nem data de inscrição; <code>timecreated</code>
+                        indica criação do registro de matrícula.
+                    </li>
+                    <li>Pode haver múltiplas linhas por pessoa quando existem inscrições em métodos diferentes. A soma
+                        direta de custos não corresponde a um demonstrativo financeiro auditado.
+                    </li>
+                    <li>Como há nomes e e-mails de participantes, restrinja permissões e exportações. O catálogo não
+                        disponibiliza variante PostgreSQL separada.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Fontes técnicas</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-049.json"
+                       target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="048.html">← Relatório 048</a>
+                <a href="050.html">Relatório 050 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-049">
+                <h2 id="related-title-049">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="048.html"><span class="related-number">Relatório 048</span><span
+                            class="related-title">Inscrições e conclusão por curso</span><span class="related-category">Inscrições e receitas</span></a>
+                    <a class="related-card" href="004.html"><span class="related-number">Relatório 004</span><span
+                            class="related-title">Estatísticas de inscrições</span><span class="related-category">Inscrições e receitas</span></a>
+                    <a class="related-card" href="005.html"><span class="related-number">Relatório 005</span><span
+                            class="related-title">Inscrições inativas</span><span class="related-category">Inscrições e receitas</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/enrollments.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>

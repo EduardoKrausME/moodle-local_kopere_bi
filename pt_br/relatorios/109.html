@@ -1,4 +1,202 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Visão detalhada de cada aluno com acessos, atividades, progresso, notas, engajamento, conclusão e risco."><meta name="theme-color" content="#072c3a"><title>Relatório 109 · Analytics 360 do aluno · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}.report-technical{background:#f2f8f9;border-left:3px solid #70aeb4;padding:13px 16px;margin:18px 0}.report-limit li{margin:10px 0}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/109.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 109 · Analytics 360 do aluno · Kopere BI"><meta property="og:description" content="Visão detalhada de cada aluno com acessos, atividades, progresso, notas, engajamento, conclusão e risco."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/109.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/learning_analytics.html">Learning Analytics</a> / 109</nav><div class="kicker">RELATÓRIO 109</div><h1>Analytics 360 do aluno</h1><p class="lead">Visão detalhada de cada aluno com acessos, atividades, progresso, notas, engajamento, conclusão e risco.</p><section><h2>Finalidade do relatório</h2><p>Uma tabela por registro de estudante e curso com dados de identificação, matrícula, últimos acessos, atividade dos últimos 7, 14 e 30 dias, tempo nos últimos 30 dias, atividades concluídas, notas, progresso, situação de engajamento, pontuação e nível de risco.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Oferecer uma visão consolidada do percurso acadêmico e do engajamento dos estudantes em seus respectivos cursos, reunindo atividade recente, tempo registrado, notas, progresso, conclusão e risco em uma única tabela.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualizações e SQL</a><a href="#criterios">Critérios de cálculo</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não há parâmetros SQL dinâmicos</strong> de estudante, curso, coorte, nível de risco ou intervalo de datas. A consulta seleciona todos os registros do último <code>batchid</code> disponível em <code>mdl_local_kopere_bi_engage</code> e ordena por <code>riskscore DESC</code>, nome do curso e nome do usuário.</p><p>As janelas de <strong>7, 14 e 30 dias</strong> são indicadas nos campos <code>actions7</code>, <code>actions14</code>, <code>actions30</code> e <code>timespent30</code> calculados anteriormente pelo processamento analítico. A consulta não permite alterar essas janelas nem filtra por situação de matrícula ou curso visível.</p></section><section id="visualizacoes"><h2>Visualizações e SQL integral</h2><p>O relatório possui 1 visualização, cada uma com SQL completo, descrição, cache e frequência de atualização. O código tem destaque de sintaxe com Prism.js. Não há arquivo PostgreSQL separado desta definição na <code>master</code>, portanto não foi criada uma variante inexistente.</p><details class="report-block" open><summary>1. Analytics 360 do aluno · Tabela</summary><div class="inner"><p>Tabela detalhada com um registro de análise do estudante em cada curso abrangido pelo lote recente. A apresentação inclui links para perfil e curso, campos de data/hora, conversão de tempo registrado e estados de engajamento/risco traduzidos pela interface.</p><p class="report-meta">Cache: <code>none</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT e.id, e.userid, u.firstname, u.lastname, u.email, e.courseid, c.fullname AS course, e.timeenrolled, e.dayssinceenrol, e.lastaccess, e.lastaction, e.daysinactive, e.actions7, e.actions14, e.actions30, e.timespent30, e.totalactivities, e.completedactivities, e.progress, e.gradepercent, e.timecompleted,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Visão detalhada de cada aluno com acessos, atividades, progresso, notas, engajamento, conclusão e risco.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 109 · Analytics 360 do aluno · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/109.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 109 · Analytics 360 do aluno · Kopere BI">
+    <meta property="og:description"
+          content="Visão detalhada de cada aluno com acessos, atividades, progresso, notas, engajamento, conclusão e risco.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/109.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/learning_analytics.html">Learning Analytics</a> / 109
+            </nav>
+            <div class="kicker">RELATÓRIO 109</div>
+            <h1>Analytics 360 do aluno</h1>
+            <p class="lead">Visão detalhada de cada aluno com acessos, atividades, progresso, notas, engajamento,
+                conclusão e risco.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Uma tabela por registro de estudante e curso com dados de identificação, matrícula, últimos acessos,
+                    atividade dos últimos 7, 14 e 30 dias, tempo nos últimos 30 dias, atividades concluídas, notas,
+                    progresso, situação de engajamento, pontuação e nível de risco.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Oferecer uma visão consolidada do percurso acadêmico e do engajamento dos estudantes em seus
+                    respectivos cursos, reunindo atividade recente, tempo registrado, notas, progresso, conclusão e
+                    risco em uma única tabela.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros disponíveis</a>
+                <a href="#visualizacoes">Visualizações e SQL</a>
+                <a href="#criterios">Critérios de cálculo</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p><strong>Não há parâmetros SQL dinâmicos</strong> de estudante, curso, coorte, nível de risco ou
+                    intervalo de datas. A consulta seleciona todos os registros do último <code>batchid</code>
+                    disponível em <code>mdl_local_kopere_bi_engage</code> e ordena por <code>riskscore DESC</code>, nome
+                    do curso e nome do usuário.</p>
+                <p>As janelas de <strong>7, 14 e 30 dias</strong> são indicadas nos campos <code>actions7</code>, <code>actions14</code>,
+                    <code>actions30</code> e <code>timespent30</code> calculados anteriormente pelo processamento
+                    analítico. A consulta não permite alterar essas janelas nem filtra por situação de matrícula ou
+                    curso visível.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualizações e SQL integral</h2>
+                <p>O relatório possui 1 visualização, cada uma com SQL completo, descrição, cache e frequência de
+                    atualização. O código tem destaque de sintaxe com Prism.js. Não há arquivo PostgreSQL separado desta
+                    definição na <code>master</code>, portanto não foi criada uma variante inexistente.</p>
+                <details class="report-block" open>
+                    <summary>1. Analytics 360 do aluno · Tabela</summary>
+                    <div class="inner">
+                        <p>Tabela detalhada com um registro de análise do estudante em cada curso
+                            abrangido pelo lote recente. A apresentação inclui links para perfil e curso, campos de
+                            data/hora, conversão de tempo registrado e estados de engajamento/risco traduzidos pela
+                            interface.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT e.id, e.userid, u.firstname, u.lastname, u.email, e.courseid, c.fullname AS course, e.timeenrolled, e.dayssinceenrol, e.lastaccess, e.lastaction, e.daysinactive, e.actions7, e.actions14, e.actions30, e.timespent30, e.totalactivities, e.completedactivities, e.progress, e.gradepercent, e.timecompleted,
        CASE e.engagement WHEN &#39;high&#39; THEN &#39;lang::analytics_level_high::local_kopere_bi&#39; WHEN &#39;medium&#39; THEN &#39;lang::analytics_level_medium::local_kopere_bi&#39; WHEN &#39;low&#39; THEN &#39;lang::analytics_level_low::local_kopere_bi&#39; ELSE &#39;lang::analytics_level_atrisk::local_kopere_bi&#39; END AS engagement,
        e.riskscore,
        CASE e.risklevel WHEN &#39;high&#39; THEN &#39;lang::analytics_level_high::local_kopere_bi&#39; WHEN &#39;medium&#39; THEN &#39;lang::analytics_level_medium::local_kopere_bi&#39; WHEN &#39;low&#39; THEN &#39;lang::analytics_level_low::local_kopere_bi&#39; ELSE &#39;lang::analytics_level_none::local_kopere_bi&#39; END AS risklevel
@@ -6,4 +204,78 @@ FROM mdl_local_kopere_bi_engage e
 JOIN mdl_user u ON u.id = e.userid
 JOIN mdl_course c ON c.id = e.courseid
 WHERE e.batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)
-ORDER BY e.riskscore DESC, c.fullname, u.lastname, u.firstname</code></pre></div></div></details></section><section id="criterios"><h2>Critérios e funcionamento</h2><p>O SQL associa o lote mais recente de <code>mdl_local_kopere_bi_engage</code> às tabelas de usuário e de curso. Campos como <code>daysinactive</code>, <code>progress</code>, <code>gradepercent</code>, <code>engagement</code> e <code>riskscore</code> vêm previamente calculados. Os blocos <code>CASE</code> apenas convertem os níveis armazenados em referências de tradução.</p><p>O relatório não calcula diretamente a pontuação de risco, duração do estudo ou a definição de engajamento. Esses indicadores dependem das regras e da atualização dos dados de origem.</p></section><section id="limites"><h2>Limitações e cuidados</h2><ul class="report-limit"><li>A mesma pessoa pode aparecer em vários cursos; cada linha corresponde a um registro do processamento e não a uma pessoa única.</li><li>O SQL não restringe explicitamente usuários suspensos, excluídos ou cursos ocultos. As permissões de acesso aos dados precisam ser verificadas na instalação.</li><li>Tempo registrado, ação e percentual de progresso não comprovam atenção contínua, aprendizagem efetiva nem conclusão formal do curso.</li><li>Janelas de 7, 14 e 30 dias são parte dos indicadores previamente produzidos. A seleção do lote máximo não assegura que as informações tenham sido recalculadas recentemente.</li><li>O relatório apresenta dados pessoais e educacionais detalhados, incluindo nome, e-mail, notas e risco individual. Não divulgue as informações sem justificativa, autorização e proteção adequadas.</li><li>Os níveis de engajamento e risco dependem de critérios externos ao SQL apresentado, e não devem sustentar decisões automáticas isoladamente.</li></ul><p class="report-technical">As consultas são reproduzidas sem modificação a partir do JSON original da <code>master</code>. Nenhum SQL foi executado em uma instalação Moodle nesta etapa. Confirme permissões, resultados, atualização dos lotes e compatibilidade do banco antes do uso institucional.</p></section><section><h2>Fonte técnica</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-109.json" target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="108.html">← Relatório 108</a><a href="110.html">Relatório 110 →</a></nav><section class="related-reports" aria-labelledby="related-title-109"><h2 id="related-title-109">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="106.html"><span class="related-number">Relatório 106</span><span class="related-title">Dashboard de analytics de aprendizagem</span><span class="related-category">Learning Analytics - painéis</span></a><a class="related-card" href="107.html"><span class="related-number">Relatório 107</span><span class="related-title">Fila de alunos que precisam de atenção</span><span class="related-category">Learning Analytics - painéis</span></a><a class="related-card" href="108.html"><span class="related-number">Relatório 108</span><span class="related-title">Saúde dos cursos</span><span class="related-category">Learning Analytics - painéis</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/learning_analytics.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+ORDER BY e.riskscore DESC, c.fullname, u.lastname, u.firstname</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Critérios e funcionamento</h2>
+                <p>O SQL associa o lote mais recente de <code>mdl_local_kopere_bi_engage</code> às tabelas de usuário e
+                    de curso. Campos como <code>daysinactive</code>, <code>progress</code>, <code>gradepercent</code>,
+                    <code>engagement</code> e <code>riskscore</code> vêm previamente calculados. Os blocos
+                    <code>CASE</code> apenas convertem os níveis armazenados em referências de tradução.</p>
+                <p>O relatório não calcula diretamente a pontuação de risco, duração do estudo ou a definição de
+                    engajamento. Esses indicadores dependem das regras e da atualização dos dados de origem.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul class="report-limit">
+                    <li>A mesma pessoa pode aparecer em vários cursos; cada linha corresponde a um registro do
+                        processamento e não a uma pessoa única.
+                    </li>
+                    <li>O SQL não restringe explicitamente usuários suspensos, excluídos ou cursos ocultos. As
+                        permissões de acesso aos dados precisam ser verificadas na instalação.
+                    </li>
+                    <li>Tempo registrado, ação e percentual de progresso não comprovam atenção contínua, aprendizagem
+                        efetiva nem conclusão formal do curso.
+                    </li>
+                    <li>Janelas de 7, 14 e 30 dias são parte dos indicadores previamente produzidos. A seleção do lote
+                        máximo não assegura que as informações tenham sido recalculadas recentemente.
+                    </li>
+                    <li>O relatório apresenta dados pessoais e educacionais detalhados, incluindo nome, e-mail, notas e
+                        risco individual. Não divulgue as informações sem justificativa, autorização e proteção
+                        adequadas.
+                    </li>
+                    <li>Os níveis de engajamento e risco dependem de critérios externos ao SQL apresentado, e não devem
+                        sustentar decisões automáticas isoladamente.
+                    </li>
+                </ul>
+                <p class="report-technical">As consultas são reproduzidas sem modificação a partir do JSON original da
+                    <code>master</code>. Nenhum SQL foi executado em uma instalação Moodle nesta etapa. Confirme
+                    permissões, resultados, atualização dos lotes e compatibilidade do banco antes do uso institucional.
+                </p>
+            </section>
+            <section>
+                <h2>Fonte técnica</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-109.json"
+                       target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="108.html">← Relatório 108</a>
+                <a href="110.html">Relatório 110 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-109">
+                <h2 id="related-title-109">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="106.html"><span class="related-number">Relatório 106</span><span
+                            class="related-title">Dashboard de analytics de aprendizagem</span><span
+                            class="related-category">Learning Analytics - painéis</span></a>
+                    <a class="related-card" href="107.html"><span class="related-number">Relatório 107</span><span
+                            class="related-title">Fila de alunos que precisam de atenção</span><span
+                            class="related-category">Learning Analytics - painéis</span></a>
+                    <a class="related-card" href="108.html"><span class="related-number">Relatório 108</span><span
+                            class="related-title">Saúde dos cursos</span><span class="related-category">Learning Analytics - painéis</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/learning_analytics.html">Voltar à categoria</a> · Documentação
+    PT-BR
+</footer>
+</body>
+</html>

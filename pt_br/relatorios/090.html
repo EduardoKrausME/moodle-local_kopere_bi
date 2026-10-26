@@ -1,4 +1,184 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Lista concessões visíveis de emblemas associados a cursos, com nome do emblema, participante, curso, data de emissão e data de expiração registrada."><meta name="theme-color" content="#072c3a"><title>Relatório 090 · Selos recebidos · Kopere BI</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="../accessibilidade.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script><style>.report-intro{background:#e7f6f4;border:1px solid #bee1dd;border-radius:13px;padding:22px 24px;margin:22px 0}.report-intro strong{font-size:17px;color:#096573}.report-intro p{margin:7px 0 0}.report-navigation{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.report-navigation a{font-size:13px;font-weight:750;text-decoration:none;border-radius:8px;padding:8px 12px;background:#e4f4f2}.report-block{border:1px solid #d9e6e9;border-radius:12px;overflow:hidden;margin:18px 0}.report-block summary{padding:16px;background:#eaf5f7;color:#0b5261;font-weight:800;cursor:pointer}.report-block summary:hover{background:#d9eff0}.report-block .inner{padding:16px}.sql-variant{background:#f5f9f9;border:1px solid #dbe7e9;border-radius:12px;margin:16px 0;padding:13px 15px}.sql-variant h3{font-size:14px;color:#095f6d;font-weight:800;margin:0 0 10px}.report-meta{color:#54707b;font-size:13px}@media(max-width:650px){.report-block .inner{padding:10px}.sql-variant{padding:8px}}</style><link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/090.html"><meta property="og:type" content="article"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Kopere BI"><meta property="og:title" content="Relatório 090 · Selos recebidos · Kopere BI"><meta property="og:description" content="Lista concessões visíveis de emblemas associados a cursos, com nome do emblema, participante, curso, data de emissão e data de expiração registrada."><meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/090.html"></head><body><a class="skip" href="#main">Ir para o conteúdo</a><header class="top"><div class="top-inner"><a class="brand" href="../index.html" aria-label="Kopere BI"><span class="brand-mark">BI</span><span>Kopere BI</span></a><div class="tools"><a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a><a class="lang" href="../relatorios.html">Catálogo</a></div></div></header><div class="frame"><aside class="sidebar"><div class="sidebar-label">Documentação</div><nav class="nav" aria-label="Seções da documentação"><a href="../index.html">Visão geral</a><a href="../dashboards.html">Dashboards</a><a href="../visualizacoes.html">Gráficos e filtros</a><a href="../relatorios.html" class="active" aria-current="page">Relatórios</a><a href="../learning-analytics.html">Learning Analytics</a><a href="../integracoes.html">Integração MCP</a><a href="../operacao.html">Operação</a></nav></aside><main id="main" class="main"><article class="article"><nav class="crumb" aria-label="Navegação estrutural"><a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a href="../categorias/competencies.html">Competências</a> / 090</nav><div class="kicker">RELATÓRIO 090</div><h1>Selos recebidos</h1><p class="lead">Lista concessões visíveis de emblemas associados a cursos, com nome do emblema, participante, curso, data de emissão e data de expiração registrada.</p><section><h2>Finalidade do relatório</h2><p>Lista concessões visíveis de emblemas associados a cursos, com nome do emblema, participante, curso, data de emissão e data de expiração registrada.</p></section><div class="report-intro"><strong>Por que utilizar?</strong><p>Permite aos responsáveis por emblemas e acompanhamento acadêmico consultar os registros de concessão de emblemas de cursos e verificar as datas cadastradas para emissão e expiração.</p></div><div class="report-navigation"><a href="#filtros">Filtros disponíveis</a><a href="#visualizacoes">Visualização e SQL</a><a href="#limites">Limitações</a></div><section id="filtros"><h2>Filtros disponíveis</h2><p><strong>Não há parâmetros SQL dinâmicos</strong> para curso, usuário, emblema, data de emissão, expiração ou estado de concessão.</p><p>Os filtros fixos exigem um registro existente em <code>mdl_badge_issued</code> (<code>kbi_bi.id IS NOT NULL</code>), concessão marcada como visível (<code>kbi_bi.visible = 1</code>) e emblema associado a um curso (<code>kbi_b.courseid IS NOT NULL</code>). Não são exigidos usuário ativo, curso visível ou emblema ainda válido.</p></section><section id="visualizacoes"><h2>Visualização e SQL original integral</h2><p>Uma visualização em tabela, com 1 consulta SQL integral, configuração de cache e atualização e realce de sintaxe usando Prism.js. Não há arquivo PostgreSQL separado na origem.</p><details class="report-block" open><summary>1. Selos recebidos · Tabela</summary><div class="inner"><p>Uma tabela por concessão de emblema, com ID do registro emitido, identificação e e-mail do participante, nome e ID do curso, nome do emblema, data de emissão e data de expiração. Os resultados são ordenados da emissão mais recente à mais antiga.</p><p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p><div class="sql-variant"><h3>SQL original integral</h3><pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_bi.id,
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Lista concessões visíveis de emblemas associados a cursos, com nome do emblema, participante, curso, data de emissão e data de expiração registrada.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Relatório 090 · Selos recebidos · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibilidade.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/090.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Relatório 090 · Selos recebidos · Kopere BI">
+    <meta property="og:description"
+          content="Lista concessões visíveis de emblemas associados a cursos, com nome do emblema, participante, curso, data de emissão e data de expiração registrada.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/090.html">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repositório</a>
+            <a class="lang" href="../relatorios.html">Catálogo</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentação</div>
+        <nav class="nav" aria-label="Seções da documentação">
+            <a href="../index.html">Visão geral</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Gráficos e filtros</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Relatórios</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">Integração MCP</a>
+            <a href="../operacao.html">Operação</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Navegação estrutural">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Relatórios</a> / <a
+                    href="../categorias/competencies.html">Competências</a> / 090
+            </nav>
+            <div class="kicker">RELATÓRIO 090</div>
+            <h1>Selos recebidos</h1>
+            <p class="lead">Lista concessões visíveis de emblemas associados a cursos, com nome do emblema,
+                participante, curso, data de emissão e data de expiração registrada.</p>
+            <section>
+                <h2>Finalidade do relatório</h2>
+                <p>Lista concessões visíveis de emblemas associados a cursos, com nome do emblema, participante, curso,
+                    data de emissão e data de expiração registrada.</p>
+            </section>
+            <div class="report-intro"><strong>Por que utilizar?</strong>
+                <p>Permite aos responsáveis por emblemas e acompanhamento acadêmico consultar os registros de concessão
+                    de emblemas de cursos e verificar as datas cadastradas para emissão e expiração.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Filtros disponíveis</a>
+                <a href="#visualizacoes">Visualização e SQL</a>
+                <a href="#limites">Limitações</a>
+            </div>
+            <section id="filtros">
+                <h2>Filtros disponíveis</h2>
+                <p><strong>Não há parâmetros SQL dinâmicos</strong> para curso, usuário, emblema, data de emissão,
+                    expiração ou estado de concessão.</p>
+                <p>Os filtros fixos exigem um registro existente em <code>mdl_badge_issued</code> (<code>kbi_bi.id IS
+                    NOT NULL</code>), concessão marcada como visível (<code>kbi_bi.visible = 1</code>) e emblema
+                    associado a um curso (<code>kbi_b.courseid IS NOT NULL</code>). Não são exigidos usuário ativo,
+                    curso visível ou emblema ainda válido.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualização e SQL original integral</h2>
+                <p>Uma visualização em tabela, com 1 consulta SQL integral, configuração de cache e atualização e realce
+                    de sintaxe usando Prism.js. Não há arquivo PostgreSQL separado na origem.</p>
+                <details class="report-block" open>
+                    <summary>1. Selos recebidos · Tabela</summary>
+                    <div class="inner">
+                        <p>Uma tabela por concessão de emblema, com ID do registro emitido, identificação
+                            e e-mail do participante, nome e ID do curso, nome do emblema, data de emissão e data de
+                            expiração. Os resultados são ordenados da emissão mais recente à mais antiga.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Atualização: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>SQL original integral</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_bi.id,
        kbi_u.id       AS userid,
        kbi_u.firstname,
        kbi_u.lastname,
@@ -15,4 +195,66 @@ FROM mdl_badge kbi_b
 WHERE kbi_bi.id IS NOT NULL
   AND kbi_bi.visible = 1
   AND (kbi_b.courseid IS NOT NULL)
-ORDER BY kbi_bi.dateissued DESC, kbi_u.lastname, kbi_u.firstname</code></pre></div></div></details></section><section id="limites"><h2>Limitações e cuidados</h2><ul><li>O relatório lista concessões visíveis, mas <strong>não verifica se <code>dateexpire</code> já passou</strong>. Emblemas expirados podem aparecer entre os recebidos.</li><li>O filtro <code>kbi_bi.visible = 1</code> atua sobre a concessão emitida, não equivale a uma verificação completa da disponibilidade do emblema ou da visibilidade do curso.</li><li>A cláusula <code>courseid IS NOT NULL</code> restringe a consulta a emblemas associados a cursos. Emblemas de âmbito geral ou sem vínculo de curso não são incluídos.</li><li>As junções com usuários e cursos são opcionais. Quando o registro associado não é encontrado, os campos de nome, e-mail ou curso podem aparecer vazios.</li><li>O SQL não exclui usuários apagados ou suspensos nem verifica se a matrícula no curso continua ativa.</li><li>A data de emissão não confirma, por si só, que o participante mantém condições atuais de reconhecimento ou que o emblema continua ativo.</li><li>A consulta abrange toda a instalação sem filtro de curso, período ou pessoa. O e-mail dos participantes deve ser protegido por permissões adequadas.</li><li>Não existe arquivo PostgreSQL separado para este relatório.</li></ul></section><section><h2>Fontes técnicas</h2><p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-090.json" target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p></section><nav class="pager" aria-label="Navegação entre relatórios"><a href="089.html">← Relatório 089</a><a href="091.html">Relatório 091 →</a></nav><section class="related-reports" aria-labelledby="related-title-090"><h2 id="related-title-090">Relatórios similares</h2><div class="related-grid"><a class="related-card" href="084.html"><span class="related-number">Relatório 084</span><span class="related-title">Evidências de competências</span><span class="related-category">Competências, planos e selos</span></a><a class="related-card" href="085.html"><span class="related-number">Relatório 085</span><span class="related-title">Resultados dos cursos</span><span class="related-category">Competências, planos e selos</span></a><a class="related-card" href="086.html"><span class="related-number">Relatório 086</span><span class="related-title">Progresso nos planos de aprendizagem</span><span class="related-category">Competências, planos e selos</span></a></div></section></article></main></div><footer class="foot">Kopere BI · <a href="../categorias/competencies.html">Voltar à categoria</a> · Documentação PT-BR</footer></body></html>
+ORDER BY kbi_bi.dateissued DESC, kbi_u.lastname, kbi_u.firstname</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitações e cuidados</h2>
+                <ul>
+                    <li>O relatório lista concessões visíveis, mas <strong>não verifica se <code>dateexpire</code> já
+                        passou</strong>. Emblemas expirados podem aparecer entre os recebidos.
+                    </li>
+                    <li>O filtro <code>kbi_bi.visible = 1</code> atua sobre a concessão emitida, não equivale a uma
+                        verificação completa da disponibilidade do emblema ou da visibilidade do curso.
+                    </li>
+                    <li>A cláusula <code>courseid IS NOT NULL</code> restringe a consulta a emblemas associados a
+                        cursos. Emblemas de âmbito geral ou sem vínculo de curso não são incluídos.
+                    </li>
+                    <li>As junções com usuários e cursos são opcionais. Quando o registro associado não é encontrado, os
+                        campos de nome, e-mail ou curso podem aparecer vazios.
+                    </li>
+                    <li>O SQL não exclui usuários apagados ou suspensos nem verifica se a matrícula no curso continua
+                        ativa.
+                    </li>
+                    <li>A data de emissão não confirma, por si só, que o participante mantém condições atuais de
+                        reconhecimento ou que o emblema continua ativo.
+                    </li>
+                    <li>A consulta abrange toda a instalação sem filtro de curso, período ou pessoa. O e-mail dos
+                        participantes deve ser protegido por permissões adequadas.
+                    </li>
+                    <li>Não existe arquivo PostgreSQL separado para este relatório.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Fontes técnicas</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-090.json"
+                       target="_blank" rel="noopener">Consultar a definição JSON original no GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Navegação entre relatórios">
+                <a href="089.html">← Relatório 089</a>
+                <a href="091.html">Relatório 091 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-090">
+                <h2 id="related-title-090">Relatórios
+                    similares</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="084.html"><span class="related-number">Relatório 084</span><span
+                            class="related-title">Evidências de competências</span><span class="related-category">Competências, planos e selos</span></a>
+                    <a class="related-card" href="085.html"><span class="related-number">Relatório 085</span><span
+                            class="related-title">Resultados dos cursos</span><span class="related-category">Competências, planos e selos</span></a>
+                    <a class="related-card" href="086.html"><span class="related-number">Relatório 086</span><span
+                            class="related-title">Progresso nos planos de aprendizagem</span><span
+                            class="related-category">Competências, planos e selos</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/competencies.html">Voltar à categoria</a> · Documentação PT-BR
+</footer>
+</body>
+</html>
