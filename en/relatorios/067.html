@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Displays quizzes and recorded attempts for users with the student role in the selected course, including dates, duration, state, percentage score, and module tags.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Quiz grade details by student | Report 067 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/067.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/067.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/067.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Quiz grade details by student | Report 067 · Kopere BI">
+    <meta property="og:description" content="Displays quizzes and recorded attempts for users with the student role in the selected course, including dates, duration, state, percentage score, and module tags.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/067.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/067.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/quizzes.html">Quizzes</a> / 067
+            </nav>
+            <div class="kicker">REPORT 067</div>
+            <h1>Quiz grade details by student</h1>
+            <p class="lead">Displays quizzes and recorded attempts for users with the student role in the selected course, including dates, duration, state, percentage score, and module tags.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Displays quizzes and recorded attempts for users with the student role in the selected course, including dates, duration, state, percentage score, and module tags.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Allows teachers to examine quiz attempts per student, compare recorded scores, and review attempt start and finish times, states, and associated module tags.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The dynamic SQL filter is <strong>Course</strong>, represented by <code>:courseid</code> once in the MySQL query and once in the PostgreSQL query, in the condition <code>ra.instanceid = :courseid</code>.</p>
+                <p>Fixed conditions include student role ID <code>5</code> assigned in a course context (<code>contextlevel = 50</code>), a visible course, and users who are neither deleted nor suspended and are not <code>guest</code>. There is no filter for attempt state, date, active enrolment, or module visibility.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization includes two complete original SQL queries, cache and refresh settings, and Prism.js syntax highlighting. Equivalent MySQL and PostgreSQL variants appear in separate panels within the same visualization.</p>
+                <details class="report-block" open>
+                    <summary>1. Quiz grade details by student · Table</summary>
+                    <div class="inner">
+                        <p>The table lists each student, quiz, and attempt (or an entry without an attempt), with course and quiz names, student name and email, configured quiz close date, attempt start and finish times, state, calculated duration, percentage score, module tags, and an empty cohort field.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_qa.id,
+       kbi_q.name,
+       kbi_u.email,
+       kbi_q.course,
+       kbi_q.timeclose,
+       kbi_c.fullname,
+       kbi_qa.timestart,
+       kbi_qa.timefinish,
+       kbi_qa.state,
+       (kbi_qa.timefinish - kbi_qa.timestart)                  as duration,
+       (kbi_qa.sumgrades / MAX(kbi_q.sumgrades) * 100)         as grade,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       GROUP_CONCAT(DISTINCT kbi_t.rawname SEPARATOR &#39;, &#39;) as tags,
+       &#39;&#39;                                              AS cohortname
+FROM (SELECT kbi_ctx.instanceid, kbi_ra1.userid
+      FROM mdl_context kbi_ctx
+             JOIN mdl_role_assignments kbi_ra1 ON kbi_ra1.contextid = kbi_ctx.id AND kbi_ra1.roleid = 5
+      WHERE kbi_ctx.contextlevel = 50
+      GROUP BY kbi_ctx.instanceid, kbi_ra1.userid) ra
+       JOIN mdl_modules kbi_m ON kbi_m.name = &#39;quiz&#39;
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = ra.instanceid AND kbi_cm.module = kbi_m.id
+       JOIN mdl_quiz kbi_q ON kbi_q.id = kbi_cm.instance
+       JOIN mdl_user kbi_u ON kbi_u.id = ra.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = ra.instanceid
+       LEFT JOIN mdl_quiz_attempts kbi_qa ON kbi_qa.quiz = kbi_q.id AND kbi_qa.userid = ra.userid
+       LEFT JOIN mdl_tag_instance kbi_ti ON kbi_ti.itemtype = &#39;course_modules&#39; AND kbi_ti.itemid = kbi_cm.id
+       LEFT JOIN mdl_tag kbi_t ON kbi_t.id = kbi_ti.tagid
+WHERE ra.instanceid &gt; 0
+  AND ra.instanceid = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+GROUP BY kbi_u.id, kbi_q.id, kbi_c.id, kbi_qa.id</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_qa.id,
+       kbi_q.name,
+       kbi_u.email,
+       kbi_q.course,
+       kbi_q.timeclose,
+       kbi_c.fullname,
+       kbi_qa.timestart,
+       kbi_qa.timefinish,
+       kbi_qa.state,
+       (kbi_qa.timefinish - kbi_qa.timestart)                  as duration,
+       (kbi_qa.sumgrades / MAX(kbi_q.sumgrades) * 100)         as grade,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       STRING_AGG(DISTINCT (kbi_t.rawname)::text, &#39;, &#39;) as tags,
+       &#39;&#39;                                              AS cohortname
+FROM(SELECT kbi_ctx.instanceid, kbi_ra1.userid
+      FROM mdl_context kbi_ctx
+             JOIN mdl_role_assignments kbi_ra1 ON kbi_ra1.contextid = kbi_ctx.id AND kbi_ra1.roleid = 5
+      WHERE kbi_ctx.contextlevel = 50
+      GROUP BY kbi_ctx.instanceid, kbi_ra1.userid) ra
+       JOIN mdl_modules kbi_m ON kbi_m.name = &#39;quiz&#39;
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = ra.instanceid AND kbi_cm.module = kbi_m.id
+       JOIN mdl_quiz kbi_q ON kbi_q.id = kbi_cm.instance
+       JOIN mdl_user kbi_u ON kbi_u.id = ra.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = ra.instanceid
+       LEFT JOIN mdl_quiz_attempts kbi_qa ON kbi_qa.quiz = kbi_q.id AND kbi_qa.userid = ra.userid
+       LEFT JOIN mdl_tag_instance kbi_ti ON kbi_ti.itemtype = &#39;course_modules&#39; AND kbi_ti.itemid = kbi_cm.id
+       LEFT JOIN mdl_tag kbi_t ON kbi_t.id = kbi_ti.tagid
+WHERE ra.instanceid &gt; 0
+  AND ra.instanceid = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+GROUP BY kbi_u.id, kbi_q.id, kbi_c.id, kbi_qa.id</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The query uses role ID <code>5</code> assignments but does not verify active enrolment or enrolment validity. Users with the assigned role but without a current enrolment may still appear.</li>
+                    <li>Attempts are joined with <code>LEFT JOIN</code>, so students without attempts may still produce a quiz row with NULL attempt data.</li>
+                    <li>The SQL does not restrict <code>kbi_qa.preview</code> or <code>kbi_qa.state</code>; preview and unfinished attempts may appear.</li>
+                    <li>The <code>grade</code> field divides an attempt score by the quiz maximum score. No <code>NULLIF</code> protects division when <code>sumgrades =
+                            0</code>.</li>
+                    <li>Duration is simply <code>timefinish - timestart</code>, without establishing that an attempt finished; ongoing attempts may produce negative or inconsistent durations.</li>
+                    <li>The <code>cohortname</code> field is a constant empty string in the SQL. Despite its name, it does not indicate cohort membership.</li>
+                    <li>The SQL requires a visible course but does not apply <code>kbi_cm.visible = 1</code>. Hidden quizzes may appear when a course role assignment exists.</li>
+                    <li>Tags are associated with the quiz module and aggregated into text. The MySQL and PostgreSQL variants use different aggregation functions. Since names, email addresses, and grades are included, enforce access permissions.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-067.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-067-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="066.html">← Report 066</a>
+                <a href="068.html">Report 068 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-067">
+                <h2 id="related-title-067">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="089.html"><span class="related-number">Report 089</span><span
+                            class="related-title">Quiz scores by attempt</span><span
+                            class="related-category">Quizzes</span></a>
+                    <a class="related-card" href="064.html"><span class="related-number">Report 064</span><span
+                            class="related-title">Quiz activity by student</span><span
+                            class="related-category">Quizzes</span></a>
+                    <a class="related-card" href="062.html"><span class="related-number">Report 062</span><span
+                            class="related-title">Quiz question structure</span><span
+                            class="related-category">Quizzes</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/quizzes.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

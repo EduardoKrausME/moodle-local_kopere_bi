@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Summarizes distinct quizzes and recorded attempts by cohort membership among users who attempted quizzes in the selected course.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Quiz progress by cohort | Report 068 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/068.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/068.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/068.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Quiz progress by cohort | Report 068 · Kopere BI">
+    <meta property="og:description" content="Summarizes distinct quizzes and recorded attempts by cohort membership among users who attempted quizzes in the selected course.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/068.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/068.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/quizzes.html">Quizzes</a> / 068
+            </nav>
+            <div class="kicker">REPORT 068</div>
+            <h1>Quiz progress by cohort</h1>
+            <p class="lead">Summarizes distinct quizzes and recorded attempts by cohort membership among users who attempted quizzes in the selected course.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Summarizes distinct quizzes and recorded attempts by cohort membership among users who attempted quizzes in the selected course.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps educational teams identify cohorts with quiz attempts in the course and compare quiz participation volumes between groups.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The only dynamic filter is <strong>Course</strong>, represented by <code>:courseid</code> and used once in the SQL.</p>
+                <p>The fixed condition requires <code>kbi_c.visible = 1</code>. Cohorts are linked through <code>mdl_cohort_members</code>, associating each user who attempted a quiz with any cohort they belong to. There are no parameters for cohort, date range, student, or quiz.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains one complete original SQL query, cache and refresh settings, and Prism.js syntax highlighting. No separate PostgreSQL definition is provided.</p>
+                <details class="report-block" open>
+                    <summary>1. Quiz progress by cohort · Table</summary>
+                    <div class="inner">
+                        <p>The table lists each cohort's ID and name, the number of distinct quizzes with attempts (<code>submitted</code>), and the number of distinct attempts (<code>attempted</code>), sorted by cohort name.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_co.id,
+       kbi_co.name,
+       COUNT(DISTINCT kbi_qa.quiz) AS submitted,
+       COUNT(DISTINCT kbi_qa.id)   AS attempted
+FROM mdl_quiz_attempts kbi_qa
+       JOIN mdl_quiz kbi_q ON kbi_q.id = kbi_qa.quiz
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_q.course
+       JOIN mdl_cohort_members kbi_cm ON kbi_cm.userid = kbi_qa.userid
+       JOIN mdl_cohort kbi_co ON kbi_co.id = kbi_cm.cohortid
+WHERE kbi_c.id = :courseid
+  AND kbi_c.visible = 1
+GROUP BY kbi_co.id, kbi_co.name
+ORDER BY kbi_co.name</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>Despite the title, there is <strong>no percentage of progress or completion</strong>. The <code>submitted</code> field counts distinct quiz IDs with attempts, while <code>attempted</code> counts distinct attempt IDs.</li>
+                    <li>The <code>submitted</code> label does not mean attempts were submitted or finished: the query does not filter <code>state = 'finished'</code> or exclude preview records.</li>
+                    <li>Cohort membership comes from <code>mdl_cohort_members</code> and does not prove that the cohort is specifically associated with the course or that the user is enrolled in it.</li>
+                    <li>A user may belong to multiple cohorts. Their attempts may contribute to several group totals; do not add rows to obtain platform-wide distinct totals.</li>
+                    <li>Only cohorts with at least one associated attempt are included; cohorts without attempts are not listed.</li>
+                    <li>The query does not filter deleted or suspended users, enrolment status, quiz module visibility, or attempt dates.</li>
+                    <li>There is no separate PostgreSQL SQL file for this report. These values are event counts, not conclusive measures of learning.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-068.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="067.html">← Report 067</a>
+                <a href="069.html">Report 069 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-068">
+                <h2 id="related-title-068">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="069.html"><span class="related-number">Report 069</span><span
+                            class="related-title">Quiz progress by course</span><span
+                            class="related-category">Quizzes</span></a>
+                    <a class="related-card" href="070.html"><span class="related-number">Report 070</span><span
+                            class="related-title">Quiz progress by user</span><span
+                            class="related-category">Quizzes</span></a>
+                    <a class="related-card" href="010.html"><span class="related-number">Report 010</span><span
+                            class="related-title">Success and progress by cohort</span><span class="related-category">Users and profiles</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/quizzes.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
