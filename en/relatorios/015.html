@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Lists user logout events stored in the Kopere BI temporary log history, ordered by record ID.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Platform logins and logouts | Report 015 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>
+        .report-intro {
+            background: #e7f6f4;
+            border: 1px solid #bee1dd;
+            border-radius: 13px;
+            padding: 22px 24px;
+            margin: 22px 0
+        }
+
+        .report-intro strong {
+            font-size: 17px;
+            color: #096573
+        }
+
+        .report-intro p {
+            margin: 7px 0 0
+        }
+
+        .report-navigation {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 23px 0
+        }
+
+        .report-navigation a {
+            font-size: 13px;
+            font-weight: 750;
+            text-decoration: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            background: #e4f4f2
+        }
+
+        .report-block {
+            border: 1px solid #d9e6e9;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 18px 0
+        }
+
+        .report-block summary {
+            padding: 16px;
+            background: #eaf5f7;
+            color: #0b5261;
+            font-weight: 800;
+            cursor: pointer
+        }
+
+        .report-block summary:hover {
+            background: #d9eff0
+        }
+
+        .report-block .inner {
+            padding: 16px
+        }
+
+        .sql-variant {
+            background: #f5f9f9;
+            border: 1px solid #dbe7e9;
+            border-radius: 12px;
+            margin: 16px 0;
+            padding: 13px 15px
+        }
+
+        .sql-variant h3 {
+            font-size: 14px;
+            color: #095f6d;
+            font-weight: 800;
+            margin: 0 0 10px
+        }
+
+        .report-meta {
+            color: #54707b;
+            font-size: 13px
+        }
+
+        @media (max-width: 650px) {
+            .report-block .inner {
+                padding: 10px
+            }
+
+            .sql-variant {
+                padding: 8px
+            }
+        }
+    </style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/015.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/015.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/015.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Platform logins and logouts | Report 015 · Kopere BI">
+    <meta property="og:description" content="Lists user logout events stored in the Kopere BI temporary log history, ordered by record ID.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/015.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/015.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/users.html">Users and profiles</a> / 015
+            </nav>
+            <div class="kicker">REPORT 015</div>
+            <h1>Platform logins and logouts</h1>
+            <p class="lead">Lists user logout events stored in the Kopere BI temporary log history, ordered by record ID.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Lists user logout events stored in the Kopere BI temporary log history, ordered by record ID.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps technical support inspect Moodle logout events retained in the plugin's temporary log table to investigate session termination patterns.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Actual filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>There are no dynamic SQL filters for user, course, cohort, or date range.</p>
+                <p>The fixed criteria are <code>kbi_l1.action = 'loggedout'</code> and <code>kbi_l1.contextid = 1</code>. Records are ordered by <code>kbi_l1.id ASC</code>.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization with the complete original SQL and its cache and refresh configuration. SQL syntax highlighting is provided by Prism.js.</p>
+                <details class="report-block" open>
+                    <summary>1. Platform logins and logouts · Table</summary>
+                    <div class="inner">
+                        <p>The table shows the log record ID, user ID, and logout event timestamp (<code>loggedout</code>) from <code>mdl_local_kopere_bi_log_tmp</code>, ordered by ascending ID.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_l1.id, kbi_l1.userid, kbi_l1.timecreated AS loggedout
+FROM mdl_local_kopere_bi_log_tmp kbi_l1
+WHERE kbi_l1.action = &#39;loggedout&#39;
+  AND kbi_l1.contextid = 1
+ORDER BY kbi_l1.id ASC</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>Although the title mentions logins and logouts, the query selects <strong>logout events only</strong> (<code>loggedout</code>); it does not list <code>loggedin</code> events.</li>
+                    <li>The SQL uses the Kopere BI temporary log table, whose contents depend on how records are synchronized, collected, and retained in the installation.</li>
+                    <li>There is no date-range, user, or course filter. On large databases, this query may return many events and requires performance and access review.</li>
+                    <li>The timestamp comes from <code>timecreated</code> in the format stored by Moodle, generally a Unix timestamp, and needs to be displayed in the interface's time zone.</li>
+                    <li>Not every browser exit necessarily produces an explicit logout event, so the list does not establish that all sessions have ended.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p><a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-015.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="014.html">← Report 014</a>
+                <a href="016.html">Report 016 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-015">
+                <h2 id="related-title-015">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="014.html"><span class="related-number">Report 014</span><span
+                            class="related-title">Login statistics</span><span class="related-category">Users and profiles</span></a>
+                    <a class="related-card" href="006.html"><span class="related-number">Report 006</span><span
+                            class="related-title">Login records</span><span class="related-category">Access and logins</span></a>
+                    <a class="related-card" href="021.html"><span class="related-number">Report 021</span><span
+                            class="related-title">Detailed summary of platform usage by user</span><span
+                            class="related-category">Users and profiles</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/users.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
