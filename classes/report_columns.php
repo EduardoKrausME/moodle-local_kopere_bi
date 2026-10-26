@@ -167,11 +167,11 @@ final class report_columns {
                     return $column;
                 }
             }
-            if (array_key_exists('username', $sample) && preg_match('/\b(?:mdl_user|\{user\})\b/i', $sql)) {
+            if (array_key_exists('username', $sample) && preg_match('/(?:\bmdl_user\b|\{user\})/i', $sql)) {
                 return 'username';
             }
             if (isset($sample['id'], $sample['firstname'], $sample['lastname']) &&
-                    preg_match('/\b(?:mdl_user|\{user\})\b/i', $sql)) {
+                    preg_match('/(?:\bmdl_user\b|\{user\})/i', $sql)) {
                 return 'id';
             }
         } else {
@@ -181,7 +181,7 @@ final class report_columns {
                 }
             }
             if (array_key_exists('shortname', $sample) &&
-                    preg_match('/\b(?:mdl_course|\{course\})\b/i', $sql)) {
+                    preg_match('/(?:\bmdl_course\b|\{course\})/i', $sql)) {
                 return 'shortname';
             }
         }
@@ -219,6 +219,9 @@ final class report_columns {
                 continue;
             }
 
+            $identityvalues = array_map(static function($row) use ($identity) {
+                return (string)($row->{$identity} ?? '');
+            }, $rows);
             $selected = self::selected($entity);
             $standard = $entity === 'user' ? self::USER_FIELDS : self::COURSE_FIELDS;
             $hidden = array_diff(array_keys($standard), $selected);
@@ -262,11 +265,8 @@ final class report_columns {
             }
 
             // Batch metadata, never a SQL lookup per report row.
-            $ids = array_values(array_unique(array_filter(array_map(
-                static function($row) use ($identity) {
-                    return (string)($row->{$identity} ?? '');
-                }, $rows
-            ), static function($id) { return $id !== ''; })));
+            $ids = array_values(array_unique(array_filter($identityvalues,
+                static function($id) { return $id !== ''; })));
             if (!$ids) {
                 continue;
             }
@@ -278,8 +278,8 @@ final class report_columns {
                 $custom = self::course_custom_data($records, array_keys($extra), $viewerid);
             }
 
-            foreach ($rows as $row) {
-                $lookup = (string)($row->{$identity} ?? '');
+            foreach ($rows as $rowindex => $row) {
+                $lookup = $identityvalues[$rowindex];
                 $record = $records[$lookup] ?? null;
                 foreach ($extra as $key => $alias) {
                     $value = '';
@@ -400,7 +400,7 @@ final class report_columns {
         $result = [];
         foreach ($data as $datum) {
             $field = $fields[$datum->fieldid];
-            if ((int)$field->visible >= 2 ||
+            if ((int)$field->visible === 2 ||
                     self::can_view_user_details((int)$datum->userid, $viewerid)) {
                 $result[(int)$datum->userid]['custom_' . $field->shortname] = $datum->data;
             }
