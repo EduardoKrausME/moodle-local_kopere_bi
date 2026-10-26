@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Shows activity-component events for the selected course from Kopere BI's temporary log table, including user, module, origin, and forum details when available.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Course content logs | Report 038 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/038.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/038.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/038.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Course content logs | Report 038 · Kopere BI">
+    <meta property="og:description" content="Shows activity-component events for the selected course from Kopere BI's temporary log table, including user, module, origin, and forum details when available.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/038.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/038.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/courses.html">Courses and content</a> / 038
+            </nav>
+            <div class="kicker">REPORT 038</div>
+            <h1>Course content logs</h1>
+            <p class="lead">Shows activity-component events for the selected course from Kopere BI's temporary log table, including user, module, origin, and forum details when available.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Shows activity-component events for the selected course from Kopere BI's temporary log table, including user, module, origin, and forum details when available.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps support and administration teams examine records associated with visible course modules, identify the context and source of access, and investigate events retained by Kopere BI.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The actual dynamic filter is <strong>Course</strong>, represented once by <code>:courseid</code>.</p>
+                <p>Fixed criteria require <code>kbi_l.component LIKE '%mod_%'</code>, a visible course and module, an account that is neither deleted nor suspended, and a user other than <code>guest</code>. There is no parameter for user, activity type, or date.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization includes one SQL query, cache settings, and Prism.js syntax highlighting. There is no separate PostgreSQL variant for this report.</p>
+                <details class="report-block" open>
+                    <summary>1. Course content logs · Table</summary>
+                    <div class="inner">
+                        <p>Each log row includes the user, course, module identified by CMID, object table, origin, IP address, event date, and, for forum discussions or posts, a title or subject obtained through a subquery.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_l.id,
+       kbi_l.courseid,
+       kbi_l.userid,
+       kbi_l.contextinstanceid          AS cmid,
+       kbi_l.objecttable,
+       kbi_l.origin,
+       kbi_l.ip,
+       kbi_c.fullname                   AS course,
+       kbi_c.shortname,
+       kbi_ca.name                      AS category,
+       kbi_u.email,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_l.timecreated,
+       (CASE
+          WHEN kbi_l.objecttable = &#39;forum_discussions&#39; THEN (SELECT name FROM mdl_forum_discussions WHERE id = kbi_l.objectid)
+          ELSE (CASE
+                  WHEN kbi_l.objecttable = &#39;forum_posts&#39; THEN (SELECT subject FROM mdl_forum_posts WHERE id = kbi_l.objectid)
+                  ELSE &#39;&#39; END) END) AS forumitem
+FROM mdl_local_kopere_bi_log_tmp kbi_l
+       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_l.courseid
+       LEFT JOIN mdl_course_categories kbi_ca ON kbi_ca.id = kbi_c.category
+       LEFT JOIN mdl_user kbi_u ON kbi_u.id = kbi_l.userid
+       LEFT JOIN mdl_modules kbi_m ON kbi_m.name = SUBSTRING(kbi_l.component, 5)
+       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.id = kbi_l.contextinstanceid
+WHERE kbi_l.component LIKE &#39;%mod_%&#39;
+  AND kbi_l.courseid = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_cm.visible = 1</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>Records come from <code>mdl_local_kopere_bi_log_tmp</code>, a plugin-maintained temporary table, rather than directly from <code>mdl_logstore_standard_log</code>. Historical coverage depends on collection and retention.</li>
+                    <li>The <code>LIKE '%mod_%'</code> pattern treats <code>_</code> as a SQL single-character wildcard, not a literal underscore. It may match components beyond the expected textual prefix.</li>
+                    <li>The query optionally joins <code>mdl_modules</code> using <code>SUBSTRING(kbi_l.component,
+                        5)</code>, but does not use that association to restrict results. Component-name compatibility should be reviewed.</li>
+                    <li>A visible CMID is effectively required because the <code>WHERE</code> clause requires <code>kbi_cm.visible
+                        = 1</code>, even though the join to the modules table is optional.</li>
+                    <li>The <code>forumitem</code> field is populated only for <code>forum_discussions</code> and <code>forum_posts</code> when the referenced object is still available. Other events receive an empty string.</li>
+                    <li>The table includes user email addresses and IP addresses, which are subject to privacy restrictions. No selectable time window is applied.</li>
+                    <li>There is no separate PostgreSQL definition for this report; validate the query against the installation's database system.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-038.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="037.html">← Report 037</a>
+                <a href="039.html">Report 039 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-038">
+                <h2 id="related-title-038">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="039.html"><span class="related-number">Report 039</span><span
+                            class="related-title">Course content usage</span><span
+                            class="related-category">Courses and content</span></a>
+                    <a class="related-card" href="003.html"><span class="related-number">Report 003</span><span
+                            class="related-title">Courses</span><span
+                            class="related-category">Courses and content</span></a>
+                    <a class="related-card" href="009.html"><span class="related-number">Report 009</span><span
+                            class="related-title">Course modules</span><span class="related-category">Courses and content</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/courses.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
