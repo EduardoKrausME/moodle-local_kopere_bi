@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Daily recorded module actions grouped by student, teacher, and other roles, using UTC days.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Daily activity by course role | Report 115 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/115.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/115.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/115.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Daily activity by course role | Report 115 · Kopere BI">
+    <meta property="og:description" content="Daily recorded module actions grouped by student, teacher, and other roles, using UTC days.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/115.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/115.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/analytics.html">Analytics</a> / 115
+            </nav>
+            <div class="kicker">REPORT 115</div>
+            <h1>Daily activity by course role</h1>
+            <p class="lead">Daily recorded module actions grouped by student, teacher, and other roles, using UTC days.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>A table grouped by course, UTC day, and predominant role, showing course, day start, teacher/student/other classification, recorded action count, and distinct users. The latest days appear first, followed by course and role, with at most 500 groups.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Compare recorded module participation among students, teachers, and other roles within each course, identifying day-to-day variations in actions and participating users.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#criterios">Calculation criteria</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>There are no dynamic SQL parameters for course, role, user, or period. Fixed conditions select events from <code>mdl_local_kopere_bi_log_tmp</code> with <code>component LIKE 'mod_%'</code> and <code>timecreated
+                        &gt;= UNIX_TIMESTAMP() - 7776000</code>, equivalent to <strong>90 consecutive 24-hour days</strong>.</p>
+                <p>Only events associated with users assigned a role in a course context (<code>contextlevel = 50</code>) are counted. Roles are grouped by the <code>teacher</code>, <code>editingteacher</code>, and <code>student</code> archetypes, with teacher taking priority if both apply. Results are limited to <strong>500 rows</strong>.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization includes the original complete SQL, cache and refresh settings, and Prism.js syntax highlighting. There is no separate PostgreSQL definition in <code>master</code>, so no nonexistent variant was added.</p>
+                <details class="report-block" open>
+                    <summary>1. Daily activity by course role · Table</summary>
+                    <div class="inner">
+                        <p>A table grouped by course, UTC day, and predominant role, showing the course, day start, teacher/student/other classification, recorded action count, and distinct user count. It lists newer days first, then course and role, up to 500 groups.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(c.id, &#39;-&#39;, FLOOR(l.timecreated / 86400.0), &#39;-&#39;, roles.role_type) AS id,
+       c.id AS courseid, c.fullname AS course,
+       FLOOR(l.timecreated / 86400.0) * 86400 AS daystart,
+       roles.role_type, COUNT(l.id) AS actions, COUNT(DISTINCT l.userid) AS users
+  FROM mdl_local_kopere_bi_log_tmp l
+  JOIN mdl_course c ON c.id = l.courseid
+  JOIN (SELECT cx.instanceid AS courseid, ra.userid,
+               CASE WHEN MAX(CASE WHEN r.archetype IN (&#39;teacher&#39;, &#39;editingteacher&#39;) THEN 1 ELSE 0 END) = 1
+                       THEN &#39;teacher&#39;
+                    WHEN MAX(CASE WHEN r.archetype = &#39;student&#39; THEN 1 ELSE 0 END) = 1
+                       THEN &#39;student&#39;
+                    ELSE &#39;other&#39; END AS role_type
+          FROM mdl_context cx
+          JOIN mdl_role_assignments ra ON ra.contextid = cx.id
+          JOIN mdl_role r ON r.id = ra.roleid
+         WHERE cx.contextlevel = 50
+         GROUP BY cx.instanceid, ra.userid) roles ON roles.courseid = l.courseid AND roles.userid = l.userid
+ WHERE l.component LIKE &#39;mod_%&#39; AND l.timecreated &gt;= UNIX_TIMESTAMP() - 7776000
+ GROUP BY c.id, c.fullname, FLOOR(l.timecreated / 86400.0), roles.role_type
+ ORDER BY daystart DESC, c.fullname, roles.role_type
+ LIMIT 500</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Calculation criteria and behavior</h2>
+                <p>The SQL groups Unix event timestamps into UTC days using <code>FLOOR(timecreated / 86400.0) *
+                    86400</code>. <code>COUNT(l.id)</code> counts action records, while <code>COUNT(DISTINCT l.userid)</code> counts distinct users <em>within each course–day–role combination</em>.</p>
+                <p>Records are joined to courses and a role subquery, which classifies each user in each course once, prioritizing <code>teacher</code> over <code>student</code> and then <code>other</code>. In <code>LIKE 'mod_%'</code>, the underscore acts as a SQL wildcard, not an escaped literal underscore.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul class="report-limit">
+                    <li>Adding distinct-user counts across days, courses, or roles does not yield the number of distinct people on the platform.</li>
+                    <li>Grouping uses roles currently assigned in the course context. Role changes can alter how historical actions are classified.</li>
+                    <li>An event with no course-context role assignment may be excluded by the INNER JOIN even if it exists in the temporary log.</li>
+                    <li>The SQL LIKE 'mod_%' pattern does not escape the underscore, a single-character wildcard. It may match components that do not literally start with 'mod_'.</li>
+                    <li>The 90-day historical window is relative to query execution. The first 500 groups after sorting may not represent the entire period.</li>
+                    <li>The query has no explicit checks for deleted or suspended users or course visibility. It measures logged actions, not actual learning.</li>
+                    <li>The query uses UNIX_TIMESTAMP(), and no PostgreSQL variant is provided in the JSON file. Execution on PostgreSQL requires a separately validated adaptation, not provided here.</li>
+                </ul>
+                <p class="report-technical">The SQL is reproduced in full from the original JSON in <code>master</code>, without execution on a Moodle installation during this documentation work. Verify database compatibility, data visibility, permissions, and result consistency.</p>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-115.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="114.html">← Report 114</a>
+                <a href="116.html">Report 116 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-115">
+                <h2 id="related-title-115">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="119.html"><span class="related-number">Report 119</span><span
+                            class="related-title">Student participation versus class</span><span
+                            class="related-category">Operational participation indicators</span></a>
+                    <a class="related-card" href="116.html"><span class="related-number">Report 116</span><span
+                            class="related-title">Active courses by day</span><span class="related-category">Operational participation indicators</span></a>
+                    <a class="related-card" href="034.html"><span class="related-number">Report 034</span><span
+                            class="related-title">Teacher and student engagement by course</span><span
+                            class="related-category">Teachers and tutors</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/analytics.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

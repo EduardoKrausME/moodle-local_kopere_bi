@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Estimated tracked seconds, visits, and students reached by module type and course; not a measure of active screen time.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Tracked time by activity type | Report 114 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/114.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/114.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/114.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Tracked time by activity type | Report 114 · Kopere BI">
+    <meta property="og:description" content="Estimated tracked seconds, visits, and students reached by module type and course; not a measure of active screen time.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/114.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/114.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/activities.html">Activities</a> / 114
+            </nav>
+            <div class="kicker">REPORT 114</div>
+            <h1>Tracked time by activity type</h1>
+            <p class="lead">Estimated tracked seconds, visits, and students reached by module type and course; not a measure of active screen time.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>A table grouped by course and module type, showing course name, module type, number of distinct module instances, distinct visiting students, visits, and total recorded seconds. Results are sorted by descending seconds and limited to 500 groups.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Compare recorded visits and estimated tracked time among different activity types in courses to identify which resources account for the most recorded use.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#criterios">Calculation criteria</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL filters</strong> for course, module, student, cohort, or period. The query requires <code>t.page = 'module'</code> and visible modules not pending deletion (<code>cm.visible =
+                        1</code> and <code>cm.deletioninprogress = 0</code>).</p>
+                <p>Only events associated with a student holding an active enrolment through an enabled enrolment method, a non-deleted and non-suspended account, eligible enrolment dates, and a course-context role with archetype <code>student</code> are included. The result is limited to <strong>500 groups</strong>.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization provides the complete original SQL and cache and refresh settings, with Prism.js syntax highlighting. No separate PostgreSQL definition is available in <code>master</code>, so no additional variant has been invented.</p>
+                <details class="report-block" open>
+                    <summary>1. Tracked time by activity type · Table</summary>
+                    <div class="inner">
+                        <p>A table grouped by course and module type with course, type, distinct module instances, distinct visiting students, visits, and total recorded seconds. It sorts by descending seconds and returns at most 500 groups.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(c.id, &#39;-&#39;, m.id) AS id, c.id AS courseid, c.fullname AS course,
+       m.name AS module, COUNT(DISTINCT cm.id) AS modules,
+       COUNT(DISTINCT t.userid) AS learners, SUM(t.visits) AS visits,
+       SUM(t.timespend) AS seconds
+  FROM mdl_local_kopere_bi_tracking t
+  JOIN mdl_course_modules cm ON cm.id = t.param AND cm.course = t.courseid
+  JOIN mdl_modules m ON m.id = cm.module
+  JOIN mdl_course c ON c.id = cm.course
+  JOIN (
+    SELECT DISTINCT e.courseid, ue.userid
+      FROM mdl_user_enrolments ue
+      JOIN mdl_enrol e ON e.id = ue.enrolid
+      JOIN mdl_context cx ON cx.contextlevel = 50 AND cx.instanceid = e.courseid
+      JOIN mdl_role_assignments ra ON ra.contextid = cx.id AND ra.userid = ue.userid
+      JOIN mdl_role r ON r.id = ra.roleid AND r.archetype = &#39;student&#39;
+      JOIN mdl_user u ON u.id = ue.userid AND u.deleted = 0 AND u.suspended = 0
+     WHERE e.status = 0 AND ue.status = 0
+       AND (ue.timestart = 0 OR ue.timestart &lt;= UNIX_TIMESTAMP())
+       AND (ue.timeend = 0 OR ue.timeend &gt; UNIX_TIMESTAMP())
+) students ON students.userid = t.userid AND students.courseid = t.courseid
+ WHERE t.page = &#39;module&#39; AND cm.deletioninprogress = 0 AND cm.visible = 1
+ GROUP BY c.id, c.fullname, m.id, m.name
+ ORDER BY seconds DESC, c.fullname
+ LIMIT 500</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Calculation criteria and behavior</h2>
+                <p>For each course and module type, the SQL uses <code>COUNT(DISTINCT cm.id)</code> for modules, <code>COUNT(DISTINCT t.userid)</code> for distinct students, <code>SUM(t.visits)</code> for recorded visits, and <code>SUM(t.timespend)</code> for estimated seconds.</p>
+                <p>Records from <code>mdl_local_kopere_bi_tracking</code> are joined to modules and their types. Because the query uses <code>INNER JOIN</code>, types without tracking records do not appear.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul class="report-limit">
+                    <li>The seconds field represents estimated time recorded by Kopere BI tracking, not confirmed attention, actual study time, or time spent actively looking at a screen.</li>
+                    <li>Without a date condition, totals cover the available history rather than necessarily a defined academic term.</li>
+                    <li>Only types with tracking records associated with eligible modules are shown. A type absent from the table is not necessarily absent from the courses.</li>
+                    <li>There is no explicit filter for course or section visibility, only for module visibility.</li>
+                    <li>Students are selected using their current enrolment status. Earlier visits may contribute to the totals if their tracking records remain available.</li>
+                    <li>The 500-group limit sorts by descending seconds and excludes remaining groups. Values should not be compared directly across activities with different educational purposes.</li>
+                    <li>The association <code>cm.id = t.param</code> may require type conversion in PostgreSQL, depending on the table structure. No specific PostgreSQL variant is published in the master branch.</li>
+                </ul>
+                <p class="report-technical">The original SQL from <code>master</code> is reproduced verbatim; it was not executed in Moodle during this documentation work. Before institutional use, verify database compatibility, data integrity, visibility, privacy safeguards, and educational interpretation.</p>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-114.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="113.html">← Report 113</a>
+                <a href="115.html">Report 115 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-114">
+                <h2 id="related-title-114">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="113.html"><span class="related-number">Report 113</span><span
+                            class="related-title">Activity reach by course</span><span class="related-category">Activities</span></a>
+                    <a class="related-card" href="112.html"><span class="related-number">Report 112</span><span
+                            class="related-title">Engagement by course section</span><span class="related-category">Courses and content</span></a>
+                    <a class="related-card" href="055.html"><span class="related-number">Report 055</span><span
+                            class="related-title">Activity completion statistics</span><span
+                            class="related-category">Activities</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/activities.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
