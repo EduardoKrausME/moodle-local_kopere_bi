@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Compares each student's recorded actions over the past 30 days with the course average in the same analytics batch; actions do not measure learning.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Student participation versus course average | Report 119 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/119.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/119.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/119.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Student participation versus course average | Report 119 · Kopere BI">
+    <meta property="og:description" content="Compares each student's recorded actions over the past 30 days with the course average in the same analytics batch; actions do not measure learning.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/119.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/119.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/analytics.html">Analytics</a> / 119
+            </nav>
+            <div class="kicker">REPORT 119</div>
+            <h1>Student participation versus course average</h1>
+            <p class="lead">Compares each student's recorded actions over the past 30 days with the course average in the same analytics batch; actions do not measure learning.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Table by student and course with actions over the past 30 days, average actions for the course, the percentage ratio of individual actions to that average, individual progress, and average course progress. It sorts by absolute action count, course, and surname, and returns up to 500 rows.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Help tutors and administrators identify differences between a student's recorded participation and the average for all analyzed learners in the same course, while interpreting actions alongside average progress.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#criterios">Calculation criteria</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, student, cohort, or period. Student records and course averages both come from the latest <code>MAX(batchid)</code> available in <code>mdl_local_kopere_bi_engage</code>.</p>
+                <p>The <strong>30-day</strong> window is already built into the <code>actions30</code> field calculated in the analytics batch, rather than selected in this query. The SQL limits the result to <strong>500 records</strong>, sorted by <code>e.actions30 DESC</code>.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>The report has one table visualization, with complete original SQL, cache and refresh settings, and Prism.js syntax highlighting. There is no separate PostgreSQL variant in <code>master</code> for this definition, so no nonexistent query has been added.</p>
+                <details class="report-block" open>
+                    <summary>1. Student participation versus course average · Table</summary>
+                    <div class="inner">
+                        <p>Table by student and course showing actions in the past 30 days, course-average actions, percentage ratio to that average, individual progress, and average course progress. Rows are sorted by absolute action count, course, and surname, with a maximum of 500.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT e.id, e.courseid, c.fullname AS course, e.userid, u.firstname, u.lastname,
+       e.actions30, ROUND(peer.class_actions_avg, 2) AS class_actions_avg,
+       CASE WHEN peer.class_actions_avg &gt; 0 THEN ROUND(100.0 * e.actions30 / peer.class_actions_avg, 2)
+            ELSE NULL END AS activity_ratio,
+       e.progress, ROUND(peer.class_progress_avg, 2) AS class_progress_avg
+  FROM mdl_local_kopere_bi_engage e
+  JOIN mdl_user u ON u.id = e.userid
+  JOIN mdl_course c ON c.id = e.courseid
+  JOIN (SELECT courseid, AVG(actions30) AS class_actions_avg, AVG(progress) AS class_progress_avg
+          FROM mdl_local_kopere_bi_engage
+         WHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)
+         GROUP BY courseid) peer ON peer.courseid = e.courseid
+ WHERE e.batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)
+ ORDER BY e.actions30 DESC, c.fullname, u.lastname
+ LIMIT 500</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Calculation criteria and behavior</h2>
+                <p><code>class_actions_avg</code> is the <code>AVG(actions30)</code> of records in the course, grouped by <code>courseid</code> in the most recent analytics batch. The same subquery calculates <code>class_progress_avg</code> using <code>AVG(progress)</code>. Averages are rounded to two decimal places in the table.</p>
+                <p>The <code>activity_ratio</code> is <code>ROUND(100.0 * e.actions30 / class_actions_avg, 2)</code> when the average is greater than zero; otherwise it is <code>NULL</code>. A value of 100 means actions equal to the average, 150 means 1.5 times the average, and 50 means half the average. It is neither a completion rate nor a percentage change with 100 subtracted.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul class="report-limit">
+                    <li>Recorded actions represent interactions; they do not measure learning, study quality, complete reading of materials, or grades.</li>
+                    <li>Averages represent records in the course's analytics batch. There is no explicit filter for active enrolments, suspended accounts, or visible courses.</li>
+                    <li>The calculation is not segmented by a Moodle group or class: “course average” means aggregated records within the same course.</li>
+                    <li>If the average action count is zero or NULL, activity_ratio is NULL. This does not mean the student's performance is zero.</li>
+                    <li>The 500 rows are chosen by individual action volume, not by the greatest difference above or below the average. Students with few actions may be omitted.</li>
+                    <li>The accuracy and freshness of actions30 and progress depend on processing that populates the latest analytics batch.</li>
+                    <li>The table contains student identities and individual metrics. Restrict access and exports according to institutional policies and Moodle permissions.</li>
+                </ul>
+                <p class="report-technical">The query is reproduced verbatim from the original JSON in <code>master</code>. It was not executed in Moodle during this documentation work; before institutional use, validate database compatibility, access permissions, and metric interpretation.</p>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-119.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="118.html">← Report 118</a>
+                <a href="120.html">Report 120 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-119">
+                <h2 id="related-title-119">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="115.html"><span class="related-number">Report 115</span><span
+                            class="related-title">Daily activity by course role</span><span
+                            class="related-category">Operational participation indicators</span></a>
+                    <a class="related-card" href="110.html"><span class="related-number">Report 110</span><span
+                            class="related-title">Progress and grade analysis</span><span class="related-category">Learning Analytics dashboards</span></a>
+                    <a class="related-card" href="034.html"><span class="related-number">Report 034</span><span
+                            class="related-title">Teacher and student engagement by course</span><span
+                            class="related-category">Teachers and tutors</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/analytics.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

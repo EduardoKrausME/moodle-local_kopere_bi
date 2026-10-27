@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Newly enrolled students and course completions by UTC week starting on Monday.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Weekly enrolments versus completions | Report 117 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/117.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/117.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/117.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Weekly enrolments versus completions | Report 117 · Kopere BI">
+    <meta property="og:description" content="Newly enrolled students and course completions by UTC week starting on Monday.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/117.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/117.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/enrollments.html">Enrolments</a> / 117
+            </nav>
+            <div class="kicker">REPORT 117</div>
+            <h1>Weekly enrolments versus completions</h1>
+            <p class="lead">Newly enrolled students and course completions by UTC week starting on Monday.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Table grouped by course and UTC week beginning on Monday, showing course, week start, enrolment records created, and recorded course completions. It sorts the most recent weeks first and returns at most 500 rows.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Compare, week by week and by course, the number of enrolment records created with the number of course completions recorded over approximately the past year.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#criterios">Calculation criteria</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>There are no dynamic SQL parameters for course, user, or reporting period. Both parts of the query use fixed windows of <strong>31,536,000 seconds (365 days)</strong> relative to execution: <code>ue.timecreated
+                        &gt;= UNIX_TIMESTAMP() - 31536000</code> for enrolments and <code>cc.timecompleted &gt;=
+                        UNIX_TIMESTAMP() - 31536000</code> for completions.</p>
+                <p>Only weeks belonging to courses with <code>c.id &gt; 1</code> are considered. The SQL does not check active enrolment status, account status, or course visibility. It sorts by descending week and course name, limiting the table to <strong>500 rows</strong>.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>The report has one table visualization with the complete original SQL, cache, and refresh settings. Prism.js provides syntax highlighting. There is no separate PostgreSQL variant for this definition in <code>master</code>, so no nonexistent query has been added.</p>
+                <details class="report-block" open>
+                    <summary>1. Weekly enrolments versus completions · Table</summary>
+                    <div class="inner">
+                        <p>Table by course and UTC week beginning on Monday, with course, week start, number of newly created enrolments, and number of course completions. It sorts the newest weeks first and returns up to 500 rows.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(events.courseid, &#39;-&#39;, events.weekstart) AS id,
+       c.id AS courseid, c.fullname AS course, events.weekstart,
+       SUM(events.enrolments) AS enrolments, SUM(events.completions) AS completions
+  FROM (SELECT e.courseid, (FLOOR((ue.timecreated + 259200) / 604800.0) * 604800 - 259200) AS weekstart,
+               COUNT(DISTINCT ue.userid) AS enrolments, 0 AS completions
+          FROM mdl_user_enrolments ue
+          JOIN mdl_enrol e ON e.id = ue.enrolid
+         WHERE ue.timecreated &gt;= UNIX_TIMESTAMP() - 31536000
+         GROUP BY e.courseid, (FLOOR((ue.timecreated + 259200) / 604800.0) * 604800 - 259200)
+        UNION ALL
+        SELECT cc.course AS courseid, (FLOOR((cc.timecompleted + 259200) / 604800.0) * 604800 - 259200) AS weekstart,
+               0 AS enrolments, COUNT(cc.id) AS completions
+          FROM mdl_course_completions cc
+         WHERE cc.timecompleted IS NOT NULL AND cc.timecompleted &gt; 0
+           AND cc.timecompleted &gt;= UNIX_TIMESTAMP() - 31536000
+         GROUP BY cc.course, (FLOOR((cc.timecompleted + 259200) / 604800.0) * 604800 - 259200)) events
+  JOIN mdl_course c ON c.id = events.courseid
+ WHERE c.id &gt; 1
+ GROUP BY events.courseid, c.id, c.fullname, events.weekstart
+ ORDER BY events.weekstart DESC, c.fullname
+ LIMIT 500</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Calculation criteria and behavior</h2>
+                <p>Week boundaries use <code>FLOOR((timestamp + 259200) / 604800.0) * 604800 -
+                    259200</code>, aligned to Monday at 00:00 UTC in intervals of 604,800 seconds. The enrolment subquery counts <code>COUNT(DISTINCT ue.userid)</code> by course and week, while the completion subquery counts <code>COUNT(cc.id)</code>. They are combined using <code>UNION
+                        ALL</code> and then summed by course and week.</p>
+                <p>The comparison shows volumes of different events, not outcomes for a single student cohort. Students completing a course in a particular week may have enrolled long before.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul class="report-limit">
+                    <li>Enrolments are counted using the enrolment-record creation timestamp (<code>ue.timecreated</code>), which is not necessarily a student's first enrolment in any course.</li>
+                    <li>When a user has multiple enrolment methods in the same course and week, the enrolment subquery groups by user before the UNION. Completion records, however, are counted by ID, so the two measures have different counting rules.</li>
+                    <li>The two series do not necessarily describe the same cohort. Do not calculate a completion rate by simply dividing completions by enrolments in the same week.</li>
+                    <li>The rolling window is 365 days, not exactly 12 calendar months. The first and last weeks of the interval may be incomplete.</li>
+                    <li>There is no filter for suspended or inactive enrolments, deleted users, student roles, or hidden courses.</li>
+                    <li>The 500-row limit can truncate historical course-week combinations, and the sorting does not show which records were excluded.</li>
+                    <li>The SQL uses UNIX_TIMESTAMP() and no published PostgreSQL variant is available. Any adaptation must be tested before use on PostgreSQL.</li>
+                </ul>
+                <p class="report-technical">The SQL is reproduced verbatim from the original JSON in <code>master</code>; it was not executed on a Moodle installation during this documentation work. Before institutional use, verify database compatibility, data visibility, permissions, and result consistency.</p>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-117.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="116.html">← Report 116</a>
+                <a href="118.html">Report 118 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-117">
+                <h2 id="related-title-117">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="048.html"><span class="related-number">Report 048</span><span
+                            class="related-title">Enrolments and completion by course</span><span class="related-category">Enrolments and revenue</span></a>
+                    <a class="related-card" href="004.html"><span class="related-number">Report 004</span><span
+                            class="related-title">Enrolment statistics</span><span class="related-category">Enrolments and revenue</span></a>
+                    <a class="related-card" href="005.html"><span class="related-number">Report 005</span><span
+                            class="related-title">Inactive enrolments</span><span class="related-category">Enrolments and revenue</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/enrollments.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

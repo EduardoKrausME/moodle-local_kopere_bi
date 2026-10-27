@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Number of course completions and distinct courses with completions by category and UTC week.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Weekly course completions by category | Report 118 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/118.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/118.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/118.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Weekly course completions by category | Report 118 · Kopere BI">
+    <meta property="og:description" content="Number of course completions and distinct courses with completions by category and UTC week.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/118.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/118.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/courses.html">Courses</a> / 118
+            </nav>
+            <div class="kicker">REPORT 118</div>
+            <h1>Weekly course completions by category</h1>
+            <p class="lead">Number of course completions and distinct courses with completions by category and UTC week.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Table showing category name, UTC week start, number of course-completion records, and number of distinct courses with recorded completions. Rows are ordered by newest week and category, with a 500-row limit.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Analyze how formal course completions are distributed across categories and weeks, identifying their volume and how many different courses recorded at least one completion.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#criterios">Calculation criteria</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL filters</strong> for category, course, student, or reporting period. The query requires <code>cc.timecompleted IS NOT NULL</code> and <code>cc.timecompleted &gt; 0</code>, with completions in the last <code>31536000</code> seconds—a rolling window of <strong>365 days</strong>.</p>
+                <p>There is no explicit restriction for course visibility, account status, participant role, or a selected category. The query returns up to <strong>500 category-week combinations</strong>, prioritizing the most recent.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>The report has one table visualization with full original SQL, cache and refresh settings, and Prism.js syntax highlighting. No separate PostgreSQL variant is available in <code>master</code> for this definition, so no nonexistent query has been added.</p>
+                <details class="report-block" open>
+                    <summary>1. Weekly course completions by category · Table</summary>
+                    <div class="inner">
+                        <p>Table with category name, UTC week start, number of completion records, and number of distinct courses with completions. Rows are sorted by the most recent week and category, with a limit of 500.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(cat.id, &#39;-&#39;, (FLOOR((cc.timecompleted + 259200) / 604800.0) * 604800 - 259200)) AS id,
+       cat.name AS category, (FLOOR((cc.timecompleted + 259200) / 604800.0) * 604800 - 259200) AS weekstart,
+       COUNT(cc.id) AS completed, COUNT(DISTINCT cc.course) AS completed_courses
+  FROM mdl_course_completions cc
+  JOIN mdl_course c ON c.id = cc.course
+  JOIN mdl_course_categories cat ON cat.id = c.category
+ WHERE cc.timecompleted IS NOT NULL AND cc.timecompleted &gt; 0
+   AND cc.timecompleted &gt;= UNIX_TIMESTAMP() - 31536000
+ GROUP BY cat.id, cat.name, (FLOOR((cc.timecompleted + 259200) / 604800.0) * 604800 - 259200)
+ ORDER BY weekstart DESC, cat.name
+ LIMIT 500</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Calculation criteria and behavior</h2>
+                <p>The weekly period is derived from <code>cc.timecompleted</code> using <code>FLOOR((timecompleted
+                    + 259200) / 604800.0) * 604800 - 259200</code>, grouping records into weeks beginning Monday at 00:00 UTC.</p>
+                <p><code>COUNT(cc.id)</code> counts course-completion records, while <code>COUNT(DISTINCT
+                    cc.course)</code> counts distinct courses with completions in that category and week. Grouping uses the course's current category in <code>mdl_course_categories</code>.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul class="report-limit">
+                    <li>Completion records do not necessarily represent distinct students: one person can complete different courses in the same category and week.</li>
+                    <li>The number of distinct courses with completions is not the total number of existing or active courses in the category.</li>
+                    <li>The category is the course's current category. Moving courses between categories can change how historical completions are classified.</li>
+                    <li>The 365-day window is not exactly 12 calendar months and may include partial weeks at its beginning and end.</li>
+                    <li>Hidden courses, deleted accounts, and other statuses are not explicitly filtered by the query.</li>
+                    <li>The 500-row limit may omit older categories or weeks. Completion dates derived from timestamps should be interpreted in UTC.</li>
+                    <li>The definition uses UNIX_TIMESTAMP() and has no separate PostgreSQL variant. Execution on another database requires compatibility validation.</li>
+                </ul>
+                <p class="report-technical">The query is reproduced verbatim from the original JSON in <code>master</code>. It was not executed in Moodle during this documentation work; before institutional use, validate database compatibility, access permissions, and metric interpretation.</p>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-118.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="117.html">← Report 117</a>
+                <a href="119.html">Report 119 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-118">
+                <h2 id="related-title-118">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="117.html"><span class="related-number">Report 117</span><span
+                            class="related-title">Weekly enrolments versus completions</span><span
+                            class="related-category">Enrolments and revenue</span></a>
+                    <a class="related-card" href="048.html"><span class="related-number">Report 048</span><span
+                            class="related-title">Enrolments and completion by course</span><span class="related-category">Enrolments and revenue</span></a>
+                    <a class="related-card" href="103.html"><span class="related-number">Report 103</span><span
+                            class="related-title">Course completion status by student</span><span
+                            class="related-category">Students</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/courses.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
