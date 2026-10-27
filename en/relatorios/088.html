@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Details responses to individual questions in non-preview quiz attempts, including participants, question summaries, submitted answers, stored correct answers, and grading states.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Quiz responses by question | Report 088 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/088.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/088.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/088.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Quiz responses by question | Report 088 · Kopere BI">
+    <meta property="og:description" content="Details responses to individual questions in non-preview quiz attempts, including participants, question summaries, submitted answers, stored correct answers, and grading states.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/088.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/088.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/quizzes.html">Quizzes</a> / 088
+            </nav>
+            <div class="kicker">REPORT 088</div>
+            <h1>Quiz responses by question</h1>
+            <p class="lead">Details responses to individual questions in non-preview quiz attempts, including participants, question summaries, submitted answers, stored correct answers, and grading states.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Details responses to individual questions in non-preview quiz attempts, including participants, question summaries, submitted answers, stored correct answers, and grading states.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps teaching teams review answers for individual questions, identify grading states, examine fractions and awarded marks, and investigate inconsistencies in assessment results.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, quiz, student, attempt, question, or reporting period in the MySQL and PostgreSQL variants.</p>
+                <p>Fixed filters require <code>kbi_qa.preview = 0</code>, a visible course and module, a user who is neither deleted nor suspended, and a username other than <code>guest</code>. For each question attempt, the grading step with the greatest <code>sequencenumber</code> is selected. The query does not require finished attempts, active enrolment, or the student role.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization includes two complete original SQL queries, cache and refresh settings, and Prism.js syntax highlighting. Equivalent MySQL and PostgreSQL variants appear in separate panels.</p>
+                <details class="report-block" open>
+                    <summary>1. Quiz responses by question · Table</summary>
+                    <div class="inner">
+                        <p>Each row represents a question in a quiz attempt, identified by the attempt ID and question position. Fields include course, quiz, module, participant and email, attempt dates and state, slot, question name and type, question text summary, submitted and stored correct answers, latest question state, fraction, calculated mark, maximum mark, and a binary correctness indicator.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(kbi_qa.id, &#39;-&#39;, kbi_qatt.slot) AS id,
+       kbi_c.id                              AS courseid,
+       kbi_c.fullname                        AS course,
+       kbi_cm.id                             AS cmid,
+       kbi_qz.id                             AS quizid,
+       kbi_qz.name                           AS quiz_name,
+       kbi_u.id                              AS userid,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_qa.id                             AS quiz_attempt_id,
+       kbi_qa.attempt,
+       kbi_qa.timestart,
+       kbi_qa.timefinish,
+       kbi_qa.state                          AS attempt_state,
+       kbi_qatt.slot,
+       kbi_q.id                              AS questionid,
+       kbi_q.name                            AS question_name,
+       kbi_q.qtype,
+       kbi_qatt.questionsummary,
+       kbi_qatt.responsesummary,
+       kbi_qatt.rightanswer,
+       kbi_qas.state                         AS question_state,
+       kbi_qas.fraction,
+       ROUND(kbi_qatt.maxmark * COALESCE(kbi_qas.fraction, 0), 2) AS question_grade,
+       kbi_qatt.maxmark,
+       CASE
+         WHEN kbi_qas.state = &#39;gradedright&#39; THEN 1
+         ELSE 0
+       END AS is_correct
+FROM mdl_quiz_attempts kbi_qa
+       JOIN mdl_quiz kbi_qz ON kbi_qz.id = kbi_qa.quiz
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_qz.course
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_qa.userid
+       JOIN mdl_question_attempts kbi_qatt ON kbi_qatt.questionusageid = kbi_qa.uniqueid
+       JOIN mdl_question kbi_q ON kbi_q.id = kbi_qatt.questionid
+       LEFT JOIN mdl_question_attempt_steps kbi_qas ON kbi_qas.questionattemptid = kbi_qatt.id
+             AND kbi_qas.sequencenumber = (
+                 SELECT MAX(kbi_qas2.sequencenumber)
+                 FROM mdl_question_attempt_steps kbi_qas2
+                 WHERE kbi_qas2.questionattemptid = kbi_qatt.id
+             )
+       JOIN mdl_modules kbi_m ON kbi_m.name = &#39;quiz&#39;
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id AND kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_qz.id
+WHERE kbi_qa.preview = 0
+  AND kbi_c.visible = 1
+  AND kbi_cm.visible = 1
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username &lt;&gt; &#39;guest&#39;
+ORDER BY kbi_c.fullname, kbi_qz.name, kbi_u.lastname, kbi_u.firstname, kbi_qa.attempt, kbi_qatt.slot</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(kbi_qa.id, &#39;-&#39;, kbi_qatt.slot) AS id,
+       kbi_c.id                              AS courseid,
+       kbi_c.fullname                        AS course,
+       kbi_cm.id                             AS cmid,
+       kbi_qz.id                             AS quizid,
+       kbi_qz.name                           AS quiz_name,
+       kbi_u.id                              AS userid,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_qa.id                             AS quiz_attempt_id,
+       kbi_qa.attempt,
+       kbi_qa.timestart,
+       kbi_qa.timefinish,
+       kbi_qa.state                          AS attempt_state,
+       kbi_qatt.slot,
+       kbi_q.id                              AS questionid,
+       kbi_q.name                            AS question_name,
+       kbi_q.qtype,
+       kbi_qatt.questionsummary,
+       kbi_qatt.responsesummary,
+       kbi_qatt.rightanswer,
+       kbi_qas.state                         AS question_state,
+       kbi_qas.fraction,
+       ROUND((kbi_qatt.maxmark * COALESCE(kbi_qas.fraction, 0))::numeric, 2) AS question_grade,
+       kbi_qatt.maxmark,
+       CASE
+         WHEN kbi_qas.state = &#39;gradedright&#39; THEN 1
+         ELSE 0
+       END AS is_correct
+FROM mdl_quiz_attempts kbi_qa
+       JOIN mdl_quiz kbi_qz ON kbi_qz.id = kbi_qa.quiz
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_qz.course
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_qa.userid
+       JOIN mdl_question_attempts kbi_qatt ON kbi_qatt.questionusageid = kbi_qa.uniqueid
+       JOIN mdl_question kbi_q ON kbi_q.id = kbi_qatt.questionid
+       LEFT JOIN mdl_question_attempt_steps kbi_qas ON kbi_qas.questionattemptid = kbi_qatt.id
+             AND kbi_qas.sequencenumber = (
+                 SELECT MAX(kbi_qas2.sequencenumber)
+                 FROM mdl_question_attempt_steps kbi_qas2
+                 WHERE kbi_qas2.questionattemptid = kbi_qatt.id
+             )
+       JOIN mdl_modules kbi_m ON kbi_m.name = &#39;quiz&#39;
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id AND kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_qz.id
+WHERE kbi_qa.preview = 0
+  AND kbi_c.visible = 1
+  AND kbi_cm.visible = 1
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username &lt;&gt; &#39;guest&#39;
+ORDER BY kbi_c.fullname, kbi_qz.name, kbi_u.lastname, kbi_u.firstname, kbi_qa.attempt, kbi_qatt.slot</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li><strong>The SQL does not require <code>kbi_qa.state = 'finished'</code>.</strong> In-progress, abandoned, or other non-preview attempt states may appear.</li>
+                    <li>The <code>responsesummary</code> column may contain participant-submitted answer text, while <code>rightanswer</code> exposes the stored answer key. These are sensitive assessment data and require strict access controls.</li>
+                    <li>The <code>question_grade</code> field is calculated as <code>maxmark * COALESCE(fraction, 0)</code>. When no fraction is available, the formula uses zero, which does not necessarily mean an answer was graded incorrect.</li>
+                    <li>The <code>is_correct</code> indicator equals 1 only when the most recent step has state <code>gradedright</code>. States such as <code>gradedpartial</code> and pending grading are represented by 0 without distinction.</li>
+                    <li>The question mark is the slot's maximum mark multiplied by the fraction of the latest step. It is not necessarily the consolidated final quiz or gradebook grade.</li>
+                    <li>A question attempt may have several grading steps. The query uses only the highest sequence number, not the full grading history.</li>
+                    <li>There is no active-enrolment or participant-role filter. All visible courses and modules with eligible attempts are included, potentially returning large amounts of data.</li>
+                    <li>The MySQL and PostgreSQL versions differ primarily in numeric conversion for <code>ROUND</code>; their columns and filters are otherwise equivalent.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-088.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-088-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="087.html">← Report 087</a>
+                <a href="089.html">Report 089 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-088">
+                <h2 id="related-title-088">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="062.html"><span class="related-number">Report 062</span><span
+                            class="related-title">Quiz question structure</span><span
+                            class="related-category">Quizzes</span></a>
+                    <a class="related-card" href="123.html"><span class="related-number">Report 123</span><span
+                            class="related-title">Quiz performance by question tag</span><span
+                            class="related-category">Quizzes</span></a>
+                    <a class="related-card" href="122.html"><span class="related-number">Report 122</span><span
+                            class="related-title">Most frequent incorrect answers</span><span
+                            class="related-category">Quizzes</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/quizzes.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
