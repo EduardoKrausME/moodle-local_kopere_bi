@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Shows identified responses to Feedback activities in the selected course, including questions, answers, participant details, response modification dates, and course completion and grade indicators.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Feedback response details | Report 082 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/082.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/082.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/082.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Feedback response details | Report 082 · Kopere BI">
+    <meta property="og:description" content="Shows identified responses to Feedback activities in the selected course, including questions, answers, participant details, response modification dates, and course completion and grade indicators.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/082.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/082.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/feedback.html">Feedback</a> / 082
+            </nav>
+            <div class="kicker">REPORT 082</div>
+            <h1>Feedback response details</h1>
+            <p class="lead">Shows identified responses to Feedback activities in the selected course, including questions, answers, participant details, response modification dates, and course completion and grade indicators.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Shows identified responses to Feedback activities in the selected course, including questions, answers, participant details, response modification dates, and course completion and grade indicators.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Allows teachers and administrators to review individual Feedback form responses and, where available, interpret them alongside course completion and course grades.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The dynamic SQL filter is <strong>Course</strong>, represented by <code>:courseid</code> and used once in <code>kbi_mf.course = :courseid</code>.</p>
+                <p>Fixed criteria require a visible course, a Feedback activity with a positive ID, and an identified user who is neither deleted nor suspended and is not <code>guest</code>. There are no filters for a particular form, question, response period, active enrolment, or course completion.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains the complete original SQL query, cache and refresh settings, and Prism.js syntax highlighting. The catalog has no separate PostgreSQL variant for this report.</p>
+                <details class="report-block" open>
+                    <summary>1. Feedback response details · Table</summary>
+                    <div class="inner">
+                        <p>The table has one row per Feedback item and response from an identified participant. It includes participant name and email, response modification date, formal course completion date, question presentation and type, item ID, label and name, answer, form identifier, course fields, and a calculated final course grade.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_mfc.timemodified                    as feedback_time,
+       kbi_cc.timecompleted,
+       kbi_mfi.presentation,
+       kbi_mfi.typ,
+       kbi_mfi.id                              AS q_id,
+       kbi_mfi.label                           AS question_number,
+       kbi_mfi.name                            as question,
+       kbi_mfv.value                           as answer,
+       kbi_mf.name                             as feedback,
+       kbi_mf.id                               as feedback_id,
+       kbi_c.id                                as course_id,
+       kbi_c.idnumber                          as course_idnumber,
+       kbi_c.fullname                          as course_name,
+       kbi_c.shortname                         as course_shortname,
+       ROUND((CASE
+                WHEN kbi_g.rawgrademax &gt; 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                ELSE kbi_g.finalgrade END), 0) AS grade
+FROM mdl_feedback kbi_mf
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_mf.course
+       JOIN mdl_feedback_item kbi_mfi ON kbi_mfi.feedback = kbi_mf.id
+       LEFT JOIN mdl_feedback_value kbi_mfv ON kbi_mfv.item = kbi_mfi.id
+       LEFT JOIN mdl_feedback_completed kbi_mfc ON kbi_mfc.id = kbi_mfv.completed
+       LEFT JOIN mdl_user kbi_u ON kbi_mfc.userid = kbi_u.id
+       LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.itemtype = &#39;course&#39; AND kbi_gi.courseid = kbi_c.id
+       LEFT JOIN mdl_grade_grades kbi_g ON kbi_g.userid = kbi_u.id AND kbi_g.itemid = kbi_gi.id AND kbi_g.finalgrade IS NOT NULL
+       LEFT JOIN mdl_course_completions kbi_cc ON kbi_cc.userid = kbi_u.id AND kbi_cc.course = kbi_c.id
+WHERE kbi_mf.id &gt; 0
+  AND kbi_mf.course = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The query uses <code>LEFT JOIN</code> between responses and users, but <code>kbi_u.deleted
+                        = 0</code>, <code>kbi_u.suspended = 0</code>, and <code>username != 'guest'</code> in the <code>WHERE</code> clause exclude responses without an identified user, including anonymous responses not linked to an account.</li>
+                    <li>Results are at the Feedback item-and-value level. One person may appear on several rows, one per answered question. The query does not summarize results by participant.</li>
+                    <li>The <code>feedback_time</code> field uses <code>mdl_feedback_completed.timemodified</code>, which is not necessarily the original time the response was submitted.</li>
+                    <li>The <code>timecompleted</code> column comes from <code>mdl_course_completions</code> and indicates formal course completion, not completion of the Feedback form.</li>
+                    <li>The <code>grade</code> field uses grade items of type <code>course</code>, calculating a percentage when the maximum grade is positive and using the final grade otherwise. NULL values or extra rows are possible when several applicable grade items or records exist.</li>
+                    <li>The <code>answer</code> field preserves values stored in <code>mdl_feedback_value.value</code>. These may be codes, choices, numbers, or text rather than values ready for statistical interpretation.</li>
+                    <li>The query does not require active enrolment or select a reporting period. Names, email addresses, and answers are personal data and require appropriate access permissions and export safeguards.</li>
+                    <li>No separate PostgreSQL variant is provided in the definition catalog.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-082.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="081.html">← Report 081</a>
+                <a href="083.html">Report 083 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-082">
+                <h2 id="related-title-082">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="125.html"><span class="related-number">Report 125</span><span
+                            class="related-title">Feedback response distribution</span><span
+                            class="related-category">Feedback and surveys</span></a>
+                    <a class="related-card" href="083.html"><span class="related-number">Report 083</span><span
+                            class="related-title">Feedback overview</span><span class="related-category">Feedback and surveys</span></a>
+                    <a class="related-card" href="088.html"><span class="related-number">Report 088</span><span
+                            class="related-title">Quiz responses by question</span><span
+                            class="related-category">Quizzes</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/feedback.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

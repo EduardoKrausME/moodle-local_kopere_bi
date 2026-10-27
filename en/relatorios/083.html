@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Calculates the arithmetic mean of eligible numeric responses for each Feedback activity item across all forms in the database, without restricting results to a course.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Feedback overview | Report 083 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/083.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/083.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/083.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Feedback overview | Report 083 · Kopere BI">
+    <meta property="og:description" content="Calculates the arithmetic mean of eligible numeric responses for each Feedback activity item across all forms in the database, without restricting results to a course.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/083.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/083.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/feedback.html">Feedback</a> / 083
+            </nav>
+            <div class="kicker">REPORT 083</div>
+            <h1>Feedback overview</h1>
+            <p class="lead">Calculates the arithmetic mean of eligible numeric responses for each Feedback activity item across all forms in the database, without restricting results to a course.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Calculates the arithmetic mean of eligible numeric responses for each Feedback activity item across all forms in the database, without restricting results to a course.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps evaluation teams examine averages for numeric Feedback items, distinguishing questions with computable averages from those whose responses cannot produce one.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, form, item, respondent, date, or reporting period.</p>
+                <p>The only fixed condition in the main query is <code>kbi_f.id &gt; 0</code>. The average includes items with <code>typ = 'numeric'</code> or <code>typ = 'multichoicerated'</code> whose presentation does not begin with <code>c&gt;&gt;&gt;&gt;&gt;</code>. The response must also be non-NULL, nonempty, and contain no <code>|</code> character.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization includes the complete original SQL query, cache and refresh settings, and Prism.js syntax highlighting. There is no separate PostgreSQL variant for this report.</p>
+                <details class="report-block" open>
+                    <summary>1. Feedback overview · Table</summary>
+                    <div class="inner">
+                        <p>The per-Feedback-item table displays the item's ID, name, and the <code>avg_value</code> average of responses meeting the numeric eligibility conditions in the SQL. Items without eligible numeric responses may have a NULL average.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_fi.id,
+       kbi_fi.name,
+       AVG(CASE WHEN (kbi_fi.typ = &#39;numeric&#39;
+                    OR (kbi_fi.typ = &#39;multichoicerated&#39;
+                        AND kbi_fi.presentation NOT LIKE &#39;c&gt;&gt;&gt;&gt;&gt;%&#39;))
+                    AND kbi_fv.value IS NOT NULL
+                    AND kbi_fv.value &lt;&gt; &#39;&#39;
+                    AND kbi_fv.value NOT LIKE &#39;%|%&#39;
+                THEN CAST(kbi_fv.value AS DECIMAL(12, 4))
+                ELSE NULL END) AS avg_value
+FROM mdl_feedback kbi_f
+JOIN mdl_feedback_completed kbi_fc ON kbi_fc.feedback = kbi_f.id
+JOIN mdl_feedback_item kbi_fi ON kbi_fi.feedback = kbi_f.id
+JOIN mdl_feedback_value kbi_fv ON kbi_fv.completed = kbi_fc.id AND kbi_fv.item = kbi_fi.id
+WHERE kbi_f.id &gt; 0
+GROUP BY kbi_fi.id, kbi_fi.name</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The report does not calculate an overall satisfaction score for a course or an entire form. Results are grouped by <code>kbi_fi.id</code> and <code>kbi_fi.name</code>, meaning each individual item.</li>
+                    <li>Text questions, ineligible items, and empty values or values containing <code>|</code> are excluded from <code>AVG</code>. The average may be NULL when no eligible values exist.</li>
+                    <li>The expression <code>CAST(kbi_fv.value AS DECIMAL(12, 4))</code> assumes that eligible answers have valid numeric representations. Unexpected values may cause errors or database-specific conversions.</li>
+                    <li>The report includes forms from all courses. It does not filter course visibility, form status, users, or response dates.</li>
+                    <li>Answers are retrieved through inner joins to completed response and value records, so items without recorded values do not appear even when configured in the form.</li>
+                    <li>The SQL and presentation metadata differ: the query returns <code>avg_value</code>, but <code>info.column</code> lists only <code>id</code> and <code>name</code>. Depending on the table component, the average may not appear as a configured column.</li>
+                    <li>The mean does not account for weighting, sample size, response distributions, or nonresponse bias.</li>
+                    <li>There is no separate PostgreSQL definition in the original catalog.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-083.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="082.html">← Report 082</a>
+                <a href="084.html">Report 084 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-083">
+                <h2 id="related-title-083">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="125.html"><span class="related-number">Report 125</span><span
+                            class="related-title">Feedback response distribution</span><span
+                            class="related-category">Feedback and surveys</span></a>
+                    <a class="related-card" href="082.html"><span class="related-number">Report 082</span><span
+                            class="related-title">Feedback response details</span><span
+                            class="related-category">Feedback and surveys</span></a>
+                    <a class="related-card" href="055.html"><span class="related-number">Report 055</span><span
+                            class="related-title">Activity completion statistics</span><span
+                            class="related-category">Activities</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/feedback.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
