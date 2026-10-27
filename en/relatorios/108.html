@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Compares course health using student engagement, progress, completion, and risk indicators.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Course health | Report 108 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/108.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/108.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/108.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Course health | Report 108 · Kopere BI">
+    <meta property="og:description" content="Compares course health using student engagement, progress, completion, and risk indicators.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/108.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/108.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/learning_analytics.html">Learning Analytics</a> / 108
+            </nav>
+            <div class="kicker">REPORT 108</div>
+            <h1>Course health</h1>
+            <p class="lead">Compares course health using student engagement, progress, completion, and risk indicators.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>The dashboard brings together four summary indicators, a column chart of the 25 courses with the lowest health scores, and a detailed table containing all records from the latest analytics batch.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Compare summary indicators of course health, identify courses classified as critical or requiring attention, and support analysis of trends, risk, and performance.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualizations and SQL</a>
+                <a href="#criterios">Calculation criteria</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, student, cohort, period, or health status. Every component queries records from <code>mdl_local_kopere_bi_courseag</code> using the latest available <code>MAX(batchid)</code>.</p>
+                <p>The first three indicators have fixed filters for <code>healthlevel = 'healthy'</code>, <code>'attention'</code>, or <code>'critical'</code>. The chart applies <code>LIMIT 25</code> and sorts by health score ascending. The detailed table does not limit the number of courses in SQL.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualizations and full original SQL</h2>
+                <p>This report contains six visualizations, each with its full original SQL, presentation description, cache, and refresh settings. Prism.js highlights SQL syntax. No separate PostgreSQL variant exists for the main definition in <code>master</code>, so none has been invented.</p>
+                <details class="report-block" open>
+                    <summary>1. Healthy courses · Numeric indicator</summary>
+                    <div class="inner">
+                        <p>Numeric indicator: counts course records with healthlevel = &#39;healthy&#39; in the latest batch of the course-health table.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT COUNT(id) FROM mdl_local_kopere_bi_courseag WHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_courseag) AND healthlevel = &#39;healthy&#39;</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-block">
+                    <summary>2. Courses requiring attention · Numeric indicator</summary>
+                    <div class="inner">
+                        <p>Numeric indicator: counts records with healthlevel = &#39;attention&#39; in the latest batch.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT COUNT(id) FROM mdl_local_kopere_bi_courseag WHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_courseag) AND healthlevel = &#39;attention&#39;</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-block">
+                    <summary>3. Courses in critical condition · Numeric indicator</summary>
+                    <div class="inner">
+                        <p>Numeric indicator: counts records with healthlevel = &#39;critical&#39; in the latest batch.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT COUNT(id) FROM mdl_local_kopere_bi_courseag WHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_courseag) AND healthlevel = &#39;critical&#39;</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-block">
+                    <summary>4. Average health score · Numeric indicator</summary>
+                    <div class="inner">
+                        <p>Numeric indicator: calculates the average healthscore in the latest batch, rounded to one decimal place. It can return NULL if no records are available.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT ROUND(AVG(healthscore), 1) FROM mdl_local_kopere_bi_courseag WHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_courseag)</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-block">
+                    <summary>5. Course health scores · Column chart</summary>
+                    <div class="inner">
+                        <p>Column chart: displays course names and healthscore, ordered from lowest to highest score, with LIMIT 25. These are not necessarily the 25 healthiest courses; the query highlights the lowest scores.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT c.fullname AS course, ca.healthscore AS health_score
+FROM mdl_local_kopere_bi_courseag ca
+JOIN mdl_course c ON c.id = ca.courseid
+WHERE ca.batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_courseag)
+ORDER BY ca.healthscore ASC, c.fullname
+LIMIT 25</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-block">
+                    <summary>6. Course health details · Table</summary>
+                    <div class="inner">
+                        <p>Course table showing enrolments, active users over 7 and 30 days, users without access, completions, high- and medium-risk counts, average progress and grades, completion and engagement rates, trends, and health scores and levels.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT ca.id, c.id AS courseid, c.fullname AS course, ca.enrolments, ca.active7, ca.active30, ca.neveraccessed, ca.completions, ca.highrisk, ca.mediumrisk, ca.avgprogress, ca.avggrade, ca.completionrate, ca.engagementrate, ca.trendpercent, ca.healthscore,
+       CASE ca.healthlevel
+         WHEN &#39;healthy&#39; THEN &#39;lang::analytics_health_healthy::local_kopere_bi&#39;
+         WHEN &#39;attention&#39; THEN &#39;lang::analytics_health_attention::local_kopere_bi&#39;
+         ELSE &#39;lang::analytics_health_critical::local_kopere_bi&#39;
+       END AS healthlevel
+FROM mdl_local_kopere_bi_courseag ca
+JOIN mdl_course c ON c.id = ca.courseid
+WHERE ca.batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_courseag)
+ORDER BY ca.healthscore ASC, ca.highrisk DESC, c.fullname</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Calculation criteria and behavior</h2>
+                <p>The <code>healthscore</code>, <code>healthlevel</code>, <code>engagementrate</code>, <code>completionrate</code>, and <code>trendpercent</code> values are calculated beforehand by Kopere BI. Each component's SQL reads and summarizes these fields; the report definition does not disclose how the health score is weighted.</p>
+                <p>The table resolves health levels through plugin translation keys. The chart presents no more than 25 courses with the lowest scores, sorted in ascending order.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul class="report-limit">
+                    <li>The health score is not a definitive assessment of a course's educational quality; it depends on a methodology outside the SQL definition.</li>
+                    <li>The chart shows no more than 25 courses, selected by their lowest scores, whereas the table may display the entire batch.</li>
+                    <li>The indicators count aggregated records and do not independently check course visibility or user account status.</li>
+                    <li>Engagement, trend, and recent activity metrics depend on analytics processing. A cache setting of none does not guarantee that the batch is updated in real time.</li>
+                    <li>The four summary metrics may return zero or NULL, depending on the aggregate function and the absence of records in the current batch.</li>
+                    <li>Consider risk, enrolment, and institutional context together before comparing courses with different populations, workloads, and delivery formats.</li>
+                </ul>
+                <p class="report-technical">The SQL statements are reproduced verbatim from the JSON file in <code>master</code> and have not been executed on a Moodle installation during this documentation work. Verify analytics table availability, compatibility, results, and permissions in the target environment.</p>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-108.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="107.html">← Report 107</a>
+                <a href="109.html">Report 109 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-108">
+                <h2 id="related-title-108">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="106.html"><span class="related-number">Report 106</span><span
+                            class="related-title">Learning analytics dashboard</span><span
+                            class="related-category">Learning Analytics dashboards</span></a>
+                    <a class="related-card" href="107.html"><span class="related-number">Report 107</span><span
+                            class="related-title">Students requiring attention queue</span><span
+                            class="related-category">Learning Analytics dashboards</span></a>
+                    <a class="related-card" href="109.html"><span class="related-number">Report 109</span><span
+                            class="related-title">Student Analytics 360</span><span class="related-category">Learning Analytics dashboards</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/learning_analytics.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

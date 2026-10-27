@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Compares progress and grades and highlights students with the strongest results.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Progress and grade analysis | Report 110 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/110.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/110.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/110.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Progress and grade analysis | Report 110 · Kopere BI">
+    <meta property="og:description" content="Compares progress and grades and highlights students with the strongest results.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/110.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/110.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/learning_analytics.html">Learning Analytics</a> / 110
+            </nav>
+            <div class="kicker">REPORT 110</div>
+            <h1>Progress and grade analysis</h1>
+            <p class="lead">Compares progress and grades and highlights students with the strongest results.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Two complementary visualizations: a course-average column chart limited to the 25 courses with the lowest health scores, and a table of up to 100 student records with no flagged risk and either high progress, a high grade, or recorded completion.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Compare aggregated course progress and average grades while separately identifying students with strong results under fixed progress, grade, or completion criteria.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualizations and SQL</a>
+                <a href="#criterios">Calculation criteria</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, student, cohort, or period in either query. The chart reads the latest aggregate from <code>mdl_local_kopere_bi_courseag</code>, orders by <code>healthscore ASC</code>, and limits the results to <strong>25 courses</strong>.</p>
+                <p>The table uses the latest batch in <code>mdl_local_kopere_bi_engage</code>, the fixed filter <code>risklevel
+                    = 'none'</code>, and the condition <code>progress &gt;= 75 OR gradepercent &gt;= 75 OR timecompleted IS
+                    NOT NULL</code>. The query returns at most <strong>100 rows</strong>. The <code>actions30</code> field represents a previously calculated 30-day window, not an editable filter.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualizations and full original SQL</h2>
+                <p>The report has two visualizations, each with full SQL, description, cache, and refresh frequency. Prism.js provides syntax highlighting. No separate PostgreSQL file exists for this definition in <code>master</code>, so none has been invented.</p>
+                <details class="report-block" open>
+                    <summary>1. Progress and grade by course · Column chart</summary>
+                    <div class="inner">
+                        <p>Column chart showing each course's name, average progress, and average grade from the aggregates table. It sorts by healthscore ascending and course name, with LIMIT 25. The selection comprises the 25 lowest health scores, not necessarily the highest grades.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT c.fullname AS course, ca.avgprogress AS average_progress, ca.avggrade AS average_grade
+FROM mdl_local_kopere_bi_courseag ca
+JOIN mdl_course c ON c.id = ca.courseid
+WHERE ca.batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_courseag)
+ORDER BY ca.healthscore ASC, c.fullname
+LIMIT 25</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-block">
+                    <summary>2. Students with the strongest results · Table</summary>
+                    <div class="inner">
+                        <p>Table of student-course records with stored risk level none and at least one qualifying criterion: progress &gt;= 75, gradepercent &gt;= 75, or non-NULL timecompleted. It shows progress, percentage grade, actions over 30 days, completion, and engagement, limited to the first 100 sorted records.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT e.id, e.userid, u.firstname, u.lastname, e.courseid, c.fullname AS course, e.progress, e.gradepercent, e.actions30, e.timecompleted,
+       CASE e.engagement WHEN &#39;high&#39; THEN &#39;lang::analytics_level_high::local_kopere_bi&#39; WHEN &#39;medium&#39; THEN &#39;lang::analytics_level_medium::local_kopere_bi&#39; WHEN &#39;low&#39; THEN &#39;lang::analytics_level_low::local_kopere_bi&#39; ELSE &#39;lang::analytics_level_atrisk::local_kopere_bi&#39; END AS engagement
+FROM mdl_local_kopere_bi_engage e
+JOIN mdl_user u ON u.id = e.userid
+JOIN mdl_course c ON c.id = e.courseid
+WHERE e.batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)
+  AND e.risklevel = &#39;none&#39;
+  AND (e.progress &gt;= 75 OR e.gradepercent &gt;= 75 OR e.timecompleted IS NOT NULL)
+ORDER BY COALESCE(e.gradepercent, e.progress) DESC, e.progress DESC, c.fullname, u.lastname, u.firstname
+LIMIT 100</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Calculation criteria and behavior</h2>
+                <p>The <code>avgprogress</code> and <code>avggrade</code> averages and <code>healthscore</code> are precomputed by analytics processing. The first query only displays them in the chart and applies sorting and a limit.</p>
+                <p>The second query selects records by risk level and performance or completion. Sorting begins with <code>COALESCE(gradepercent, progress) DESC</code>, followed by progress, course, and student name. When a grade is available, it takes precedence in the first sort key even if progress is higher.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul class="report-limit">
+                    <li>The chart displays the 25 courses with the lowest healthscore; it is not necessarily a ranking of courses with the highest grades or progress.</li>
+                    <li>The queries use the courseag and engage tables, whose latest batches may have different dates. The two visualizations are not guaranteed to be synchronized.</li>
+                    <li>The label 'strongest results' is an editorial classification based on fixed thresholds. A student may appear solely because completion is recorded, without a grade or progress of at least 75.</li>
+                    <li>The risk filter requires exactly none. Students who are unclassified or have another risk level are excluded even if their performance is high.</li>
+                    <li>The 100-row limit and the use of COALESCE in sorting can omit records and prioritize grades over progress when both are available.</li>
+                    <li>Progress, averages, and percentage grades depend on formulas previously applied by Kopere BI. The table includes individual academic data and requires access controls.</li>
+                </ul>
+                <p class="report-technical">The queries are reproduced unchanged from the original JSON in <code>master</code>. No SQL was executed on a Moodle installation during this documentation work. Confirm permissions, results, batch freshness, and database compatibility before institutional use.</p>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-110.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="109.html">← Report 109</a>
+                <a href="111.html">Report 111 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-110">
+                <h2 id="related-title-110">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="109.html"><span class="related-number">Report 109</span><span
+                            class="related-title">Student Analytics 360</span><span class="related-category">Learning Analytics dashboards</span></a>
+                    <a class="related-card" href="098.html"><span class="related-number">Report 098</span><span
+                            class="related-title">Student progress overview</span><span
+                            class="related-category">Students</span></a>
+                    <a class="related-card" href="041.html"><span class="related-number">Report 041</span><span
+                            class="related-title">Course progress</span><span class="related-category">Courses and content</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/learning_analytics.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
