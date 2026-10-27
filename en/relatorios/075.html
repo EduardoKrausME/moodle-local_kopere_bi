@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Shows original posts in forum discussions in the selected course, their replies, and parent-post details when a reply is itself a reply to another post.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Forum replies overview | Report 075 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/075.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/075.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/075.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Forum replies overview | Report 075 · Kopere BI">
+    <meta property="og:description" content="Shows original posts in forum discussions in the selected course, their replies, and parent-post details when a reply is itself a reply to another post.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/075.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/075.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/forums.html">Forums</a> / 075
+            </nav>
+            <div class="kicker">REPORT 075</div>
+            <h1>Forum replies overview</h1>
+            <p class="lead">Shows original posts in forum discussions in the selected course, their replies, and parent-post details when a reply is itself a reply to another post.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Shows original posts in forum discussions in the selected course, their replies, and parent-post details when a reply is itself a reply to another post.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps review forum discussions and their reply chains, linking messages, authors, and publication dates.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The dynamic SQL filter is <strong>Course</strong>, represented by <code>:courseid</code> and used once in both the MySQL and PostgreSQL variants.</p>
+                <p>The SQL requires a course with a positive ID, an initial post with <code>parent = 0</code>, replies with <code>parent
+                    &lt;&gt; 0</code>, and, for the preceding reply fields, a parent post that also has <code>parent
+                    &lt;&gt; 0</code>. No date, visibility, or user filters are applied.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains two complete original SQL queries, cache and refresh settings, and Prism.js syntax highlighting. The MySQL and PostgreSQL versions appear in separate panels within the same visualization.</p>
+                <details class="report-block" open>
+                    <summary>1. Forum replies overview · Table</summary>
+                    <div class="inner">
+                        <p>The table shows each discussion reply (or a discussion without replies), including course and forum names, subject, author and date of the initial post, reply text and author, and the text, author, and date of the parent post when that parent is also a reply.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.fullname            AS course,
+       kbi_f.name                AS forum,
+       kbi_fp.subject            AS discussion_post,
+       kbi_u1.firstname          AS forum_started_by_first_name,
+       kbi_u1.lastname           AS forum_started_by_last_name,
+       kbi_fp.created            AS date_started,
+       kbi_fp2.message           AS response,
+       kbi_fp2.created           AS response_date,
+       kbi_u2.firstname          AS response_first_name,
+       kbi_u2.lastname           AS response_laste_name,
+       kbi_fp3.message           AS response_immediatey_prior,
+       kbi_fp3.created           AS response_immediatey_prior_date,
+       kbi_u3.firstname          AS response_immediatey_prior_first_name,
+       kbi_u3.lastname           AS response_immediatey_prior_last_name
+FROM mdl_forum kbi_f
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_f.course
+       JOIN mdl_modules kbi_m ON kbi_m.name = &#39;forum&#39;
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id AND kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_f.id
+       JOIN mdl_forum_discussions kbi_fd ON kbi_fd.forum = kbi_f.id AND kbi_fd.course = kbi_c.id
+       JOIN mdl_forum_posts kbi_fp ON kbi_fp.discussion = kbi_fd.id AND kbi_fp.parent = 0
+       JOIN mdl_user kbi_u1 ON kbi_u1.id = kbi_fp.userid
+       LEFT JOIN mdl_forum_posts kbi_fp2 ON kbi_fp2.discussion = kbi_fd.id AND kbi_fp2.parent &lt;&gt; 0
+       LEFT JOIN mdl_user kbi_u2 ON kbi_u2.id = kbi_fp2.userid
+       LEFT JOIN mdl_forum_posts kbi_fp3 ON kbi_fp3.discussion = kbi_fd.id AND kbi_fp3.id = kbi_fp2.parent AND kbi_fp3.parent &lt;&gt; 0
+       LEFT JOIN mdl_user kbi_u3 ON kbi_u3.id = kbi_fp3.userid
+WHERE kbi_c.id &gt; 0
+  AND kbi_c.id = :courseid</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.fullname            AS course,
+       kbi_f.name                AS forum,
+       kbi_fp.subject            AS discussion_post,
+       kbi_u1.firstname          AS forum_started_by_first_name,
+       kbi_u1.lastname           AS forum_started_by_last_name,
+       kbi_fp.created            AS date_started,
+       kbi_fp2.message           AS response,
+       kbi_fp2.created           AS response_date,
+       kbi_u2.firstname          AS response_first_name,
+       kbi_u2.lastname           AS response_laste_name,
+       kbi_fp3.message           AS response_immediatey_prior,
+       kbi_fp3.created           AS response_immediatey_prior_date,
+       kbi_u3.firstname          AS response_immediatey_prior_first_name,
+       kbi_u3.lastname           AS response_immediatey_prior_last_name
+FROM mdl_forum kbi_f
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_f.course
+       JOIN mdl_modules kbi_m ON kbi_m.name = &#39;forum&#39;
+       JOIN mdl_course_modules kbi_cm ON kbi_cm.course = kbi_c.id AND kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_f.id
+       JOIN mdl_forum_discussions kbi_fd ON kbi_fd.forum = kbi_f.id AND kbi_fd.course = kbi_c.id
+       JOIN mdl_forum_posts kbi_fp ON kbi_fp.discussion = kbi_fd.id AND kbi_fp.parent = 0
+       JOIN mdl_user kbi_u1 ON kbi_u1.id = kbi_fp.userid
+       LEFT JOIN mdl_forum_posts kbi_fp2 ON kbi_fp2.discussion = kbi_fd.id AND kbi_fp2.parent &lt;&gt; 0
+       LEFT JOIN mdl_user kbi_u2 ON kbi_u2.id = kbi_fp2.userid
+       LEFT JOIN mdl_forum_posts kbi_fp3 ON kbi_fp3.discussion = kbi_fd.id AND kbi_fp3.id = kbi_fp2.parent AND kbi_fp3.parent &lt;&gt; 0
+       LEFT JOIN mdl_user kbi_u3 ON kbi_u3.id = kbi_fp3.userid
+WHERE kbi_c.id &gt; 0
+  AND kbi_c.id = :courseid</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The <code>response_immediatey_prior</code> field identifies a reply's parent post in the reply tree, when that parent is also a reply. It is not necessarily the previous message in chronological order.</li>
+                    <li>For direct replies to the initial post, the preceding-reply fields are NULL because the SQL excludes the initial post from that relationship.</li>
+                    <li>Using <code>LEFT JOIN</code> on reply posts allows discussions without replies to appear with NULL fields.</li>
+                    <li>The query does not require <code>course.visible = 1</code> or <code>course_modules.visible = 1</code> and does not check authors' account statuses. Data from hidden discussions may be returned.</li>
+                    <li>Messages come directly from <code>mdl_forum_posts.message</code> and may contain HTML or private content. Display and export must follow security and permission requirements.</li>
+                    <li>The query does not calculate volume, performance, response-time, or participation statistics. It presents relationships between posts.</li>
+                    <li>There is a discrepancy between the metadata and SQL: the definition lists an <code>id</code> column in <code>info.column</code>, but the query does not return it. The original SQL has been preserved.</li>
+                    <li>MySQL and PostgreSQL implement the same post-relationship logic, each with its own complete SQL statement.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-075.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-075-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="074.html">← Report 074</a>
+                <a href="076.html">Report 076 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-075">
+                <h2 id="related-title-075">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="073.html"><span class="related-number">Report 073</span><span
+                            class="related-title">Replies to forum posts</span><span
+                            class="related-category">Forums</span></a>
+                    <a class="related-card" href="074.html"><span class="related-number">Report 074</span><span
+                            class="related-title">Forum post performance</span><span
+                            class="related-category">Forums</span></a>
+                    <a class="related-card" href="072.html"><span class="related-number">Report 072</span><span
+                            class="related-title">Forum post ratio</span><span
+                            class="related-category">Forums</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/forums.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

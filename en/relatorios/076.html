@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Summarizes, by discussion author and forum in the selected course, the number of discussions started and posts by that same author within those discussions.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Student participation in forums | Report 076 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/076.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/076.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/076.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Student participation in forums | Report 076 · Kopere BI">
+    <meta property="og:description" content="Summarizes, by discussion author and forum in the selected course, the number of discussions started and posts by that same author within those discussions.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/076.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/076.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/forums.html">Forums</a> / 076
+            </nav>
+            <div class="kicker">REPORT 076</div>
+            <h1>Student participation in forums</h1>
+            <p class="lead">Summarizes, by discussion author and forum in the selected course, the number of discussions started and posts by that same author within those discussions.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Summarizes, by discussion author and forum in the selected course, the number of discussions started and posts by that same author within those discussions.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps teachers identify who started discussions in each forum and how many posts those authors made in their own discussions, supporting a more detailed review of participation.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The only dynamic SQL filter is <strong>Course</strong>, represented by <code>:courseid</code> and used once in <code>kbi_c.id = :courseid</code>.</p>
+                <p>Fixed conditions require a visible course, a discussion author who is neither deleted nor suspended and is not <code>guest</code>, and a discussion with a positive ID. There are no filters for period, role, active enrolment, or forum visibility.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains one complete SQL query, cache and refresh settings, and Prism.js syntax highlighting. No separate PostgreSQL variant is provided in the original catalog.</p>
+                <details class="report-block" open>
+                    <summary>1. Student participation in forums · Table</summary>
+                    <div class="inner">
+                        <p>The per-user, per-forum table lists the course name, author's first name and surname, forum name, number of discussions started, distinct posts by the same author within those discussions, and the highest discussion ID in the group.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT MAX(kbi_fd.id)            AS id,
+       kbi_c.fullname            as course,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_f.name,
+       COUNT(DISTINCT kbi_fp.id) AS posts,
+       COUNT(DISTINCT kbi_fd.id) AS discussions
+FROM mdl_forum_discussions kbi_fd
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_fd.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_fd.course
+       LEFT JOIN mdl_forum kbi_f ON kbi_f.id = kbi_fd.forum
+       LEFT JOIN mdl_forum_posts kbi_fp ON kbi_fp.discussion = kbi_fd.id AND kbi_fp.userid = kbi_u.id
+WHERE kbi_fd.id &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+GROUP BY kbi_u.id, kbi_c.id, kbi_f.id
+ORDER BY kbi_c.fullname, kbi_u.lastname, kbi_u.firstname, kbi_f.name</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li><strong>The title mentions students, but the SQL does not filter for the student role.</strong> Any eligible user who started a discussion may appear, including teachers and other participants.</li>
+                    <li>The <code>discussions</code> column counts discussions started by the user, not all discussions in which that user participated.</li>
+                    <li>The <code>posts</code> column counts only posts by the author <strong>within discussions they started</strong>. Replies they made to discussions started by others are excluded.</li>
+                    <li>Post counts may include both the initial post and replies by the same user because there is no <code>parent &gt; 0</code> filter.</li>
+                    <li>Discussions without a valid author record are excluded. The query does not verify each forum's or module's status or visibility.</li>
+                    <li>The <code>id</code> column uses <code>MAX(kbi_fd.id)</code>, the highest discussion identifier in the group, not an identifier of the user or forum.</li>
+                    <li>There is no participation percentage, response rate, reporting period, or qualitative evaluation of messages. No separate PostgreSQL variant is provided for this report.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-076.json"
+                       target="_blank" rel="noopener">Original primary definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="075.html">← Report 075</a>
+                <a href="077.html">Report 077 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-076">
+                <h2 id="related-title-076">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="071.html"><span class="related-number">Report 071</span><span
+                            class="related-title">Forum activity details</span><span
+                            class="related-category">Forums</span></a>
+                    <a class="related-card" href="072.html"><span class="related-number">Report 072</span><span
+                            class="related-title">Forum post ratio</span><span
+                            class="related-category">Forums</span></a>
+                    <a class="related-card" href="126.html"><span class="related-number">Report 126</span><span
+                            class="related-title">Forum posts by day and time</span><span
+                            class="related-category">Forums</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/forums.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
