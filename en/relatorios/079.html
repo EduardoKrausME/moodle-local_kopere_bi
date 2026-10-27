@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Shows the number of SCORM packages configured in the selected course and the name of one user assigned the teacher role.">
+    <meta name="theme-color" content="#072c3a">
+    <title>SCORM occurrences by course | Report 079 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/079.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/079.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/079.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="SCORM occurrences by course | Report 079 · Kopere BI">
+    <meta property="og:description" content="Shows the number of SCORM packages configured in the selected course and the name of one user assigned the teacher role.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/079.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/079.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/scorm.html">SCORM</a> / 079
+            </nav>
+            <div class="kicker">REPORT 079</div>
+            <h1>SCORM occurrences by course</h1>
+            <p class="lead">Shows the number of SCORM packages configured in the selected course and the name of one user assigned the teacher role.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Shows the number of SCORM packages configured in the selected course and the name of one user assigned the teacher role.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Provides a simple overview of SCORM activities available in the course and a quick package count for administrative review.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The dynamic SQL filter is <strong>Course</strong>, represented by <code>:courseid</code> and used once in <code>kbi_c.id = :courseid</code>.</p>
+                <p>Fixed filters require <code>kbi_c.category &gt; 0</code> and a visible course (<code>kbi_c.visible =
+                    1</code>). The teacher subquery uses <code>contextlevel = 50</code> and role ID <code>3</code>. There are no filters for date, participant, attempt, or SCORM module visibility.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains one complete SQL query, cache and refresh settings, and Prism.js syntax highlighting. No separate PostgreSQL variant is provided in the original source.</p>
+                <details class="report-block" open>
+                    <summary>1. SCORM occurrences by course · Table</summary>
+                    <div class="inner">
+                        <p>One row displays the course ID and name, the number of SCORM package records associated with the course (<code>scorms</code>), and one user name found with role ID 3 (<code>teacher</code>).</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
+       kbi_c.fullname,
+       count(kbi_s.id) as scorms,
+       (SELECT DISTINCT CONCAT(kbi_u.firstname, &#39; &#39;, kbi_u.lastname)
+        FROM mdl_role_assignments kbi_ra
+               JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id
+               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+        WHERE kbi_ctx.instanceid = kbi_c.id
+          AND kbi_ctx.contextlevel = 50
+          AND kbi_ra.roleid = 3
+        LIMIT 1)   AS teacher
+FROM mdl_course kbi_c
+       LEFT JOIN mdl_scorm kbi_s ON kbi_s.course = kbi_c.id
+WHERE kbi_c.category &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_c.visible = 1
+GROUP BY kbi_c.id</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The <code>scorms</code> column counts records in <code>mdl_scorm</code>, not attempts, participants, completed packages, or viewed SCORM resources.</li>
+                    <li>The query uses <code>LEFT JOIN</code> with the SCORM table, so a course with no configured packages may still appear with a count of zero.</li>
+                    <li>The SQL does not check SCORM module visibility. Hidden packages may contribute to the total.</li>
+                    <li>The <code>teacher</code> field returns at most one user assigned role ID <code>3</code>. Because <code>LIMIT 1</code> has no <code>ORDER BY</code>, the selection is not deterministic and does not guarantee that this person is responsible for the activities.</li>
+                    <li>Custom roles or role IDs other than 3 are not considered for the teacher field. The selected user's deleted or suspended status is not checked.</li>
+                    <li>The <code>category &gt; 0</code> condition restricts the result to courses with a positive category ID; it is not a user-selectable category filter.</li>
+                    <li>The report has no metrics for grades, study time, SCORM progress, or completion. No separate PostgreSQL variant is available in the source.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-079.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="078.html">← Report 078</a>
+                <a href="080.html">Report 080 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-079">
+                <h2 id="related-title-079">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="078.html"><span class="related-number">Report 078</span><span
+                            class="related-title">SCORM activity summary by course</span><span
+                            class="related-category">SCORM</span></a>
+                    <a class="related-card" href="077.html"><span class="related-number">Report 077</span><span
+                            class="related-title">SCORM activity details</span><span class="related-category">SCORM</span></a>
+                    <a class="related-card" href="038.html"><span class="related-number">Report 038</span><span
+                            class="related-title">Course content logs</span><span class="related-category">Courses and content</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/scorm.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

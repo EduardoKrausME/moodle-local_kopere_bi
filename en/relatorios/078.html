@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Summarizes SCORM packages in the selected course, including attempt records, module visits tracked by Kopere BI, and accumulated duration reported by the packages.">
+    <meta name="theme-color" content="#072c3a">
+    <title>SCORM activity summary by course | Report 078 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/078.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/078.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/078.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="SCORM activity summary by course | Report 078 · Kopere BI">
+    <meta property="og:description" content="Summarizes SCORM packages in the selected course, including attempt records, module visits tracked by Kopere BI, and accumulated duration reported by the packages.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/078.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/078.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/scorm.html">SCORM</a> / 078
+            </nav>
+            <div class="kicker">REPORT 078</div>
+            <h1>SCORM activity summary by course</h1>
+            <p class="lead">Summarizes SCORM packages in the selected course, including attempt records, module visits tracked by Kopere BI, and accumulated duration reported by the packages.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Summarizes SCORM packages in the selected course, including attempt records, module visits tracked by Kopere BI, and accumulated duration reported by the packages.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Provides an operational overview of SCORM object usage, helping review attempt volumes, recorded visit frequency, and time reported by the packages themselves.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The only dynamic filter is <strong>Course</strong>, represented by <code>:courseid</code>, which appears <strong>once in each variant</strong> in <code>kbi_c.id = :courseid</code>.</p>
+                <p>Fixed filters require a positive SCORM package ID and a visible course. The subqueries aggregate attempts by package, tracking records by SCORM module, and duration by package. There are no restrictions on user, role, enrolment, date, completion status, or module visibility.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains two complete SQL queries, cache and refresh settings, and Prism.js syntax highlighting. MySQL and PostgreSQL appear in separate panels within the same visualization.</p>
+                <details class="report-block" open>
+                    <summary>1. SCORM activity summary by course · Table</summary>
+                    <div class="inner">
+                        <p>The per-SCORM-package table includes its identifier, course and package names, last configuration modification date, number of attempt records, sum of visits recorded by Kopere BI for the module, and sum of SCORM durations in seconds.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_s.id,
+       kbi_c.fullname,
+       kbi_s.name,
+       kbi_s.timemodified,
+       COALESCE(kbi_attempts.attempts, 0) AS attempts,
+       COALESCE(kbi_tracking.visits, 0) AS visits,
+       COALESCE(kbi_duration.duration, 0) AS duration
+FROM mdl_scorm kbi_s
+JOIN mdl_course kbi_c ON kbi_c.id = kbi_s.course
+LEFT JOIN (
+    SELECT scormid, COUNT(DISTINCT id) AS attempts
+      FROM mdl_scorm_attempt
+     GROUP BY scormid
+) kbi_attempts ON kbi_attempts.scormid = kbi_s.id
+LEFT JOIN (
+    SELECT kbi_cm.instance, SUM(kbi_t.visits) AS visits
+      FROM mdl_course_modules kbi_cm
+      JOIN mdl_modules kbi_m ON kbi_m.id = kbi_cm.module AND kbi_m.name = &#39;scorm&#39;
+      JOIN mdl_local_kopere_bi_tracking kbi_t ON kbi_t.page = &#39;module&#39;
+            AND kbi_t.param = kbi_cm.id
+     GROUP BY kbi_cm.instance
+) kbi_tracking ON kbi_tracking.instance = kbi_s.id
+LEFT JOIN (
+    SELECT a.scormid, SUM(CASE WHEN e.element = &#39;cmi.core.total_time&#39;
+                              THEN TIME_TO_SEC(v.value) ELSE NULL END) AS duration
+      FROM mdl_scorm_attempt a
+      JOIN mdl_scorm_scoes_value v ON v.attemptid = a.id
+      JOIN mdl_scorm_element e ON e.id = v.elementid
+     GROUP BY a.scormid
+) kbi_duration ON kbi_duration.scormid = kbi_s.id
+WHERE kbi_s.id &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_c.visible = 1
+ORDER BY kbi_c.fullname, kbi_s.name</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_s.id,
+       kbi_c.fullname,
+       kbi_s.name,
+       kbi_s.timemodified,
+       COALESCE(kbi_attempts.attempts, 0) AS attempts,
+       COALESCE(kbi_tracking.visits, 0) AS visits,
+       COALESCE(kbi_duration.duration, 0) AS duration
+FROM mdl_scorm kbi_s
+JOIN mdl_course kbi_c ON kbi_c.id = kbi_s.course
+LEFT JOIN(
+    SELECT scormid, COUNT(DISTINCT id) AS attempts
+      FROM mdl_scorm_attempt
+     GROUP BY scormid
+) kbi_attempts ON kbi_attempts.scormid = kbi_s.id
+LEFT JOIN(
+    SELECT kbi_cm.instance, SUM(kbi_t.visits) AS visits
+      FROM mdl_course_modules kbi_cm
+      JOIN mdl_modules kbi_m ON kbi_m.id = kbi_cm.module AND kbi_m.name = &#39;scorm&#39;
+      JOIN mdl_local_kopere_bi_tracking kbi_t ON kbi_t.page = &#39;module&#39;
+            AND kbi_t.param = kbi_cm.id
+     GROUP BY kbi_cm.instance
+) kbi_tracking ON kbi_tracking.instance = kbi_s.id
+LEFT JOIN(
+    SELECT a.scormid, SUM(CASE WHEN e.element = &#39;cmi.core.total_time&#39;
+                              THEN EXTRACT(EPOCH FROM NULLIF((v.value)::text, &#39;&#39;)::interval) ELSE NULL END) AS duration
+      FROM mdl_scorm_attempt a
+      JOIN mdl_scorm_scoes_value v ON v.attemptid = a.id
+      JOIN mdl_scorm_element e ON e.id = v.elementid
+     GROUP BY a.scormid
+) kbi_duration ON kbi_duration.scormid = kbi_s.id
+WHERE kbi_s.id &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_c.visible = 1
+ORDER BY kbi_c.fullname, kbi_s.name</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The <code>attempts</code> field counts distinct records in <code>mdl_scorm_attempt</code>, not distinct users or completed packages.</li>
+                    <li>The <code>visits</code> field sums Kopere BI records with <code>page = 'module'</code> and <code>param</code> matching the course module ID. It depends on the collection and retention of tracking data.</li>
+                    <li>The <code>duration</code> field sums <code>cmi.core.total_time</code> values stored in SCORM records and converted to seconds. This package-reported time is not the same measurement as Kopere BI visit tracking.</li>
+                    <li>MySQL uses <code>TIME_TO_SEC</code>, while PostgreSQL converts intervals to seconds. Missing or malformed SCORM values may affect the totals.</li>
+                    <li>All three metrics use <code>COALESCE(..., 0)</code> when records are missing. Thus, zero may indicate an absence of tracking records rather than a lack of real activity.</li>
+                    <li>The SQL requires a visible course but does not restrict <code>course_modules.visible</code>. Hidden SCORM packages within the course may appear.</li>
+                    <li>Counts and durations cover the available history without filtering by period, active enrolment, or completion status. They are not direct measures of achievement or learning.</li>
+                    <li>The <code>timemodified</code> column comes from <code>mdl_scorm</code>, not the most recent attempt by an individual user.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-078.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-078-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="077.html">← Report 077</a>
+                <a href="079.html">Report 079 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-078">
+                <h2 id="related-title-078">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="077.html"><span class="related-number">Report 077</span><span
+                            class="related-title">SCORM activity details</span><span class="related-category">SCORM</span></a>
+                    <a class="related-card" href="079.html"><span class="related-number">Report 079</span><span
+                            class="related-title">SCORM occurrences by course</span><span
+                            class="related-category">SCORM</span></a>
+                    <a class="related-card" href="009.html"><span class="related-number">Report 009</span><span
+                            class="related-title">Course modules</span><span class="related-category">Courses and content</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/scorm.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

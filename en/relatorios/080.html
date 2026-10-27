@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Lists participants whose assignment submission records in the selected course were modified after the deadline or have no modification date, including profile details and grades.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Assignment submission status | Report 080 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/080.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/080.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/080.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Assignment submission status | Report 080 · Kopere BI">
+    <meta property="og:description" content="Lists participants whose assignment submission records in the selected course were modified after the deadline or have no modification date, including profile details and grades.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/080.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/080.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/assignments.html">Assignments and submissions</a> / 080
+            </nav>
+            <div class="kicker">REPORT 080</div>
+            <h1>Assignment submission status</h1>
+            <p class="lead">Lists participants whose assignment submission records in the selected course were modified after the deadline or have no modification date, including profile details and grades.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Lists participants whose assignment submission records in the selected course were modified after the deadline or have no modification date, including profile details and grades.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps teachers and administrators review assignments with indications of changes after the deadline and identify participants without a corresponding submission record for further investigation.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The dynamic SQL filter is <strong>Course</strong>, represented by <code>:courseid</code> and used once in <code>kbi_c.id = :courseid</code>.</p>
+                <p>Fixed conditions require an existing assignment, a visible course and module, and a user who is neither deleted nor suspended and is not <code>guest</code>. The main condition selects <code>kbi_s.timemodified &gt;
+                        kbi_a.duedate</code> <strong>or</strong> <code>kbi_s.timemodified IS NULL</code>. There are no dynamic filters for period, enrolment status, or participant role.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains one complete SQL query, cache and refresh settings, and Prism.js syntax highlighting. The source has no separate PostgreSQL variant file.</p>
+                <details class="report-block" open>
+                    <summary>1. Assignment submission status · Table</summary>
+                    <div class="inner">
+                        <p>The table has one row per assignment and user with an associated course enrolment record, including assignment name and deadline, course, submission status and modification date, participant identification and contact information, institutional fields, and final grade converted to a percentage when the maximum grade is positive.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_a.name                               as assignment,
+       kbi_a.duedate,
+       kbi_c.fullname                           as course,
+       kbi_s.status,
+       kbi_s.timemodified                       AS submitted,
+       kbi_u.email,
+       kbi_u.idnumber,
+       kbi_u.phone1,
+       kbi_u.phone2,
+       kbi_u.institution,
+       kbi_u.department,
+       kbi_u.address,
+       kbi_u.city,
+       kbi_u.country,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       ROUND((CASE
+                WHEN kbi_gg.rawgrademax &gt; 0 THEN (kbi_gg.finalgrade / kbi_gg.rawgrademax) * 100
+                ELSE kbi_gg.finalgrade END), 0) AS grade
+FROM mdl_assign kbi_a
+       LEFT JOIN (SELECT kbi_e.courseid, kbi_ue.userid
+                  FROM mdl_user_enrolments kbi_ue, mdl_enrol kbi_e
+                  WHERE kbi_e.id = kbi_ue.enrolid
+                  GROUP BY kbi_e.courseid, kbi_ue.userid) ue ON ue.courseid = kbi_a.course
+       LEFT JOIN mdl_user kbi_u ON kbi_u.id = ue.userid
+       LEFT JOIN mdl_assign_submission kbi_s ON kbi_s.assignment = kbi_a.id AND kbi_s.userid = kbi_u.id
+       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_a.course
+       LEFT JOIN mdl_modules kbi_m ON kbi_m.name = &#39;assign&#39;
+       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.instance = kbi_a.id AND kbi_cm.module = kbi_m.id
+       LEFT JOIN mdl_grade_items kbi_gi
+         ON kbi_gi.courseid = kbi_c.id AND kbi_gi.itemtype = &#39;mod&#39; AND kbi_gi.itemmodule = kbi_m.name AND kbi_gi.iteminstance = kbi_cm.instance
+       LEFT JOIN mdl_grade_grades kbi_gg ON kbi_gg.itemid = kbi_gi.id AND kbi_gg.userid = kbi_u.id
+WHERE kbi_a.id &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_cm.visible = 1
+  AND (kbi_s.timemodified &gt; kbi_a.duedate or kbi_s.timemodified IS NULL)
+ORDER BY kbi_c.fullname, kbi_a.name, kbi_u.lastname, kbi_u.firstname</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>This selection is not a list of confirmed late submissions. It compares <code>assign_submission.timemodified</code> with <code>assign.duedate</code>, and a modification after the deadline does not necessarily represent the original submission.</li>
+                    <li>Records without an associated submission also qualify because of <code>timemodified IS NULL</code>. Submission status and modification date may therefore be empty.</li>
+                    <li>The condition does not require <code>kbi_s.status = 'submitted'</code>; drafts or other states may appear if they meet the date condition.</li>
+                    <li>If the configured deadline (<code>duedate</code>) is zero, submission modifications with positive timestamps may satisfy the late condition even when the assignment has no effective deadline.</li>
+                    <li>The table uses users with enrolment records but does not check current enrolment status or require role ID 5. Teachers and other enrolled roles may appear.</li>
+                    <li>The <code>grade</code> column uses the final gradebook grade and converts it to a percentage only when <code>rawgrademax &gt; 0</code>. Missing grades are not the same as zero.</li>
+                    <li>The query includes email addresses, institutional identifiers, phone numbers, addresses, and other personal information. Restrict viewing and exports to authorized roles.</li>
+                    <li>The query does not verify group criteria, individual deadline extensions, exemptions, or assignment-specific submission rules. No separate PostgreSQL variant is provided.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-080.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="079.html">← Report 079</a>
+                <a href="081.html">Report 081 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-080">
+                <h2 id="related-title-080">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="081.html"><span class="related-number">Report 081</span><span
+                            class="related-title">Assignment submission review</span><span class="related-category">Assignments and submissions</span></a>
+                    <a class="related-card" href="060.html"><span class="related-number">Report 060</span><span
+                            class="related-title">Activity submission progress</span><span
+                            class="related-category">Activities</span></a>
+                    <a class="related-card" href="127.html"><span class="related-number">Report 127</span><span
+                            class="related-title">Assessment submissions and participation timeline</span><span
+                            class="related-category">Assignments and submissions</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/assignments.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
