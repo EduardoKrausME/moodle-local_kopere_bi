@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Lists competency evidence associated with users across the Moodle installation, including the competency, source identifiers, reference URL, and creation date.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Competency evidence | Report 084 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/084.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/084.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/084.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Competency evidence | Report 084 · Kopere BI">
+    <meta property="og:description" content="Lists competency evidence associated with users across the Moodle installation, including the competency, source identifiers, reference URL, and creation date.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/084.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/084.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/competencies.html">Competencies</a> / 084
+            </nav>
+            <div class="kicker">REPORT 084</div>
+            <h1>Competency evidence</h1>
+            <p class="lead">Lists competency evidence associated with users across the Moodle installation, including the competency, source identifiers, reference URL, and creation date.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Lists competency evidence associated with users across the Moodle installation, including the competency, source identifiers, reference URL, and creation date.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps administrators and competency managers locate existing evidence records and investigate their technical sources and associations with users and competencies.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for selecting a course, user, competency, status, or date. The query reads all evidence records from <code>mdl_competency_evidence</code> associated with a user found in <code>mdl_user</code>.</p>
+                <p>The fixed condition is <code>kbi_u.id IS NOT NULL</code>, excluding evidence with no valid user association. Records are sorted by surname, first name, and <code>kbi_ce.timecreated DESC</code>.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains the complete original SQL query, cache and refresh settings, and Prism.js syntax highlighting. There is no separate PostgreSQL definition file for this report.</p>
+                <details class="report-block" open>
+                    <summary>1. Competency evidence · Table</summary>
+                    <div class="inner">
+                        <p>The table lists each evidence record ID, user ID and name, competency short name, URL, description identifier, description component, description argument, and creation timestamp. It is sorted by surname, first name, and most recent evidence.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_ce.id,
+       kbi_u.id AS userid,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_c.shortname,
+       kbi_ce.url,
+       kbi_ce.descidentifier,
+       kbi_ce.desccomponent,
+       kbi_ce.desca,
+       kbi_ce.timecreated
+FROM mdl_competency_evidence kbi_ce
+       LEFT JOIN mdl_competency_usercomp kbi_cu ON kbi_ce.usercompetencyid = kbi_cu.id
+       LEFT JOIN mdl_competency kbi_c ON kbi_c.id = kbi_cu.competencyid
+       LEFT JOIN mdl_user kbi_u ON kbi_u.id = kbi_cu.userid
+WHERE kbi_u.id IS NOT NULL
+ORDER BY kbi_u.lastname, kbi_u.firstname, kbi_ce.timecreated DESC</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The query does not restrict course, learning plan, competency type, framework, date, account status, or user role, so it may return extensive installation-wide data.</li>
+                    <li>The joins to the competency and user competency records are optional. Evidence can be associated with a user while the competency short name is blank because the related record is missing.</li>
+                    <li>The <code>desca</code> field is the description argument stored in the evidence, while <code>descidentifier</code> and <code>desccomponent</code> are technical keys that may require language-string resolution for a readable description.</li>
+                    <li>The existence of an evidence record alone does not prove that a competency has been achieved or approved. The SQL does not examine final ratings, proficiency levels, or assessment criteria.</li>
+                    <li>The <code>url</code> field is a reference stored with the evidence; the query does not verify whether the destination remains accessible or whether the report viewer is authorized to open it.</li>
+                    <li>Records are ordered with the most recent evidence first for each user, but the query does not select only the latest evidence for each competency.</li>
+                    <li>Because user names and academic evidence from the entire platform are displayed, access to the report and its exports must be controlled.</li>
+                    <li>The catalog does not contain a separate PostgreSQL variant for this definition.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-084.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="083.html">← Report 083</a>
+                <a href="085.html">Report 085 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-084">
+                <h2 id="related-title-084">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="085.html"><span class="related-number">Report 085</span><span
+                            class="related-title">Course outcomes</span><span class="related-category">Competencies, learning plans and badges</span></a>
+                    <a class="related-card" href="086.html"><span class="related-number">Report 086</span><span
+                            class="related-title">Learning plan progress</span><span
+                            class="related-category">Competencies, learning plans and badges</span></a>
+                    <a class="related-card" href="087.html"><span class="related-number">Report 087</span><span
+                            class="related-title">Learning plan progress details</span><span
+                            class="related-category">Competencies, learning plans and badges</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/competencies.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

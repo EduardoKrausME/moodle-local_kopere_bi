@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Displays learning outcomes linked to module grade items in the selected course, including descriptions, scales, categories, and grade statistics.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Course outcomes | Report 085 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/085.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/085.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/085.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Course outcomes | Report 085 · Kopere BI">
+    <meta property="og:description" content="Displays learning outcomes linked to module grade items in the selected course, including descriptions, scales, categories, and grade statistics.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/085.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/085.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/competencies.html">Competencies</a> / 085
+            </nav>
+            <div class="kicker">REPORT 085</div>
+            <h1>Course outcomes</h1>
+            <p class="lead">Displays learning outcomes linked to module grade items in the selected course, including descriptions, scales, categories, and grade statistics.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Displays learning outcomes linked to module grade items in the selected course, including descriptions, scales, categories, and grade statistics.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps teachers and administrators locate learning outcomes associated with graded activities and examine how many grade records exist and which average was calculated for each item.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The dynamic SQL filter is <strong>Course</strong>, represented by <code>:courseid</code> and used once in <code>kbi_c.id = :courseid</code>.</p>
+                <p>The fixed condition <code>kbi_gi.itemtype = 'mod'</code> limits results to module grade items. The query starts from <code>mdl_grade_outcomes</code> and does not require the course or module to be visible, active enrolments, a particular student role, account status, or a grading period.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains the complete original SQL query, cache and refresh settings, and Prism.js syntax highlighting. The definitions catalog does not provide a separate PostgreSQL variant.</p>
+                <details class="report-block" open>
+                    <summary>1. Course outcomes · Table</summary>
+                    <div class="inner">
+                        <p>The table lists each module grade item associated with a learning outcome, including item ID, activity name, course names, outcome name and description, linked scale, course category, course start date, calculated average grade, and number of grade records.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_gi.id,
+       kbi_gi.itemname                            as activity,
+       kbi_c.shortname                            as course_shortname,
+       kbi_c.fullname                             as course_fullname,
+       kbi_o.fullname                             as outcome_fullname,
+       kbi_o.shortname                            as outcome_shortname,
+       kbi_o.description                          as outcome_description,
+       kbi_sci.scale,
+       kbi_ca.name                                as category,
+       kbi_c.startdate,
+       ROUND(AVG(CASE
+                   WHEN kbi_g.rawgrademax &gt; 0 THEN (kbi_g.finalgrade / kbi_g.rawgrademax) * 100
+                   ELSE kbi_g.finalgrade END), 0) AS average_grade,
+       COUNT(DISTINCT kbi_g.id)                   AS grades
+FROM mdl_grade_outcomes kbi_o
+       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_o.courseid
+       LEFT JOIN mdl_course_categories kbi_ca ON kbi_ca.id = kbi_c.category
+       LEFT JOIN mdl_scale kbi_sci ON kbi_sci.id = kbi_o.scaleid
+       LEFT JOIN mdl_grade_items kbi_gi ON kbi_gi.outcomeid = kbi_o.id
+       LEFT JOIN mdl_grade_grades kbi_g ON kbi_g.itemid = kbi_gi.id
+WHERE kbi_gi.itemtype = &#39;mod&#39;
+  AND kbi_c.id = :courseid
+GROUP BY kbi_gi.id,
+         kbi_g.itemid,
+         kbi_gi.itemname,
+         kbi_c.shortname,
+         kbi_c.fullname,
+         kbi_o.fullname,
+         kbi_o.shortname,
+         kbi_o.description,
+         kbi_sci.scale,
+         kbi_ca.name,
+         kbi_c.startdate
+ORDER BY kbi_c.fullname, kbi_gi.itemname, kbi_o.fullname</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The outcomes come from <code>mdl_grade_outcomes</code> and the grade items associated with them. They are not automatically equivalent to competencies in the <code>mdl_competency</code> framework or learning plan assessments.</li>
+                    <li>Because the <code>WHERE</code> clause requires <code>kbi_gi.itemtype = 'mod'</code>, outcomes without a grade item of this type do not appear, despite preceding optional joins.</li>
+                    <li>The <code>grades</code> column counts distinct IDs in <code>mdl_grade_grades</code> without requiring a non-NULL final grade. It is therefore not necessarily the sample size of the values actually included in <code>AVG</code>.</li>
+                    <li>The <code>average_grade</code> column uses <code>finalgrade / rawgrademax * 100</code> when the maximum grade is positive and the raw final grade otherwise. Grades from qualitative scales may not be directly comparable.</li>
+                    <li>There is no restriction by assessment period, course visibility, or enrolment status, and the calculation does not explicitly exclude deleted or suspended users.</li>
+                    <li>The query groups by grade item and shows descriptive outcome, scale, and category fields. It does not automatically measure competency attainment or course completion.</li>
+                    <li>Rounding the average to zero decimal places can conceal small differences. Missing grades can yield NULL averages.</li>
+                    <li>No separate PostgreSQL variant is provided in the definitions catalog.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-085.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="084.html">← Report 084</a>
+                <a href="086.html">Report 086 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-085">
+                <h2 id="related-title-085">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="084.html"><span class="related-number">Report 084</span><span
+                            class="related-title">Competency evidence</span><span class="related-category">Competencies, learning plans and badges</span></a>
+                    <a class="related-card" href="086.html"><span class="related-number">Report 086</span><span
+                            class="related-title">Learning plan progress</span><span
+                            class="related-category">Competencies, learning plans and badges</span></a>
+                    <a class="related-card" href="087.html"><span class="related-number">Report 087</span><span
+                            class="related-title">Learning plan progress details</span><span
+                            class="related-category">Competencies, learning plans and badges</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/competencies.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
