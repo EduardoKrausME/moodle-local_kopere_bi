@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Grade history showing previous grades, calculated changes, and the user recorded as making a change where records have been retained.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Grade change history | Report 121 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/121.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/121.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/121.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Grade change history | Report 121 · Kopere BI">
+    <meta property="og:description" content="Grade history showing previous grades, calculated changes, and the user recorded as making a change where records have been retained.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/121.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/121.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/grades.html">Grades</a> / 121
+            </nav>
+            <div class="kicker">REPORT 121</div>
+            <h1>Grade change history</h1>
+            <p class="lead">Grade history showing previous grades, calculated changes, and the user recorded as making a change where records have been retained.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Historical table by grade-change event, showing course, student, grade item, action, grade in the current history record, previous recorded grade, difference, normalized item percentage, recorded editor, and modification date. Results prioritize the 500 most recent events.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Support academic audits and enquiries about grade changes by examining earlier values, calculated differences, and the recorded editor when that information is available.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#criterios">Calculation criteria</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL filters</strong> for course, student, grade item, editor, or reporting period. The only fixed scope condition is <code>c.id &gt; 1</code>, excluding Moodle's special course with ID 1. There is no date window or explicit restriction for course visibility or account status.</p>
+                <p>Records are ordered by <code>h.timemodified DESC, h.id DESC</code> with <code>LIMIT
+                    500</code>. This selects the 500 most recent history entries overall, not changes within a chosen course.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>This report contains one table visualization with full original SQL, cache, and refresh settings. Prism.js provides syntax highlighting. No separate PostgreSQL variant was found in <code>master</code>, so none has been invented.</p>
+                <details class="report-block" open>
+                    <summary>1. Grade change history · Table</summary>
+                    <div class="inner">
+                        <p>The historical table displays each grade-change event, including course, student, grade item, action, current and previous history values, delta, normalized percentage, recorded editor, and change date. It prioritizes the 500 latest records.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT h.id, c.id AS courseid, c.fullname AS course, h.userid, u.firstname, u.lastname,
+       gi.itemname, h.action, h.finalgrade, previous.finalgrade AS previous_grade,
+       CASE WHEN h.finalgrade IS NOT NULL AND previous.finalgrade IS NOT NULL
+            THEN ROUND(h.finalgrade - previous.finalgrade, 2) ELSE NULL END AS grade_delta,
+       h.loggeduser AS changed_by_userid, editor.firstname AS editor_firstname, editor.lastname AS editor_lastname,
+       CASE WHEN gi.grademax &gt; gi.grademin AND h.finalgrade IS NOT NULL
+            THEN ROUND(100.0 * (h.finalgrade - gi.grademin) / (gi.grademax - gi.grademin), 2)
+            ELSE NULL END AS grade_percent,
+       h.timemodified AS changed_at
+  FROM mdl_grade_grades_history h
+  JOIN mdl_grade_items gi ON gi.id = h.itemid
+  JOIN mdl_course c ON c.id = gi.courseid
+  JOIN mdl_user u ON u.id = h.userid
+  LEFT JOIN mdl_grade_grades_history previous ON previous.id = (
+       SELECT MAX(ph.id) FROM mdl_grade_grades_history ph
+        WHERE ph.oldid = h.oldid AND ph.id &lt; h.id
+          AND ph.itemid = h.itemid AND ph.userid = h.userid)
+  LEFT JOIN mdl_user editor ON editor.id = h.loggeduser
+ WHERE c.id &gt; 1
+ ORDER BY h.timemodified DESC, h.id DESC
+ LIMIT 500</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Calculation criteria and behavior</h2>
+                <p>The query reads <code>mdl_grade_grades_history</code>, joining the grade item (<code>mdl_grade_items</code>), course, and student account. It finds an earlier grade in the same history table using the greatest preceding <code>MAX(ph.id)</code> for the same <code>oldid</code>, grade item, and user.</p>
+                <p><code>grade_delta</code> is calculated as <code>ROUND(h.finalgrade - previous.finalgrade, 2)</code> when both values exist; otherwise it is <code>NULL</code>. <code>grade_percent</code> scales the value to the item's range, using <code>(finalgrade - grademin) /
+                        (grademax - grademin)</code> multiplied by 100 only for a positive range. The editor is looked up through an optional join using <code>h.loggeduser</code>.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul class="report-limit">
+                    <li>The history includes only records actually preserved in mdl_grade_grades_history; missing or deleted history entries cannot be reconstructed.</li>
+                    <li>The previous grade is selected by the greatest earlier history ID with matching identifiers. This assumes ID ordering correctly represents the sequence of relevant events.</li>
+                    <li>History events can represent insertions, updates, or deletions. Changing another field does not necessarily mean the numerical grade changed.</li>
+                    <li>The grade difference and normalized percentage may be NULL if the previous grade, current grade, or a valid minimum-to-maximum range is missing.</li>
+                    <li>The recorded editor in loggeduser may be absent; this field alone is not sufficient to attribute responsibility conclusively for an academic change.</li>
+                    <li>The query does not restrict deleted users, periods, categories, or items, and returns only 500 records. It is not a complete historical audit.</li>
+                    <li>Grades and related fields are personal academic data. Restrict access, exports, and disclosure to authorized users.</li>
+                </ul>
+                <p class="report-technical">The SQL is reproduced verbatim from the original JSON in <code>master</code> and was not executed on Moodle during this documentation work. Before institutional use, check database compatibility, accuracy of interpretation, and access permissions.</p>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-121.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="120.html">← Report 120</a>
+                <a href="122.html">Report 122 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-121">
+                <h2 id="related-title-121">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="053.html"><span class="related-number">Report 053</span><span
+                            class="related-title">Gradebook by course category</span><span
+                            class="related-category">Grades and assessments</span></a>
+                    <a class="related-card" href="054.html"><span class="related-number">Report 054</span><span
+                            class="related-title">Gradebook overview</span><span class="related-category">Grades and assessments</span></a>
+                    <a class="related-card" href="020.html"><span class="related-number">Report 020</span><span
+                            class="related-title">User roles and role changes</span><span
+                            class="related-category">Users and profiles</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/grades.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

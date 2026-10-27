@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Compares the latest finished attempts for pairs of quizzes in the same course as percentages; the order follows quiz IDs.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Comparison of two quiz results | Report 120 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/120.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/120.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/120.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Comparison of two quiz results | Report 120 · Kopere BI">
+    <meta property="og:description" content="Compares the latest finished attempts for pairs of quizzes in the same course as percentages; the order follows quiz IDs.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/120.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/120.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/quizzes.html">Quizzes</a> / 120
+            </nav>
+            <div class="kicker">REPORT 120</div>
+            <h1>Comparison of two quiz results</h1>
+            <p class="lead">Compares the latest finished attempts for pairs of quizzes in the same course as percentages; the order follows quiz IDs.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Table by participant and pair of quizzes within a course, showing both quiz titles, percentage grades from the latest finished attempts, and the difference in percentage points. It sorts by course, student, and quiz IDs, returning up to 500 rows.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Compare how an individual participant's percentage scores differ between pairs of quizzes in the same course, supporting exploratory analysis and assessment review.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#criterios">Calculation criteria</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, student, quiz, date range, or grade. The query considers attempts with <code>state = 'finished'</code> for both quizzes, users who are not deleted (<code>u.deleted = 0</code>), and quizzes with <code>q1.sumgrades
+                        &gt; 0</code> and <code>q2.sumgrades &gt; 0</code>.</p>
+                <p>The second quiz must belong to the same course and meet <code>q2.id &gt; q1.id</code>. There is no explicit pre-test/post-test pairing or requirement that the quizzes be consecutive. The SQL displays up to <strong>500 quiz pairs and participants</strong>.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>The report contains one table visualization with its full original SQL, caching, and refresh settings. Prism.js highlights SQL syntax. No separate PostgreSQL variant exists in <code>master</code> for this definition, so no nonexistent query has been introduced.</p>
+                <details class="report-block" open>
+                    <summary>1. Comparison of two quiz results · Table</summary>
+                    <div class="inner">
+                        <p>Table by participant and pair of quizzes within a course, with the two quiz titles, percentage grades from the latest finished attempts, and the difference in percentage points. Results are sorted by course, student, and quiz IDs, up to 500 rows.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(a1.id, &#39;-&#39;, a2.id) AS id, c.id AS courseid, c.fullname AS course,
+       a1.userid, u.firstname, u.lastname,
+       q1.name AS first_quiz, q2.name AS second_quiz,
+       ROUND(100.0 * a1.sumgrades / NULLIF(q1.sumgrades, 0), 2) AS first_percent,
+       ROUND(100.0 * a2.sumgrades / NULLIF(q2.sumgrades, 0), 2) AS second_percent,
+       ROUND(100.0 * a2.sumgrades / NULLIF(q2.sumgrades, 0)
+           - 100.0 * a1.sumgrades / NULLIF(q1.sumgrades, 0), 2) AS delta_percent
+  FROM mdl_quiz_attempts a1
+  JOIN mdl_quiz q1 ON q1.id = a1.quiz
+  JOIN mdl_quiz q2 ON q2.course = q1.course AND q2.id &gt; q1.id
+  JOIN mdl_quiz_attempts a2 ON a2.quiz = q2.id AND a2.userid = a1.userid
+  JOIN mdl_course c ON c.id = q1.course
+  JOIN mdl_user u ON u.id = a1.userid AND u.deleted = 0
+ WHERE a1.state = &#39;finished&#39; AND a2.state = &#39;finished&#39;
+   AND a1.id = (SELECT MAX(last1.id) FROM mdl_quiz_attempts last1
+                 WHERE last1.quiz = a1.quiz AND last1.userid = a1.userid AND last1.state = &#39;finished&#39;)
+   AND a2.id = (SELECT MAX(last2.id) FROM mdl_quiz_attempts last2
+                 WHERE last2.quiz = a2.quiz AND last2.userid = a2.userid AND last2.state = &#39;finished&#39;)
+   AND q1.sumgrades &gt; 0 AND q2.sumgrades &gt; 0
+ ORDER BY c.fullname, u.lastname, q1.id, q2.id
+ LIMIT 500</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Calculation criteria and behavior</h2>
+                <p>For each participant, the SQL selects the finished attempt with the largest <code>id</code> in each quiz through a <code>MAX(id)</code> subquery. The most recent attempt by ID is not necessarily the highest-scoring attempt.</p>
+                <p>Each quiz percentage is calculated as <code>100.0 * sumgrades / NULLIF(quiz.sumgrades, 0)</code>, rounded to two decimal places. <code>delta_percent</code> subtracts the first quiz percentage from the second and therefore represents a difference in <strong>percentage points</strong>, not relative percentage growth.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul class="report-limit">
+                    <li>The q2.id > q1.id criterion uses Moodle's internal quiz-ID ordering, not a pedagogically configured pre-test/post-test sequence. It can pair assessments with different topics and difficulty levels.</li>
+                    <li>A participant may appear in several quiz pairs because the query includes every eligible combination with increasing quiz IDs in the same course.</li>
+                    <li>The latest finished attempt is selected through MAX(id), rather than by highest score or the quiz's own attempt-grading policy.</li>
+                    <li>Attempt dates are not compared. A larger quiz ID does not guarantee that the second quiz was attempted after the first.</li>
+                    <li>Percentages from different assessments are comparable only when their topics, scales, objectives, and difficulty support that comparison; delta_percent is a difference in percentage points.</li>
+                    <li>Suspended users, hidden courses, and hidden modules are not explicitly excluded. The 500-row limit may truncate the population.</li>
+                    <li>The report contains identifiable individual assessment results; restrict access and exports to authorized users.</li>
+                </ul>
+                <p class="report-technical">The query is reproduced verbatim from the original JSON in <code>master</code>. The SQL was not executed on Moodle during this documentation work. Before institutional use, validate database compatibility, data-access permissions, and interpretation of the measures.</p>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-120.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="119.html">← Report 119</a>
+                <a href="121.html">Report 121 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-120">
+                <h2 id="related-title-120">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="089.html"><span class="related-number">Report 089</span><span
+                            class="related-title">Quiz scores by attempt</span><span
+                            class="related-category">Quizzes</span></a>
+                    <a class="related-card" href="063.html"><span class="related-number">Report 063</span><span
+                            class="related-title">Quiz performance statistics</span><span
+                            class="related-category">Quizzes</span></a>
+                    <a class="related-card" href="110.html"><span class="related-number">Report 110</span><span
+                            class="related-title">Progress and grade analysis</span><span class="related-category">Learning Analytics dashboards</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/quizzes.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

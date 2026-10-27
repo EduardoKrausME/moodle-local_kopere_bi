@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Frequent responses receiving less than full credit in finished quiz attempts, excluding previews and reporting each response's share among selected answers.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Most frequent answers without full credit | Report 122 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/122.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/122.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/122.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Most frequent answers without full credit | Report 122 · Kopere BI">
+    <meta property="og:description" content="Frequent responses receiving less than full credit in finished quiz attempts, excluding previews and reporting each response's share among selected answers.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/122.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/122.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/quizzes.html">Quizzes</a> / 122
+            </nav>
+            <div class="kicker">REPORT 122</div>
+            <h1>Most frequent answers without full credit</h1>
+            <p class="lead">Frequent responses receiving less than full credit in finished quiz attempts, excluding previews and reporting each response's share among selected answers.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Table by course, question, and response summary, showing occurrence counts, distinct learners, and the percentage represented by each response summary among selected records for that question. It sorts by descending frequency and returns up to 500 rows.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Help teachers and instructional designers identify recurring response patterns that did not earn full credit, for reviewing answer choices, question wording, and potential learning difficulties.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#criterios">Calculation criteria</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, quiz, question, student, reporting period, or response. The query requires attempts with <code>a.state = 'finished'</code>, excludes previews (<code>a.preview
+                        = 0</code>), and accepts accounts that are not deleted and are not <code>guest</code>.</p>
+                <p>For the last step of the question attempt, the conditions are <code>st.fraction IS NOT NULL</code> and <code>st.fraction
+                    &lt; 1</code>; <code>responsesummary</code> must also be non-NULL and nonempty. Results are limited to <strong>500 groups</strong>, ordered by descending frequency.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains the complete original SQL and cache and refresh settings, with Prism.js syntax highlighting. No separate PostgreSQL variant was found in <code>master</code>, so a nonexistent version has not been added.</p>
+                <details class="report-block" open>
+                    <summary>1. Most frequent answers without full credit · Table</summary>
+                    <div class="inner">
+                        <p>Table by course, question, and response summary, showing occurrences, distinct learners, and each summary's percentage among the selected responses to that question. It sorts by highest occurrence count and returns at most 500 rows.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT MD5(CONCAT(c.id, &#39;-&#39;, q.id, &#39;-&#39;, att.responsesummary)) AS id,
+       c.id AS courseid, c.fullname AS course, q.id AS questionid, q.name AS question,
+       att.responsesummary AS answer, COUNT(*) AS occurrences,
+       COUNT(DISTINCT a.userid) AS learners,
+       ROUND(100.0 * COUNT(*) /
+             NULLIF(SUM(COUNT(*)) OVER (PARTITION BY c.id, q.id), 0), 2)
+             AS incorrect_answer_share
+  FROM mdl_quiz_attempts a
+  JOIN mdl_quiz quiz ON quiz.id = a.quiz
+  JOIN mdl_course c ON c.id = quiz.course
+  JOIN mdl_user u ON u.id = a.userid AND u.deleted = 0 AND u.username &lt;&gt; &#39;guest&#39;
+  JOIN mdl_question_attempts att ON att.questionusageid = a.uniqueid
+  JOIN mdl_question q ON q.id = att.questionid
+  JOIN mdl_question_attempt_steps st ON st.questionattemptid = att.id
+       AND st.sequencenumber = (SELECT MAX(st2.sequencenumber)
+                                 FROM mdl_question_attempt_steps st2
+                                WHERE st2.questionattemptid = att.id)
+ WHERE a.state = &#39;finished&#39; AND a.preview = 0 AND st.fraction IS NOT NULL AND st.fraction &lt; 1
+   AND att.responsesummary IS NOT NULL AND att.responsesummary &lt;&gt; &#39;&#39;
+ GROUP BY c.id, c.fullname, q.id, q.name, att.responsesummary
+ ORDER BY occurrences DESC, c.fullname
+ LIMIT 500</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Calculation criteria and behavior</h2>
+                <p>The SQL joins quiz attempts to question attempts using <code>questionusageid</code>. It selects the step with the greatest <code>sequencenumber</code> in each question attempt and retains steps graded with a fraction below one.</p>
+                <p>Responses are grouped by course, question, and <code>att.responsesummary</code>. <code>COUNT(*)</code> counts occurrences, and <code>COUNT(DISTINCT a.userid)</code> counts distinct users. <code>incorrect_answer_share</code> uses a window function: occurrences for one answer divided by all occurrences among the no-full-credit response groups for that course and question, multiplied by 100. It measures the share <em>among selected responses</em>, not the overall error rate of all participants.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul class="report-limit">
+                    <li>The fraction-below-one rule includes partially correct answers (earning partial credit), not just entirely wrong answers. It does not exclusively describe zero-mark answers.</li>
+                    <li>Responses are identified using responsesummary. Semantically identical answers represented differently may appear in separate groups.</li>
+                    <li>The occurrence count refers to attempts, while learners counts distinct users. A participant with repeated attempts can contribute several occurrences.</li>
+                    <li>The percentage is calculated within the no-full-credit responses for each question, not among all finished submissions, including fully correct answers.</li>
+                    <li>The query depends on the matching final question-attempt step and its grade. Some question types or grading states may be excluded unexpectedly.</li>
+                    <li>The SQL orders all groups globally by occurrence count and returns at most 500 groups. Less frequent answers are omitted, and no date filter is provided.</li>
+                    <li>Response summaries may contain student-provided text. Check privacy safeguards and risks of exposing personal content before exporting.</li>
+                </ul>
+                <p class="report-technical">The SQL was reproduced verbatim from the original JSON in <code>master</code> and was not executed on Moodle during this documentation work. Before institutional use, check database compatibility, accuracy of interpretation, and access permissions.</p>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-122.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="121.html">← Report 121</a>
+                <a href="123.html">Report 123 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-122">
+                <h2 id="related-title-122">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="088.html"><span class="related-number">Report 088</span><span
+                            class="related-title">Quiz responses by question</span><span
+                            class="related-category">Quizzes</span></a>
+                    <a class="related-card" href="123.html"><span class="related-number">Report 123</span><span
+                            class="related-title">Quiz performance by question tag</span><span
+                            class="related-category">Quizzes</span></a>
+                    <a class="related-card" href="082.html"><span class="related-number">Report 082</span><span
+                            class="related-title">Feedback response details</span><span
+                            class="related-category">Feedback and surveys</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/quizzes.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
