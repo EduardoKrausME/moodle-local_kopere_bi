@@ -32,5 +32,5 @@ $plugin->maturity = MATURITY_STABLE;
 
 $plugin->dependencies = [
     "biblocks_line" => 2025112001,
-    "local_kopere_bi" => 2026101900,
+    "local_kopere_bi" => 2026102700,
 ];

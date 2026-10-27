@@ -31,5 +31,5 @@ $plugin->requires = 2021041900;
 $plugin->maturity = MATURITY_STABLE;
 
 $plugin->dependencies = [
-    "local_kopere_bi" => 2026101900,
+    "local_kopere_bi" => 2026102700,
 ];

@@ -30,5 +30,5 @@ $plugin->component = "bifilters_period";
 $plugin->requires = 2024100700;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->dependencies = [
-    "local_kopere_bi" => 2026102201,
+    "local_kopere_bi" => 2026102700,
 ];
