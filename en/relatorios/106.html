@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Overview of course activity, engagement, progress, completion, and performance.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Learning analytics dashboard | Report 106 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/106.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/106.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/106.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Learning analytics dashboard | Report 106 · Kopere BI">
+    <meta property="og:description" content="Overview of course activity, engagement, progress, completion, and performance.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/106.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/106.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/learning_analytics.html">Learning Analytics</a> / 106
+            </nav>
+            <div class="kicker">REPORT 106</div>
+            <h1>Learning analytics dashboard</h1>
+            <p class="lead">Overview of course activity, engagement, progress, completion, and performance.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>The dashboard combines four numeric indicators, a daily activity line chart, an engagement pie chart, and a course performance table. Each component queries the latest available batch of analytics data stored by Kopere BI.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Brings recent course activity, engagement, completion, and performance indicators into one dashboard to help prioritize administrative and educational follow-up.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualizations and SQL</a>
+                <a href="#criterios">Calculation criteria</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, person, cohort, or period in the seven queries. Each uses <code>MAX(batchid)</code> from its respective analytics table to retrieve the latest available batch.</p>
+                <p>The daily chart uses the fixed condition <code>courseid = 0</code>, representing the installation-wide aggregate; the activity indicator requires <code>actions7 &gt; 0</code>; the attention indicator requires <code>risklevel IN ('high','medium')</code> and <code>timecompleted IS NULL</code>. These are internal SQL conditions, not selectable filters.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualizations and full original SQL</h2>
+                <p>This report has seven visualizations, each with its complete original SQL, presentation description, cache, and refresh settings. Prism.js provides syntax highlighting. There is no separate PostgreSQL variant for the main definition in <code>master</code>; none has been invented.</p>
+                <details class="report-block" open>
+                    <summary>1. Students active in the past 7 days · Numeric indicator</summary>
+                    <div class="inner">
+                        <p>Numeric indicator: counts distinct users with actions7 greater than zero in the latest engagement analysis batch. It reflects recorded activity over the seven days used by analytics processing, not users currently online.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT COUNT(DISTINCT userid)
+FROM mdl_local_kopere_bi_engage
+WHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)
+  AND actions7 &gt; 0</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-block">
+                    <summary>2. Students requiring attention · Numeric indicator</summary>
+                    <div class="inner">
+                        <p>Numeric indicator: counts distinct users classified as high or medium risk without a completion date in the latest analytics batch. A learner enrolled in several courses is counted once by this metric.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT COUNT(DISTINCT userid)
+FROM mdl_local_kopere_bi_engage
+WHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)
+  AND risklevel IN (&#39;high&#39;, &#39;medium&#39;)
+  AND timecompleted IS NULL</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-block">
+                    <summary>3. Average progress · Numeric indicator</summary>
+                    <div class="inner">
+                        <p>Numeric indicator: arithmetic mean of the progress field among records in the most recent batch, rounded to one decimal place. It averages analyzed records, not necessarily distinct individuals.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT ROUND(AVG(progress), 1)
+FROM mdl_local_kopere_bi_engage
+WHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-block">
+                    <summary>4. Completed enrolments · Numeric indicator</summary>
+                    <div class="inner">
+                        <p>Numeric indicator: counts analyzed enrolment records with a non-NULL timecompleted value. COUNT(id) counts records rather than distinct students.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT COUNT(id)
+FROM mdl_local_kopere_bi_engage
+WHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)
+  AND timecompleted IS NOT NULL</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-block">
+                    <summary>5. Active students by day · Line chart</summary>
+                    <div class="inner">
+                        <p>Line chart: uses daykey for the time axis and activeusers for the number of active users each day. It selects only courseid = 0 (the installation-wide aggregate) from the most recent daily aggregation batch.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT daykey, activeusers AS active_learners
+FROM mdl_local_kopere_bi_daily
+WHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_daily)
+  AND courseid = 0
+ORDER BY daystart</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-block">
+                    <summary>6. Engagement distribution · Pie chart</summary>
+                    <div class="inner">
+                        <p>Pie chart: distributes analyzed rows by high, medium, or low engagement and other conditions (&#39;At risk&#39;). COUNT(id) measures records rather than necessarily distinct people.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CASE engagement
+         WHEN &#39;high&#39; THEN &#39;High&#39;
+         WHEN &#39;medium&#39; THEN &#39;Medium&#39;
+         WHEN &#39;low&#39; THEN &#39;Low&#39;
+         ELSE &#39;At risk&#39;
+       END AS engagement_level,
+       COUNT(id) AS learners
+FROM mdl_local_kopere_bi_engage
+WHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)
+GROUP BY engagement
+ORDER BY CASE engagement WHEN &#39;high&#39; THEN 1 WHEN &#39;medium&#39; THEN 2 WHEN &#39;low&#39; THEN 3 ELSE 4 END</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-block">
+                    <summary>7. Course performance summary · Table</summary>
+                    <div class="inner">
+                        <p>Course table showing enrolments, seven-day active users, average progress and grades, completion, high and medium risk, trends, scores, and course health categories. It sorts by lowest health scores first, followed by high-risk counts.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT ca.id, c.id AS courseid, c.fullname AS course, ca.enrolments, ca.active7, ca.avgprogress, ca.avggrade, ca.completionrate, ca.highrisk, ca.mediumrisk, ca.trendpercent, ca.healthscore,
+       CASE ca.healthlevel
+         WHEN &#39;healthy&#39; THEN &#39;lang::analytics_health_healthy::local_kopere_bi&#39;
+         WHEN &#39;attention&#39; THEN &#39;lang::analytics_health_attention::local_kopere_bi&#39;
+         ELSE &#39;lang::analytics_health_critical::local_kopere_bi&#39;
+       END AS healthlevel
+FROM mdl_local_kopere_bi_courseag ca
+JOIN mdl_course c ON c.id = ca.courseid
+WHERE ca.batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_courseag)
+ORDER BY ca.healthscore ASC, ca.highrisk DESC, c.fullname</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Calculation criteria and behavior</h2>
+                <p>The dashboard depends on preprocessed tables <code>mdl_local_kopere_bi_engage</code>, <code>mdl_local_kopere_bi_daily</code>, and <code>mdl_local_kopere_bi_courseag</code>. Measures such as progress, risklevel, actions7, completionrate, and healthscore <strong>are already calculated</strong> before reaching those tables. The SQL on this page aggregates or presents these values; it does not define their source algorithms.</p>
+                <p>Because the latest <code>batchid</code> is selected independently for each source, check the update times of all three tables when making comparisons.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul class="report-limit">
+                    <li>“Active in the past seven days” does not mean currently online and depends on the actions7 value generated by analytics processing.</li>
+                    <li>Distinct-user indicators (COUNT DISTINCT userid) and record counts (COUNT id) have different denominators and should not be compared directly.</li>
+                    <li>The latest batches in the engage, daily, and courseag tables may have different timestamps; do not assume simultaneous updates.</li>
+                    <li>Risk level and health score are derived classifications. The SQL on this page does not explain their formulas or justify automated interventions.</li>
+                    <li>The analytics-source SQL contains no explicit restriction on course visibility or deleted or suspended user accounts. Whether those conditions are handled depends on the batch-generation process.</li>
+                    <li>All components specify cache and refresh as none. This does not establish that the underlying analytics tables update in real time.</li>
+                </ul>
+                <p class="report-technical">The SQL queries are reproduced verbatim from the JSON file in <code>master</code> and have not been executed on a Moodle installation during this documentation work. Verify analytics table availability, compatibility, results, and permissions in the target environment.</p>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-106.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="105.html">← Report 105</a>
+                <a href="107.html">Report 107 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-106">
+                <h2 id="related-title-106">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="109.html"><span class="related-number">Report 109</span><span
+                            class="related-title">Student Analytics 360</span><span class="related-category">Learning Analytics dashboards</span></a>
+                    <a class="related-card" href="111.html"><span class="related-number">Report 111</span><span
+                            class="related-title">Learning pace</span><span class="related-category">Learning Analytics dashboards</span></a>
+                    <a class="related-card" href="086.html"><span class="related-number">Report 086</span><span
+                            class="related-title">Learning plan progress</span><span
+                            class="related-category">Competencies, learning plans and badges</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/learning_analytics.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

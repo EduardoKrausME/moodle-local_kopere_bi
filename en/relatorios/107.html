@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Lists students requiring attention based on inactivity, low activity, limited progress, grades, and other risk indicators.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Students requiring attention queue | Report 107 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/107.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/107.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/107.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Students requiring attention queue | Report 107 · Kopere BI">
+    <meta property="og:description" content="Lists students requiring attention based on inactivity, low activity, limited progress, grades, and other risk indicators.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/107.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/107.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/learning_analytics.html">Learning Analytics</a> / 107
+            </nav>
+            <div class="kicker">REPORT 107</div>
+            <h1>Students requiring attention queue</h1>
+            <p class="lead">Lists students requiring attention based on inactivity, low activity, limited progress, grades, and other risk indicators.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>A table lists students and their courses, including names, email addresses, enrolment and access dates, days without access, recent actions, progress, grade percentages, risk scores, risk levels, and reasons for flagging.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps prioritize educational follow-up for students whose Learning Analytics records indicate high or medium risk and no course completion in the analyzed data.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualizations and SQL</a>
+                <a href="#criterios">Calculation criteria</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL filters</strong> for course, student, cohort, date, or risk. The query fixes <code>risklevel IN ('high','medium')</code>, <code>timecompleted IS NULL</code>, and <code>batchid
+                        = MAX(batchid)</code> in <code>mdl_local_kopere_bi_engage</code>.</p>
+                <p>The SQL has no interactive date filter, although it includes <code>actions14</code> (actions during a previously calculated 14-day window). Results have fixed sorting by <code>riskscore DESC</code>, <code>daysinactive
+                        DESC</code>, course, and name.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualizations and full original SQL</h2>
+                <p>This report contains one visualization with its full original SQL, presentation description, cache, and refresh settings, with Prism.js syntax highlighting. There is no separate PostgreSQL variant for the main definition in <code>master</code>, so none has been invented.</p>
+                <details class="report-block" open>
+                    <summary>1. Students requiring attention · Table</summary>
+                    <div class="inner">
+                        <p>Follow-up table showing high- and medium-risk records with no completion date. Risk levels and reasons are represented by plugin translation keys, and the table prioritizes higher risk scores and longer periods of inactivity.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT e.id, e.userid, u.firstname, u.lastname, u.email, e.courseid, c.fullname AS course, e.timeenrolled, e.lastaccess, e.daysinactive, e.actions14, e.progress, e.gradepercent, e.riskscore,
+       CASE e.risklevel WHEN &#39;high&#39; THEN &#39;lang::analytics_level_high::local_kopere_bi&#39; ELSE &#39;lang::analytics_level_medium::local_kopere_bi&#39; END AS risklevel,
+       CASE e.riskreason
+         WHEN &#39;noaccess&#39; THEN &#39;lang::analytics_reason_noaccess::local_kopere_bi&#39;
+         WHEN &#39;longinactive&#39; THEN &#39;lang::analytics_reason_longinactive::local_kopere_bi&#39;
+         WHEN &#39;lowgrade&#39; THEN &#39;lang::analytics_reason_lowgrade::local_kopere_bi&#39;
+         WHEN &#39;inactive&#39; THEN &#39;lang::analytics_reason_inactive::local_kopere_bi&#39;
+         WHEN &#39;lowactivity&#39; THEN &#39;lang::analytics_reason_lowactivity::local_kopere_bi&#39;
+         WHEN &#39;lowprogress&#39; THEN &#39;lang::analytics_reason_lowprogress::local_kopere_bi&#39;
+         ELSE &#39;lang::analytics_reason_monitor::local_kopere_bi&#39;
+       END AS riskreason
+FROM mdl_local_kopere_bi_engage e
+JOIN mdl_user u ON u.id = e.userid
+JOIN mdl_course c ON c.id = e.courseid
+WHERE e.batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)
+  AND e.risklevel IN (&#39;high&#39;, &#39;medium&#39;)
+  AND e.timecompleted IS NULL
+ORDER BY e.riskscore DESC, e.daysinactive DESC, c.fullname, u.lastname, u.firstname</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Calculation criteria and behavior</h2>
+                <p>Risk level (<code>risklevel</code>), risk score (<code>riskscore</code>), and reason (<code>riskreason</code>) are produced by the engagement analytics process before this query runs. The query only selects records and maps reasons such as <code>noaccess</code>, <code>longinactive</code>, <code>lowgrade</code>, <code>inactive</code>, <code>lowactivity</code>, and <code>lowprogress</code> to translation keys.</p>
+                <p>The combined student and course fields represent course-level monitoring records rather than a deduplicated list of people.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul class="report-limit">
+                    <li>Risk flagging is an automated screening based on available data, not a definitive diagnosis of disengagement or academic performance.</li>
+                    <li>The same person may appear in multiple courses. Row counts are not counts of distinct students.</li>
+                    <li>A missing timecompleted value in the latest batch does not prove failure, dropout, or permanent outstanding requirements.</li>
+                    <li>The current joins do not explicitly exclude suspended or deleted users or hidden courses. Review permission controls before exposing the table.</li>
+                    <li>The riskscore, actions14, and progress fields depend on the data collection and calculations used to generate the analytics batch.</li>
+                    <li>The report includes names, email addresses, progress, and individual risk indicators. Access should be restricted, and authorized professionals should interpret findings in context.</li>
+                </ul>
+                <p class="report-technical">The SQL is reproduced verbatim from the JSON file in <code>master</code> and has not been executed on a Moodle installation during this documentation work. Verify analytics table availability, compatibility, results, and permissions in the target environment.</p>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-107.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="106.html">← Report 106</a>
+                <a href="108.html">Report 108 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-107">
+                <h2 id="related-title-107">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="109.html"><span class="related-number">Report 109</span><span
+                            class="related-title">Student Analytics 360</span><span class="related-category">Learning Analytics dashboards</span></a>
+                    <a class="related-card" href="106.html"><span class="related-number">Report 106</span><span
+                            class="related-title">Learning analytics dashboard</span><span
+                            class="related-category">Learning Analytics dashboards</span></a>
+                    <a class="related-card" href="108.html"><span class="related-number">Report 108</span><span
+                            class="related-title">Course health</span><span class="related-category">Learning Analytics dashboards</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/learning_analytics.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

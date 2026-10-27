@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Groups accounts assigned the student role by country, city, institution, and department recorded in their profiles, including totals and account statuses.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Student profile distribution | Report 105 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>
+        .report-intro {
+            background: #e7f6f4;
+            border: 1px solid #bee1dd;
+            border-radius: 13px;
+            padding: 22px 24px;
+            margin: 22px 0
+        }
+
+        .report-intro strong {
+            font-size: 17px;
+            color: #096573
+        }
+
+        .report-intro p {
+            margin: 7px 0 0
+        }
+
+        .report-navigation {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 23px 0
+        }
+
+        .report-navigation a {
+            font-size: 13px;
+            font-weight: 750;
+            text-decoration: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            background: #e4f4f2
+        }
+
+        .report-block {
+            border: 1px solid #d9e6e9;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 18px 0
+        }
+
+        .report-block summary {
+            padding: 16px;
+            background: #eaf5f7;
+            color: #0b5261;
+            font-weight: 800;
+            cursor: pointer
+        }
+
+        .report-block summary:hover {
+            background: #d9eff0
+        }
+
+        .report-block .inner {
+            padding: 16px
+        }
+
+        .sql-variant {
+            background: #f5f9f9;
+            border: 1px solid #dbe7e9;
+            border-radius: 12px;
+            margin: 16px 0;
+            padding: 13px 15px
+        }
+
+        .sql-variant h3 {
+            font-size: 14px;
+            color: #095f6d;
+            font-weight: 800;
+            margin: 0 0 10px
+        }
+
+        .report-meta {
+            color: #54707b;
+            font-size: 13px
+        }
+
+        .report-technical {
+            background: #f2f8f9;
+            border-left: 3px solid #70aeb4;
+            padding: 13px 16px;
+            margin: 18px 0
+        }
+
+        .report-limit li {
+            margin: 10px 0
+        }
+
+        @media (max-width: 650px) {
+            .report-block .inner {
+                padding: 10px
+            }
+
+            .sql-variant {
+                padding: 8px
+            }
+        }
+    </style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/105.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/105.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/105.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Student profile distribution | Report 105 · Kopere BI">
+    <meta property="og:description" content="Groups accounts assigned the student role by country, city, institution, and department recorded in their profiles, including totals and account statuses.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/105.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/105.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/students.html">Students</a> / 105
+            </nav>
+            <div class="kicker">REPORT 105</div>
+            <h1>Student profile distribution</h1>
+            <p class="lead">Groups accounts assigned the student role by country, city, institution, and department recorded in their profiles, including totals and account statuses.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Groups accounts assigned the student role by country, city, institution, and department recorded in their profiles, including totals and account statuses.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps examine students' self-reported geographic and institutional distribution, identify missing profile information, and estimate the numbers of active and suspended accounts.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#metodologia">Calculation criteria</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL filters</strong> for course, user, cohort, country, city, institution, department, or reporting period. The only fixed restriction in the <code>WHERE</code> clause excludes the account with <code>username
+                        = 'guest'</code>.</p>
+                <p>Active and suspended statuses are counted in separate columns. Deleted accounts are still included in <code>student_count</code>, but not in either status count.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization includes two equivalent complete original SQL queries, MySQL and PostgreSQL, grouped in the same block. Prism.js highlights the syntax without modifying the SQL.</p>
+                <details class="report-block" open>
+                    <summary>1. Student profile distribution · Table</summary>
+                    <div class="inner">
+                        <p>The table groups profiles by country, city, institution, and department, with the total number of distinct accounts and separate counts for active and suspended accounts. Groups are ordered from largest to smallest.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(COALESCE(NULLIF(TRIM(kbi_u.country), &#39;&#39;), &#39;not-informed&#39;), &#39;-&#39;,
+              COALESCE(NULLIF(TRIM(kbi_u.city), &#39;&#39;), &#39;not-informed&#39;), &#39;-&#39;,
+              COALESCE(NULLIF(TRIM(kbi_u.institution), &#39;&#39;), &#39;not-informed&#39;), &#39;-&#39;,
+              COALESCE(NULLIF(TRIM(kbi_u.department), &#39;&#39;), &#39;not-informed&#39;)) AS id,
+       COALESCE(NULLIF(TRIM(kbi_u.country), &#39;&#39;), &#39;Not informed&#39;) AS country,
+       COALESCE(NULLIF(TRIM(kbi_u.city), &#39;&#39;), &#39;Not informed&#39;) AS city,
+       COALESCE(NULLIF(TRIM(kbi_u.institution), &#39;&#39;), &#39;Not informed&#39;) AS institution,
+       COALESCE(NULLIF(TRIM(kbi_u.department), &#39;&#39;), &#39;Not informed&#39;) AS department,
+       COUNT(DISTINCT kbi_u.id) AS student_count,
+       SUM(CASE WHEN kbi_u.suspended = 0 AND kbi_u.deleted = 0 THEN 1 ELSE 0 END) AS active_students,
+       SUM(CASE WHEN kbi_u.suspended = 1 AND kbi_u.deleted = 0 THEN 1 ELSE 0 END) AS suspended_students
+FROM mdl_user kbi_u
+       JOIN (
+             SELECT DISTINCT kbi_ra.userid
+             FROM mdl_role_assignments kbi_ra
+                    JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid
+                    JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+             WHERE kbi_r.shortname = &#39;student&#39;
+       ) kbi_students ON kbi_students.userid = kbi_u.id
+WHERE kbi_u.username &lt;&gt; &#39;guest&#39;
+GROUP BY country, city, institution, department
+ORDER BY student_count DESC, country, city, institution, department</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(COALESCE(NULLIF(TRIM(kbi_u.country), &#39;&#39;), &#39;not-informed&#39;), &#39;-&#39;,
+              COALESCE(NULLIF(TRIM(kbi_u.city), &#39;&#39;), &#39;not-informed&#39;), &#39;-&#39;,
+              COALESCE(NULLIF(TRIM(kbi_u.institution), &#39;&#39;), &#39;not-informed&#39;), &#39;-&#39;,
+              COALESCE(NULLIF(TRIM(kbi_u.department), &#39;&#39;), &#39;not-informed&#39;)) AS id,
+       COALESCE(NULLIF(TRIM(kbi_u.country), &#39;&#39;), &#39;Not informed&#39;) AS country,
+       COALESCE(NULLIF(TRIM(kbi_u.city), &#39;&#39;), &#39;Not informed&#39;) AS city,
+       COALESCE(NULLIF(TRIM(kbi_u.institution), &#39;&#39;), &#39;Not informed&#39;) AS institution,
+       COALESCE(NULLIF(TRIM(kbi_u.department), &#39;&#39;), &#39;Not informed&#39;) AS department,
+       COUNT(DISTINCT kbi_u.id) AS student_count,
+       SUM(CASE WHEN kbi_u.suspended = 0 AND kbi_u.deleted = 0 THEN 1 ELSE 0 END) AS active_students,
+       SUM(CASE WHEN kbi_u.suspended = 1 AND kbi_u.deleted = 0 THEN 1 ELSE 0 END) AS suspended_students
+FROM mdl_user kbi_u
+       JOIN(
+             SELECT DISTINCT kbi_ra.userid
+             FROM mdl_role_assignments kbi_ra
+                    JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid
+                    JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+             WHERE kbi_r.shortname = &#39;student&#39;
+       ) kbi_students ON kbi_students.userid = kbi_u.id
+WHERE kbi_u.username &lt;&gt; &#39;guest&#39;
+GROUP BY country, city, institution, department
+ORDER BY student_count DESC, country, city, institution, department</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="metodologia">
+                <h2>Calculation criteria and behavior</h2>
+                <p>The report includes users assigned the <code>student</code> role in any course context and excludes only the <code>guest</code> account. The student list is deduplicated by user before aggregation.</p>
+                <p>Country, city, institution, and department values are normalized using <code>TRIM</code>, <code>NULLIF</code>, and <code>COALESCE</code>. Empty or NULL values appear as <code>Not informed</code>. Totals use <code>COUNT(DISTINCT id)</code>, while active and suspended counts use <code>SUM(CASE
+                        ...)</code>.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul class="report-limit">
+                    <li>Country, city, institution, and department are values provided in user profiles, not IP-based geolocation or verified addresses.</li>
+                    <li>Missing values appear as Not informed. Different spellings of city or institution names may create separate groups.</li>
+                    <li>The student total includes deleted accounts that still have the relevant role assignment, so it may exceed the sum of active and suspended accounts.</li>
+                    <li>The student role may be assigned in any course. The report does not identify the courses in which each group is enrolled or offer course selection.</li>
+                    <li>Publishing small groups can expose information about individuals in specific contexts. Consider minimum group sizes and access restrictions before sharing or exporting.</li>
+                </ul>
+                <p class="report-technical">The SQL is reproduced verbatim from JSON definitions in <code>master</code> and has not been executed on a Moodle installation during this documentation work. Verify compatibility, results, permissions, and privacy before institutional use.</p>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-105.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-105-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="104.html">← Report 104</a>
+                <a href="106.html">Report 106 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-105">
+                <h2 id="related-title-105">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="002.html"><span class="related-number">Report 002</span><span
+                            class="related-title">Active students</span><span
+                            class="related-category">Students</span></a>
+                    <a class="related-card" href="098.html"><span class="related-number">Report 098</span><span
+                            class="related-title">Student progress overview</span><span
+                            class="related-category">Students</span></a>
+                    <a class="related-card" href="099.html"><span class="related-number">Report 099</span><span
+                            class="related-title">Students without course access</span><span class="related-category">Students</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/students.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
