@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Identifies students with an assigned student role and a qualifying active enrolment in visible courses whose last course access is missing or zero, including days since enrolment.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Students without course access | Report 099 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/099.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/099.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/099.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Students without course access | Report 099 · Kopere BI">
+    <meta property="og:description" content="Identifies students with an assigned student role and a qualifying active enrolment in visible courses whose last course access is missing or zero, including days since enrolment.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/099.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/099.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/students.html">Students</a> / 099
+            </nav>
+            <div class="kicker">REPORT 099</div>
+            <h1>Students without course access</h1>
+            <p class="lead">Identifies students with an assigned student role and a qualifying active enrolment in visible courses whose last course access is missing or zero, including days since enrolment.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Identifies students with an assigned student role and a qualifying active enrolment in visible courses whose last course access is missing or zero, including days since enrolment.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps tutoring and student-retention teams identify learners who may not have accessed a course after enrolment and plan appropriate outreach or follow-up.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, student, date, a minimum number of days without access, or enrolment status.</p>
+                <p>Fixed criteria require <code>shortname = 'student'</code> in the course context, a visible course, and a user who is neither deleted nor suspended and is not <code>guest</code>. They also require <code>kbi_enrol.enrolled_at
+                        IS NOT NULL</code> and <code>COALESCE(kbi_la.timeaccess, 0) = 0</code>. The enrolment subquery requires active enrolment records and methods, with an end date of zero or in the future.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization displays the two complete original SQL queries, MySQL and PostgreSQL, in separate panels within the same block. Prism.js provides syntax highlighting.</p>
+                <details class="report-block" open>
+                    <summary>1. Students without course access · Table</summary>
+                    <div class="inner">
+                        <p>The per-student, per-course table includes ID, name, email address, calculated enrolment date, last site-wide access, last course access, and the number of days from enrolment until the database's current date.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(kbi_students.userid, &#39;-&#39;, kbi_students.courseid) AS id,
+       kbi_students.userid,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_c.id AS courseid,
+       kbi_c.fullname AS course,
+       kbi_enrol.enrolled_at,
+       kbi_u.lastaccess AS site_lastaccess,
+       COALESCE(kbi_la.timeaccess, 0) AS course_lastaccess,
+       CASE
+         WHEN kbi_enrol.enrolled_at IS NULL THEN NULL
+         ELSE DATEDIFF(NOW(), FROM_UNIXTIME(kbi_enrol.enrolled_at))
+       END AS days_since_enrolment
+FROM (SELECT DISTINCT kbi_ra.userid,
+                kbi_ctx.instanceid AS courseid
+FROM mdl_role_assignments kbi_ra
+       JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid
+       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+WHERE kbi_r.shortname = &#39;student&#39;) kbi_students
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_students.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_students.courseid
+       LEFT JOIN (SELECT kbi_ue.userid,
+       kbi_e.courseid,
+       MIN(kbi_ue.id) AS enrolmentid,
+       COALESCE(MIN(NULLIF(kbi_ue.timestart, 0)), MIN(kbi_ue.timecreated)) AS enrolled_at,
+       MAX(kbi_ue.timeend) AS enrol_timeend
+FROM mdl_enrol kbi_e
+       JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id
+WHERE kbi_e.status = 0
+  AND kbi_ue.status = 0
+  AND (kbi_ue.timeend = 0 OR kbi_ue.timeend &gt; UNIX_TIMESTAMP())
+GROUP BY kbi_ue.userid, kbi_e.courseid) kbi_enrol ON kbi_enrol.userid = kbi_students.userid AND kbi_enrol.courseid = kbi_students.courseid
+       LEFT JOIN mdl_user_lastaccess kbi_la ON kbi_la.userid = kbi_students.userid AND kbi_la.courseid = kbi_students.courseid
+WHERE kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username &lt;&gt; &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_enrol.enrolled_at IS NOT NULL
+  AND COALESCE(kbi_la.timeaccess, 0) = 0
+ORDER BY days_since_enrolment DESC, kbi_c.fullname, kbi_u.lastname, kbi_u.firstname</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(kbi_students.userid, &#39;-&#39;, kbi_students.courseid) AS id,
+       kbi_students.userid,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_c.id AS courseid,
+       kbi_c.fullname AS course,
+       kbi_enrol.enrolled_at,
+       kbi_u.lastaccess AS site_lastaccess,
+       COALESCE(kbi_la.timeaccess, 0) AS course_lastaccess,
+       CASE
+         WHEN kbi_enrol.enrolled_at IS NULL THEN NULL
+         ELSE ((CURRENT_TIMESTAMP)::date - (TO_TIMESTAMP(kbi_enrol.enrolled_at))::date)
+       END AS days_since_enrolment
+FROM(SELECT DISTINCT kbi_ra.userid,
+                kbi_ctx.instanceid AS courseid
+FROM mdl_role_assignments kbi_ra
+       JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid
+       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+WHERE kbi_r.shortname = &#39;student&#39;) kbi_students
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_students.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_students.courseid
+       LEFT JOIN(SELECT kbi_ue.userid,
+       kbi_e.courseid,
+       MIN(kbi_ue.id) AS enrolmentid,
+       COALESCE(MIN(NULLIF(kbi_ue.timestart, 0)), MIN(kbi_ue.timecreated)) AS enrolled_at,
+       MAX(kbi_ue.timeend) AS enrol_timeend
+FROM mdl_enrol kbi_e
+       JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id
+WHERE kbi_e.status = 0
+  AND kbi_ue.status = 0
+  AND(kbi_ue.timeend = 0 OR kbi_ue.timeend &gt; (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::bigint))
+GROUP BY kbi_ue.userid, kbi_e.courseid) kbi_enrol ON kbi_enrol.userid = kbi_students.userid AND kbi_enrol.courseid = kbi_students.courseid
+       LEFT JOIN mdl_user_lastaccess kbi_la ON kbi_la.userid = kbi_students.userid AND kbi_la.courseid = kbi_students.courseid
+WHERE kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username &lt;&gt; &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_enrol.enrolled_at IS NOT NULL
+  AND COALESCE(kbi_la.timeaccess, 0) = 0
+ORDER BY days_since_enrolment DESC, kbi_c.fullname, kbi_u.lastname, kbi_u.firstname</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The report identifies a missing <code>mdl_user_lastaccess</code> record for the course, not proven absence of every kind of access or event in historical logs.</li>
+                    <li>An assigned <code>student</code> role is required. Learners using custom roles may be excluded even if they are enrolled, unless they also have that role short name.</li>
+                    <li>The enrolment subquery accepts active records with no expired end date but does not explicitly check whether <code>timestart</code> is in the future. An enrolment that has not yet started may therefore appear.</li>
+                    <li>The <code>enrolled_at</code> field comes from <code>MIN(NULLIF(timestart, 0))</code> or the earliest enrolment creation time. With multiple enrolments, this value may not describe the enrolment currently granting access.</li>
+                    <li>The <code>site_lastaccess</code> and <code>course_lastaccess</code> fields have different scopes: the former is the account's last site-wide access, while the latter records access to the specific course.</li>
+                    <li>The <code>days_since_enrolment</code> calculation uses <code>DATEDIFF(NOW(), FROM_UNIXTIME(...))</code> in MySQL and a difference between dates derived from <code>CURRENT_TIMESTAMP</code> and <code>TO_TIMESTAMP</code> in PostgreSQL. Results depend on the database's calendar and time zone.</li>
+                    <li>There is no minimum-days threshold. Recently enrolled learners can appear, so the day count should be interpreted in its educational context.</li>
+                    <li>Without a course filter, the report checks all visible courses meeting the criteria. Contact information and course-access status are personal information and must be protected.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-099.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-099-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="098.html">← Report 098</a>
+                <a href="100.html">Report 100 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-099">
+                <h2 id="related-title-099">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="100.html"><span class="related-number">Report 100</span><span
+                            class="related-title">Inactive students by course</span><span class="related-category">Students</span></a>
+                    <a class="related-card" href="103.html"><span class="related-number">Report 103</span><span
+                            class="related-title">Course completion status by student</span><span
+                            class="related-category">Students</span></a>
+                    <a class="related-card" href="035.html"><span class="related-number">Report 035</span><span
+                            class="related-title">Course access</span><span class="related-category">Courses and content</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/students.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

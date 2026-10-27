@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Flags student-course records against fixed rules for no access, inactivity, low activity completion, or a course grade below the passing threshold.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Students at risk | Report 101 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/101.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/101.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/101.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Students at risk | Report 101 · Kopere BI">
+    <meta property="og:description" content="Flags student-course records against fixed rules for no access, inactivity, low activity completion, or a course grade below the passing threshold.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/101.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/101.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/students.html">Students</a> / 101
+            </nav>
+            <div class="kicker">REPORT 101</div>
+            <h1>Students at risk</h1>
+            <p class="lead">Flags student-course records against fixed rules for no access, inactivity, low activity completion, or a course grade below the passing threshold.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Flags student-course records against fixed rules for no access, inactivity, low activity completion, or a course grade below the passing threshold.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps educational teams prioritize review and possible student support using explicit conditions that explain why a learner was flagged.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, student, date, inactivity threshold, or risk category. Thresholds are hard-coded in the SQL.</p>
+                <p>A record is selected when at least one condition is met: no course access, inactivity of <strong>14 days or more</strong>, progress below <strong>25%</strong>, or a final grade lower than a positive passing grade. Classification gives <code>High</code> priority to no access, inactivity of at least 30 days together with progress below 50%, or a grade below the passing threshold. Other selected cases receive <code>Medium</code>.</p>
+                <p>The SQL requires a user who is neither deleted nor suspended, a visible course, and an assigned role with short name <code>student</code>. The calculated active-enrolment information is joined optionally.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization displays the complete original MySQL and PostgreSQL SQL queries in separate panels with Prism.js syntax highlighting.</p>
+                <details class="report-block" open>
+                    <summary>1. Students at risk · Table</summary>
+                    <div class="inner">
+                        <p>Each qualifying student-course row displays last access, days since access, eligible and completed activity counts, progress percentage, final grade, grade percentage, passing grade, and the derived <code>risk_level</code> and <code>risk_reason</code> fields.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_base.*,
+       CASE
+         WHEN COALESCE(kbi_base.course_lastaccess, 0) = 0 THEN &#39;High&#39;
+         WHEN kbi_base.days_without_access &gt;= 30 AND kbi_base.progress_percent &lt; 50 THEN &#39;High&#39;
+         WHEN kbi_base.gradepass &gt; 0 AND kbi_base.finalgrade IS NOT NULL AND kbi_base.finalgrade &lt; kbi_base.gradepass THEN &#39;High&#39;
+         WHEN kbi_base.days_without_access &gt;= 14 OR kbi_base.progress_percent &lt; 25 THEN &#39;Medium&#39;
+         ELSE &#39;Low&#39;
+       END AS risk_level,
+       CASE
+         WHEN COALESCE(kbi_base.course_lastaccess, 0) = 0 THEN &#39;No course access&#39;
+         WHEN kbi_base.days_without_access &gt;= 30 AND kbi_base.progress_percent &lt; 50 THEN &#39;Long inactivity and low progress&#39;
+         WHEN kbi_base.gradepass &gt; 0 AND kbi_base.finalgrade IS NOT NULL AND kbi_base.finalgrade &lt; kbi_base.gradepass THEN &#39;Grade below pass mark&#39;
+         WHEN kbi_base.days_without_access &gt;= 14 THEN &#39;Recent inactivity&#39;
+         WHEN kbi_base.progress_percent &lt; 25 THEN &#39;Low activity progress&#39;
+         ELSE &#39;Monitor&#39;
+       END AS risk_reason
+FROM (
+SELECT CONCAT(kbi_students.userid, &#39;-&#39;, kbi_students.courseid) AS id,
+       kbi_students.userid,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_c.id AS courseid,
+       kbi_c.fullname AS course,
+       kbi_enrol.enrolled_at,
+       COALESCE(kbi_la.timeaccess, 0) AS course_lastaccess,
+       CASE
+         WHEN COALESCE(kbi_la.timeaccess, 0) = 0 THEN NULL
+         ELSE DATEDIFF(NOW(), FROM_UNIXTIME(kbi_la.timeaccess))
+       END AS days_without_access,
+       COALESCE(kbi_total.total_activities, 0) AS total_activities,
+       COALESCE(kbi_done.completed_activities, 0) AS completed_activities,
+       CASE
+         WHEN COALESCE(kbi_total.total_activities, 0) &gt; 0 THEN ROUND((COALESCE(kbi_done.completed_activities, 0) / kbi_total.total_activities) * 100, 2)
+         ELSE 0
+       END AS progress_percent,
+       ROUND(kbi_grade.finalgrade, 2) AS finalgrade,
+       ROUND(kbi_grade.grade_percent, 2) AS grade_percent,
+       ROUND(kbi_grade.gradepass, 2) AS gradepass
+FROM (SELECT DISTINCT kbi_ra.userid,
+                kbi_ctx.instanceid AS courseid
+FROM mdl_role_assignments kbi_ra
+       JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid
+       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+WHERE kbi_r.shortname = &#39;student&#39;) kbi_students
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_students.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_students.courseid
+       LEFT JOIN (SELECT kbi_ue.userid,
+       kbi_e.courseid,
+       MIN(kbi_ue.id) AS enrolmentid,
+       COALESCE(MIN(NULLIF(kbi_ue.timestart, 0)), MIN(kbi_ue.timecreated)) AS enrolled_at,
+       MAX(kbi_ue.timeend) AS enrol_timeend
+FROM mdl_enrol kbi_e
+       JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id
+WHERE kbi_e.status = 0
+  AND kbi_ue.status = 0
+  AND (kbi_ue.timeend = 0 OR kbi_ue.timeend &gt; UNIX_TIMESTAMP())
+GROUP BY kbi_ue.userid, kbi_e.courseid) kbi_enrol ON kbi_enrol.userid = kbi_students.userid AND kbi_enrol.courseid = kbi_students.courseid
+       LEFT JOIN mdl_user_lastaccess kbi_la ON kbi_la.userid = kbi_students.userid AND kbi_la.courseid = kbi_students.courseid
+       LEFT JOIN (SELECT kbi_cm.course,
+       COUNT(DISTINCT kbi_cm.id) AS total_activities
+FROM mdl_course_modules kbi_cm
+WHERE kbi_cm.deletioninprogress = 0
+  AND kbi_cm.visible = 1
+  AND kbi_cm.completion &gt; 0
+GROUP BY kbi_cm.course) kbi_total ON kbi_total.course = kbi_students.courseid
+       LEFT JOIN (SELECT kbi_cm.course,
+       kbi_cmc.userid,
+       COUNT(DISTINCT kbi_cmc.coursemoduleid) AS completed_activities
+FROM mdl_course_modules kbi_cm
+       JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.coursemoduleid = kbi_cm.id
+WHERE kbi_cm.deletioninprogress = 0
+  AND kbi_cm.visible = 1
+  AND kbi_cm.completion &gt; 0
+  AND kbi_cmc.completionstate IN (1, 2)
+GROUP BY kbi_cm.course, kbi_cmc.userid) kbi_done ON kbi_done.course = kbi_students.courseid AND kbi_done.userid = kbi_students.userid
+       LEFT JOIN (SELECT kbi_gi.courseid,
+       kbi_gg.userid,
+       kbi_gi.gradepass,
+       kbi_gi.grademax,
+       kbi_gg.finalgrade,
+       CASE
+         WHEN kbi_gi.grademax &gt; 0 AND kbi_gg.finalgrade IS NOT NULL THEN ROUND((kbi_gg.finalgrade / kbi_gi.grademax) * 100, 2)
+         ELSE NULL
+       END AS grade_percent
+FROM mdl_grade_items kbi_gi
+       JOIN mdl_grade_grades kbi_gg ON kbi_gg.itemid = kbi_gi.id
+WHERE kbi_gi.itemtype = &#39;course&#39;) kbi_grade ON kbi_grade.courseid = kbi_students.courseid AND kbi_grade.userid = kbi_students.userid
+WHERE kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username &lt;&gt; &#39;guest&#39;
+  AND kbi_c.visible = 1
+) kbi_base
+WHERE COALESCE(kbi_base.course_lastaccess, 0) = 0
+   OR kbi_base.days_without_access &gt;= 14
+   OR kbi_base.progress_percent &lt; 25
+   OR (kbi_base.gradepass &gt; 0 AND kbi_base.finalgrade IS NOT NULL AND kbi_base.finalgrade &lt; kbi_base.gradepass)
+ORDER BY FIELD(risk_level, &#39;High&#39;, &#39;Medium&#39;, &#39;Low&#39;), kbi_base.days_without_access DESC, kbi_base.progress_percent ASC, kbi_base.course, kbi_base.lastname</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_base.*,
+       CASE
+         WHEN COALESCE(kbi_base.course_lastaccess, 0) = 0 THEN &#39;High&#39;
+         WHEN kbi_base.days_without_access &gt;= 30 AND kbi_base.progress_percent &lt; 50 THEN &#39;High&#39;
+         WHEN kbi_base.gradepass &gt; 0 AND kbi_base.finalgrade IS NOT NULL AND kbi_base.finalgrade &lt; kbi_base.gradepass THEN &#39;High&#39;
+         WHEN kbi_base.days_without_access &gt;= 14 OR kbi_base.progress_percent &lt; 25 THEN &#39;Medium&#39;
+         ELSE &#39;Low&#39;
+       END AS risk_level,
+       CASE
+         WHEN COALESCE(kbi_base.course_lastaccess, 0) = 0 THEN &#39;No course access&#39;
+         WHEN kbi_base.days_without_access &gt;= 30 AND kbi_base.progress_percent &lt; 50 THEN &#39;Long inactivity and low progress&#39;
+         WHEN kbi_base.gradepass &gt; 0 AND kbi_base.finalgrade IS NOT NULL AND kbi_base.finalgrade &lt; kbi_base.gradepass THEN &#39;Grade below pass mark&#39;
+         WHEN kbi_base.days_without_access &gt;= 14 THEN &#39;Recent inactivity&#39;
+         WHEN kbi_base.progress_percent &lt; 25 THEN &#39;Low activity progress&#39;
+         ELSE &#39;Monitor&#39;
+       END AS risk_reason
+FROM(
+SELECT CONCAT(kbi_students.userid, &#39;-&#39;, kbi_students.courseid) AS id,
+       kbi_students.userid,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_c.id AS courseid,
+       kbi_c.fullname AS course,
+       kbi_enrol.enrolled_at,
+       COALESCE(kbi_la.timeaccess, 0) AS course_lastaccess,
+       CASE
+         WHEN COALESCE(kbi_la.timeaccess, 0) = 0 THEN NULL
+         ELSE ((CURRENT_TIMESTAMP)::date - (TO_TIMESTAMP(kbi_la.timeaccess))::date)
+       END AS days_without_access,
+       COALESCE(kbi_total.total_activities, 0) AS total_activities,
+       COALESCE(kbi_done.completed_activities, 0) AS completed_activities,
+       CASE
+         WHEN COALESCE(kbi_total.total_activities, 0) &gt; 0 THEN ROUND(((COALESCE(kbi_done.completed_activities, 0)::numeric / kbi_total.total_activities) * 100)::numeric, 2)
+         ELSE 0
+       END AS progress_percent,
+       ROUND((kbi_grade.finalgrade)::numeric, 2) AS finalgrade,
+       ROUND((kbi_grade.grade_percent)::numeric, 2) AS grade_percent,
+       ROUND((kbi_grade.gradepass)::numeric, 2) AS gradepass
+FROM(SELECT DISTINCT kbi_ra.userid,
+                kbi_ctx.instanceid AS courseid
+FROM mdl_role_assignments kbi_ra
+       JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid
+       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+WHERE kbi_r.shortname = &#39;student&#39;) kbi_students
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_students.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_students.courseid
+       LEFT JOIN(SELECT kbi_ue.userid,
+       kbi_e.courseid,
+       MIN(kbi_ue.id) AS enrolmentid,
+       COALESCE(MIN(NULLIF(kbi_ue.timestart, 0)), MIN(kbi_ue.timecreated)) AS enrolled_at,
+       MAX(kbi_ue.timeend) AS enrol_timeend
+FROM mdl_enrol kbi_e
+       JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id
+WHERE kbi_e.status = 0
+  AND kbi_ue.status = 0
+  AND(kbi_ue.timeend = 0 OR kbi_ue.timeend &gt; (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::bigint))
+GROUP BY kbi_ue.userid, kbi_e.courseid) kbi_enrol ON kbi_enrol.userid = kbi_students.userid AND kbi_enrol.courseid = kbi_students.courseid
+       LEFT JOIN mdl_user_lastaccess kbi_la ON kbi_la.userid = kbi_students.userid AND kbi_la.courseid = kbi_students.courseid
+       LEFT JOIN(SELECT kbi_cm.course,
+       COUNT(DISTINCT kbi_cm.id) AS total_activities
+FROM mdl_course_modules kbi_cm
+WHERE kbi_cm.deletioninprogress = 0
+  AND kbi_cm.visible = 1
+  AND kbi_cm.completion &gt; 0
+GROUP BY kbi_cm.course) kbi_total ON kbi_total.course = kbi_students.courseid
+       LEFT JOIN(SELECT kbi_cm.course,
+       kbi_cmc.userid,
+       COUNT(DISTINCT kbi_cmc.coursemoduleid) AS completed_activities
+FROM mdl_course_modules kbi_cm
+       JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.coursemoduleid = kbi_cm.id
+WHERE kbi_cm.deletioninprogress = 0
+  AND kbi_cm.visible = 1
+  AND kbi_cm.completion &gt; 0
+  AND kbi_cmc.completionstate IN(1, 2)
+GROUP BY kbi_cm.course, kbi_cmc.userid) kbi_done ON kbi_done.course = kbi_students.courseid AND kbi_done.userid = kbi_students.userid
+       LEFT JOIN(SELECT kbi_gi.courseid,
+       kbi_gg.userid,
+       kbi_gi.gradepass,
+       kbi_gi.grademax,
+       kbi_gg.finalgrade,
+       CASE
+         WHEN kbi_gi.grademax &gt; 0 AND kbi_gg.finalgrade IS NOT NULL THEN ROUND(((kbi_gg.finalgrade / kbi_gi.grademax) * 100)::numeric, 2)
+         ELSE NULL
+       END AS grade_percent
+FROM mdl_grade_items kbi_gi
+       JOIN mdl_grade_grades kbi_gg ON kbi_gg.itemid = kbi_gi.id
+WHERE kbi_gi.itemtype = &#39;course&#39;) kbi_grade ON kbi_grade.courseid = kbi_students.courseid AND kbi_grade.userid = kbi_students.userid
+WHERE kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username &lt;&gt; &#39;guest&#39;
+  AND kbi_c.visible = 1
+) kbi_base
+WHERE COALESCE(kbi_base.course_lastaccess, 0) = 0
+   OR kbi_base.days_without_access &gt;= 14
+   OR kbi_base.progress_percent &lt; 25
+   OR(kbi_base.gradepass &gt; 0 AND kbi_base.finalgrade IS NOT NULL AND kbi_base.finalgrade &lt; kbi_base.gradepass)
+ORDER BY CASE
+           WHEN COALESCE(kbi_base.course_lastaccess, 0) = 0 THEN 1
+           WHEN kbi_base.days_without_access &gt;= 30 AND kbi_base.progress_percent &lt; 50 THEN 1
+           WHEN kbi_base.gradepass &gt; 0 AND kbi_base.finalgrade IS NOT NULL
+                AND kbi_base.finalgrade &lt; kbi_base.gradepass THEN 1
+           WHEN kbi_base.days_without_access &gt;= 14 OR kbi_base.progress_percent &lt; 25 THEN 2
+           ELSE 3
+         END, kbi_base.days_without_access DESC, kbi_base.progress_percent ASC, kbi_base.course, kbi_base.lastname</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li><strong>Risk level is a rule-based operational heuristic</strong>, not a statistical prediction of dropout, failure, or an individual diagnosis. It requires human review and consideration of educational context.</li>
+                    <li>The outer query includes only students who meet at least one alert condition. Therefore, although the <code>Low</code> expression includes a <code>CASE</code> branch, it is not normally reached by the filtered records.</li>
+                    <li>Condition order affects classification: no access takes priority over other factors, while a grade below the passing threshold can trigger a high rating even after recent access.</li>
+                    <li>Progress percentage is based on visible modules with completion tracking and may not represent official course completion. The number of eligible activities may be zero.</li>
+                    <li>Enrolment is linked using <code>LEFT JOIN</code>: historical role assignments can appear without a currently valid enrolment. The enrolment date may be NULL.</li>
+                    <li>Missing grade or <code>gradepass</code> values do not trigger a grade-based alert even when educational follow-up might be warranted.</li>
+                    <li>The <code>risk_reason</code> and <code>risk_level</code> values are fixed English phrases in the original SQL. The interface may need to localize them.</li>
+                    <li>MySQL orders risk levels with <code>FIELD</code>, whereas PostgreSQL uses an equivalent <code>CASE</code> expression. The PostgreSQL variant casts the progress numerator to <code>numeric</code> before division, avoiding the integer division found in other queries.</li>
+                    <li>The report exposes personal and academic information without accounting for justified absences, accessibility needs, workloads, or other circumstances that may explain the indicators.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-101.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-101-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="100.html">← Report 100</a>
+                <a href="102.html">Report 102 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-101">
+                <h2 id="related-title-101">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="002.html"><span class="related-number">Report 002</span><span
+                            class="related-title">Active students</span><span
+                            class="related-category">Students</span></a>
+                    <a class="related-card" href="098.html"><span class="related-number">Report 098</span><span
+                            class="related-title">Student progress overview</span><span
+                            class="related-category">Students</span></a>
+                    <a class="related-card" href="099.html"><span class="related-number">Report 099</span><span
+                            class="related-title">Students without course access</span><span class="related-category">Students</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/students.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
