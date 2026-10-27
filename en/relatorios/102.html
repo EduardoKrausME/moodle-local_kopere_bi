@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Lists student enrolments with an end date that has already passed or falls within the next 30 days, including calculated expiry status.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Student enrolments ending soon | Report 102 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/102.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/102.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/102.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Student enrolments ending soon | Report 102 · Kopere BI">
+    <meta property="og:description" content="Lists student enrolments with an end date that has already passed or falls within the next 30 days, including calculated expiry status.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/102.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/102.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/students.html">Students</a> / 102
+            </nav>
+            <div class="kicker">REPORT 102</div>
+            <h1>Student enrolments ending soon</h1>
+            <p class="lead">Lists student enrolments with a specified end date that has already passed or falls within the next 30 days, including the calculated expiry status.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Lists student enrolments with a specified end date that has already passed or falls within the next 30 days, including the calculated expiry status.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps identify enrolments approaching their end dates, as well as those already expired, to support notifications, renewals, and administrative checks.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, student, enrolment, date, or time window. The <strong>30-day</strong> horizon is fixed in both MySQL and PostgreSQL.</p>
+                <p>Filters require an account that is not deleted and is not <code>guest</code>, a visible course, an enabled enrolment method (<code>kbi_e.status = 0</code>), a positive end date (<code>kbi_ue.timeend &gt;
+                        0</code>), and a role with <code>shortname = 'student'</code> in the course context. The end date must be in the past or within the next 30 days.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains the complete original MySQL and PostgreSQL queries in separate panels within the same block, with Prism.js syntax highlighting.</p>
+                <details class="report-block" open>
+                    <summary>1. Student enrolments ending soon · Table</summary>
+                    <div class="inner">
+                        <p>One row per eligible enrolment record, including enrolment ID, student and contact details, course, enrolment method, start and end dates, days remaining, and a textual status of <code>Expired</code>, <code>Ends in 7 days</code>, or <code>Ends in 30
+                                days</code>.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(kbi_ue.id, &#39;-&#39;, kbi_c.id) AS id,
+       kbi_ue.id AS enrolid,
+       kbi_u.id AS userid,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_c.id AS courseid,
+       kbi_c.fullname AS course,
+       kbi_e.enrol AS enrol_method,
+       COALESCE(NULLIF(kbi_ue.timestart, 0), kbi_ue.timecreated) AS enrolled_at,
+       kbi_ue.timeend AS enrol_timeend,
+       DATEDIFF(FROM_UNIXTIME(kbi_ue.timeend), NOW()) AS days_to_end,
+       CASE
+         WHEN kbi_ue.timeend &lt; UNIX_TIMESTAMP() THEN &#39;Expired&#39;
+         WHEN kbi_ue.timeend &lt;= (UNIX_TIMESTAMP() + (7 * 24 * 60 * 60)) THEN &#39;Ends in 7 days&#39;
+         WHEN kbi_ue.timeend &lt;= (UNIX_TIMESTAMP() + (30 * 24 * 60 * 60)) THEN &#39;Ends in 30 days&#39;
+         ELSE &#39;Scheduled&#39;
+       END AS expiry_status
+FROM mdl_user_enrolments kbi_ue
+       JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_e.courseid
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ue.userid
+       JOIN mdl_context kbi_ctx ON kbi_ctx.instanceid = kbi_c.id AND kbi_ctx.contextlevel = 50
+       JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_ctx.id AND kbi_ra.userid = kbi_u.id
+       JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid AND kbi_r.shortname = &#39;student&#39;
+WHERE kbi_u.deleted = 0
+  AND kbi_u.username &lt;&gt; &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_e.status = 0
+  AND kbi_ue.timeend &gt; 0
+  AND (kbi_ue.timeend &lt; UNIX_TIMESTAMP() OR kbi_ue.timeend &lt;= (UNIX_TIMESTAMP() + (30 * 24 * 60 * 60)))
+ORDER BY kbi_ue.timeend, kbi_c.fullname, kbi_u.lastname, kbi_u.firstname</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(kbi_ue.id, &#39;-&#39;, kbi_c.id) AS id,
+       kbi_ue.id AS enrolid,
+       kbi_u.id AS userid,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_c.id AS courseid,
+       kbi_c.fullname AS course,
+       kbi_e.enrol AS enrol_method,
+       COALESCE(NULLIF(kbi_ue.timestart, 0), kbi_ue.timecreated) AS enrolled_at,
+       kbi_ue.timeend AS enrol_timeend,
+       ((TO_TIMESTAMP(kbi_ue.timeend))::date - (CURRENT_TIMESTAMP)::date) AS days_to_end,
+       CASE
+         WHEN kbi_ue.timeend &lt; (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::bigint) THEN &#39;Expired&#39;
+         WHEN kbi_ue.timeend &lt;= ((EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::bigint) + (7 * 24 * 60 * 60)) THEN &#39;Ends in 7 days&#39;
+         WHEN kbi_ue.timeend &lt;= ((EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::bigint) + (30 * 24 * 60 * 60)) THEN &#39;Ends in 30 days&#39;
+         ELSE &#39;Scheduled&#39;
+       END AS expiry_status
+FROM mdl_user_enrolments kbi_ue
+       JOIN mdl_enrol kbi_e ON kbi_e.id = kbi_ue.enrolid
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_e.courseid
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_ue.userid
+       JOIN mdl_context kbi_ctx ON kbi_ctx.instanceid = kbi_c.id AND kbi_ctx.contextlevel = 50
+       JOIN mdl_role_assignments kbi_ra ON kbi_ra.contextid = kbi_ctx.id AND kbi_ra.userid = kbi_u.id
+       JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid AND kbi_r.shortname = &#39;student&#39;
+WHERE kbi_u.deleted = 0
+  AND kbi_u.username &lt;&gt; &#39;guest&#39;
+  AND kbi_c.visible = 1
+  AND kbi_e.status = 0
+  AND kbi_ue.timeend &gt; 0
+  AND(kbi_ue.timeend &lt; (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::bigint) OR kbi_ue.timeend &lt;= ((EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::bigint) + (30 * 24 * 60 * 60)))
+ORDER BY kbi_ue.timeend, kbi_c.fullname, kbi_u.lastname, kbi_u.firstname</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li><strong>The query also includes enrolments that have already expired</strong>, even though the title emphasizes upcoming end dates. Older enrolment records may still be returned.</li>
+                    <li>Only enrolments with <code>timeend &gt; 0</code> are listed. Enrolments without an end date are omitted.</li>
+                    <li>The condition does not check <code>kbi_ue.status = 0</code>, so an enrolment record itself may be suspended. It also does not check <code>kbi_u.suspended = 0</code>.</li>
+                    <li>The student role is identified by the <code>student</code> short name in the course context. Custom roles with a different short name may be excluded.</li>
+                    <li>Status groups compare Unix timestamps in seconds, but <code>days_to_end</code> measures the difference between calendar dates. Rounding differences may occur around the 7-day and 30-day boundaries.</li>
+                    <li>The <code>CASE</code> expression includes a fallback <code>Scheduled</code> status, but the filter for past or next-30-day end dates normally excludes later future enrolments.</li>
+                    <li>Date values depend on time-zone settings and database-specific MySQL or PostgreSQL conversions. Results near midnight may differ.</li>
+                    <li>Multiple matching role assignments may produce more than one row for an enrolment. Use the enrolment ID when reviewing the results.</li>
+                    <li>The list includes participant names and email addresses. Apply appropriate permissions and export controls before using it for notifications.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-102.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-102-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="101.html">← Report 101</a>
+                <a href="103.html">Report 103 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-102">
+                <h2 id="related-title-102">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="002.html"><span class="related-number">Report 002</span><span
+                            class="related-title">Active students</span><span
+                            class="related-category">Students</span></a>
+                    <a class="related-card" href="098.html"><span class="related-number">Report 098</span><span
+                            class="related-title">Student progress overview</span><span
+                            class="related-category">Students</span></a>
+                    <a class="related-card" href="099.html"><span class="related-number">Report 099</span><span
+                            class="related-title">Students without course access</span><span class="related-category">Students</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/students.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
