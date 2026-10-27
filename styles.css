@@ -290,10 +290,11 @@
 }
 .kopere-bi-page .chart-box .theme-light.type-table {
   background-color: rgba(0, 0, 0, 0) !important;
+  box-shadow: none !important;
 }
 .kopere-bi-page .chart-box .theme-light.type-table.test-theme {
-  border: 1px dashed rgba(0, 0, 0, 0);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0);
+  border: none !important;
+  box-shadow: none !important;
 }
 .kopere-bi-page .chart-box .theme-dark {
   background-color: #2b2d3e !important;

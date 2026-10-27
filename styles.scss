@@ -312,9 +312,10 @@
             }
             &.type-table {
                 background-color: rgba(0, 0, 0, .0) !important;
+                box-shadow: none !important;
                 &.test-theme {
-                    border: 1px dashed rgba(0, 0, 0, .0);
-                    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .0);
+                    border: none !important;
+                    box-shadow: none !important;
                 }
             }
         }
