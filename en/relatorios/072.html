@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Daily counts of distinct posts by users assigned the teacher role in forum discussions of the selected course, grouped by discussion modification date.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Forum post ratio | Report 072 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/072.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/072.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/072.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Forum post ratio | Report 072 · Kopere BI">
+    <meta property="og:description" content="Daily counts of distinct posts by users assigned the teacher role in forum discussions of the selected course, grouped by discussion modification date.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/072.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/072.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/forums.html">Forums</a> / 072
+            </nav>
+            <div class="kicker">REPORT 072</div>
+            <h1>Forum post ratio</h1>
+            <p class="lead">Daily counts of distinct posts by users assigned the teacher role in forum discussions of the selected course, grouped by discussion modification date.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Daily counts of distinct posts by users assigned the teacher role in forum discussions of the selected course, grouped by discussion modification date.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps explore the daily distribution of teacher posts and replies associated with course discussions, while distinguishing discussion modification dates from individual post dates.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The only dynamic SQL filter is <strong>Course</strong>, linked to <code>:courseid</code> and used once in <code>kbi_c.id = :courseid</code>.</p>
+                <p>Fixed conditions require a course context (<code>contextlevel = 50</code>), teacher role ID <code>3</code>, and a discussion modification timestamp corresponding to a positive Unix day. Results are grouped by <code>FLOOR(kbi_d.timemodified / 86400) * 86400</code> and sorted chronologically.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization includes the complete original SQL, cache and refresh settings, and Prism.js syntax highlighting. There is no separate PostgreSQL variant in the source.</p>
+                <details class="report-block" open>
+                    <summary>1. Forum post ratio · Table</summary>
+                    <div class="inner">
+                        <p>The table displays <code>timepoint</code>, the calculated start of a Unix day derived from <code>mdl_forum_discussions.timemodified</code>, and <code>posts</code>, the number of distinct records in <code>mdl_forum_posts</code> associated with users assigned role ID 3 in that course.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT floor(kbi_d.timemodified / 86400) * 86400 as timepoint, count(distinct kbi_p.id) as posts
+FROM mdl_role_assignments kbi_ra
+       LEFT JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+       LEFT JOIN mdl_course kbi_c ON kbi_c.id = kbi_ctx.instanceid
+       LEFT JOIN mdl_forum_discussions kbi_d ON kbi_d.course = kbi_c.id
+       LEFT JOIN mdl_forum_posts kbi_p ON kbi_p.userid = kbi_ra.userid AND kbi_p.discussion = kbi_d.id
+WHERE kbi_ctx.contextlevel = 50
+  AND floor(kbi_d.timemodified / 86400) &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_ra.roleid = 3
+GROUP BY timepoint
+ORDER BY timepoint ASC</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li><strong>Despite 'ratio' in the title, no ratio or percentage is calculated:</strong> <code>posts</code> counts distinct posts in each daily grouping.</li>
+                    <li>The grouping uses <code>mdl_forum_discussions.timemodified</code>, the last discussion modification date, not when each post was created or modified. Posts from different dates can be counted on the same discussion-modification day.</li>
+                    <li>The 86,400-second interval uses Unix timestamps to represent days since the Unix epoch. Displaying results in the institution's time zone may require conversion.</li>
+                    <li>Filtering by role ID <code>3</code> uses course-context assignments and does not require active enrolment. Teachers assigned custom roles or other role IDs are not included.</li>
+                    <li>The query does not require <code>kbi_p.parent &gt; 0</code>, so counts can include both initial discussion posts and replies written by users assigned role ID 3.</li>
+                    <li>The <code>LEFT JOIN</code> on posts allows groups with zero teacher posts when discussions with valid dates exist in the corresponding context.</li>
+                    <li>The SQL does not check course or forum visibility, teacher account status, or a dynamic date range.</li>
+                    <li>The absence of a separate PostgreSQL variant does not establish that the SQL is automatically portable. Validate it against the installation's database.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-072.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="071.html">← Report 071</a>
+                <a href="073.html">Report 073 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-072">
+                <h2 id="related-title-072">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="073.html"><span class="related-number">Report 073</span><span
+                            class="related-title">Replies to forum posts</span><span
+                            class="related-category">Forums</span></a>
+                    <a class="related-card" href="074.html"><span class="related-number">Report 074</span><span
+                            class="related-title">Forum post performance</span><span
+                            class="related-category">Forums</span></a>
+                    <a class="related-card" href="126.html"><span class="related-number">Report 126</span><span
+                            class="related-title">Forum posts by day and time</span><span
+                            class="related-category">Forums</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/forums.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
