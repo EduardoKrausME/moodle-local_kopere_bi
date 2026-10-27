@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Percentage of eligible actively enrolled students with at least one recorded visit to each activity.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Activity reach by course | Report 113 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/113.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/113.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/113.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Activity reach by course | Report 113 · Kopere BI">
+    <meta property="og:description" content="Percentage of eligible actively enrolled students with at least one recorded visit to each activity.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/113.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/113.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/activities.html">Activities</a> / 113
+            </nav>
+            <div class="kicker">REPORT 113</div>
+            <h1>Activity reach by course</h1>
+            <p class="lead">Percentage of eligible actively enrolled students with at least one recorded visit to each activity.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>A table for each visible module with course, module type, activity identifier, number of eligible students, number of students with recorded access, number without recorded access, and reach percentage. It prioritizes the lowest percentages, then course and module, and limits results to 500 rows.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Identify activities and resources with the lowest reach among eligible students in each course, helping plan communications, reorganize materials, and investigate access barriers.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#criterios">Calculation criteria</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL filters</strong> for course, activity, student, cohort, or period. Modules are restricted to <code>cm.deletioninprogress = 0</code>, <code>cm.visible =
+                        1</code>, and <code>c.id &gt; 1</code>, without an explicit check of <code>c.visible</code>.</p>
+                <p>The denominator includes users with active enrolment records and methods, eligible validity dates, accounts that are neither deleted nor suspended, and a role with archetype <code>student</code> in the course context. The numerator requires <code>t.page = 'module'</code> and <code>t.visits &gt; 0</code>. The SQL limits results to <strong>500 modules</strong>.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>The report contains one table visualization with full original SQL and cache and refresh settings. Prism.js provides syntax highlighting. There is no separate PostgreSQL file in <code>master</code> for this definition, so none has been invented.</p>
+                <details class="report-block" open>
+                    <summary>1. Activity reach by course · Table</summary>
+                    <div class="inner">
+                        <p>A table for each visible module with course name, module type, activity identifier, number of eligible students, number with recorded visits, number without visits, and reach percentage. Results are ordered by lowest reach, then course and module, and limited to 500 rows.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT cm.id, c.id AS courseid, c.fullname AS course, m.name AS module,
+       cm.instance AS activityid, COALESCE(en.enrolled, 0) AS enrolled,
+       COALESCE(tr.accessed, 0) AS accessed,
+       COALESCE(en.enrolled, 0) - COALESCE(tr.accessed, 0) AS neveraccessed,
+       CASE WHEN COALESCE(en.enrolled, 0) &gt; 0
+            THEN ROUND(100.0 * COALESCE(tr.accessed, 0) / en.enrolled, 2)
+            ELSE 0 END AS reach_percent
+  FROM mdl_course_modules cm
+  JOIN mdl_course c ON c.id = cm.course
+  JOIN mdl_modules m ON m.id = cm.module
+  LEFT JOIN (SELECT courseid, COUNT(DISTINCT userid) AS enrolled
+               FROM (
+    SELECT DISTINCT e.courseid, ue.userid
+      FROM mdl_user_enrolments ue
+      JOIN mdl_enrol e ON e.id = ue.enrolid
+      JOIN mdl_context cx ON cx.contextlevel = 50 AND cx.instanceid = e.courseid
+      JOIN mdl_role_assignments ra ON ra.contextid = cx.id AND ra.userid = ue.userid
+      JOIN mdl_role r ON r.id = ra.roleid AND r.archetype = &#39;student&#39;
+      JOIN mdl_user u ON u.id = ue.userid AND u.deleted = 0 AND u.suspended = 0
+     WHERE e.status = 0 AND ue.status = 0
+       AND (ue.timestart = 0 OR ue.timestart &lt;= UNIX_TIMESTAMP())
+       AND (ue.timeend = 0 OR ue.timeend &gt; UNIX_TIMESTAMP())
+) learners GROUP BY courseid) en ON en.courseid = cm.course
+  LEFT JOIN (SELECT t.courseid, t.param AS cmid, COUNT(DISTINCT t.userid) AS accessed
+               FROM mdl_local_kopere_bi_tracking t
+               JOIN (
+    SELECT DISTINCT e.courseid, ue.userid
+      FROM mdl_user_enrolments ue
+      JOIN mdl_enrol e ON e.id = ue.enrolid
+      JOIN mdl_context cx ON cx.contextlevel = 50 AND cx.instanceid = e.courseid
+      JOIN mdl_role_assignments ra ON ra.contextid = cx.id AND ra.userid = ue.userid
+      JOIN mdl_role r ON r.id = ra.roleid AND r.archetype = &#39;student&#39;
+      JOIN mdl_user u ON u.id = ue.userid AND u.deleted = 0 AND u.suspended = 0
+     WHERE e.status = 0 AND ue.status = 0
+       AND (ue.timestart = 0 OR ue.timestart &lt;= UNIX_TIMESTAMP())
+       AND (ue.timeend = 0 OR ue.timeend &gt; UNIX_TIMESTAMP())
+) learners ON learners.userid = t.userid AND learners.courseid = t.courseid
+              WHERE t.page = &#39;module&#39; AND t.visits &gt; 0
+              GROUP BY t.courseid, t.param) tr ON tr.courseid = cm.course AND tr.cmid = cm.id
+ WHERE cm.deletioninprogress = 0 AND cm.visible = 1 AND c.id &gt; 1
+ ORDER BY reach_percent ASC, c.fullname, cm.id
+ LIMIT 500</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Calculation criteria and behavior</h2>
+                <p>Reach is calculated as <code>ROUND(100.0 * accessed / enrolled, 2)</code> when eligible students exist; otherwise the SQL returns zero. <code>enrolled</code> is the number of distinct eligible enrolled students in the course, while <code>accessed</code> counts distinct users with tracked visits to the module.</p>
+                <p>The <code>neveraccessed</code> field is calculated as <code>enrolled - accessed</code>. Sorting by lowest reach makes this a list of modules that may warrant investigation, but does not establish that the content was mandatory.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul class="report-limit">
+                    <li>Reach is evidence of a visit recorded by the Kopere BI collector, not proof of activity completion, full viewing, learning, or actual material availability to every student.</li>
+                    <li>The calculation treats all students with active enrolments in a course as eligible, even when an activity has group, date, or completion-based access restrictions.</li>
+                    <li>Modules without eligible students receive a reach value of zero percent, which does not necessarily indicate a participation problem.</li>
+                    <li>The query sorts by lowest reach and returns only 500 rows. Modules beyond that limit are not included.</li>
+                    <li>The query checks module visibility but does not explicitly restrict course or section visibility.</li>
+                    <li>Tracking history has no explicit date restriction. Visits may have occurred before the currently eligible enrolment or outside the period of interest.</li>
+                    <li>The <code>t.param</code> expression must be compatible with <code>cm.id</code>. No dedicated PostgreSQL variant file is provided.</li>
+                </ul>
+                <p class="report-technical">The original SQL from <code>master</code> is reproduced verbatim. It was not executed on Moodle during this documentation work. Before institutional use, verify database compatibility, data integrity, visibility, information protection, and educational interpretation.</p>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-113.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="112.html">← Report 112</a>
+                <a href="114.html">Report 114 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-113">
+                <h2 id="related-title-113">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="009.html"><span class="related-number">Report 009</span><span
+                            class="related-title">Course modules</span><span class="related-category">Courses and content</span></a>
+                    <a class="related-card" href="037.html"><span class="related-number">Report 037</span><span
+                            class="related-title">Course activity overview</span><span
+                            class="related-category">Courses and content</span></a>
+                    <a class="related-card" href="055.html"><span class="related-number">Report 055</span><span
+                            class="related-title">Activity completion statistics</span><span
+                            class="related-category">Activities</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/activities.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

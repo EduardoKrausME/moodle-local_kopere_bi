@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Estimated tracked time, visits, and students reached for each course section, based on visible modules.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Engagement by course section | Report 112 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/112.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/112.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/112.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Engagement by course section | Report 112 · Kopere BI">
+    <meta property="og:description" content="Estimated tracked time, visits, and students reached for each course section, based on visible modules.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/112.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/112.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/courses.html">Courses</a> / 112
+            </nav>
+            <div class="kicker">REPORT 112</div>
+            <h1>Engagement by course section</h1>
+            <p class="lead">Estimated tracked time, visits, and students reached for each course section, based on visible modules.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>A table for each section showing the course, section number and name, number of visible modules not pending deletion, number of distinct students with recorded visits, total visits, and recorded seconds. Results are sorted alphabetically by course name and then sequentially by section number.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Compare the reach and usage intensity of different course sections using the number of visible modules, distinct students with tracked visits, visit totals, and accumulated seconds.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#criterios">Calculation criteria</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, section, student, cohort, or period. The SQL includes courses with <code>c.id &gt; 1</code>, modules with <code>cm.visible = 1</code> and <code>cm.deletioninprogress
+                        = 0</code>, and tracking records with <code>t.page = 'module'</code>.</p>
+                <p>To validate users associated with tracking, the query requires active enrolments and methods (<code>e.status
+                    = 0</code> and <code>ue.status = 0</code>), eligible enrolment start and end dates at execution time, accounts that are neither deleted nor suspended, and an assignment of a role with archetype <code>student</code> in a course context. These criteria are fixed, not selectable filters.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>The report contains one table visualization with its complete original SQL and cache and refresh settings. Prism.js provides syntax highlighting. There is no separate PostgreSQL file for this definition in <code>master</code>, so no nonexistent variant has been added.</p>
+                <details class="report-block" open>
+                    <summary>1. Engagement by course section · Table</summary>
+                    <div class="inner">
+                        <p>A section-level table showing course name, section number and name, visible modules not pending deletion, distinct students with tracked visits, visit counts, and tracked seconds. It sorts by course name and then section number.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT s.id, c.id AS courseid, c.fullname AS course, s.section AS section_number,
+       s.name AS section_name, COUNT(DISTINCT cm.id) AS module_count,
+       COUNT(DISTINCT CASE WHEN t.visits &gt; 0 THEN t.userid ELSE NULL END) AS learners,
+       COALESCE(SUM(t.visits), 0) AS visits, COALESCE(SUM(t.timespend), 0) AS seconds
+  FROM mdl_course_sections s
+  JOIN mdl_course c ON c.id = s.course
+  LEFT JOIN mdl_course_modules cm ON cm.section = s.id
+       AND cm.deletioninprogress = 0 AND cm.visible = 1
+  LEFT JOIN mdl_local_kopere_bi_tracking t ON t.page = &#39;module&#39; AND t.param = cm.id
+       AND t.courseid = c.id
+       AND EXISTS (SELECT 1 FROM (
+    SELECT DISTINCT e.courseid, ue.userid
+      FROM mdl_user_enrolments ue
+      JOIN mdl_enrol e ON e.id = ue.enrolid
+      JOIN mdl_context cx ON cx.contextlevel = 50 AND cx.instanceid = e.courseid
+      JOIN mdl_role_assignments ra ON ra.contextid = cx.id AND ra.userid = ue.userid
+      JOIN mdl_role r ON r.id = ra.roleid AND r.archetype = &#39;student&#39;
+      JOIN mdl_user u ON u.id = ue.userid AND u.deleted = 0 AND u.suspended = 0
+     WHERE e.status = 0 AND ue.status = 0
+       AND (ue.timestart = 0 OR ue.timestart &lt;= UNIX_TIMESTAMP())
+       AND (ue.timeend = 0 OR ue.timeend &gt; UNIX_TIMESTAMP())
+) students
+                    WHERE students.courseid = t.courseid AND students.userid = t.userid)
+ WHERE c.id &gt; 1
+ GROUP BY s.id, c.id, c.fullname, s.section, s.name
+ ORDER BY c.fullname, s.section</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Calculation criteria and behavior</h2>
+                <p>The report starts from <code>mdl_course_sections</code> and optionally joins modules. It counts distinct modules using <code>COUNT(DISTINCT cm.id)</code>, visiting students using <code>COUNT(DISTINCT
+                        CASE WHEN t.visits &gt; 0 THEN t.userid ELSE NULL END)</code>, and aggregates the Kopere BI tracking fields <code>visits</code> and <code>timespend</code>.</p>
+                <p>Because it uses <code>LEFT JOIN</code>, a section may appear without modules or visits, with the corresponding totals set to zero. The SQL sums stored historical records without restricting a date window.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul class="report-limit">
+                    <li>The SQL does not filter <code>s.visible</code> or <code>c.visible</code>. Despite the general description of visible sections, hidden sections and courses are not necessarily excluded; only modules are filtered for visibility.</li>
+                    <li>The number of students reached counts people with <code>visits &gt; 0</code> in eligible tracking records. A recorded visit does not demonstrate complete reading or learning.</li>
+                    <li>Tracked seconds come from the Kopere BI tracking collector and are estimates rather than a measure of active screen time.</li>
+                    <li>There is no explicit date range. Totals may include all historical records available in the tracking table.</li>
+                    <li>The query compares <code>t.param = cm.id</code>. Compatibility depends on the data type of <code>param</code> and the database's conversion rules. No separate PostgreSQL variant is published for this report.</li>
+                    <li>Module counts may include sections without tracking activity. Distinguish the absence of visits from the absence of tracking records.</li>
+                </ul>
+                <p class="report-technical">The original SQL from <code>master</code> is reproduced verbatim. It was not executed on Moodle during this documentation work. Before institutional use, verify database compatibility, data integrity, visibility, information protection, and educational interpretation.</p>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-112.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="111.html">← Report 111</a>
+                <a href="113.html">Report 113 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-112">
+                <h2 id="related-title-112">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="039.html"><span class="related-number">Report 039</span><span
+                            class="related-title">Course content usage</span><span
+                            class="related-category">Courses and content</span></a>
+                    <a class="related-card" href="113.html"><span class="related-number">Report 113</span><span
+                            class="related-title">Activity reach by course</span><span class="related-category">Activities</span></a>
+                    <a class="related-card" href="114.html"><span class="related-number">Report 114</span><span
+                            class="related-title">Tracked time by activity type</span><span
+                            class="related-category">Activities</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/courses.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tracks learning activity over time and identifies students whose engagement is declining.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Learning pace | Report 111 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/111.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/111.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/111.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Learning pace | Report 111 · Kopere BI">
+    <meta property="og:description" content="Tracks learning activity over time and identifies students whose engagement is declining.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/111.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/111.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/learning_analytics.html">Learning Analytics</a> / 111
+            </nav>
+            <div class="kicker">REPORT 111</div>
+            <h1>Learning pace</h1>
+            <p class="lead">Tracks learning activity over time and identifies students whose engagement is declining.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>A line chart shows the daily trend in active users, actions, and logins across the installation. A table identifies students who have not completed their courses and whose action counts in the last seven days are lower than in the preceding seven days.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Monitor changes in learning activity across the platform and identify students whose recent action counts have decreased compared with the preceding week.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualizations and SQL</a>
+                <a href="#criterios">Calculation criteria</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL filters</strong> for course, user, cohort, or reporting period. The chart uses aggregates in <code>mdl_local_kopere_bi_daily</code> from the latest batch, with <code>courseid
+                        = 0</code> to obtain installation-wide totals.</p>
+                <p>The table uses the latest batch in <code>mdl_local_kopere_bi_engage</code> and requires <code>previous7 &gt;
+                    0</code>, <code>actions7 &lt; previous7</code>, and <code>timecompleted IS NULL</code>. These are fixed conditions comparing two consecutive seven-day windows, not selectable date filters.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualizations and full original SQL</h2>
+                <p>The report contains two visualizations, each with its full original SQL, description, cache, and refresh frequency. Prism.js provides syntax highlighting. There is no separate PostgreSQL file for this definition in <code>master</code>; none has been invented.</p>
+                <details class="report-block" open>
+                    <summary>1. Learning pace · Line chart</summary>
+                    <div class="inner">
+                        <p>Line chart using daykey as the date axis and three series: active users, learning actions, and logins. It selects courseid = 0 from the latest daily batch and sorts by daystart.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT daykey, activeusers AS active_learners, actions AS learning_actions, logins
+FROM mdl_local_kopere_bi_daily
+WHERE batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_daily)
+  AND courseid = 0
+ORDER BY daystart</code></pre>
+                        </div>
+                    </div>
+                </details>
+                <details class="report-block">
+                    <summary>2. Students with declining engagement · Table</summary>
+                    <div class="inner">
+                        <p>Student-course table showing recent access, actions over the last seven days, actions over the preceding seven days, calculated percentage decline, progress, grades, risk score, and risk level. Results are ordered by the largest percentage decline and then the highest risk.</p>
+                        <p class="report-meta">Cache: <code>none</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT e.id, e.userid, u.firstname, u.lastname, e.courseid, c.fullname AS course, e.lastaccess, e.actions7, e.previous7, ROUND(100.0 * (e.previous7 - e.actions7) / e.previous7, 2) AS declinepercent, e.progress, e.gradepercent, e.riskscore,
+       CASE e.risklevel WHEN &#39;high&#39; THEN &#39;lang::analytics_level_high::local_kopere_bi&#39; WHEN &#39;medium&#39; THEN &#39;lang::analytics_level_medium::local_kopere_bi&#39; WHEN &#39;low&#39; THEN &#39;lang::analytics_level_low::local_kopere_bi&#39; ELSE &#39;lang::analytics_level_none::local_kopere_bi&#39; END AS risklevel
+FROM mdl_local_kopere_bi_engage e
+JOIN mdl_user u ON u.id = e.userid
+JOIN mdl_course c ON c.id = e.courseid
+WHERE e.batchid = (SELECT MAX(batchid) FROM mdl_local_kopere_bi_engage)
+  AND e.previous7 &gt; 0
+  AND e.actions7 &lt; e.previous7
+  AND e.timecompleted IS NULL
+ORDER BY declinepercent DESC, e.riskscore DESC, c.fullname, u.lastname, u.firstname</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Calculation criteria and behavior</h2>
+                <p>The chart reads the precomputed <code>activeusers</code>, <code>actions</code>, and <code>logins</code> fields from the daily aggregation table. It does not reprocess platform logs when the report is displayed.</p>
+                <p>The table calculates <code>declinepercent</code> as <code>ROUND(100.0 * (previous7 - actions7) /
+                    previous7, 2)</code>. Requiring <code>previous7 &gt; 0</code> prevents division by zero. A 100% decline means no actions in the current window after activity in the preceding window.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul class="report-limit">
+                    <li>Active-user, action, and login metrics come from previously calculated aggregates and may use different granularities or criteria.</li>
+                    <li>The decline compares two seven-day windows; it does not establish dropout, poor educational quality, or a sustained trend.</li>
+                    <li>Students with zero actions in the preceding week are excluded from the table, even if they remain inactive in the current period.</li>
+                    <li>A missing timecompleted value includes students not marked as completed in the analytics batch. The recorded completion status may lag behind reality.</li>
+                    <li>The daily chart and the table read different sources and may reflect batches processed at different times.</li>
+                    <li>Risk, progress, and grade values depend on earlier calculations. The list includes personal and academic data and requires appropriate access controls.</li>
+                </ul>
+                <p class="report-technical">The queries are reproduced unchanged from the original JSON in <code>master</code>. No SQL was executed on a Moodle installation during this documentation work. Confirm permissions, results, batch freshness, and database compatibility before institutional use.</p>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-111.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="110.html">← Report 110</a>
+                <a href="112.html">Report 112 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-111">
+                <h2 id="related-title-111">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="106.html"><span class="related-number">Report 106</span><span
+                            class="related-title">Learning analytics dashboard</span><span
+                            class="related-category">Learning Analytics dashboards</span></a>
+                    <a class="related-card" href="086.html"><span class="related-number">Report 086</span><span
+                            class="related-title">Learning plan progress</span><span
+                            class="related-category">Competencies, learning plans and badges</span></a>
+                    <a class="related-card" href="087.html"><span class="related-number">Report 087</span><span
+                            class="related-title">Learning plan progress details</span><span
+                            class="related-category">Competencies, learning plans and badges</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/learning_analytics.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
