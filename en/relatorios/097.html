@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Lists Moodle messages, their senders and other conversation members, with user details, creation dates, and role names assigned in user contexts.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Moodle messaging usage | Report 097 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/097.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/097.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/097.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Moodle messaging usage | Report 097 · Kopere BI">
+    <meta property="og:description" content="Lists Moodle messages, their senders and other conversation members, with user details, creation dates, and role names assigned in user contexts.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/097.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/097.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/communication.html">Communication and files</a> / 097
+            </nav>
+            <div class="kicker">REPORT 097</div>
+            <h1>Moodle messaging usage</h1>
+            <p class="lead">Lists Moodle messages, their senders and other conversation members, with user details, creation dates, and role names assigned in user contexts.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Lists Moodle messages, their senders and other conversation members, with user details, creation dates, and role names assigned in user contexts.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps review the volume and chronology of message records by sender and conversation participant, identifying involved users and available role information without exposing message bodies.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL filters</strong> for course, message, sender, recipient, user, date range, or account status.</p>
+                <p>The only fixed condition is <code>kbi_m.timecreated &gt; 0</code>. The conversation membership join requires <code>kbi_mcm.userid &lt;&gt; kbi_m.useridfrom</code>; role assignments are sought in contexts with <code>contextlevel = 10</code>. Newer messages appear first.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization includes two complete original SQL queries, MySQL and PostgreSQL, shown in separate panels within the same visualization. Prism.js provides syntax highlighting.</p>
+                <details class="report-block" open>
+                    <summary>1. Moodle messaging usage · Table</summary>
+                    <div class="inner">
+                        <p>Each row represents a message and another associated conversation member, showing message ID, sender ID, first name, surname, email and aggregated roles, creation date, and the associated member's ID, name, email, and aggregated roles.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_m.id,
+       kbi_uf.id                                         AS userid_from,
+       kbi_uf.firstname                                  AS firstname_from,
+       kbi_uf.lastname                                   AS lastname_from,
+       kbi_uf.email                                      AS email_from,
+       GROUP_CONCAT(DISTINCT kbi_rf.name SEPARATOR &#39;, &#39;) AS role_from,
+       kbi_m.timecreated,
+       kbi_ut.id                                         AS userid_to,
+       kbi_ut.firstname                                  AS firstname_to,
+       kbi_ut.lastname                                   AS lastname_to,
+       kbi_ut.email                                      AS email_to,
+       GROUP_CONCAT(DISTINCT kbi_rt.name SEPARATOR &#39;, &#39;) AS role_to
+FROM mdl_messages kbi_m
+       JOIN mdl_user kbi_uf ON kbi_uf.id = kbi_m.useridfrom
+       JOIN mdl_message_conversation_members kbi_mcm ON kbi_mcm.conversationid = kbi_m.conversationid AND kbi_mcm.userid &lt;&gt; kbi_m.useridfrom
+       JOIN mdl_user kbi_ut ON kbi_ut.id = kbi_mcm.userid
+       JOIN mdl_context kbi_ctx ON kbi_ctx.contextlevel = 10
+       LEFT JOIN mdl_role_assignments kbi_raf ON kbi_raf.contextid = kbi_ctx.id AND kbi_raf.userid = kbi_uf.id
+       LEFT JOIN mdl_role kbi_rf ON kbi_rf.id = kbi_raf.roleid
+       LEFT JOIN mdl_role_assignments kbi_rat ON kbi_rat.contextid = kbi_ctx.id AND kbi_rat.userid = kbi_ut.id
+       LEFT JOIN mdl_role kbi_rt ON kbi_rt.id = kbi_rat.roleid
+WHERE kbi_m.timecreated &gt; 0
+GROUP BY kbi_m.id, kbi_uf.id, kbi_ut.id
+ORDER BY kbi_m.timecreated DESC, kbi_uf.lastname, kbi_ut.lastname</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_m.id,
+       kbi_uf.id                                         AS userid_from,
+       kbi_uf.firstname                                  AS firstname_from,
+       kbi_uf.lastname                                   AS lastname_from,
+       kbi_uf.email                                      AS email_from,
+       STRING_AGG(DISTINCT (kbi_rf.name)::text, &#39;, &#39;) AS role_from,
+       kbi_m.timecreated,
+       kbi_ut.id                                         AS userid_to,
+       kbi_ut.firstname                                  AS firstname_to,
+       kbi_ut.lastname                                   AS lastname_to,
+       kbi_ut.email                                      AS email_to,
+       STRING_AGG(DISTINCT (kbi_rt.name)::text, &#39;, &#39;) AS role_to
+FROM mdl_messages kbi_m
+       JOIN mdl_user kbi_uf ON kbi_uf.id = kbi_m.useridfrom
+       JOIN mdl_message_conversation_members kbi_mcm ON kbi_mcm.conversationid = kbi_m.conversationid AND kbi_mcm.userid &lt;&gt; kbi_m.useridfrom
+       JOIN mdl_user kbi_ut ON kbi_ut.id = kbi_mcm.userid
+       JOIN mdl_context kbi_ctx ON kbi_ctx.contextlevel = 10
+       LEFT JOIN mdl_role_assignments kbi_raf ON kbi_raf.contextid = kbi_ctx.id AND kbi_raf.userid = kbi_uf.id
+       LEFT JOIN mdl_role kbi_rf ON kbi_rf.id = kbi_raf.roleid
+       LEFT JOIN mdl_role_assignments kbi_rat ON kbi_rat.contextid = kbi_ctx.id AND kbi_rat.userid = kbi_ut.id
+       LEFT JOIN mdl_role kbi_rt ON kbi_rt.id = kbi_rat.roleid
+WHERE kbi_m.timecreated &gt; 0
+GROUP BY kbi_m.id, kbi_uf.id, kbi_ut.id
+ORDER BY kbi_m.timecreated DESC, kbi_uf.lastname, kbi_ut.lastname</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The SQL associates each message with all other conversation members, rather than a table that necessarily identifies its sole recipient. Conversations with multiple members can produce several rows per message.</li>
+                    <li>The join <code>JOIN mdl_context kbi_ctx ON kbi_ctx.contextlevel = 10</code> does not restrict the context to a specific user before joining role assignments; this can substantially increase intermediate rows and query cost.</li>
+                    <li>The <code>role_from</code> and <code>role_to</code> fields are derived from roles assigned in user contexts, not course roles. They may be NULL even when a participant has a teaching or student role in a course.</li>
+                    <li>Role aggregation uses <code>GROUP_CONCAT(DISTINCT ...)</code> in MySQL and <code>STRING_AGG(DISTINCT
+                        ...)</code> in PostgreSQL; no explicit ordering is applied to the aggregated names.</li>
+                    <li>The query does not select message bodies, attachments, read status, or delivery confirmations. It cannot measure reading, responses, or communication effectiveness.</li>
+                    <li>There are no filters for deleted or suspended accounts or for a selectable period. The report may cover historical messages from the entire installation.</li>
+                    <li>JSON column metadata lists only <code>id</code> and <code>userid_</code>, although the SQL also returns sender and participant information. The interface may omit some columns without additional configuration.</li>
+                    <li>Names, email addresses, and conversation relationships are personal data and require appropriate access and export controls.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-097.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-097-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="096.html">← Report 096</a>
+                <a href="098.html">Report 098 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-097">
+                <h2 id="related-title-097">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="093.html"><span class="related-number">Report 093</span><span
+                            class="related-title">File usage by course</span><span class="related-category">Communication and files</span></a>
+                    <a class="related-card" href="094.html"><span class="related-number">Report 094</span><span
+                            class="related-title">File usage by teacher</span><span class="related-category">Communication and files</span></a>
+                    <a class="related-card" href="095.html"><span class="related-number">Report 095</span><span
+                            class="related-title">File usage details by teacher</span><span
+                            class="related-category">Communication and files</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/communication.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

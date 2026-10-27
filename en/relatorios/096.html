@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Details responses recorded on Lesson activity pages in visible courses, including participants, page content, question types, stored answers, and one associated teacher.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Lesson response details | Report 096 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/096.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/096.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/096.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Lesson response details | Report 096 · Kopere BI">
+    <meta property="og:description" content="Details responses recorded on Lesson activity pages in visible courses, including participants, page content, question types, stored answers, and one associated teacher.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/096.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/096.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/communication.html">Communication and files</a> / 096
+            </nav>
+            <div class="kicker">REPORT 096</div>
+            <h1>Lesson response details</h1>
+            <p class="lead">Details responses recorded on Lesson activity pages in visible courses, including participants, page content, question types, stored answers, and one associated teacher.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Details responses recorded on Lesson activity pages in visible courses, including participants, page content, question types, stored answers, and one associated teacher.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps investigate answers recorded in Lesson activities, linking pages and participants to their courses and identifying a user assigned the conventional teacher role.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL filters</strong> for course, lesson, user, teacher, date, or question type. The report queries Lesson attempts across all visible courses.</p>
+                <p>Fixed criteria require an existing Lesson, a participant who is neither deleted nor suspended and is not <code>guest</code>, and <code>kbi_c.visible = 1</code>. A subquery selects the user with the lowest ID assigned role ID <code>3</code> in the course context (<code>contextlevel
+                        = 50</code>) as the teacher.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization includes the complete original SQL query, cache and refresh settings, and Prism.js syntax highlighting. No separate PostgreSQL file is available for this definition.</p>
+                <details class="report-block" open>
+                    <summary>1. Lesson response details · Table</summary>
+                    <div class="inner">
+                        <p>Each row represents a recorded Lesson answer attempt, including its ID and timestamp; course; participant ID, email, and username; one teacher's ID, first name, surname, email, and username; Lesson name; page content as the question; question type; and stored answer.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_la.id       AS id,
+       kbi_la.timeseen,
+       kbi_c.id        AS courseid,
+       kbi_c.fullname,
+       kbi_c.shortname,
+       kbi_u.id        AS userid,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_u.username,
+       t.id        AS teacher_userid,
+       t.firstname AS teacher_firstname,
+       t.lastname  As teacher_lastname,
+       t.email     AS teacher_email,
+       t.username  AS teacher_username,
+       kbi_l.name      AS lesson_name,
+       kbi_lp.contents AS question_name,
+       kbi_lp.qtype,
+       kbi_la.useranswer
+FROM mdl_lesson kbi_l
+       JOIN mdl_lesson_attempts kbi_la ON kbi_la.lessonid = kbi_l.id
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_l.course
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_la.userid
+       JOIN mdl_lesson_pages kbi_lp ON kbi_lp.id = kbi_la.pageid
+       LEFT JOIN (SELECT a.courseid, kbi_u.firstname, kbi_u.lastname, kbi_u.email, kbi_u.username, kbi_u.id
+                  FROM (SELECT kbi_ctx.instanceid AS courseid, MIN(kbi_ra.userid) AS userid
+                        FROM mdl_role_assignments kbi_ra
+                               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+                        WHERE kbi_ctx.contextlevel = 50
+                          AND kbi_ra.roleid = 3
+                        GROUP BY kbi_ctx.instanceid) a
+                         JOIN mdl_user kbi_u ON kbi_u.id = a.userid) t ON t.courseid = kbi_c.id
+WHERE kbi_l.id &gt; 0
+  AND kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username != &#39;guest&#39;
+  AND kbi_c.visible = 1</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>The query does not restrict the course using <code>:courseid</code>. It can return participants' answers from many visible courses, with implications for privacy and result volume.</li>
+                    <li>The <code>question_name</code> field comes from <code>mdl_lesson_pages.contents</code>, which may contain HTML and page content rather than a short title or question prompt alone.</li>
+                    <li>The <code>useranswer</code> field contains the value stored in the attempt. Depending on the question type, it may be an identifier, an option, or encoded data rather than a directly readable answer.</li>
+                    <li>The <code>timeseen</code> field is the timestamp stored with the Lesson attempt; it does not independently indicate activity duration or Lesson completion.</li>
+                    <li>The teacher shown is the user with the lowest ID assigned fixed role ID <code>3</code>, not necessarily the person responsible for the content, grading, or participant. Teacher fields are NULL when no user has that role.</li>
+                    <li>The query does not check active enrolment, student role, attempt completion status, grade, or visibility of the specific Lesson module.</li>
+                    <li>Email addresses, usernames, questions, and responses can be sensitive. Display and export must follow applicable access permissions and the purpose of educational monitoring.</li>
+                    <li>The original source provides no separate PostgreSQL variant.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-096.json"
+                       target="_blank" rel="noopener">Original primary definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="095.html">← Report 095</a>
+                <a href="097.html">Report 097 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-096">
+                <h2 id="related-title-096">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="088.html"><span class="related-number">Report 088</span><span
+                            class="related-title">Quiz responses by question</span><span
+                            class="related-category">Quizzes</span></a>
+                    <a class="related-card" href="122.html"><span class="related-number">Report 122</span><span
+                            class="related-title">Most frequent incorrect answers</span><span
+                            class="related-category">Quizzes</span></a>
+                    <a class="related-card" href="082.html"><span class="related-number">Report 082</span><span
+                            class="related-title">Feedback response details</span><span
+                            class="related-category">Feedback and surveys</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/communication.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

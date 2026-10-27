@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Summarizes course-level access, tracked activity completion, calculated progress, grades, and formal course completion for users assigned the student role in visible courses.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Student progress overview | Report 098 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/098.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/098.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/098.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Student progress overview | Report 098 · Kopere BI">
+    <meta property="og:description" content="Summarizes course-level access, tracked activity completion, calculated progress, grades, and formal course completion for users assigned the student role in visible courses.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/098.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/098.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/students.html">Students</a> / 098
+            </nav>
+            <div class="kicker">REPORT 098</div>
+            <h1>Student progress overview</h1>
+            <p class="lead">Summarizes course-level access, tracked activity completion, calculated progress, grades, and formal course completion for users assigned the student role in visible courses.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Summarizes course-level access, tracked activity completion, calculated progress, grades, and formal course completion for users assigned the student role in visible courses.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps teachers and managers identify students with no recorded activity, completed activities, available grades, or formal course completion, supporting prioritization of follow-up.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, student, date range, enrolment status, or progress state.</p>
+                <p>Fixed conditions require a role assignment with <code>shortname = 'student'</code> in the course context (<code>contextlevel = 50</code>), a user who is neither deleted nor suspended and is not <code>guest</code>, and a visible course. Activity totals include modules with <code>deletioninprogress = 0</code>, <code>visible = 1</code>, and <code>completion &gt; 0</code>. Completed modules are counted when <code>completionstate
+                        IN (1, 2)</code>. The enrolment subquery includes active user enrolments and methods, with no recorded end date or a future <code>timeend</code>.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization includes the two complete original SQL queries, MySQL and PostgreSQL, shown separately within the same visualization. Prism.js provides syntax highlighting.</p>
+                <details class="report-block" open>
+                    <summary>1. Student progress overview · Table</summary>
+                    <div class="inner">
+                        <p>Each student-course row displays student details and email, enrolment date when available, last course access, total visible modules with completion tracking, modules completed, calculated progress percentage, final grade, percentage course grade, formal course completion date, and a status derived from completion, activity, or access.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(kbi_students.userid, &#39;-&#39;, kbi_students.courseid) AS id,
+       kbi_students.userid,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_c.id AS courseid,
+       kbi_c.fullname AS course,
+       kbi_enrol.enrolled_at,
+       COALESCE(kbi_la.timeaccess, 0) AS course_lastaccess,
+       COALESCE(kbi_total.total_activities, 0) AS total_activities,
+       COALESCE(kbi_done.completed_activities, 0) AS completed_activities,
+       CASE
+         WHEN COALESCE(kbi_total.total_activities, 0) &gt; 0 THEN ROUND((COALESCE(kbi_done.completed_activities, 0) / kbi_total.total_activities) * 100, 2)
+         ELSE 0
+       END AS progress_percent,
+       ROUND(kbi_grade.finalgrade, 2) AS finalgrade,
+       ROUND(kbi_grade.grade_percent, 2) AS grade_percent,
+       kbi_cc.timecompleted,
+       CASE
+         WHEN kbi_cc.timecompleted IS NOT NULL THEN &#39;Completed&#39;
+         WHEN COALESCE(kbi_done.completed_activities, 0) &gt; 0 THEN &#39;In progress&#39;
+         WHEN COALESCE(kbi_la.timeaccess, 0) &gt; 0 THEN &#39;Accessed&#39;
+         ELSE &#39;Not started&#39;
+       END AS student_status
+FROM (SELECT DISTINCT kbi_ra.userid,
+                kbi_ctx.instanceid AS courseid
+FROM mdl_role_assignments kbi_ra
+       JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid
+       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+WHERE kbi_r.shortname = &#39;student&#39;) kbi_students
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_students.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_students.courseid
+       LEFT JOIN (SELECT kbi_ue.userid,
+       kbi_e.courseid,
+       MIN(kbi_ue.id) AS enrolmentid,
+       COALESCE(MIN(NULLIF(kbi_ue.timestart, 0)), MIN(kbi_ue.timecreated)) AS enrolled_at,
+       MAX(kbi_ue.timeend) AS enrol_timeend
+FROM mdl_enrol kbi_e
+       JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id
+WHERE kbi_e.status = 0
+  AND kbi_ue.status = 0
+  AND (kbi_ue.timeend = 0 OR kbi_ue.timeend &gt; UNIX_TIMESTAMP())
+GROUP BY kbi_ue.userid, kbi_e.courseid) kbi_enrol ON kbi_enrol.userid = kbi_students.userid AND kbi_enrol.courseid = kbi_students.courseid
+       LEFT JOIN mdl_user_lastaccess kbi_la ON kbi_la.userid = kbi_students.userid AND kbi_la.courseid = kbi_students.courseid
+       LEFT JOIN (SELECT kbi_cm.course,
+       COUNT(DISTINCT kbi_cm.id) AS total_activities
+FROM mdl_course_modules kbi_cm
+WHERE kbi_cm.deletioninprogress = 0
+  AND kbi_cm.visible = 1
+  AND kbi_cm.completion &gt; 0
+GROUP BY kbi_cm.course) kbi_total ON kbi_total.course = kbi_students.courseid
+       LEFT JOIN (SELECT kbi_cm.course,
+       kbi_cmc.userid,
+       COUNT(DISTINCT kbi_cmc.coursemoduleid) AS completed_activities
+FROM mdl_course_modules kbi_cm
+       JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.coursemoduleid = kbi_cm.id
+WHERE kbi_cm.deletioninprogress = 0
+  AND kbi_cm.visible = 1
+  AND kbi_cm.completion &gt; 0
+  AND kbi_cmc.completionstate IN (1, 2)
+GROUP BY kbi_cm.course, kbi_cmc.userid) kbi_done ON kbi_done.course = kbi_students.courseid AND kbi_done.userid = kbi_students.userid
+       LEFT JOIN (SELECT kbi_gi.courseid,
+       kbi_gg.userid,
+       kbi_gi.gradepass,
+       kbi_gi.grademax,
+       kbi_gg.finalgrade,
+       CASE
+         WHEN kbi_gi.grademax &gt; 0 AND kbi_gg.finalgrade IS NOT NULL THEN ROUND((kbi_gg.finalgrade / kbi_gi.grademax) * 100, 2)
+         ELSE NULL
+       END AS grade_percent
+FROM mdl_grade_items kbi_gi
+       JOIN mdl_grade_grades kbi_gg ON kbi_gg.itemid = kbi_gi.id
+WHERE kbi_gi.itemtype = &#39;course&#39;) kbi_grade ON kbi_grade.courseid = kbi_students.courseid AND kbi_grade.userid = kbi_students.userid
+       LEFT JOIN mdl_course_completions kbi_cc ON kbi_cc.course = kbi_students.courseid AND kbi_cc.userid = kbi_students.userid
+WHERE kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username &lt;&gt; &#39;guest&#39;
+  AND kbi_c.visible = 1
+ORDER BY kbi_c.fullname, kbi_u.lastname, kbi_u.firstname</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(kbi_students.userid, &#39;-&#39;, kbi_students.courseid) AS id,
+       kbi_students.userid,
+       kbi_u.firstname,
+       kbi_u.lastname,
+       kbi_u.email,
+       kbi_c.id AS courseid,
+       kbi_c.fullname AS course,
+       kbi_enrol.enrolled_at,
+       COALESCE(kbi_la.timeaccess, 0) AS course_lastaccess,
+       COALESCE(kbi_total.total_activities, 0) AS total_activities,
+       COALESCE(kbi_done.completed_activities, 0) AS completed_activities,
+       CASE
+         WHEN COALESCE(kbi_total.total_activities, 0) &gt; 0 THEN ROUND(((COALESCE(kbi_done.completed_activities, 0) / kbi_total.total_activities) * 100)::numeric, 2)
+         ELSE 0
+       END AS progress_percent,
+       ROUND((kbi_grade.finalgrade)::numeric, 2) AS finalgrade,
+       ROUND((kbi_grade.grade_percent)::numeric, 2) AS grade_percent,
+       kbi_cc.timecompleted,
+       CASE
+         WHEN kbi_cc.timecompleted IS NOT NULL THEN &#39;Completed&#39;
+         WHEN COALESCE(kbi_done.completed_activities, 0) &gt; 0 THEN &#39;In progress&#39;
+         WHEN COALESCE(kbi_la.timeaccess, 0) &gt; 0 THEN &#39;Accessed&#39;
+         ELSE &#39;Not started&#39;
+       END AS student_status
+FROM(SELECT DISTINCT kbi_ra.userid,
+                kbi_ctx.instanceid AS courseid
+FROM mdl_role_assignments kbi_ra
+       JOIN mdl_role kbi_r ON kbi_r.id = kbi_ra.roleid
+       JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid AND kbi_ctx.contextlevel = 50
+WHERE kbi_r.shortname = &#39;student&#39;) kbi_students
+       JOIN mdl_user kbi_u ON kbi_u.id = kbi_students.userid
+       JOIN mdl_course kbi_c ON kbi_c.id = kbi_students.courseid
+       LEFT JOIN(SELECT kbi_ue.userid,
+       kbi_e.courseid,
+       MIN(kbi_ue.id) AS enrolmentid,
+       COALESCE(MIN(NULLIF(kbi_ue.timestart, 0)), MIN(kbi_ue.timecreated)) AS enrolled_at,
+       MAX(kbi_ue.timeend) AS enrol_timeend
+FROM mdl_enrol kbi_e
+       JOIN mdl_user_enrolments kbi_ue ON kbi_ue.enrolid = kbi_e.id
+WHERE kbi_e.status = 0
+  AND kbi_ue.status = 0
+  AND(kbi_ue.timeend = 0 OR kbi_ue.timeend &gt; (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::bigint))
+GROUP BY kbi_ue.userid, kbi_e.courseid) kbi_enrol ON kbi_enrol.userid = kbi_students.userid AND kbi_enrol.courseid = kbi_students.courseid
+       LEFT JOIN mdl_user_lastaccess kbi_la ON kbi_la.userid = kbi_students.userid AND kbi_la.courseid = kbi_students.courseid
+       LEFT JOIN(SELECT kbi_cm.course,
+       COUNT(DISTINCT kbi_cm.id) AS total_activities
+FROM mdl_course_modules kbi_cm
+WHERE kbi_cm.deletioninprogress = 0
+  AND kbi_cm.visible = 1
+  AND kbi_cm.completion &gt; 0
+GROUP BY kbi_cm.course) kbi_total ON kbi_total.course = kbi_students.courseid
+       LEFT JOIN(SELECT kbi_cm.course,
+       kbi_cmc.userid,
+       COUNT(DISTINCT kbi_cmc.coursemoduleid) AS completed_activities
+FROM mdl_course_modules kbi_cm
+       JOIN mdl_course_modules_completion kbi_cmc ON kbi_cmc.coursemoduleid = kbi_cm.id
+WHERE kbi_cm.deletioninprogress = 0
+  AND kbi_cm.visible = 1
+  AND kbi_cm.completion &gt; 0
+  AND kbi_cmc.completionstate IN(1, 2)
+GROUP BY kbi_cm.course, kbi_cmc.userid) kbi_done ON kbi_done.course = kbi_students.courseid AND kbi_done.userid = kbi_students.userid
+       LEFT JOIN(SELECT kbi_gi.courseid,
+       kbi_gg.userid,
+       kbi_gi.gradepass,
+       kbi_gi.grademax,
+       kbi_gg.finalgrade,
+       CASE
+         WHEN kbi_gi.grademax &gt; 0 AND kbi_gg.finalgrade IS NOT NULL THEN ROUND(((kbi_gg.finalgrade / kbi_gi.grademax) * 100)::numeric, 2)
+         ELSE NULL
+       END AS grade_percent
+FROM mdl_grade_items kbi_gi
+       JOIN mdl_grade_grades kbi_gg ON kbi_gg.itemid = kbi_gi.id
+WHERE kbi_gi.itemtype = &#39;course&#39;) kbi_grade ON kbi_grade.courseid = kbi_students.courseid AND kbi_grade.userid = kbi_students.userid
+       LEFT JOIN mdl_course_completions kbi_cc ON kbi_cc.course = kbi_students.courseid AND kbi_cc.userid = kbi_students.userid
+WHERE kbi_u.deleted = 0
+  AND kbi_u.suspended = 0
+  AND kbi_u.username &lt;&gt; &#39;guest&#39;
+  AND kbi_c.visible = 1
+ORDER BY kbi_c.fullname, kbi_u.lastname, kbi_u.firstname</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li><strong>Results start from assignments of the <code>student</code> role, not enrolment records.</strong> Because the enrolment subquery uses a <code>LEFT JOIN</code>, a student with an assigned role may appear without an active enrolment record; <code>enrolled_at</code> can therefore be NULL.</li>
+                    <li>The enrolment subquery considers records active when <code>e.status = 0</code>, <code>ue.status
+                        = 0</code>, and <code>timeend</code> is zero or in the future. It does not explicitly verify whether <code>timestart</code> has been reached.</li>
+                    <li>The <code>progress_percent</code> field measures the proportion of visible completion-tracked modules marked complete. It is not necessarily formal course completion, which is tracked separately in <code>mdl_course_completions.timecompleted</code>.</li>
+                    <li><strong>In PostgreSQL, <code>completed_activities / total_activities</code> divides integers before casting to <code>numeric</code>.</strong> Fractional results may be truncated, yielding 0% for partially completed courses below 100%. Rounding afterward does not restore the lost fraction.</li>
+                    <li>MySQL handles the division operator differently, allowing fractional results. The calculated progress percentages may therefore diverge between databases with identical records.</li>
+                    <li>The SQL returns <code>progress_percent = 0</code> when no activities have completion tracking configured. This does not mean a course was started and left unfinished.</li>
+                    <li>The <code>student_status</code> field is a derived classification based on formal completion, completed activities, or last access, in that order. It does not directly capture the actual enrolment status or every activity's state.</li>
+                    <li>The SQL returns status labels as literal English values (<code>Completed</code>, <code>In progress</code>, <code>Accessed</code>, and <code>Not started</code>).</li>
+                    <li>The <code>finalgrade</code> field comes from the course grade item, and <code>grade_percent</code> divides by the configured maximum when positive. Grades, activity completion percentage, and formal course completion are separate indicators.</li>
+                    <li>The <code>course_lastaccess</code> field uses <code>mdl_user_lastaccess</code>. A missing or zero value alone does not establish that the user has never triggered any course-related event. Personal and academic information is included.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-098.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-098-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="097.html">← Report 097</a>
+                <a href="099.html">Report 099 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-098">
+                <h2 id="related-title-098">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="013.html"><span class="related-number">Report 013</span><span
+                            class="related-title">Student success and progress</span><span
+                            class="related-category">Users and profiles</span></a>
+                    <a class="related-card" href="002.html"><span class="related-number">Report 002</span><span
+                            class="related-title">Active students</span><span
+                            class="related-category">Students</span></a>
+                    <a class="related-card" href="099.html"><span class="related-number">Report 099</span><span
+                            class="related-title">Students without course access</span><span class="related-category">Students</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/students.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
