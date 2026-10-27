@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Groups Kopere BI tracked visits and time for visible courses by weekday and time slot, showing each slot's share of the course's total recorded time.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Course access by weekday and time slot | Report 091 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/091.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/091.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/091.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Course access by weekday and time slot | Report 091 · Kopere BI">
+    <meta property="og:description" content="Groups Kopere BI tracked visits and time for visible courses by weekday and time slot, showing each slot's share of the course's total recorded time.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/091.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/091.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/courses.html">Courses and content</a> / 091
+            </nav>
+            <div class="kicker">REPORT 091</div>
+            <h1>Course access by weekday and time slot</h1>
+            <p class="lead">Groups Kopere BI tracked visits and time for visible courses by weekday and time slot, showing each slot's share of the course's total recorded time.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Groups Kopere BI tracked visits and time for visible courses by weekday and time slot, showing each slot's share of the course's total recorded time.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps identify the days and time slots in which courses accumulate the most recorded visits and tracked time, supporting operational analysis of access patterns and platform usage.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, user, category, calendar period, or date. Both MySQL and PostgreSQL variants query the available records in <code>mdl_local_kopere_bi_period</code>.</p>
+                <p>Fixed conditions are <code>p.courseid &gt; 1</code> and <code>c.visible = 1</code>. The reference total is computed across all time records for each course whose ID exceeds 1. Aggregation uses <code>p.weekdaynum</code> and <code>p.slot</code>, without an interactive weekday or time-slot selector.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization includes both complete original SQL queries, MySQL and PostgreSQL, shown in separate panels within the same block. Prism.js highlights SQL syntax.</p>
+                <details class="report-block" open>
+                    <summary>1. Course access by weekday and time slot · Table</summary>
+                    <div class="inner">
+                        <p>One row per course, weekday, and time slot, showing the course ID, category, weekday number and name, time slot, total visits, recorded seconds, equivalent hours, and share of the course's total recorded time. Weekdays run from Monday (0) to Sunday (6), with seven predefined time slots.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(p.courseid, &#39;-&#39;, p.weekdaynum, &#39;-&#39;, p.slot) AS id,
+       c.id AS courseid,
+       c.fullname AS course,
+       cc.name AS category_name,
+       p.weekdaynum AS weekday_number,
+       CASE p.weekdaynum
+         WHEN 0 THEN &#39;Monday&#39;
+         WHEN 1 THEN &#39;Tuesday&#39;
+         WHEN 2 THEN &#39;Wednesday&#39;
+         WHEN 3 THEN &#39;Thursday&#39;
+         WHEN 4 THEN &#39;Friday&#39;
+         WHEN 5 THEN &#39;Saturday&#39;
+         ELSE &#39;Sunday&#39;
+       END AS weekday_name,
+       CASE p.slot
+         WHEN 1 THEN &#39;00:00 - 05:59&#39;
+         WHEN 2 THEN &#39;06:00 - 08:59&#39;
+         WHEN 3 THEN &#39;09:00 - 11:59&#39;
+         WHEN 4 THEN &#39;12:00 - 14:59&#39;
+         WHEN 5 THEN &#39;15:00 - 17:59&#39;
+         WHEN 6 THEN &#39;18:00 - 20:59&#39;
+         ELSE &#39;21:00 - 23:59&#39;
+       END AS active_period,
+       SUM(p.visits) AS visits,
+       SUM(p.timespend) AS timespend,
+       ROUND(SUM(p.timespend) / 3600.0, 2) AS hours_spent,
+       ROUND(SUM(p.timespend) * 100.0 / NULLIF(t.total_timespend, 0), 2) AS percent_of_course_time
+  FROM mdl_local_kopere_bi_period p
+  JOIN mdl_course c ON c.id = p.courseid
+  LEFT JOIN mdl_course_categories cc ON cc.id = c.category
+  JOIN (
+       SELECT courseid, SUM(timespend) AS total_timespend
+         FROM mdl_local_kopere_bi_period
+        WHERE courseid &gt; 1
+     GROUP BY courseid
+  ) t ON t.courseid = p.courseid
+ WHERE p.courseid &gt; 1
+   AND c.visible = 1
+ GROUP BY p.courseid, c.id, c.fullname, cc.name, p.weekdaynum, p.slot, t.total_timespend
+ ORDER BY c.fullname, p.weekdaynum, p.slot</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(p.courseid, &#39;-&#39;, p.weekdaynum, &#39;-&#39;, p.slot) AS id,
+       c.id AS courseid,
+       c.fullname AS course,
+       cc.name AS category_name,
+       p.weekdaynum AS weekday_number,
+       CASE p.weekdaynum
+         WHEN 0 THEN &#39;Monday&#39;
+         WHEN 1 THEN &#39;Tuesday&#39;
+         WHEN 2 THEN &#39;Wednesday&#39;
+         WHEN 3 THEN &#39;Thursday&#39;
+         WHEN 4 THEN &#39;Friday&#39;
+         WHEN 5 THEN &#39;Saturday&#39;
+         ELSE &#39;Sunday&#39;
+       END AS weekday_name,
+       CASE p.slot
+         WHEN 1 THEN &#39;00:00 - 05:59&#39;
+         WHEN 2 THEN &#39;06:00 - 08:59&#39;
+         WHEN 3 THEN &#39;09:00 - 11:59&#39;
+         WHEN 4 THEN &#39;12:00 - 14:59&#39;
+         WHEN 5 THEN &#39;15:00 - 17:59&#39;
+         WHEN 6 THEN &#39;18:00 - 20:59&#39;
+         ELSE &#39;21:00 - 23:59&#39;
+       END AS active_period,
+       SUM(p.visits) AS visits,
+       SUM(p.timespend) AS timespend,
+       ROUND(SUM(p.timespend) / 3600.0, 2) AS hours_spent,
+       ROUND(SUM(p.timespend) * 100.0 / NULLIF(t.total_timespend, 0), 2) AS percent_of_course_time
+  FROM mdl_local_kopere_bi_period p
+  JOIN mdl_course c ON c.id = p.courseid
+  LEFT JOIN mdl_course_categories cc ON cc.id = c.category
+  JOIN (
+       SELECT courseid, SUM(timespend) AS total_timespend
+         FROM mdl_local_kopere_bi_period
+        WHERE courseid &gt; 1
+     GROUP BY courseid
+  ) t ON t.courseid = p.courseid
+ WHERE p.courseid &gt; 1
+   AND c.visible = 1
+ GROUP BY p.courseid, c.id, c.fullname, cc.name, p.weekdaynum, p.slot, t.total_timespend
+ ORDER BY c.fullname, p.weekdaynum, p.slot</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li>Records in <code>mdl_local_kopere_bi_period</code> are Kopere BI tracking data, not a complete raw log of every Moodle event. Missing tracking records do not prove that access did not occur.</li>
+                    <li>The <code>percent_of_course_time</code> field represents the share of that course's tracked time in a particular weekday and time slot; it <strong>does not represent course completion, attendance, or academic achievement</strong>.</li>
+                    <li>The percentage uses <code>NULLIF(t.total_timespend, 0)</code>. When the total recorded time for a course is zero, the value is NULL to prevent division by zero.</li>
+                    <li>The seven fixed time slots range from <code>00:00 - 05:59</code> through <code>21:00 - 23:59</code> and reflect the stored <code>slot</code> field. The query does not reconstruct time slots from timestamps.</li>
+                    <li>Weekday names are returned directly in English by the original SQL <code>CASE</code> expression. Weekday 0 means Monday, not Sunday.</li>
+                    <li>According to the catalog, recent time-slot records use the site's configured time zone; older records available only as daily aggregates cannot be retrospectively distributed by their original access hour.</li>
+                    <li>There is no date-range filter, and the course must be visible when the query runs. Interpret comparisons carefully when courses have different tracking periods.</li>
+                    <li>The <code>visits</code> metric counts recorded visits, not unique users. <code>timespend</code> is tracked time, not proof of active studying.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-091.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-091-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="090.html">← Report 090</a>
+                <a href="092.html">Report 092 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-091">
+                <h2 id="related-title-091">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="092.html"><span class="related-number">Report 092</span><span
+                            class="related-title">Student access by weekday and time slot</span><span
+                            class="related-category">Users and profiles</span></a>
+                    <a class="related-card" href="035.html"><span class="related-number">Report 035</span><span
+                            class="related-title">Course access</span><span class="related-category">Courses and content</span></a>
+                    <a class="related-card" href="036.html"><span class="related-number">Report 036</span><span
+                            class="related-title">Course access details</span><span class="related-category">Courses and content</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/courses.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
