@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fully correct question results grouped by question tag, considering finished quiz attempts.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Quiz performance by question tag | Report 123 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/123.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/123.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/123.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Quiz performance by question tag | Report 123 · Kopere BI">
+    <meta property="og:description" content="Fully correct question results grouped by question tag, considering finished quiz attempts.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/123.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/123.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/quizzes.html">Quizzes</a> / 123
+            </nav>
+            <div class="kicker">REPORT 123</div>
+            <h1>Quiz performance by question tag</h1>
+            <p class="lead">Fully correct question results grouped by question tag, considering finished quiz attempts.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Table by course and tag, showing the tag name, number of distinct questions found, evaluated response occurrences, fully correct occurrences, and percentage of responses with a fraction of at least 1. Results are sorted by descending occurrence count and course, with a limit of 500 rows.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Analyze which question tags are associated with the most evaluated responses and what proportion earned full credit, helping investigate performance patterns by topic.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#criterios">Calculation criteria</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL filters</strong> for course, quiz, tag, student, or reporting period. The query requires finished quiz attempts (<code>a.state = 'finished'</code>) and final question-attempt steps with <code>st.fraction IS NOT NULL</code>.</p>
+                <p>Tag matching uses fixed criteria <code>ti.itemtype = 'question'</code> and <code>ti.itemid =
+                    q.id</code>. The query does not explicitly filter preview attempts (<code>a.preview</code>), deleted accounts, or hidden courses. Results are limited to <strong>500 groups</strong>.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>The report contains one table visualization with the complete original SQL, caching, and refresh settings. Prism.js provides syntax highlighting. No separate PostgreSQL variant was found in <code>master</code>, so no nonexistent query has been added.</p>
+                <details class="report-block" open>
+                    <summary>1. Quiz performance by question tag · Table</summary>
+                    <div class="inner">
+                        <p>Table by course and tag, with tag name, number of distinct questions, evaluated occurrences, fully correct occurrences, and percentage of responses earning full credit. Rows are sorted by descending occurrence volume and course, with a 500-row limit.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(c.id, &#39;-&#39;, tag.id) AS id, c.id AS courseid, c.fullname AS course,
+       tag.rawname AS tag, COUNT(DISTINCT q.id) AS questions, COUNT(*) AS attempts,
+       SUM(CASE WHEN st.fraction &gt;= 1 THEN 1 ELSE 0 END) AS fully_correct,
+       ROUND(100.0 * SUM(CASE WHEN st.fraction &gt;= 1 THEN 1 ELSE 0 END) / COUNT(*), 2) AS fully_correct_percent
+  FROM mdl_quiz_attempts a
+  JOIN mdl_quiz quiz ON quiz.id = a.quiz
+  JOIN mdl_course c ON c.id = quiz.course
+  JOIN mdl_question_attempts att ON att.questionusageid = a.uniqueid
+  JOIN mdl_question q ON q.id = att.questionid
+  JOIN mdl_tag_instance ti ON ti.itemtype = &#39;question&#39; AND ti.itemid = q.id
+  JOIN mdl_tag tag ON tag.id = ti.tagid
+  JOIN mdl_question_attempt_steps st ON st.questionattemptid = att.id
+       AND st.sequencenumber = (SELECT MAX(st2.sequencenumber)
+                                 FROM mdl_question_attempt_steps st2
+                                WHERE st2.questionattemptid = att.id)
+ WHERE a.state = &#39;finished&#39; AND st.fraction IS NOT NULL
+ GROUP BY c.id, c.fullname, tag.id, tag.rawname
+ ORDER BY attempts DESC, c.fullname
+ LIMIT 500</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Calculation criteria and behavior</h2>
+                <p>The SQL joins quizzes, questions, and their tags and selects the last step through <code>MAX(st2.sequencenumber)</code> to obtain the response fraction. Results are grouped by course and tag. <code>COUNT(DISTINCT q.id)</code> counts different questions, while <code>COUNT(*)</code> counts evaluated occurrences for that tag.</p>
+                <p><code>fully_correct</code> counts occurrences where <code>st.fraction &gt;= 1</code>. <code>fully_correct_percent</code> divides that count by the group's occurrence count. Questions bearing multiple tags may contribute separately to multiple groups; the metric is not a percentage of distinct students.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul class="report-limit">
+                    <li>Preview attempts are not explicitly excluded: there is no a.preview = 0 condition. Depending on the stored records, previews may affect totals.</li>
+                    <li>COUNT(*) counts question-and-tag occurrences, not distinct users. Repeated attempts can give the same participant greater weight.</li>
+                    <li>A question with multiple tags appears in multiple groups. Tag totals must not be summed as though the categories were mutually exclusive.</li>
+                    <li>Tag-to-question matching depends on the database schema and how a Moodle installation stores question tags. Verify compatibility of ti.itemtype = 'question' and ti.itemid = q.id with the Moodle version.</li>
+                    <li>The fraction >= 1 threshold represents full credit in the selected grading step, not necessarily passing or demonstrating mastery of the topic.</li>
+                    <li>There is no reporting-period, account-status, or course-visibility filter. The 500 most frequent groups may hide less frequently used tags.</li>
+                    <li>Comparisons between tags may be affected by differences in question counts, difficulty, question types, and attempt policies.</li>
+                </ul>
+                <p class="report-technical">The SQL was reproduced verbatim from the original JSON in <code>master</code> and was not executed on Moodle during this documentation work. Before institutional use, verify database compatibility, interpretation of the results, and access permissions.</p>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-123.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="122.html">← Report 122</a>
+                <a href="124.html">Report 124 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-123">
+                <h2 id="related-title-123">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="062.html"><span class="related-number">Report 062</span><span
+                            class="related-title">Quiz question structure</span><span
+                            class="related-category">Quizzes</span></a>
+                    <a class="related-card" href="088.html"><span class="related-number">Report 088</span><span
+                            class="related-title">Quiz responses by question</span><span
+                            class="related-category">Quizzes</span></a>
+                    <a class="related-card" href="063.html"><span class="related-number">Report 063</span><span
+                            class="related-title">Quiz performance statistics</span><span
+                            class="related-category">Quizzes</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/quizzes.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

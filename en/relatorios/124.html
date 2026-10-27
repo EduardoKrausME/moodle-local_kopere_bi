@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Assignment rubric and marking guide criteria results, including distinct assessments, average scores, and percentages.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Performance by grading criterion | Report 124 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/124.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/124.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/124.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Performance by grading criterion | Report 124 · Kopere BI">
+    <meta property="og:description" content="Assignment rubric and marking guide criteria results, including distinct assessments, average scores, and percentages.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/124.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/124.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/grades.html">Grades</a> / 124
+            </nav>
+            <div class="kicker">REPORT 124</div>
+            <h1>Performance by grading criterion</h1>
+            <p class="lead">Assignment rubric and marking guide criteria results, including distinct assessments, average scores, and percentages.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Table by course, assignment module, grading method, and criterion, showing the activity name, criterion identifier, number of assessed instances, average points awarded, maximum points, and calculated average percentage. Results are sorted by course, module, method, and criterion, with a maximum of 500 rows.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Compare performance across criteria used in assignments graded with marking guides or rubrics, examining average criterion scores, counts of distinct assessments, and differences between criteria.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#criterios">Calculation criteria</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, activity, teacher, student, criterion, grading method, or date range. The report aggregates records associated with grading areas <code>area.component = 'mod_assign'</code> in module contexts <code>cx.contextlevel
+                        = 70</code>, with <code>inst.status = 1</code>.</p>
+                <p>The two methods are <code>guide</code> (marking guide) and <code>rubric</code> (rubric). Their sources are combined with <code>UNION ALL</code>. The SQL limits the result to <strong>500 criterion groups</strong> without explicitly filtering hidden courses, hidden activities, or any date range.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains the full original SQL, cache, and refresh settings, highlighted with Prism.js. No separate PostgreSQL variant was found in <code>master</code>; no nonexistent query has been added.</p>
+                <details class="report-block" open>
+                    <summary>1. Performance by grading criterion · Table</summary>
+                    <div class="inner">
+                        <p>Table by course, assignment module, grading method, and criterion, showing the activity name, criterion identifier, number of distinct assessed instances, mean score, maximum possible score, and calculated average percentage. Results are ordered by course, module, method, and criterion, up to 500 rows.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(src.moduleid, &#39;-&#39;, src.method, &#39;-&#39;, src.criterionid) AS id,
+       c.id AS courseid, c.fullname AS course, src.moduleid, assignment.name AS activity_name, src.method, src.criterionid,
+       MAX(src.criterion) AS criterion,
+       COUNT(DISTINCT src.instanceid) AS assessments, ROUND(AVG(src.score), 2) AS average_score,
+       MAX(src.maxscore) AS maximum_score,
+       CASE WHEN MAX(src.maxscore) &gt; 0 THEN ROUND(100.0 * AVG(src.score) / MAX(src.maxscore), 2)
+            ELSE NULL END AS average_percent
+  FROM (
+        SELECT cx.instanceid AS moduleid, &#39;guide&#39; AS method, crit.id AS criterionid,
+               crit.shortname AS criterion, fill.score AS score, crit.maxscore AS maxscore, inst.id AS instanceid
+          FROM mdl_gradingform_guide_fillings fill
+          JOIN mdl_gradingform_guide_criteria crit ON crit.id = fill.criterionid
+          JOIN mdl_grading_instances inst ON inst.id = fill.instanceid AND inst.status = 1
+          JOIN mdl_grading_definitions def ON def.id = inst.definitionid AND def.method = &#39;guide&#39;
+          JOIN mdl_grading_areas area ON area.id = def.areaid AND area.component = &#39;mod_assign&#39;
+          JOIN mdl_context cx ON cx.id = area.contextid AND cx.contextlevel = 70
+        UNION ALL
+        SELECT cx.instanceid AS moduleid, &#39;rubric&#39; AS method, crit.id AS criterionid,
+               crit.description AS criterion, level.score AS score,
+               (SELECT MAX(lev2.score) FROM mdl_gradingform_rubric_levels lev2
+                 WHERE lev2.criterionid = crit.id) AS maxscore, inst.id AS instanceid
+          FROM mdl_gradingform_rubric_fillings fill
+          JOIN mdl_gradingform_rubric_criteria crit ON crit.id = fill.criterionid
+          JOIN mdl_gradingform_rubric_levels level ON level.id = fill.levelid
+          JOIN mdl_grading_instances inst ON inst.id = fill.instanceid AND inst.status = 1
+          JOIN mdl_grading_definitions def ON def.id = inst.definitionid AND def.method = &#39;rubric&#39;
+          JOIN mdl_grading_areas area ON area.id = def.areaid AND area.component = &#39;mod_assign&#39;
+          JOIN mdl_context cx ON cx.id = area.contextid AND cx.contextlevel = 70
+       ) src
+  JOIN mdl_course_modules cm ON cm.id = src.moduleid
+  JOIN mdl_modules m ON m.id = cm.module AND m.name = &#39;assign&#39;
+  JOIN mdl_assign assignment ON assignment.id = cm.instance
+  JOIN mdl_course c ON c.id = cm.course
+ GROUP BY c.id, c.fullname, src.moduleid, assignment.name, src.method, src.criterionid
+ ORDER BY c.fullname, src.moduleid, src.method, criterion
+ LIMIT 500</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Calculation criteria and behavior</h2>
+                <p>For <strong>marking guides</strong>, criterion points come from <code>mdl_gradingform_guide_fillings.score</code>, names from <code>guide_criteria.shortname</code>, and maxima from <code>guide_criteria.maxscore</code>. For <strong>rubrics</strong>, the selected score comes from <code>mdl_gradingform_rubric_levels.score</code>, the description from <code>rubric_criteria.description</code>, and the maximum from the highest level score of that rubric.</p>
+                <p>Aggregation uses <code>COUNT(DISTINCT src.instanceid)</code> for distinct assessments and <code>AVG(src.score)</code> for the mean of present records. The percentage is <code>100.0 *
+                        AVG(src.score) / MAX(src.maxscore)</code> when the maximum is positive; otherwise it returns <code>NULL</code>. The query combines method-and-criterion occurrences in status-1 records and only associates modules of type <code>assign</code>.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul class="report-limit">
+                    <li>The report finds only instances where <code>inst.status = 1</code>. Missing assessments, unfilled records, and records in other states do not contribute to the averages.</li>
+                    <li>The assessments field counts distinct grading instances, not necessarily distinct students. A student may have more than one assessment, and history may be absent depending on configuration.</li>
+                    <li>Averages and percentages depend on each criterion's scale and range. Criteria with different scales should not be compared solely by raw mean values.</li>
+                    <li>The calculation uses <code>MAX(maxscore)</code> as its denominator while averaging recorded scores. Historical changes to criteria or levels may mean the percentage does not reconstruct the scale used for every assessment.</li>
+                    <li>Rubric criterion labels may contain markup. Display stored content according to Moodle's content safety and escaping rules.</li>
+                    <li>Without an explicit reporting-period filter, the table aggregates the grading records currently retained and displays only the first 500 criterion groups in the specified order.</li>
+                    <li>The original SQL does not check course or module visibility and does not identify individual learners in this aggregate table. Restrict publication of academic metrics under institutional policy.</li>
+                </ul>
+                <p class="report-technical">The SQL was reproduced verbatim from the original JSON definition in <code>master</code>. No queries were executed on Moodle during this documentation work. Before institutional use, validate database compatibility, interpretation of the data, and access permissions.</p>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-124.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="123.html">← Report 123</a>
+                <a href="125.html">Report 125 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-124">
+                <h2 id="related-title-124">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="052.html"><span class="related-number">Report 052</span><span
+                            class="related-title">Items awaiting grading</span><span class="related-category">Grades and assessments</span></a>
+                    <a class="related-card" href="054.html"><span class="related-number">Report 054</span><span
+                            class="related-title">Gradebook overview</span><span class="related-category">Grades and assessments</span></a>
+                    <a class="related-card" href="121.html"><span class="related-number">Report 121</span><span
+                            class="related-title">Grade change history</span><span
+                            class="related-category">Grades and assessments</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/grades.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>

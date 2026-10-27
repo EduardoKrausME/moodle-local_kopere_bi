@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Distribution of Feedback answer codes in completed submissions, with counts of distinct submissions and recorded answers.">
+    <meta name="theme-color" content="#072c3a">
+    <title>Feedback response distribution | Report 125 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    .report-technical {
+        background: #f2f8f9;
+        border-left: 3px solid #70aeb4;
+        padding: 13px 16px;
+        margin: 18px 0
+    }
+
+    .report-limit li {
+        margin: 10px 0
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/125.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/125.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/125.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="Feedback response distribution | Report 125 · Kopere BI">
+    <meta property="og:description" content="Distribution of Feedback answer codes in completed submissions, with counts of distinct submissions and recorded answers.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/125.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/125.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/feedback.html">Feedback</a> / 125
+            </nav>
+            <div class="kicker">REPORT 125</div>
+            <h1>Feedback response distribution</h1>
+            <p class="lead">Distribution of Feedback answer codes in completed submissions, with counts of distinct submissions and recorded answers.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Table by course, Feedback activity, question, and response value, showing the answer code or summary, number of stored records, distinct completed submissions, and percentage of all records for that question. Groups are sorted by course, Feedback activity, question, and response frequency, with up to 500 rows.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Analyze the distribution of response values for multiple-choice questions in the Feedback module to identify the most common choices and their percentages by question.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#criterios">Calculation criteria</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p><strong>There are no dynamic SQL parameters</strong> for course, activity, question, answer, user, or reporting period. Only questions with <code>fi.typ IN ('multichoice',
+                        'multichoicerated')</code> and answers in <code>mdl_feedback_value</code> associated with a corresponding Feedback <code>mdl_feedback_completed</code> record are included.</p>
+                <p>There is no filter for date, anonymous participation, user status, or visibility. Results are limited to <strong>500 groups</strong> after sorting by course, Feedback, question, and frequency.</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains the complete original SQL, cache and refresh settings, with Prism.js syntax highlighting. No separate PostgreSQL variant was found in <code>master</code>, so no nonexistent query has been added.</p>
+                <details class="report-block" open>
+                    <summary>1. Feedback response distribution · Table</summary>
+                    <div class="inner">
+                        <p>Table by course, Feedback activity, question, and answer value, showing the answer code or summary, number of records, distinct completed submissions, and percentage of all records for that question. Results are sorted by course, activity, question, and answer frequency, with a 500-row limit.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT CONCAT(fi.id, &#39;-&#39;, COALESCE(fv.value, &#39;&#39;)) AS id,
+       c.id AS courseid, c.fullname AS course, f.id AS feedbackid, f.name AS feedback,
+       fi.id AS questionid, fi.name AS question, fi.typ AS question_type,
+       CASE WHEN fv.value IS NULL OR fv.value = &#39;&#39; THEN &#39;Not selected&#39; ELSE fv.value END AS answer,
+       COUNT(fv.id) AS answers, COUNT(DISTINCT fv.completed) AS respondents,
+       total.totalanswers AS total_responses,
+       ROUND(100.0 * COUNT(fv.id) / NULLIF(total.totalanswers, 0), 2) AS answer_percent
+  FROM mdl_feedback_value fv
+  JOIN mdl_feedback_item fi ON fi.id = fv.item
+  JOIN mdl_feedback f ON f.id = fi.feedback
+  JOIN mdl_feedback_completed completed ON completed.id = fv.completed AND completed.feedback = f.id
+  JOIN mdl_course c ON c.id = f.course
+  JOIN (SELECT v2.item, COUNT(v2.id) AS totalanswers FROM mdl_feedback_value v2
+          JOIN mdl_feedback_completed fc2 ON fc2.id = v2.completed
+         GROUP BY v2.item) total
+    ON total.item = fi.id
+ WHERE fi.typ IN (&#39;multichoice&#39;, &#39;multichoicerated&#39;)
+ GROUP BY c.id, c.fullname, f.id, f.name, fi.id, fi.name, fi.typ, fv.value, total.totalanswers
+ ORDER BY c.fullname, f.name, fi.name, answers DESC
+ LIMIT 500</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="criterios">
+                <h2>Calculation criteria and behavior</h2>
+                <p>For each answer, the SQL uses <code>COUNT(fv.id)</code> to count stored records and <code>COUNT(DISTINCT
+                    fv.completed)</code> to count <strong>distinct completed submissions</strong> providing that value. The label <code>Not selected</code> is used when an existing record has an empty or NULL <code>fv.value</code>.</p>
+                <p>The <code>total</code> subquery computes <code>COUNT(v2.id)</code> by question. <code>answer_percent</code> is calculated as <code>100.0 * COUNT(fv.id) / total.totalanswers</code>, rounded to two decimals. Values stored in <code>fv.value</code> can be internal choice codes; mapping them to the labels shown to respondents depends on the item definition.</p>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul class="report-limit">
+                    <li>The respondents field counts distinct <code>mdl_feedback_completed</code> IDs, not user IDs. A completed submission may be anonymous, and a person may submit more than once if the settings allow.</li>
+                    <li>A question without any records in <code>mdl_feedback_value</code> is not displayed. The label Not selected applies only to existing records with an empty or NULL value, not to everyone who skipped that question.</li>
+                    <li>SQL groups by the original <code>fv.value</code>; NULL and empty-string values may be separate groups even when both display as Not selected.</li>
+                    <li>The denominator subquery counts all stored values for a question, while the outer query has its own joins and conditions. With inconsistent data, the denominator may not exactly match the responses displayed.</li>
+                    <li>Stored answers may be choice codes rather than readable labels. Interpreting the code requires consulting the actual Feedback item configuration.</li>
+                    <li>The percentages describe the distribution of recorded values, not institutional satisfaction, course quality, or population representativeness without contextual analysis.</li>
+                    <li>There is no date filter or explicit course/Feedback visibility check. The 500-group limit may exclude questions appearing later in the sort order.</li>
+                </ul>
+                <p class="report-technical">The SQL was reproduced verbatim from the original JSON definition in <code>master</code>. No queries were executed on Moodle during this documentation work. Before institutional use, validate database compatibility, interpretation of the data, and access permissions.</p>
+            </section>
+            <section>
+                <h2>Technical source</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-125.json"
+                       target="_blank" rel="noopener">View the original JSON definition on GitHub</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="124.html">← Report 124</a>
+                <a href="126.html">Report 126 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-125">
+                <h2 id="related-title-125">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="082.html"><span class="related-number">Report 082</span><span
+                            class="related-title">Feedback response details</span><span
+                            class="related-category">Feedback and surveys</span></a>
+                    <a class="related-card" href="083.html"><span class="related-number">Report 083</span><span
+                            class="related-title">Feedback overview</span><span class="related-category">Feedback and surveys</span></a>
+                    <a class="related-card" href="088.html"><span class="related-number">Report 088</span><span
+                            class="related-title">Quiz responses by question</span><span
+                            class="related-category">Quizzes</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/feedback.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
