@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Summarizes file resources in the selected course, linked filenames and technical references, and one teacher name obtained from course role assignments.">
+    <meta name="theme-color" content="#072c3a">
+    <title>File usage by teacher | Report 094 · Kopere BI</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="../accessibility.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <style>.report-intro {
+        background: #e7f6f4;
+        border: 1px solid #bee1dd;
+        border-radius: 13px;
+        padding: 22px 24px;
+        margin: 22px 0
+    }
+
+    .report-intro strong {
+        font-size: 17px;
+        color: #096573
+    }
+
+    .report-intro p {
+        margin: 7px 0 0
+    }
+
+    .report-navigation {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 23px 0
+    }
+
+    .report-navigation a {
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #e4f4f2
+    }
+
+    .report-block {
+        border: 1px solid #d9e6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0
+    }
+
+    .report-block summary {
+        padding: 16px;
+        background: #eaf5f7;
+        color: #0b5261;
+        font-weight: 800;
+        cursor: pointer
+    }
+
+    .report-block summary:hover {
+        background: #d9eff0
+    }
+
+    .report-block .inner {
+        padding: 16px
+    }
+
+    .sql-variant {
+        background: #f5f9f9;
+        border: 1px solid #dbe7e9;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 13px 15px
+    }
+
+    .sql-variant h3 {
+        font-size: 14px;
+        color: #095f6d;
+        font-weight: 800;
+        margin: 0 0 10px
+    }
+
+    .report-meta {
+        color: #54707b;
+        font-size: 13px
+    }
+
+    @media (max-width: 650px) {
+        .report-block .inner {
+            padding: 10px
+        }
+
+        .sql-variant {
+            padding: 8px
+        }
+    }</style>
+    <link rel="canonical" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/094.html">
+    <link rel="alternate" hreflang="en" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/094.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://eduardokrausme.github.io/moodle-local_kopere_bi/pt_br/relatorios/094.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Kopere BI">
+    <meta property="og:title" content="File usage by teacher | Report 094 · Kopere BI">
+    <meta property="og:description" content="Summarizes file resources in the selected course, linked filenames and technical references, and one teacher name obtained from course role assignments.">
+    <meta property="og:url" content="https://eduardokrausme.github.io/moodle-local_kopere_bi/en/relatorios/094.html">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+    <div class="top-inner">
+        <a class="brand" href="../index.html" aria-label="Kopere BI"><span
+                class="brand-mark">BI</span><span>Kopere BI</span></a>
+        <div class="tools">
+            <a class="repo" href="https://github.com/EduardoKrausME/moodle-local_kopere_bi">Repository</a>
+            <a class="lang" href="../relatorios.html">Report catalog</a>
+            <a class="lang" href="../../pt_br/relatorios/094.html" lang="pt-BR">Português</a>
+        </div>
+    </div>
+</header>
+<div class="frame">
+    <aside class="sidebar">
+        <div class="sidebar-label">Documentation</div>
+        <nav class="nav" aria-label="Documentation sections">
+            <a href="../index.html">Overview</a>
+            <a href="../dashboards.html">Dashboards</a>
+            <a href="../visualizacoes.html">Charts and filters</a>
+            <a href="../relatorios.html" class="active" aria-current="page">Reports</a>
+            <a href="../learning-analytics.html">Learning Analytics</a>
+            <a href="../integracoes.html">MCP integration</a>
+            <a href="../operacao.html">Operations</a>
+        </nav>
+    </aside>
+    <main id="main" class="main">
+        <article class="article">
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../index.html">Kopere BI</a> / <a href="../relatorios.html">Reports</a> / <a
+                    href="../categorias/communication.html">Communication and files</a> / 094
+            </nav>
+            <div class="kicker">REPORT 094</div>
+            <h1>File usage by teacher</h1>
+            <p class="lead">Summarizes file resources in the selected course, linked filenames and technical references, and one teacher name obtained from course role assignments.</p>
+            <section>
+                <h2>Report purpose</h2>
+                <p>Summarizes file resources in the selected course, linked filenames and technical references, and one teacher name obtained from course role assignments.</p>
+            </section>
+            <div class="report-intro"><strong>Why use this report?</strong>
+                <p>Helps locate File resources within a course, inspect their associated filenames and technical references, and identify one user assigned the conventional teacher role.</p>
+            </div>
+            <div class="report-navigation">
+                <a href="#filtros">Available filters</a>
+                <a href="#visualizacoes">Visualization and SQL</a>
+                <a href="#limites">Limitations</a>
+            </div>
+            <section id="filtros">
+                <h2>Available filters</h2>
+                <p>The dynamic SQL filter is <strong>Course</strong>, represented by <code>:courseid</code> and used <strong>once in each variant</strong> in <code>kbi_c.id = :courseid</code>.</p>
+                <p>Fixed conditions require a positive course ID and a visible course (<code>kbi_c.visible = 1</code>). The file join uses <code>component = 'mod_resource'</code>, <code>filearea =
+                        'content'</code>, <code>itemid = 0</code>, and <code>filesize &gt; 0</code> in a module context (<code>contextlevel = 70</code>). The teacher lookup uses role ID <code>3</code> in the course context (<code>contextlevel = 50</code>).</p>
+            </section>
+            <section id="visualizacoes">
+                <h2>Visualization and full original SQL</h2>
+                <p>One table visualization contains two complete original SQL queries, cache and refresh settings, and Prism.js syntax highlighting. Equivalent MySQL and PostgreSQL variants are shown in separate panels.</p>
+                <details class="report-block" open>
+                    <summary>1. File usage by teacher · Table</summary>
+                    <div class="inner">
+                        <p>The course-level table shows course ID and name, a resource count field, concatenated technical file paths and names, and the name of one user assigned role ID 3. Both SQL variants return the same columns.</p>
+                        <p class="report-meta">Cache: <code>1h</code> · Refresh: <code>none</code>.</p>
+                        <div class="sql-variant">
+                            <h3>Full original MySQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
+       kbi_c.fullname,
+       count(kbi_r.id)                                     as resources,
+       GROUP_CONCAT(CASE
+                      WHEN kbi_f.id IS NOT NULL THEN CONCAT(&#39;/&#39;, kbi_ctx.id, &#39;/mod_resource/content/&#39;, kbi_r.revision, kbi_f.filepath,
+                                                        kbi_f.filename)
+                      ELSE NULL END SEPARATOR &#39;[[,]]&#39;) AS files,
+       GROUP_CONCAT(kbi_f.filename)                        AS files_sorting,
+       (SELECT DISTINCT CONCAT(kbi_u.firstname, &#39; &#39;, kbi_u.lastname)
+        FROM mdl_role_assignments kbi_ra
+               JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id
+               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+        WHERE kbi_ctx.instanceid = kbi_c.id
+          AND kbi_ctx.contextlevel = 50
+          AND kbi_ra.roleid = 3
+        LIMIT 1)                                       AS teacher
+FROM mdl_course kbi_c
+       LEFT JOIN mdl_resource kbi_r ON kbi_r.course = kbi_c.id
+       LEFT JOIN mdl_modules kbi_m ON kbi_m.name = &#39;resource&#39;
+       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_r.id
+       LEFT JOIN mdl_context kbi_ctx ON kbi_ctx.contextlevel = 70 AND kbi_ctx.instanceid = kbi_cm.id
+       LEFT JOIN mdl_files kbi_f
+         ON kbi_f.component = &#39;mod_resource&#39; AND kbi_f.filearea = &#39;content&#39; AND kbi_f.itemid = 0 AND kbi_f.filesize &gt; 0 AND
+            kbi_ctx.id = kbi_f.contextid
+WHERE kbi_c.id &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_c.visible = 1
+GROUP BY kbi_c.id</code></pre>
+                        </div>
+                        <div class="sql-variant">
+                            <h3>Full original PostgreSQL SQL</h3>
+                            <pre class="sql-source language-sql" tabindex="0"><code class="language-sql">SELECT kbi_c.id,
+       kbi_c.fullname,
+       count(kbi_r.id)                                     as resources,
+       STRING_AGG((CASE
+                      WHEN kbi_f.id IS NOT NULL THEN CONCAT(&#39;/&#39;, kbi_ctx.id, &#39;/mod_resource/content/&#39;, kbi_r.revision, kbi_f.filepath,
+                                                        kbi_f.filename)
+                      ELSE NULL END)::text, &#39;[[,]]&#39;) AS files,
+       STRING_AGG((kbi_f.filename)::text, &#39;,&#39;)                        AS files_sorting,
+       (SELECT DISTINCT CONCAT(kbi_u.firstname, &#39; &#39;, kbi_u.lastname)
+        FROM mdl_role_assignments kbi_ra
+               JOIN mdl_user kbi_u ON kbi_ra.userid = kbi_u.id
+               JOIN mdl_context kbi_ctx ON kbi_ctx.id = kbi_ra.contextid
+        WHERE kbi_ctx.instanceid = kbi_c.id
+          AND kbi_ctx.contextlevel = 50
+          AND kbi_ra.roleid = 3
+        LIMIT 1)                                       AS teacher
+FROM mdl_course kbi_c
+       LEFT JOIN mdl_resource kbi_r ON kbi_r.course = kbi_c.id
+       LEFT JOIN mdl_modules kbi_m ON kbi_m.name = &#39;resource&#39;
+       LEFT JOIN mdl_course_modules kbi_cm ON kbi_cm.module = kbi_m.id AND kbi_cm.instance = kbi_r.id
+       LEFT JOIN mdl_context kbi_ctx ON kbi_ctx.contextlevel = 70 AND kbi_ctx.instanceid = kbi_cm.id
+       LEFT JOIN mdl_files kbi_f
+         ON kbi_f.component = &#39;mod_resource&#39; AND kbi_f.filearea = &#39;content&#39; AND kbi_f.itemid = 0 AND kbi_f.filesize &gt; 0 AND
+            kbi_ctx.id = kbi_f.contextid
+WHERE kbi_c.id &gt; 0
+  AND kbi_c.id = :courseid
+  AND kbi_c.visible = 1
+GROUP BY kbi_c.id</code></pre>
+                        </div>
+                    </div>
+                </details>
+            </section>
+            <section id="limites">
+                <h2>Limitations and cautions</h2>
+                <ul>
+                    <li><strong>The <code>resources</code> column uses <code>COUNT(kbi_r.id)</code>, without <code>DISTINCT</code>.</strong> A resource with multiple files may be duplicated by the joins, inflating the count above the actual number of resources in the course.</li>
+                    <li>Although its title suggests file usage by teacher, the SQL does not establish who uploaded, created, or accessed each file. The teacher is selected independently of the resource's origin, and there are no visit, download, or time-tracking metrics.</li>
+                    <li>The <code>teacher</code> subquery uses <code>SELECT DISTINCT ... LIMIT 1</code> without <code>ORDER
+                        BY</code>. When several people have role ID 3, the choice may be arbitrary; custom teacher roles with other IDs are not considered.</li>
+                    <li>The <code>files</code> and <code>files_sorting</code> fields concatenate file paths and names as text, not evidence that files were read or downloaded. Joins may produce duplicate values.</li>
+                    <li>MySQL uses <code>GROUP_CONCAT</code> while PostgreSQL uses <code>STRING_AGG</code>. Neither variant specifies an internal file ordering, and <code>[[,]]</code> is a technical separator in the path list.</li>
+                    <li>File paths include the context, revision, filepath, and filename, but do not constitute public URLs or proof of permission to access content.</li>
+                    <li>The query checks course visibility but does not require file modules to be visible. Hidden resources may affect results.</li>
+                    <li>A row may exist even when a course has no file resources because of optional joins. No date or participant filters are available.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Technical sources</h2>
+                <p>
+                    <a href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-094.json"
+                       target="_blank" rel="noopener">MySQL definition</a> · <a
+                        href="https://github.com/EduardoKrausME/moodle-local_kopere_bi/blob/master/db/files/page-094-postgres.json"
+                        target="_blank" rel="noopener">PostgreSQL definition</a>.</p>
+            </section>
+            <nav class="pager" aria-label="Browse reports">
+                <a href="093.html">← Report 093</a>
+                <a href="095.html">Report 095 →</a>
+            </nav>
+            <section class="related-reports" aria-labelledby="related-title-094">
+                <h2 id="related-title-094">Related reports</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="095.html"><span class="related-number">Report 095</span><span
+                            class="related-title">File usage details by teacher</span><span
+                            class="related-category">Communication and files</span></a>
+                    <a class="related-card" href="093.html"><span class="related-number">Report 093</span><span
+                            class="related-title">File usage by course</span><span class="related-category">Communication and files</span></a>
+                    <a class="related-card" href="097.html"><span class="related-number">Report 097</span><span
+                            class="related-title">Moodle messaging usage</span><span class="related-category">Communication and files</span></a>
+                </div>
+            </section>
+        </article>
+    </main>
+</div>
+<footer class="foot">
+    Kopere BI · <a href="../categorias/communication.html">Back to category</a> · English documentation
+</footer>
+</body>
+</html>
