@@ -2,6 +2,19 @@
 
 This file documents the two most recent **published releases of the main `local_kopere_bi` plugin** confirmed in GitHub's release list on 2026-10-24. It excludes unreleased commits and the separately versioned `bifilters_period` subplugin release `1.0.0`.
 
+## 3.2.12 - 2026-10-27
+
+- Updated the main plugin release metadata only; no other files changed between these published tags.
+
+**Full comparison:** [3.2.11...3.2.12](https://github.com/EduardoKrausME/moodle-local_kopere_bi/compare/3.2.11...3.2.12)
+
+## 3.2.11 - 2026-10-27
+
+- Updated dependency and version metadata across bundled BI blocks and filter subplugins.
+- No BI runtime implementation files changed between these published tags.
+
+**Full comparison:** [3.2.10...3.2.11](https://github.com/EduardoKrausME/moodle-local_kopere_bi/compare/3.2.10...3.2.11)
+
 ## [3.2.9] - 2026-10-22
 
 ### Added
