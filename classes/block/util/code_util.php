@@ -246,6 +246,22 @@ class code_util {
                 options = {...optionsNew2, ...options};";
         }
 
+        // A "light" BI block follows Moodle's dark mode for ApexCharts as well.
+        // Keep user-defined palettes while changing the axis/tooltip contrast.
+        if (@$koperebielement->theme == "light") {
+            $extra .= "
+                if (document.documentElement.getAttribute('data-bs-theme') === 'dark' ||
+                    (document.body && document.body.getAttribute('data-bs-theme') === 'dark')) {
+                    options = {
+                        ...options,
+                        theme: {...(options.theme || {}), mode: 'dark'},
+                        chart: {...(options.chart || {}), foreColor: '#D1DCEB'},
+                        tooltip: {...(options.tooltip || {}), theme: 'dark'},
+                        grid: {...(options.grid || {}), borderColor: '#354356'}
+                    };
+                }";
+        }
+
         return $extra;
     }
 
