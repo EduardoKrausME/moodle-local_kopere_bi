@@ -684,28 +684,9 @@
         }
     }
 }
-@mixin local_kopere_bi_darkmodecode {
-    [data-bs-theme] {
-        .kopere-bi-page {
-            .list-reports .line-titles .line-title {
-                color: #dbdbdc;
-                font-size: 20px;
-                font-weight: 600;
-            }
-            .chart-box .theme-light {
-                background-color: ffffff14 !important;
-            }
-            .element-box .block-heading .block-title {
-                color: #d7d4d4;
-            }
-        }
-    }
-}
-[data-bs-theme=dark] {
-    @include local_kopere_bi_darkmodecode;
-}
+
 @import "styles/dashboard-start";
 @import "styles/reports";
 @import "styles/chart-box";
 @import "amd/src/ace";
-
+@import "styles/darkmode";
