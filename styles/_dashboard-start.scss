@@ -1,25 +1,13 @@
-:root {
+.reports-home {
     --bg: #f7f7fb;
     --surface: #ffffff;
     --text: #111827;
     --muted: #6b7280;
-    --primary: #2563eb; /* azul do botão */
+    --primary: #2563eb;
     --primary-contrast: #ffffff;
     --radius: 14px;
     --shadow: 0 10px 25px rgba(0, 0, 0, .08);
     --ring: 0 0 0 3px rgba(37, 99, 235, .25);
-}
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg: #0b1020;
-        --surface: #111827;
-        --text: #e5e7eb;
-        --muted: #9ca3af;
-        --primary: #3b82f6;
-        --primary-contrast: #0b1020;
-        --shadow: 0 10px 25px rgba(0, 0, 0, .5);
-        --ring: 0 0 0 3px rgba(59, 130, 246, .35);
-    }
 }
 .reports-home {
     display:flex;
