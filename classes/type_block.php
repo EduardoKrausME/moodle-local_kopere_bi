@@ -36,6 +36,36 @@ use local_kopere_dashboard\util\html;
  */
 class type_block extends bi_all {
 
+    /** The block types bundled with Kopere BI, in their display order. */
+    private const BLOCK_TYPES = ["pie", "line", "area", "column", "table", "maps", "info", "html"];
+
+    /**
+     * Build the selection buttons from the installed biblocks providers.
+     *
+     * @param int $blockid Block identifier.
+     * @param int $blocknum Position within the block.
+     * @param array|null $types Optional types to check.
+     * @return array Button template contexts.
+     */
+    public static function get_type_buttons($blockid, $blocknum, ?array $types = null): array {
+        $buttons = [];
+        foreach ($types ?? self::BLOCK_TYPES as $type) {
+            $provider = "\\biblocks_{$type}\\provider";
+            if (!class_exists($provider)) {
+                continue;
+            }
+
+            $buttons[] = [
+                "id" => $type,
+                "title" => $provider::get_name(),
+                "description" => $provider::get_description(),
+                "link" => "?classname=dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type={$type}",
+            ];
+        }
+
+        return $buttons;
+    }
+
     /**
      * Function select_type
      *
@@ -63,50 +93,7 @@ class type_block extends bi_all {
         echo '<div class="element-box">';
         echo "<h3>" . get_string("select_report_select_type_desc", "local_kopere_bi") . "</h3>";
 
-        $buttons = [
-            [
-                "id" => "pie",
-                "title" => pie::get_name(),
-                "description" => pie::get_description(),
-                "link" => "?classname=dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=pie",
-            ], [
-                "id" => "line",
-                "title" => line::get_name(),
-                "description" => line::get_description(),
-                "link" => "?classname=dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=line",
-            ], [
-                "id" => "area",
-                "title" => area::get_name(),
-                "description" => area::get_description(),
-                "link" => "?classname=dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=area",
-            ], [
-                "id" => "column",
-                "title" => column::get_name(),
-                "description" => column::get_description(),
-                "link" => "?classname=dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=column",
-            ], [
-                "id" => "table",
-                "title" => table::get_name(),
-                "description" => table::get_description(),
-                "link" => "?classname=dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=table",
-            ], [
-                "id" => "maps",
-                "title" => maps::get_name(),
-                "description" => maps::get_description(),
-                "link" => "?classname=dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=maps",
-            ], [
-                "id" => "info",
-                "title" => info::get_name(),
-                "description" => info::get_description(),
-                "link" =>
-                    "?classname=dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=info",
-            ], [
-                "id" => "html",
-                "title" => html::get_name(),
-                "description" => html::get_description(),
-                "link" => "?classname=dashboard&method=type_block_edit&block_id={$blockid}&block_num={$blocknum}&type=html",
-            ],
-        ];
+        $buttons = self::get_type_buttons($blockid, $blocknum);
 
         foreach ($buttons as $button) {
             echo $OUTPUT->render_from_template("local_kopere_bi/type_block-select_type", $button);
