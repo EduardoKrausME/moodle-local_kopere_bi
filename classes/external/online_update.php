@@ -22,6 +22,7 @@ use core_external\external_api;
 use core_external\external_value;
 use core_external\external_single_structure;
 use core_external\external_function_parameters;
+use local_kopere_bi\analysis\access;
 use local_kopere_bi\analytics\period_activity;
 use local_kopere_bi\feature;
 use local_kopere_bi\ip_location;
@@ -93,33 +94,63 @@ class online_update extends external_api {
             "resolve_ip" => $resolveip,
         ]);
 
-        $context = context_user::instance($USER->id);
-        require_capability("local/kopere_bi:view", $context);
-        self::validate_context($context);
+        // Tracking is available to students, even without the BI report-view capability.
+        // Authentication, user context, and ownership of the online record are mandatory.
+        require_login();
+        if (isguestuser()) {
+            return ["success" => false];
+        }
+        self::validate_context(context_user::instance($USER->id));
 
         if (!feature::online_tracking_enabled()) {
             return ["success" => true];
         }
 
-        if (isset($USER->koperebionline_time[$params["cache_key"]])) {
-            $USER->koperebionline_time[$params["cache_key"]] = time();
+        /** @var local_kopere_bi_online $online */
+        $online = $DB->get_record("local_kopere_bi_online", [
+            "id" => $params["online_id"],
+            "userid" => $USER->id,
+        ]);
+        if (!$online) {
+            return ["success" => true];
         }
 
-        /** @var local_kopere_bi_online $online */
-        $online = $DB->get_record("local_kopere_bi_online", ["id" => $params["online_id"]]);
-        if ($online && (int)$online->userid === (int)$USER->id) {
-            // Bound client-provided focused time before updating both tracking sources.
-            $trackedseconds = max(0, min(7200, (int)$params["seconds"]));
-            $online->currenttime = time();
-            $online->seconds += $trackedseconds;
-            $DB->update_record("local_kopere_bi_online", $online);
-            period_activity::record_seconds((int)$online->userid, (int)$online->courseid,
-                (int)$online->currenttime, $trackedseconds);
+        $expectedkey = $online->courseid . ">" . $online->moduleid;
+        if ($params["cache_key"] === $expectedkey &&
+                isset($USER->koperebionline_id[$expectedkey]) &&
+                (int)$USER->koperebionline_id[$expectedkey] === (int)$online->id &&
+                isset($USER->koperebionline_time[$expectedkey])) {
+            $USER->koperebionline_time[$expectedkey] = time();
+        }
 
-            // This may wait for the external API, but it runs in AJAX after the page has already rendered.
-            if ($params["resolve_ip"]) {
-                ip_location::resolve_online_record((int)$online->id);
+        // Persist focused time before the more expensive asynchronous enrichment.
+        $trackedseconds = max(0, min(7200, (int)$params["seconds"]));
+        $online->currenttime = time();
+        $online->seconds += $trackedseconds;
+        $DB->update_record("local_kopere_bi_online", $online);
+        period_activity::record_seconds((int)$online->userid, (int)$online->courseid,
+            (int)$online->currenttime, $trackedseconds);
+
+        if ($params["resolve_ip"]) {
+            // The first online.js AJAX call fills browser/OS fields only once per visit.
+            if (empty($online->client_type) && empty($online->os_name)) {
+                try {
+                    $agent = access::agent();
+                    $DB->update_record("local_kopere_bi_online", (object)[
+                        "id" => $online->id,
+                        "client_type" => $agent->client_type,
+                        "client_name" => $agent->client_name,
+                        "client_version" => $agent->client_version,
+                        "os_name" => $agent->os_name,
+                        "os_version" => $agent->os_version,
+                    ]);
+                } catch (\Throwable $e) {
+                    debugging("Kopere BI could not identify the browser and operating system.", DEBUG_DEVELOPER);
+                }
             }
+
+            // IP geolocation was already deferred to this same AJAX call.
+            ip_location::resolve_online_record((int)$online->id);
         }
 
         return ["success" => true];

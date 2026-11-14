@@ -29,7 +29,6 @@ require_once(__DIR__ . "/../lib.php");
 
 use core\hook\output\before_footer_html_generation;
 use dml_exception;
-use local_kopere_bi\analysis\access;
 use local_kopere_bi\analytics\period_activity;
 
 /**
@@ -67,22 +66,23 @@ class core_hook_output {
 
         $key = $COURSE->id . ">" . $moduleid;
 
-        if (isset($USER->koperebionline_id)) {
+        if (!isset($USER->koperebionline_id) || !is_array($USER->koperebionline_id)) {
             $USER->koperebionline_id = [];
         }
+        if (!isset($USER->koperebionline_time) || !is_array($USER->koperebionline_time)) {
+            $USER->koperebionline_time = [];
+        }
 
-        if (isset($USER->koperebionline_id[$key])) {
-            if ($USER->koperebionline_time[$key] - time() > 100) {
-                unset($USER->koperebionline_id);
-                unset($USER->koperebionline_time);
-            }
+        if (isset($USER->koperebionline_id[$key]) &&
+                time() - (int)($USER->koperebionline_time[$key] ?? 0) > 100) {
+            unset($USER->koperebionline_id[$key], $USER->koperebionline_time[$key]);
         }
 
         if (!isset($USER->koperebionline_id[$key])) {
             $lastip = local_kopere_bi_getremoteaddr();
-            $dataagent = access::agent();
 
-            // Keep the rendering path local and deterministic. IP geolocation is resolved later by online.js.
+            // Device detection and IP geolocation are deferred to the first AJAX heartbeat.
+            // Neither the DeviceDetector regexes nor external services may block page rendering.
             $koperebionline = (object)[
                 "userid" => $USER->id,
                 "courseid" => $COURSE->id,
@@ -90,11 +90,6 @@ class core_hook_output {
                 "seconds" => 1,
                 "currenttime" => time(),
 
-                "client_type" => $dataagent->client_type,
-                "client_name" => $dataagent->client_name,
-                "client_version" => $dataagent->client_version,
-                "os_name" => $dataagent->os_name,
-                "os_version" => $dataagent->os_version,
 
                 "lastip" => $lastip,
             ];

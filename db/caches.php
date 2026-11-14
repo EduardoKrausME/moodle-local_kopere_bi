@@ -25,6 +25,19 @@
 defined('MOODLE_INTERNAL') || die;
 
 $definitions = [
+    // Persistent DeviceDetector YAML fixtures, shared between PHP requests.
+    "device_detector_regexes" => [
+        "mode" => cache_store::MODE_APPLICATION,
+        "ttl" => 30 * DAYSECS,
+        "staticacceleration" => true,
+    ],
+
+    // Parsed browser/OS details keyed by a hash of library version and User-Agent.
+    "device_detector_agents" => [
+        "mode" => cache_store::MODE_APPLICATION,
+        "ttl" => 7 * DAYSECS,
+        "staticacceleration" => true,
+    ],
     // Caches the location of IPs.
     "ip_user_location" => [
         "mode" => cache_store::MODE_APPLICATION,
