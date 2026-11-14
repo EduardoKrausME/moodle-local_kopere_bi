@@ -69,6 +69,7 @@ class device_detector_cache implements detector_cache {
         return $this->fetch($id) !== false;
     }
 
+    // phpcs:disable moodle.NamingConventions.ValidVariableName.VariableNameLowerCase -- Vendor interface uses lifeTime.
     /**
      * Save a parsed fixture.
      *
@@ -77,10 +78,10 @@ class device_detector_cache implements detector_cache {
      * @param int $lifeTime Lifetime in seconds, as required by DeviceDetector's interface.
      * @return bool
      */
-    // phpcs:ignore moodle.NamingConventions.ValidVariableName.VariableNameLowerCase -- Vendor interface parameter.
     public function save($id, $data, $lifeTime = 0) {
         return $this->cache->set(self::key($id), $data);
     }
+    // phpcs:enable moodle.NamingConventions.ValidVariableName.VariableNameLowerCase
 
     /**
      * Remove one fixture.
@@ -92,14 +93,15 @@ class device_detector_cache implements detector_cache {
         return $this->cache->delete(self::key($id));
     }
 
+    // phpcs:disable moodle.NamingConventions.ValidFunctionName.LowercaseMethod -- Required by vendor interface.
     /**
      * Purge all parser regex fixtures for this cache definition.
      *
      * @return bool
      */
-    // phpcs:ignore moodle.NamingConventions.ValidFunctionName.LowercaseMethod -- Vendor interface requires flushAll().
     public function flushAll() {
         $this->cache->purge();
         return true;
     }
+    // phpcs:enable moodle.NamingConventions.ValidFunctionName.LowercaseMethod
 }

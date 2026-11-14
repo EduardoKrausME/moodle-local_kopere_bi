@@ -28,8 +28,6 @@ use local_kopere_bi\feature;
 use local_kopere_bi\ip_location;
 use local_kopere_bi\vo\local_kopere_bi_online;
 
-defined('MOODLE_INTERNAL') || die;
-
 /**
  * Contabiliza o tempo gasto de um usuário para o dashboard
  *
