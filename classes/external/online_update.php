@@ -29,8 +29,6 @@ use local_kopere_bi\ip_location;
 use local_kopere_bi\vo\local_kopere_bi_online;
 
 defined('MOODLE_INTERNAL') || die;
-global $CFG;
-require_once("{$CFG->libdir}/externallib.php");
 
 /**
  * Contabiliza o tempo gasto de um usuário para o dashboard

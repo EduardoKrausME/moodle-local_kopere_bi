@@ -14,6 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Tests for deferred, cached tracking enrichment.
+ *
+ * @package   local_kopere_bi
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace local_kopere_bi;
 
 use advanced_testcase;
@@ -30,6 +38,7 @@ use local_kopere_bi\external\online_update;
  * @covers \local_kopere_bi\external\online_update
  */
 final class online_tracking_test extends advanced_testcase {
+    /** Browser User-Agent shared by test cases. */
     private const TEST_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) " .
         "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36";
 
@@ -131,6 +140,13 @@ final class online_tracking_test extends advanced_testcase {
         $this->assertSame(1, (int)$online->seconds);
     }
 
+    /**
+     * Insert the minimal online record used by tracking tests.
+     *
+     * @param int $userid Owner of the record.
+     * @param int $courseid Course being tracked.
+     * @return int Record identifier.
+     */
     private function create_online_record(int $userid, int $courseid): int {
         global $DB;
 

@@ -90,7 +90,6 @@ class core_hook_output {
                 "seconds" => 1,
                 "currenttime" => time(),
 
-
                 "lastip" => $lastip,
             ];
             try {

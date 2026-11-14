@@ -167,8 +167,8 @@ final class period_activity {
 
         if ($DB->get_dbfamily() === "postgres") {
             $sql .= " ON CONFLICT (userid, courseid, daystart, slot) DO UPDATE
-                        SET visits = visits + EXCLUDED.visits,
-                            timespend = timespend + EXCLUDED.timespend";
+                        SET visits = {local_kopere_bi_period}.visits + EXCLUDED.visits,
+                            timespend = {local_kopere_bi_period}.timespend + EXCLUDED.timespend";
         } else {
             $sql .= " ON DUPLICATE KEY UPDATE
                         visits = visits + VALUES(visits),

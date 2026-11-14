@@ -32,30 +32,72 @@ class device_detector_cache implements detector_cache {
     /** @var cache */
     private $cache;
 
+    /**
+     * Initialise the Moodle application cache for regular expressions.
+     */
     public function __construct() {
         $this->cache = cache::make("local_kopere_bi", "device_detector_regexes");
     }
 
+    /**
+     * Normalise the upstream cache key for MUC.
+     *
+     * @param string $id Upstream cache identifier.
+     * @return string
+     */
     private static function key($id): string {
         return hash("sha256", (string)$id);
     }
 
+    /**
+     * Fetch a cached regex fixture.
+     *
+     * @param string $id Cache identifier.
+     * @return mixed False on miss.
+     */
     public function fetch($id) {
         return $this->cache->get(self::key($id));
     }
 
+    /**
+     * Check whether the fixture exists.
+     *
+     * @param string $id Cache identifier.
+     * @return bool
+     */
     public function contains($id) {
         return $this->fetch($id) !== false;
     }
 
+    /**
+     * Save a parsed fixture.
+     *
+     * @param string $id Cache identifier.
+     * @param mixed $data Parsed rules.
+     * @param int $lifeTime Lifetime in seconds, as required by DeviceDetector's interface.
+     * @return bool
+     */
+    // phpcs:ignore moodle.NamingConventions.ValidVariableName.VariableNameLowerCase -- Vendor interface parameter.
     public function save($id, $data, $lifeTime = 0) {
         return $this->cache->set(self::key($id), $data);
     }
 
+    /**
+     * Remove one fixture.
+     *
+     * @param string $id Cache identifier.
+     * @return bool
+     */
     public function delete($id) {
         return $this->cache->delete(self::key($id));
     }
 
+    /**
+     * Purge all parser regex fixtures for this cache definition.
+     *
+     * @return bool
+     */
+    // phpcs:ignore moodle.NamingConventions.ValidFunctionName.LowercaseMethod -- Vendor interface requires flushAll().
     public function flushAll() {
         $this->cache->purge();
         return true;
