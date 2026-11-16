@@ -2,6 +2,21 @@
 
 This file documents the two most recent **published releases of the main `local_kopere_bi` plugin** confirmed in GitHub's release list on 2026-10-24. It excludes unreleased commits and the separately versioned `bifilters_period` subplugin release `1.0.0`.
 
+## 3.2.14 - 2026-11-12
+
+- Fixed dashboard block type selection by building buttons from installed biblocks providers and skipping unavailable providers.
+- Added regression tests for dashboard block type selection.
+
+**Full comparison:** [3.2.13...3.2.14](https://github.com/EduardoKrausME/moodle-local_kopere_bi/compare/3.2.13...3.2.14)
+
+## 3.2.13 - 2026-11-06
+
+- Added Moodle theme-aware dark styling across the BI reports home, report pages and chart containers.
+- Updated ApexCharts axes, foreground colors and tooltips for Moodle dark mode while retaining configured chart palettes.
+- Scoped reports-home CSS variables and removed browser color-scheme-based switching.
+
+**Full comparison:** [3.2.12...3.2.13](https://github.com/EduardoKrausME/moodle-local_kopere_bi/compare/3.2.12...3.2.13)
+
 ## 3.2.12 - 2026-10-27
 
 - Updated the main plugin release metadata only; no other files changed between these published tags.
