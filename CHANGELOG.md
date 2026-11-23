@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.3.0 - 2026-11-21
+
+- Added a device detector cache and cache definition.
+- Updated online activity tracking, access handling and related regression tests.
+
+**Comparison:** [3.2.14...3.3.0](https://github.com/EduardoKrausME/moodle-local_kopere_bi/compare/3.2.14...3.3.0)
+
 This file documents the two most recent **published releases of the main `local_kopere_bi` plugin** confirmed in GitHub's release list on 2026-10-24. It excludes unreleased commits and the separately versioned `bifilters_period` subplugin release `1.0.0`.
 
 ## 3.2.14 - 2026-11-12
